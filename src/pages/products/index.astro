@@ -4,9 +4,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 // Products will come from content collection later
 const products: any[] = [];
 ---
-<BaseLayout title="Products" description="Curated Claude Code skills, plugins, MCP servers, and prompts.">
+<BaseLayout title="Tools" description="Curated Claude Code skills, plugins, MCP servers, and prompts.">
   <section class="max-w-5xl mx-auto px-6 py-16">
-    <h1 class="text-3xl font-bold text-charcoal-900">Products</h1>
+    <h1 class="text-3xl font-bold text-charcoal-900">Tools</h1>
     <p class="mt-4 text-lg text-charcoal-700 max-w-2xl">
       Curated tools to supercharge your Claude Code workflow. All free. Quality picks from the community and my own builds.
     </p>
@@ -21,7 +21,7 @@ const products: any[] = [];
 
     <div class="mt-12">
       {products.length === 0 ? (
-        <p class="text-charcoal-600">Products coming soon. Check back later.</p>
+        <p class="text-charcoal-600">Tools coming soon. Check back later.</p>
       ) : (
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => (
