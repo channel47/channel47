@@ -1,0 +1,9 @@
+{
+  "framework": "astro",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "env": {
+    "ANTHROPIC_API_KEY": "@anthropic-api-key",
+    "RESEND_API_KEY": "@resend-api-key"
+  }
+}
