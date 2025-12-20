@@ -25,7 +25,7 @@ async function synthesize(logPath: string): Promise<void> {
 
   const message = await anthropic.messages.create({
     model: 'claude-sonnet-4-20250514',
-    max_tokens: 4096,
+    max_tokens: 8192,
     system: systemPrompt,
     messages: [
       {
@@ -40,6 +40,11 @@ async function synthesize(logPath: string): Promise<void> {
   // Extract JSON from response
   const jsonMatch = responseText.match(/```json\n([\s\S]*?)\n```/);
   if (!jsonMatch) {
+    console.error('Response did not contain JSON in expected format.');
+    console.error('Response preview (first 500 chars):');
+    console.error(responseText.substring(0, 500));
+    console.error('\n...and last 500 chars:');
+    console.error(responseText.substring(responseText.length - 500));
     throw new Error('Failed to extract JSON from response');
   }
 
