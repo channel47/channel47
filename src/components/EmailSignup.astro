@@ -1,0 +1,87 @@
+---
+// src/components/EmailSignup.astro
+interface Props {
+  title?: string;
+  description?: string;
+  source?: string;
+}
+
+const {
+  title = "Get notified about new tools",
+  description = "Join the list for early access to new skills, plugins, and insights.",
+  source = "website"
+} = Astro.props;
+---
+<div class="p-6 bg-cream-100 rounded-xl border border-charcoal-800/10">
+  <h3 class="text-lg font-semibold text-charcoal-900">{title}</h3>
+  <p class="mt-2 text-sm text-charcoal-600">{description}</p>
+
+  <form
+    id="email-form"
+    class="mt-4 flex gap-2"
+    data-source={source}
+  >
+    <input
+      type="email"
+      name="email"
+      placeholder="you@example.com"
+      required
+      class="flex-1 px-4 py-2 border border-charcoal-800/20 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-coral-500 focus:border-transparent"
+    />
+    <button
+      type="submit"
+      class="px-4 py-2 bg-coral-600 text-white text-sm font-medium rounded-lg hover:bg-coral-700 transition-colors"
+    >
+      Subscribe
+    </button>
+  </form>
+
+  <p id="form-message" class="mt-2 text-sm hidden"></p>
+</div>
+
+<script>
+  const form = document.getElementById('email-form') as HTMLFormElement;
+  const message = document.getElementById('form-message');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const email = formData.get('email');
+    const source = form.dataset.source;
+
+    const button = form.querySelector('button');
+    if (button) {
+      button.textContent = 'Subscribing...';
+      button.setAttribute('disabled', 'true');
+    }
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source }),
+      });
+
+      if (response.ok) {
+        if (message) {
+          message.textContent = 'Thanks! Check your email to confirm.';
+          message.className = 'mt-2 text-sm text-green-600';
+        }
+        form.reset();
+      } else {
+        throw new Error('Subscription failed');
+      }
+    } catch (err) {
+      if (message) {
+        message.textContent = 'Something went wrong. Please try again.';
+        message.className = 'mt-2 text-sm text-red-600';
+      }
+    } finally {
+      if (button) {
+        button.textContent = 'Subscribe';
+        button.removeAttribute('disabled');
+      }
+    }
+  });
+</script>

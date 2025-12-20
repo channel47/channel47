@@ -1,0 +1,94 @@
+---
+// src/layouts/ProductPage.astro
+import BaseLayout from './BaseLayout.astro';
+import EmailSignup from '../components/EmailSignup.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  category: string;
+  author: string;
+  authorUrl?: string;
+  sourceUrl: string;
+  featured: boolean;
+}
+
+const { title, description, category, author, authorUrl, sourceUrl, featured } = Astro.props;
+---
+<BaseLayout title={title} description={description}>
+  <article class="max-w-5xl mx-auto px-6 py-16">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-medium text-coral-600 uppercase tracking-wide px-2 py-1 bg-coral-100 rounded">
+            {category}
+          </span>
+          <span class="text-xs font-medium text-green-700 uppercase tracking-wide px-2 py-1 bg-green-100 rounded">
+            Free
+          </span>
+          {featured && (
+            <span class="text-xs font-medium text-charcoal-700 uppercase tracking-wide px-2 py-1 bg-charcoal-100 rounded">
+              Featured
+            </span>
+          )}
+        </div>
+        <h1 class="text-3xl font-bold text-charcoal-900">{title}</h1>
+        <p class="mt-4 text-lg text-charcoal-600">{description}</p>
+
+        <div class="mt-4 text-sm text-charcoal-500">
+          Created by {authorUrl ? (
+            <a href={authorUrl} class="text-coral-600 hover:underline" target="_blank" rel="noopener noreferrer">{author}</a>
+          ) : (
+            <span>{author}</span>
+          )}
+        </div>
+
+        <div class="mt-12 prose prose-charcoal max-w-none">
+          <slot />
+        </div>
+      </div>
+
+      <div class="lg:col-span-1">
+        <div class="sticky top-24 p-6 border border-charcoal-800/10 rounded-xl bg-white">
+          <div class="text-3xl font-bold text-charcoal-900 mb-4">Free</div>
+
+          <EmailSignup
+            title="Get this tool"
+            description="Enter your email to download"
+            source={`product-${category}`}
+          />
+
+          <div class="mt-4">
+            <a
+              href={sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block text-center py-3 px-6 border border-charcoal-800/20 text-charcoal-800 font-medium rounded-lg hover:border-charcoal-800/40 transition-colors"
+            >
+              View on GitHub
+            </a>
+          </div>
+
+          <ul class="mt-6 space-y-2 text-sm text-charcoal-600">
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Instant email delivery
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Free forever
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <footer class="mt-16 pt-8 border-t border-charcoal-800/10">
+      <a href="/products" class="text-coral-600 hover:underline">&larr; Back to products</a>
+    </footer>
+  </article>
+</BaseLayout>
