@@ -1,0 +1,34 @@
+---
+// src/pages/blog/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+// Posts will come from content collection later
+const posts: any[] = [];
+---
+<BaseLayout title="Blog" description="Insights and tutorials from building with Claude Code.">
+  <section class="max-w-5xl mx-auto px-6 py-16">
+    <h1 class="text-3xl font-bold text-charcoal-900">Blog</h1>
+    <p class="mt-4 text-lg text-charcoal-700 max-w-2xl">
+      Real stories from building with AI coding assistants. No theory—just what actually works.
+    </p>
+
+    <div class="mt-12">
+      {posts.length === 0 ? (
+        <p class="text-charcoal-600">Posts coming soon. Check back later.</p>
+      ) : (
+        <ul class="space-y-8">
+          {posts.map((post) => (
+            <li class="border-b border-charcoal-800/10 pb-8">
+              <a href={`/blog/${post.slug}`} class="group">
+                <h2 class="text-xl font-semibold text-charcoal-900 group-hover:text-coral-600 transition-colors">
+                  {post.data.title}
+                </h2>
+                <p class="mt-2 text-charcoal-600">{post.data.description}</p>
+                <time class="mt-2 block text-sm text-charcoal-500">{post.data.date}</time>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+</BaseLayout>
