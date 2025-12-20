@@ -7,7 +7,10 @@
       "Bash(npm install)",
       "Bash(curl:*)",
       "Bash(npx astro:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(claude plugins list:*)",
+      "Bash(npm run synthesize:*)",
+      "Bash(mkdir:*)"
     ]
   }
 }
