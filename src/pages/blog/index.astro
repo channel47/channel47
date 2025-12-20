@@ -1,8 +1,10 @@
 ---
 // src/pages/blog/index.astro
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-// Posts will come from content collection later
-const posts: any[] = [];
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 <BaseLayout title="Blog" description="Insights and tutorials from building with Claude Code.">
   <section class="max-w-5xl mx-auto px-6 py-16">
@@ -12,18 +14,20 @@ const posts: any[] = [];
     </p>
 
     <div class="mt-12">
-      {posts.length === 0 ? (
+      {sortedPosts.length === 0 ? (
         <p class="text-charcoal-600">Posts coming soon. Check back later.</p>
       ) : (
         <ul class="space-y-8">
-          {posts.map((post) => (
+          {sortedPosts.map((post) => (
             <li class="border-b border-charcoal-800/10 pb-8">
               <a href={`/blog/${post.slug}`} class="group">
                 <h2 class="text-xl font-semibold text-charcoal-900 group-hover:text-coral-600 transition-colors">
                   {post.data.title}
                 </h2>
                 <p class="mt-2 text-charcoal-600">{post.data.description}</p>
-                <time class="mt-2 block text-sm text-charcoal-500">{post.data.date}</time>
+                <time class="mt-2 block text-sm text-charcoal-500">
+                  {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
               </a>
             </li>
           ))}
