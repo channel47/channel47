@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -33,7 +33,13 @@ jobs:
       - name: Get changed log files
         id: changed-files
         run: |
-          echo "files=$(git diff --name-only --diff-filter=d HEAD~1 HEAD -- 'logs/*.md' | tr '\n' ' ')" >> $GITHUB_OUTPUT
+          # Use the push event's before/after refs to capture all changes in the push
+          # For the first push, github.event.before is all zeros, so we fall back to listing all logs
+          if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
+            echo "files=$(find logs -name '*.md' -type f | tr '\n' ' ')" >> $GITHUB_OUTPUT
+          else
+            echo "files=$(git diff --name-only --diff-filter=d ${{ github.event.before }}..${{ github.event.after }} -- 'logs/*.md' | tr '\n' ' ')" >> $GITHUB_OUTPUT
+          fi
 
       - name: Synthesize content
         if: steps.changed-files.outputs.files != ''
