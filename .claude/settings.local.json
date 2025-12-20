@@ -10,7 +10,16 @@
       "Bash(npm install:*)",
       "Bash(claude plugins list:*)",
       "Bash(npm run synthesize:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebSearch",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:docs.claude.com)",
+      "Bash(claude skills:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(bash:*)",
+      "Bash(echo:*)"
     ]
   }
 }
