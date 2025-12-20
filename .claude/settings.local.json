@@ -6,7 +6,8 @@
       "Bash(npm create:*)",
       "Bash(npm install)",
       "Bash(curl:*)",
-      "Bash(npx astro:*)"
+      "Bash(npx astro:*)",
+      "Bash(npm install:*)"
     ]
   }
 }

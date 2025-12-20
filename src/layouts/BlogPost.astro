@@ -1,0 +1,52 @@
+---
+// src/layouts/BlogPost.astro
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  tags?: string[];
+}
+
+const { title, description, date, tags = [] } = Astro.props;
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+<BaseLayout title={title} description={description}>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <header class="mb-12">
+      <div class="flex items-center gap-2 text-sm text-charcoal-500 mb-4">
+        <time datetime={date.toISOString()}>{formattedDate}</time>
+        {tags.length > 0 && (
+          <>
+            <span>·</span>
+            <div class="flex gap-2">
+              {tags.map((tag) => (
+                <span class="text-coral-600">{tag}</span>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-bold text-charcoal-900 leading-tight">{title}</h1>
+      <p class="mt-4 text-lg text-charcoal-600">{description}</p>
+    </header>
+
+    <div class="prose prose-charcoal prose-lg max-w-none
+      prose-headings:font-semibold prose-headings:text-charcoal-900
+      prose-a:text-coral-600 prose-a:no-underline hover:prose-a:underline
+      prose-code:bg-charcoal-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+      prose-pre:bg-charcoal-900 prose-pre:text-cream-100
+      prose-blockquote:border-coral-500 prose-blockquote:bg-cream-100/50 prose-blockquote:py-1">
+      <slot />
+    </div>
+
+    <footer class="mt-16 pt-8 border-t border-charcoal-800/10">
+      <a href="/blog" class="text-coral-600 hover:underline">&larr; Back to blog</a>
+    </footer>
+  </article>
+</BaseLayout>
