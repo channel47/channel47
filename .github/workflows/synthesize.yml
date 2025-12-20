@@ -1,0 +1,64 @@
+# .github/workflows/synthesize.yml
+name: Synthesize Content
+
+on:
+  push:
+    paths:
+      - 'logs/**/*.md'
+    branches:
+      - main
+
+jobs:
+  synthesize:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Get changed log files
+        id: changed-files
+        run: |
+          echo "files=$(git diff --name-only HEAD~1 HEAD -- 'logs/*.md' | tr '\n' ' ')" >> $GITHUB_OUTPUT
+
+      - name: Synthesize content
+        if: steps.changed-files.outputs.files != ''
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          for file in ${{ steps.changed-files.outputs.files }}; do
+            echo "Processing: $file"
+            npm run synthesize "$file"
+          done
+
+      - name: Create Pull Request
+        if: steps.changed-files.outputs.files != ''
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'content: synthesize drafts from conversation logs'
+          title: 'Content: New drafts from conversation logs'
+          body: |
+            This PR contains synthesized content from new conversation logs.
+
+            **Review checklist:**
+            - [ ] Blog post draft is accurate and engaging
+            - [ ] X content drafts are punchy and on-brand
+            - [ ] Move approved content from `drafts/` to `src/content/`
+            - [ ] Remove `draft: true` from frontmatter when publishing
+          branch: content/synthesized-drafts
+          delete-branch: true
