@@ -5,7 +5,8 @@
       "Bash(git commit:*)",
       "Bash(npm create:*)",
       "Bash(npm install)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(npx astro:*)"
     ]
   }
 }
