@@ -19,7 +19,9 @@
       "Bash(find:*)",
       "Bash(ls:*)",
       "Bash(bash:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run watch:*)"
     ]
   }
 }
