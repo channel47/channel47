@@ -33,7 +33,7 @@ jobs:
       - name: Get changed log files
         id: changed-files
         run: |
-          echo "files=$(git diff --name-only HEAD~1 HEAD -- 'logs/*.md' | tr '\n' ' ')" >> $GITHUB_OUTPUT
+          echo "files=$(git diff --name-only --diff-filter=d HEAD~1 HEAD -- 'logs/*.md' | tr '\n' ' ')" >> $GITHUB_OUTPUT
 
       - name: Synthesize content
         if: steps.changed-files.outputs.files != ''
