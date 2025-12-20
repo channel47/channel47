@@ -1,0 +1,15 @@
+---
+// src/components/Footer.astro
+const year = new Date().getFullYear();
+---
+<footer class="border-t border-charcoal-800/10 mt-auto">
+  <div class="max-w-5xl mx-auto px-6 py-8">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-charcoal-700">
+      <p>&copy; {year} Channel 47. All rights reserved.</p>
+      <div class="flex items-center gap-4">
+        <a href="https://x.com/channel47" class="hover:text-coral-600 transition-colors">X/Twitter</a>
+        <a href="https://github.com/channel47" class="hover:text-coral-600 transition-colors">GitHub</a>
+      </div>
+    </div>
+  </div>
+</footer>
