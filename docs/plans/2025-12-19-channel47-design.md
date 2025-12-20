@@ -22,6 +22,7 @@ Instead of traditional build-in-public (daily updates, constant sharing), Channe
 - **Differentiation:** Performance marketing expertise + practitioner credibility
 - **Moat:** First-mover SEO advantage in low-competition, high-growth keyword space
 - **Business model:** Audience-first, marketplace as monetization layer
+- **Distribution:** Blog/SEO (organic), X/Twitter (engagement), Reddit (community)
 
 ---
 
@@ -166,11 +167,44 @@ Hybrid format - polished narrative with embedded conversation snippets:
 - **Input:** 3-5 meaningful conversations per week
 - **Output:** 2-3 blog posts per week + daily X presence
 
+### Distribution Channels
+
+**Blog/SEO (Primary)**
+- Organic search traffic from Claude Code keywords
+- Long-form content optimized for discovery
+- Builds authority over time
+
+**X/Twitter (Engagement)**
+- Daily presence with conversation snippets
+- Thread format for key insights
+- Link back to blog posts
+- Build personal brand
+
+**Reddit (Community)**
+- Target subreddits: r/ClaudeAI, r/ChatGPT, r/LocalLLaMA, r/artificial, r/MachineLearning
+- Share valuable tools and insights (no spam)
+- Participate authentically in discussions
+- Link to tools and blog posts when contextually relevant
+- Community-first approach builds trust
+
 ---
 
 ## Marketplace Structure
 
-### Pricing Tiers
+### Pricing Strategy
+
+**Phase 1: All Free (List Building)**
+
+```
+ALL PRODUCTS FREE
+─────────────────
+• All skills, plugins, MCP servers, prompts
+• Email gate for downloads
+• Focus on audience growth
+• Establish authority and trust
+```
+
+**Phase 2: Introduce Paid Tiers (Future)**
 
 ```
 FREE TIER              ONE-TIME PURCHASE        SUBSCRIPTION
@@ -183,6 +217,16 @@ FREE TIER              ONE-TIME PURCHASE        SUBSCRIPTION
 Goal: List building    Goal: Revenue            Goal: Recurring rev
 ```
 
+**Rationale:** Build audience first, monetize later. Free products with email gates maximize distribution while building the list that will convert to paid products in Phase 2.
+
+### Positioning: Curated Directory
+
+Channel 47 is both a **creator** and **curator**:
+- List own tools alongside third-party community tools
+- Give full credit to original creators
+- One-stop shop for Claude Code ecosystem
+- Build authority through curation, not just creation
+
 ### Product Content Structure
 
 ```yaml
@@ -190,25 +234,43 @@ Goal: List building    Goal: Revenue            Goal: Recurring rev
 ---
 title: "Smart Commit Skill"
 description: "AI-powered commit messages that actually make sense"
-price: 25
-tier: "premium"        # free | premium | subscription
+price: 0               # Phase 1: all free
+tier: "free"           # free only for Phase 1
 category: "skill"      # skill | plugin | mcp-server | prompt
-stripeProductId: "prod_xxx"
-stripePriceId: "price_xxx"
+author: "Your Name"    # NEW: Creator attribution
+authorUrl: "https://x.com/yourhandle"  # NEW: Creator link
+sourceUrl: "https://github.com/you/repo"  # NEW: Source repository
 downloadFile: "smart-commit-skill.zip"
+featured: true         # NEW: Highlight quality picks
 ---
 
 Full product description, screenshots, usage instructions...
 ```
 
-### Stripe Integration Flow
+### Download Flow
+
+**Phase 1: Email Gate (All Free)**
+
+```
+Product page → Email signup → Delivery email → Download link
+  (Download)     (capture)      (instant)        (direct)
+```
+
+**Phase 2: Paid Products (Future)**
 
 ```
 Product page → Stripe Checkout → Webhook confirms → Delivery email
     (Buy)                          payment            + download link
 ```
 
-### Key Components
+### Key Components (Phase 1)
+
+1. **Email capture form** - Collect email before download
+2. **Delivery email** - Send download link via Resend
+3. **Direct download** - Simple file delivery (no tokens needed initially)
+4. **List building** - All emails added to newsletter list
+
+### Key Components (Phase 2 - Future)
 
 1. **Checkout** - Vercel serverless creates Stripe Checkout session
 2. **Webhook handler** - Listens for `checkout.session.completed`
@@ -252,9 +314,9 @@ Product page → Stripe Checkout → Webhook confirms → Delivery email
 
 **Marketplace (Basic):**
 - Product listing pages
-- Stripe checkout (one-time purchases only)
-- Webhook + email delivery
-- 2-3 free products, 1-2 paid products live
+- Email gate for downloads
+- Delivery via Resend
+- 5-10 products live (mix of own + curated third-party tools)
 
 **Launch:**
 - 5+ blog posts queued
@@ -262,12 +324,14 @@ Product page → Stripe Checkout → Webhook confirms → Delivery email
 - Email capture working
 - Soft launch, gather feedback
 
-### Phase 2: Scale & Expand
+### Phase 2: Monetization & Scale
 
-- Subscription tier (Stripe recurring + gated content)
+- **Introduce paid tiers** (Stripe integration: one-time + subscriptions)
+- **Premium products** (advanced skills, plugin bundles, exclusive MCP servers)
+- **Subscription tier** (all products + early access + private community)
 - Podcast generation (NotebookLM / ElevenLabs integration)
 - X auto-scheduling (Typefully/Buffer integration)
-- Product catalog expansion (10+ items)
+- Product catalog expansion (30+ items)
 - SEO optimization (based on search console data)
 - Referral/affiliate program
 
@@ -330,15 +394,59 @@ If after 90 days: <100 email signups and <10 paid customers, revisit positioning
 | Category | Decision |
 |----------|----------|
 | Goal | Audience-first, marketplace as monetization |
-| Primary channel | Blog/SEO, X promotes |
+| Primary channel | Blog/SEO, X promotes, Reddit community |
 | Content format | Hybrid (narrative + conversation snippets) |
 | Cadence | 3-5 conversations/week → 2-3 posts/week |
 | Site framework | Astro (static) |
 | Hosting | Vercel |
-| Payments | Stripe (direct integration) |
+| Payments | None (Phase 1), Stripe (Phase 2) |
 | Pipeline | GitHub Actions + Claude API |
 | Capture | Existing conversation-logger skill |
 | Review flow | PR workflow, approve before publish |
-| Pricing model | Hybrid (free + one-time + subscription) |
-| Phase 1 | Free + one-time purchases only |
+| Pricing model | All free (Phase 1), Hybrid tiers (Phase 2) |
+| Phase 1 | All free, email gate, list building |
+| Positioning | Curated directory + own tools |
+| Attribution | Full credit to third-party creators |
 | Brand | Clean minimalist, Apple-inspired |
+
+---
+
+## Changelog
+
+### 2025-12-19 - Strategic Updates
+
+**1. All Content Free Initially**
+- **Change:** Removed paid tiers from Phase 1
+- **Rationale:** Focus on audience building first, monetization later
+- **Impact:**
+  - All skills, plugins, MCP servers, and prompts will be free
+  - Email gate for downloads to build list
+  - No Stripe integration needed for Phase 1
+  - Simplifies MVP implementation
+
+**2. Add Reddit as Distribution Channel**
+- **Change:** Added Reddit to content distribution strategy
+- **Target subreddits:** r/ClaudeAI, r/ChatGPT, r/LocalLLaMA, r/artificial, r/MachineLearning
+- **Content format:** Share blog posts, tools, and insights
+- **Approach:** Community-first, value-first (no spam)
+
+**3. Curated Directory Model**
+- **Change:** Include third-party tools alongside own tools
+- **Positioning shift:** From "my marketplace" to "curated directory + my tools"
+- **Implementation:**
+  - List other builders' plugins, skills, MCP servers
+  - Give full credit to original creators
+  - Link to their repos/sites
+  - Intermix with own tools (not segregated)
+  - Add metadata: `author`, `authorUrl`, `sourceUrl` to product schema
+- **Benefits:**
+  - More valuable to users (one-stop shop)
+  - Builds authority as curator
+  - Drives more traffic (people searching for any Claude Code tool)
+  - Community goodwill
+  - Own tools discovered alongside ecosystem
+- **Content strategy:**
+  - Blog posts can feature other people's tools too
+  - "Tool of the week" series
+  - Comparison posts
+  - Integration guides

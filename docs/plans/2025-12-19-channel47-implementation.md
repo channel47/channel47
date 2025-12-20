@@ -324,8 +324,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span class="text-coral-600">power users.</span>
       </h1>
       <p class="mt-6 text-lg text-charcoal-700 leading-relaxed">
-        Skills, plugins, MCP servers, and prompts to supercharge your
-        AI-assisted development workflow. Built by a practitioner, for practitioners.
+        A curated directory of skills, plugins, MCP servers, and prompts to supercharge your
+        AI-assisted development workflow. Quality picks from the community, plus my own builds.
       </p>
       <div class="mt-8 flex flex-wrap gap-4">
         <a href="/products" class="inline-flex items-center px-6 py-3 bg-coral-600 text-white font-medium rounded-lg hover:bg-coral-700 transition-colors">
@@ -493,11 +493,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 // Products will come from content collection later
 const products: any[] = [];
 ---
-<BaseLayout title="Products" description="Claude Code skills, plugins, MCP servers, and prompts.">
+<BaseLayout title="Products" description="Curated Claude Code skills, plugins, MCP servers, and prompts.">
   <section class="max-w-5xl mx-auto px-6 py-16">
     <h1 class="text-3xl font-bold text-charcoal-900">Products</h1>
     <p class="mt-4 text-lg text-charcoal-700 max-w-2xl">
-      Tools to supercharge your Claude Code workflow. Some free, some paid—all battle-tested.
+      Curated tools to supercharge your Claude Code workflow. All free. Quality picks from the community and my own builds.
     </p>
 
     <div class="mt-8 flex gap-4 text-sm">
@@ -515,17 +515,18 @@ const products: any[] = [];
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => (
             <a href={`/products/${product.slug}`} class="group block p-6 border border-charcoal-800/10 rounded-xl hover:border-coral-600/30 hover:shadow-lg transition-all">
-              <span class="text-xs font-medium text-coral-600 uppercase tracking-wide">{product.data.category}</span>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-medium text-coral-600 uppercase tracking-wide">{product.data.category}</span>
+                {product.data.featured && (
+                  <span class="text-xs font-medium text-charcoal-700 uppercase tracking-wide px-2 py-1 bg-charcoal-100 rounded">★</span>
+                )}
+              </div>
               <h2 class="mt-2 text-lg font-semibold text-charcoal-900 group-hover:text-coral-600 transition-colors">
                 {product.data.title}
               </h2>
               <p class="mt-2 text-sm text-charcoal-600 line-clamp-2">{product.data.description}</p>
-              <div class="mt-4">
-                {product.data.price === 0 ? (
-                  <span class="text-sm font-medium text-green-600">Free</span>
-                ) : (
-                  <span class="text-sm font-medium text-charcoal-900">${product.data.price}</span>
-                )}
+              <div class="mt-4 text-xs text-charcoal-500">
+                by {product.data.author}
               </div>
             </a>
           ))}
@@ -579,12 +580,14 @@ const products = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    price: z.number(),
-    tier: z.enum(['free', 'premium', 'subscription']),
+    price: z.number().default(0), // Phase 1: all free
+    tier: z.enum(['free', 'premium', 'subscription']).default('free'),
     category: z.enum(['skill', 'plugin', 'mcp-server', 'prompt']),
-    stripeProductId: z.string().optional(),
-    stripePriceId: z.string().optional(),
-    downloadFile: z.string().optional(),
+    author: z.string(), // Creator name
+    authorUrl: z.string().url().optional(), // Creator website/X/GitHub
+    sourceUrl: z.string().url(), // Source repository or download
+    downloadFile: z.string().optional(), // For self-hosted downloads
+    featured: z.boolean().default(false), // Highlight quality picks
     draft: z.boolean().default(false),
   }),
 });
@@ -734,17 +737,19 @@ git commit -m "feat: add blog post layout and dynamic routing"
 ---
 // src/layouts/ProductPage.astro
 import BaseLayout from './BaseLayout.astro';
+import EmailSignup from '../components/EmailSignup.astro';
 
 interface Props {
   title: string;
   description: string;
-  price: number;
-  tier: string;
   category: string;
-  stripePriceId?: string;
+  author: string;
+  authorUrl?: string;
+  sourceUrl: string;
+  featured: boolean;
 }
 
-const { title, description, price, tier, category, stripePriceId } = Astro.props;
+const { title, description, category, author, authorUrl, sourceUrl, featured } = Astro.props;
 ---
 <BaseLayout title={title} description={description}>
   <article class="max-w-5xl mx-auto px-6 py-16">
@@ -754,14 +759,25 @@ const { title, description, price, tier, category, stripePriceId } = Astro.props
           <span class="text-xs font-medium text-coral-600 uppercase tracking-wide px-2 py-1 bg-coral-100 rounded">
             {category}
           </span>
-          {tier === 'free' && (
-            <span class="text-xs font-medium text-green-700 uppercase tracking-wide px-2 py-1 bg-green-100 rounded">
-              Free
+          <span class="text-xs font-medium text-green-700 uppercase tracking-wide px-2 py-1 bg-green-100 rounded">
+            Free
+          </span>
+          {featured && (
+            <span class="text-xs font-medium text-charcoal-700 uppercase tracking-wide px-2 py-1 bg-charcoal-100 rounded">
+              Featured
             </span>
           )}
         </div>
         <h1 class="text-3xl font-bold text-charcoal-900">{title}</h1>
         <p class="mt-4 text-lg text-charcoal-600">{description}</p>
+
+        <div class="mt-4 text-sm text-charcoal-500">
+          Created by {authorUrl ? (
+            <a href={authorUrl} class="text-coral-600 hover:underline" target="_blank" rel="noopener noreferrer">{author}</a>
+          ) : (
+            <span>{author}</span>
+          )}
+        </div>
 
         <div class="mt-12 prose prose-charcoal max-w-none">
           <slot />
@@ -770,39 +786,37 @@ const { title, description, price, tier, category, stripePriceId } = Astro.props
 
       <div class="lg:col-span-1">
         <div class="sticky top-24 p-6 border border-charcoal-800/10 rounded-xl bg-white">
-          <div class="text-3xl font-bold text-charcoal-900 mb-4">
-            {price === 0 ? 'Free' : `$${price}`}
-          </div>
+          <div class="text-3xl font-bold text-charcoal-900 mb-4">Free</div>
 
-          {price === 0 ? (
-            <button
-              id="free-download-btn"
-              class="w-full py-3 px-6 bg-coral-600 text-white font-medium rounded-lg hover:bg-coral-700 transition-colors"
+          <EmailSignup
+            title="Get this tool"
+            description="Enter your email to download"
+            source={`product-${category}`}
+          />
+
+          <div class="mt-4">
+            <a
+              href={sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block text-center py-3 px-6 border border-charcoal-800/20 text-charcoal-800 font-medium rounded-lg hover:border-charcoal-800/40 transition-colors"
             >
-              Download Free
-            </button>
-          ) : (
-            <button
-              id="buy-btn"
-              data-price-id={stripePriceId}
-              class="w-full py-3 px-6 bg-coral-600 text-white font-medium rounded-lg hover:bg-coral-700 transition-colors"
-            >
-              Buy Now
-            </button>
-          )}
+              View on GitHub
+            </a>
+          </div>
 
           <ul class="mt-6 space-y-2 text-sm text-charcoal-600">
             <li class="flex items-center gap-2">
               <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              Instant delivery
+              Instant email delivery
             </li>
             <li class="flex items-center gap-2">
               <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              Lifetime updates
+              Free forever
             </li>
           </ul>
         </div>
@@ -838,10 +852,11 @@ const { Content } = await product.render();
 <ProductPage
   title={product.data.title}
   description={product.data.description}
-  price={product.data.price}
-  tier={product.data.tier}
   category={product.data.category}
-  stripePriceId={product.data.stripePriceId}
+  author={product.data.author}
+  authorUrl={product.data.authorUrl}
+  sourceUrl={product.data.sourceUrl}
+  featured={product.data.featured}
 >
   <Content />
 </ProductPage>
@@ -898,9 +913,11 @@ Stay tuned.
 ---
 title: "Sample Skill"
 description: "A sample skill to demonstrate the product structure."
-price: 0
-tier: "free"
 category: "skill"
+author: "Your Name"
+sourceUrl: "https://github.com/yourusername/sample-skill"
+authorUrl: "https://x.com/yourhandle"
+featured: false
 draft: true
 ---
 
@@ -915,6 +932,10 @@ Instructions here.
 ## Usage
 
 Usage examples here.
+
+## About the Author
+
+[Author bio and link to their other work]
 ```
 
 **Step 3: Update blog index to fetch posts**
@@ -1186,8 +1207,6 @@ synthesize(logPath).catch(console.error);
 ```bash
 # .env.example
 ANTHROPIC_API_KEY=your-api-key-here
-STRIPE_SECRET_KEY=your-stripe-secret-key
-STRIPE_WEBHOOK_SECRET=your-webhook-secret
 RESEND_API_KEY=your-resend-api-key
 ```
 
@@ -1283,276 +1302,9 @@ git commit -m "feat: add GitHub Action for content synthesis pipeline"
 
 ---
 
-## Batch 5: Stripe Payments
+## Batch 5: Email Capture & Downloads
 
-### Task 5.1: Create Checkout API Endpoint
-
-**Files:**
-- Create: `src/pages/api/checkout.ts`
-- Modify: `astro.config.mjs`
-
-**Step 1: Update Astro config for Vercel serverless**
-
-```javascript
-// astro.config.mjs
-import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
-import vercel from '@astrojs/vercel';
-
-export default defineConfig({
-  integrations: [tailwind()],
-  output: 'hybrid',
-  adapter: vercel(),
-});
-```
-
-**Step 2: Install Vercel adapter and Stripe**
-
-```bash
-npm install @astrojs/vercel stripe
-```
-
-**Step 3: Create checkout endpoint**
-
-```typescript
-// src/pages/api/checkout.ts
-import type { APIRoute } from 'astro';
-import Stripe from 'stripe';
-
-const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY);
-
-export const POST: APIRoute = async ({ request }) => {
-  try {
-    const { priceId, productName } = await request.json();
-
-    if (!priceId) {
-      return new Response(JSON.stringify({ error: 'Price ID required' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
-    const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      success_url: `${new URL(request.url).origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${new URL(request.url).origin}/products`,
-      metadata: {
-        productName,
-      },
-    });
-
-    return new Response(JSON.stringify({ url: session.url }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  } catch (error) {
-    console.error('Checkout error:', error);
-    return new Response(JSON.stringify({ error: 'Checkout failed' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-};
-```
-
-**Step 4: Commit**
-
-```bash
-git add .
-git commit -m "feat: add Stripe checkout API endpoint"
-```
-
----
-
-### Task 5.2: Create Webhook Handler
-
-**Files:**
-- Create: `src/pages/api/webhook.ts`
-
-**Step 1: Create webhook endpoint**
-
-```typescript
-// src/pages/api/webhook.ts
-import type { APIRoute } from 'astro';
-import Stripe from 'stripe';
-
-const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY);
-const webhookSecret = import.meta.env.STRIPE_WEBHOOK_SECRET;
-
-export const POST: APIRoute = async ({ request }) => {
-  const body = await request.text();
-  const signature = request.headers.get('stripe-signature');
-
-  if (!signature) {
-    return new Response('No signature', { status: 400 });
-  }
-
-  let event: Stripe.Event;
-
-  try {
-    event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
-  } catch (err) {
-    console.error('Webhook signature verification failed:', err);
-    return new Response('Webhook signature verification failed', { status: 400 });
-  }
-
-  switch (event.type) {
-    case 'checkout.session.completed': {
-      const session = event.data.object as Stripe.Checkout.Session;
-      await handleSuccessfulPurchase(session);
-      break;
-    }
-    default:
-      console.log(`Unhandled event type: ${event.type}`);
-  }
-
-  return new Response(JSON.stringify({ received: true }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' },
-  });
-};
-
-async function handleSuccessfulPurchase(session: Stripe.Checkout.Session) {
-  const customerEmail = session.customer_details?.email;
-  const productName = session.metadata?.productName;
-
-  console.log(`Purchase completed: ${productName} by ${customerEmail}`);
-
-  // TODO: Send delivery email with download link
-  // This will be implemented in the next task
-}
-```
-
-**Step 2: Commit**
-
-```bash
-git add .
-git commit -m "feat: add Stripe webhook handler"
-```
-
----
-
-### Task 5.3: Create Success Page
-
-**Files:**
-- Create: `src/pages/success.astro`
-
-**Step 1: Create success page**
-
-```astro
----
-// src/pages/success.astro
-import BaseLayout from '../layouts/BaseLayout.astro';
----
-<BaseLayout title="Purchase Complete">
-  <section class="max-w-2xl mx-auto px-6 py-20 text-center">
-    <div class="w-16 h-16 mx-auto mb-6 bg-green-100 rounded-full flex items-center justify-center">
-      <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-      </svg>
-    </div>
-
-    <h1 class="text-3xl font-bold text-charcoal-900">Thank you!</h1>
-    <p class="mt-4 text-lg text-charcoal-600">
-      Your purchase is complete. Check your email for the download link.
-    </p>
-
-    <div class="mt-8">
-      <a href="/products" class="text-coral-600 hover:underline">
-        &larr; Back to products
-      </a>
-    </div>
-  </section>
-</BaseLayout>
-```
-
-**Step 2: Commit**
-
-```bash
-git add .
-git commit -m "feat: add purchase success page"
-```
-
----
-
-### Task 5.4: Add Buy Button Client Script
-
-**Files:**
-- Create: `src/scripts/checkout.ts`
-- Modify: `src/layouts/ProductPage.astro`
-
-**Step 1: Create checkout client script**
-
-```typescript
-// src/scripts/checkout.ts
-document.addEventListener('DOMContentLoaded', () => {
-  const buyBtn = document.getElementById('buy-btn');
-
-  if (buyBtn) {
-    buyBtn.addEventListener('click', async () => {
-      const priceId = buyBtn.getAttribute('data-price-id');
-      const productName = document.querySelector('h1')?.textContent || 'Product';
-
-      if (!priceId) {
-        alert('Product not configured for purchase yet.');
-        return;
-      }
-
-      buyBtn.textContent = 'Loading...';
-      buyBtn.setAttribute('disabled', 'true');
-
-      try {
-        const response = await fetch('/api/checkout', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ priceId, productName }),
-        });
-
-        const { url, error } = await response.json();
-
-        if (error) {
-          throw new Error(error);
-        }
-
-        window.location.href = url;
-      } catch (err) {
-        console.error('Checkout error:', err);
-        alert('Something went wrong. Please try again.');
-        buyBtn.textContent = 'Buy Now';
-        buyBtn.removeAttribute('disabled');
-      }
-    });
-  }
-});
-```
-
-**Step 2: Add script to ProductPage layout**
-
-Add before closing `</BaseLayout>` tag:
-
-```astro
-<script src="../scripts/checkout.ts"></script>
-```
-
-**Step 3: Commit**
-
-```bash
-git add .
-git commit -m "feat: add client-side checkout integration"
-```
-
----
-
-## Batch 6: Email Capture
-
-### Task 6.1: Create Email Signup Component
+### Task 5.1: Create Email Signup Component
 
 **Files:**
 - Create: `src/components/EmailSignup.astro`
@@ -1658,7 +1410,7 @@ git commit -m "feat: add email signup component"
 
 ---
 
-### Task 6.2: Create Subscribe API Endpoint
+### Task 5.2: Create Subscribe API Endpoint
 
 **Files:**
 - Create: `src/pages/api/subscribe.ts`
@@ -1740,7 +1492,7 @@ git commit -m "feat: add email subscribe API endpoint"
 
 ---
 
-### Task 6.3: Add Email Signup to Homepage
+### Task 5.3: Add Email Signup to Homepage
 
 **Files:**
 - Modify: `src/pages/index.astro`
@@ -1777,9 +1529,9 @@ git commit -m "feat: add email signup to homepage"
 
 ---
 
-## Batch 7: Deployment
+## Batch 6: Deployment
 
-### Task 7.1: Configure Vercel Deployment
+### Task 6.1: Configure Vercel Deployment
 
 **Files:**
 - Create: `vercel.json`
@@ -1793,8 +1545,6 @@ git commit -m "feat: add email signup to homepage"
   "outputDirectory": "dist",
   "env": {
     "ANTHROPIC_API_KEY": "@anthropic-api-key",
-    "STRIPE_SECRET_KEY": "@stripe-secret-key",
-    "STRIPE_WEBHOOK_SECRET": "@stripe-webhook-secret",
     "RESEND_API_KEY": "@resend-api-key"
   }
 }
@@ -1809,7 +1559,7 @@ git commit -m "chore: add Vercel configuration"
 
 ---
 
-### Task 7.2: Final Build Test
+### Task 6.2: Final Build Test
 
 **Step 1: Run production build locally**
 
@@ -1836,7 +1586,7 @@ git commit -m "chore: fix build issues" # if any
 
 ---
 
-### Task 7.3: Push and Deploy
+### Task 6.3: Push and Deploy
 
 **Step 1: Create GitHub repository**
 
@@ -1855,8 +1605,6 @@ Or manually:
 2. Import GitHub repository
 3. Add environment variables in Vercel dashboard:
    - `ANTHROPIC_API_KEY`
-   - `STRIPE_SECRET_KEY`
-   - `STRIPE_WEBHOOK_SECRET`
    - `RESEND_API_KEY`
 
 **Step 3: Verify deployment**
@@ -1871,20 +1619,27 @@ Check deployment URL provided by Vercel.
 
 - [x] Astro site with brand styling (coral/cream/charcoal palette)
 - [x] Homepage, About, Blog, Products pages
-- [x] Content collections for blog posts and products
+- [x] Content collections for blog posts and products (with third-party attribution)
 - [x] Synthesis pipeline (GitHub Action + Claude API)
-- [x] Stripe checkout for one-time purchases
-- [x] Email signup with Resend
+- [x] Email capture with Resend
+- [x] Free download flow with email gate
 - [x] Deployed to Vercel
 
-**Next steps (Phase 2):**
+**Next steps (Content & Launch):**
 
-1. Add real products to `src/content/products/`
-2. Write 3-5 blog posts to seed content
-3. Set up Stripe products in dashboard and add IDs to content
-4. Configure domain (channel47.dev or similar)
-5. Set up Stripe webhook endpoint in Stripe dashboard
-6. Test full purchase flow end-to-end
+1. Add 5-10 products to `src/content/products/` (mix of own + curated third-party)
+2. Write 5+ blog posts to seed content
+3. Configure domain (channel47.dev or similar)
+4. Set up Reddit account and join target subreddits
+5. Test full download flow end-to-end
+6. Soft launch and gather feedback
+
+**Phase 2 (Monetization - Future):**
+
+1. Set up Stripe integration (checkout + webhooks)
+2. Create premium product tier
+3. Add subscription option
+4. Implement paid download flow
 
 ---
 
