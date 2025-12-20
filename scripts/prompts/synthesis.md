@@ -122,6 +122,40 @@ Generate three distinct variations:
 - Make it clear this is real experience, not theory
   </x_style_guide>
 
+## 3. Visual Metaphor Extraction
+
+Analyze the blog content and extract a visual metaphor for the hero image.
+
+<visual_metaphor_guidelines>
+
+**Purpose:** Create a minimalist, conceptual image that hints at the blog's core idea without being literal.
+
+**Guidelines:**
+- Think conceptually, not literally (avoid obvious icons like "computer" or "code")
+- Choose universal, simple concepts that hint at the core idea
+- Use minimal elements (1-2 objects maximum)
+- Focus on transformation, progression, or state change when relevant
+- The metaphor should be visual and concrete, not abstract concepts
+- Describe what to draw, not what it means
+
+**Good Examples:**
+- Building automation → "A single domino piece standing upright, with subtle motion lines suggesting it will tip and start a chain reaction"
+- Debugging process → "A tangled thread on the left side gradually becoming a neat, organized thread on the right side"
+- Modular architecture → "Simple geometric building blocks clicking together with perfect alignment, like LEGO pieces"
+- Performance optimization → "Two streams of water side by side: one turbulent and chaotic, one smooth and laminar"
+- Learning curve → "A staircase made of books, ascending from small to large volumes"
+
+**Bad Examples:**
+- "Innovation" (too abstract, not visual)
+- "A developer at a computer" (too literal)
+- "Cloud computing with servers" (cliché, obvious)
+- "Success and growth" (not concrete or visual)
+  </visual_metaphor_guidelines>
+
+Return in the `visual_metaphor` object:
+- `concept`: A single sentence (15-25 words) describing exactly what to draw - be specific and visual
+- `reasoning`: Why this metaphor fits the blog content (1 sentence, 10-20 words)
+
 </output_specification>
 
 <output_format>
@@ -137,6 +171,10 @@ Return this exact JSON structure:
     "description": "1-2 sentence summary of the key insight",
     "tags": ["tag1", "tag2", "tag3"],
     "content": "Full markdown content following the 5-part structure: Hook, Context, Journey (with blockquoted conversation snippets), Solution, Takeaway. 800-1500 words."
+  },
+  "visual_metaphor": {
+    "concept": "A single sentence (15-25 words) describing exactly what to draw - be specific and visual",
+    "reasoning": "Why this metaphor fits the blog content (1 sentence, 10-20 words)"
   },
   "x_content": {
     "hook": "Single tweet, <280 chars, punchy problem statement with [LINK]",
@@ -167,7 +205,8 @@ DO NOT:
 - Make the blog post a hybrid: polished narrative with embedded conversation snippets
 - Keep the practitioner voice: sharing real work, not teaching from on high
 - Be specific and concrete, avoid generic developer advice
+- Extract a visual, concrete metaphor (not abstract concepts) for the hero image
 - X content should drive blog traffic while providing standalone value
 
-**Remember:** Your entire response = the JSON code block. Nothing else.
+**Remember:** Your entire response = the JSON code block with blog, visual_metaphor, and x_content. Nothing else.
   </final_reminders>

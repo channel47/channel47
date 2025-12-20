@@ -45,6 +45,7 @@ jobs:
         if: steps.changed-files.outputs.files != ''
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           for file in ${{ steps.changed-files.outputs.files }}; do
             echo "Processing: $file"
@@ -63,6 +64,9 @@ jobs:
 
             **Review checklist:**
             - [ ] Blog post draft is accurate and engaging
+            - [ ] Review both hero image options (Style A: brand abstract, Style D: conceptual)
+            - [ ] Choose winning hero image and rename to `hero.png`, delete the other
+            - [ ] Update frontmatter: change `heroImages` to `heroImage: "/images/blog-heroes/[slug]/hero.png"`
             - [ ] X content drafts are punchy and on-brand
             - [ ] Move approved content from `drafts/` to `src/content/`
             - [ ] Remove `draft: true` from frontmatter when publishing

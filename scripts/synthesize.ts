@@ -1,6 +1,7 @@
 // scripts/synthesize.ts
 import 'dotenv/config';
 import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
@@ -12,9 +13,124 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
+const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+
 async function loadPrompt(): Promise<string> {
   const promptPath = path.join(__dirname, 'prompts', 'synthesis.md');
   return fs.readFile(promptPath, 'utf-8');
+}
+
+async function generateImageViaAPI(
+  prompt: string,
+  apiKey: string
+): Promise<Buffer> {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${apiKey}`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      contents: [
+        {
+          parts: [
+            {
+              text: prompt,
+            },
+          ],
+        },
+      ],
+      generationConfig: {
+        response_modalities: ['image'],
+      },
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Gemini API error: ${response.status} ${response.statusText}\n${errorText}`);
+  }
+
+  const result = await response.json();
+
+  // Extract image data from response
+  if (
+    !result.candidates ||
+    !result.candidates[0] ||
+    !result.candidates[0].content ||
+    !result.candidates[0].content.parts ||
+    !result.candidates[0].content.parts[0]
+  ) {
+    throw new Error('No image data in API response');
+  }
+
+  const part = result.candidates[0].content.parts[0];
+
+  if (!part.inlineData || !part.inlineData.data) {
+    throw new Error('No inline image data found in response');
+  }
+
+  // Decode base64 image data
+  const imageBase64 = part.inlineData.data;
+  return Buffer.from(imageBase64, 'base64');
+}
+
+async function generateHeroImages(
+  visualMetaphor: string,
+  slug: string,
+  outputDir: string
+): Promise<{ styleA: string; styleD: string }> {
+  console.log(`Generating hero images for: ${slug}`);
+  console.log(`Visual metaphor: ${visualMetaphor}`);
+
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error('GEMINI_API_KEY environment variable is required');
+  }
+
+  // Create output directory
+  await fs.mkdir(outputDir, { recursive: true });
+
+  // Style A: Brand-consistent abstract
+  const styleAPrompt = `A modern, minimalist abstract composition using geometric shapes and clean lines.
+Color palette: warm coral red (#E8735C), soft cream white (#FAF9F6), and deep charcoal (#2E2E2E).
+Geometric elements like circles, rectangles, rounded squares, and flowing curves arranged in a balanced, contemporary layout.
+Flat design style with subtle gradients.
+Apple-inspired aesthetic: spacious, refined, uncluttered.
+Wide aspect ratio (16:9 for blog hero).
+Professional, modern, tech-forward feeling.`;
+
+  // Style D: Minimalist conceptual with metaphor
+  const styleDPrompt = `${visualMetaphor} in a minimalist illustration style.
+Clean, simple composition with maximum one or two visual elements.
+Limited color palette: primarily black/white/gray with one accent color.
+Lots of negative space. Conceptual and metaphorical, not literal.
+Flat design, no realistic textures or shadows.
+Wide aspect ratio (16:9 for blog hero).
+Zen-like simplicity that hints at meaning without being obvious.`;
+
+  try {
+    console.log('Generating Style A (brand-consistent abstract)...');
+    const styleAImage = await generateImageViaAPI(styleAPrompt, apiKey);
+    const styleAPath = path.join(outputDir, 'style-a.png');
+    await fs.writeFile(styleAPath, styleAImage);
+    console.log(`✓ Style A saved to: ${styleAPath}`);
+
+    console.log('Generating Style D (conceptual metaphor)...');
+    const styleDImage = await generateImageViaAPI(styleDPrompt, apiKey);
+    const styleDPath = path.join(outputDir, 'style-d.png');
+    await fs.writeFile(styleDPath, styleDImage);
+    console.log(`✓ Style D saved to: ${styleDPath}`);
+
+    return {
+      styleA: styleAPath.replace(/^public/, ''),
+      styleD: styleDPath.replace(/^public/, ''),
+    };
+  } catch (error) {
+    console.error('Error during image generation:', error);
+    throw error;
+  }
 }
 
 async function synthesize(logPath: string): Promise<void> {
@@ -55,6 +171,14 @@ async function synthesize(logPath: string): Promise<void> {
   const date = new Date().toISOString().split('T')[0];
   const slug = logFilename.replace(/^\d{4}-\d{2}-\d{2}-/, '');
 
+  // Generate hero images
+  const imagesDir = path.join('public', 'images', 'blog-heroes', slug);
+  const heroImages = await generateHeroImages(
+    result.visual_metaphor.concept,
+    slug,
+    imagesDir
+  );
+
   // Write blog draft
   const blogDraftPath = path.join('drafts', 'blog', `${date}-${slug}.md`);
   const blogContent = `---
@@ -63,6 +187,12 @@ description: "${result.blog.description}"
 date: ${date}
 tags: ${JSON.stringify(result.blog.tags)}
 draft: true
+heroImages:
+  styleA: "${heroImages.styleA}"
+  styleD: "${heroImages.styleD}"
+  selected: null
+visualMetaphor: "${result.visual_metaphor.concept}"
+visualMetaphorReasoning: "${result.visual_metaphor.reasoning}"
 ---
 
 ${result.blog.content}`;
