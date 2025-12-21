@@ -3,28 +3,35 @@ featured: true
 draft: false
 ---
 
-## What's included
+## What it does
 
-The Google Ads plugin provides seamless access to your Google Ads data directly within Claude Code through the Model Context Protocol (MCP).
-
-Query your campaigns, ad groups, and performance metrics using Google Ads Query Language (GaQL) with OAuth authentication.
+Query your Google Ads data directly from Claude Code using GaQL (Google Ads Query Language). Perfect for automating PPC analysis, generating reports, and monitoring campaign performance.
 
 ## Key Features
 
-- **GaQL Queries**: Execute powerful Google Ads Query Language queries
-- **OAuth Authentication**: Secure authentication flow built-in
-- **Campaign Insights**: Access campaign performance, budgets, and settings
-- **Ad Performance**: Query ad group and keyword metrics
-- **Real-time Data**: Get up-to-date advertising data
+- **List all accounts**: Quickly see all accessible Google Ads accounts
+- **GaQL queries**: Run any GaQL query directly from Claude
+- **OAuth authentication**: Secure, token-based auth with automatic refresh
 
-## Common Use Cases
+## Real-world use cases
 
-- Analyze campaign performance trends
-- Generate custom advertising reports
-- Monitor budget utilization
-- Compare ad group effectiveness
-- Extract keyword performance data
+I use this daily for:
+- Analyzing campaign performance across multiple accounts
+- Generating weekly PPC reports
+- Debugging campaign issues with ad-hoc queries
+- Monitoring budget pacing
 
-## Getting Started
+## Setup
 
-After installation, authenticate with your Google Ads account and start querying your data using natural language. Claude will translate your requests into GaQL queries and fetch the data you need.
+The setup involves getting OAuth credentials from Google Cloud and generating a refresh token. Full walkthrough:
+
+1. Install: `/plugin install google-ads@channel47`
+2. Follow [Getting Started Guide](https://github.com/ctrlswing/channel47-marketplace/blob/main/plugins/google-ads/GETTING_STARTED.md)
+3. Configure your credentials in Claude Code settings
+
+## Example queries
+
+Ask Claude:
+- "Show me all my Google Ads accounts"
+- "Query campaign performance for last 30 days"
+- "What's my average CPC across all campaigns?"
