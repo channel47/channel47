@@ -15,7 +15,6 @@ const blog = defineCollection({
 const plugins = defineCollection({
   type: 'content',
   schema: z.object({
-    slug: z.string(),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
   }),
