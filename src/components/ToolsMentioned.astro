@@ -1,0 +1,63 @@
+---
+// src/components/ToolsMentioned.astro
+import mergedPlugins from '../data/merged-plugins.json';
+
+interface Props {
+  tools: Array<{
+    slug: string;
+    source: 'channel47' | 'external';
+    installCommand?: string;
+  }>;
+}
+
+const { tools } = Astro.props;
+
+const enrichedTools = tools.map(tool => {
+  if (tool.source === 'channel47') {
+    const pluginData = mergedPlugins.find(p => p.name === tool.slug);
+    return {
+      ...tool,
+      name: pluginData?.name || tool.slug,
+      description: pluginData?.description,
+      url: `/plugins/${tool.slug}`,
+      installCmd: `/plugin install ${tool.slug}@channel47`,
+    };
+  }
+  return {
+    ...tool,
+    name: tool.slug,
+    description: undefined,
+    url: null,
+    installCmd: tool.installCommand,
+  };
+});
+---
+
+{enrichedTools.length > 0 && (
+  <aside class="my-8 p-6 bg-cream-100 border border-charcoal-800/10 rounded-xl">
+    <h3 class="text-lg font-semibold text-charcoal-900 mb-4">Tools mentioned in this post:</h3>
+    <div class="space-y-4">
+      {enrichedTools.map(tool => (
+        <div class="p-4 bg-white rounded-lg">
+          {tool.url ? (
+            <a href={tool.url} class="text-coral-600 hover:text-coral-700 font-medium flex items-center gap-2">
+              ⚡ {tool.name}
+            </a>
+          ) : (
+            <p class="text-charcoal-900 font-medium flex items-center gap-2">
+              🔗 {tool.name}
+            </p>
+          )}
+          {tool.description && (
+            <p class="mt-1 text-sm text-charcoal-600">{tool.description}</p>
+          )}
+          {tool.installCmd && (
+            <code class="mt-2 block p-2 bg-charcoal-900 text-cream-100 rounded text-xs font-mono">
+              {tool.installCmd}
+            </code>
+          )}
+        </div>
+      ))}
+    </div>
+  </aside>
+)}
