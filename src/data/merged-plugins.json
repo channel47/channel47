@@ -12,6 +12,13 @@
       "analytics",
       "mcp"
     ],
-    "relatedPosts": []
+    "editorialContent": "---\nfeatured: true\ndraft: false\n---\n\n## What's included\n\nThe Google Ads plugin provides seamless access to your Google Ads data directly within Claude Code through the Model Context Protocol (MCP).\n\nQuery your campaigns, ad groups, and performance metrics using Google Ads Query Language (GaQL) with OAuth authentication.\n\n## Key Features\n\n- **GaQL Queries**: Execute powerful Google Ads Query Language queries\n- **OAuth Authentication**: Secure authentication flow built-in\n- **Campaign Insights**: Access campaign performance, budgets, and settings\n- **Ad Performance**: Query ad group and keyword metrics\n- **Real-time Data**: Get up-to-date advertising data\n\n## Common Use Cases\n\n- Analyze campaign performance trends\n- Generate custom advertising reports\n- Monitor budget utilization\n- Compare ad group effectiveness\n- Extract keyword performance data\n\n## Getting Started\n\nAfter installation, authenticate with your Google Ads account and start querying your data using natural language. Claude will translate your requests into GaQL queries and fetch the data you need.\n",
+    "relatedPosts": [
+      {
+        "title": "Testing Google Ads Plugin",
+        "slug": "test-google-ads",
+        "date": "2025-12-20T00:00:00.000Z"
+      }
+    ]
   }
 ]
