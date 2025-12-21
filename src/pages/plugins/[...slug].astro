@@ -5,7 +5,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import mergedPlugins from '../../data/merged-plugins.json';
 
 export async function getStaticPaths() {
-  const plugins = await getCollection('plugins');
+  const plugins = await getCollection('plugins', ({ data }) => !data.draft);
 
   return plugins.map(plugin => {
     const marketplaceData = mergedPlugins.find(p => p.name === plugin.slug);
