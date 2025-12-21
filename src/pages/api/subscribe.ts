@@ -2,8 +2,6 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
 
-const resend = new Resend(import.meta.env.RESEND_API_KEY);
-
 // Simple in-memory store for demo - replace with database in production
 const subscribers: Set<string> = new Set();
 
@@ -28,6 +26,18 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Add to subscribers
     subscribers.add(email);
+
+    // Lazy initialization - only create client when API is called
+    const apiKey = import.meta.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.error('RESEND_API_KEY not configured');
+      return new Response(JSON.stringify({ error: 'Email service not configured' }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const resend = new Resend(apiKey);
 
     // Send welcome email
     await resend.emails.send({
