@@ -149,13 +149,13 @@ declare module 'astro:content' {
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 };
-"products": {
+"plugins": {
 "sample-skill.md": {
 	id: "sample-skill.md";
   slug: "sample-skill";
   body: string;
-  collection: "products";
-  data: InferEntrySchema<"products">
+  collection: "plugins";
+  data: InferEntrySchema<"plugins">
 } & { render(): Render[".md"] };
 };
 

@@ -1,0 +1,27 @@
+---
+// src/pages/plugins/[...slug].astro
+import { getCollection } from 'astro:content';
+import ProductPage from '../../layouts/ProductPage.astro';
+
+export async function getStaticPaths() {
+  const plugins = await getCollection('plugins', ({ data }) => !data.draft);
+  return plugins.map((plugin) => ({
+    params: { slug: plugin.slug },
+    props: { plugin },
+  }));
+}
+
+const { plugin } = Astro.props;
+const { Content } = await plugin.render();
+---
+<ProductPage
+  title={plugin.data.title}
+  description={plugin.data.description}
+  category={plugin.data.category}
+  author={plugin.data.author}
+  authorUrl={plugin.data.authorUrl}
+  sourceUrl={plugin.data.sourceUrl}
+  featured={plugin.data.featured}
+>
+  <Content />
+</ProductPage>

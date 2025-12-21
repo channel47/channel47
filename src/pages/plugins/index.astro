@@ -1,8 +1,8 @@
 ---
-// src/pages/products/index.astro
+// src/pages/plugins/index.astro
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-// Products will come from content collection later
-const products: any[] = [];
+const plugins = await getCollection('plugins', ({ data }) => !data.draft);
 ---
 <BaseLayout title="Tools" description="Curated Claude Code skills, plugins, MCP servers, and prompts.">
   <section class="max-w-5xl mx-auto px-6 py-16">
@@ -20,24 +20,24 @@ const products: any[] = [];
     </div>
 
     <div class="mt-12">
-      {products.length === 0 ? (
+      {plugins.length === 0 ? (
         <p class="text-charcoal-600">Tools coming soon. Check back later.</p>
       ) : (
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <a href={`/products/${product.slug}`} class="group block p-6 border border-charcoal-800/10 rounded-xl hover:border-coral-600/30 hover:shadow-lg transition-all">
+          {plugins.map((plugin) => (
+            <a href={`/plugins/${plugin.slug}`} class="group block p-6 border border-charcoal-800/10 rounded-xl hover:border-coral-600/30 hover:shadow-lg transition-all">
               <div class="flex items-center justify-between">
-                <span class="text-xs font-medium text-coral-600 uppercase tracking-wide">{product.data.category}</span>
-                {product.data.featured && (
+                <span class="text-xs font-medium text-coral-600 uppercase tracking-wide">{plugin.data.category}</span>
+                {plugin.data.featured && (
                   <span class="text-xs font-medium text-charcoal-700 uppercase tracking-wide px-2 py-1 bg-charcoal-100 rounded">★</span>
                 )}
               </div>
               <h2 class="mt-2 text-lg font-semibold text-charcoal-900 group-hover:text-coral-600 transition-colors">
-                {product.data.title}
+                {plugin.data.title}
               </h2>
-              <p class="mt-2 text-sm text-charcoal-600 line-clamp-2">{product.data.description}</p>
+              <p class="mt-2 text-sm text-charcoal-600 line-clamp-2">{plugin.data.description}</p>
               <div class="mt-4 text-xs text-charcoal-500">
-                by {product.data.author}
+                by {plugin.data.author}
               </div>
             </a>
           ))}
