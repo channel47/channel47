@@ -150,6 +150,13 @@ declare module 'astro:content' {
 } & { render(): Render[".md"] };
 };
 "plugins": {
+"google-ads.md": {
+	id: "google-ads.md";
+  slug: "google-ads";
+  body: string;
+  collection: "plugins";
+  data: InferEntrySchema<"plugins">
+} & { render(): Render[".md"] };
 "sample-skill.md": {
 	id: "sample-skill.md";
   slug: "sample-skill";
