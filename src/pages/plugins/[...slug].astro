@@ -1,27 +1,89 @@
 ---
 // src/pages/plugins/[...slug].astro
 import { getCollection } from 'astro:content';
-import ProductPage from '../../layouts/ProductPage.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import mergedPlugins from '../../data/merged-plugins.json';
 
 export async function getStaticPaths() {
-  const plugins = await getCollection('plugins', ({ data }) => !data.draft);
-  return plugins.map((plugin) => ({
-    params: { slug: plugin.slug },
-    props: { plugin },
-  }));
+  const plugins = await getCollection('plugins');
+
+  return plugins.map(plugin => {
+    const marketplaceData = mergedPlugins.find(p => p.name === plugin.slug);
+
+    return {
+      params: { slug: plugin.slug },
+      props: {
+        plugin,
+        marketplaceData,
+      },
+    };
+  });
 }
 
-const { plugin } = Astro.props;
+const { plugin, marketplaceData } = Astro.props;
 const { Content } = await plugin.render();
 ---
-<ProductPage
-  title={plugin.data.title}
-  description={plugin.data.description}
-  category={plugin.data.category}
-  author={plugin.data.author}
-  authorUrl={plugin.data.authorUrl}
-  sourceUrl={plugin.data.sourceUrl}
-  featured={plugin.data.featured}
->
-  <Content />
-</ProductPage>
+
+<BaseLayout title={marketplaceData?.name || plugin.slug} description={marketplaceData?.description || ''}>
+  <article class="max-w-4xl mx-auto px-6 py-16">
+    {/* Header */}
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold text-charcoal-900">{marketplaceData?.name || plugin.slug}</h1>
+      <p class="mt-4 text-xl text-charcoal-700">{marketplaceData?.description}</p>
+    </header>
+
+    {/* Install CTA */}
+    <div class="my-12 p-8 bg-cream-100 border border-charcoal-800/10 rounded-xl">
+      <h2 class="text-lg font-semibold text-charcoal-900 mb-4">Install</h2>
+
+      <details class="mb-4 group">
+        <summary class="cursor-pointer text-sm text-coral-600 hover:text-coral-700 mb-2">
+          First time? Add Channel 47 marketplace first
+        </summary>
+        <div class="mt-2 p-4 bg-white rounded-lg border border-charcoal-800/10">
+          <p class="text-sm text-charcoal-700 mb-2">Step 1: Add marketplace</p>
+          <code class="block p-3 bg-charcoal-900 text-cream-100 rounded text-sm font-mono">
+            /plugin marketplace add yourusername/channel47-marketplace
+          </code>
+        </div>
+      </details>
+
+      <div class="p-4 bg-white rounded-lg border border-charcoal-800/10">
+        <p class="text-sm text-charcoal-700 mb-2">Install plugin:</p>
+        <code class="block p-3 bg-charcoal-900 text-cream-100 rounded text-sm font-mono">
+          /plugin install {marketplaceData?.name}@channel47
+        </code>
+      </div>
+
+      <div class="mt-4 flex gap-4 text-sm text-charcoal-600">
+        <span>v{marketplaceData?.version}</span>
+        <span>•</span>
+        <span class="capitalize">{marketplaceData?.category}</span>
+      </div>
+    </div>
+
+    {/* Editorial Content */}
+    <div class="prose prose-lg max-w-none">
+      <Content />
+    </div>
+
+    {/* Related Posts - placeholder */}
+    {marketplaceData?.relatedPosts && marketplaceData.relatedPosts.length > 0 && (
+      <div class="mt-12 p-6 bg-cream-100 rounded-xl">
+        <h3 class="text-lg font-semibold text-charcoal-900 mb-4">See it in action:</h3>
+        <ul class="space-y-3">
+          {marketplaceData.relatedPosts.map(post => (
+            <li>
+              <a href={`/blog/${post.slug}`} class="text-coral-600 hover:text-coral-700">
+                {post.title}
+              </a>
+              <span class="text-sm text-charcoal-600 ml-2">
+                {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </article>
+</BaseLayout>
