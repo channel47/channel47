@@ -3,11 +3,13 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "npm run sync-marketplace && astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
+    "prebuild": "npm run sync-marketplace",
     "preview": "astro preview",
     "astro": "astro",
+    "sync-marketplace": "tsx scripts/sync-marketplace.ts",
     "synthesize": "tsx scripts/synthesize.ts",
     "regenerate-images": "tsx scripts/regenerate-images.ts"
   },
