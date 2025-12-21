@@ -10,3 +10,4 @@ dist/
 # Image generation drafts (keep only selected hero.png)
 public/images/blog-heroes/**/style-a.png
 public/images/blog-heroes/**/style-d.png
+.vercel
