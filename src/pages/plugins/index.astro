@@ -67,7 +67,7 @@ const categories = ['all', ...new Set(mergedPlugins.map(p => p.category))];
               </p>
               <div class="mt-4 flex items-center justify-between text-xs text-charcoal-500">
                 <span>by {marketplaceData?.author || 'Unknown'}</span>
-                <span>v{marketplaceData?.version}</span>
+                <span>v{marketplaceData?.version || '0.0.0'}</span>
               </div>
             </a>
           ))}
