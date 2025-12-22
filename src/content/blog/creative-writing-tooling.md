@@ -2,8 +2,15 @@
 title: "Building a Creative Writing Plugin: From Concept to Implementation in One Session"
 description: "How we went from design document to fully implemented Claude plugin with 7 writing skills, complete testing, and a merged PR in a single development session."
 date: 2025-12-21
-tags: ["claude-plugins","ai-development","subagent-driven-development","creative-writing","automation"]
-draft: true
+tags:
+  [
+    "claude-plugins",
+    "ai-development",
+    "subagent-driven-development",
+    "creative-writing",
+    "automation",
+  ]
+draft: false
 toolsUsed:
   - slug: "creative-writing"
     source: "channel47"
