@@ -11,11 +11,6 @@ tags:
     "api-integration",
     "systematic-processes",
   ]
-toolsUsed:
-  - slug: "google-ads"
-    source: "custom"
-  - slug: "claude-code"
-    source: "anthropic"
 heroImages:
   styleA: null
   styleD: null
