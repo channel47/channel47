@@ -1,5 +1,5 @@
 ---
-title: "Building Channel 47: The Beginning"
+title: "The Beginning"
 description: "Why I'm building a marketplace for Claude Code power users, and what you can expect."
 date: 2025-12-19
 tags: ["meta", "claude-code"]
