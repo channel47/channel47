@@ -1,23 +1,5 @@
 [
   {
-    "name": "google-ads",
-    "source": "./plugins/google-ads",
-    "description": "Query Google Ads data using GaQL with OAuth authentication",
-    "version": "1.0.0",
-    "author": {
-      "name": "Jackson"
-    },
-    "category": "marketing",
-    "tags": [
-      "google-ads",
-      "marketing",
-      "analytics",
-      "mcp"
-    ],
-    "editorialContent": "---\nfeatured: true\ndraft: false\n---\n\n## What it does\n\nQuery your Google Ads data directly from Claude Code using GaQL (Google Ads Query Language). Perfect for automating PPC analysis, generating reports, and monitoring campaign performance.\n\n## Key Features\n\n- **List all accounts**: Quickly see all accessible Google Ads accounts\n- **GaQL queries**: Run any GaQL query directly from Claude\n- **OAuth authentication**: Secure, token-based auth with automatic refresh\n\n## Real-world use cases\n\nI use this daily for:\n- Analyzing campaign performance across multiple accounts\n- Generating weekly PPC reports\n- Debugging campaign issues with ad-hoc queries\n- Monitoring budget pacing\n\n## Setup\n\nThe setup involves getting OAuth credentials from Google Cloud and generating a refresh token. Full walkthrough:\n\n1. Install: `/plugin install google-ads@channel47`\n2. Follow [Getting Started Guide](https://github.com/ctrlswing/channel47-marketplace/blob/main/plugins/google-ads/GETTING_STARTED.md)\n3. Configure your credentials in Claude Code settings\n\n## Example queries\n\nAsk Claude:\n- \"Show me all my Google Ads accounts\"\n- \"Query campaign performance for last 30 days\"\n- \"What's my average CPC across all campaigns?\"\n",
-    "relatedPosts": []
-  },
-  {
     "name": "creative-writing",
     "source": "./plugins/creative-writing",
     "description": "Writing assistant for editing, generating, and improving prose",
