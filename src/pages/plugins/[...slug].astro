@@ -26,7 +26,7 @@ const { Content } = await plugin.render();
 type RelatedPost = {
   title: string;
   slug: string;
-  date: Date;
+  date: string;
 };
 
 const relatedPosts = (marketplaceData?.relatedPosts || []) as RelatedPost[];

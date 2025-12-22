@@ -46,13 +46,13 @@ async function discoverRelatedPosts(pluginSlug: string) {
         blogPosts.push({
           title: data.title as string,
           slug,
-          date: new Date(data.date),
+          date: new Date(data.date).toISOString(),
         });
       }
     }
 
     // Sort by date descending (newest first)
-    return blogPosts.sort((a, b) => b.date.getTime() - a.date.getTime());
+    return blogPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   } catch (error) {
     // If blog directory doesn't exist or other error, return empty array
     return [];

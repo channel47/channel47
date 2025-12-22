@@ -27,6 +27,6 @@ export interface PluginMerged extends MarketplacePlugin {
   relatedPosts?: Array<{
     title: string;
     slug: string;
-    date: Date;
+    date: string;
   }>;
 }
