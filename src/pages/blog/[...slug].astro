@@ -2,7 +2,6 @@
 // src/pages/blog/[...slug].astro
 import { getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
-import ToolsMentioned from '../../components/ToolsMentioned.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -20,7 +19,7 @@ const { Content } = await post.render();
   description={post.data.description}
   date={post.data.date}
   tags={post.data.tags}
+  toolsUsed={post.data.toolsUsed}
 >
-  {post.data.toolsUsed && <ToolsMentioned tools={post.data.toolsUsed} />}
   <Content />
 </BlogPost>

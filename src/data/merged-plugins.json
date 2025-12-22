@@ -1,10 +1,12 @@
 [
   {
     "name": "google-ads",
-    "source": "google-ads",
+    "source": "./plugins/google-ads",
     "description": "Query Google Ads data using GaQL with OAuth authentication",
     "version": "1.0.0",
-    "author": "Jackson",
+    "author": {
+      "name": "Jackson"
+    },
     "category": "marketing",
     "tags": [
       "google-ads",
@@ -13,6 +15,24 @@
       "mcp"
     ],
     "editorialContent": "---\nfeatured: true\ndraft: false\n---\n\n## What it does\n\nQuery your Google Ads data directly from Claude Code using GaQL (Google Ads Query Language). Perfect for automating PPC analysis, generating reports, and monitoring campaign performance.\n\n## Key Features\n\n- **List all accounts**: Quickly see all accessible Google Ads accounts\n- **GaQL queries**: Run any GaQL query directly from Claude\n- **OAuth authentication**: Secure, token-based auth with automatic refresh\n\n## Real-world use cases\n\nI use this daily for:\n- Analyzing campaign performance across multiple accounts\n- Generating weekly PPC reports\n- Debugging campaign issues with ad-hoc queries\n- Monitoring budget pacing\n\n## Setup\n\nThe setup involves getting OAuth credentials from Google Cloud and generating a refresh token. Full walkthrough:\n\n1. Install: `/plugin install google-ads@channel47`\n2. Follow [Getting Started Guide](https://github.com/ctrlswing/channel47-marketplace/blob/main/plugins/google-ads/GETTING_STARTED.md)\n3. Configure your credentials in Claude Code settings\n\n## Example queries\n\nAsk Claude:\n- \"Show me all my Google Ads accounts\"\n- \"Query campaign performance for last 30 days\"\n- \"What's my average CPC across all campaigns?\"\n",
+    "relatedPosts": []
+  },
+  {
+    "name": "creative-writing",
+    "source": "./plugins/creative-writing",
+    "description": "Writing assistant for editing, generating, and improving prose",
+    "version": "1.0.0",
+    "author": {
+      "name": "Jackson"
+    },
+    "category": "writing",
+    "tags": [
+      "writing",
+      "editing",
+      "prose",
+      "creative"
+    ],
+    "editorialContent": "---\nfeatured: true\ndraft: false\n---\n\n## What it does\n\nTransform your writing from AI-generated patterns to clear, honest prose. This plugin helps you write with your own voice—whether you're editing AI drafts or creating content from scratch.\n\n## Key Features\n\n- **Edit drafts**: Rewrite content to remove AI tells and improve clarity\n- **Generate content**: Create first drafts that match your style guide\n- **Review writing**: Get specific, actionable feedback without automatic rewrites\n- **Improve sections**: Fix openings, strengthen endings, or clean specific problems\n- **Custom style guides**: Create personalized guides through interactive questionnaire\n- **Smart chunking**: Loads only relevant style guide sections to keep token usage efficient\n\n## Real-world use cases\n\nI use this daily for:\n- Cleaning up AI-generated blog drafts (removing em-dashes, hype words, and other tells)\n- Getting feedback on technical writing without automatic rewrites\n- Fixing weak introductions that bury the lead\n- Strengthening conclusions that trail off\n- Generating initial drafts that already sound like me\n\n## What makes it different\n\nMost writing tools either give you vague feedback or rewrite everything automatically. This plugin does both—and lets you choose:\n\n- `/review-writing` gives you specific problems to fix yourself\n- `/edit-draft` rewrites everything to match your style\n- `/improve-opening` or `/strengthen-ending` focus on specific sections\n- `/remove-ai-tells` quickly strips common AI patterns\n\nAll skills work with custom style guides, so the more you use it, the better it gets at matching your voice.\n\n## Setup\n\n1. Install: `/plugin install creative-writing@channel47`\n2. Try it immediately with `/edit-draft` or `/review-writing`\n3. (Optional) Create a custom style guide with `/generate-style-guide`\n\n## Example workflows\n\n**Quick cleanup:**\n```\n/remove-ai-tells\n```\nPaste your AI-generated draft. Gets back clean prose in seconds.\n\n**Thoughtful revision:**\n```\n/review-writing\n```\nGet specific feedback on what to change and why. You make the edits.\n\n**Full rewrite:**\n```\n/edit-draft\n```\nPaste your draft. The plugin rewrites it following style guide principles.\n\n**Custom style:**\n```\n/generate-style-guide\n```\nAnswer questions about your preferences. Save the guide, then use:\n```\n/edit-draft --style-guide docs/my-guide.md\n```\n\n## Available skills\n\n- `/edit-draft` - Rewrite content to match style guide\n- `/generate-content` - Create first drafts from prompts\n- `/review-writing` - Get feedback without automatic rewrites\n- `/improve-opening` - Fix first 1-3 paragraphs\n- `/strengthen-ending` - Improve conclusions\n- `/remove-ai-tells` - Strip common AI patterns (em-dashes, hype, etc.)\n- `/generate-style-guide` - Create personalized style guide via questionnaire\n\nSee the [Getting Started Guide](https://github.com/ctrlswing/channel47-marketplace/blob/main/plugins/creative-writing/GETTING_STARTED.md) for workflow tips and customization options.\n",
     "relatedPosts": []
   }
 ]

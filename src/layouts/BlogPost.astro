@@ -1,15 +1,21 @@
 ---
 // src/layouts/BlogPost.astro
 import BaseLayout from './BaseLayout.astro';
+import ToolsMentioned from '../components/ToolsMentioned.astro';
 
 interface Props {
   title: string;
   description: string;
   date: Date;
   tags?: string[];
+  toolsUsed?: Array<{
+    slug: string;
+    source: 'channel47' | 'external';
+    installCommand?: string;
+  }>;
 }
 
-const { title, description, date, tags = [] } = Astro.props;
+const { title, description, date, tags = [], toolsUsed } = Astro.props;
 const formattedDate = date.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
@@ -44,6 +50,10 @@ const formattedDate = date.toLocaleDateString('en-US', {
       prose-blockquote:border-coral-500 prose-blockquote:bg-cream-100/50 prose-blockquote:py-1">
       <slot />
     </div>
+
+    {toolsUsed && toolsUsed.length > 0 && (
+      <ToolsMentioned tools={toolsUsed} />
+    )}
 
     <footer class="mt-16 pt-8 border-t border-charcoal-800/10">
       <a href="/blog" class="text-coral-600 hover:underline">&larr; Back to blog</a>

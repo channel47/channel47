@@ -4,6 +4,9 @@ description: "How we went from design document to fully implemented Claude plugi
 date: 2025-12-21
 tags: ["claude-plugins","ai-development","subagent-driven-development","creative-writing","automation"]
 draft: true
+toolsUsed:
+  - slug: "creative-writing"
+    source: "channel47"
 heroImages:
   styleA: "/images/blog-heroes/conversation_2025-12-21_14-59-44/style-a.png"
   styleD: "/images/blog-heroes/conversation_2025-12-21_14-59-44/style-d.png"
@@ -33,11 +36,5 @@ I'm not saying this approach is perfect. The coordination overhead is real—you
 But here's what pushed me over the edge on this. Traditional development fails when one person tries to hold too much in their head at once. You forget things. You make inconsistent decisions. You get tired and start cutting corners. When each piece gets handled by a fresh perspective with a single clear focus, those problems mostly disappear. The implementer isn't thinking about code style. The reviewer isn't thinking about implementation details. Everything gets proper attention because nobody's trying to multitask.
 
 Whether you use AI subagents or actual humans, the pattern is the same. Break the work into discrete chunks. Give each chunk to someone with a single responsibility. Put quality gates between major steps. Make the handoffs clean.
-
----
-
-**Tools Used:** [Creative Writing Plugin](/plugins/creative-writing) - The plugin built using the process described in this article.
-
----
 
 I'm curious if this matches anyone else's experience. Have you found ways to prevent the mid-project entropy where everything's half-done and interconnected? Does deliberate specialization actually work at scale, or does it only feel good on these focused afternoon sessions?
