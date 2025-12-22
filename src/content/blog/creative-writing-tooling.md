@@ -34,4 +34,10 @@ But here's what pushed me over the edge on this. Traditional development fails w
 
 Whether you use AI subagents or actual humans, the pattern is the same. Break the work into discrete chunks. Give each chunk to someone with a single responsibility. Put quality gates between major steps. Make the handoffs clean.
 
+---
+
+**Tools Used:** [Creative Writing Plugin](/plugins/creative-writing) - The plugin built using the process described in this article.
+
+---
+
 I'm curious if this matches anyone else's experience. Have you found ways to prevent the mid-project entropy where everything's half-done and interconnected? Does deliberate specialization actually work at scale, or does it only feel good on these focused afternoon sessions?
