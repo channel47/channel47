@@ -1,15 +1,59 @@
 ---
 // src/components/Footer.astro
-const year = new Date().getFullYear();
+import '../styles/components/footer.css';
 ---
-<footer class="border-t border-charcoal-800/10 mt-auto">
-  <div class="max-w-5xl mx-auto px-6 py-8">
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-charcoal-700">
-      <p>&copy; {year} Channel 47. All rights reserved.</p>
-      <div class="flex items-center gap-4">
-        <a href="https://x.com/channel47" class="hover:text-coral-600 transition-colors">X/Twitter</a>
-        <a href="https://github.com/channel47" class="hover:text-coral-600 transition-colors">GitHub</a>
-      </div>
+<footer class="footer">
+  <div class="footer__content">
+    <p style="font-size: var(--text-sm); color: var(--color-text-muted);">
+      © 2025 Channel 47
+    </p>
+    <div class="footer__theme-toggle">
+      <button class="footer__theme-option" data-theme-option="light">Light</button>
+      <span style="color: var(--color-text-muted);">/</span>
+      <button class="footer__theme-option" data-theme-option="dark">Dark</button>
+      <span style="color: var(--color-text-muted);">/</span>
+      <button class="footer__theme-option footer__theme-option--active" data-theme-option="auto">Auto</button>
     </div>
   </div>
 </footer>
+
+<script>
+  const THEME_KEY = 'channel47-theme';
+
+  function applyTheme(theme: string) {
+    const html = document.documentElement;
+
+    if (theme === 'auto') {
+      html.removeAttribute('data-theme');
+    } else {
+      html.setAttribute('data-theme', theme);
+    }
+
+    // Update active state
+    document.querySelectorAll('.footer__theme-option').forEach(btn => {
+      const btnTheme = btn.getAttribute('data-theme-option');
+      if (btnTheme === theme) {
+        btn.classList.add('footer__theme-option--active');
+      } else {
+        btn.classList.remove('footer__theme-option--active');
+      }
+    });
+  }
+
+  function initTheme() {
+    const saved = localStorage.getItem(THEME_KEY) || 'auto';
+    applyTheme(saved);
+  }
+
+  // Apply theme immediately (before page renders)
+  initTheme();
+
+  // Add click handlers
+  document.querySelectorAll('.footer__theme-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const theme = btn.getAttribute('data-theme-option') || 'auto';
+      localStorage.setItem(THEME_KEY, theme);
+      applyTheme(theme);
+    });
+  });
+</script>
