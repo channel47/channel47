@@ -10,15 +10,17 @@ const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.val
 // Split into featured (latest) and archive (rest)
 const [featuredPost, ...archivePosts] = sortedPosts;
 
-// Weight mixing helper - first word bold, rest regular
+// Weight mixing helper - split at midpoint of words
 function splitTitle(title: string): { first: string; second: string } {
   const words = title.split(' ');
   if (words.length === 1) {
-    return { first: title, second: '' };
+    const mid = Math.ceil(title.length / 2);
+    return { first: title.slice(0, mid), second: title.slice(mid) };
   }
+  const midIndex = Math.ceil(words.length / 2);
   return {
-    first: words[0],
-    second: words.slice(1).join(' ')
+    first: words.slice(0, midIndex).join(' '),
+    second: words.slice(midIndex).join(' ')
   };
 }
 
@@ -48,10 +50,7 @@ function formatDate(date: Date): string {
               const titleParts = splitTitle(featuredPost.data.title);
               return (
                 <>
-                  <span style="font-weight: 800;">{titleParts.first}</span>
-                  {titleParts.second && (
-                    <span style="font-weight: 400;"> {titleParts.second}</span>
-                  )}
+                  <span style="font-weight: 800;">{titleParts.first}</span>{titleParts.second && <span style="font-weight: 400;"> {titleParts.second}</span>}
                 </>
               );
             })()}
