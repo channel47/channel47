@@ -1,1 +1,213 @@
-/* Plugin Spread Component Styles */
+/* Plugin Index Grid */
+.plugin-index {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--space-7);
+}
+
+.plugin-index__hero {
+  padding-top: var(--space-9);
+  padding-bottom: var(--space-7);
+}
+
+.plugin-index__title {
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-5);
+}
+
+.plugin-index__subtitle {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  max-width: 65ch;
+  line-height: var(--leading-relaxed);
+}
+
+.plugin-index__filters {
+  padding-bottom: var(--space-8);
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.plugin-filter {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-gray-400);
+  cursor: pointer;
+  transition: color 200ms ease-out;
+  padding: var(--space-2) 0;
+}
+
+.plugin-filter:hover {
+  color: var(--color-accent);
+}
+
+.plugin-filter--active {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* Plugin Spreads Grid */
+.plugin-spreads {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-6);
+}
+
+/* Spread Size Variants */
+.plugin-spread {
+  display: block;
+  padding: var(--space-7) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.plugin-spread:first-child {
+  border-top: none;
+}
+
+.plugin-spread--featured {
+  grid-column: span 12;
+  padding: var(--space-9) 0;
+}
+
+.plugin-spread--large {
+  grid-column: span 8;
+}
+
+.plugin-spread--medium {
+  grid-column: span 6;
+}
+
+.plugin-spread--small {
+  grid-column: span 4;
+}
+
+/* Spread Anatomy */
+.plugin-spread__category {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.plugin-spread__name {
+  margin-bottom: var(--space-4);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  transition: color 200ms ease-out;
+}
+
+.plugin-spread:hover .plugin-spread__name {
+  color: var(--color-accent);
+}
+
+.plugin-spread--featured .plugin-spread__name {
+  font-size: var(--text-4xl);
+}
+
+.plugin-spread--large .plugin-spread__name {
+  font-size: var(--text-2xl);
+}
+
+.plugin-spread--medium .plugin-spread__name {
+  font-size: var(--text-xl);
+}
+
+.plugin-spread--small .plugin-spread__name {
+  font-size: var(--text-lg);
+}
+
+.plugin-spread__description {
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+  max-width: 65ch;
+  margin-bottom: var(--space-4);
+}
+
+.plugin-spread--featured .plugin-spread__description {
+  font-size: var(--text-lg);
+}
+
+.plugin-spread--large .plugin-spread__description {
+  font-size: var(--text-base);
+}
+
+.plugin-spread--medium .plugin-spread__description,
+.plugin-spread--small .plugin-spread__description {
+  font-size: var(--text-base);
+}
+
+.plugin-spread__meta {
+  font-size: var(--text-xs);
+  color: var(--color-gray-400);
+  display: flex;
+  gap: var(--space-3);
+}
+
+.plugin-spread__code {
+  margin-top: var(--space-5);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--text-sm);
+  background-color: var(--color-gray-100);
+  padding: var(--space-4);
+  border-radius: 4px;
+  color: var(--color-text);
+}
+
+/* Responsive */
+@media (max-width: 1023px) {
+  .plugin-spread--large,
+  .plugin-spread--medium,
+  .plugin-spread--small {
+    grid-column: span 12;
+  }
+
+  .plugin-spread--large .plugin-spread__name {
+    font-size: var(--text-2xl);
+  }
+
+  .plugin-spread--medium .plugin-spread__name,
+  .plugin-spread--small .plugin-spread__name {
+    font-size: var(--text-xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .plugin-index {
+    padding: 0 var(--space-6);
+  }
+
+  .plugin-index__hero {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-6);
+  }
+
+  .plugin-index__title {
+    font-size: var(--text-3xl);
+  }
+
+  .plugin-spreads {
+    display: block;
+  }
+
+  .plugin-spread {
+    padding: var(--space-6) 0;
+  }
+
+  .plugin-spread--featured {
+    padding: var(--space-8) 0;
+  }
+
+  .plugin-spread--featured .plugin-spread__name {
+    font-size: var(--text-3xl);
+  }
+}
