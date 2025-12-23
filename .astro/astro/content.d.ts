@@ -141,6 +141,13 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"blog": {
+"2025-12-22_ai-workflow-branded-search.md": {
+	id: "2025-12-22_ai-workflow-branded-search.md";
+  slug: "2025-12-22_ai-workflow-branded-search";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "creative-writing-tooling.md": {
 	id: "creative-writing-tooling.md";
   slug: "creative-writing-tooling";
@@ -160,6 +167,13 @@ declare module 'astro:content' {
 "creative-writing.md": {
 	id: "creative-writing.md";
   slug: "creative-writing";
+  body: string;
+  collection: "plugins";
+  data: InferEntrySchema<"plugins">
+} & { render(): Render[".md"] };
+"google-ads.md": {
+	id: "google-ads.md";
+  slug: "google-ads";
   body: string;
   collection: "plugins";
   data: InferEntrySchema<"plugins">
