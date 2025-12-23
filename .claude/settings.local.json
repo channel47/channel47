@@ -56,7 +56,8 @@
       "Bash(tree:*)",
       "Bash(mv:*)",
       "Bash(wc:*)",
-      "Bash(gh pr view:*)"
+      "Bash(gh pr view:*)",
+      "Bash(git rebase:*)"
     ]
   }
 }
