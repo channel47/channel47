@@ -1,5 +1,5 @@
 ---
-featured: false
+featured: true
 draft: false
 ---
 
@@ -21,6 +21,7 @@ Setup takes 10 minutes (OAuth + API credentials), but once configured you can in
 ## Real-world use cases
 
 I use this for:
+
 - Finding search terms with spend but no conversions (negative keyword candidates)
 - Investigating performance drops: "Why did campaign X cost more this week?"
 - Quick stakeholder answers: "What's our CTR for brand campaigns this month?"
@@ -29,6 +30,7 @@ I use this for:
 - Ad-hoc checks: "Show me all paused ads with high historical CTR"
 
 The LLM understands context, so you can ask follow-up questions naturally:
+
 - "Now show me those same metrics for last quarter"
 - "Which of these campaigns have the lowest conversion rates?"
 - "Add those search terms as negative keywords"
@@ -36,6 +38,7 @@ The LLM understands context, so you can ask follow-up questions naturally:
 ## What makes it different
 
 Instead of:
+
 - Learning GAQL syntax and field names
 - Clicking through Google Ads UI tabs and filters
 - Exporting to spreadsheets for basic analysis
@@ -57,6 +60,7 @@ You just ask. The LLM translates your intent into GAQL queries, interprets resul
 The wizard walks through each step with direct links and copy-paste instructions. Once configured, credentials persist across sessions.
 
 **Quick troubleshooting:**
+
 - If queries fail with "invalid_grant": Refresh token expired (common if OAuth app in Testing mode). Re-run `/setup` and skip to Phase 5.
 - If MCP server won't connect: Verify all 5 environment variables in settings.json, then restart Claude Code.
 
@@ -65,6 +69,7 @@ See the [Getting Started Guide](https://github.com/ctrlswing/channel47-marketpla
 ## Example workflows
 
 **Find negative keyword opportunities:**
+
 ```
 "Analyze search terms for account 1234567890 in the last 30 days"
 "Show me terms with spend but zero conversions"
@@ -72,6 +77,7 @@ See the [Getting Started Guide](https://github.com/ctrlswing/channel47-marketpla
 ```
 
 **Investigate performance drops:**
+
 ```
 "Compare campaign metrics week over week for account 1234567890"
 "Why did cost increase for Brand Campaign?"
@@ -79,6 +85,7 @@ See the [Getting Started Guide](https://github.com/ctrlswing/channel47-marketpla
 ```
 
 **Quick stakeholder questions:**
+
 ```
 "What's our overall CTR this month?"
 "List top 5 campaigns by conversion rate"
@@ -86,6 +93,7 @@ See the [Getting Started Guide](https://github.com/ctrlswing/channel47-marketpla
 ```
 
 **Advanced GAQL queries:**
+
 ```
 "Run this GAQL query for account 1234567890:
 SELECT campaign.name, metrics.cost_micros, metrics.conversions
@@ -97,9 +105,11 @@ ORDER BY metrics.cost_micros DESC"
 ## Available commands & skills
 
 **Setup:**
+
 - `/setup` - Interactive wizard for OAuth and API configuration
 
 **Skills:**
+
 - `/gaql-query-guide` - Reference for constructing GAQL queries and understanding available fields
 
 **Agents:**
@@ -107,11 +117,13 @@ The negative keyword hunter agent triggers automatically when you mention negati
 
 **Natural language queries:**
 Just ask questions directly:
+
 - "List my Google Ads accounts"
 - "Find search terms with zero conversions for account X"
 - "Show me campaign performance for last week"
 
 The MCP server provides two tools accessible via natural language:
+
 - Account listing (shows all accounts under your MCC)
 - GAQL query execution (runs any valid Google Ads Query Language query)
 
