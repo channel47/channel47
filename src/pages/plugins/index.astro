@@ -105,10 +105,7 @@ function splitName(name: string): { first: string; second: string } {
             </div>
 
             <h2 class="plugin-spread__name">
-              <span style="font-weight: 800;">{nameParts.first}</span>
-              {nameParts.second && (
-                <span style="font-weight: 400;">{nameParts.second}</span>
-              )}
+              <span style="font-weight: 800;">{nameParts.first}</span>{nameParts.second && <span style="font-weight: 400;">{nameParts.second}</span>}
             </h2>
 
             <p class="plugin-spread__description">
