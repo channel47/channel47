@@ -22,5 +22,23 @@
         "date": "2025-12-21T00:00:00.000Z"
       }
     ]
+  },
+  {
+    "name": "google-ads",
+    "source": "./plugins/google-ads",
+    "description": "Query Google Ads data using GAQL with OAuth authentication",
+    "version": "1.0.0",
+    "author": {
+      "name": "Jackson"
+    },
+    "category": "marketing",
+    "tags": [
+      "google-ads",
+      "gaql",
+      "marketing",
+      "analytics",
+      "ppc"
+    ],
+    "relatedPosts": []
   }
 ]
