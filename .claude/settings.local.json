@@ -51,7 +51,12 @@
       "Bash(npx tsc:*)",
       "Bash(node -e:*)",
       "Bash(git log:*)",
-      "Bash(git grep:*)"
+      "Bash(git grep:*)",
+      "Skill(superpowers:systematic-debugging)",
+      "Bash(tree:*)",
+      "Bash(mv:*)",
+      "Bash(wc:*)",
+      "Bash(gh pr view:*)"
     ]
   }
 }
