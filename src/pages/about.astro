@@ -1,35 +1,41 @@
 ---
-// src/pages/about.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/components/home.css';
 ---
-<BaseLayout title="About" description="About Channel 47 and the person behind it.">
-  <section class="max-w-5xl mx-auto px-6 py-16">
-    <div class="max-w-2xl">
-      <h1 class="text-3xl font-bold text-charcoal-900">About Channel 47</h1>
 
-      <div class="mt-8 prose prose-charcoal">
-        <p class="text-lg text-charcoal-700 leading-relaxed">
-          Channel 47 is a collection of tools, skills, and insights for people who
-          use Claude Code and other AI coding assistants every day.
+<BaseLayout
+  title="About"
+  description="About Channel 47 and these Claude Code tools."
+>
+  <div class="home-section">
+    <div style="max-width: 42rem;">
+      <h1 style="
+        font-size: var(--text-4xl);
+        font-weight: 700;
+        line-height: var(--leading-tight);
+        letter-spacing: -0.02em;
+        margin-bottom: var(--space-6);
+      ">
+        About Channel 47
+      </h1>
+
+      <div style="
+        font-size: var(--text-lg);
+        color: var(--color-text-muted);
+        line-height: var(--leading-relaxed);
+      ">
+        <p style="margin-bottom: var(--space-6);">
+          This is a personal collection of Claude Code tools I've built and vetted. I'm a developer who spends too much time in Claude Code, so I built the extensions I wanted to exist.
         </p>
 
-        <p class="mt-4 text-charcoal-700 leading-relaxed">
-          Everything here comes from real work. I build these tools because I need them,
-          then share what works. No theory, no fluff—just practical stuff from the trenches.
+        <p style="margin-bottom: var(--space-6);">
+          Everything here is free and open source. Some plugins I built myself. Others I found, tested thoroughly, and recommend. If it's listed here, I use it in my own work.
         </p>
 
-        <h2 class="text-xl font-semibold text-charcoal-900 mt-10 mb-4">The name</h2>
-        <p class="text-charcoal-700 leading-relaxed">
-          Channel 47 is a nod to the UHF channels of old—slightly off the beaten path,
-          where you'd find the interesting stuff. This is that channel for AI-assisted development.
-        </p>
-
-        <h2 class="text-xl font-semibold text-charcoal-900 mt-10 mb-4">Get in touch</h2>
-        <p class="text-charcoal-700 leading-relaxed">
-          Find me on <a href="https://x.com/channel47" class="text-coral-600 hover:underline">X/Twitter</a>
-          or <a href="mailto:hello@channel47.dev" class="text-coral-600 hover:underline">email me</a>.
+        <p>
+          The blog covers workflows, patterns, and occasional deep dives into how these tools actually work under the hood.
         </p>
       </div>
     </div>
-  </section>
+  </div>
 </BaseLayout>
