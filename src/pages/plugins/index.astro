@@ -54,7 +54,7 @@ function splitName(name: string): { first: string; second: string } {
   if (words.length > 1) {
     return {
       first: words[0],
-      second: words.slice(1).join(' ')
+      second: ' ' + words.slice(1).join(' ')
     };
   }
 
