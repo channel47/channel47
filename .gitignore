@@ -11,3 +11,4 @@ dist/
 public/images/blog-heroes/**/style-a.png
 public/images/blog-heroes/**/style-d.png
 .vercel
+style/
