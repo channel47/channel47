@@ -1,1 +1,62 @@
-/* Header Component Styles */
+/* Header Component */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: var(--color-bg);
+  transition: transform 200ms ease-out;
+}
+
+.header--hidden {
+  transform: translateY(-100%);
+}
+
+.header__nav {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-7);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__wordmark {
+  font-size: var(--text-lg);
+  color: var(--color-text);
+}
+
+.header__wordmark-light {
+  font-weight: 400;
+}
+
+.header__wordmark-bold {
+  font-weight: 700;
+}
+
+.header__links {
+  display: flex;
+  gap: var(--space-6);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+.header__link {
+  color: var(--color-text-muted);
+  transition: color 200ms ease-out;
+}
+
+.header__link:hover {
+  color: var(--color-accent);
+}
+
+@media (max-width: 768px) {
+  .header__nav {
+    padding: var(--space-4) var(--space-6);
+  }
+
+  .header__links {
+    gap: var(--space-5);
+  }
+}
