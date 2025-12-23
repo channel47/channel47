@@ -65,10 +65,17 @@ html {
 }
 
 body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background-color: var(--color-bg);
   color: var(--color-text);
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);
+}
+
+main {
+  flex: 1;
 }
 
 a {
