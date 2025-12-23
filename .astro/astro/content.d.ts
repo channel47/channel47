@@ -164,6 +164,13 @@ declare module 'astro:content' {
 } & { render(): Render[".md"] };
 };
 "plugins": {
+"ascii-art.md": {
+	id: "ascii-art.md";
+  slug: "ascii-art";
+  body: string;
+  collection: "plugins";
+  data: InferEntrySchema<"plugins">
+} & { render(): Render[".md"] };
 "creative-writing.md": {
 	id: "creative-writing.md";
   slug: "creative-writing";
