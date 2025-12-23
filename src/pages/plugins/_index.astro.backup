@@ -1,0 +1,78 @@
+---
+// src/pages/plugins/index.astro
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import mergedPlugins from '../../data/merged-plugins.json';
+
+const plugins = await getCollection('plugins', ({ data }) => !data.draft);
+
+// Merge with marketplace data
+const enrichedPlugins = plugins.map(plugin => {
+  const marketplaceData = mergedPlugins.find(p => p.name === plugin.slug);
+  return { ...plugin, marketplaceData };
+});
+
+// Get unique categories
+const categories = ['all', ...new Set(mergedPlugins.map(p => p.category))];
+---
+
+<BaseLayout title="Plugins" description="Battle-tested Claude Code plugins from daily workflows.">
+  <section class="max-w-5xl mx-auto px-6 py-16">
+    <h1 class="text-4xl font-bold text-charcoal-900">Plugins</h1>
+    <p class="mt-4 text-lg text-charcoal-700 max-w-2xl">
+      Battle-tested Claude Code plugins from daily workflows. All free. Quality over quantity.
+    </p>
+
+    {/* Filter Bar - Static for now */}
+    <div class="mt-8 flex gap-4 text-sm flex-wrap">
+      {categories.map(cat => (
+        <button
+          class={`px-4 py-2 rounded-lg transition-colors capitalize ${
+            cat === 'all'
+              ? 'bg-charcoal-900 text-white'
+              : 'text-charcoal-700 hover:bg-charcoal-100'
+          }`}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    {/* Plugin Grid */}
+    <div class="mt-12">
+      {enrichedPlugins.length === 0 ? (
+        <p class="text-charcoal-600">Plugins coming soon. Check back later.</p>
+      ) : (
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {enrichedPlugins.map(({ slug, data, marketplaceData }) => (
+            <a
+              href={`/plugins/${slug}`}
+              class="group block p-6 border border-charcoal-800/10 rounded-xl hover:border-coral-600/30 hover:shadow-lg transition-all"
+            >
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-medium text-coral-600 uppercase tracking-wide">
+                  {marketplaceData?.category || 'plugin'}
+                </span>
+                {data.featured && (
+                  <span class="text-xs font-medium text-charcoal-700 uppercase tracking-wide px-2 py-1 bg-charcoal-100 rounded">
+                    ★
+                  </span>
+                )}
+              </div>
+              <h2 class="mt-2 text-lg font-semibold text-charcoal-900 group-hover:text-coral-600 transition-colors">
+                {marketplaceData?.name || slug}
+              </h2>
+              <p class="mt-2 text-sm text-charcoal-600 line-clamp-2">
+                {marketplaceData?.description || ''}
+              </p>
+              <div class="mt-4 flex items-center justify-between text-xs text-charcoal-500">
+                <span>by {marketplaceData?.author || 'Unknown'}</span>
+                <span>v{marketplaceData?.version || '0.0.0'}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

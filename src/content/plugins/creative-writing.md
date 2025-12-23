@@ -1,5 +1,5 @@
 ---
-featured: true
+featured: false
 draft: false
 ---
 
@@ -19,6 +19,7 @@ Transform your writing from AI-generated patterns to clear, honest prose. This p
 ## Real-world use cases
 
 I use this daily for:
+
 - Cleaning up AI-generated blog drafts (removing em-dashes, hype words, and other tells)
 - Getting feedback on technical writing without automatic rewrites
 - Fixing weak introductions that bury the lead
@@ -45,28 +46,37 @@ All skills work with custom style guides, so the more you use it, the better it 
 ## Example workflows
 
 **Quick cleanup:**
+
 ```
 /remove-ai-tells
 ```
+
 Paste your AI-generated draft. Gets back clean prose in seconds.
 
 **Thoughtful revision:**
+
 ```
 /review-writing
 ```
+
 Get specific feedback on what to change and why. You make the edits.
 
 **Full rewrite:**
+
 ```
 /edit-draft
 ```
+
 Paste your draft. The plugin rewrites it following style guide principles.
 
 **Custom style:**
+
 ```
 /generate-style-guide
 ```
+
 Answer questions about your preferences. Save the guide, then use:
+
 ```
 /edit-draft --style-guide docs/my-guide.md
 ```

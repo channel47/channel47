@@ -171,9 +171,44 @@ declare module 'astro:content' {
   collection: "plugins";
   data: InferEntrySchema<"plugins">
 } & { render(): Render[".md"] };
+"database-explorer.md": {
+	id: "database-explorer.md";
+  slug: "database-explorer";
+  body: string;
+  collection: "plugins";
+  data: InferEntrySchema<"plugins">
+} & { render(): Render[".md"] };
+"frontend-design.md": {
+	id: "frontend-design.md";
+  slug: "frontend-design";
+  body: string;
+  collection: "plugins";
+  data: InferEntrySchema<"plugins">
+} & { render(): Render[".md"] };
 "google-ads.md": {
 	id: "google-ads.md";
   slug: "google-ads";
+  body: string;
+  collection: "plugins";
+  data: InferEntrySchema<"plugins">
+} & { render(): Render[".md"] };
+"mcp-builder.md": {
+	id: "mcp-builder.md";
+  slug: "mcp-builder";
+  body: string;
+  collection: "plugins";
+  data: InferEntrySchema<"plugins">
+} & { render(): Render[".md"] };
+"pr-review-toolkit.md": {
+	id: "pr-review-toolkit.md";
+  slug: "pr-review-toolkit";
+  body: string;
+  collection: "plugins";
+  data: InferEntrySchema<"plugins">
+} & { render(): Render[".md"] };
+"vercel.md": {
+	id: "vercel.md";
+  slug: "vercel";
   body: string;
   collection: "plugins";
   data: InferEntrySchema<"plugins">
