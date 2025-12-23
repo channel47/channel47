@@ -11,6 +11,9 @@ tags:
     "api-integration",
     "systematic-processes",
   ]
+toolsUsed:
+  - slug: "google-ads"
+    source: "channel47"
 heroImages:
   styleA: null
   styleD: null
