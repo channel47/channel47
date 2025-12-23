@@ -37,17 +37,15 @@ function getSpreadSize(index: number, isFeatured: boolean): string {
   return 'small';
 }
 
-// Split plugin names for weight mixing
+// Split plugin names for weight mixing - first word bold, rest regular
 function splitName(name: string): { first: string; second: string } {
   const words = name.split(' ');
   if (words.length === 1) {
-    const mid = Math.ceil(name.length / 2);
-    return { first: name.slice(0, mid), second: name.slice(mid) };
+    return { first: name, second: '' };
   }
-  const midIndex = Math.ceil(words.length / 2);
   return {
-    first: words.slice(0, midIndex).join(' '),
-    second: words.slice(midIndex).join(' ')
+    first: words[0],
+    second: words.slice(1).join(' ')
   };
 }
 ---
@@ -95,7 +93,7 @@ function splitName(name: string): { first: string; second: string } {
             </div>
 
             <h2 class="plugin-spread__name">
-              <span style="font-weight: 700;">{nameParts.first}</span>
+              <span style="font-weight: 800;">{nameParts.first}</span>
               {nameParts.second && (
                 <span style="font-weight: 400;"> {nameParts.second}</span>
               )}
