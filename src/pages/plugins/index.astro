@@ -147,4 +147,24 @@ function splitName(name: string): { first: string; second: string } {
       });
     });
   });
+
+  // Scroll-triggered fade-in (optional)
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('plugin-spread--visible');
+            entry.target.classList.remove('plugin-spread--animate');
+          }, index * 50); // Stagger by 50ms
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  document.querySelectorAll('.plugin-spread').forEach((spread) => {
+    spread.classList.add('plugin-spread--animate');
+    observer.observe(spread);
+  });
 </script>
