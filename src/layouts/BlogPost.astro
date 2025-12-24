@@ -2,6 +2,7 @@
 // src/layouts/BlogPost.astro
 import BaseLayout from './BaseLayout.astro';
 import ToolsMentioned from '../components/ToolsMentioned.astro';
+import '../styles/components/blog-post.css';
 
 interface Props {
   title: string;
@@ -16,47 +17,52 @@ interface Props {
 }
 
 const { title, description, date, tags = [], toolsUsed } = Astro.props;
+
+// Format date for display - uppercase month
 const formattedDate = date.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric'
-});
+}).toUpperCase();
 ---
-<BaseLayout title={title} description={description}>
-  <article class="max-w-3xl mx-auto px-6 py-16">
-    <header class="mb-12">
-      <div class="flex items-center gap-2 text-sm text-charcoal-500 mb-4">
-        <time datetime={date.toISOString()}>{formattedDate}</time>
-        {tags.length > 0 && (
-          <>
-            <span>·</span>
-            <div class="flex gap-2">
-              {tags.map((tag) => (
-                <span class="text-coral-600">{tag}</span>
-              ))}
-            </div>
-          </>
-        )}
-      </div>
-      <h1 class="text-3xl sm:text-4xl font-bold text-charcoal-900 leading-tight">{title}</h1>
-      <p class="mt-4 text-lg text-charcoal-600">{description}</p>
-    </header>
 
-    <div class="prose prose-charcoal prose-lg max-w-none
-      prose-headings:font-semibold prose-headings:text-charcoal-900
-      prose-a:text-coral-600 prose-a:no-underline hover:prose-a:underline
-      prose-code:bg-charcoal-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-      prose-pre:bg-charcoal-900 prose-pre:text-cream-100
-      prose-blockquote:border-coral-500 prose-blockquote:bg-cream-100/50 prose-blockquote:py-1">
-      <slot />
+<BaseLayout title={title} description={description}>
+  <article class="editorial-article">
+    <!-- Hero Area -->
+    <div class="article-hero">
+      <time class="article-meta" datetime={date.toISOString()}>
+        {formattedDate}
+      </time>
+      <h1 class="article-title">{title}</h1>
+      <p class="article-lead">{description}</p>
     </div>
 
+    <!-- Content -->
+    <div class="article-content">
+      <div class="prose prose-lg max-w-none
+        prose-headings:font-semibold prose-headings:text-[var(--color-text)]
+        prose-p:text-[var(--color-text)] prose-p:leading-relaxed
+        prose-a:text-[var(--color-accent)] prose-a:no-underline hover:prose-a:underline
+        prose-code:bg-[var(--color-gray-100)] prose-code:text-[var(--color-text)] prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
+        prose-pre:bg-[var(--color-gray-100)] prose-pre:text-[var(--color-text)] prose-pre:border prose-pre:border-[var(--color-border)] prose-pre:p-6
+        prose-blockquote:border-l-[var(--color-accent)] prose-blockquote:pl-4 prose-blockquote:italic
+        prose-strong:text-[var(--color-text)] prose-strong:font-semibold
+        prose-ul:text-[var(--color-text)] prose-ol:text-[var(--color-text)]
+        prose-li:text-[var(--color-text)]">
+        <slot />
+      </div>
+    </div>
+
+    <!-- Tools Mentioned Section -->
     {toolsUsed && toolsUsed.length > 0 && (
-      <ToolsMentioned tools={toolsUsed} />
+      <section class="article-section">
+        <ToolsMentioned tools={toolsUsed} />
+      </section>
     )}
 
-    <footer class="mt-16 pt-8 border-t border-charcoal-800/10">
-      <a href="/blog" class="text-coral-600 hover:underline">&larr; Back to blog</a>
+    <!-- Footer -->
+    <footer class="article-footer">
+      <a href="/blog">&larr; Back to blog</a>
     </footer>
   </article>
 </BaseLayout>
