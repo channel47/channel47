@@ -39,18 +39,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
 
     <!-- Content -->
     <div class="article-content">
-      <div class="prose prose-lg max-w-none
-        prose-headings:font-semibold prose-headings:text-[var(--color-text)]
-        prose-p:text-[var(--color-text)] prose-p:leading-relaxed
-        prose-a:text-[var(--color-accent)] prose-a:no-underline hover:prose-a:underline
-        prose-code:bg-[var(--color-gray-100)] prose-code:text-[var(--color-text)] prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
-        prose-pre:bg-[var(--color-gray-100)] prose-pre:text-[var(--color-text)] prose-pre:border prose-pre:border-[var(--color-border)] prose-pre:p-6
-        prose-blockquote:border-l-[var(--color-accent)] prose-blockquote:pl-4 prose-blockquote:italic
-        prose-strong:text-[var(--color-text)] prose-strong:font-semibold
-        prose-ul:text-[var(--color-text)] prose-ol:text-[var(--color-text)]
-        prose-li:text-[var(--color-text)]">
-        <slot />
-      </div>
+      <slot />
     </div>
 
     <!-- Tools Mentioned Section -->
