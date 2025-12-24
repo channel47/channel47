@@ -2,37 +2,95 @@
 // src/pages/blog/index.astro
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/components/blog-index.css';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
 const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
----
-<BaseLayout title="Blog" description="Insights and tutorials from building with Claude Code.">
-  <section class="max-w-5xl mx-auto px-6 py-16">
-    <h1 class="text-3xl font-bold text-charcoal-900">Blog</h1>
-    <p class="mt-4 text-lg text-charcoal-700 max-w-2xl">
-      Real stories from building with AI coding assistants. No theory—just what actually works.
-    </p>
 
-    <div class="mt-12">
-      {sortedPosts.length === 0 ? (
-        <p class="text-charcoal-600">Posts coming soon. Check back later.</p>
-      ) : (
-        <ul class="space-y-8">
-          {sortedPosts.map((post) => (
-            <li class="border-b border-charcoal-800/10 pb-8">
-              <a href={`/blog/${post.slug}`} class="group">
-                <h2 class="text-xl font-semibold text-charcoal-900 group-hover:text-coral-600 transition-colors">
-                  {post.data.title}
-                </h2>
-                <p class="mt-2 text-charcoal-600">{post.data.description}</p>
-                <time class="mt-2 block text-sm text-charcoal-500">
-                  {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+// Split into featured (latest) and archive (rest)
+const [featuredPost, ...archivePosts] = sortedPosts;
+
+// Weight mixing helper - split at midpoint of words
+function splitTitle(title: string): { first: string; second: string } {
+  const words = title.split(' ');
+  if (words.length === 1) {
+    const mid = Math.ceil(title.length / 2);
+    return { first: title.slice(0, mid), second: title.slice(mid) };
+  }
+  const midIndex = Math.ceil(words.length / 2);
+  return {
+    first: words.slice(0, midIndex).join(' '),
+    second: words.slice(midIndex).join(' ')
+  };
+}
+
+// Format date
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+---
+
+<BaseLayout
+  title="Blog"
+  description="Insights and tutorials from building with Claude Code."
+>
+  <div class="blog-index">
+    {featuredPost && (
+      <section class="blog-featured">
+        <a href={`/blog/${featuredPost.slug}`}>
+          <time class="blog-featured__date">
+            {formatDate(featuredPost.data.date)}
+          </time>
+          <h1 class="blog-featured__title">
+            {(() => {
+              const titleParts = splitTitle(featuredPost.data.title);
+              return (
+                <>
+                  <span style="font-weight: 800;">{titleParts.first}</span>{titleParts.second && <span style="font-weight: 400;"> {titleParts.second}</span>}
+                </>
+              );
+            })()}
+          </h1>
+          <p class="blog-featured__excerpt">
+            {featuredPost.data.description}
+          </p>
+        </a>
+      </section>
+    )}
+
+    {archivePosts.length > 0 && (
+      <section class="blog-archive">
+        <h2 class="blog-archive__title">Archive</h2>
+        <div class="blog-archive__list">
+          {archivePosts.map((post) => (
+            <article class="blog-archive__item">
+              <a href={`/blog/${post.slug}`}>
+                <time class="blog-archive__item-date">
+                  {formatDate(post.data.date)}
                 </time>
+                <h3 class="blog-archive__item-title">
+                  {post.data.title}
+                </h3>
+                <p class="blog-archive__item-description">
+                  {post.data.description}
+                </p>
               </a>
-            </li>
+            </article>
           ))}
-        </ul>
-      )}
-    </div>
-  </section>
+        </div>
+      </section>
+    )}
+
+    {sortedPosts.length === 0 && (
+      <section class="blog-featured">
+        <p style="color: var(--color-text-muted);">
+          Posts coming soon. Check back later.
+        </p>
+      </section>
+    )}
+  </div>
 </BaseLayout>
