@@ -1,0 +1,204 @@
+/* Plugin Page Editorial Layout */
+
+/* Reuse article structure from blog-post.css */
+.editorial-article {
+  max-width: 65ch;
+  margin: 0 auto;
+  padding: 0 var(--space-7);
+}
+
+.article-hero {
+  padding-top: var(--space-10);
+  padding-bottom: var(--space-9);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.article-meta {
+  display: block;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+
+.article-title {
+  font-size: var(--text-5xl);
+  font-weight: 800;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  margin-bottom: var(--space-5);
+}
+
+.article-lead {
+  font-size: var(--text-xl);
+  font-weight: 400;
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-muted);
+}
+
+.article-content {
+  padding-top: var(--space-9);
+  padding-bottom: var(--space-9);
+}
+
+.article-section {
+  margin-top: var(--space-9);
+  margin-bottom: var(--space-9);
+}
+
+.section-header {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.article-footer {
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-10);
+  border-top: 1px solid var(--color-border);
+}
+
+.article-footer a {
+  font-size: var(--text-sm);
+  color: var(--color-accent);
+  transition: opacity 200ms ease-out;
+}
+
+.article-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Editorial Block - Installation, etc. */
+.editorial-block {
+  border: 1px solid var(--color-border);
+  padding: var(--space-6);
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+.editorial-block__intro {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-4);
+}
+
+.editorial-block__code {
+  background: var(--color-gray-100);
+  border: 1px solid var(--color-border);
+  padding: var(--space-5);
+  font-family: 'JetBrains Mono', 'Monaco', 'Courier New', monospace;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.editorial-block__meta {
+  margin-top: var(--space-4);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+/* Collapsible Details (marketplace setup) */
+.editorial-block details {
+  margin-bottom: var(--space-4);
+}
+
+.editorial-block summary {
+  font-size: var(--text-sm);
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: opacity 200ms ease-out;
+}
+
+.editorial-block summary:hover {
+  opacity: 0.7;
+}
+
+.editorial-block details > div {
+  margin-top: var(--space-3);
+  padding: var(--space-4);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+}
+
+/* Related Posts List */
+.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.related-list__item {
+  margin-bottom: var(--space-4);
+}
+
+.related-list__item:last-child {
+  margin-bottom: 0;
+}
+
+.related-list__link {
+  color: var(--color-accent);
+  transition: opacity 200ms ease-out;
+}
+
+.related-list__link:hover {
+  text-decoration: underline;
+}
+
+.related-list__date {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-left: var(--space-2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .editorial-article {
+    padding: 0 var(--space-5);
+  }
+
+  .article-hero {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-7);
+  }
+
+  .article-title {
+    font-size: var(--text-3xl);
+  }
+
+  .article-lead {
+    font-size: var(--text-lg);
+  }
+
+  .article-content {
+    padding-top: var(--space-7);
+    padding-bottom: var(--space-7);
+  }
+
+  .article-section {
+    margin-top: var(--space-7);
+    margin-bottom: var(--space-7);
+  }
+
+  .editorial-block {
+    padding: var(--space-5);
+    margin-top: var(--space-7);
+    margin-bottom: var(--space-7);
+  }
+
+  .article-footer {
+    padding-top: var(--space-7);
+    padding-bottom: var(--space-8);
+  }
+}
