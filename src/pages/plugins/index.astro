@@ -100,7 +100,7 @@ function splitName(name: string): { first: string; second: string } {
             class={`plugin-spread plugin-spread--${size}`}
             data-category={marketplaceData?.category || 'uncategorized'}
           >
-            <div class="plugin-spread__category">
+            <div class="plugin-spread__category" data-category={marketplaceData?.category}>
               {marketplaceData?.category || 'plugin'}
             </div>
 

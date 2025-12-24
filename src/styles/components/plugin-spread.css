@@ -91,11 +91,35 @@
 
 /* Spread Anatomy */
 .plugin-spread__category {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
   font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+  line-height: 1;
   margin-bottom: var(--space-3);
+}
+
+.plugin-spread__category[data-category="writing"] {
+  background: var(--color-accent-coral-light);
+  color: var(--color-accent-coral);
+}
+
+.plugin-spread__category[data-category="marketing"] {
+  background: var(--color-accent-green-light);
+  color: var(--color-accent-green);
+}
+
+.plugin-spread__category[data-category="development"] {
+  background: var(--color-accent-purple-light);
+  color: var(--color-accent-purple);
+}
+
+.plugin-spread__category:not([data-category]) {
+  background: var(--color-accent-blue-light);
+  color: var(--color-accent-blue);
 }
 
 .plugin-spread__name {
