@@ -2,7 +2,7 @@
 
 /* Reuse article structure from blog-post.css */
 .editorial-article {
-  max-width: 65ch;
+  max-width: 60ch;
   margin: 0 auto;
   padding: 0 var(--space-7);
 }

@@ -1,7 +1,7 @@
 /* Blog Post Editorial Layout */
 
 .editorial-article {
-  max-width: 65ch;
+  max-width: 60ch;
   margin: 0 auto;
   padding: 0 var(--space-7);
 }
@@ -62,9 +62,9 @@
 /* Prose/Content Typography */
 .article-content p {
   font-size: var(--text-lg);
-  line-height: var(--leading-relaxed);
+  line-height: 1.75;
   color: var(--color-text);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-7);
 }
 
 .article-content p:last-child {
@@ -129,8 +129,8 @@
   padding: var(--space-6);
   border-radius: 0.25rem;
   overflow-x: auto;
-  margin-top: var(--space-6);
-  margin-bottom: var(--space-6);
+  margin-top: var(--space-7);
+  margin-bottom: var(--space-7);
 }
 
 .article-content pre code {
@@ -145,22 +145,23 @@
   padding-left: var(--space-5);
   font-style: italic;
   color: var(--color-text-muted);
-  margin-top: var(--space-6);
-  margin-bottom: var(--space-6);
+  line-height: 1.75;
+  margin-top: var(--space-7);
+  margin-bottom: var(--space-7);
 }
 
 .article-content ul,
 .article-content ol {
   margin-top: var(--space-5);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-7);
   padding-left: var(--space-6);
 }
 
 .article-content li {
   font-size: var(--text-lg);
-  line-height: var(--leading-relaxed);
+  line-height: 1.75;
   color: var(--color-text);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-4);
 }
 
 .article-content li:last-child {
