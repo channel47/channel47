@@ -7,7 +7,7 @@
 
 /* Featured Section - Latest Post */
 .blog-featured {
-  padding: var(--space-10) 0;
+  padding: var(--section-gap) 0;
   max-width: 65ch;
 }
 
@@ -102,7 +102,7 @@
   }
 
   .blog-featured {
-    padding: var(--space-8) 0;
+    padding: var(--content-gap) 0;
   }
 
   .blog-featured__title {

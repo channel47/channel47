@@ -2,7 +2,7 @@
 .home-section {
   max-width: 1280px;
   margin: 0 auto;
-  padding: var(--space-9) var(--space-7);
+  padding: var(--section-gap) var(--space-7);
 }
 
 .home-hero {
@@ -91,8 +91,14 @@
 }
 
 @media (max-width: 768px) {
+  :root {
+    --section-gap: 6rem;
+    --content-gap: 4rem;
+    --element-gap: 2rem;
+  }
+
   .home-section {
-    padding: var(--space-8) var(--space-6);
+    padding: var(--content-gap) var(--space-6);
   }
 
   .home-hero__title {
