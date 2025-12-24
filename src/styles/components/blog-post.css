@@ -208,6 +208,29 @@
     padding-bottom: var(--space-7);
   }
 
+  .article-content p,
+  .article-content li {
+    font-size: var(--text-base);
+  }
+
+  .article-content h2 {
+    font-size: var(--text-xl);
+    margin-top: var(--space-7);
+    margin-bottom: var(--space-4);
+  }
+
+  .article-content h3 {
+    font-size: var(--text-lg);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-3);
+  }
+
+  .article-content h4 {
+    font-size: var(--text-base);
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-3);
+  }
+
   .article-section {
     margin-top: var(--space-7);
     margin-bottom: var(--space-7);
