@@ -65,12 +65,12 @@
 
 .article-footer a {
   font-size: var(--text-sm);
-  color: var(--color-accent);
-  transition: opacity 200ms ease-out;
+  color: var(--color-text-muted);
+  transition: color 200ms ease-out;
 }
 
 .article-footer a:hover {
-  text-decoration: underline;
+  color: var(--color-accent-blue);
 }
 
 /* Editorial Block - Installation, etc. */
@@ -172,13 +172,15 @@
 }
 
 .article-content a {
-  color: var(--color-accent);
-  text-decoration: none;
-  transition: opacity 200ms ease-out;
+  color: var(--color-accent-blue);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color 200ms ease-out;
 }
 
 .article-content a:hover {
-  text-decoration: underline;
+  color: var(--color-accent-blue-hover);
 }
 
 .article-content strong {
