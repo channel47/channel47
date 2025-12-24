@@ -3,6 +3,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import mergedPlugins from '../../data/merged-plugins.json';
+import '../../styles/components/plugin-page.css';
 
 export async function getStaticPaths() {
   const plugins = await getCollection('plugins', ({ data }) => !data.draft);
@@ -30,68 +31,85 @@ type RelatedPost = {
 };
 
 const relatedPosts = (marketplaceData?.relatedPosts || []) as RelatedPost[];
+
+// Format metadata
+const version = marketplaceData?.version || '1.0.0';
+const category = marketplaceData?.category || 'tools';
+const name = marketplaceData?.name || plugin.slug;
+const description = marketplaceData?.description || '';
 ---
 
-<BaseLayout title={marketplaceData?.name || plugin.slug} description={marketplaceData?.description || ''}>
-  <article class="max-w-4xl mx-auto px-6 py-16">
-    {/* Header */}
-    <header class="mb-8">
-      <h1 class="text-4xl font-bold text-charcoal-900">{marketplaceData?.name || plugin.slug}</h1>
-      <p class="mt-4 text-xl text-charcoal-700">{marketplaceData?.description}</p>
-    </header>
-
-    {/* Install CTA */}
-    <div class="my-12 p-8 bg-cream-100 border border-charcoal-800/10 rounded-xl">
-      <h2 class="text-lg font-semibold text-charcoal-900 mb-4">Install</h2>
-
-      <details class="mb-4 group">
-        <summary class="cursor-pointer text-sm text-coral-600 hover:text-coral-700 mb-2">
-          First time? Add Channel 47 marketplace first
-        </summary>
-        <div class="mt-2 p-4 bg-white rounded-lg border border-charcoal-800/10">
-          <p class="text-sm text-charcoal-700 mb-2">Step 1: Add marketplace</p>
-          <code class="block p-3 bg-charcoal-900 text-cream-100 rounded text-sm font-mono">
-            /plugin marketplace add ctrlswing/channel47-marketplace
-          </code>
-        </div>
-      </details>
-
-      <div class="p-4 bg-white rounded-lg border border-charcoal-800/10">
-        <p class="text-sm text-charcoal-700 mb-2">Install plugin:</p>
-        <code class="block p-3 bg-charcoal-900 text-cream-100 rounded text-sm font-mono">
-          /plugin install {marketplaceData?.name}@channel47
-        </code>
+<BaseLayout title={name} description={description}>
+  <article class="editorial-article">
+    <!-- Hero Area -->
+    <div class="article-hero">
+      <div class="article-meta">
+        v{version} • {category.toUpperCase()}
       </div>
-
-      <div class="mt-4 flex gap-4 text-sm text-charcoal-600">
-        <span>v{marketplaceData?.version}</span>
-        <span>•</span>
-        <span class="capitalize">{marketplaceData?.category}</span>
-      </div>
+      <h1 class="article-title">{name}</h1>
+      <p class="article-lead">{description}</p>
     </div>
 
-    {/* Editorial Content */}
-    <div class="prose prose-lg max-w-none">
+    <!-- Installation Section -->
+    <section class="article-section">
+      <h2 class="section-header">Installation</h2>
+      <div class="editorial-block">
+        <details>
+          <summary>First time? Add Channel 47 marketplace first</summary>
+          <div>
+            <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-3);">
+              Step 1: Add marketplace
+            </p>
+            <code class="editorial-block__code">
+              /plugin marketplace add ctrlswing/channel47-marketplace
+            </code>
+          </div>
+        </details>
+
+        <p class="editorial-block__intro">Install plugin:</p>
+        <code class="editorial-block__code">
+          /plugin install {name}@channel47
+        </code>
+
+        <div class="editorial-block__meta">
+          <span>v{version}</span>
+          <span>•</span>
+          <span style="text-transform: capitalize;">{category}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <div class="article-content">
       <Content />
     </div>
 
-    {/* Related Posts - placeholder */}
+    <!-- Related Posts Section -->
     {relatedPosts.length > 0 && (
-      <div class="mt-12 p-6 bg-cream-100 rounded-xl">
-        <h3 class="text-lg font-semibold text-charcoal-900 mb-4">See it in action:</h3>
-        <ul class="space-y-3">
+      <section class="article-section">
+        <h2 class="section-header">See it in action</h2>
+        <ul class="related-list">
           {relatedPosts.map(post => (
-            <li>
-              <a href={`/blog/${post.slug}`} class="text-coral-600 hover:text-coral-700">
+            <li class="related-list__item">
+              <a href={`/blog/${post.slug}`} class="related-list__link">
                 {post.title}
               </a>
-              <span class="text-sm text-charcoal-600 ml-2">
-                {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+              <span class="related-list__date">
+                {new Date(post.date).toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric'
+                })}
               </span>
             </li>
           ))}
         </ul>
-      </div>
+      </section>
     )}
+
+    <!-- Footer -->
+    <footer class="article-footer">
+      <a href="/plugins">&larr; Back to plugins</a>
+    </footer>
   </article>
 </BaseLayout>
