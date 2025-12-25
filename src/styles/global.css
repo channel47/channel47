@@ -1,3 +1,6 @@
+/* Component Imports */
+@import './components/block-logo.css';
+
 /* Design Tokens */
 :root {
   /* Neutrals - Light Mode */
