@@ -1,16 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 24">
   <style>
     text {
+      fill: #0a0a0a;
       font-family: monospace;
-      font-size: 12px;
-      fill: #e85c5c;
-      letter-spacing: 0;
+      font-size: 8px;
+      line-height: 1;
+      white-space: pre;
+    }
+    @media (prefers-color-scheme: dark) {
+      text {
+        fill: #fafafa;
+      }
     }
   </style>
-  <text x="10" y="20"> ██████╗ ██╗  ██╗██╗  ██╗ ███████╗</text>
-  <text x="10" y="32">██╔════╝ ██║  ██║██║  ██║ ╚════██║</text>
-  <text x="10" y="44">██║      ███████║███████║     ██╔╝</text>
-  <text x="10" y="56">██║      ██╔══██║╚════██║    ██╔╝ </text>
-  <text x="10" y="68">╚██████╗ ██║  ██║     ██║    ██║  </text>
-  <text x="10" y="80"> ╚═════╝ ╚═╝  ╚═╝     ╚═╝    ╚═╝  </text>
+  <text x="2" y="8">█▀▀ █ █ █ █ ▀▀█</text>
+  <text x="2" y="16">█   █▀█ ▀▀█   █</text>
+  <text x="2" y="24">▀▀▀ ▀ ▀   ▀   ▀</text>
 </svg>
