@@ -12,9 +12,18 @@
   color: var(--color-accent);
 }
 
+.ascii-logo--small .ascii-logo__svg {
+  height: 50px;
+  width: auto;
+}
+
+.ascii-logo--large .ascii-logo__svg {
+  height: 80px;
+  width: auto;
+}
+
 .ascii-logo__svg {
   display: block;
-  height: auto;
   transition: opacity 200ms ease-out;
 }
 
