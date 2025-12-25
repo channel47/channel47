@@ -5,9 +5,9 @@ draft: false
 
 ## What it does
 
-Ask questions about your Google Ads data in plain English and get answers instantly. No GAQL syntax to memorize, no clicking through dashboards—just natural conversation with your campaigns, search terms, and performance metrics.
+Ask questions about your Google Ads data in plain English. Get answers instantly. No GAQL syntax to memorize. No clicking through dashboards. Just natural conversation with your campaigns, search terms, and performance metrics.
 
-Setup takes 10 minutes (OAuth + API credentials), but once configured you can investigate performance issues, find optimization opportunities, and answer stakeholder questions in seconds instead of hours.
+Setup takes 10 minutes. You'll configure OAuth and API credentials. After that, you can investigate performance issues, find optimization opportunities, and answer stakeholder questions in seconds instead of hours.
 
 ## Key Features
 
@@ -29,26 +29,21 @@ I use this for:
 - Comparing performance across campaigns without building reports
 - Ad-hoc checks: "Show me all paused ads with high historical CTR"
 
-The LLM understands context, so you can ask follow-up questions naturally:
+The LLM understands context. You can ask follow-up questions naturally:
 
-- "Now show me those same metrics for last quarter"
+- "Show me those same metrics for last quarter"
 - "Which of these campaigns have the lowest conversion rates?"
 - "Add those search terms as negative keywords"
 
 ## What makes it different
 
-Instead of:
+You don't need to learn GAQL syntax and field names. You don't need to click through Google Ads UI tabs and filters. You don't need to export to spreadsheets for basic analysis. You don't need to build custom reports for one-off questions.
 
-- Learning GAQL syntax and field names
-- Clicking through Google Ads UI tabs and filters
-- Exporting to spreadsheets for basic analysis
-- Building custom reports for one-off questions
-
-You just ask. The LLM translates your intent into GAQL queries, interprets results, and lets you drill down conversationally.
+You just ask. The LLM translates your intent into GAQL queries. It interprets results. You can drill down conversationally.
 
 ## Setup
 
-**Time investment:** ~10 minutes for initial OAuth configuration, then instant access forever.
+**Time investment:** ~10 minutes for initial OAuth configuration. After that, instant access forever.
 
 1. Install: `/plugin install google-ads@channel47`
 2. Run the setup wizard: `/setup`
@@ -57,7 +52,7 @@ You just ask. The LLM translates your intent into GAQL queries, interprets resul
    - Developer token from Google Ads API Center
    - Refresh token generation
 
-The wizard walks through each step with direct links and copy-paste instructions. Once configured, credentials persist across sessions.
+The wizard walks through each step with direct links and copy-paste instructions. Credentials persist across sessions once configured.
 
 **Quick troubleshooting:**
 
