@@ -45,7 +45,7 @@ Each subagent had one job. The implementers only built things. The spec reviewer
 
 ## What Happened
 
-By the fourth task, the system started batching similar work. The seven writing skills got handled efficiently without losing quality. Documentation tasks got bundled together near the end. README files, getting started guides, testing procedures, changelog, licensing, example configurations. All done by subagents that knew exactly what they were responsible for.
+By the fourth task, the system started batching similar work. The seven writing skills got handled efficiently without losing quality. Documentation tasks got bundled together near the end. This included README files, getting started guides, testing procedures, changelog, licensing, and example configurations. All done by subagents that knew exactly what they were responsible for.
 
 The final count was 17 commits across a complete plugin structure. All in one session. No half-finished branches. No "I'll come back to the docs later." Just done.
 

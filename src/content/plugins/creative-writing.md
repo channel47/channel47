@@ -30,7 +30,7 @@ Daily uses:
 
 Most writing tools either give you vague feedback or rewrite everything automatically. This plugin does both. You choose the approach.
 
-Use `/review-writing` to get specific problems to fix yourself. Use `/edit-draft` to rewrite everything to match your style. Use `/improve-opening` or `/strengthen-ending` to focus on specific sections. Use `/remove-ai-tells` to quickly strip common AI patterns.
+Use `/review-writing` to get specific problems. Fix them yourself. Use `/edit-draft` to rewrite everything to match your style. Use `/improve-opening` or `/strengthen-ending` to focus on specific sections. Use `/remove-ai-tells` to quickly strip common AI patterns.
 
 All skills work with custom style guides. The more you use it, the better it gets at matching your voice.
 
