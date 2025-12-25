@@ -47,5 +47,28 @@
         "date": "2025-12-22T00:00:00.000Z"
       }
     ]
+  },
+  {
+    "name": "ascii-art",
+    "source": "./plugins/ascii-art",
+    "description": "Generate ASCII art logos, banners, diagrams, and decorative text for CLI tools and documentation",
+    "version": "1.1.0",
+    "author": {
+      "name": "Jackson"
+    },
+    "category": "creative",
+    "tags": [
+      "ascii-art",
+      "cli",
+      "logos",
+      "banners",
+      "diagrams",
+      "text-art",
+      "creative",
+      "colors",
+      "effects"
+    ],
+    "editorialContent": "---\nfeatured: false\ndraft: false\n---\n\n## What it does\n\nGenerate ASCII art logos, banners, diagrams, and decorative text for CLI tools and documentation. Inspired by CLI agents like Claude Code and Gemini CLI that use ASCII art to create memorable brand experiences.\n\n## Key Features\n\n- **Logo generation**: Create large ASCII text logos in various font styles (block, slant, banner, small)\n- **Decorative banners**: Build customizable banners with multiple border styles\n- **ASCII boxes**: Wrap content in boxes with optional titles\n- **Diagrams**: Generate flowcharts, trees, tables, and architecture diagrams\n- **Freeform art**: Create ASCII art from text descriptions\n- **Text effects**: Apply shadow, 3D, outline, gradient, rainbow, neon, and glitch effects\n- **ANSI colors**: Full color support with gradients like sunset, ocean, and matrix\n\n## Real-world use cases\n\nI use this for:\n\n- Creating splash screens for CLI tools that leave a lasting impression\n- Adding visual structure to documentation with boxes and banners\n- Making README headers stand out with ASCII logos\n- Visualizing architecture and data flows in plain text\n- Adding personality to terminal output\n\n## What makes it different\n\nMost ASCII generators are web tools or standalone scripts. This plugin works directly in Claude Code, so you can generate and iterate on designs without leaving your workflow. Each skill is focused on a specific use case with sensible defaults and extensive customization options.\n\n## Setup\n\n1. Install: `/plugin install ascii-art@channel47`\n2. Try it immediately with `/generate-logo \"YOUR TEXT\"`\n\n## Example workflows\n\n**Create a startup logo:**\n\n```\n/generate-logo \"ACME\" --style block\n```\n\n```\n █████╗  ██████╗███╗   ███╗███████╗\n██╔══██╗██╔════╝████╗ ████║██╔════╝\n███████║██║     ██╔████╔██║█████╗\n██╔══██║██║     ██║╚██╔╝██║██╔══╝\n██║  ██║╚██████╗██║ ╚═╝ ██║███████╗\n╚═╝  ╚═╝ ╚═════╝╚═╝     ╚═╝╚══════╝\n```\n\n**Add a welcome banner:**\n\n```\n/generate-banner \"Welcome to My CLI\" --style rounded\n```\n\n```\n╭─────────────────────────────────╮\n│      Welcome to My CLI          │\n╰─────────────────────────────────╯\n```\n\n**Visualize a flow:**\n\n```\n/generate-diagram \"User clicks -> API validates -> Database saves\" --type flowchart\n```\n\n```\n┌─────────────┐     ┌─────────────┐     ┌─────────────┐\n│    User     │────▶│     API     │────▶│  Database   │\n│   clicks    │     │  validates  │     │    saves    │\n└─────────────┘     └─────────────┘     └─────────────┘\n```\n\n## Available skills\n\n- `/generate-logo` - Create large ASCII text logos in various font styles\n- `/generate-banner` - Create decorative banners with customizable borders\n- `/generate-box` - Wrap content in ASCII boxes with optional titles\n- `/generate-diagram` - Create flowcharts, trees, tables, and architecture diagrams\n- `/generate-art` - Generate freeform ASCII art from descriptions\n- `/text-effects` - Apply shadow, 3D, outline, and other effects to text\n\nSee the [Getting Started Guide](https://github.com/ctrlswing/channel47-marketplace/blob/main/plugins/ascii-art/GETTING_STARTED.md) for detailed usage and customization options.\n",
+    "relatedPosts": []
   }
 ]
