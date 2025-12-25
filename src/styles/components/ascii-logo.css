@@ -13,12 +13,12 @@
 }
 
 .ascii-logo--small .ascii-logo__svg {
-  height: 50px;
+  height: 40px;
   width: auto;
 }
 
 .ascii-logo--large .ascii-logo__svg {
-  height: 80px;
+  height: 70px;
   width: auto;
 }
 
