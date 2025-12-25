@@ -146,21 +146,21 @@ declare module 'astro:content' {
   slug: "2025-12-22_ai-workflow-branded-search";
   body: string;
   collection: "blog";
-  data: InferEntrySchema<"blog">
+  data: any
 } & { render(): Render[".md"] };
 "creative-writing-tooling.md": {
 	id: "creative-writing-tooling.md";
   slug: "creative-writing-tooling";
   body: string;
   collection: "blog";
-  data: InferEntrySchema<"blog">
+  data: any
 } & { render(): Render[".md"] };
 "hello-world.md": {
 	id: "hello-world.md";
   slug: "hello-world";
   body: string;
   collection: "blog";
-  data: InferEntrySchema<"blog">
+  data: any
 } & { render(): Render[".md"] };
 };
 "plugins": {
@@ -169,56 +169,21 @@ declare module 'astro:content' {
   slug: "ascii-art";
   body: string;
   collection: "plugins";
-  data: InferEntrySchema<"plugins">
+  data: any
 } & { render(): Render[".md"] };
 "creative-writing.md": {
 	id: "creative-writing.md";
   slug: "creative-writing";
   body: string;
   collection: "plugins";
-  data: InferEntrySchema<"plugins">
-} & { render(): Render[".md"] };
-"database-explorer.md": {
-	id: "database-explorer.md";
-  slug: "database-explorer";
-  body: string;
-  collection: "plugins";
-  data: InferEntrySchema<"plugins">
-} & { render(): Render[".md"] };
-"frontend-design.md": {
-	id: "frontend-design.md";
-  slug: "frontend-design";
-  body: string;
-  collection: "plugins";
-  data: InferEntrySchema<"plugins">
+  data: any
 } & { render(): Render[".md"] };
 "google-ads.md": {
 	id: "google-ads.md";
   slug: "google-ads";
   body: string;
   collection: "plugins";
-  data: InferEntrySchema<"plugins">
-} & { render(): Render[".md"] };
-"mcp-builder.md": {
-	id: "mcp-builder.md";
-  slug: "mcp-builder";
-  body: string;
-  collection: "plugins";
-  data: InferEntrySchema<"plugins">
-} & { render(): Render[".md"] };
-"pr-review-toolkit.md": {
-	id: "pr-review-toolkit.md";
-  slug: "pr-review-toolkit";
-  body: string;
-  collection: "plugins";
-  data: InferEntrySchema<"plugins">
-} & { render(): Render[".md"] };
-"vercel.md": {
-	id: "vercel.md";
-  slug: "vercel";
-  body: string;
-  collection: "plugins";
-  data: InferEntrySchema<"plugins">
+  data: any
 } & { render(): Render[".md"] };
 };
 
@@ -230,5 +195,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = typeof import("../../src/content/config.js");
+	export type ContentConfig = never;
 }
