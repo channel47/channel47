@@ -1,6 +1,6 @@
 ---
 // src/components/AsciiLogo.astro
-// ASCII-styled logo with terminal aesthetic
+// CH47 block-style SVG logo
 interface Props {
   size?: 'small' | 'large';
   showCursor?: boolean;
@@ -8,13 +8,11 @@ interface Props {
 
 const { size = 'small', showCursor = true } = Astro.props;
 import '../styles/components/ascii-logo.css';
+
+const height = size === 'small' ? 30 : 60;
 ---
 
 <a href="/" class={`ascii-logo ascii-logo--${size}`}>
-  <span class="ascii-logo__bracket">[</span>
-  <span class="ascii-logo__text">
-    <span class="ascii-logo__bold">Channel</span><span class="ascii-logo__light">47</span>
-  </span>
-  <span class="ascii-logo__bracket">]</span>
+  <img src="/logo.svg" alt="CH47" height={height} class="ascii-logo__svg" />
   {showCursor && <span class="ascii-logo__cursor"></span>}
 </a>

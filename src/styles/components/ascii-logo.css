@@ -2,10 +2,9 @@
 .ascii-logo {
   display: inline-flex;
   align-items: center;
-  font-family: 'JetBrains Mono', monospace;
-  color: var(--color-text);
-  gap: 0;
+  gap: 0.5rem;
   text-decoration: none;
+  color: var(--color-text);
   transition: color 200ms ease-out;
 }
 
@@ -13,35 +12,10 @@
   color: var(--color-accent);
 }
 
-.ascii-logo--small {
-  font-size: var(--text-sm);
-}
-
-.ascii-logo--large {
-  font-size: var(--text-lg);
-}
-
-.ascii-logo__bracket {
-  color: var(--color-gray-400);
-  font-weight: 300;
-  transition: color 200ms ease-out;
-}
-
-.ascii-logo:hover .ascii-logo__bracket {
-  color: var(--color-accent);
-}
-
-.ascii-logo__text {
-  padding: 0 0.25em;
-}
-
-.ascii-logo__bold {
-  font-weight: 700;
-}
-
-.ascii-logo__light {
-  font-weight: 300;
-  opacity: 0.8;
+.ascii-logo__svg {
+  display: block;
+  height: auto;
+  transition: opacity 200ms ease-out;
 }
 
 .ascii-logo__cursor {

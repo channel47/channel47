@@ -146,21 +146,21 @@ declare module 'astro:content' {
   slug: "2025-12-22_ai-workflow-branded-search";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "creative-writing-tooling.md": {
 	id: "creative-writing-tooling.md";
   slug: "creative-writing-tooling";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "hello-world.md": {
 	id: "hello-world.md";
   slug: "hello-world";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 };
 "plugins": {
@@ -169,21 +169,21 @@ declare module 'astro:content' {
   slug: "ascii-art";
   body: string;
   collection: "plugins";
-  data: any
+  data: InferEntrySchema<"plugins">
 } & { render(): Render[".md"] };
 "creative-writing.md": {
 	id: "creative-writing.md";
   slug: "creative-writing";
   body: string;
   collection: "plugins";
-  data: any
+  data: InferEntrySchema<"plugins">
 } & { render(): Render[".md"] };
 "google-ads.md": {
 	id: "google-ads.md";
   slug: "google-ads";
   body: string;
   collection: "plugins";
-  data: any
+  data: InferEntrySchema<"plugins">
 } & { render(): Render[".md"] };
 };
 
@@ -195,5 +195,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = never;
+	export type ContentConfig = typeof import("../../src/content/config.js");
 }

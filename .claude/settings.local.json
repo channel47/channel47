@@ -57,7 +57,10 @@
       "Bash(mv:*)",
       "Bash(wc:*)",
       "Bash(gh pr view:*)",
-      "Bash(git rebase:*)"
+      "Bash(git rebase:*)",
+      "Bash(git stash:*)",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "mcp__plugin_playwright_playwright__browser_take_screenshot"
     ]
   }
 }
