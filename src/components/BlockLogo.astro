@@ -1,0 +1,42 @@
+---
+interface Props {
+  variant?: 'short' | 'long';
+  size?: 'small' | 'medium' | 'large';
+  class?: string;
+  href?: string;
+}
+
+const {
+  variant = 'short',
+  size = 'medium',
+  class: className = '',
+  href
+} = Astro.props;
+
+// Read the appropriate ASCII art file
+const asciiFiles = {
+  short: '/ascii/ch47-short.txt',
+  long: '/ascii/channel47-long.txt'
+};
+
+const filePath = asciiFiles[variant];
+let asciiArt = '';
+
+try {
+  const response = await fetch(new URL(filePath, Astro.site || Astro.url.origin));
+  asciiArt = await response.text();
+} catch (error) {
+  console.error(`Failed to load ASCII art from ${filePath}:`, error);
+  asciiArt = 'CH47'; // Fallback
+}
+
+const ariaLabel = variant === 'short' ? 'Channel 47' : 'Channel 47 - Full Logo';
+---
+
+{href ? (
+  <a href={href} class={`block-logo-link ${className}`} aria-label={ariaLabel}>
+    <pre class={`block-logo block-logo--${size}`} aria-hidden="true">{asciiArt}</pre>
+  </a>
+) : (
+  <pre class={`block-logo block-logo--${size} ${className}`} role="img" aria-label={ariaLabel}>{asciiArt}</pre>
+)}
