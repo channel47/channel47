@@ -1,11 +1,11 @@
 ---
 // src/components/Header.astro
 import '../styles/components/header.css';
-import AsciiLogo from './AsciiLogo.astro';
+import BlockLogo from './BlockLogo.astro';
 ---
 <header class="header" id="main-header">
   <nav class="header__nav">
-    <AsciiLogo size="small" showCursor={false} />
+    <BlockLogo variant="short" size="small" href="/" />
     <div class="header__links">
       <a href="/blog" class="header__link">Blog</a>
       <a href="/plugins" class="header__link">Tools</a>
