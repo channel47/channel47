@@ -37,7 +37,12 @@ The LLM understands context. You can ask follow-up questions naturally:
 
 ## What makes it different
 
-You don't need to learn GAQL syntax and field names. You don't need to click through Google Ads UI tabs and filters. You don't need to export to spreadsheets for basic analysis. You don't need to build custom reports for one-off questions.
+You don't need to:
+
+- Learn GAQL syntax and field names
+- Click through Google Ads UI tabs and filters
+- Export to spreadsheets for basic analysis
+- Build custom reports for one-off questions
 
 You just ask. The LLM translates your intent into GAQL queries. It interprets results. You can drill down conversationally.
 
@@ -52,7 +57,7 @@ You just ask. The LLM translates your intent into GAQL queries. It interprets re
    - Developer token from Google Ads API Center
    - Refresh token generation
 
-The wizard walks through each step with direct links and copy-paste instructions. Credentials persist across sessions once configured.
+The wizard walks through each step with direct links and copy-paste instructions. Credentials persist across sessions after setup.
 
 **Quick troubleshooting:**
 
