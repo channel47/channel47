@@ -5,7 +5,7 @@ draft: false
 
 ## What it does
 
-Ask questions about your Google Ads data in plain English. Get answers instantly. No GAQL syntax to memorize. No clicking through dashboards. Just natural conversation with your campaigns, search terms, and performance metrics.
+Ask questions about your Google Ads data in plain English. Get answers instantly. No GAQL syntax to memorize. No clicking through dashboards.
 
 Setup takes 10 minutes. You'll configure OAuth and API credentials. After that, you can investigate performance issues, find optimization opportunities, and answer stakeholder questions in seconds instead of hours.
 
