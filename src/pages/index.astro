@@ -43,10 +43,17 @@ import '../styles/components/ascii-animations.css';
   <section class="section-divider">
     <div class="home-section">
       <div style="max-width: 32rem; margin: 0 auto;">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+          <AsciiHeader text="SUBSCRIBE" align="center" level="h2" ariaLabel="Get notified when I add new tools" />
+          <div style="margin-top: 1rem;">
+            <AsciiArt name="email-icon" position="divider" opacity={0.6} />
+          </div>
+        </div>
         <EmailSignup
-          title="New tools in your inbox"
-          description="I email when I publish something. That's about twice a month."
+          title="Get notified when I add new tools"
+          description="Usually once or twice a month. I only send updates when there's something genuinely useful."
           source="homepage"
+          hideTitle={true}
         />
       </div>
     </div>
