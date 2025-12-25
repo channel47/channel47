@@ -1,0 +1,20 @@
+---
+// src/components/AsciiLogo.astro
+// ASCII-styled logo with terminal aesthetic
+interface Props {
+  size?: 'small' | 'large';
+  showCursor?: boolean;
+}
+
+const { size = 'small', showCursor = true } = Astro.props;
+import '../styles/components/ascii-logo.css';
+---
+
+<a href="/" class={`ascii-logo ascii-logo--${size}`}>
+  <span class="ascii-logo__bracket">[</span>
+  <span class="ascii-logo__text">
+    <span class="ascii-logo__bold">Channel</span><span class="ascii-logo__light">47</span>
+  </span>
+  <span class="ascii-logo__bracket">]</span>
+  {showCursor && <span class="ascii-logo__cursor"></span>}
+</a>
