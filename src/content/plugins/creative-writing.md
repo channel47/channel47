@@ -5,7 +5,7 @@ draft: false
 
 ## What it does
 
-Transform your writing from AI-generated patterns to clear, honest prose. This plugin helps you write with your own voice—whether you're editing AI drafts or creating content from scratch.
+Transform your writing from AI-generated patterns to clear, honest prose. This plugin helps you write with your own voice. Use it to edit AI drafts or create content from scratch.
 
 ## Key Features
 
@@ -18,7 +18,7 @@ Transform your writing from AI-generated patterns to clear, honest prose. This p
 
 ## Real-world use cases
 
-I use this daily for:
+Daily uses:
 
 - Cleaning up AI-generated blog drafts (removing em-dashes, hype words, and other tells)
 - Getting feedback on technical writing without automatic rewrites
@@ -28,14 +28,11 @@ I use this daily for:
 
 ## What makes it different
 
-Most writing tools either give you vague feedback or rewrite everything automatically. This plugin does both—and lets you choose:
+Most writing tools either give you vague feedback or rewrite everything automatically. This plugin does both. You choose the approach.
 
-- `/review-writing` gives you specific problems to fix yourself
-- `/edit-draft` rewrites everything to match your style
-- `/improve-opening` or `/strengthen-ending` focus on specific sections
-- `/remove-ai-tells` quickly strips common AI patterns
+Use `/review-writing` to get specific problems. Fix them yourself. Use `/edit-draft` to rewrite everything to match your style. Use `/improve-opening` or `/strengthen-ending` to focus on specific sections. Use `/remove-ai-tells` to quickly strip common AI patterns.
 
-All skills work with custom style guides, so the more you use it, the better it gets at matching your voice.
+All skills work with custom style guides. The more you use it, the better it gets at matching your voice.
 
 ## Setup
 
