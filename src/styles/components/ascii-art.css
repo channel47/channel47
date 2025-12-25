@@ -1,0 +1,48 @@
+/* ASCII Art Component Styles */
+
+.ascii-art {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-text);
+  line-height: 1;
+  white-space: pre;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Position variants */
+.ascii-art--hero {
+  font-size: 1rem;
+  opacity: 0.6;
+}
+
+.ascii-art--divider {
+  font-size: 1rem;
+  opacity: 0.5;
+  text-align: center;
+}
+
+.ascii-art--sidebar {
+  font-size: 1rem;
+  opacity: 0.4;
+}
+
+.ascii-art--background {
+  font-size: 1rem;
+  opacity: 0.18;
+  position: absolute;
+  z-index: 0;
+}
+
+/* Responsive: hide background pieces on mobile */
+@media (max-width: 767px) {
+  .ascii-art--background {
+    display: none;
+  }
+}
+
+/* Custom opacity override */
+.ascii-art[style*="--opacity"] {
+  opacity: var(--opacity);
+}
