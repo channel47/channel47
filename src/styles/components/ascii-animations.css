@@ -1,0 +1,38 @@
+/* ASCII Animations - Scroll-triggered fade-in */
+
+.ascii-animate {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 250ms ease-out, transform 250ms ease-out;
+}
+
+.ascii-visible {
+  opacity: 1 !important; /* Override component opacity after animation */
+  transform: translateY(0);
+}
+
+/* Preserve component-specific opacity after animation */
+.ascii-art--hero.ascii-visible {
+  opacity: 0.6 !important;
+}
+
+.ascii-art--divider.ascii-visible {
+  opacity: 0.5 !important;
+}
+
+.ascii-art--sidebar.ascii-visible {
+  opacity: 0.4 !important;
+}
+
+.ascii-art--background.ascii-visible {
+  opacity: 0.18 !important;
+}
+
+.ascii-header.ascii-visible {
+  opacity: 1 !important;
+}
+
+/* Custom opacity values */
+.ascii-art[style*="--opacity"].ascii-visible {
+  opacity: var(--opacity) !important;
+}
