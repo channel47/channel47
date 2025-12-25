@@ -1,12 +1,11 @@
 ---
 // src/components/Header.astro
 import '../styles/components/header.css';
+import AsciiLogo from './AsciiLogo.astro';
 ---
 <header class="header" id="main-header">
   <nav class="header__nav">
-    <a href="/" class="header__wordmark">
-      <span class="header__wordmark-bold">Channel</span><span class="header__wordmark-light">47</span>
-    </a>
+    <AsciiLogo size="small" showCursor={true} />
     <div class="header__links">
       <a href="/blog" class="header__link">Blog</a>
       <a href="/plugins" class="header__link">Tools</a>

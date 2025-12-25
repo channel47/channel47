@@ -2,6 +2,7 @@
 // src/pages/plugins/index.astro
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AsciiIcon from '../../components/AsciiIcon.astro';
 import mergedPlugins from '../../data/merged-plugins.json';
 import '../../styles/components/plugin-spread.css';
 
@@ -94,12 +95,19 @@ function splitName(name: string): { first: string; second: string } {
         const name = marketplaceData?.name || slug;
         const nameParts = splitName(name);
 
+        const isAsciiArt = slug === 'ascii-art';
+        const category = marketplaceData?.category || 'default';
+
         return (
           <a
             href={`/plugins/${slug}`}
             class={`plugin-spread plugin-spread--${size}`}
             data-category={marketplaceData?.category || 'uncategorized'}
           >
+            <div class="plugin-spread__ascii-icon">
+              <AsciiIcon category={category} size="small" />
+            </div>
+
             <div class="plugin-spread__category" data-category={marketplaceData?.category}>
               {marketplaceData?.category || 'plugin'}
             </div>
@@ -117,6 +125,13 @@ function splitName(name: string): { first: string; second: string } {
               <span>·</span>
               <span>v{marketplaceData?.version || '0.0.0'}</span>
             </div>
+
+            {isAsciiArt && (
+              <div class="plugin-spread__ascii-preview">╭──────────╮
+│  ASCII   │
+│   ART    │
+╰──────────╯</div>
+            )}
 
             {size === 'featured' && marketplaceData?.name && (
               <div class="plugin-spread__code">

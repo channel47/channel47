@@ -64,6 +64,7 @@
 /* Spread Size Variants */
 .plugin-spread {
   display: block;
+  position: relative;
   padding: var(--space-7) 0;
   border-top: 1px solid var(--color-border);
   transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -94,6 +95,70 @@
 
 .plugin-spread--small {
   grid-column: span 4;
+}
+
+/* ASCII Watermark Icon */
+.plugin-spread__ascii-icon {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-4);
+  z-index: 0;
+}
+
+.plugin-spread:hover .plugin-spread__ascii-icon {
+  opacity: 0.15;
+}
+
+/* ASCII Art Preview (for ascii-art plugin) */
+.plugin-spread__ascii-preview {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--text-xs);
+  line-height: 1.2;
+  color: var(--color-text);
+  opacity: 0.6;
+  white-space: pre;
+  margin-top: var(--space-4);
+  padding: var(--space-3);
+  background: var(--color-gray-100);
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.plugin-spread:hover .plugin-spread__ascii-preview {
+  opacity: 0.9;
+}
+
+/* Featured Card ASCII Border */
+.plugin-spread--featured {
+  position: relative;
+}
+
+.plugin-spread--featured::before {
+  content: '┌';
+  position: absolute;
+  top: var(--space-5);
+  left: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--text-lg);
+  color: var(--color-gray-300);
+  opacity: 0.5;
+}
+
+.plugin-spread--featured::after {
+  content: '┘';
+  position: absolute;
+  bottom: var(--space-5);
+  right: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--text-lg);
+  color: var(--color-gray-300);
+  opacity: 0.5;
+}
+
+.plugin-spread--featured:hover::before,
+.plugin-spread--featured:hover::after {
+  color: var(--color-accent);
+  opacity: 0.7;
 }
 
 /* Spread Anatomy */
