@@ -2,9 +2,7 @@
 // src/pages/index.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EmailSignup from '../components/EmailSignup.astro';
-import AsciiArt from '../components/AsciiArt.astro';
 import '../styles/components/home.css';
-import '../styles/components/ascii-animations.css';
 ---
 <BaseLayout title="Home">
   <section class="home-section">
@@ -23,18 +21,12 @@ import '../styles/components/ascii-animations.css';
           Read the Blog
         </a>
       </div>
-      <div style="position: absolute; top: 2rem; right: 2rem;">
-        <AsciiArt name="hero-bird" position="hero" />
-      </div>
     </div>
   </section>
 
   <section class="section-divider">
     <div class="home-section">
       <h2 class="section-title">Latest from the blog</h2>
-      <div style="text-align: center; margin-top: 1rem;">
-        <AsciiArt name="tree-silhouette" position="divider" />
-      </div>
       <p style="color: var(--color-text-muted); text-align: center; margin-top: 2rem;">Posts coming soon...</p>
     </div>
   </section>
@@ -42,9 +34,6 @@ import '../styles/components/ascii-animations.css';
   <section class="section-divider">
     <div class="home-section">
       <div style="max-width: 32rem; margin: 0 auto;">
-        <div style="text-align: center; margin-bottom: 1rem;">
-          <AsciiArt name="email-icon" position="divider" opacity={0.6} />
-        </div>
         <EmailSignup
           title="New tools in your inbox"
           description="I email when I publish something. That's about twice a month."

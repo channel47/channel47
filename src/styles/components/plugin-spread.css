@@ -76,7 +76,6 @@
 
 .plugin-spread:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   border-color: var(--color-gray-300);
 }
 
@@ -128,38 +127,6 @@
   opacity: 0.9;
 }
 
-/* Featured Card ASCII Border */
-.plugin-spread--featured {
-  position: relative;
-}
-
-.plugin-spread--featured::before {
-  content: '┌';
-  position: absolute;
-  top: var(--space-5);
-  left: 0;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: var(--text-lg);
-  color: var(--color-gray-300);
-  opacity: 0.5;
-}
-
-.plugin-spread--featured::after {
-  content: '┘';
-  position: absolute;
-  bottom: var(--space-5);
-  right: 0;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: var(--text-lg);
-  color: var(--color-gray-300);
-  opacity: 0.5;
-}
-
-.plugin-spread--featured:hover::before,
-.plugin-spread--featured:hover::after {
-  color: var(--color-accent);
-  opacity: 0.7;
-}
 
 /* Spread Anatomy */
 .plugin-spread__category {
@@ -257,11 +224,6 @@
   padding: var(--space-4);
   border-radius: 4px;
   color: var(--color-text);
-}
-
-/* Dark Mode */
-[data-theme="dark"] .plugin-spread:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 /* Responsive */
