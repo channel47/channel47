@@ -185,6 +185,13 @@ declare module 'astro:content' {
   collection: "plugins";
   data: InferEntrySchema<"plugins">
 } & { render(): Render[".md"] };
+"prompt-enhancer.md": {
+	id: "prompt-enhancer.md";
+  slug: "prompt-enhancer";
+  body: string;
+  collection: "plugins";
+  data: InferEntrySchema<"plugins">
+} & { render(): Render[".md"] };
 };
 
 	};
