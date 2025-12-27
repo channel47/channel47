@@ -2,9 +2,10 @@
 // src/pages/plugins/index.astro
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import AsciiIcon from '../../components/AsciiIcon.astro';
+import AsciiPluginIcon from '../../components/AsciiPluginIcon.astro';
+import AsciiHeader from '../../components/AsciiHeader.astro';
 import mergedPlugins from '../../data/merged-plugins.json';
-import '../../styles/components/plugin-spread.css';
+import '../../styles/components/plugin-index.css';
 
 const plugins = await getCollection('plugins', ({ data }) => !data.draft);
 
@@ -26,114 +27,77 @@ enrichedPlugins.sort((a, b) => {
 });
 
 // Get unique categories
-const categories = ['all', ...new Set(mergedPlugins.map(p => p.category))];
+const categories = ['all', ...new Set(mergedPlugins.map(p => p.category).filter(Boolean))];
 
-// Assign spread sizes for asymmetric layout
-function getSpreadSize(index: number, isFeatured: boolean): string {
-  if (isFeatured) return 'featured';
-
-  const pattern = index % 5;
-  if (pattern === 0) return 'large';
-  if (pattern === 1 || pattern === 2) return 'medium';
-  return 'small';
-}
-
-// Split plugin names for weight mixing - first part (before hyphen) bold, rest regular
-function splitName(name: string): { first: string; second: string } {
-  // First try splitting on hyphens (common in plugin names)
-  if (name.includes('-')) {
-    const parts = name.split('-');
-    return {
-      first: parts[0],
-      second: '-' + parts.slice(1).join('-')
-    };
-  }
-
-  // Fallback: try splitting on spaces
-  const words = name.split(' ');
-  if (words.length > 1) {
-    return {
-      first: words[0],
-      second: words.slice(1).join(' ')
-    };
-  }
-
-  // Single word with no hyphens or spaces - keep as one weight
-  return { first: name, second: '' };
-}
+// Helper to format category for display
+const formatCategory = (cat: string) => cat === 'google-ads' ? 'Google Ads' : cat;
 ---
 
 <BaseLayout
   title="Plugins"
   description="Battle-tested Claude Code plugins from daily workflows."
 >
-  <div class="plugin-index">
-    <header class="plugin-index__hero">
-      <h1 class="plugin-index__title">
-        <span style="font-weight: 700;">Tools</span>
-        <span style="font-weight: 300;">that work</span>
-      </h1>
-      <p class="plugin-index__subtitle">
-        Battle-tested Claude Code plugins from daily workflows. All free. Quality over quantity.
-      </p>
-    </header>
-
-    <div class="plugin-index__filters">
-      <button class="plugin-filter plugin-filter--active" data-filter="all">
-        All
-      </button>
-      {categories.slice(1).map(cat => (
-        <button class="plugin-filter" data-filter={cat}>
-          {cat}
-        </button>
-      ))}
+  <div class="plugin-index-container">
+    <div class="plugin-header">
+      <AsciiHeader text="TOOLS" />
     </div>
 
-    <div class="plugin-spreads">
-      {enrichedPlugins.map(({ slug, data, marketplaceData, featured }, index) => {
-        const size = getSpreadSize(index, featured);
-        const name = marketplaceData?.name || slug;
-        const nameParts = splitName(name);
+    <div class="plugin-controls">
+      <div class="plugin-filters">
+        <button class="filter-btn active" data-filter="all">
+          [ All ]
+        </button>
+        {categories.slice(1).map(cat => (
+          <button class="filter-btn" data-filter={cat}>
+            {cat}
+          </button>
+        ))}
+      </div>
+    </div>
 
-        const isAsciiArt = slug === 'ascii-art';
-        const category = marketplaceData?.category || 'default';
+    <div class="plugin-grid">
+      {enrichedPlugins.map(({ slug, data, marketplaceData, featured }) => {
+        const name = marketplaceData?.name || slug;
+        const category = marketplaceData?.category || 'uncategorized';
+        // Handle nested author object or string, default to Unknown
+        const authorName = typeof marketplaceData?.author === 'object' 
+          ? marketplaceData.author.name 
+          : (marketplaceData?.author || 'Unknown');
 
         return (
           <a
             href={`/plugins/${slug}`}
-            class={`plugin-spread plugin-spread--${size}`}
-            data-category={marketplaceData?.category || 'uncategorized'}
+            class={`plugin-card ${featured ? 'plugin-card--featured' : ''}`}
+            data-category={category}
           >
-            <div class="plugin-spread__category" data-category={marketplaceData?.category}>
-              {marketplaceData?.category || 'plugin'}
+            <div class="plugin-card__content">
+              <div class="plugin-card__top">
+                <span class="plugin-card__category" data-category={category}>
+                  {category}
+                </span>
+                <span class="plugin-card__version">v{marketplaceData?.version || '0.0.0'}</span>
+              </div>
+
+              <h2 class="plugin-card__title">
+                {name}
+              </h2>
+
+              <p class="plugin-card__desc">
+                {marketplaceData?.description || ''}
+              </p>
             </div>
 
-            <h2 class="plugin-spread__name">
-              <span style="font-weight: 800;">{nameParts.first}</span>{nameParts.second && <span style="font-weight: 400;">{nameParts.second}</span>}
-            </h2>
-
-            <p class="plugin-spread__description">
-              {marketplaceData?.description || ''}
-            </p>
-
-            <div class="plugin-spread__meta">
-              <span>by {marketplaceData?.author || 'Unknown'}</span>
-              <span>·</span>
-              <span>v{marketplaceData?.version || '0.0.0'}</span>
-            </div>
-
-            {isAsciiArt && (
-              <div class="plugin-spread__ascii-preview">╭──────────╮
-│  ASCII   │
-│   ART    │
-╰──────────╯</div>
-            )}
-
-            {size === 'featured' && marketplaceData?.name && (
-              <div class="plugin-spread__code">
-                claude plugins install {marketplaceData.name}
+            {data.asciiIcon && (
+              <div class="plugin-card__icon">
+                <AsciiPluginIcon
+                  icon={data.asciiIcon}
+                  color={data.iconColor}
+                  size="large"
+                />
               </div>
             )}
+            
+            <div class="plugin-card__hover-indicator"></div>
           </a>
         );
       })}
@@ -143,46 +107,40 @@ function splitName(name: string): { first: string; second: string } {
 
 <script>
   // Category filter functionality
-  const filters = document.querySelectorAll('.plugin-filter');
-  const spreads = document.querySelectorAll('.plugin-spread');
+  const filters = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.plugin-card');
 
   filters.forEach(filter => {
     filter.addEventListener('click', () => {
       const category = filter.getAttribute('data-filter');
 
       // Update active state
-      filters.forEach(f => f.classList.remove('plugin-filter--active'));
-      filter.classList.add('plugin-filter--active');
+      filters.forEach(f => {
+        f.classList.remove('active');
+        if (f !== filter) {
+           f.textContent = f.textContent?.replace('[ ', '').replace(' ]', '');
+        }
+      });
+      
+      filter.classList.add('active');
+      if (!filter.textContent?.includes('[')) {
+        filter.textContent = `[ ${filter.textContent?.trim()} ]`;
+      }
 
-      // Filter spreads
-      spreads.forEach(spread => {
-        const spreadCategory = spread.getAttribute('data-category');
-        if (category === 'all' || spreadCategory === category) {
-          (spread as HTMLElement).style.display = 'block';
+      // Filter cards
+      cards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        if (category === 'all' || cardCategory === category) {
+          (card as HTMLElement).style.display = 'flex';
+          // Add fade in animation
+          (card as HTMLElement).style.opacity = '0';
+          setTimeout(() => {
+            (card as HTMLElement).style.opacity = '1';
+          }, 50);
         } else {
-          (spread as HTMLElement).style.display = 'none';
+          (card as HTMLElement).style.display = 'none';
         }
       });
     });
-  });
-
-  // Scroll-triggered fade-in (optional)
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('plugin-spread--visible');
-            entry.target.classList.remove('plugin-spread--animate');
-          }, index * 50); // Stagger by 50ms
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-
-  document.querySelectorAll('.plugin-spread').forEach((spread) => {
-    spread.classList.add('plugin-spread--animate');
-    observer.observe(spread);
   });
 </script>

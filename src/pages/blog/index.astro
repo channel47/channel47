@@ -2,6 +2,8 @@
 // src/pages/blog/index.astro
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AsciiHeader from '../../components/AsciiHeader.astro';
+import AsciiArt from '../../components/AsciiArt.astro';
 import '../../styles/components/blog-index.css';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -10,25 +12,11 @@ const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.val
 // Split into featured (latest) and archive (rest)
 const [featuredPost, ...archivePosts] = sortedPosts;
 
-// Weight mixing helper - split at midpoint of words
-function splitTitle(title: string): { first: string; second: string } {
-  const words = title.split(' ');
-  if (words.length === 1) {
-    const mid = Math.ceil(title.length / 2);
-    return { first: title.slice(0, mid), second: title.slice(mid) };
-  }
-  const midIndex = Math.ceil(words.length / 2);
-  return {
-    first: words.slice(0, midIndex).join(' '),
-    second: words.slice(midIndex).join(' ')
-  };
-}
-
 // Format date
 function formatDate(date: Date): string {
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
-    month: 'long',
+    month: 'short',
     day: 'numeric'
   });
 }
@@ -39,21 +27,25 @@ function formatDate(date: Date): string {
   description="Insights and tutorials from building with Claude Code."
 >
   <div class="blog-index">
+    <div class="blog-header-container">
+      <AsciiHeader text="BLOG" />
+      <div class="blog-decoration">
+        <AsciiArt name="blog-bird" position="background" opacity={0.1} />
+      </div>
+    </div>
+
     {featuredPost && (
       <section class="blog-featured">
-        <a href={`/blog/${featuredPost.slug}`}>
-          <time class="blog-featured__date">
-            {formatDate(featuredPost.data.date)}
-          </time>
+        <a href={`/blog/${featuredPost.slug}`} class="blog-featured__link">
+          <div class="blog-featured__meta">
+            <span class="blog-featured__label">Latest Post</span>
+            <span class="blog-featured__separator">/</span>
+            <time class="blog-featured__date">
+              {formatDate(featuredPost.data.date)}
+            </time>
+          </div>
           <h1 class="blog-featured__title">
-            {(() => {
-              const titleParts = splitTitle(featuredPost.data.title);
-              return (
-                <>
-                  <span style="font-weight: 800;">{titleParts.first}</span>{titleParts.second && <span style="font-weight: 400;"> {titleParts.second}</span>}
-                </>
-              );
-            })()}
+            {featuredPost.data.title}
           </h1>
           <p class="blog-featured__excerpt">
             {featuredPost.data.description}
@@ -64,20 +56,18 @@ function formatDate(date: Date): string {
 
     {archivePosts.length > 0 && (
       <section class="blog-archive">
-        <h2 class="blog-archive__title">Archive</h2>
         <div class="blog-archive__list">
           {archivePosts.map((post) => (
             <article class="blog-archive__item">
-              <a href={`/blog/${post.slug}`}>
-                <time class="blog-archive__item-date">
-                  {formatDate(post.data.date)}
-                </time>
+              <a href={`/blog/${post.slug}`} class="blog-archive__link">
+                <div class="blog-archive__meta">
+                  <time class="blog-archive__date">
+                    {formatDate(post.data.date)}
+                  </time>
+                </div>
                 <h3 class="blog-archive__item-title">
                   {post.data.title}
                 </h3>
-                <p class="blog-archive__item-description">
-                  {post.data.description}
-                </p>
               </a>
             </article>
           ))}
@@ -86,10 +76,8 @@ function formatDate(date: Date): string {
     )}
 
     {sortedPosts.length === 0 && (
-      <section class="blog-featured">
-        <p style="color: var(--color-text-muted);">
-          Posts coming soon. Check back later.
-        </p>
+      <section class="blog-empty">
+        <p>Posts coming soon.</p>
       </section>
     )}
   </div>

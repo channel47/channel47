@@ -1,59 +1,160 @@
 ---
 // src/components/Footer.astro
-import '../styles/components/footer.css';
+import SubscribeModal from './SubscribeModal.astro';
 ---
+
 <footer class="footer">
   <div class="footer__content">
-    <p style="font-size: var(--text-sm); color: var(--color-text-muted);">
-      © 2025 Channel 47
-    </p>
-    <div class="footer__theme-toggle">
-      <button class="footer__theme-option" data-theme-option="light">Light</button>
-      <span style="color: var(--color-text-muted);">/</span>
-      <button class="footer__theme-option" data-theme-option="dark">Dark</button>
-      <span style="color: var(--color-text-muted);">/</span>
-      <button class="footer__theme-option footer__theme-option--active" data-theme-option="auto">Auto</button>
-    </div>
+    <!-- Left: About / Signal -->
+    <a href="/blog" class="footer__item footer__item--left" aria-label="Channel 47 Blog">
+      <div class="ascii-art signal-icon">
+        <div class="layer layer--1">  |  </div>
+        <div class="layer layer--2"> -+- </div>
+        <div class="layer layer--3">/ | \</div>
+      </div>
+      <span class="label">Blog</span>
+    </a>
+
+    <!-- Right: Updates / Inbox -->
+    <button class="footer__item footer__item--right" id="updates-link" aria-label="Subscribe to Updates">
+      <span class="label">Updates</span>
+      <div class="ascii-art mail-icon">
+        <div class="layer layer--1"> \ / </div>
+        <div class="layer layer--2">--V--</div>
+        <div class="layer layer--3"> / \ </div>
+      </div>
+    </button>
   </div>
 </footer>
 
-<script>
-  const THEME_KEY = 'channel47-theme';
+<SubscribeModal />
 
-  function applyTheme(theme: string) {
-    const html = document.documentElement;
+<style>
+  .footer {
+    width: 100%;
+    margin-top: auto;
+    border-top: 1px solid transparent; /* Placeholder for potential border */
+    transition: border-color var(--transition-normal);
+  }
 
-    if (theme === 'auto') {
-      html.removeAttribute('data-theme');
-    } else {
-      html.setAttribute('data-theme', theme);
+  .footer__content {
+    max-width: var(--site-max-width);
+    margin: 0 auto;
+    padding: var(--space-4) var(--site-padding-x);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  /* When hovering over footer items, maybe show a subtle top border on footer? */
+  /* .footer:hover { border-top-color: var(--color-code-border); } */
+
+  .footer__item {
+    pointer-events: auto;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-text-muted);
+    transition: color 0.3s ease;
+    font-family: var(--font-mono);
+  }
+
+  .footer__item:hover {
+    color: var(--color-accent);
+  }
+
+  .ascii-art {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    font-weight: 700;
+    font-size: 12px;
+    white-space: pre;
+    user-select: none;
+  }
+
+  /* Shared Icon Animation (Signal + Mail) */
+  .signal-icon .layer--1, .mail-icon .layer--1 { transition: opacity 0.2s 0.2s; }
+  .signal-icon .layer--2, .mail-icon .layer--2 { transition: opacity 0.2s 0.1s; }
+  .signal-icon .layer--3, .mail-icon .layer--3 { transition: opacity 0.2s 0s; }
+
+  .footer__item:hover .signal-icon .layer,
+  .footer__item:hover .mail-icon .layer {
+    opacity: 1;
+    text-shadow: 0 0 8px var(--glow-primary);
+  }
+  
+  /* Pulse animation */
+  .footer__item:hover .signal-icon .layer--1, .footer__item:hover .mail-icon .layer--1 { animation: signal-pulse 1s infinite alternate 0s; }
+  .footer__item:hover .signal-icon .layer--2, .footer__item:hover .mail-icon .layer--2 { animation: signal-pulse 1s infinite alternate 0.2s; }
+  .footer__item:hover .signal-icon .layer--3, .footer__item:hover .mail-icon .layer--3 { animation: signal-pulse 1s infinite alternate 0.4s; }
+
+  @keyframes signal-pulse {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+  }
+
+  /* Mail Icon Specifics */
+  .mail-icon {
+    position: relative;
+  }
+
+  .footer__item:hover .mail-icon {
+    color: var(--color-accent);
+  }
+
+  /* Label Styling */
+  .label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transform: translateX(10px);
+    transition: all 0.3s ease;
+  }
+
+  .footer__item--left .label {
+    transform: translateX(-10px);
+    /* order: 2; Default order works for icon -> label */
+  }
+  
+  .footer__item--right .label {
+    transform: translateX(10px);
+    /* order: 1; Default order works for label -> icon */
+  }
+
+  .footer__item:hover .label {
+    opacity: 1;
+    max-width: 100px;
+    transform: translateX(0);
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    /* Padding is handled by --site-padding-x variable now */
+    
+    .label {
+      display: none; /* Hide labels on mobile to save space */
     }
+  }
+</style>
 
-    // Update active state
-    document.querySelectorAll('.footer__theme-option').forEach(btn => {
-      const btnTheme = btn.getAttribute('data-theme-option');
-      if (btnTheme === theme) {
-        btn.classList.add('footer__theme-option--active');
-      } else {
-        btn.classList.remove('footer__theme-option--active');
-      }
+<script>
+  const updatesLink = document.getElementById('updates-link');
+  if (updatesLink) {
+    updatesLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.dispatchEvent(new CustomEvent('open-subscribe-modal'));
     });
   }
-
-  function initTheme() {
-    const saved = localStorage.getItem(THEME_KEY) || 'auto';
-    applyTheme(saved);
-  }
-
-  // Apply theme immediately (before page renders)
-  initTheme();
-
-  // Add click handlers
-  document.querySelectorAll('.footer__theme-option').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const theme = btn.getAttribute('data-theme-option') || 'auto';
-      localStorage.setItem(THEME_KEY, theme);
-      applyTheme(theme);
-    });
-  });
 </script>

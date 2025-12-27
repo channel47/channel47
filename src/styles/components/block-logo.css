@@ -5,13 +5,31 @@
   white-space: pre;
   margin: 0;
   padding: 0;
-  transition: opacity 0.2s ease;
+  
+  /* Animation Setup */
+  display: block;
+  position: relative;
+  transform-origin: center center;
+  
+  /* Default State: Clean, standard text */
+  opacity: 1;
+  transform: scale(1);
+  
+  /* Return transition - Smooth Settle */
+  transition: 
+    transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), /* Bouncy settle back */
+    opacity 0.4s ease,
+    color 0.8s ease, /* Fade color slowly */
+    text-shadow 0.8s ease, /* Fade glow slowly */
+    filter 0.5s ease;
+    
+  will-change: transform, filter;
 }
 
 /* Size variants */
 .block-logo--small {
-  font-size: 0.5rem;
-  height: 40px;
+  font-size: 0.35rem;
+  height: 30px;
 }
 
 .block-logo--medium {
@@ -28,12 +46,129 @@
 .block-logo-link {
   display: inline-block;
   text-decoration: none;
-  transition: opacity 0.2s ease;
+  perspective: 1000px; /* Increased perspective for less extreme distortion */
+  position: relative;
+  z-index: 50; /* Base z-index */
 }
 
+/* Hover Effect: Unfold / Stand Up */
 .block-logo-link:hover .block-logo,
 .block-logo-link:focus .block-logo {
-  opacity: 0.7;
+  color: var(--color-interactive);
+  
+  /* Pop out effect */
+  transform: scale(1.05);
+  
+  /* Soft ambient glow when "active" */
+  text-shadow: 0 0 15px rgba(0, 255, 159, 0.4);
+}
+
+/* ========================================
+   GLOBAL DISTORTION EFFECT
+   ======================================== */
+
+/* When active, the body background goes dark/inverted */
+body.distortion-active {
+  background-color: var(--color-terminal-black);
+  overflow-x: hidden;
+}
+
+/* Add transitions to main/footer for the "return" state */
+main, footer {
+  /* Ensure these properties are animatable from their default state */
+  filter: invert(0) hue-rotate(0deg) contrast(1) blur(0px);
+  transform: scale(1) skewX(0deg);
+  opacity: 1;
+  /* Smooth "Healing" transition */
+  transition: 
+    filter 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), /* Slight settle */
+    opacity 0.7s ease;
+  will-change: filter, transform, opacity;
+}
+
+/* Distort Main Content & Footer */
+body.distortion-active main,
+body.distortion-active footer {
+  /* Dramatic color & shape shift */
+  filter: invert(100%) hue-rotate(180deg) contrast(1.2) blur(2px);
+  transform: scale(0.98) skewX(-1deg);
+  opacity: 0.5;
+  
+  pointer-events: none;
+  
+  /* Quick entry transition */
+  transition: 
+    filter 0.2s cubic-bezier(0.1, 0.9, 0.2, 1),
+    transform 0.3s cubic-bezier(0.1, 0.9, 0.2, 1),
+    opacity 0.2s ease;
+}
+
+/* Header Links Transitions */
+.header__links {
+  transition: all 0.5s ease-out; /* Return transition */
+}
+
+/* Distort Header Links (siblings of logo) */
+body.distortion-active .header__links {
+  filter: blur(6px) opacity(0.3);
+  transform: translateX(10px) scale(0.95);
+  transition: all 0.4s ease; /* Entry transition */
+}
+
+/* CRT Scanline / Noise Overlay */
+body.distortion-active::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /* Subtle scanline pattern */
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  z-index: 9000;
+  pointer-events: none;
+  animation: global-scan 0.2s linear infinite;
+  mix-blend-mode: overlay;
+  opacity: 0;
+  animation: fade-in-overlay 0.3s ease forwards;
+}
+
+@keyframes fade-in-overlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes global-scan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* Ensure Logo stays on top and looks "Hyper-Real" */
+body.distortion-active .block-logo-link {
+  z-index: 10000;
+}
+
+body.distortion-active .block-logo {
+  color: var(--color-interactive);
+  opacity: 1;
+  /* Dramatic pop-out for the anchor element */
+  transform: scale(1.15) translateY(5px); 
+  text-shadow: 
+    0 0 15px var(--color-interactive),
+    0 0 30px rgba(0, 255, 159, 0.5);
+    
+  /* Enhance the transition to match the heavy world shift */
+  transition: 
+    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), /* Bouncy pop */
+    color 0.2s ease,
+    text-shadow 0.2s ease;
 }
 
 /* Responsive adjustments */
@@ -41,5 +176,31 @@
   .block-logo--large {
     font-size: 1rem;
     height: 80px;
+  }
+}
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .block-logo {
+    transform: none;
+    transition: opacity 0.2s ease;
+  }
+  
+  .block-logo-link:hover .block-logo {
+    transform: none;
+    color: var(--color-interactive);
+    text-shadow: none;
+  }
+  
+  /* Disable global distortion */
+  body.distortion-active main,
+  body.distortion-active footer,
+  body.distortion-active .header__links,
+  body.distortion-active::after {
+    filter: none;
+    transform: none;
+    animation: none;
+    opacity: 1;
+    background: none;
   }
 }

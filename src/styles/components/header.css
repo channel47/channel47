@@ -14,12 +14,13 @@
 }
 
 .header__nav {
-  max-width: 1280px;
+  max-width: var(--site-max-width);
   margin: 0 auto;
-  padding: var(--space-4) var(--space-7);
+  padding: var(--space-4) var(--site-padding-x);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; /* Center the logo */
+  position: relative; /* Context for absolute positioning */
 }
 
 .header__wordmark {
@@ -40,23 +41,145 @@
   gap: var(--space-6);
   font-size: var(--text-sm);
   line-height: var(--leading-normal);
+  
+  /* Position absolute to remove from flow and keep logo centered */
+  position: absolute;
+  right: var(--site-padding-x);
+  top: 50%;
+  transform: translateY(-50%);
+  
+  /* Hidden by default to satisfy "only element" */
+  opacity: 0;
+  pointer-events: none; /* Prevent accidental clicks when hidden */
+  transition: opacity 0.2s ease-out;
+}
+
+/* Show links when hovering the header or when a link has focus */
+.header:hover .header__links,
+.header__links:focus-within {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Glitch animation for entrance */
+@keyframes glitch-appear {
+  0% { opacity: 0; transform: translateY(-50%) skew(0deg); }
+  20% { opacity: 1; transform: translateY(-50%) skew(-10deg); }
+  40% { opacity: 0.5; transform: translateY(-50%) skew(10deg); }
+  60% { opacity: 1; transform: translateY(-50%) skew(-5deg); }
+  80% { opacity: 0.8; transform: translateY(-50%) skew(5deg); }
+  100% { opacity: 1; transform: translateY(-50%) skew(0deg); }
+}
+
+.header:hover .header__links {
+  animation: glitch-appear 0.3s steps(5) forwards;
 }
 
 .header__link {
+  position: relative;
   color: var(--color-text-muted);
-  transition: color 200ms ease-out;
+  font-family: var(--font-mono);
+  font-weight: var(--weight-medium);
+  transition: color var(--transition-fast);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+}
+
+.header__link--icon {
+  gap: 0;
+  transition: gap 0.3s ease-out;
+}
+
+.header__link--icon:hover {
+  gap: var(--space-3);
+}
+
+.ascii-icon {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.8;
+  font-size: 10px;
+  font-weight: bold;
+  color: var(--color-interactive);
+  opacity: 0.8;
+  transition: opacity var(--transition-fast);
+}
+
+.header__link:hover .ascii-icon {
+  opacity: 1;
+}
+
+.header__link-text {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  transition: max-width 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Reveal text on hover of the icon */
+.header__link--icon:hover .header__link-text {
+  max-width: 60px;
+  opacity: 1;
 }
 
 .header__link:hover {
-  color: var(--color-accent);
+  color: var(--color-interactive);
+}
+
+/* Terminal cursor on hover removed for icon link, keeping for generic if needed but modifying selector */
+.header__link:not(.header__link--icon):hover::after {
+  content: "_";
+  color: var(--color-interactive);
+  font-family: var(--font-mono);
+  margin-left: 0.25rem;
+  animation: cursor-blink 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header__link:hover::after {
+    animation: none;
+    opacity: 1;
+  }
+  .header:hover .header__links {
+    animation: none;
+    opacity: 1;
+  }
 }
 
 @media (max-width: 768px) {
   .header__nav {
-    padding: var(--space-4) var(--space-6);
+    padding: var(--space-4) var(--site-padding-x);
   }
 
   .header__links {
     gap: var(--space-5);
+    
+    /* Mobile: Always faintly visible so it's accessible */
+    opacity: 0.5;
+    pointer-events: auto;
+    
+    /* Remove hover-based positioning shifts if any */
+    transform: translateY(-50%);
+    
+    /* Improve touch target */
+    padding: 0.5rem;
+    margin-right: -0.5rem;
+  }
+  
+  /* Tap interaction */
+  .header__links:active,
+  .header__links:focus-within {
+    opacity: 1;
+  }
+  
+  /* Disable glitch on mobile to prevent stuck states */
+  .header:hover .header__links {
+    animation: none;
+    opacity: 1; /* Ensure visibility if "hover" is triggered by tap */
   }
 }

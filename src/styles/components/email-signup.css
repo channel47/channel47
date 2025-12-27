@@ -22,35 +22,53 @@
 
 .email-signup__input {
   flex: 1;
-  padding: var(--space-4);
-  font-family: inherit;
-  font-size: var(--text-base);
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background-color: rgba(0, 0, 0, 0.2);
+  border: var(--border-width) var(--border-style) var(--color-border);
+  border-radius: var(--border-radius);
   color: var(--color-text);
+  transition: all var(--transition-fast);
 }
 
 .email-signup__input:focus {
   outline: none;
-  border-color: var(--color-accent);
+  border-color: var(--color-interactive);
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 3px rgba(0, 255, 159, 0.1);
+}
+
+.email-signup__input::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.6;
 }
 
 .email-signup__button {
-  padding: var(--space-4) var(--space-6);
-  font-family: inherit;
-  font-size: var(--text-base);
-  font-weight: 500;
-  background-color: var(--color-accent);
-  color: var(--color-white);
-  border: none;
-  border-radius: 4px;
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  background-color: var(--color-cta);
+  color: var(--color-terminal-black);
+  border: var(--border-width) var(--border-style) var(--color-cta);
+  border-radius: var(--border-radius);
   cursor: pointer;
-  transition: background-color 200ms ease-out;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.email-signup__button::before {
+  content: "▶ ";
 }
 
 .email-signup__button:hover {
-  background-color: #0039cc;
+  box-shadow: var(--glow-secondary);
+  transform: translateY(-1px);
+}
+
+.email-signup__button:active {
+  transform: translateY(0);
 }
 
 @media (max-width: 768px) {

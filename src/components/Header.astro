@@ -6,10 +6,15 @@ import BlockLogo from './BlockLogo.astro';
 <header class="header" id="main-header">
   <nav class="header__nav">
     <BlockLogo variant="short" size="small" href="/" />
+    
     <div class="header__links">
-      <a href="/blog" class="header__link">Blog</a>
-      <a href="/plugins" class="header__link">Tools</a>
-      <a href="/about" class="header__link">About</a>
+      <a href="/plugins" class="header__link header__link--icon" aria-label="Tools">
+        <span class="ascii-icon">
+          <span class="ascii-line">▄▀▄</span>
+          <span class="ascii-line">▀▄▀</span>
+        </span>
+        <span class="header__link-text">Tools</span>
+      </a>
     </div>
   </nav>
 </header>

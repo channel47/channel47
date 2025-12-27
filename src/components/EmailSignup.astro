@@ -10,8 +10,8 @@ interface Props {
 }
 
 const {
-  title = 'Get notified of new tools',
-  description = 'Updates when I publish something new.',
+  title = 'Updates',
+  description,
   source = 'unknown',
   hideTitle = false
 } = Astro.props;
@@ -19,7 +19,7 @@ const {
 
 <div class="email-signup">
   {!hideTitle && <h3 class="email-signup__title">{title}</h3>}
-  <p class="email-signup__description">{description}</p>
+  {description && <p class="email-signup__description">{description}</p>}
   <form class="email-signup__form" method="POST" action="/api/subscribe">
     <input
       type="email"

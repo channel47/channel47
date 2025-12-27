@@ -2,7 +2,7 @@
 // src/components/AsciiArt.astro
 // Displays decorative zen/organic ASCII pieces
 interface Props {
-  name: 'hero-bird' | 'tree-silhouette' | 'plugin-background' | 'blog-bird' | 'blog-leaf' | 'blog-mountain' | 'email-icon' | 'about-scene';
+  name: 'hero-bird' | 'tree-silhouette' | 'plugin-background' | 'blog-bird' | 'blog-leaf' | 'blog-mountain' | 'email-icon';
   position?: 'hero' | 'divider' | 'sidebar' | 'background';
   opacity?: number;
 }
@@ -17,7 +17,6 @@ import blogBird from '../ascii-assets/art/blog-bird.txt?raw';
 import blogLeaf from '../ascii-assets/art/blog-leaf.txt?raw';
 import blogMountain from '../ascii-assets/art/blog-mountain.txt?raw';
 import emailIcon from '../ascii-assets/art/email-icon.txt?raw';
-import aboutScene from '../ascii-assets/art/about-scene.txt?raw';
 
 const artMap: Record<string, string> = {
   'hero-bird': heroBird,
@@ -27,7 +26,6 @@ const artMap: Record<string, string> = {
   'blog-leaf': blogLeaf,
   'blog-mountain': blogMountain,
   'email-icon': emailIcon,
-  'about-scene': aboutScene,
 };
 
 const asciiArt = artMap[name];

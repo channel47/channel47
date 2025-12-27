@@ -7,6 +7,8 @@
   white-space: pre;
   margin: 0;
   padding: 0;
+  overflow-x: hidden; /* Prevent overflow if it's still too wide */
+  max-width: 100%;
 }
 
 .ascii-header--left {
@@ -21,14 +23,14 @@
   text-align: right;
 }
 
-/* Responsive sizing */
+/* Responsive sizing - Drastically reduced to fit seamlessly */
 .ascii-header {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: clamp(0.4rem, 1.5vw, 0.6rem);
 }
 
 @media (min-width: 768px) {
   .ascii-header {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(0.6rem, 1vw, 1rem);
   }
 }
 

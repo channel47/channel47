@@ -1,0 +1,335 @@
+---
+// src/components/TerminalHero.astro
+import '../styles/components/terminal-hero.css';
+
+// Simple block letters for WELCOME
+const welcomeAscii = `
+██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗
+██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝
+██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗  
+██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝  
+╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗
+ ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝
+`.trim();
+---
+<section class="terminal-hero">
+  <div class="terminal-hero__window">
+    <div class="terminal-hero__crt-overlay"></div>
+    <div class="terminal-hero__scanline"></div>
+    
+    <div class="terminal-hero__header">
+      <div class="terminal-hero__dots">
+        <span class="terminal-hero__dot terminal-hero__dot--close"></span>
+        <span class="terminal-hero__dot terminal-hero__dot--minimize"></span>
+        <span class="terminal-hero__dot terminal-hero__dot--maximize"></span>
+      </div>
+      <div class="terminal-hero__title"></div>
+    </div>
+    
+    <div class="terminal-hero__content" id="terminal-output" onclick="document.getElementById('terminal-input')?.focus()">
+      <!-- Boot Sequence -->
+      <div class="terminal-boot-sequence">
+        <pre class="terminal-ascii-logo" aria-label="WELCOME">{welcomeAscii}</pre>
+        <div class="terminal-system-info">
+          <pre class="terminal-info-banner">+---------------------------------------+
+| CHANNEL 47 OS [Version 1.0.0]         |
+| Battle-tested tools for AI workflows. |
++---------------------------------------+</pre>
+          <br/>
+          <p>Type <span class="terminal-cmd-highlight">help</span> or <span class="terminal-cmd-highlight">ls</span> to view available tools.</p>
+        </div>
+      </div>
+
+      <!-- Input Line -->
+      <div class="terminal-hero__input-line" id="terminal-input-line">
+        <span class="terminal-hero__prompt">visitor@ch47:~$</span>
+        <input 
+          type="text" 
+          class="terminal-hero__input" 
+          id="terminal-input" 
+          autocomplete="off" 
+          spellcheck="false"
+          aria-label="Terminal input"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Terminal Logic
+  const terminalWindow = document.querySelector('.terminal-hero__window');
+  const terminalOutput = document.getElementById('terminal-output');
+  const bootSequence = document.querySelector('.terminal-boot-sequence');
+  const asciiLogo = document.querySelector('.terminal-ascii-logo');
+  const inputLine = document.getElementById('terminal-input-line');
+  const input = document.getElementById('terminal-input') as HTMLInputElement;
+
+  // Reduced Motion Check
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Animation Delays
+  const LOGO_DELAY = 100;
+  const SYSTEM_INFO_DELAY = 600;
+  const INPUT_DELAY = 1200;
+
+  // Command Helper
+  const formatLink = (url: string, text: string) => `<a href="${url}" class="terminal-link">${text}</a>`;
+
+  // Commands
+  const commands: Record<string, (args?: string[]) => string | void> = {
+    // === Navigation & Discovery ===
+    help: () => {
+      // Return structured HTML for better readability
+      return `
+<div class="terminal-help-grid">
+  <div class="help-item"><span class="cmd">ls</span>         <span class="desc">List available tools</span></div>
+  <div class="help-item"><span class="cmd">cd [dir]</span>   <span class="desc">Navigate to tool</span></div>
+  <div class="help-item"><span class="cmd">clear</span>      <span class="desc">Clear screen</span></div>
+</div>`;
+    },
+
+    ls: () => {
+      // Return HTML string for rich output
+      return `<div class="terminal-file-list">
+  <div class="terminal-file-item">
+    <span class="file-perm">drwxr-xr-x</span> <span class="file-user">root</span> <span class="file-size">4096</span> <a href="/plugins/ascii-art" class="file-link">ascii-art/</a>      <span class="file-desc"># Generate ASCII logos & diagrams</span>
+  </div>
+  <div class="terminal-file-item">
+    <span class="file-perm">drwxr-xr-x</span> <span class="file-user">root</span> <span class="file-size">4096</span> <a href="/plugins/creative-writing" class="file-link">creative-writing/</a> <span class="file-desc"># Editorial enhancement tools</span>
+  </div>
+  <div class="terminal-file-item">
+    <span class="file-perm">drwxr-xr-x</span> <span class="file-user">root</span> <span class="file-size">4096</span> <a href="/plugins/google-ads" class="file-link">google-ads/</a>       <span class="file-desc"># GAQL query interface</span>
+  </div>
+</div>`;
+    },
+
+    cd: (args) => {
+        const dir = args?.[0]?.toLowerCase();
+        if (!dir || dir === '~') return ''; // Stay in root
+        if (dir === '..') return ''; // Already in root effectively for this demo
+        
+        const plugins = ['ascii-art', 'creative-writing', 'google-ads'];
+        if (plugins.includes(dir) || dir === 'plugins/' + dir) {
+            window.location.href = `/plugins/${dir}`;
+            return `Navigating to /plugins/${dir}...`;
+        }
+        return `cd: no such file or directory: ${dir}`;
+    },
+
+    open: (args) => {
+        const page = args?.[0]?.toLowerCase();
+        if (!page) return 'usage: open <page>';
+        
+        const validPages: Record<string, string> = {
+            'blog': '/blog',
+            'plugins': '/plugins'
+        };
+
+        if (validPages[page]) {
+            window.location.href = validPages[page];
+            return `Opening ${page}...`;
+        }
+        return `open: ${page}: file not found`;
+    },
+
+    subscribe: () => {
+        // Find the email signup form on the page and focus it, or redirect
+        const footerInput = document.querySelector('input[type="email"]') as HTMLElement;
+        if (footerInput) {
+            footerInput.scrollIntoView({ behavior: 'smooth' });
+            footerInput.focus();
+            return 'Redirecting focus to subscription form...';
+        }
+        return 'Subscribe via RSS or the form in the footer.';
+    },
+
+    // === Utilities ===
+    clear: () => {
+      const lines = terminalOutput?.querySelectorAll('.terminal-hero__line--output, .terminal-hero__line--command');
+      lines?.forEach(line => line.remove());
+      if (bootSequence) (bootSequence as HTMLElement).style.display = 'none';
+      return '';
+    },
+    
+    date: () => new Date().toString(),
+    
+    echo: (args) => args ? args.join(' ') : '',
+    
+    whoami: () => 'visitor',
+    
+    history: () => {
+        // history logic handled in main script, but we can return text here if needed
+        return 'Use Arrow Up/Down to navigate history.'; 
+    },
+
+    // === Easter Eggs ===
+    sudo: () => `visitor is not in the sudoers file. This incident will be reported.`,
+    
+    reboot: () => {
+        window.location.reload();
+        return 'Rebooting system...';
+    },
+
+    coffee: () => `
+    ( (
+     ) )
+  .______.
+  |      |]
+  \\      /
+   '----'
+Here's some fresh coffee!`,
+
+    cat: () => `
+      |\\__/,|   (\`\\
+    _.|o o  |_   ) )
+  -(((---(((--------
+Meow!`,
+
+    matrix: () => {
+      triggerMatrix();
+      return 'Wake up, Neo...';
+    },
+    
+    42: () => 'The answer to life, the universe, and everything.',
+    
+    xyzzy: () => 'Nothing happens.'
+  };
+
+  // Boot Animation
+  function runBootSequence() {
+    if (prefersReducedMotion) {
+      document.body.classList.add('animation-complete');
+      return;
+    }
+
+    // 1. Reveal Logo
+    setTimeout(() => {
+      asciiLogo?.classList.add('visible');
+    }, LOGO_DELAY);
+
+    // 2. Reveal System Info (staggered)
+    const systemLines = document.querySelectorAll('.terminal-system-info > *');
+    systemLines.forEach((line, index) => {
+      setTimeout(() => {
+        line.classList.add('visible');
+      }, SYSTEM_INFO_DELAY + (index * 150));
+    });
+
+    // 3. Show Input
+    setTimeout(() => {
+      inputLine?.classList.add('visible');
+      if (!('ontouchstart' in window)) {
+        input?.focus();
+      }
+    }, INPUT_DELAY);
+  }
+
+  function addLine(content: string, type: 'command' | 'result') {
+    const line = document.createElement('div');
+    line.className = type === 'command' 
+      ? 'terminal-hero__line terminal-hero__line--command' 
+      : 'terminal-hero__line terminal-hero__line--output';
+    
+    if (type === 'command') {
+      line.innerHTML = `<span class="terminal-hero__prompt">visitor@ch47:~$</span> <span class="terminal-hero__text">${content}</span>`;
+    } else {
+      line.innerHTML = `<div class="terminal-hero__text">${content}</div>`;
+    }
+
+    terminalOutput?.insertBefore(line, inputLine);
+    terminalOutput!.scrollTop = terminalOutput!.scrollHeight;
+  }
+
+  // Event Listeners
+  input?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const val = input.value.trim();
+      if (!val) return;
+
+      addLine(val, 'command');
+      input.value = '';
+
+      const parts = val.split(' ');
+      const cmd = parts[0].toLowerCase();
+      const args = parts.slice(1);
+
+      // Handle command
+      if (commands[cmd]) {
+        const response = commands[cmd](args);
+        if (response) addLine(response as string, 'result');
+      } else if (cmd === 'exit') {
+         addLine('Logout.', 'result');
+         setTimeout(() => { window.location.reload() }, 1000);
+      } else {
+        addLine(`Command not found: ${cmd}. Type 'help' for available commands.`, 'result');
+      }
+    }
+  });
+
+  // Init
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runBootSequence);
+  } else {
+    runBootSequence();
+  }
+
+  // Matrix Effect
+  function triggerMatrix() {
+    const canvas = document.createElement('canvas');
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.zIndex = '9999';
+    canvas.style.backgroundColor = 'rgba(10, 14, 20, 0.95)';
+    canvas.style.cursor = 'pointer';
+    
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const chars = 'ABCDEF0123456789';
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops: number[] = Array(Math.floor(columns)).fill(1);
+
+    let animationId: number;
+
+    function draw() {
+      ctx!.fillStyle = 'rgba(10, 14, 20, 0.05)';
+      ctx!.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx!.fillStyle = '#0f0'; // Classic Matrix Green
+      ctx!.font = `${fontSize}px monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx!.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+      animationId = requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    const close = () => {
+      cancelAnimationFrame(animationId);
+      canvas.remove();
+    };
+
+    canvas.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    }, { once: true });
+  }
+</script>

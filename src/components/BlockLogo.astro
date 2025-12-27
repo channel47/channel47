@@ -34,9 +34,28 @@ const ariaLabel = variant === 'short' ? 'Channel 47' : 'Channel 47 - Full Logo';
 ---
 
 {href ? (
-  <a href={href} class={`block-logo-link ${className}`} aria-label={ariaLabel}>
+  <a href={href} class={`block-logo-link js-logo-trigger ${className}`} aria-label={ariaLabel}>
     <pre class={`block-logo block-logo--${size}`} aria-hidden="true">{asciiArt}</pre>
   </a>
 ) : (
   <pre class={`block-logo block-logo--${size} ${className}`} role="img" aria-label={ariaLabel}>{asciiArt}</pre>
 )}
+
+<script>
+  // Add global distortion effect on hover
+  const triggers = document.querySelectorAll('.js-logo-trigger');
+  const body = document.body;
+
+  triggers.forEach(trigger => {
+    const activate = () => body.classList.add('distortion-active');
+    const deactivate = () => body.classList.remove('distortion-active');
+
+    // Mouse
+    trigger.addEventListener('mouseenter', activate);
+    trigger.addEventListener('mouseleave', deactivate);
+    
+    // Keyboard
+    trigger.addEventListener('focus', activate);
+    trigger.addEventListener('blur', deactivate);
+  });
+</script>
