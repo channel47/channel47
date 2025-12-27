@@ -1,6 +1,12 @@
 ---
 featured: false
 draft: false
+asciiIcon: |
+  ╔═══════╗
+  ║ ASCII ║
+  ║  ART  ║
+  ╚═══════╝
+iconColor: "var(--color-interactive)"
 ---
 
 ## What it does

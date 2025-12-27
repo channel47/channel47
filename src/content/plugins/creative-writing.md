@@ -1,6 +1,12 @@
 ---
 featured: false
 draft: false
+asciiIcon: |
+  ╔═══════╗
+  ║ EDIT  ║
+  ║ TEXT  ║
+  ╚═══════╝
+iconColor: "var(--color-accent-secondary)"
 ---
 
 ## What it does

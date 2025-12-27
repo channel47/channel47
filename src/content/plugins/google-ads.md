@@ -1,6 +1,12 @@
 ---
 featured: true
 draft: false
+asciiIcon: |
+  ╔═══════╗
+  ║ $$$$$ ║
+  ║  ADS  ║
+  ╚═══════╝
+iconColor: "var(--color-highlight-gold)"
 ---
 
 ## What it does

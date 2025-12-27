@@ -22,6 +22,8 @@ const plugins = defineCollection({
   schema: z.object({
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
+    asciiIcon: z.string().optional(),
+    iconColor: z.string().optional(),
   }),
 });
 
