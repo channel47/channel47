@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 24">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 48">
   <style>
     text {
       fill: #0a0a0a;
       font-family: monospace;
       font-size: 8px;
-      line-height: 1;
+      line-height: 8px;
       white-space: pre;
     }
     @media (prefers-color-scheme: dark) {
@@ -13,7 +13,10 @@
       }
     }
   </style>
-  <text x="2" y="8">█ █  ▀▀█</text>
-  <text x="2" y="16">█▀█    █</text>
-  <text x="2" y="24">  █    ▀</text>
+  <text x="2" y="8">██╗  ██╗███████╗</text>
+  <text x="2" y="16">██║  ██║╚════██║</text>
+  <text x="2" y="24">███████║    ██╔╝</text>
+  <text x="2" y="32">╚════██║   ██╔╝</text>
+  <text x="2" y="40">     ██║   ██║</text>
+  <text x="2" y="48">     ╚═╝   ╚═╝</text>
 </svg>
