@@ -13,18 +13,23 @@ const {
   href
 } = Astro.props;
 
+// Use fs to read files during build time instead of fetch
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+
 // Read the appropriate ASCII art file
 const asciiFiles = {
-  short: '/ascii/ch47-short.txt',
-  long: '/ascii/channel47-long.txt'
+  short: 'ascii/ch47-short.txt',
+  long: 'ascii/channel47-long.txt'
 };
 
 const filePath = asciiFiles[variant];
 let asciiArt = '';
 
 try {
-  const response = await fetch(new URL(filePath, Astro.site || Astro.url.origin));
-  asciiArt = await response.text();
+  // Construct path relative to project root
+  const fullPath = path.join(process.cwd(), 'public', filePath);
+  asciiArt = await readFile(fullPath, 'utf-8');
 } catch (error) {
   console.error(`Failed to load ASCII art from ${filePath}:`, error);
   asciiArt = 'CH47'; // Fallback

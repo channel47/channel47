@@ -28,9 +28,8 @@
 
 /* Size variants */
 .block-logo--small {
-  /* Using px to ensure legibility and avoid rem scaling issues */
-  font-size: 10px; 
-  height: 60px;
+  font-size: 0.35rem;
+  height: 30px;
 }
 
 .block-logo--medium {
