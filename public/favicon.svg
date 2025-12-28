@@ -13,7 +13,7 @@
       }
     }
   </style>
-  <text x="2" y="8">█▀▀ █ █ █ █ ▀▀█</text>
-  <text x="2" y="16">█   █▀█ ▀▀█   █</text>
-  <text x="2" y="24">▀▀▀ ▀ ▀   ▀   ▀</text>
+  <text x="2" y="8">█ █  ▀▀█</text>
+  <text x="2" y="16">█▀█    █</text>
+  <text x="2" y="24">  █    ▀</text>
 </svg>
