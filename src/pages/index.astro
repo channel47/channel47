@@ -1,30 +1,121 @@
 ---
 // src/pages/index.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroSection from '../components/home/HeroSection.astro';
-import GapSection from '../components/home/GapSection.astro';
-import PluginShowcase from '../components/home/PluginShowcase.astro';
-import NewsletterSection from '../components/home/NewsletterSection.astro';
-
-import '../styles/utilities/scroll-animations.css';
-import '../styles/components/home-redesign.css';
 ---
 
 <BaseLayout
   title="Home"
-  description="Claude Code is powerful but incomplete. Discover specialized tools built for power users by a power user."
+  description="Digital tools for Claude Code power users."
 >
-  <div class="homepage-layout">
-    <div class="noise-overlay"></div>
-    <HeroSection />
-    <GapSection />
-    <PluginShowcase />
-    <NewsletterSection />
+  <div class="home">
+    <section class="hero">
+      <div class="hero__content">
+        <p class="hero__prompt">
+          <span class="hero__prompt-symbol">></span>
+          <span class="hero__prompt-text" id="typed-text"></span>
+          <span class="hero__cursor">_</span>
+        </p>
+      </div>
+
+      <div class="hero__hint">
+        <span class="hero__hint-text">open menu to explore</span>
+      </div>
+    </section>
   </div>
 </BaseLayout>
 
 <style>
-  .homepage-layout :global(main) {
-    padding: 0;
+  .home {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--site-gutter);
+    position: relative;
+  }
+
+  .hero__content {
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .hero__prompt {
+    font-family: var(--font-mono);
+    font-size: clamp(var(--text-lg), 4vw, var(--text-3xl));
+    font-weight: var(--weight-normal);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+
+  .hero__prompt-symbol {
+    color: var(--color-accent);
+    margin-right: 0.5em;
+    opacity: 0;
+    animation: fade-in var(--duration-slow) var(--ease-out) forwards;
+  }
+
+  .hero__prompt-text {
+    opacity: 0;
+    animation: fade-in var(--duration-slow) var(--ease-out) 200ms forwards;
+  }
+
+  .hero__cursor {
+    color: var(--color-accent);
+    animation: cursor-blink 1s step-end infinite;
+    margin-left: 2px;
+  }
+
+  .hero__hint {
+    position: absolute;
+    bottom: var(--space-12);
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: fade-in var(--duration-slower) var(--ease-out) 2s forwards;
+  }
+
+  .hero__hint-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    letter-spacing: var(--tracking-wide);
+  }
+
+  @media (max-width: 640px) {
+    .hero__prompt {
+      font-size: var(--text-lg);
+    }
+
+    .hero__hint {
+      bottom: var(--space-8);
+    }
   }
 </style>
+
+<script>
+  const text = "tools for power users";
+  const typedElement = document.getElementById('typed-text');
+  let index = 0;
+
+  function type() {
+    if (typedElement && index < text.length) {
+      typedElement.textContent += text.charAt(index);
+      index++;
+      setTimeout(type, 50 + Math.random() * 50);
+    }
+  }
+
+  // Start typing after a short delay
+  setTimeout(type, 600);
+</script>

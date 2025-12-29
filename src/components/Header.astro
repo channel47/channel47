@@ -1,44 +1,137 @@
 ---
 // src/components/Header.astro
-import '../styles/components/header.css';
-import BlockLogo from './BlockLogo.astro';
+// Minimal header with home link and menu trigger
 ---
-<header class="header" id="main-header">
-  <nav class="header__nav">
-    <BlockLogo variant="short" size="small" href="/" />
-    
-    <div class="header__links">
-      <a href="/plugins" class="header__link header__link--icon" aria-label="Tools">
-        <span class="ascii-icon">
-          <span class="ascii-line">▄▀▄</span>
-          <span class="ascii-line">▀▄▀</span>
-        </span>
-        <span class="header__link-text">Tools</span>
-      </a>
-    </div>
-  </nav>
+
+<header class="header">
+  <a href="/" class="header__home" aria-label="Home">
+    <span class="header__cursor">_</span>
+  </a>
+
+  <button
+    class="header__menu-trigger"
+    id="menu-trigger"
+    aria-label="Open menu"
+    aria-expanded="false"
+    aria-controls="menu"
+  >
+    <span class="header__menu-icon" aria-hidden="true">
+      <span class="header__menu-line">▄▀▄</span>
+      <span class="header__menu-line">▀▄▀</span>
+    </span>
+  </button>
 </header>
 
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-height);
+    padding: 0 var(--site-gutter);
+  }
+
+  .header__home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .header__home:hover,
+  .header__home:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .header__cursor {
+    font-family: var(--font-mono);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-medium);
+    animation: cursor-blink 1s step-end infinite;
+  }
+
+  .header__home:hover .header__cursor {
+    animation: none;
+    opacity: 1;
+  }
+
+  .header__menu-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  .header__menu-trigger:hover {
+    transform: scale(1.1);
+  }
+
+  .header__menu-trigger:active {
+    transform: scale(0.95);
+  }
+
+  .header__menu-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 0.9;
+    color: var(--color-text-secondary);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .header__menu-trigger:hover .header__menu-icon,
+  .header__menu-trigger:focus-visible .header__menu-icon {
+    color: var(--color-accent);
+  }
+
+  .header__menu-line {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--weight-bold);
+    letter-spacing: -0.05em;
+  }
+</style>
+
 <script>
-  let lastScroll = 0;
-  const header = document.getElementById('main-header');
+  const menuTrigger = document.getElementById('menu-trigger');
 
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
+  menuTrigger?.addEventListener('click', () => {
+    const isExpanded = menuTrigger.getAttribute('aria-expanded') === 'true';
+    menuTrigger.setAttribute('aria-expanded', String(!isExpanded));
 
-    if (currentScroll <= 0) {
-      header?.classList.remove('header--hidden');
-      return;
-    }
-
-    if (currentScroll > lastScroll && currentScroll > 100) {
-      // Scrolling down
-      header?.classList.add('header--hidden');
+    if (!isExpanded) {
+      (window as any).openMenu?.();
     } else {
-      // Scrolling up
-      header?.classList.remove('header--hidden');
+      (window as any).closeMenu?.();
     }
-
-    lastScroll = currentScroll;
   });
+
+  // Listen for menu state changes to sync button state
+  const menu = document.getElementById('menu');
+  if (menu) {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'aria-hidden') {
+          const isHidden = menu.getAttribute('aria-hidden') === 'true';
+          menuTrigger?.setAttribute('aria-expanded', String(!isHidden));
+        }
+      });
+    });
+    observer.observe(menu, { attributes: true });
+  }
 </script>

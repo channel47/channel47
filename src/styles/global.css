@@ -1,492 +1,306 @@
-/* Component Imports */
-@import './components/block-logo.css';
-@import './components/ascii-animations.css';
+/* ========================================
+   CHANNEL 47 DESIGN SYSTEM
+   Elevated Terminal Aesthetic
+   ======================================== */
 
-/* Design Tokens */
+/* ========================================
+   DESIGN TOKENS
+   ======================================== */
+
 :root {
-  /* ========================================
-     TERMINAL-INSPIRED COLOR SYSTEM
-     ======================================== */
+  /* ----------------------------------------
+     COLOR SYSTEM
+     ---------------------------------------- */
 
-  /* Core Terminal Colors */
-  --color-terminal-black: #0a0e14;     /* Deep terminal background (blue-tinted) */
-  --color-terminal-white: #e6edf3;     /* Soft phosphor glow text */
-  --color-accent-primary: #00ff9f;     /* Terminal green/cyan - success, links, primary actions */
-  --color-accent-secondary: #ff6b9d;   /* Neon pink/magenta - errors, warnings, CTAs */
-  --color-muted-gray: #6e7681;         /* Comment gray - secondary text, metadata */
-  --color-highlight-gold: #ffd700;     /* Gold - special moments, featured items */
+  /* Core Palette */
+  --color-void: #0a0a0b;           /* Deep void - primary background */
+  --color-surface: #111113;         /* Elevated surface */
+  --color-surface-raised: #18181b;  /* Cards, modals */
 
-  /* Legacy Colors (kept for backward compatibility during transition) */
-  --color-black: #0a0a0a;
-  --color-white: #fafafa;
-  --color-gray-100: #f0f0f0;
-  --color-gray-200: #e0e0e0;
-  --color-gray-300: #c0c0c0;
-  --color-gray-400: #909090;
-  --color-gray-500: #606060;
-  --color-gray-600: #404040;
-  --color-gray-700: #303030;
-  --color-gray-800: #1a1a1a;
+  /* Text Hierarchy */
+  --color-text-primary: #fafafa;    /* Primary text - high contrast */
+  --color-text-secondary: #a1a1aa;  /* Secondary text */
+  --color-text-muted: #52525b;      /* Muted, hints */
 
-  /* Code Blocks */
-  --color-code-bg: var(--color-terminal-black);
-  --color-code-border: rgba(0, 255, 159, 0.2);
-  --color-code-inline-bg: rgba(230, 237, 243, 0.15); /* Translucent white for dark mode */
+  /* Accent Colors */
+  --color-accent: #00ff9f;          /* Primary accent - terminal green */
+  --color-accent-dim: rgba(0, 255, 159, 0.6);
+  --color-accent-muted: rgba(0, 255, 159, 0.15);
+  --color-accent-subtle: rgba(0, 255, 159, 0.08);
 
-  /* Legacy Accent Colors */
-  --color-accent-blue: #0047ff;
-  --color-accent-blue-hover: #0039cc;
-  --color-accent-blue-light: rgba(0, 71, 255, 0.12);
-  --color-accent-coral: #ff6b35;
-  --color-accent-coral-light: rgba(255, 107, 53, 0.12);
-  --color-accent-purple: #7c3aed;
-  --color-accent-purple-light: rgba(124, 58, 237, 0.12);
-  --color-accent-green: #10b981;
-  --color-accent-green-light: rgba(16, 185, 129, 0.12);
+  /* Secondary Accent */
+  --color-secondary: #ff6b9d;       /* Secondary - warm pink */
+  --color-secondary-muted: rgba(255, 107, 157, 0.15);
 
-  /* ========================================
-     SEMANTIC COLOR ASSIGNMENTS (Terminal Theme)
-     ======================================== */
+  /* Semantic */
+  --color-border: #27272a;          /* Subtle borders */
+  --color-border-hover: #3f3f46;    /* Border on hover */
 
-  --color-bg-primary: var(--color-terminal-black);
-  --color-bg-hover: rgba(0, 255, 159, 0.1);        /* Subtle green glow */
-  --color-text-primary: var(--color-terminal-white);
-  --color-text-secondary: var(--color-muted-gray);
-  --color-interactive: var(--color-accent-primary);
-  --color-cta: var(--color-accent-secondary);
-  --color-success: var(--color-accent-primary);
-  --color-special: var(--color-highlight-gold);
+  /* ----------------------------------------
+     TYPOGRAPHY
+     ---------------------------------------- */
 
-  /* Primary Semantic Tokens */
-  --color-bg: var(--color-bg-primary);
-  --color-text: var(--color-text-primary);
-  --color-text-muted: var(--color-text-secondary);
-  --color-border: var(--color-muted-gray);
-  --color-accent: var(--color-interactive);
-  --color-accent-muted: var(--color-bg-hover);
+  /* Font Stacks */
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 
-  /* ========================================
-     TYPOGRAPHY SYSTEM
-     ======================================== */
-
-  /* Font Families */
-  --font-heading: 'JetBrains Mono', 'IBM Plex Mono', 'Courier New', monospace;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-
-  /* Typography Scale */
+  /* Type Scale - More refined */
   --text-xs: 0.75rem;      /* 12px */
   --text-sm: 0.875rem;     /* 14px */
   --text-base: 1rem;       /* 16px */
-  --text-lg: 1.25rem;      /* 20px */
-  --text-xl: 1.5rem;       /* 24px */
-  --text-2xl: 2rem;        /* 32px */
-  --text-3xl: 2.5rem;      /* 40px */
-  --text-4xl: 3rem;        /* 48px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 2rem;        /* 32px */
+  --text-4xl: 2.5rem;      /* 40px */
+  --text-5xl: 3.5rem;      /* 56px */
+  --text-6xl: 4.5rem;      /* 72px */
+  --text-7xl: 6rem;        /* 96px */
 
   /* Font Weights */
   --weight-normal: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
   --weight-bold: 700;
-  --weight-extrabold: 800;
-  --weight-black: 900;
 
   /* Line Heights */
+  --leading-none: 1;
   --leading-tight: 1.2;
+  --leading-snug: 1.375;
   --leading-normal: 1.5;
-  --leading-relaxed: 1.75;
+  --leading-relaxed: 1.625;
 
-  /* ========================================
-     SPACING SYSTEM (Terminal Line Rhythm)
-     ======================================== */
+  /* Letter Spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
 
-  /* Base Unit: Generous vertical rhythm */
-  --space-unit: 2rem;
-  --space-xs: calc(var(--space-unit) * 0.25);  /* 0.5rem / 8px */
-  --space-sm: calc(var(--space-unit) * 0.5);   /* 1rem / 16px */
-  --space-md: var(--space-unit);               /* 2rem / 32px */
-  --space-lg: calc(var(--space-unit) * 1.5);   /* 3rem / 48px */
-  --space-xl: calc(var(--space-unit) * 2);     /* 4rem / 64px */
-  --space-2xl: calc(var(--space-unit) * 3);    /* 6rem / 96px */
+  /* ----------------------------------------
+     SPACING
+     ---------------------------------------- */
 
-  /* Legacy Spacing (for backward compatibility) */
-  --space-1: 0.25rem;   /* 4px */
-  --space-2: 0.5rem;    /* 8px */
-  --space-3: 0.75rem;   /* 12px */
-  --space-4: 1rem;      /* 16px */
-  --space-5: 1.5rem;    /* 24px */
-  --space-6: 2rem;      /* 32px */
-  --space-7: 3rem;      /* 48px */
-  --space-8: 4rem;      /* 64px */
-  --space-9: 6rem;      /* 96px */
-  --space-10: 8rem;     /* 128px */
+  /* Base Scale */
+  --space-1: 0.25rem;    /* 4px */
+  --space-2: 0.5rem;     /* 8px */
+  --space-3: 0.75rem;    /* 12px */
+  --space-4: 1rem;       /* 16px */
+  --space-5: 1.25rem;    /* 20px */
+  --space-6: 1.5rem;     /* 24px */
+  --space-8: 2rem;       /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  --space-24: 6rem;      /* 96px */
+  --space-32: 8rem;      /* 128px */
 
-  /* Section Spacing */
-  --section-gap: var(--space-2xl);     /* 96px */
-  --content-gap: var(--space-xl);      /* 64px */
-  --element-gap: var(--space-lg);      /* 48px */
-  
-  /* Site Gutters */
-  --site-padding-x: var(--space-7);    /* 48px */
-  --site-max-width: 1280px;
+  /* Layout */
+  --site-gutter: clamp(1rem, 5vw, 3rem);
+  --site-max-width: 1200px;
+  --header-height: 4rem;
 
-  /* ========================================
-     VISUAL STYLE (Terminal Brutalism)
-     ======================================== */
-
-  /* Borders */
-  --border-radius: 0px;                /* Sharp corners (terminal windows are rectangular) */
-  --border-radius-beveled: 4px;        /* Occasional beveled edges for special elements */
-  --border-width: 1px;
-  --border-style: solid;
-  --border-color: var(--color-muted-gray);
+  /* ----------------------------------------
+     EFFECTS
+     ---------------------------------------- */
 
   /* Transitions */
-  --transition-fast: 150ms ease-out;
-  --transition-normal: 250ms ease-out;
-  --transition-slow: 400ms ease-out;
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-slower: 600ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
-  /* Shadows - Glow Effects */
-  --glow-primary: 0 0 20px rgba(0, 255, 159, 0.3);
-  --glow-secondary: 0 0 20px rgba(255, 107, 157, 0.3);
-  --glow-gold: 0 0 20px rgba(255, 215, 0, 0.3);
+  /* Glows - Subtle */
+  --glow-sm: 0 0 10px rgba(0, 255, 159, 0.15);
+  --glow-md: 0 0 20px rgba(0, 255, 159, 0.2);
+  --glow-lg: 0 0 40px rgba(0, 255, 159, 0.25);
+
+  /* Blur */
+  --blur-sm: 4px;
+  --blur-md: 8px;
+  --blur-lg: 16px;
 }
 
-/* Base Styles */
-* {
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 html {
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-terminal-black);
-  border-left: 1px solid var(--color-muted-gray);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-muted-gray);
-  border: 1px solid var(--color-terminal-black);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-interactive);
-}
-
-/* Selection */
-::selection {
-  background: var(--color-interactive);
-  color: var(--color-terminal-black);
 }
 
 body {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  min-height: 100dvh;
+  background-color: var(--color-void);
+  color: var(--color-text-primary);
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);
-  animation: page-fade-in 0.6s ease-out;
 }
 
-@keyframes page-fade-in {
-  0% { opacity: 0; transform: translateY(5px); }
-  100% { opacity: 1; transform: translateY(0); }
+/* ----------------------------------------
+   SCROLLBAR
+   ---------------------------------------- */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-main {
-  flex: 1;
-  padding-top: 80px;
-  padding-bottom: var(--section-gap);
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-a {
-  color: var(--color-interactive);
-  text-decoration: none;
-  transition: color var(--transition-fast);
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
 }
 
-a:hover {
-  color: var(--color-special);
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-hover);
 }
 
-/* Terminal-style headings with monospace font */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+/* ----------------------------------------
+   SELECTION
+   ---------------------------------------- */
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-void);
+}
+
+/* ----------------------------------------
+   TYPOGRAPHY
+   ---------------------------------------- */
+
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  font-weight: var(--weight-bold);
-  letter-spacing: -0.01em;
+  font-family: var(--font-mono);
+  font-weight: var(--weight-medium);
   line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
   color: var(--color-text-primary);
 }
 
-h1 {
-  font-size: var(--text-4xl);
-  font-weight: var(--weight-bold);
+h1 { font-size: var(--text-5xl); }
+h2 { font-size: var(--text-4xl); }
+h3 { font-size: var(--text-3xl); }
+h4 { font-size: var(--text-2xl); }
+h5 { font-size: var(--text-xl); }
+h6 { font-size: var(--text-lg); }
+
+p {
+  color: var(--color-text-secondary);
 }
 
-h2 {
-  font-size: var(--text-3xl);
-  font-weight: var(--weight-semibold);
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
 }
 
-h3 {
-  font-size: var(--text-2xl);
-  font-weight: var(--weight-medium);
+a:hover {
+  color: var(--color-text-primary);
 }
 
-h4 {
-  font-size: var(--text-xl);
-  font-weight: var(--weight-medium);
-}
-
-h5, h6 {
-  font-size: var(--text-lg);
-  font-weight: var(--weight-normal);
-}
-
-/* Code and preformatted text */
-code, pre, kbd, samp {
+code, pre, kbd {
   font-family: var(--font-mono);
 }
 
-@media (max-width: 768px) {
-  :root {
-    --site-padding-x: var(--space-4);  /* 16px */
-  }
-  
-  h1 {
-    font-size: clamp(var(--text-4xl), 5vw, 5rem);
-  }
+/* ----------------------------------------
+   FOCUS STATES
+   ---------------------------------------- */
+
+:focus {
+  outline: none;
 }
 
-/* ========================================
-   ACCESSIBILITY
-   ======================================== */
-
-/* Respect reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Focus styles for keyboard navigation */
 :focus-visible {
-  outline: 2px solid var(--color-interactive);
+  outline: 1px solid var(--color-accent);
   outline-offset: 2px;
 }
 
-/* ========================================
-   THEME VARIATIONS
-   ======================================== */
+/* ----------------------------------------
+   REDUCED MOTION
+   ---------------------------------------- */
 
-/* Light Mode Override (Optional - for accessibility) */
-[data-theme="light"] {
-  --color-bg: var(--color-white);
-  --color-text: var(--color-black);
-  --color-text-primary: var(--color-black);
-  --color-text-secondary: var(--color-gray-600);
-  --color-text-muted: var(--color-gray-500);
-  --color-border: var(--color-gray-200);
-  --color-interactive: #00cc7f;
-  --color-bg-hover: rgba(0, 204, 127, 0.08);
-  --color-code-inline-bg: var(--color-gray-100);
-  --color-code-bg: var(--color-gray-100);
-  --color-code-border: var(--color-gray-200);
-}
-
-/* Dark Mode is default - keep for explicit selection */
-[data-theme="dark"] {
-  /* Terminal theme is already applied by default */
-  --color-bg: var(--color-bg-primary);
-  --color-text: var(--color-text-primary);
-  --color-text-muted: var(--color-text-secondary);
-  --color-border: var(--color-muted-gray);
-}
-
-/* ========================================
-   TERMINAL INTERACTION PATTERNS
-   ======================================== */
-
-/* Cursor Blink Animation */
-@keyframes cursor-blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
-
-/* Terminal Hover Effect - Base */
-.terminal-hover {
-  position: relative;
-  transition: all var(--transition-fast);
-  cursor: pointer;
-}
-
-.terminal-hover:hover {
-  background-color: var(--color-bg-hover);
-  color: var(--color-interactive);
-}
-
-/* Terminal Hover - Prefix (>) */
-.terminal-hover:hover::before {
-  content: "> ";
-  color: var(--color-interactive);
-  font-family: var(--font-mono);
-  margin-right: 0.25rem;
-}
-
-/* Terminal Hover - Blinking Cursor */
-.terminal-hover:hover::after {
-  content: "_";
-  color: var(--color-interactive);
-  font-family: var(--font-mono);
-  margin-left: 0.25rem;
-  animation: cursor-blink 1s step-end infinite;
-}
-
-/* Terminal Hover - Inline Variant (for inline links) */
-.terminal-hover-inline {
-  position: relative;
-  transition: color var(--transition-fast);
-  cursor: pointer;
-}
-
-.terminal-hover-inline:hover {
-  color: var(--color-interactive);
-}
-
-.terminal-hover-inline:hover::after {
-  content: "_";
-  color: var(--color-interactive);
-  font-family: var(--font-mono);
-  margin-left: 0.125rem;
-  animation: cursor-blink 1s step-end infinite;
-}
-
-/* Terminal Button Style */
-.terminal-button {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-sm) var(--space-md);
-  background-color: var(--color-bg-hover);
-  border: var(--border-width) var(--border-style) var(--color-interactive);
-  color: var(--color-interactive);
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-medium);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  text-decoration: none;
-}
-
-.terminal-button::before {
-  content: "$ ";
-  color: var(--color-interactive);
-}
-
-.terminal-button:hover {
-  background-color: rgba(0, 255, 159, 0.2);
-  box-shadow: var(--glow-primary);
-  transform: translateY(-1px);
-}
-
-.terminal-button:active {
-  transform: translateY(0);
-}
-
-/* Terminal CTA (Secondary Accent) */
-.terminal-cta {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-sm) var(--space-md);
-  background-color: var(--color-cta);
-  border: var(--border-width) var(--border-style) var(--color-cta);
-  color: var(--color-terminal-black);
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-bold);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  text-decoration: none;
-}
-
-.terminal-cta::before {
-  content: "▶ ";
-  color: var(--color-terminal-black);
-}
-
-.terminal-cta:hover {
-  box-shadow: var(--glow-secondary);
-  transform: translateY(-2px);
-}
-
-.terminal-cta:active {
-  transform: translateY(0);
-}
-
-/* Terminal Card Hover */
-.terminal-card {
-  position: relative;
-  padding: var(--space-md);
-  border: var(--border-width) var(--border-style) var(--color-border);
-  background-color: transparent;
-  transition: all var(--transition-normal);
-  cursor: pointer;
-}
-
-.terminal-card:hover {
-  border-color: var(--color-interactive);
-  background-color: var(--color-bg-hover);
-  box-shadow: var(--glow-primary);
-}
-
-/* Terminal Glow Effect (for special elements) */
-.terminal-glow {
-  position: relative;
-  animation: terminal-glow-pulse 3s ease-in-out infinite;
-}
-
-@keyframes terminal-glow-pulse {
-  0%, 100% {
-    box-shadow: 0 0 10px rgba(0, 255, 159, 0.2);
-  }
-  50% {
-    box-shadow: var(--glow-primary);
-  }
-}
-
-/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .terminal-hover:hover::after,
-  .terminal-hover-inline:hover::after {
-    animation: none;
-    opacity: 1;
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
+}
 
-  .terminal-glow {
-    animation: none;
-    box-shadow: 0 0 10px rgba(0, 255, 159, 0.2);
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
