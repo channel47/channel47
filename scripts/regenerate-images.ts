@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+void __filename; // ESM compatibility
 
 async function regenerateImages(slug: string): Promise<void> {
   // Find the blog post

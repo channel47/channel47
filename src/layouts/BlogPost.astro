@@ -16,7 +16,7 @@ interface Props {
   }>;
 }
 
-const { title, description, date, tags = [], toolsUsed } = Astro.props;
+const { title, description, date, toolsUsed } = Astro.props;
 
 // Format date for display - uppercase month
 const formattedDate = date.toLocaleDateString('en-US', {

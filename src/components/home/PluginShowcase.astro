@@ -2,11 +2,8 @@
 // src/components/home/PluginShowcase.astro
 import ScrollReveal from '../shared/ScrollReveal.astro';
 import { readFileSync } from 'fs';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { join } from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 // Read ASCII art files
 const asciiDir = join(process.cwd(), 'src/ascii-assets/plugins');
@@ -72,7 +69,7 @@ const plugins: Plugin[] = [
 
   <div class="plugin-showcase__grid">
     {plugins.map((plugin, index) => (
-      <ScrollReveal direction="up" delay={index + 1}>
+      <ScrollReveal direction="up" delay={Math.min(index + 1, 5) as 1 | 2 | 3 | 4 | 5}>
         <a href={plugin.url} class={`terminal-window terminal-window--${plugin.color}`}>
           <div class="terminal-window__bar">
             <div class="terminal-window__buttons">
