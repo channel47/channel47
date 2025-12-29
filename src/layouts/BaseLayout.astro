@@ -2,7 +2,7 @@
 // src/layouts/BaseLayout.astro
 import Analytics from '@vercel/analytics/astro';
 import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Menu from '../components/Menu.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -10,8 +10,9 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'Digital assets for Claude Code power users.' } = Astro.props;
+const { title, description = 'Digital tools for Claude Code power users.' } = Astro.props;
 ---
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,15 +22,22 @@ const { title, description = 'Digital assets for Claude Code power users.' } = A
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>{title} | Channel 47</title>
   </head>
   <body>
     <Header />
+    <Menu />
     <main>
       <slot />
     </main>
-    <Footer />
     <Analytics />
   </body>
 </html>
+
+<style is:global>
+  main {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+</style>
