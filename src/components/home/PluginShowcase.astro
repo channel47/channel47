@@ -1,0 +1,208 @@
+---
+// src/components/home/PluginShowcase.astro
+import ScrollReveal from '../shared/ScrollReveal.astro';
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Read ASCII art files
+const asciiDir = join(process.cwd(), 'src/ascii-assets/plugins');
+const asciiArt = readFileSync(join(asciiDir, 'ascii-art.txt'), 'utf-8');
+const prompt = readFileSync(join(asciiDir, 'prompt.txt'), 'utf-8');
+const creative = readFileSync(join(asciiDir, 'creative.txt'), 'utf-8');
+const googleAds = readFileSync(join(asciiDir, 'google-ads.txt'), 'utf-8');
+
+interface Plugin {
+  ascii: string;
+  name: string;
+  description: string;
+  url: string;
+  color: string;
+  direction: 'left' | 'right';
+}
+
+const plugins: Plugin[] = [
+  {
+    ascii: asciiArt,
+    name: 'ASCII Art',
+    description: 'Turn text into terminal art.',
+    url: '/plugins/ascii-art',
+    color: 'primary',
+    direction: 'right'
+  },
+  {
+    ascii: prompt,
+    name: 'Prompt Enhancer',
+    description: "Craft better prompts. Anthropic's playbook.",
+    url: '/plugins/prompt-enhancer',
+    color: 'secondary',
+    direction: 'left'
+  },
+  {
+    ascii: creative,
+    name: 'Creative Writing',
+    description: 'Editorial polish. Without pretense.',
+    url: '/plugins/creative-writing',
+    color: 'gold',
+    direction: 'right'
+  },
+  {
+    ascii: googleAds,
+    name: 'Google Ads',
+    description: 'GAQL queries. No docs needed.',
+    url: '/plugins/google-ads',
+    color: 'primary',
+    direction: 'left'
+  }
+];
+---
+
+<section class="plugin-showcase">
+  <!-- Opening Copy -->
+  <div class="plugin-showcase__intro">
+    <ScrollReveal direction="up">
+      <h2 class="plugin-showcase__heading">Here's what I built.</h2>
+    </ScrollReveal>
+    <ScrollReveal direction="up" delay={2}>
+      <p class="plugin-showcase__subheading">Tools for the gaps.</p>
+    </ScrollReveal>
+  </div>
+
+  <!-- Plugin Cascade -->
+  <div class="plugin-showcase__grid">
+    {plugins.map((plugin, index) => (
+      <ScrollReveal direction={plugin.direction} delay={(index + 1) as 1 | 2 | 3 | 4}>
+        <a
+          href={plugin.url}
+          class={`plugin-showcase__item plugin-showcase__item--${plugin.color}`}
+        >
+          <pre class="plugin-showcase__ascii" aria-label={plugin.name}>{plugin.ascii}</pre>
+          <p class="plugin-showcase__description">{plugin.description}</p>
+        </a>
+      </ScrollReveal>
+    ))}
+  </div>
+</section>
+
+<style>
+  .plugin-showcase {
+    min-height: 200vh;
+    padding: clamp(4rem, 10vh, 8rem) clamp(2rem, 6vw, 4rem);
+    background: var(--color-terminal-black);
+  }
+
+  .plugin-showcase__intro {
+    text-align: center;
+    margin-bottom: clamp(4rem, 10vh, 8rem);
+  }
+
+  .plugin-showcase__heading {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: var(--weight-bold);
+    color: var(--color-terminal-white);
+    margin-bottom: var(--space-md);
+  }
+
+  .plugin-showcase__subheading {
+    font-size: clamp(1.25rem, 2.5vw, 2rem);
+    font-weight: var(--weight-normal);
+    color: var(--color-muted-gray);
+  }
+
+  .plugin-showcase__grid {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(6rem, 15vh, 12rem);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .plugin-showcase__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: var(--space-xl);
+    text-decoration: none;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    cursor: pointer;
+  }
+
+  .plugin-showcase__item:nth-child(odd) {
+    align-self: flex-start;
+    max-width: 70%;
+  }
+
+  .plugin-showcase__item:nth-child(even) {
+    align-self: flex-end;
+    max-width: 70%;
+  }
+
+  .plugin-showcase__ascii {
+    font-family: var(--font-mono);
+    font-size: clamp(0.5rem, 1vw, 0.8rem);
+    line-height: 1;
+    white-space: pre;
+    overflow: visible;
+    transition: filter var(--transition-normal), transform var(--transition-normal);
+  }
+
+  .plugin-showcase__item--primary .plugin-showcase__ascii {
+    color: var(--color-accent-primary);
+    text-shadow: 0 0 10px rgba(0, 255, 159, 0.3);
+  }
+
+  .plugin-showcase__item--secondary .plugin-showcase__ascii {
+    color: var(--color-accent-secondary);
+    text-shadow: 0 0 10px rgba(255, 107, 157, 0.3);
+  }
+
+  .plugin-showcase__item--gold .plugin-showcase__ascii {
+    color: var(--color-highlight-gold);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  }
+
+  .plugin-showcase__item:hover .plugin-showcase__ascii {
+    filter: brightness(1.3);
+    transform: scale(1.02);
+  }
+
+  .plugin-showcase__item--primary:hover {
+    box-shadow: var(--glow-primary);
+  }
+
+  .plugin-showcase__item--secondary:hover {
+    box-shadow: var(--glow-secondary);
+  }
+
+  .plugin-showcase__item--gold:hover {
+    box-shadow: var(--glow-gold);
+  }
+
+  .plugin-showcase__description {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: var(--weight-normal);
+    color: var(--color-terminal-white);
+    text-align: center;
+    font-family: var(--font-body);
+  }
+
+  @media (max-width: 768px) {
+    .plugin-showcase {
+      min-height: auto;
+    }
+
+    .plugin-showcase__item:nth-child(odd),
+    .plugin-showcase__item:nth-child(even) {
+      align-self: center;
+      max-width: 100%;
+    }
+
+    .plugin-showcase__ascii {
+      font-size: clamp(0.35rem, 2vw, 0.5rem);
+    }
+  }
+</style>
