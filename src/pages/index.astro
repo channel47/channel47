@@ -1,9 +1,29 @@
 ---
 // src/pages/index.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
-import TerminalHero from '../components/TerminalHero.astro';
-import '../styles/components/home.css';
+import HeroSection from '../components/home/HeroSection.astro';
+import GapSection from '../components/home/GapSection.astro';
+import PluginShowcase from '../components/home/PluginShowcase.astro';
+import NewsletterSection from '../components/home/NewsletterSection.astro';
+
+import '../styles/utilities/scroll-animations.css';
+import '../styles/components/home-redesign.css';
 ---
-<BaseLayout title="Home">
-  <TerminalHero />
+
+<BaseLayout
+  title="Home"
+  description="Claude Code is powerful but incomplete. Discover specialized tools built for power users by a power user."
+>
+  <div class="homepage-layout">
+    <HeroSection />
+    <GapSection />
+    <PluginShowcase />
+    <NewsletterSection />
+  </div>
 </BaseLayout>
+
+<style>
+  .homepage-layout :global(main) {
+    padding: 0;
+  }
+</style>
