@@ -1,0 +1,118 @@
+/* Homepage Redesign Styles */
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Remove padding from main on homepage */
+.homepage-layout main {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Full-screen section utilities */
+.full-screen-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Menerals-inspired fluid spacing */
+.section-padding {
+  padding: clamp(3rem, 8vh, 6rem) clamp(2rem, 6vw, 4rem);
+}
+
+/* Typography rhythm - Menerals style */
+.copy-line {
+  margin-bottom: clamp(1rem, 3vh, 2rem);
+}
+
+.copy-line + .copy-line {
+  margin-top: clamp(0.5rem, 2vh, 1rem);
+}
+
+/* Scanline effect utility */
+.scanline-overlay {
+  position: relative;
+}
+
+.scanline-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 159, 0.03) 2px,
+    rgba(0, 255, 159, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Video background utilities */
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Gradient overlay utility */
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 14, 20, 0.3) 0%,
+    rgba(10, 14, 20, 0.5) 100%
+  );
+}
+
+/* Glow divider utility */
+.glow-divider {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-accent-primary),
+    transparent
+  );
+  box-shadow: var(--glow-primary);
+}
+
+.glow-divider--vertical {
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-accent-primary),
+    transparent
+  );
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
