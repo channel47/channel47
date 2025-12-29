@@ -21,7 +21,7 @@ interface Plugin {
   description: string;
   url: string;
   color: string;
-  direction: 'left' | 'right';
+  command: string;
 }
 
 const plugins: Plugin[] = [
@@ -31,7 +31,7 @@ const plugins: Plugin[] = [
     description: 'Turn text into terminal art.',
     url: '/plugins/ascii-art',
     color: 'primary',
-    direction: 'right'
+    command: 'ascii-art --render'
   },
   {
     ascii: prompt,
@@ -39,7 +39,7 @@ const plugins: Plugin[] = [
     description: "Craft better prompts. Anthropic's playbook.",
     url: '/plugins/prompt-enhancer',
     color: 'secondary',
-    direction: 'left'
+    command: 'enhance --prompt'
   },
   {
     ascii: creative,
@@ -47,7 +47,7 @@ const plugins: Plugin[] = [
     description: 'Editorial polish. Without pretense.',
     url: '/plugins/creative-writing',
     color: 'gold',
-    direction: 'right'
+    command: 'write --creative'
   },
   {
     ascii: googleAds,
@@ -55,32 +55,43 @@ const plugins: Plugin[] = [
     description: 'GAQL queries. No docs needed.',
     url: '/plugins/google-ads',
     color: 'primary',
-    direction: 'left'
+    command: 'ads --query'
   }
 ];
 ---
 
 <section class="plugin-showcase">
-  <!-- Opening Copy -->
-  <div class="plugin-showcase__intro">
+  <div class="plugin-showcase__header">
     <ScrollReveal direction="up">
-      <h2 class="plugin-showcase__heading">Here's what I built.</h2>
+      <h2 class="plugin-showcase__title">The Arsenal</h2>
     </ScrollReveal>
-    <ScrollReveal direction="up" delay={2}>
-      <p class="plugin-showcase__subheading">Tools for the gaps.</p>
+    <ScrollReveal direction="up" delay={1}>
+      <p class="plugin-showcase__subtitle">Tools for the gaps.</p>
     </ScrollReveal>
   </div>
 
-  <!-- Plugin Cascade -->
   <div class="plugin-showcase__grid">
     {plugins.map((plugin, index) => (
-      <ScrollReveal direction={plugin.direction} delay={(index + 1) as 1 | 2 | 3 | 4}>
-        <a
-          href={plugin.url}
-          class={`plugin-showcase__item plugin-showcase__item--${plugin.color}`}
-        >
-          <pre class="plugin-showcase__ascii" aria-label={plugin.name}>{plugin.ascii}</pre>
-          <p class="plugin-showcase__description">{plugin.description}</p>
+      <ScrollReveal direction="up" delay={index + 1}>
+        <a href={plugin.url} class={`terminal-window terminal-window--${plugin.color}`}>
+          <div class="terminal-window__bar">
+            <div class="terminal-window__buttons">
+              <span class="terminal-window__button terminal-window__button--close"></span>
+              <span class="terminal-window__button terminal-window__button--min"></span>
+              <span class="terminal-window__button terminal-window__button--max"></span>
+            </div>
+            <div class="terminal-window__title">{plugin.name}</div>
+          </div>
+          <div class="terminal-window__content">
+            <div class="terminal-window__command">
+              <span class="prompt">$</span> {plugin.command}<span class="cursor">_</span>
+            </div>
+            <pre class="terminal-window__ascii">{plugin.ascii}</pre>
+            <div class="terminal-window__footer">
+              <p>{plugin.description}</p>
+              <span class="terminal-window__cta">EXECUTE &rarr;</span>
+            </div>
+          </div>
         </a>
       </ScrollReveal>
     ))}
@@ -89,120 +100,179 @@ const plugins: Plugin[] = [
 
 <style>
   .plugin-showcase {
-    min-height: 200vh;
-    padding: clamp(4rem, 10vh, 8rem) clamp(2rem, 6vw, 4rem);
+    padding: var(--space-2xl) var(--site-padding-x);
     background: var(--color-terminal-black);
+    min-height: 100vh;
   }
 
-  .plugin-showcase__intro {
+  .plugin-showcase__header {
     text-align: center;
-    margin-bottom: clamp(4rem, 10vh, 8rem);
+    margin-bottom: var(--space-2xl);
   }
 
-  .plugin-showcase__heading {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: var(--weight-bold);
+  .plugin-showcase__title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: var(--weight-black);
     color: var(--color-terminal-white);
-    margin-bottom: var(--space-md);
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
   }
 
-  .plugin-showcase__subheading {
-    font-size: clamp(1.25rem, 2.5vw, 2rem);
-    font-weight: var(--weight-normal);
+  .plugin-showcase__subtitle {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
     color: var(--color-muted-gray);
+    font-family: var(--font-mono);
   }
 
   .plugin-showcase__grid {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(6rem, 15vh, 12rem);
-    max-width: 1400px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: var(--space-xl);
+    max-width: 1600px;
     margin: 0 auto;
   }
 
-  .plugin-showcase__item {
+  /* Terminal Window Styles */
+  .terminal-window {
+    display: block;
+    background: #0a0e14;
+    border: 1px solid var(--color-gray-700);
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .terminal-window:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .terminal-window--secondary:hover {
+    border-color: var(--color-accent-secondary);
+  }
+
+  .terminal-window--gold:hover {
+    border-color: var(--color-highlight-gold);
+  }
+
+  .terminal-window__bar {
+    background: var(--color-gray-800);
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--color-gray-700);
+  }
+
+  .terminal-window__buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  .terminal-window__button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-gray-600);
+  }
+
+  .terminal-window:hover .terminal-window__button--close { background: #ff5f56; }
+  .terminal-window:hover .terminal-window__button--min { background: #ffbd2e; }
+  .terminal-window:hover .terminal-window__button--max { background: #27c93f; }
+
+  .terminal-window__title {
+    flex: 1;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--color-gray-400);
+  }
+
+  .terminal-window__content {
+    padding: var(--space-lg);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: var(--space-lg);
-    padding: var(--space-xl);
-    text-decoration: none;
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-    cursor: pointer;
+    height: calc(100% - 45px); /* Header height approx */
   }
 
-  .plugin-showcase__item:nth-child(odd) {
-    align-self: flex-start;
-    max-width: 70%;
-  }
-
-  .plugin-showcase__item:nth-child(even) {
-    align-self: flex-end;
-    max-width: 70%;
-  }
-
-  .plugin-showcase__ascii {
+  .terminal-window__command {
     font-family: var(--font-mono);
-    font-size: clamp(0.5rem, 1vw, 0.8rem);
-    line-height: 1;
-    white-space: pre;
-    overflow: visible;
-    transition: filter var(--transition-normal), transform var(--transition-normal);
-  }
-
-  .plugin-showcase__item--primary .plugin-showcase__ascii {
-    color: var(--color-accent-primary);
-    text-shadow: 0 0 10px rgba(0, 255, 159, 0.3);
-  }
-
-  .plugin-showcase__item--secondary .plugin-showcase__ascii {
-    color: var(--color-accent-secondary);
-    text-shadow: 0 0 10px rgba(255, 107, 157, 0.3);
-  }
-
-  .plugin-showcase__item--gold .plugin-showcase__ascii {
-    color: var(--color-highlight-gold);
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-  }
-
-  .plugin-showcase__item:hover .plugin-showcase__ascii {
-    filter: brightness(1.3);
-    transform: scale(1.02);
-  }
-
-  .plugin-showcase__item--primary:hover {
-    box-shadow: var(--glow-primary);
-  }
-
-  .plugin-showcase__item--secondary:hover {
-    box-shadow: var(--glow-secondary);
-  }
-
-  .plugin-showcase__item--gold:hover {
-    box-shadow: var(--glow-gold);
-  }
-
-  .plugin-showcase__description {
-    font-size: clamp(1rem, 2vw, 1.5rem);
-    font-weight: var(--weight-normal);
     color: var(--color-terminal-white);
-    text-align: center;
-    font-family: var(--font-body);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px dashed var(--color-gray-800);
   }
+
+  .prompt { color: var(--color-accent-primary); }
+  .cursor { animation: blink 1s step-end infinite; }
+
+  .terminal-window__ascii {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 10px;
+    color: var(--color-gray-500);
+    overflow: hidden;
+    margin-bottom: var(--space-lg);
+    flex: 1;
+    transition: color 0.3s ease;
+    white-space: pre;
+  }
+
+  .terminal-window:hover .terminal-window__ascii {
+    color: var(--color-accent-primary);
+  }
+
+  .terminal-window--secondary:hover .terminal-window__ascii {
+    color: var(--color-accent-secondary);
+  }
+
+  .terminal-window--gold:hover .terminal-window__ascii {
+    color: var(--color-highlight-gold);
+  }
+
+  .terminal-window__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-md);
+  }
+
+  .terminal-window__footer p {
+    color: var(--color-terminal-white);
+    font-size: 1.25rem;
+    font-weight: 500;
+    max-width: 70%;
+  }
+
+  .terminal-window__cta {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--color-accent-primary);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+  }
+
+  .terminal-window--secondary .terminal-window__cta { color: var(--color-accent-secondary); }
+  .terminal-window--gold .terminal-window__cta { color: var(--color-highlight-gold); }
+
+  .terminal-window:hover .terminal-window__cta {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @keyframes blink { 50% { opacity: 0; } }
 
   @media (max-width: 768px) {
-    .plugin-showcase {
-      min-height: auto;
+    .plugin-showcase__grid {
+      grid-template-columns: 1fr;
     }
-
-    .plugin-showcase__item:nth-child(odd),
-    .plugin-showcase__item:nth-child(even) {
-      align-self: center;
-      max-width: 100%;
-    }
-
-    .plugin-showcase__ascii {
-      font-size: clamp(0.35rem, 2vw, 0.5rem);
+    
+    .terminal-window__ascii {
+        font-size: 6px;
+        line-height: 6px;
     }
   }
 </style>

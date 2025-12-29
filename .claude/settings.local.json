@@ -71,7 +71,8 @@
       "mcp__plugin_playwright_playwright__browser_evaluate",
       "mcp__plugin_playwright_playwright__browser_hover",
       "mcp__plugin_playwright_playwright__browser_type",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "mcp__plugin_playwright_playwright__browser_run_code"
     ]
   }
 }

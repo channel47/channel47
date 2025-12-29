@@ -4,234 +4,242 @@ import ScrollReveal from '../shared/ScrollReveal.astro';
 ---
 
 <section class="newsletter-section">
-  <div class="newsletter-section__content">
-    <!-- Narrative Copy -->
+  <div class="newsletter-section__container">
+    <div class="newsletter-section__signal-meter">
+      <div class="signal-bar active"></div>
+      <div class="signal-bar active"></div>
+      <div class="signal-bar active"></div>
+      <div class="signal-bar active"></div>
+      <div class="signal-bar active"></div>
+    </div>
+
     <ScrollReveal direction="up">
-      <p class="newsletter-section__line newsletter-section__line--intro">
-        I'm not the only one building.
-      </p>
+      <h2 class="newsletter-section__headline">
+        <span class="text-muted">Most of it is noise.</span><br>
+        <span class="text-white">I curate the signal.</span>
+      </h2>
     </ScrollReveal>
 
-    <ScrollReveal direction="up" delay={2}>
-      <p class="newsletter-section__line">
-        The Claude ecosystem is exploding.
-      </p>
-    </ScrollReveal>
+    <div class="newsletter-section__grid">
+      <div class="newsletter-section__content">
+        <ScrollReveal direction="up" delay={1}>
+          <p class="newsletter-section__copy">
+            The Claude ecosystem is exploding. New plugins. MCP servers. Workflow breakthroughs. 
+            I filter the chaos and send you only the tools that actually matter.
+          </p>
+        </ScrollReveal>
+      </div>
 
-    <ScrollReveal direction="up" delay={3}>
-      <p class="newsletter-section__line">
-        New plugins. MCP servers. Workflow breakthroughs.
-      </p>
-    </ScrollReveal>
+      <div class="newsletter-section__form-wrapper">
+        <ScrollReveal direction="up" delay={2}>
+          <form class="newsletter-section__form" id="newsletter-form">
+            <div class="input-wrapper">
+              <input
+                type="email"
+                name="email"
+                placeholder="ENTER YOUR EMAIL"
+                class="newsletter-input"
+                required
+                aria-label="Email address"
+              />
+              <button type="submit" class="newsletter-button">
+                JOIN_SIGNAL
+              </button>
+            </div>
+            <p class="newsletter-disclaimer">
+              Weekly. High signal. No spam. Unsubscribe anytime.
+            </p>
+          </form>
 
-    <ScrollReveal direction="up" delay={4}>
-      <p class="newsletter-section__line newsletter-section__line--emphasis">
-        Most of it's noise.
-      </p>
-    </ScrollReveal>
-
-    <ScrollReveal direction="up" delay={5}>
-      <p class="newsletter-section__line newsletter-section__line--cta">
-        I curate the signal.
-      </p>
-    </ScrollReveal>
-
-    <!-- Signal Icon -->
-    <ScrollReveal direction="scale">
-      <img
-        src="/images/signal-icon.png"
-        alt="Signal curation icon"
-        class="newsletter-section__icon"
-        loading="lazy"
-      />
-    </ScrollReveal>
-
-    <!-- Email Form -->
-    <ScrollReveal direction="up">
-      <form class="newsletter-section__form" id="newsletter-form">
-        <div class="newsletter-section__input-group">
-          <input
-            type="email"
-            name="email"
-            placeholder="your@email.com"
-            class="newsletter-section__input"
-            required
-            aria-label="Email address"
-          />
-          <button type="submit" class="newsletter-section__button">
-            Subscribe
-          </button>
-        </div>
-        <p class="newsletter-section__fine-print">
-          Weekly curation. Claude plugins. MCP servers. Tools worth your time.<br/>
-          Unsubscribe anytime.
-        </p>
-      </form>
-    </ScrollReveal>
-
-    <!-- Success Message (hidden by default) -->
-    <div class="newsletter-section__success" id="newsletter-success" hidden>
-      <p class="newsletter-section__success-text">
-        ✓ SUBSCRIBED
-      </p>
-      <p class="newsletter-section__success-message">
-        Welcome to the signal.
-      </p>
+          <div class="newsletter-success" id="newsletter-success" hidden>
+            <div class="success-icon">✓</div>
+            <h3>SIGNAL ACQUIRED</h3>
+            <p>Check your inbox to confirm.</p>
+          </div>
+        </ScrollReveal>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
   .newsletter-section {
-    min-height: 100vh;
+    min-height: 80vh;
+    background: #05070a;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-terminal-black);
-    padding: clamp(3rem, 8vh, 6rem) clamp(2rem, 6vw, 4rem);
+    padding: var(--space-2xl) var(--site-padding-x);
+    border-top: 1px solid var(--color-gray-800);
+    position: relative;
   }
 
-  .newsletter-section__content {
-    max-width: 800px;
-    text-align: center;
+  .newsletter-section__container {
+    max-width: 1200px;
+    width: 100%;
+    position: relative;
   }
 
-  .newsletter-section__line {
-    font-size: clamp(1.25rem, 2.5vw, 2rem);
-    font-weight: var(--weight-normal);
-    color: var(--color-terminal-white);
-    margin-bottom: var(--space-lg);
-    line-height: var(--leading-normal);
-  }
-
-  .newsletter-section__line--intro {
-    color: var(--color-muted-gray);
-    font-size: clamp(1rem, 2vw, 1.5rem);
-  }
-
-  .newsletter-section__line--emphasis {
-    color: var(--color-accent-secondary);
-    font-weight: var(--weight-medium);
-  }
-
-  .newsletter-section__line--cta {
-    color: var(--color-accent-primary);
-    font-weight: var(--weight-bold);
+  /* Signal Meter Animation */
+  .newsletter-section__signal-meter {
+    display: flex;
+    gap: 4px;
     margin-bottom: var(--space-xl);
+    justify-content: center; /* Centered initially */
   }
 
-  .newsletter-section__icon {
-    max-width: 120px;
-    height: auto;
-    margin: var(--space-xl) auto;
-    filter: drop-shadow(0 0 20px rgba(0, 255, 159, 0.4));
-    animation: pulse 3s ease-in-out infinite;
+  .signal-bar {
+    width: 12px;
+    height: 40px;
+    background: var(--color-gray-800);
+    transform: skewX(-20deg);
   }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 0.8; }
-    50% { opacity: 1; }
+  .signal-bar.active {
+    background: var(--color-accent-primary);
+    box-shadow: 0 0 10px rgba(0, 255, 159, 0.5);
+    animation: signal-pulse 2s infinite alternate;
+  }
+
+  .signal-bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+  .signal-bar:nth-child(2) { height: 30px; animation-delay: 0.1s; }
+  .signal-bar:nth-child(3) { height: 40px; animation-delay: 0.2s; }
+  .signal-bar:nth-child(4) { height: 50px; animation-delay: 0.3s; }
+  .signal-bar:nth-child(5) { height: 60px; animation-delay: 0.4s; }
+
+  @keyframes signal-pulse {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+
+  .newsletter-section__headline {
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: var(--weight-black);
+    line-height: 0.9;
+    text-transform: uppercase;
+    margin-bottom: var(--space-2xl);
+    text-align: center; /* Centered */
+  }
+
+  .text-muted { color: var(--color-gray-600); }
+  .text-white { color: var(--color-terminal-white); }
+
+  .newsletter-section__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  .newsletter-section__copy {
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    color: var(--color-gray-400);
+    line-height: 1.4;
+    max-width: 90%;
   }
 
   .newsletter-section__form {
-    margin-top: var(--space-2xl);
+    width: 100%;
   }
 
-  .newsletter-section__input-group {
+  .input-wrapper {
     display: flex;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-md);
-    flex-wrap: wrap;
-    justify-content: center;
+    border-bottom: 2px solid var(--color-terminal-white);
+    transition: border-color 0.3s ease;
   }
 
-  .newsletter-section__input {
-    flex: 1;
-    min-width: 250px;
-    max-width: 400px;
-    padding: var(--space-sm) var(--space-md);
-    background: transparent;
-    border: 1px solid var(--color-muted-gray);
-    color: var(--color-terminal-white);
-    font-family: var(--font-mono);
-    font-size: var(--text-base);
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-  }
-
-  .newsletter-section__input:focus {
-    outline: none;
+  .input-wrapper:focus-within {
     border-color: var(--color-accent-primary);
-    box-shadow: 0 0 0 1px var(--color-accent-primary), var(--glow-primary);
   }
 
-  .newsletter-section__input::placeholder {
-    color: var(--color-muted-gray);
+  .newsletter-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: var(--space-md) 0;
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    color: var(--color-terminal-white);
+    outline: none;
   }
 
-  .newsletter-section__button {
-    padding: var(--space-sm) var(--space-md);
-    background: var(--color-bg-hover);
-    border: 1px solid var(--color-accent-primary);
+  .newsletter-input::placeholder {
+    color: var(--color-gray-700);
+  }
+
+  .newsletter-button {
+    background: transparent;
+    border: none;
     color: var(--color-accent-primary);
     font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
+    font-weight: bold;
+    font-size: 1.25rem;
     cursor: pointer;
-    transition: all var(--transition-fast);
-    white-space: nowrap;
+    padding: 0 var(--space-md);
+    transition: all 0.3s ease;
   }
 
-  .newsletter-section__button::before {
-    content: "$ ";
+  .newsletter-button:hover {
+    background: var(--color-accent-primary);
+    color: var(--color-terminal-black);
   }
 
-  .newsletter-section__button:hover {
-    background: rgba(0, 255, 159, 0.2);
-    box-shadow: var(--glow-primary);
-    transform: translateY(-1px);
-  }
-
-  .newsletter-section__button:active {
-    transform: translateY(0);
-  }
-
-  .newsletter-section__fine-print {
-    font-size: var(--text-sm);
-    color: var(--color-muted-gray);
-    line-height: var(--leading-relaxed);
-  }
-
-  .newsletter-section__success {
-    margin-top: var(--space-xl);
-  }
-
-  .newsletter-section__success-text {
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    font-weight: var(--weight-bold);
-    color: var(--color-accent-primary);
+  .newsletter-disclaimer {
+    margin-top: var(--space-md);
     font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--color-gray-600);
+  }
+
+  .newsletter-success {
+    text-align: center;
+    padding: var(--space-xl);
+    border: 1px solid var(--color-accent-primary);
+    background: rgba(0, 255, 159, 0.05);
+  }
+
+  .success-icon {
+    font-size: 4rem;
+    color: var(--color-accent-primary);
     margin-bottom: var(--space-md);
   }
 
-  .newsletter-section__success-message {
-    font-size: clamp(1rem, 2vw, 1.5rem);
+  .newsletter-success h3 {
     color: var(--color-terminal-white);
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .newsletter-success p {
+    color: var(--color-gray-400);
+    font-family: var(--font-mono);
   }
 
   @media (max-width: 768px) {
-    .newsletter-section__input-group {
-      flex-direction: column;
-      align-items: stretch;
+    .newsletter-section__grid {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    
+    .newsletter-section__copy {
+      max-width: 100%;
+      margin-bottom: var(--space-xl);
     }
 
-    .newsletter-section__input {
-      min-width: auto;
+    .input-wrapper {
+        flex-direction: column;
+        border-bottom: none;
+        gap: var(--space-md);
     }
-  }
+    
+    .newsletter-input {
+        border-bottom: 2px solid var(--color-gray-600);
+        text-align: center;
+    }
 
-  @media (prefers-reduced-motion: reduce) {
-    .newsletter-section__icon {
-      animation: none;
+    .newsletter-button {
+        border: 2px solid var(--color-accent-primary);
+        padding: var(--space-md);
     }
   }
 </style>
@@ -246,20 +254,23 @@ import ScrollReveal from '../shared/ScrollReveal.astro';
     const formData = new FormData(form);
     const email = formData.get('email') as string;
 
-    // TODO: Replace with actual newsletter API endpoint
-    // For now, just show success
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
+      const button = form.querySelector('button');
+      if (button) {
+          const originalText = button.innerText;
+          button.innerText = 'INITIALIZING...';
+          await new Promise(resolve => setTimeout(resolve, 1500));
+          button.innerText = originalText;
+      }
 
-      // Hide form, show success
       form.style.display = 'none';
       successDiv.hidden = false;
-
-      console.log('Newsletter signup:', email);
+      
+      console.log('Signal acquired:', email);
     } catch (error) {
-      console.error('Newsletter signup failed:', error);
-      alert('Subscription failed. Please try again.');
+      console.error('Signal lost:', error);
+      alert('Connection failed. Retry sequence initiated.');
     }
   });
 </script>
