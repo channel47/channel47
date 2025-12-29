@@ -1,7 +1,6 @@
 // scripts/synthesize.ts
 import 'dotenv/config';
 import Anthropic from '@anthropic-ai/sdk';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
@@ -13,7 +12,7 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+// GoogleGenerativeAI SDK initialized when needed in generateImageViaAPI
 
 async function loadPrompt(): Promise<string> {
   const promptPath = path.join(__dirname, 'prompts', 'synthesis.md');

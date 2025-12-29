@@ -58,7 +58,6 @@ const welcomeAscii = `
 
 <script>
   // Terminal Logic
-  const terminalWindow = document.querySelector('.terminal-hero__window');
   const terminalOutput = document.getElementById('terminal-output');
   const bootSequence = document.querySelector('.terminal-boot-sequence');
   const asciiLogo = document.querySelector('.terminal-ascii-logo');
@@ -72,9 +71,6 @@ const welcomeAscii = `
   const LOGO_DELAY = 100;
   const SYSTEM_INFO_DELAY = 600;
   const INPUT_DELAY = 1200;
-
-  // Command Helper
-  const formatLink = (url: string, text: string) => `<a href="${url}" class="terminal-link">${text}</a>`;
 
   // Commands
   const commands: Record<string, (args?: string[]) => string | void> = {

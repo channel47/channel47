@@ -29,8 +29,6 @@ enrichedPlugins.sort((a, b) => {
 // Get unique categories
 const categories = ['all', ...new Set(mergedPlugins.map(p => p.category).filter(Boolean))];
 
-// Helper to format category for display
-const formatCategory = (cat: string) => cat === 'google-ads' ? 'Google Ads' : cat;
 ---
 
 <BaseLayout
@@ -59,10 +57,6 @@ const formatCategory = (cat: string) => cat === 'google-ads' ? 'Google Ads' : ca
       {enrichedPlugins.map(({ slug, data, marketplaceData, featured }) => {
         const name = marketplaceData?.name || slug;
         const category = marketplaceData?.category || 'uncategorized';
-        // Handle nested author object or string, default to Unknown
-        const authorName = typeof marketplaceData?.author === 'object' 
-          ? marketplaceData.author.name 
-          : (marketplaceData?.author || 'Unknown');
 
         return (
           <a
