@@ -30,7 +30,6 @@ export const POST: APIRoute = async ({ request }) => {
     // Lazy initialization - only create client when API is called
     const apiKey = import.meta.env.RESEND_API_KEY;
     if (!apiKey) {
-      console.error('RESEND_API_KEY not configured');
       return new Response(JSON.stringify({ error: 'Email service not configured' }), {
         status: 503,
         headers: { 'Content-Type': 'application/json' },
@@ -51,14 +50,11 @@ export const POST: APIRoute = async ({ request }) => {
       `,
     });
 
-    console.log(`New subscriber: ${email} (source: ${source})`);
-
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
-  } catch (error) {
-    console.error('Subscribe error:', error);
+  } catch {
     return new Response(JSON.stringify({ error: 'Subscription failed' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },

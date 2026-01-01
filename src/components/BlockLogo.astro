@@ -30,8 +30,7 @@ try {
   // Construct path relative to project root
   const fullPath = path.join(process.cwd(), 'public', filePath);
   asciiArt = await readFile(fullPath, 'utf-8');
-} catch (error) {
-  console.error(`Failed to load ASCII art from ${filePath}:`, error);
+} catch {
   asciiArt = 'CH47'; // Fallback
 }
 

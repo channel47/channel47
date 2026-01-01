@@ -251,9 +251,6 @@ import ScrollReveal from '../shared/ScrollReveal.astro';
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(form);
-    const email = formData.get('email') as string;
-
     try {
       // Simulate API call
       const button = form.querySelector('button');
@@ -266,10 +263,7 @@ import ScrollReveal from '../shared/ScrollReveal.astro';
 
       form.style.display = 'none';
       successDiv.hidden = false;
-      
-      console.log('Signal acquired:', email);
-    } catch (error) {
-      console.error('Signal lost:', error);
+    } catch {
       alert('Connection failed. Retry sequence initiated.');
     }
   });
