@@ -31,12 +31,12 @@ const welcomeAscii = `
       <div class="terminal-boot-sequence">
         <pre class="terminal-ascii-logo" aria-label="WELCOME">{welcomeAscii}</pre>
         <div class="terminal-system-info">
-          <pre class="terminal-info-banner">+---------------------------------------+
-| CHANNEL 47 OS [Version 1.0.0]         |
-| Battle-tested tools for AI workflows. |
-+---------------------------------------+</pre>
+          <pre class="terminal-info-banner">+------------------------------------------+
+| CHANNEL 47 OS [Version 2.0.0]            |
+| Hosted MCP server for Google Ads + AI.   |
++------------------------------------------+</pre>
           <br/>
-          <p>Type <span class="terminal-cmd-highlight">help</span> or <span class="terminal-cmd-highlight">ls</span> to view available tools.</p>
+          <p>Type <span class="terminal-cmd-highlight">help</span> for commands or <span class="terminal-cmd-highlight">connect</span> to get started.</p>
         </div>
       </div>
 
@@ -76,68 +76,71 @@ const welcomeAscii = `
   const commands: Record<string, (args?: string[]) => string | void> = {
     // === Navigation & Discovery ===
     help: () => {
-      // Return structured HTML for better readability
       return `
 <div class="terminal-help-grid">
-  <div class="help-item"><span class="cmd">ls</span>         <span class="desc">List available tools</span></div>
-  <div class="help-item"><span class="cmd">cd [dir]</span>   <span class="desc">Navigate to tool</span></div>
+  <div class="help-item"><span class="cmd">connect</span>    <span class="desc">Get your MCP connection URL</span></div>
+  <div class="help-item"><span class="cmd">tools</span>      <span class="desc">List available MCP tools</span></div>
+  <div class="help-item"><span class="cmd">open blog</span>  <span class="desc">Read our stories</span></div>
   <div class="help-item"><span class="cmd">clear</span>      <span class="desc">Clear screen</span></div>
 </div>`;
     },
 
-    ls: () => {
-      // Return HTML string for rich output
+    connect: () => {
+      return `
+<div class="terminal-connect-info">
+  <p>Connect to Channel 47 MCP in Claude:</p>
+  <br/>
+  <p>1. Open Claude settings → Integrations</p>
+  <p>2. Add this URL: <span class="terminal-url">https://channel47.dev/api/mcp</span></p>
+  <p>3. Authenticate with Google</p>
+  <br/>
+  <p style="color: var(--color-text-muted);">Requires Google Ads API access. Coming soon.</p>
+</div>`;
+    },
+
+    tools: () => {
       return `<div class="terminal-file-list">
   <div class="terminal-file-item">
-    <span class="file-perm">drwxr-xr-x</span> <span class="file-user">root</span> <span class="file-size">4096</span> <a href="/plugins/ascii-art" class="file-link">ascii-art/</a>      <span class="file-desc"># Generate ASCII logos & diagrams</span>
+    <span class="file-perm">-rwxr-xr-x</span> <span class="file-user">mcp</span> <span class="file-size">tool</span> <span class="file-link">get_account_info</span>      <span class="file-desc"># Fetch Google Ads account details</span>
   </div>
   <div class="terminal-file-item">
-    <span class="file-perm">drwxr-xr-x</span> <span class="file-user">root</span> <span class="file-size">4096</span> <a href="/plugins/creative-writing" class="file-link">creative-writing/</a> <span class="file-desc"># Editorial enhancement tools</span>
+    <span class="file-perm">-rwxr-xr-x</span> <span class="file-user">mcp</span> <span class="file-size">tool</span> <span class="file-link">get_campaign_performance</span> <span class="file-desc"># Pull campaign metrics</span>
   </div>
   <div class="terminal-file-item">
-    <span class="file-perm">drwxr-xr-x</span> <span class="file-user">root</span> <span class="file-size">4096</span> <a href="/plugins/google-ads" class="file-link">google-ads/</a>       <span class="file-desc"># GAQL query interface</span>
+    <span class="file-perm">-rwxr-xr-x</span> <span class="file-user">mcp</span> <span class="file-size">tool</span> <span class="file-link">analyze_wasted_spend</span>    <span class="file-desc"># Find budget inefficiencies</span>
+  </div>
+  <div class="terminal-file-item">
+    <span class="file-perm">-rwxr-xr-x</span> <span class="file-user">mcp</span> <span class="file-size">tool</span> <span class="file-link">quality_score_report</span>    <span class="file-desc"># Keyword QS breakdown</span>
   </div>
 </div>`;
     },
 
-    cd: (args) => {
-        const dir = args?.[0]?.toLowerCase();
-        if (!dir || dir === '~') return ''; // Stay in root
-        if (dir === '..') return ''; // Already in root effectively for this demo
-        
-        const plugins = ['ascii-art', 'creative-writing', 'google-ads'];
-        if (plugins.includes(dir) || dir === 'plugins/' + dir) {
-            window.location.href = `/plugins/${dir}`;
-            return `Navigating to /plugins/${dir}...`;
-        }
-        return `cd: no such file or directory: ${dir}`;
-    },
+    // Keep ls as alias for tools
+    ls: () => commands.tools?.(),
 
     open: (args) => {
         const page = args?.[0]?.toLowerCase();
         if (!page) return 'usage: open <page>';
-        
+
         const validPages: Record<string, string> = {
-            'blog': '/blog',
-            'plugins': '/plugins'
+            'blog': '/blog'
         };
 
         if (validPages[page]) {
             window.location.href = validPages[page];
             return `Opening ${page}...`;
         }
-        return `open: ${page}: file not found`;
+        return `open: ${page}: not found. Try: open blog`;
     },
 
     subscribe: () => {
-        // Find the email signup form on the page and focus it, or redirect
         const footerInput = document.querySelector('input[type="email"]') as HTMLElement;
         if (footerInput) {
             footerInput.scrollIntoView({ behavior: 'smooth' });
             footerInput.focus();
-            return 'Redirecting focus to subscription form...';
+            return 'Scrolling to newsletter signup...';
         }
-        return 'Subscribe via RSS or the form in the footer.';
+        return 'Subscribe via the form in the footer.';
     },
 
     // === Utilities ===

@@ -4,15 +4,11 @@ description: "How we went from design document to fully implemented Claude plugi
 date: 2025-12-21
 tags:
   [
-    "claude-plugins",
     "ai-development",
     "subagent-driven-development",
     "creative-writing",
     "automation",
   ]
-toolsUsed:
-  - slug: "creative-writing"
-    source: "channel47"
 heroImages:
   styleA: "/images/blog-heroes/conversation_2025-12-21_14-59-44/style-a.png"
   styleD: "/images/blog-heroes/conversation_2025-12-21_14-59-44/style-d.png"

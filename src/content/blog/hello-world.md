@@ -3,6 +3,7 @@ title: "The Beginning"
 description: "Why I'm building a marketplace for Claude Code power users, and what you can expect."
 date: 2025-12-19
 tags: ["meta", "claude-code"]
+draft: true
 ---
 
 I've spent an embarrassing amount of time wiring together skills and subagents in Claude Code. Custom workflows for the tedious tasks I do constantly. Read-only MCP servers that connect to APIs I use every day. Prompts that solve my specific problems instead of generic ones I have to adapt.
