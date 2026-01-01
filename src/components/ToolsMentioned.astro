@@ -1,6 +1,6 @@
 ---
 // src/components/ToolsMentioned.astro
-import mergedPlugins from '../data/merged-plugins.json';
+// Simplified for hosted MCP pivot - no longer linking to plugin pages
 
 interface Props {
   tools: Array<{
@@ -12,23 +12,10 @@ interface Props {
 
 const { tools } = Astro.props;
 
-const enrichedTools = tools.map(tool => {
-  if (tool.source === 'channel47') {
-    const pluginData = mergedPlugins.find(p => p.name === tool.slug);
-    return {
-      ...tool,
-      name: pluginData?.name || tool.slug,
-      description: pluginData?.description,
-      url: `/plugins/${tool.slug}`,
-    };
-  }
-  return {
-    ...tool,
-    name: tool.slug,
-    description: undefined,
-    url: null,
-  };
-});
+const enrichedTools = tools.map(tool => ({
+  ...tool,
+  name: tool.slug,
+}));
 ---
 
 <div>
@@ -36,18 +23,7 @@ const enrichedTools = tools.map(tool => {
   <ul class="related-list">
     {enrichedTools.map(tool => (
       <li class="related-list__item">
-        {tool.url ? (
-          <a href={tool.url} class="related-list__link">
-            {tool.name}
-          </a>
-        ) : (
-          <span style="color: var(--color-text);">{tool.name}</span>
-        )}
-        {tool.description && (
-          <span style="font-size: var(--text-sm); color: var(--color-text-muted); margin-left: var(--space-2);">
-            — {tool.description}
-          </span>
-        )}
+        <span style="color: var(--color-text);">{tool.name}</span>
       </li>
     ))}
   </ul>

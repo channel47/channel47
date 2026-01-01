@@ -17,14 +17,4 @@ const blog = defineCollection({
   }),
 });
 
-const plugins = defineCollection({
-  type: 'content',
-  schema: z.object({
-    featured: z.boolean().default(false),
-    draft: z.boolean().default(false),
-    asciiIcon: z.string().optional(),
-    iconColor: z.string().optional(),
-  }),
-});
-
-export const collections = { blog, plugins };
+export const collections = { blog };

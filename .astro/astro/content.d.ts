@@ -163,36 +163,14 @@ declare module 'astro:content' {
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 };
-"plugins": {
-"ascii-art.md": {
-	id: "ascii-art.md";
-  slug: "ascii-art";
+"plugins": Record<string, {
+  id: string;
+  slug: string;
   body: string;
   collection: "plugins";
-  data: InferEntrySchema<"plugins">
-} & { render(): Render[".md"] };
-"creative-writing.md": {
-	id: "creative-writing.md";
-  slug: "creative-writing";
-  body: string;
-  collection: "plugins";
-  data: InferEntrySchema<"plugins">
-} & { render(): Render[".md"] };
-"google-ads.md": {
-	id: "google-ads.md";
-  slug: "google-ads";
-  body: string;
-  collection: "plugins";
-  data: InferEntrySchema<"plugins">
-} & { render(): Render[".md"] };
-"prompt-enhancer.md": {
-	id: "prompt-enhancer.md";
-  slug: "prompt-enhancer";
-  body: string;
-  collection: "plugins";
-  data: InferEntrySchema<"plugins">
-} & { render(): Render[".md"] };
-};
+  data: any;
+  render(): Render[".md"];
+}>;
 
 	};
 
