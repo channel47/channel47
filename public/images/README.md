@@ -1,1 +1,0 @@
-TODO: Add hero-poster.jpg here

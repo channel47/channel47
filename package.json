@@ -3,29 +3,14 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "npm run sync-marketplace && astro dev",
-    "start": "astro dev",
-    "build": "astro check && astro build",
-    "prebuild": "npm run sync-marketplace",
-    "preview": "astro preview",
-    "astro": "astro",
-    "sync-marketplace": "tsx scripts/sync-marketplace.ts",
-    "synthesize": "tsx scripts/synthesize.ts",
-    "regenerate-images": "tsx scripts/regenerate-images.ts"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.71.2",
-    "@google/generative-ai": "^0.24.1",
-    "@vercel/analytics": "^1.6.1",
-    "astro": "^4.16.17",
-    "dotenv": "^17.2.3",
-    "gray-matter": "^4.0.3",
-    "resend": "^6.6.0"
+    "astro": "^4.16.17"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@types/node": "^25.0.3",
-    "tsx": "^4.21.0",
     "typescript": "^5.7.2"
   }
 }
