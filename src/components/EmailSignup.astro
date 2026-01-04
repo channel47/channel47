@@ -1,0 +1,179 @@
+---
+/**
+ * EmailSignup Component
+ *
+ * Beehiiv-ready email capture form.
+ * Replace BEEHIIV_EMBED_URL with your actual Beehiiv form URL.
+ */
+
+interface Props {
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  variant?: 'inline' | 'card';
+  class?: string;
+}
+
+const {
+  title = 'Stay in the loop',
+  description = 'Get notified when we release new skills and share Google Ads insights.',
+  buttonText = 'Subscribe',
+  variant = 'card',
+  class: className,
+} = Astro.props;
+
+// TODO: Replace with actual Beehiiv embed URL
+const BEEHIIV_EMBED_URL = 'https://embeds.beehiiv.com/YOUR_EMBED_ID';
+---
+
+<div class:list={['email-signup', `email-signup--${variant}`, className]}>
+  {variant === 'card' && (
+    <div class="email-signup__content">
+      <h3 class="email-signup__title">{title}</h3>
+      <p class="email-signup__description">{description}</p>
+    </div>
+  )}
+
+  <form
+    class="email-signup__form"
+    action={BEEHIIV_EMBED_URL}
+    method="POST"
+    data-beehiiv-form
+  >
+    <div class="email-signup__input-group">
+      <label for="email" class="visually-hidden">Email address</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="you@example.com"
+        required
+        class="email-signup__input"
+      />
+      <button type="submit" class="email-signup__button">
+        {buttonText}
+      </button>
+    </div>
+    <p class="email-signup__privacy">
+      No spam. Unsubscribe anytime.
+    </p>
+  </form>
+</div>
+
+<style>
+  .email-signup {
+    width: 100%;
+  }
+
+  .email-signup--card {
+    padding: var(--space-8);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .email-signup__content {
+    text-align: center;
+    margin-bottom: var(--space-6);
+  }
+
+  .email-signup__title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .email-signup__description {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .email-signup__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .email-signup__input-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 480px) {
+    .email-signup__input-group {
+      flex-direction: row;
+    }
+  }
+
+  .email-signup__input {
+    flex: 1;
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
+    background-color: var(--color-void);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition:
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .email-signup__input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .email-signup__input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-subtle);
+  }
+
+  .email-signup__button {
+    padding: var(--space-3) var(--space-6);
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    color: var(--color-void);
+    background-color: var(--color-accent);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .email-signup__button:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-1px);
+  }
+
+  .email-signup__button:active {
+    transform: translateY(0);
+  }
+
+  .email-signup__privacy {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-align: center;
+    margin: 0;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

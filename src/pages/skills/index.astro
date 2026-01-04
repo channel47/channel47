@@ -1,0 +1,232 @@
+---
+/**
+ * Skills Listing Page
+ *
+ * Browse all available MCP skills for Google Ads.
+ */
+
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import SkillCard from '../../components/SkillCard.astro';
+import EmailSignup from '../../components/EmailSignup.astro';
+
+const allSkills = await getCollection('skills');
+const skills = allSkills
+  .filter((skill) => !skill.data.draft)
+  .sort((a, b) => {
+    // Featured first, then by date
+    if (a.data.featured && !b.data.featured) return -1;
+    if (!a.data.featured && b.data.featured) return 1;
+    return b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf();
+  });
+
+const freeSkills = skills.filter((s) => s.data.tier === 'free');
+const premiumSkills = skills.filter((s) => s.data.tier === 'premium');
+
+const categories = [...new Set(skills.map((s) => s.data.category))];
+---
+
+<BaseLayout
+  title="MCP Skills for Google Ads | Channel 47"
+  description="AI-powered workflows for Google Ads. Download free skills or unlock premium automations."
+>
+  <Header />
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero__content">
+        <p class="hero__eyebrow">MCP Skills</p>
+        <h1 class="hero__title">Google Ads on Autopilot</h1>
+        <p class="hero__description">
+          AI-powered workflows that audit, analyze, and optimize your Google Ads accounts.
+          Built for Claude Code. Works in any MCP-compatible environment.
+        </p>
+      </div>
+    </section>
+
+    <!-- Free Skills Section -->
+    {freeSkills.length > 0 && (
+      <section class="section" id="free">
+        <div class="section__header">
+          <h2 class="section__title">Free Skills</h2>
+          <p class="section__description">
+            Get started with these open-source skills. No signup required.
+          </p>
+        </div>
+        <div class="skills-grid">
+          {freeSkills.map((skill) => (
+            <SkillCard
+              title={skill.data.title}
+              description={skill.data.description}
+              href={`/skills/${skill.slug}`}
+              category={skill.data.category}
+              tier={skill.data.tier}
+              featured={skill.data.featured}
+              tags={skill.data.tags}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Email Signup -->
+    <section class="section section--alt">
+      <div class="signup-wrapper">
+        <EmailSignup
+          title="Get notified about new skills"
+          description="Weekly Google Ads insights + first access to new skills. Real tactics from real campaigns."
+        />
+      </div>
+    </section>
+
+    <!-- Premium Skills Section -->
+    {premiumSkills.length > 0 && (
+      <section class="section" id="premium">
+        <div class="section__header">
+          <h2 class="section__title">Premium Skills</h2>
+          <p class="section__description">
+            Advanced workflows for serious advertisers. One-time purchase, lifetime access.
+          </p>
+        </div>
+        <div class="skills-grid">
+          {premiumSkills.map((skill) => (
+            <SkillCard
+              title={skill.data.title}
+              description={skill.data.description}
+              href={`/skills/${skill.slug}`}
+              category={skill.data.category}
+              tier={skill.data.tier}
+              price={skill.data.price}
+              featured={skill.data.featured}
+              tags={skill.data.tags}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Empty State -->
+    {skills.length === 0 && (
+      <section class="section">
+        <div class="empty-state">
+          <h2>Skills coming soon</h2>
+          <p>Sign up below to get notified when we launch.</p>
+          <EmailSignup variant="inline" />
+        </div>
+      </section>
+    )}
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .hero {
+    padding: var(--space-20) var(--space-4) var(--space-12);
+    text-align: center;
+  }
+
+  .hero__content {
+    max-width: var(--container-md);
+    margin: 0 auto;
+  }
+
+  .hero__eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    margin-bottom: var(--space-4);
+  }
+
+  .hero__title {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .hero__title {
+      font-size: var(--text-5xl);
+    }
+  }
+
+  .hero__description {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    max-width: 55ch;
+    margin: 0 auto;
+  }
+
+  /* Sections */
+  .section {
+    padding: var(--space-16) var(--space-4);
+    max-width: var(--container-lg);
+    margin: 0 auto;
+  }
+
+  .section--alt {
+    background-color: var(--color-surface);
+    max-width: none;
+    padding: var(--space-12) var(--space-4);
+  }
+
+  .section__header {
+    text-align: center;
+    margin-bottom: var(--space-10);
+  }
+
+  .section__title {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .section__description {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  /* Skills Grid */
+  .skills-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 640px) {
+    .skills-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .skills-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Signup Wrapper */
+  .signup-wrapper {
+    max-width: var(--container-sm);
+    margin: 0 auto;
+  }
+
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: var(--space-12) 0;
+  }
+
+  .empty-state h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .empty-state p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-8);
+  }
+</style>

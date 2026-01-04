@@ -164,6 +164,22 @@ declare module 'astro:content' {
   data: InferEntrySchema<"posts">
 } & { render(): Render[".md"] };
 };
+"skills": {
+"pmax-diagnostic.md": {
+	id: "pmax-diagnostic.md";
+  slug: "pmax-diagnostic";
+  body: string;
+  collection: "skills";
+  data: InferEntrySchema<"skills">
+} & { render(): Render[".md"] };
+"search-term-audit.md": {
+	id: "search-term-audit.md";
+  slug: "search-term-audit";
+  body: string;
+  collection: "skills";
+  data: InferEntrySchema<"skills">
+} & { render(): Render[".md"] };
+};
 
 	};
 
