@@ -2,54 +2,64 @@
  * Channel 47 Design System
  * Design Tokens - CSS Custom Properties
  *
- * This file defines all design tokens for the site.
- * Tokens are organized into categories: colors, typography, spacing, and effects.
+ * Philosophy: "Less is more" - intentional simplicity where every element
+ * earns its place. Decorative touches are minimal and purposeful.
+ *
+ * Colors use OKLCH for perceptually uniform color space.
  */
 
 :root {
   /* ========================================
-   * COLOR TOKENS
+   * COLOR TOKENS (OKLCH)
+   * Warm dark mode palette with perceptually uniform colors
    * ======================================== */
 
-  /* Base Colors */
-  --color-void: #0a0a0b;
-  --color-surface: #111113;
-  --color-surface-elevated: #18181b;
-  --color-border: #27272a;
-  --color-border-subtle: #1f1f23;
+  /* Background Colors - Warm charcoal with subtle warm undertone */
+  --color-bg: oklch(15% 0.01 60);           /* Primary background */
+  --color-bg-elevated: oklch(18% 0.01 60);  /* Cards, elevated surfaces */
+  --color-bg-hover: oklch(22% 0.01 60);     /* Hover states */
 
-  /* Brand Colors */
-  --color-accent: #00ff9f;
-  --color-accent-muted: #00cc7f;
-  --color-secondary: #ff6b9d;
-  --color-secondary-muted: #cc5580;
+  /* Foreground Colors - Soft cream, gentler than pure white */
+  --color-fg: oklch(93% 0.02 90);           /* Primary text */
+  --color-fg-secondary: oklch(70% 0.01 60); /* Secondary text */
+  --color-fg-muted: oklch(55% 0.01 60);     /* Muted text, captions */
+  --color-fg-inverse: oklch(15% 0.01 60);   /* Text on accent backgrounds */
 
-  /* Text Colors */
-  --color-text-primary: #fafafa;
-  --color-text-secondary: #a1a1aa;
-  --color-text-muted: #71717a;
-  --color-text-inverse: #0a0a0b;
+  /* Accent Colors - Muted coral for CTAs, logo, highlights */
+  --color-accent: oklch(70% 0.15 30);       /* Primary accent - muted coral */
+  --color-accent-hover: oklch(75% 0.18 30); /* Accent hover state */
+  --color-accent-muted: oklch(60% 0.12 30); /* Subdued accent */
+
+  /* Border Colors */
+  --color-border: oklch(25% 0.01 60);       /* Default borders */
+  --color-border-subtle: oklch(20% 0.01 60);/* Subtle dividers */
 
   /* Semantic Colors */
-  --color-success: #22c55e;
-  --color-warning: #eab308;
-  --color-error: #ef4444;
-  --color-info: #3b82f6;
+  --color-success: oklch(70% 0.15 145);
+  --color-warning: oklch(75% 0.15 85);
+  --color-error: oklch(65% 0.2 25);
+  --color-info: oklch(65% 0.15 250);
 
   /* ========================================
    * TYPOGRAPHY TOKENS
+   * Dual-font system: Geist Sans + Lora
    * ======================================== */
 
   /* Font Families */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
-  --font-display: var(--font-mono);
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
+  --font-mono: 'Geist Mono', 'SF Mono', Consolas, monospace;
+
+  /* Display font - Geist Sans for headlines, nav, UI */
+  --font-display: var(--font-sans);
+  /* Body font - Lora Serif for long-form reading */
+  --font-body: var(--font-serif);
 
   /* Font Sizes */
   --text-xs: 0.75rem;      /* 12px */
   --text-sm: 0.875rem;     /* 14px */
   --text-base: 1rem;       /* 16px */
-  --text-lg: 1.125rem;     /* 18px */
+  --text-lg: 1.125rem;     /* 18px - comfortable body size */
   --text-xl: 1.25rem;      /* 20px */
   --text-2xl: 1.5rem;      /* 24px */
   --text-3xl: 1.875rem;    /* 30px */
@@ -60,10 +70,10 @@
 
   /* Line Heights */
   --leading-none: 1;
-  --leading-tight: 1.25;
-  --leading-snug: 1.375;
+  --leading-tight: 1.1;    /* Headlines */
+  --leading-snug: 1.25;
   --leading-normal: 1.5;
-  --leading-relaxed: 1.625;
+  --leading-relaxed: 1.7;  /* Body text - generous for readability */
   --leading-loose: 2;
 
   /* Font Weights */
@@ -71,10 +81,13 @@
   --font-medium: 500;
   --font-semibold: 600;
   --font-bold: 700;
+  --font-extrabold: 800;   /* Extreme weight for impact */
+  --font-black: 900;       /* Maximum impact headlines */
 
   /* Letter Spacing */
+  --tracking-tightest: -0.075em; /* Extreme tight for bold headlines */
   --tracking-tighter: -0.05em;
-  --tracking-tight: -0.025em;
+  --tracking-tight: -0.025em;    /* Headlines */
   --tracking-normal: 0;
   --tracking-wide: 0.025em;
   --tracking-wider: 0.05em;
@@ -82,6 +95,7 @@
 
   /* ========================================
    * SPACING TOKENS
+   * 4px base unit with generous whitespace
    * ======================================== */
 
   --space-0: 0;
@@ -101,16 +115,25 @@
 
   /* ========================================
    * LAYOUT TOKENS
+   * Maximum 672px for optimal reading line length
+   * Mobile-first with responsive padding
    * ======================================== */
 
+  --content-width: 672px;  /* Optimal reading width */
   --container-sm: 640px;
   --container-md: 768px;
   --container-lg: 1024px;
   --container-xl: 1280px;
-  --container-2xl: 1536px;
 
-  --content-width: 65ch;
-  --sidebar-width: 280px;
+  /* Mobile-first padding, scales up on desktop */
+  --padding-mobile: var(--space-4);   /* 16px - tighter on mobile */
+  --padding-desktop: var(--space-8);  /* 32px - larger on desktop */
+
+  /* Safe areas for notched devices */
+  --safe-area-inset-top: env(safe-area-inset-top, 0px);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-inset-left: env(safe-area-inset-left, 0px);
+  --safe-area-inset-right: env(safe-area-inset-right, 0px);
 
   /* ========================================
    * BORDER & RADIUS TOKENS
@@ -129,20 +152,20 @@
    * SHADOW & EFFECT TOKENS
    * ======================================== */
 
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-default: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-sm: 0 1px 2px 0 oklch(0% 0 0 / 0.1);
+  --shadow-default: 0 1px 3px 0 oklch(0% 0 0 / 0.15);
+  --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 0.15);
+  --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 0.15);
+  --shadow-xl: 0 20px 25px -5px oklch(0% 0 0 / 0.2);
 
-  /* Glow Effects */
-  --glow-sm: 0 0 10px rgba(0, 255, 159, 0.3);
-  --glow-md: 0 0 20px rgba(0, 255, 159, 0.4);
-  --glow-lg: 0 0 30px rgba(0, 255, 159, 0.5);
-  --glow-accent: 0 0 20px var(--color-accent);
+  /* Glow Effects with muted coral */
+  --glow-sm: 0 0 10px oklch(70% 0.15 30 / 0.3);
+  --glow-md: 0 0 20px oklch(70% 0.15 30 / 0.4);
+  --glow-lg: 0 0 30px oklch(70% 0.15 30 / 0.5);
 
   /* ========================================
    * ANIMATION TOKENS
+   * For scroll animations and micro-interactions
    * ======================================== */
 
   --duration-instant: 0ms;
@@ -157,6 +180,39 @@
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
+  /* Stagger delays for scroll animations */
+  --stagger-1: 0ms;
+  --stagger-2: 50ms;
+  --stagger-3: 100ms;
+  --stagger-4: 150ms;
+  --stagger-5: 200ms;
+
+  /* ========================================
+   * INTERACTIVE ELEMENT TOKENS
+   * Touch targets and micro-interactions
+   * ======================================== */
+
+  --touch-target-min: 48px;  /* Minimum touch target size */
+  --scale-press: 0.98;       /* Scale feedback for tactile response */
+  --scale-hover: 1.02;       /* Subtle hover lift */
+
+  /* ========================================
+   * HAND-DRAWN AESTHETIC TOKENS
+   * For SVG strokes and decorative elements
+   * ======================================== */
+
+  --stroke-width-thin: 1.5px;
+  --stroke-width-base: 2px;
+  --stroke-width-thick: 3px;
+  --decorative-opacity: 0.15;  /* Low opacity for decorative elements */
+
+  /* ========================================
+   * IMAGE TREATMENT TOKENS
+   * ======================================== */
+
+  --image-bg-opacity: 0.5;    /* Hero images as atmospheric backgrounds */
+  --image-corner-opacity: 0.15; /* Hand-drawn border accents */
+
   /* ========================================
    * Z-INDEX TOKENS
    * ======================================== */
@@ -164,23 +220,9 @@
   --z-base: 0;
   --z-dropdown: 100;
   --z-sticky: 200;
-  --z-fixed: 300;
+  --z-header: 300;
   --z-modal-backdrop: 400;
   --z-modal: 500;
   --z-popover: 600;
   --z-tooltip: 700;
-}
-
-/* Dark mode is default, but we define light mode for completeness */
-@media (prefers-color-scheme: light) {
-  :root.auto-theme {
-    --color-void: #fafafa;
-    --color-surface: #ffffff;
-    --color-surface-elevated: #f4f4f5;
-    --color-border: #e4e4e7;
-    --color-border-subtle: #f4f4f5;
-    --color-text-primary: #09090b;
-    --color-text-secondary: #52525b;
-    --color-text-muted: #a1a1aa;
-  }
 }
