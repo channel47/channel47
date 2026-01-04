@@ -40,7 +40,53 @@ const pagesCollection = defineCollection({
   }),
 });
 
+/**
+ * Skills Collection
+ * For MCP skill files with distribution metadata
+ */
+const skillsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    // Core metadata
+    title: z.string(),
+    description: z.string(),
+    version: z.string().default('1.0.0'),
+
+    // Categorization
+    category: z.enum([
+      'google-ads',
+      'analytics',
+      'automation',
+      'reporting',
+      'optimization',
+      'other'
+    ]).default('other'),
+    tags: z.array(z.string()).optional(),
+
+    // Distribution
+    tier: z.enum(['free', 'premium']).default('free'),
+    price: z.number().optional(), // USD, only for premium
+    stripeProductId: z.string().optional(), // For Stripe checkout
+    stripePriceId: z.string().optional(),
+
+    // Skill file reference
+    skillFile: z.string().optional(), // Path to actual .md skill file
+
+    // Status
+    draft: z.boolean().default(false),
+    featured: z.boolean().default(false),
+
+    // Dates
+    publishedAt: z.coerce.date(),
+    updatedAt: z.coerce.date().optional(),
+
+    // Social proof
+    downloads: z.number().default(0),
+  }),
+});
+
 export const collections = {
   posts: postsCollection,
   pages: pagesCollection,
+  skills: skillsCollection,
 };

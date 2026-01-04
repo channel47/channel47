@@ -11,6 +11,13 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Button from '../components/Button.astro';
 import Card from '../components/Card.astro';
+import SkillCard from '../components/SkillCard.astro';
+import EmailSignup from '../components/EmailSignup.astro';
+
+const featuredSkills = (await getCollection('skills'))
+  .filter((skill) => !skill.data.draft && skill.data.featured)
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .slice(0, 2);
 
 const recentPosts = (await getCollection('posts'))
   .filter((post) => !post.data.draft)
@@ -45,6 +52,45 @@ const formatDate = (date: Date) =>
       </div>
       <div class="hero__decoration" aria-hidden="true">
         <div class="hero__grid"></div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    {featuredSkills.length > 0 && (
+      <section class="section" id="skills">
+        <div class="section__header">
+          <h2 class="section__title">MCP Skills for Google Ads</h2>
+          <p class="section__description">
+            AI-powered workflows that audit, analyze, and optimize your campaigns.
+          </p>
+        </div>
+        <div class="skills-grid">
+          {featuredSkills.map((skill) => (
+            <SkillCard
+              title={skill.data.title}
+              description={skill.data.description}
+              href={`/skills/${skill.slug}`}
+              category={skill.data.category}
+              tier={skill.data.tier}
+              price={skill.data.price}
+              featured={skill.data.featured}
+              tags={skill.data.tags}
+            />
+          ))}
+        </div>
+        <div class="section__footer">
+          <Button href="/skills" variant="primary">Browse all skills &rarr;</Button>
+        </div>
+      </section>
+    )}
+
+    <!-- Email Signup -->
+    <section class="section section--signup">
+      <div class="signup-wrapper">
+        <EmailSignup
+          title="Google Ads insights, AI-native"
+          description="Weekly tactics from real campaigns. First access to new skills."
+        />
       </div>
     </section>
 
@@ -223,6 +269,29 @@ const formatDate = (date: Date) =>
   .section__footer {
     text-align: center;
     margin-top: var(--space-8);
+  }
+
+  /* Skills Grid */
+  .skills-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .skills-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Signup Section */
+  .section--signup {
+    background-color: var(--color-surface);
+    padding: var(--space-12) var(--space-4);
+  }
+
+  .signup-wrapper {
+    max-width: var(--container-sm);
+    margin: 0 auto;
   }
 
   /* Posts Grid */
