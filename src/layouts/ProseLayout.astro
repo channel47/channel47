@@ -1,0 +1,219 @@
+---
+/**
+ * ProseLayout
+ *
+ * Layout for markdown content pages (blog posts, articles).
+ * Extends BaseLayout with article-specific structure.
+ */
+
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  date?: Date;
+  author?: string;
+  tags?: string[];
+  image?: {
+    src: string;
+    alt: string;
+  };
+}
+
+const { title, description, date, author, tags, image } = Astro.props;
+
+const formattedDate = date
+  ? new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(date)
+  : null;
+---
+
+<BaseLayout title={title} description={description}>
+  <Header />
+
+  <main class="prose-layout">
+    <article class="article">
+      <header class="article__header">
+        {tags && tags.length > 0 && (
+          <div class="article__tags">
+            {tags.map((tag) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        )}
+        <h1 class="article__title">{title}</h1>
+        <p class="article__description">{description}</p>
+        <div class="article__meta">
+          {author && <span class="article__author">By {author}</span>}
+          {formattedDate && <time datetime={date?.toISOString()}>{formattedDate}</time>}
+        </div>
+      </header>
+
+      {image && (
+        <figure class="article__hero">
+          <img src={image.src} alt={image.alt} />
+        </figure>
+      )}
+
+      <div class="article__content prose">
+        <slot />
+      </div>
+
+      <nav class="post-nav">
+        <a href="/posts" class="post-nav__link">
+          <span class="post-nav__arrow">&larr;</span>
+          Back to all posts
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .prose-layout {
+    flex: 1;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  .article {
+    max-width: var(--container-md);
+    margin: 0 auto;
+  }
+
+  .article__header {
+    margin-bottom: var(--space-8);
+    text-align: center;
+  }
+
+  .article__tags {
+    display: flex;
+    gap: var(--space-2);
+    justify-content: center;
+    margin-bottom: var(--space-4);
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-3);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .article__title {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-4);
+    background: linear-gradient(135deg, var(--color-text-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  @media (min-width: 768px) {
+    .article__title {
+      font-size: var(--text-5xl);
+    }
+  }
+
+  .article__description {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+  }
+
+  .article__meta {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .article__author::after {
+    content: '·';
+    margin-left: var(--space-4);
+  }
+
+  .article__hero {
+    margin: var(--space-8) 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+
+  .article__hero img {
+    width: 100%;
+    height: auto;
+  }
+
+  .article__content {
+    line-height: var(--leading-relaxed);
+  }
+
+  .article__content :global(h2) {
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-4);
+  }
+
+  .article__content :global(h3) {
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+  }
+
+  .article__content :global(p) {
+    margin-bottom: var(--space-4);
+  }
+
+  .article__content :global(ul),
+  .article__content :global(ol) {
+    margin-bottom: var(--space-4);
+  }
+
+  .article__content :global(pre) {
+    margin: var(--space-6) 0;
+  }
+
+  .article__content :global(blockquote) {
+    margin: var(--space-6) 0;
+  }
+
+  .post-nav {
+    margin-top: var(--space-12);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .post-nav__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .post-nav__link:hover {
+    color: var(--color-accent);
+  }
+
+  .post-nav__arrow {
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  .post-nav__link:hover .post-nav__arrow {
+    transform: translateX(-4px);
+  }
+</style>

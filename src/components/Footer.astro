@@ -1,0 +1,87 @@
+---
+/**
+ * Footer Component
+ *
+ * Site footer with links and copyright.
+ */
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const currentYear = new Date().getFullYear();
+---
+
+<footer class={`footer ${className || ''}`.trim()}>
+  <div class="footer__container">
+    <div class="footer__content">
+      <p class="footer__brand">Channel 47</p>
+      <p class="footer__copyright">
+        &copy; {currentYear} All rights reserved.
+      </p>
+    </div>
+    <nav class="footer__nav">
+      <slot name="links">
+        <a href="/" class="footer__link">Home</a>
+        <a href="/posts" class="footer__link">Posts</a>
+      </slot>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--color-border-subtle);
+    padding: var(--space-8) var(--space-4);
+    margin-top: auto;
+  }
+
+  .footer__container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    max-width: var(--container-lg);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .footer__container {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+    }
+  }
+
+  .footer__brand {
+    font-family: var(--font-mono);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-1);
+  }
+
+  .footer__copyright {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .footer__nav {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+  }
+
+  .footer__link {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .footer__link:hover {
+    color: var(--color-accent);
+  }
+</style>
