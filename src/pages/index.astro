@@ -1,15 +1,286 @@
 ---
+/**
+ * Homepage
+ *
+ * The main landing page for Channel 47.
+ */
+
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/Button.astro';
+import Card from '../components/Card.astro';
+
+const recentPosts = (await getCollection('posts'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(date);
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Channel 47</title>
-  </head>
-  <body>
-    <h1>Channel 47</h1>
-    <p>Coming soon.</p>
-  </body>
-</html>
+<BaseLayout title="Channel 47" description="A digital space for exploration and discovery">
+  <Header />
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero__content">
+        <p class="hero__eyebrow">Welcome to</p>
+        <h1 class="hero__title">Channel 47</h1>
+        <p class="hero__description">
+          A digital space for exploration, creativity, and discovery.
+          Where ideas take shape and technology meets imagination.
+        </p>
+        <div class="hero__actions">
+          <Button href="/posts" variant="primary">Explore Posts</Button>
+          <Button href="#about" variant="outline">Learn More</Button>
+        </div>
+      </div>
+      <div class="hero__decoration" aria-hidden="true">
+        <div class="hero__grid"></div>
+      </div>
+    </section>
+
+    <!-- Recent Posts Section -->
+    {recentPosts.length > 0 && (
+      <section class="section" id="posts">
+        <div class="section__header">
+          <h2 class="section__title">Recent Posts</h2>
+          <p class="section__description">Latest thoughts and explorations.</p>
+        </div>
+        <div class="posts-grid">
+          {recentPosts.map((post) => (
+            <Card href={`/posts/${post.slug}`} variant="bordered">
+              <h3 class="card__title">{post.data.title}</h3>
+              <p class="card__description">{post.data.description}</p>
+              <div class="card__meta">
+                <time datetime={post.data.date.toISOString()}>
+                  {formatDate(post.data.date)}
+                </time>
+              </div>
+            </Card>
+          ))}
+        </div>
+        <div class="section__footer">
+          <Button href="/posts" variant="ghost">View all posts &rarr;</Button>
+        </div>
+      </section>
+    )}
+
+    <!-- About Section -->
+    <section class="section section--alt" id="about">
+      <div class="about">
+        <div class="about__content">
+          <h2 class="section__title">About Channel 47</h2>
+          <p>
+            Channel 47 is built on a foundation of clean design and modern web technology.
+            We use a carefully crafted design system with CSS custom properties,
+            enabling consistent styling and easy theming.
+          </p>
+          <p>
+            The content system leverages Astro's powerful content collections,
+            providing type-safe markdown authoring with frontmatter validation.
+          </p>
+        </div>
+        <div class="about__features">
+          <div class="feature">
+            <span class="feature__icon">&#9632;</span>
+            <h3 class="feature__title">Design Tokens</h3>
+            <p class="feature__description">Consistent colors, typography, and spacing.</p>
+          </div>
+          <div class="feature">
+            <span class="feature__icon">&#9633;</span>
+            <h3 class="feature__title">Content Collections</h3>
+            <p class="feature__description">Type-safe markdown with schema validation.</p>
+          </div>
+          <div class="feature">
+            <span class="feature__icon">&#9679;</span>
+            <h3 class="feature__title">Component Library</h3>
+            <p class="feature__description">Reusable, accessible UI components.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .hero {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-16) var(--space-4);
+    overflow: hidden;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-md);
+    text-align: center;
+  }
+
+  .hero__eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    margin-bottom: var(--space-4);
+  }
+
+  .hero__title {
+    font-size: var(--text-5xl);
+    margin-bottom: var(--space-6);
+    background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  @media (min-width: 768px) {
+    .hero__title {
+      font-size: var(--text-7xl);
+    }
+  }
+
+  .hero__description {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    max-width: 50ch;
+    margin: 0 auto var(--space-8);
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero__decoration {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0, 255, 159, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 159, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, black 20%, transparent 70%);
+  }
+
+  /* Sections */
+  .section {
+    padding: var(--space-20) var(--space-4);
+    max-width: var(--container-lg);
+    margin: 0 auto;
+  }
+
+  .section--alt {
+    background-color: var(--color-surface);
+    max-width: none;
+  }
+
+  .section--alt > * {
+    max-width: var(--container-lg);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section__header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+  }
+
+  .section__title {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .section__description {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .section__footer {
+    text-align: center;
+    margin-top: var(--space-8);
+  }
+
+  /* Posts Grid */
+  .posts-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .posts-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* About Section */
+  .about {
+    display: grid;
+    gap: var(--space-12);
+  }
+
+  @media (min-width: 768px) {
+    .about {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+
+  .about__content p {
+    margin-bottom: var(--space-4);
+  }
+
+  .about__features {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .feature {
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-void);
+  }
+
+  .feature__icon {
+    display: inline-block;
+    font-size: var(--text-2xl);
+    color: var(--color-accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .feature__title {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-2);
+  }
+
+  .feature__description {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+</style>

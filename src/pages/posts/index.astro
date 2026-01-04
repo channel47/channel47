@@ -1,0 +1,109 @@
+---
+/**
+ * Posts Listing Page
+ *
+ * Displays all published posts from the content collection.
+ */
+
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Card from '../../components/Card.astro';
+
+const posts = (await getCollection('posts'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(date);
+---
+
+<BaseLayout title="Posts | Channel 47" description="All posts from Channel 47">
+  <Header />
+
+  <main class="posts-page">
+    <div class="posts-page__header">
+      <h1 class="posts-page__title">Posts</h1>
+      <p class="posts-page__description">
+        Thoughts, ideas, and explorations.
+      </p>
+    </div>
+
+    <div class="posts-grid">
+      {posts.map((post) => (
+        <Card href={`/posts/${post.slug}`} variant="bordered">
+          <h2 class="card__title">{post.data.title}</h2>
+          <p class="card__description">{post.data.description}</p>
+          <div class="card__meta">
+            <time datetime={post.data.date.toISOString()}>
+              {formatDate(post.data.date)}
+            </time>
+            {post.data.tags && (
+              <span class="card__tags">
+                {post.data.tags.slice(0, 2).join(' · ')}
+              </span>
+            )}
+          </div>
+        </Card>
+      ))}
+    </div>
+
+    {posts.length === 0 && (
+      <p class="posts-page__empty">No posts yet. Check back soon.</p>
+    )}
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .posts-page {
+    min-height: 100vh;
+    padding: var(--space-8) var(--space-4);
+    max-width: var(--container-lg);
+    margin: 0 auto;
+  }
+
+  .posts-page__header {
+    margin-bottom: var(--space-12);
+    text-align: center;
+  }
+
+  .posts-page__title {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .posts-page__description {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .posts-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .posts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .posts-page__empty {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .card__tags {
+    margin-left: var(--space-3);
+    color: var(--color-accent);
+  }
+</style>

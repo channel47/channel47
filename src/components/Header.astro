@@ -1,0 +1,88 @@
+---
+/**
+ * Header Component
+ *
+ * Site header with navigation.
+ */
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<header class={`header ${className || ''}`.trim()}>
+  <div class="header__container">
+    <a href="/" class="header__logo">
+      <span class="header__logo-text">Channel 47</span>
+    </a>
+    <nav class="header__nav">
+      <slot name="nav">
+        <a href="/" class="header__link">Home</a>
+        <a href="/posts" class="header__link">Posts</a>
+      </slot>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    background-color: rgba(10, 10, 11, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--container-lg);
+    margin: 0 auto;
+    padding: var(--space-4);
+  }
+
+  .header__logo {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .header__logo-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .header__logo:hover .header__logo-text {
+    color: var(--color-accent);
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .header__link {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .header__link:hover {
+    color: var(--color-accent);
+  }
+
+  .header__link[aria-current='page'] {
+    color: var(--color-accent);
+  }
+</style>
