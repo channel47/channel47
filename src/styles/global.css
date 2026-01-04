@@ -2,7 +2,8 @@
  * Channel 47 Design System
  * Global Styles
  *
- * Base styles, resets, and utility classes that use design tokens.
+ * Philosophy: "Less is more" - intentional simplicity
+ * Base styles, resets, and utility classes using design tokens.
  */
 
 @import './design-tokens.css';
@@ -27,16 +28,20 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
-  line-height: var(--leading-normal);
-  color: var(--color-text-primary);
-  background-color: var(--color-void);
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-fg);
+  background-color: var(--color-bg);
   min-height: 100vh;
+  /* Safe areas for notched devices */
+  padding-left: var(--safe-area-inset-left);
+  padding-right: var(--safe-area-inset-right);
 }
 
 /* ========================================
  * TYPOGRAPHY BASE
+ * Headlines use Geist Sans, body uses Lora
  * ======================================== */
 
 h1, h2, h3, h4, h5, h6 {
@@ -44,19 +49,37 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: var(--font-bold);
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
-  color: var(--color-text-primary);
+  color: var(--color-fg);
 }
 
-h1 { font-size: var(--text-4xl); }
-h2 { font-size: var(--text-3xl); }
-h3 { font-size: var(--text-2xl); }
+/* Extreme weights with tight tracking for impact */
+h1 {
+  font-size: var(--text-5xl);
+  font-weight: var(--font-black);
+  letter-spacing: var(--tracking-tightest);
+}
+
+h2 {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-extrabold);
+  letter-spacing: var(--tracking-tighter);
+}
+
+h3 {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+}
+
 h4 { font-size: var(--text-xl); }
 h5 { font-size: var(--text-lg); }
 h6 { font-size: var(--text-base); }
 
+/* Body text - Lora for long-form reading */
 p {
-  margin-bottom: var(--space-4);
-  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+  color: var(--color-fg-secondary);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
 }
 
 a {
@@ -66,13 +89,12 @@ a {
 }
 
 a:hover {
-  color: var(--color-accent-muted);
-  text-decoration: underline;
+  color: var(--color-accent-hover);
 }
 
 strong, b {
   font-weight: var(--font-semibold);
-  color: var(--color-text-primary);
+  color: var(--color-fg);
 }
 
 em, i {
@@ -83,11 +105,12 @@ small {
   font-size: var(--text-sm);
 }
 
+/* Code uses Geist Mono */
 code {
   font-family: var(--font-mono);
   font-size: 0.9em;
   padding: var(--space-1) var(--space-2);
-  background-color: var(--color-surface-elevated);
+  background-color: var(--color-bg-elevated);
   border-radius: var(--radius-default);
   color: var(--color-accent);
 }
@@ -96,24 +119,24 @@ pre {
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   padding: var(--space-4);
-  background-color: var(--color-surface);
+  background-color: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   overflow-x: auto;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-6);
 }
 
 pre code {
   padding: 0;
   background: none;
-  color: var(--color-text-primary);
+  color: var(--color-fg);
 }
 
 blockquote {
   border-left: 3px solid var(--color-accent);
   padding-left: var(--space-4);
-  margin: var(--space-4) 0;
-  color: var(--color-text-secondary);
+  margin: var(--space-6) 0;
+  color: var(--color-fg-secondary);
   font-style: italic;
 }
 
@@ -128,9 +151,9 @@ hr {
  * ======================================== */
 
 ul, ol {
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-6);
   padding-left: var(--space-6);
-  color: var(--color-text-secondary);
+  color: var(--color-fg-secondary);
 }
 
 li {
@@ -152,14 +175,32 @@ img, video {
 }
 
 figure {
-  margin: var(--space-6) 0;
+  margin: var(--space-8) 0;
 }
 
 figcaption {
+  font-family: var(--font-sans);
   font-size: var(--text-sm);
-  color: var(--color-text-muted);
+  color: var(--color-fg-muted);
   margin-top: var(--space-2);
   text-align: center;
+}
+
+/* Hero image treatment - atmospheric background */
+.hero-image {
+  opacity: var(--image-bg-opacity);
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.hero-image-gradient {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-bg) 100%
+  );
 }
 
 /* ========================================
@@ -167,7 +208,7 @@ figcaption {
  * ======================================== */
 
 input, textarea, select, button {
-  font-family: inherit;
+  font-family: var(--font-sans);
   font-size: inherit;
 }
 
@@ -175,6 +216,8 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
 }
 
 /* ========================================
@@ -184,7 +227,7 @@ button {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-6);
 }
 
 th, td {
@@ -194,9 +237,10 @@ th, td {
 }
 
 th {
+  font-family: var(--font-sans);
   font-weight: var(--font-semibold);
-  color: var(--color-text-primary);
-  background-color: var(--color-surface);
+  color: var(--color-fg);
+  background-color: var(--color-bg-elevated);
 }
 
 /* ========================================
@@ -205,7 +249,7 @@ th {
 
 ::selection {
   background-color: var(--color-accent);
-  color: var(--color-text-inverse);
+  color: var(--color-fg-inverse);
 }
 
 ::-webkit-scrollbar {
@@ -214,7 +258,7 @@ th {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-surface);
+  background: var(--color-bg);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -228,21 +272,28 @@ th {
 
 /* ========================================
  * LAYOUT UTILITIES
+ * Maximum 672px for optimal reading
  * ======================================== */
 
 .container {
   width: 100%;
-  max-width: var(--container-lg);
+  max-width: var(--content-width);
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--space-4);
-  padding-right: var(--space-4);
+  padding-left: var(--padding-mobile);
+  padding-right: var(--padding-mobile);
 }
 
-.container-sm { max-width: var(--container-sm); }
-.container-md { max-width: var(--container-md); }
-.container-lg { max-width: var(--container-lg); }
-.container-xl { max-width: var(--container-xl); }
+@media (min-width: 768px) {
+  .container {
+    padding-left: var(--padding-desktop);
+    padding-right: var(--padding-desktop);
+  }
+}
+
+.container-wide {
+  max-width: var(--container-lg);
+}
 
 .prose {
   max-width: var(--content-width);
@@ -321,16 +372,23 @@ th {
 .font-medium { font-weight: var(--font-medium); }
 .font-semibold { font-weight: var(--font-semibold); }
 .font-bold { font-weight: var(--font-bold); }
+.font-extrabold { font-weight: var(--font-extrabold); }
+.font-black { font-weight: var(--font-black); }
 
 .font-sans { font-family: var(--font-sans); }
+.font-serif { font-family: var(--font-serif); }
 .font-mono { font-family: var(--font-mono); }
+
+.tracking-tight { letter-spacing: var(--tracking-tight); }
+.tracking-tighter { letter-spacing: var(--tracking-tighter); }
+.tracking-tightest { letter-spacing: var(--tracking-tightest); }
 
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 
-.text-primary { color: var(--color-text-primary); }
-.text-secondary { color: var(--color-text-secondary); }
-.text-muted { color: var(--color-text-muted); }
+.text-primary { color: var(--color-fg); }
+.text-secondary { color: var(--color-fg-secondary); }
+.text-muted { color: var(--color-fg-muted); }
 .text-accent { color: var(--color-accent); }
 
 /* ========================================
@@ -350,12 +408,23 @@ th {
 }
 
 /* ========================================
- * ANIMATIONS
+ * ANIMATIONS - Scroll & Micro-interactions
  * ======================================== */
 
 @keyframes fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slide-up {
@@ -378,6 +447,146 @@ th {
   animation: fade-in var(--duration-normal) var(--ease-out);
 }
 
+.animate-fade-up {
+  animation: fade-up var(--duration-normal) var(--ease-out) both;
+}
+
 .animate-slide-up {
   animation: slide-up var(--duration-normal) var(--ease-out);
+}
+
+/* Staggered scroll animations */
+.stagger-1 { animation-delay: var(--stagger-1); }
+.stagger-2 { animation-delay: var(--stagger-2); }
+.stagger-3 { animation-delay: var(--stagger-3); }
+.stagger-4 { animation-delay: var(--stagger-4); }
+.stagger-5 { animation-delay: var(--stagger-5); }
+
+/* ========================================
+ * INTERACTIVE ELEMENTS
+ * Touch targets and micro-interactions
+ * ======================================== */
+
+/* Ensure minimum touch targets */
+.touch-target {
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Scale feedback for tactile response */
+.scale-press:active {
+  transform: scale(var(--scale-press));
+}
+
+.scale-hover:hover {
+  transform: scale(var(--scale-hover));
+}
+
+/* Interactive link with underline animation */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ========================================
+ * HEADER BEHAVIOR
+ * Hides on scroll down, reappears on scroll up
+ * ======================================== */
+
+.header-hidden {
+  transform: translateY(-100%);
+}
+
+.header-visible {
+  transform: translateY(0);
+}
+
+/* ========================================
+ * HAND-DRAWN AESTHETIC UTILITIES
+ * ======================================== */
+
+.decorative {
+  opacity: var(--decorative-opacity);
+}
+
+.stroke-hand {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ========================================
+ * CTA UNDERLINE VARIANTS
+ * Wavy, rough, and scribble styles
+ * ======================================== */
+
+.underline-wavy {
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 4px;
+}
+
+.underline-rough {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6'%3E%3Cpath d='M0 3 Q 25 0, 50 3 T 100 3' stroke='%23E07A5F' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: bottom;
+  background-size: 100px 6px;
+  padding-bottom: 6px;
+}
+
+/* ========================================
+ * IMAGE TREATMENT
+ * ======================================== */
+
+.image-atmospheric {
+  opacity: var(--image-bg-opacity);
+}
+
+.image-corner-accent {
+  position: relative;
+}
+
+.image-corner-accent::before,
+.image-corner-accent::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  opacity: var(--image-corner-opacity);
+  pointer-events: none;
+}
+
+/* ========================================
+ * REDUCED MOTION
+ * ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
