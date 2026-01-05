@@ -1,0 +1,764 @@
+---
+/**
+ * Google Ads Skills Landing Page
+ *
+ * The sales page. Full conversion architecture.
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/Button.astro';
+import EmailSignup from '../components/EmailSignup.astro';
+---
+
+<BaseLayout
+  title="Google Ads Skills for AI Tools — Jig"
+  description="47 GAQL queries, audit workflows, and failure checklists. Install ten years of Google Ads expertise into Claude, Cursor, or any MCP-compatible tool."
+>
+  <Header />
+
+  <main class="sales-page">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero__content">
+        <h1 class="hero__title">Steal my entire Google Ads brain for less than one billable hour</h1>
+        <p class="hero__subtitle">
+          47 battle-tested GAQL queries. Complete audit workflows. Failure pattern checklists.
+          Packaged as skill files your AI tools can actually use.
+        </p>
+        <div class="hero__credibility">
+          <span class="credibility-item">$50M+ in managed spend</span>
+          <span class="credibility-divider">·</span>
+          <span class="credibility-item">10+ years in the platform</span>
+          <span class="credibility-divider">·</span>
+          <span class="credibility-item">Enterprise & SMB accounts</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section section--problem">
+      <div class="section__container">
+        <h2 class="section__title">Your tools have API access. They lack judgment.</h2>
+        <div class="problem-content">
+          <p>
+            Claude can query the Google Ads API. Cursor can write GAQL. ChatGPT can
+            explain campaign structures. But ask them to audit an account and you'll
+            get generic advice that misses what actually matters.
+          </p>
+          <p>
+            The problem isn't capability—it's expertise. These tools don't know which
+            metrics lie, which settings silently drain budget, or which "best practices"
+            only apply to accounts spending $100K/month.
+          </p>
+          <p>
+            They don't know because nobody taught them. Until now.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What You Get Section -->
+    <section class="section section--features">
+      <div class="section__container">
+        <h2 class="section__title">What you get</h2>
+        <div class="features-grid">
+          <div class="feature">
+            <h3 class="feature__title">47 GAQL Queries</h3>
+            <p class="feature__description">
+              Not generic documentation examples. Real queries for real problems:
+              finding wasted spend, identifying scaling opportunities, catching
+              silent failures before they hurt.
+            </p>
+          </div>
+          <div class="feature">
+            <h3 class="feature__title">Complete Audit Workflows</h3>
+            <p class="feature__description">
+              Step-by-step audit processes that tell your AI exactly what to check
+              and in what order. Campaign structure, bidding strategy, audience
+              targeting, conversion tracking—the full sequence.
+            </p>
+          </div>
+          <div class="feature">
+            <h3 class="feature__title">Failure Pattern Checklists</h3>
+            <p class="feature__description">
+              The mistakes I've seen kill accounts: attribution gaps, audience
+              overlap, bid strategy misfires, creative fatigue signals. Your AI
+              will check for all of them automatically.
+            </p>
+          </div>
+          <div class="feature">
+            <h3 class="feature__title">Judgment Frameworks</h3>
+            <p class="feature__description">
+              When to trust automated bidding vs. override it. When low CTR is fine
+              vs. fatal. When to scale vs. when to pause. The contextual knowledge
+              that turns data into decisions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section section--how-it-works">
+      <div class="section__container">
+        <h2 class="section__title">How it works</h2>
+        <div class="steps">
+          <div class="step">
+            <span class="step__number">1</span>
+            <div class="step__content">
+              <h3 class="step__title">Connect the MCP server</h3>
+              <p class="step__description">
+                Add a single URL to Claude Desktop, Cursor, or any MCP-compatible
+                tool. Takes 30 seconds.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step__number">2</span>
+            <div class="step__content">
+              <h3 class="step__title">Install the skills</h3>
+              <p class="step__description">
+                Your AI now has access to every query, workflow, and checklist.
+                The expertise loads automatically when you ask about Google Ads.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step__number">3</span>
+            <div class="step__content">
+              <h3 class="step__title">Run real audits</h3>
+              <p class="step__description">
+                Ask your AI to audit a campaign. Watch it use the right queries,
+                check the right patterns, and surface issues you'd actually care about.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who It's For Section -->
+    <section class="section section--audience">
+      <div class="section__container">
+        <div class="audience-grid">
+          <div class="audience-block">
+            <h3 class="audience-block__title">This is for you if:</h3>
+            <ul class="audience-list audience-list--yes">
+              <li>You manage Google Ads accounts and use AI tools</li>
+              <li>You want audits that catch real problems, not generic advice</li>
+              <li>You're tired of teaching AI the same context over and over</li>
+              <li>You work with Claude, Cursor, or other MCP-compatible tools</li>
+              <li>You value your time more than $199</li>
+            </ul>
+          </div>
+          <div class="audience-block">
+            <h3 class="audience-block__title">This is not for you if:</h3>
+            <ul class="audience-list audience-list--no">
+              <li>You don't use Google Ads</li>
+              <li>You don't use AI tools for work</li>
+              <li>You want a done-for-you service, not a tool</li>
+              <li>You're looking for "set it and forget it" automation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Proof Section -->
+    <section class="section section--proof">
+      <div class="section__container">
+        <h2 class="section__title">Why trust this?</h2>
+        <div class="proof-content">
+          <p>
+            I've spent a decade inside the Google Ads platform. Enterprise accounts,
+            SMB campaigns, lead gen, ecommerce, B2B, local services. I've managed
+            over $50 million in ad spend and made every mistake worth making.
+          </p>
+          <p>
+            These skills aren't theoretical. They're the exact queries I run, the
+            exact checks I perform, the exact patterns I look for when auditing
+            accounts. I use them every day with my own AI tools.
+          </p>
+          <p>
+            This is my actual workflow, packaged so your AI can use it too.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section section--pricing" id="pricing">
+      <div class="section__container">
+        <div class="pricing-card">
+          <div class="pricing-card__header">
+            <p class="pricing-card__label">Google Ads Skills Package</p>
+            <p class="pricing-card__price">$199</p>
+            <p class="pricing-card__terms">One-time purchase. Lifetime updates.</p>
+          </div>
+          <ul class="pricing-card__features">
+            <li>47 production-ready GAQL queries</li>
+            <li>Complete audit workflow system</li>
+            <li>Failure pattern checklists</li>
+            <li>Judgment frameworks for decisions</li>
+            <li>All future updates included</li>
+            <li>Works with Claude, Cursor, and any MCP tool</li>
+          </ul>
+          <div class="pricing-card__action">
+            <Button href="#" variant="primary" size="lg" class="pricing-button">
+              Get instant access
+            </Button>
+            <p class="pricing-card__guarantee">
+              14-day money-back guarantee. No questions asked.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Email Capture Section -->
+    <section class="section section--email">
+      <div class="section__container">
+        <div class="email-wrapper">
+          <EmailSignup
+            title="Not ready yet?"
+            description="Get notified when we release new Google Ads skills and tactics. No spam, unsubscribe anytime."
+            buttonText="Keep me posted"
+            variant="card"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section section--faq">
+      <div class="section__container">
+        <h2 class="section__title">Questions</h2>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary class="faq-item__question">What exactly are "skills"?</summary>
+            <div class="faq-item__answer">
+              <p>
+                Skills are structured files that teach AI tools how to approach specific
+                domains. They contain queries, workflows, checklists, and decision
+                frameworks—packaged so your AI can load them when needed. Think of them
+                as expertise made installable.
+              </p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-item__question">Which tools are supported?</summary>
+            <div class="faq-item__answer">
+              <p>
+                Any tool that supports the Model Context Protocol (MCP). Currently,
+                that includes Claude Desktop, Cursor, Windsurf, and a growing list
+                of others. If your tool supports MCP, these skills will work.
+              </p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-item__question">Do I need Google Ads API access?</summary>
+            <div class="faq-item__answer">
+              <p>
+                For the queries to actually run against your accounts, yes. But the skills
+                are valuable even without direct API access—they give your AI the knowledge
+                to ask the right questions and interpret whatever data you provide.
+              </p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-item__question">What if I'm not technical?</summary>
+            <div class="faq-item__answer">
+              <p>
+                If you can install a browser extension, you can set this up. The entire
+                process is adding one URL to your AI tool's settings. Detailed setup
+                instructions are included.
+              </p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-item__question">How do updates work?</summary>
+            <div class="faq-item__answer">
+              <p>
+                When I add new queries, update workflows, or refine the skills based on
+                platform changes, you get them automatically. No action required on your
+                part—the skills update through the MCP connection.
+              </p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-item__question">What's the refund policy?</summary>
+            <div class="faq-item__answer">
+              <p>
+                14 days, no questions asked. If the skills don't make your AI meaningfully
+                better at Google Ads work, email me and I'll refund you completely.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="section section--final-cta">
+      <div class="section__container">
+        <div class="final-cta">
+          <h2 class="final-cta__title">Make your AI actually useful for Google Ads</h2>
+          <p class="final-cta__description">
+            One purchase. Lifetime updates. 14-day guarantee.
+          </p>
+          <Button href="#pricing" variant="primary" size="lg">
+            Get the skills — $199
+          </Button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .sales-page {
+    overflow-x: hidden;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: var(--space-20) var(--space-4);
+    padding-bottom: var(--space-16);
+    text-align: center;
+  }
+
+  .hero__content {
+    max-width: var(--container-md);
+    margin: 0 auto;
+  }
+
+  .hero__title {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    letter-spacing: var(--tracking-tight);
+    margin-bottom: var(--space-6);
+    color: var(--color-fg);
+    line-height: var(--leading-tight);
+  }
+
+  @media (min-width: 768px) {
+    .hero__title {
+      font-size: var(--text-5xl);
+    }
+  }
+
+  .hero__subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+    max-width: 60ch;
+    margin: 0 auto var(--space-8);
+  }
+
+  .hero__credibility {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+  }
+
+  .credibility-divider {
+    color: var(--color-border);
+  }
+
+  /* Sections */
+  .section {
+    padding: var(--space-16) var(--space-4);
+  }
+
+  .section__container {
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+
+  .section__title {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-8);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .section__title {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  /* Problem Section */
+  .section--problem {
+    background-color: var(--color-bg-elevated);
+  }
+
+  .problem-content p {
+    margin-bottom: var(--space-4);
+  }
+
+  .problem-content p:last-child {
+    margin-bottom: 0;
+    font-weight: var(--font-medium);
+    color: var(--color-fg);
+  }
+
+  /* Features Section */
+  .section--features {
+    background-color: var(--color-bg);
+  }
+
+  .section--features .section__container {
+    max-width: var(--container-lg);
+  }
+
+  .features-grid {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .feature {
+    padding: var(--space-6);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .feature__title {
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-3);
+    color: var(--color-fg);
+  }
+
+  .feature__description {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    margin: 0;
+    line-height: var(--leading-relaxed);
+  }
+
+  /* How It Works Section */
+  .section--how-it-works {
+    background-color: var(--color-bg-elevated);
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .step {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+
+  .step__number {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-accent);
+    color: var(--color-fg-inverse);
+    font-family: var(--font-sans);
+    font-weight: var(--font-bold);
+    font-size: var(--text-lg);
+    border-radius: var(--radius-full);
+  }
+
+  .step__title {
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-2);
+    color: var(--color-fg);
+  }
+
+  .step__description {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    margin: 0;
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Audience Section */
+  .section--audience {
+    background-color: var(--color-bg);
+  }
+
+  .section--audience .section__container {
+    max-width: var(--container-lg);
+  }
+
+  .audience-grid {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .audience-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .audience-block {
+    padding: var(--space-6);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .audience-block__title {
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-4);
+    color: var(--color-fg);
+  }
+
+  .audience-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .audience-list li {
+    position: relative;
+    padding-left: var(--space-6);
+    margin-bottom: var(--space-3);
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+  }
+
+  .audience-list li:last-child {
+    margin-bottom: 0;
+  }
+
+  .audience-list li::before {
+    position: absolute;
+    left: 0;
+    font-weight: var(--font-bold);
+  }
+
+  .audience-list--yes li::before {
+    content: "✓";
+    color: var(--color-success);
+  }
+
+  .audience-list--no li::before {
+    content: "✕";
+    color: var(--color-fg-muted);
+  }
+
+  /* Proof Section */
+  .section--proof {
+    background-color: var(--color-bg-elevated);
+  }
+
+  .proof-content p {
+    margin-bottom: var(--space-4);
+  }
+
+  .proof-content p:last-child {
+    margin-bottom: 0;
+    font-weight: var(--font-medium);
+    color: var(--color-fg);
+  }
+
+  /* Pricing Section */
+  .section--pricing {
+    background-color: var(--color-bg);
+    padding: var(--space-20) var(--space-4);
+  }
+
+  .pricing-card {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: var(--space-8);
+    background-color: var(--color-bg-elevated);
+    border: 2px solid var(--color-accent);
+    border-radius: var(--radius-xl);
+  }
+
+  .pricing-card__header {
+    text-align: center;
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .pricing-card__label {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .pricing-card__price {
+    font-family: var(--font-sans);
+    font-size: var(--text-5xl);
+    font-weight: var(--font-bold);
+    color: var(--color-fg);
+    margin-bottom: var(--space-1);
+  }
+
+  .pricing-card__terms {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    margin: 0;
+  }
+
+  .pricing-card__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-6);
+  }
+
+  .pricing-card__features li {
+    position: relative;
+    padding-left: var(--space-6);
+    margin-bottom: var(--space-3);
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+  }
+
+  .pricing-card__features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+    font-weight: var(--font-bold);
+  }
+
+  .pricing-card__action {
+    text-align: center;
+  }
+
+  .pricing-card__action :global(.btn) {
+    width: 100%;
+    margin-bottom: var(--space-3);
+  }
+
+  .pricing-card__guarantee {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    margin: 0;
+  }
+
+  /* Email Section */
+  .section--email {
+    background-color: var(--color-bg-elevated);
+  }
+
+  .email-wrapper {
+    max-width: var(--container-sm);
+    margin: 0 auto;
+  }
+
+  /* FAQ Section */
+  .section--faq {
+    background-color: var(--color-bg);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .faq-item {
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .faq-item__question {
+    display: block;
+    padding: var(--space-4) var(--space-5);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--color-fg);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq-item__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__question::before {
+    content: "+";
+    float: right;
+    font-weight: var(--font-normal);
+    color: var(--color-fg-muted);
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  .faq-item[open] .faq-item__question::before {
+    content: "−";
+  }
+
+  .faq-item__answer {
+    padding: 0 var(--space-5) var(--space-4);
+  }
+
+  .faq-item__answer p {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    margin: 0;
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Final CTA Section */
+  .section--final-cta {
+    background-color: var(--color-bg-elevated);
+    padding: var(--space-20) var(--space-4);
+  }
+
+  .final-cta {
+    text-align: center;
+  }
+
+  .final-cta__title {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-4);
+    color: var(--color-fg);
+  }
+
+  @media (min-width: 768px) {
+    .final-cta__title {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  .final-cta__description {
+    font-size: var(--text-lg);
+    color: var(--color-fg-secondary);
+    margin-bottom: var(--space-6);
+  }
+</style>

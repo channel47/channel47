@@ -1,0 +1,410 @@
+---
+/**
+ * Success Page
+ *
+ * Post-purchase delivery page.
+ * Confirmation, download link, quick start, support info.
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/Button.astro';
+---
+
+<BaseLayout
+  title="Purchase Complete — Jig"
+  description="Your Google Ads Skills are ready. Here's how to get started."
+>
+  <Header />
+
+  <main class="success-page">
+    <div class="success-content">
+      <!-- Confirmation -->
+      <section class="success-hero">
+        <div class="success-icon">✓</div>
+        <h1>You're in.</h1>
+        <p class="success-subtitle">
+          Your Google Ads Skills package is ready. Here's everything you need to
+          get started.
+        </p>
+      </section>
+
+      <!-- Quick Start -->
+      <section class="success-section">
+        <h2>Quick start</h2>
+        <div class="quick-start-steps">
+          <div class="quick-step">
+            <span class="quick-step__number">1</span>
+            <div class="quick-step__content">
+              <h3>Connect the MCP server</h3>
+              <p>
+                Add this URL to your AI tool's MCP configuration:
+              </p>
+              <div class="url-display">
+                <code>https://mcp.jig.tools/sse</code>
+                <button class="copy-button" data-copy="https://mcp.jig.tools/sse">
+                  Copy
+                </button>
+              </div>
+              <p class="step-note">
+                Need detailed instructions? See the <a href="/setup">Setup Guide</a>.
+              </p>
+            </div>
+          </div>
+
+          <div class="quick-step">
+            <span class="quick-step__number">2</span>
+            <div class="quick-step__content">
+              <h3>Verify your access</h3>
+              <p>
+                Your purchase is linked to your email. In your AI tool, start a
+                new conversation and ask:
+              </p>
+              <div class="prompt-example">
+                "What Google Ads skills do I have access to?"
+              </div>
+              <p>
+                You should see the full list of 47 queries, audit workflows, and
+                failure checklists.
+              </p>
+            </div>
+          </div>
+
+          <div class="quick-step">
+            <span class="quick-step__number">3</span>
+            <div class="quick-step__content">
+              <h3>Run your first audit</h3>
+              <p>
+                Try this prompt to see the skills in action:
+              </p>
+              <div class="prompt-example">
+                "Audit my Google Ads account for wasted spend. Use the Jig audit
+                workflow."
+              </div>
+              <p>
+                Your AI will use the structured audit process to identify issues
+                you'd actually care about.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Download Section -->
+      <section class="success-section">
+        <h2>Your files</h2>
+        <p>
+          The skills are delivered through the MCP connection—no manual downloads
+          required. But if you want offline copies or prefer to self-host:
+        </p>
+        <div class="download-card">
+          <div class="download-info">
+            <h3>Google Ads Skills Package</h3>
+            <p>47 queries, audit workflows, failure checklists, judgment frameworks</p>
+          </div>
+          <Button href="#" variant="outline">
+            Download ZIP
+          </Button>
+        </div>
+        <p class="download-note">
+          Updates are delivered automatically through the hosted MCP. Downloaded
+          files are a snapshot and won't receive updates.
+        </p>
+      </section>
+
+      <!-- Support Section -->
+      <section class="success-section">
+        <h2>Need help?</h2>
+        <div class="support-options">
+          <div class="support-option">
+            <h3>Setup issues</h3>
+            <p>
+              Check the <a href="/setup">Setup Guide</a> for detailed connection
+              instructions for Claude Desktop, Cursor, and other tools.
+            </p>
+          </div>
+          <div class="support-option">
+            <h3>Questions about the skills</h3>
+            <p>
+              Email <a href="mailto:support@jig.tools">support@jig.tools</a>. I
+              personally read and respond to every message.
+            </p>
+          </div>
+          <div class="support-option">
+            <h3>Refund requests</h3>
+            <p>
+              14-day money-back guarantee. Email <a href="mailto:support@jig.tools">support@jig.tools</a>
+              and I'll process it immediately, no questions asked.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Receipt Note -->
+      <section class="success-section success-section--receipt">
+        <p>
+          A receipt has been sent to your email. Keep it for your records.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Copy button functionality
+  document.querySelectorAll('.copy-button').forEach(button => {
+    button.addEventListener('click', async () => {
+      const text = button.getAttribute('data-copy');
+      if (text) {
+        await navigator.clipboard.writeText(text);
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 2000);
+      }
+    });
+  });
+</script>
+
+<style>
+  .success-page {
+    padding: var(--space-8) var(--space-4);
+    padding-top: var(--space-12);
+    min-height: calc(100vh - 200px);
+  }
+
+  .success-content {
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+
+  /* Hero/Confirmation */
+  .success-hero {
+    text-align: center;
+    margin-bottom: var(--space-16);
+  }
+
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-6);
+    background-color: var(--color-success);
+    color: var(--color-fg-inverse);
+    font-size: var(--text-4xl);
+    font-weight: var(--font-bold);
+    border-radius: var(--radius-full);
+  }
+
+  .success-hero h1 {
+    font-size: var(--text-4xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-4);
+  }
+
+  .success-subtitle {
+    font-size: var(--text-xl);
+    color: var(--color-fg-secondary);
+    margin: 0;
+    max-width: 45ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Sections */
+  .success-section {
+    margin-bottom: var(--space-12);
+  }
+
+  .success-section h2 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Quick Start Steps */
+  .quick-start-steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .quick-step {
+    display: flex;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .quick-step__number {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-accent);
+    color: var(--color-fg-inverse);
+    font-family: var(--font-sans);
+    font-weight: var(--font-bold);
+    font-size: var(--text-base);
+    border-radius: var(--radius-full);
+  }
+
+  .quick-step__content h3 {
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-2);
+  }
+
+  .quick-step__content p {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    margin-bottom: var(--space-3);
+  }
+
+  .quick-step__content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .step-note {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+  }
+
+  .url-display {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-3);
+  }
+
+  .url-display code {
+    flex: 1;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+    background: none;
+    padding: 0;
+  }
+
+  .copy-button {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    padding: var(--space-2) var(--space-3);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-fg-secondary);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+  }
+
+  .copy-button:hover {
+    background-color: var(--color-bg-hover);
+    color: var(--color-fg);
+  }
+
+  .prompt-example {
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-style: italic;
+    color: var(--color-fg-secondary);
+    margin-bottom: var(--space-3);
+  }
+
+  /* Download Section */
+  .download-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .download-card {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .download-info h3 {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-1);
+  }
+
+  .download-info p {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    margin: 0;
+  }
+
+  .download-note {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+  }
+
+  /* Support Section */
+  .support-options {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .support-option {
+    padding: var(--space-4);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .support-option h3 {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-2);
+  }
+
+  .support-option p {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    margin: 0;
+  }
+
+  /* Receipt Note */
+  .success-section--receipt {
+    text-align: center;
+    padding: var(--space-6);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .success-section--receipt p {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    margin: 0;
+  }
+</style>

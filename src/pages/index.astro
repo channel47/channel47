@@ -2,156 +2,49 @@
 /**
  * Homepage
  *
- * The main landing page for Channel 47.
+ * Soft entry point. Explains Jig, builds interest, routes people.
  */
 
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Button from '../components/Button.astro';
-import Card from '../components/Card.astro';
-import SkillCard from '../components/SkillCard.astro';
 import EmailSignup from '../components/EmailSignup.astro';
-
-const featuredSkills = (await getCollection('skills'))
-  .filter((skill) => !skill.data.draft && skill.data.featured)
-  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
-  .slice(0, 2);
-
-const recentPosts = (await getCollection('posts'))
-  .filter((post) => !post.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
-
-const formatDate = (date: Date) =>
-  new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  }).format(date);
 ---
 
-<BaseLayout title="Channel 47" description="A digital space for exploration and discovery">
+<BaseLayout
+  title="Jig — Expertise your tools can install"
+  description="Packaged judgment for the tools you already use. Skill files that make Claude and Cursor actually good at their job."
+>
   <Header />
 
-  <main>
+  <main class="main">
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero__content">
-        <p class="hero__eyebrow">Welcome to</p>
-        <h1 class="hero__title">Channel 47</h1>
+        <h1 class="hero__title">Expertise your tools can install</h1>
         <p class="hero__description">
-          A digital space for exploration, creativity, and discovery.
-          Where ideas take shape and technology meets imagination.
+          Your AI tools have access to everything. APIs, data, documentation.
+          What they lack is judgment—the hard-won knowledge of what to check,
+          what to ignore, and what actually matters. Jig packages that expertise
+          into skill files your tools can use.
         </p>
         <div class="hero__actions">
-          <Button href="/posts" variant="primary">Explore Posts</Button>
-          <Button href="#about" variant="outline">Learn More</Button>
+          <Button href="/setup" variant="primary" size="lg">Get started free</Button>
+          <Button href="/google-ads-skills" variant="outline" size="lg">Google Ads Skills</Button>
         </div>
-      </div>
-      <div class="hero__decoration" aria-hidden="true">
-        <div class="hero__grid"></div>
       </div>
     </section>
-
-    <!-- Skills Section -->
-    {featuredSkills.length > 0 && (
-      <section class="section" id="skills">
-        <div class="section__header">
-          <h2 class="section__title">MCP Skills for Google Ads</h2>
-          <p class="section__description">
-            AI-powered workflows that audit, analyze, and optimize your campaigns.
-          </p>
-        </div>
-        <div class="skills-grid">
-          {featuredSkills.map((skill) => (
-            <SkillCard
-              title={skill.data.title}
-              description={skill.data.description}
-              href={`/skills/${skill.slug}`}
-              category={skill.data.category}
-              tier={skill.data.tier}
-              price={skill.data.price}
-              featured={skill.data.featured}
-              tags={skill.data.tags}
-            />
-          ))}
-        </div>
-        <div class="section__footer">
-          <Button href="/skills" variant="primary">Browse all skills &rarr;</Button>
-        </div>
-      </section>
-    )}
 
     <!-- Email Signup -->
-    <section class="section section--signup">
+    <section class="signup-section">
       <div class="signup-wrapper">
         <EmailSignup
-          title="Google Ads insights, AI-native"
-          description="Weekly tactics from real campaigns. First access to new skills."
+          title="Get updates on new skills"
+          description="We're building expertise packages for more domains. Be the first to know."
+          buttonText="Notify me"
+          variant="card"
         />
-      </div>
-    </section>
-
-    <!-- Recent Posts Section -->
-    {recentPosts.length > 0 && (
-      <section class="section" id="posts">
-        <div class="section__header">
-          <h2 class="section__title">Recent Posts</h2>
-          <p class="section__description">Latest thoughts and explorations.</p>
-        </div>
-        <div class="posts-grid">
-          {recentPosts.map((post) => (
-            <Card href={`/posts/${post.slug}`} variant="bordered">
-              <h3 class="card__title">{post.data.title}</h3>
-              <p class="card__description">{post.data.description}</p>
-              <div class="card__meta">
-                <time datetime={post.data.date.toISOString()}>
-                  {formatDate(post.data.date)}
-                </time>
-              </div>
-            </Card>
-          ))}
-        </div>
-        <div class="section__footer">
-          <Button href="/posts" variant="ghost">View all posts &rarr;</Button>
-        </div>
-      </section>
-    )}
-
-    <!-- About Section -->
-    <section class="section section--alt" id="about">
-      <div class="about">
-        <div class="about__content">
-          <h2 class="section__title">About Channel 47</h2>
-          <p>
-            Channel 47 is built on a foundation of clean design and modern web technology.
-            We use a carefully crafted design system with CSS custom properties,
-            enabling consistent styling and easy theming.
-          </p>
-          <p>
-            The content system leverages Astro's powerful content collections,
-            providing type-safe markdown authoring with frontmatter validation.
-          </p>
-        </div>
-        <div class="about__features">
-          <div class="feature">
-            <span class="feature__icon">&#9632;</span>
-            <h3 class="feature__title">Design Tokens</h3>
-            <p class="feature__description">Consistent colors, typography, and spacing.</p>
-          </div>
-          <div class="feature">
-            <span class="feature__icon">&#9633;</span>
-            <h3 class="feature__title">Content Collections</h3>
-            <p class="feature__description">Type-safe markdown with schema validation.</p>
-          </div>
-          <div class="feature">
-            <span class="feature__icon">&#9679;</span>
-            <h3 class="feature__title">Component Library</h3>
-            <p class="feature__description">Reusable, accessible UI components.</p>
-          </div>
-        </div>
       </div>
     </section>
   </main>
@@ -160,53 +53,47 @@ const formatDate = (date: Date) =>
 </BaseLayout>
 
 <style>
+  .main {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 200px);
+  }
+
   /* Hero Section */
   .hero {
-    position: relative;
-    min-height: 80vh;
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: var(--space-16) var(--space-4);
-    overflow: hidden;
+    padding-top: var(--space-20);
   }
 
   .hero__content {
-    position: relative;
-    z-index: 1;
-    max-width: var(--container-md);
+    max-width: var(--content-width);
     text-align: center;
   }
 
-  .hero__eyebrow {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    color: var(--color-accent);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-widest);
-    margin-bottom: var(--space-4);
-  }
-
   .hero__title {
-    font-size: var(--text-5xl);
+    font-size: var(--text-4xl);
+    font-weight: var(--font-bold);
+    letter-spacing: var(--tracking-tight);
     margin-bottom: var(--space-6);
-    background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--color-fg);
   }
 
   @media (min-width: 768px) {
     .hero__title {
-      font-size: var(--text-7xl);
+      font-size: var(--text-5xl);
     }
   }
 
   .hero__description {
     font-size: var(--text-lg);
-    color: var(--color-text-secondary);
-    max-width: 50ch;
-    margin: 0 auto var(--space-8);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+    max-width: 55ch;
+    margin: 0 auto var(--space-10);
   }
 
   .hero__actions {
@@ -216,140 +103,14 @@ const formatDate = (date: Date) =>
     flex-wrap: wrap;
   }
 
-  .hero__decoration {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .hero__grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0, 255, 159, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 255, 159, 0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, black 20%, transparent 70%);
-  }
-
-  /* Sections */
-  .section {
-    padding: var(--space-20) var(--space-4);
-    max-width: var(--container-lg);
-    margin: 0 auto;
-  }
-
-  .section--alt {
-    background-color: var(--color-surface);
-    max-width: none;
-  }
-
-  .section--alt > * {
-    max-width: var(--container-lg);
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .section__header {
-    text-align: center;
-    margin-bottom: var(--space-12);
-  }
-
-  .section__title {
-    font-size: var(--text-3xl);
-    margin-bottom: var(--space-4);
-  }
-
-  .section__description {
-    font-size: var(--text-lg);
-    color: var(--color-text-secondary);
-    margin: 0;
-  }
-
-  .section__footer {
-    text-align: center;
-    margin-top: var(--space-8);
-  }
-
-  /* Skills Grid */
-  .skills-grid {
-    display: grid;
-    gap: var(--space-6);
-  }
-
-  @media (min-width: 768px) {
-    .skills-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
   /* Signup Section */
-  .section--signup {
-    background-color: var(--color-surface);
+  .signup-section {
     padding: var(--space-12) var(--space-4);
+    padding-bottom: var(--space-20);
   }
 
   .signup-wrapper {
     max-width: var(--container-sm);
     margin: 0 auto;
-  }
-
-  /* Posts Grid */
-  .posts-grid {
-    display: grid;
-    gap: var(--space-6);
-  }
-
-  @media (min-width: 768px) {
-    .posts-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  /* About Section */
-  .about {
-    display: grid;
-    gap: var(--space-12);
-  }
-
-  @media (min-width: 768px) {
-    .about {
-      grid-template-columns: 1fr 1fr;
-      align-items: start;
-    }
-  }
-
-  .about__content p {
-    margin-bottom: var(--space-4);
-  }
-
-  .about__features {
-    display: grid;
-    gap: var(--space-6);
-  }
-
-  .feature {
-    padding: var(--space-4);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background-color: var(--color-void);
-  }
-
-  .feature__icon {
-    display: inline-block;
-    font-size: var(--text-2xl);
-    color: var(--color-accent);
-    margin-bottom: var(--space-2);
-  }
-
-  .feature__title {
-    font-size: var(--text-lg);
-    margin-bottom: var(--space-2);
-  }
-
-  .feature__description {
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    margin: 0;
   }
 </style>
