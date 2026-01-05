@@ -4,6 +4,7 @@
  *
  * Post-purchase delivery page.
  * Confirmation, download link, quick start, support info.
+ * Mobile-optimized with responsive layout and touch-friendly elements.
  */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -42,7 +43,7 @@ import Button from '../components/Button.astro';
                 Add this URL to your AI tool's MCP configuration:
               </p>
               <div class="url-display">
-                <code>https://mcp.jig.tools/sse</code>
+                <code class="url-display__url">https://mcp.jig.tools/sse</code>
                 <button class="copy-button" data-copy="https://mcp.jig.tools/sse">
                   Copy
                 </button>
@@ -103,7 +104,7 @@ import Button from '../components/Button.astro';
             <h3>Google Ads Skills Package</h3>
             <p>47 queries, audit workflows, failure checklists, judgment frameworks</p>
           </div>
-          <Button href="#" variant="outline">
+          <Button href="#" variant="outline" size="md">
             Download ZIP
           </Button>
         </div>
@@ -162,8 +163,10 @@ import Button from '../components/Button.astro';
         await navigator.clipboard.writeText(text);
         const originalText = button.textContent;
         button.textContent = 'Copied!';
+        button.classList.add('copy-button--success');
         setTimeout(() => {
           button.textContent = originalText;
+          button.classList.remove('copy-button--success');
         }, 2000);
       }
     });
@@ -172,9 +175,16 @@ import Button from '../components/Button.astro';
 
 <style>
   .success-page {
-    padding: var(--space-8) var(--space-4);
-    padding-top: var(--space-12);
+    padding: var(--space-6) var(--space-4);
+    padding-top: var(--space-8);
     min-height: calc(100vh - 200px);
+  }
+
+  @media (min-width: 768px) {
+    .success-page {
+      padding: var(--space-8) var(--space-4);
+      padding-top: var(--space-12);
+    }
   }
 
   .success-content {
@@ -185,31 +195,53 @@ import Button from '../components/Button.astro';
   /* Hero/Confirmation */
   .success-hero {
     text-align: center;
-    margin-bottom: var(--space-16);
+    margin-bottom: var(--space-12);
+  }
+
+  @media (min-width: 768px) {
+    .success-hero {
+      margin-bottom: var(--space-16);
+    }
   }
 
   .success-icon {
-    width: 80px;
-    height: 80px;
+    width: 64px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto var(--space-6);
+    margin: 0 auto var(--space-5);
     background-color: var(--color-success);
     color: var(--color-fg-inverse);
-    font-size: var(--text-4xl);
+    font-size: var(--text-3xl);
     font-weight: var(--font-bold);
     border-radius: var(--radius-full);
   }
 
+  @media (min-width: 768px) {
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      font-size: var(--text-4xl);
+      margin-bottom: var(--space-6);
+    }
+  }
+
   .success-hero h1 {
-    font-size: var(--text-4xl);
+    font-size: var(--text-3xl);
     font-weight: var(--font-bold);
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .success-hero h1 {
+      font-size: var(--text-4xl);
+      margin-bottom: var(--space-4);
+    }
   }
 
   .success-subtitle {
-    font-size: var(--text-xl);
+    font-size: var(--text-base);
     color: var(--color-fg-secondary);
     margin: 0;
     max-width: 45ch;
@@ -217,37 +249,69 @@ import Button from '../components/Button.astro';
     margin-right: auto;
   }
 
+  @media (min-width: 768px) {
+    .success-subtitle {
+      font-size: var(--text-xl);
+    }
+  }
+
   /* Sections */
   .success-section {
-    margin-bottom: var(--space-12);
+    margin-bottom: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .success-section {
+      margin-bottom: var(--space-12);
+    }
   }
 
   .success-section h2 {
-    font-size: var(--text-2xl);
+    font-size: var(--text-xl);
     font-weight: var(--font-bold);
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--space-5);
+  }
+
+  @media (min-width: 768px) {
+    .success-section h2 {
+      font-size: var(--text-2xl);
+      margin-bottom: var(--space-6);
+    }
   }
 
   /* Quick Start Steps */
   .quick-start-steps {
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .quick-start-steps {
+      gap: var(--space-6);
+    }
   }
 
   .quick-step {
     display: flex;
-    gap: var(--space-4);
-    padding: var(--space-6);
+    gap: var(--space-3);
+    padding: var(--space-4);
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
   }
 
+  @media (min-width: 768px) {
+    .quick-step {
+      gap: var(--space-4);
+      padding: var(--space-6);
+    }
+  }
+
   .quick-step__number {
     flex-shrink: 0;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -255,21 +319,46 @@ import Button from '../components/Button.astro';
     color: var(--color-fg-inverse);
     font-family: var(--font-sans);
     font-weight: var(--font-bold);
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
     border-radius: var(--radius-full);
+  }
+
+  @media (min-width: 768px) {
+    .quick-step__number {
+      width: 36px;
+      height: 36px;
+      font-size: var(--text-base);
+    }
+  }
+
+  .quick-step__content {
+    flex: 1;
+    min-width: 0;
   }
 
   .quick-step__content h3 {
     font-family: var(--font-sans);
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     font-weight: var(--font-semibold);
     margin-bottom: var(--space-2);
   }
 
+  @media (min-width: 768px) {
+    .quick-step__content h3 {
+      font-size: var(--text-lg);
+    }
+  }
+
   .quick-step__content p {
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
     color: var(--color-fg-secondary);
     margin-bottom: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .quick-step__content p {
+      font-size: var(--text-base);
+    }
   }
 
   .quick-step__content p:last-child {
@@ -277,41 +366,73 @@ import Button from '../components/Button.astro';
   }
 
   .step-note {
-    font-size: var(--text-sm);
-    color: var(--color-fg-muted);
+    font-size: var(--text-xs) !important;
+    color: var(--color-fg-muted) !important;
+  }
+
+  @media (min-width: 768px) {
+    .step-note {
+      font-size: var(--text-sm) !important;
+    }
   }
 
   .url-display {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: var(--space-3);
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-3);
     background-color: var(--color-bg);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     margin-bottom: var(--space-3);
   }
 
-  .url-display code {
+  @media (min-width: 480px) {
+    .url-display {
+      flex-direction: row;
+      align-items: center;
+      padding: var(--space-3) var(--space-4);
+    }
+  }
+
+  .url-display__url {
     flex: 1;
     font-family: var(--font-mono);
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--color-accent);
     background: none;
     padding: 0;
+    word-break: break-all;
+  }
+
+  @media (min-width: 480px) {
+    .url-display__url {
+      font-size: var(--text-sm);
+      word-break: normal;
+    }
   }
 
   .copy-button {
     font-family: var(--font-sans);
     font-size: var(--text-sm);
     font-weight: var(--font-medium);
-    padding: var(--space-2) var(--space-3);
+    padding: var(--space-3) var(--space-4);
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     color: var(--color-fg-secondary);
     cursor: pointer;
     transition: all var(--duration-fast) var(--ease-out);
+    /* Touch-friendly */
+    min-height: 48px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (min-width: 480px) {
+    .copy-button {
+      padding: var(--space-2) var(--space-4);
+      min-height: 40px;
+    }
   }
 
   .copy-button:hover {
@@ -319,11 +440,22 @@ import Button from '../components/Button.astro';
     color: var(--color-fg);
   }
 
+  .copy-button:active {
+    transform: scale(0.98);
+  }
+
+  .copy-button--success {
+    background-color: var(--color-success);
+    color: var(--color-fg-inverse);
+    border-color: var(--color-success);
+  }
+
   .prompt-example {
     padding: var(--space-3) var(--space-4);
     background-color: var(--color-bg);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
+    font-size: var(--text-sm);
     font-style: italic;
     color: var(--color-fg-secondary);
     margin-bottom: var(--space-3);
@@ -334,7 +466,7 @@ import Button from '../components/Button.astro';
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
-    padding: var(--space-5);
+    padding: var(--space-4);
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -346,31 +478,56 @@ import Button from '../components/Button.astro';
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
+      padding: var(--space-5);
     }
   }
 
   .download-info h3 {
     font-family: var(--font-sans);
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
     font-weight: var(--font-semibold);
     margin-bottom: var(--space-1);
   }
 
+  @media (min-width: 768px) {
+    .download-info h3 {
+      font-size: var(--text-base);
+    }
+  }
+
   .download-info p {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--color-fg-muted);
     margin: 0;
   }
 
+  @media (min-width: 768px) {
+    .download-info p {
+      font-size: var(--text-sm);
+    }
+  }
+
   .download-note {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--color-fg-muted);
+  }
+
+  @media (min-width: 768px) {
+    .download-note {
+      font-size: var(--text-sm);
+    }
   }
 
   /* Support Section */
   .support-options {
     display: grid;
-    gap: var(--space-4);
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .support-options {
+      gap: var(--space-4);
+    }
   }
 
   .support-option {
@@ -382,9 +539,15 @@ import Button from '../components/Button.astro';
 
   .support-option h3 {
     font-family: var(--font-sans);
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
     font-weight: var(--font-semibold);
     margin-bottom: var(--space-2);
+  }
+
+  @media (min-width: 768px) {
+    .support-option h3 {
+      font-size: var(--text-base);
+    }
   }
 
   .support-option p {
@@ -396,10 +559,16 @@ import Button from '../components/Button.astro';
   /* Receipt Note */
   .success-section--receipt {
     text-align: center;
-    padding: var(--space-6);
+    padding: var(--space-5);
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
+  }
+
+  @media (min-width: 768px) {
+    .success-section--receipt {
+      padding: var(--space-6);
+    }
   }
 
   .success-section--receipt p {

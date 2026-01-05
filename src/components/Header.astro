@@ -2,7 +2,7 @@
 /**
  * Header Component
  *
- * Minimal site header with navigation.
+ * Minimal site header with responsive mobile navigation.
  */
 
 interface Props {
@@ -17,7 +17,19 @@ const { class: className } = Astro.props;
     <a href="/" class="header__logo">
       <span class="header__logo-text">Jig</span>
     </a>
-    <nav class="header__nav">
+
+    <!-- Mobile menu button -->
+    <button
+      class="header__menu-btn"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="header-nav"
+    >
+      <span class="header__menu-icon"></span>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="header__nav" id="header-nav">
       <slot name="nav">
         <a href="/setup" class="header__link">Setup</a>
         <a href="/google-ads-skills" class="header__link header__link--cta">Google Ads Skills</a>
@@ -26,12 +38,46 @@ const { class: className } = Astro.props;
   </div>
 </header>
 
+<script>
+  // Mobile menu toggle
+  const menuBtn = document.querySelector('.header__menu-btn');
+  const nav = document.querySelector('.header__nav');
+  const header = document.querySelector('.header');
+
+  if (menuBtn && nav && header) {
+    menuBtn.addEventListener('click', () => {
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', (!isExpanded).toString());
+      nav.classList.toggle('header__nav--open');
+      header.classList.toggle('header--menu-open');
+    });
+
+    // Close menu when clicking a link
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuBtn.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('header__nav--open');
+        header.classList.remove('header--menu-open');
+      });
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && nav.classList.contains('header__nav--open')) {
+        menuBtn.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('header__nav--open');
+        header.classList.remove('header--menu-open');
+      }
+    });
+  }
+</script>
+
 <style>
   .header {
     position: sticky;
     top: 0;
     z-index: var(--z-sticky);
-    background-color: oklch(15% 0.01 60 / 0.9);
+    background-color: oklch(15% 0.01 60 / 0.95);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border-subtle);
   }
@@ -43,6 +89,7 @@ const { class: className } = Astro.props;
     max-width: var(--container-lg);
     margin: 0 auto;
     padding: var(--space-4);
+    min-height: 64px;
   }
 
   .header__logo {
@@ -50,6 +97,9 @@ const { class: className } = Astro.props;
     display: flex;
     align-items: center;
     gap: var(--space-2);
+    /* Ensure minimum touch target */
+    min-height: 48px;
+    padding: var(--space-2) 0;
   }
 
   .header__logo-text {
@@ -64,23 +114,103 @@ const { class: className } = Astro.props;
     color: var(--color-accent);
   }
 
-  .header__nav {
+  /* Mobile menu button */
+  .header__menu-btn {
     display: flex;
     align-items: center;
-    gap: var(--space-6);
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-right: calc(-1 * var(--space-2));
+  }
+
+  .header__menu-icon {
+    position: relative;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-fg);
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .header__menu-icon::before,
+  .header__menu-icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-fg);
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  .header__menu-icon::before {
+    top: -7px;
+  }
+
+  .header__menu-icon::after {
+    top: 7px;
+  }
+
+  /* Animate to X when open */
+  .header__menu-btn[aria-expanded="true"] .header__menu-icon {
+    background-color: transparent;
+  }
+
+  .header__menu-btn[aria-expanded="true"] .header__menu-icon::before {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .header__menu-btn[aria-expanded="true"] .header__menu-icon::after {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Navigation - Mobile first */
+  .header__nav {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: oklch(15% 0.01 60 / 0.98);
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-8) var(--space-6);
+    gap: var(--space-2);
+    transform: translateX(100%);
+    transition: transform var(--duration-normal) var(--ease-out);
+    visibility: hidden;
+  }
+
+  .header__nav--open {
+    transform: translateX(0);
+    visibility: visible;
   }
 
   .header__link {
     font-family: var(--font-sans);
-    font-size: var(--text-sm);
+    font-size: var(--text-lg);
     font-weight: var(--font-medium);
     color: var(--color-fg-secondary);
     text-decoration: none;
-    transition: color var(--duration-fast) var(--ease-out);
+    padding: var(--space-4) var(--space-2);
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    border-radius: var(--radius-md);
+    transition:
+      color var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out);
   }
 
-  .header__link:hover {
+  .header__link:hover,
+  .header__link:active {
     color: var(--color-fg);
+    background-color: var(--color-bg-hover);
   }
 
   .header__link[aria-current='page'] {
@@ -91,7 +221,44 @@ const { class: className } = Astro.props;
     color: var(--color-accent);
   }
 
-  .header__link--cta:hover {
+  .header__link--cta:hover,
+  .header__link--cta:active {
     color: var(--color-accent-hover);
+    background-color: oklch(70% 0.15 30 / 0.1);
+  }
+
+  /* Desktop styles */
+  @media (min-width: 640px) {
+    .header__menu-btn {
+      display: none;
+    }
+
+    .header__nav {
+      position: static;
+      background: none;
+      backdrop-filter: none;
+      flex-direction: row;
+      padding: 0;
+      gap: var(--space-2);
+      transform: none;
+      visibility: visible;
+      align-items: center;
+    }
+
+    .header__link {
+      font-size: var(--text-sm);
+      padding: var(--space-2) var(--space-3);
+      min-height: 40px;
+    }
+
+    .header__link:hover,
+    .header__link:active {
+      background-color: transparent;
+    }
+
+    .header__link--cta:hover,
+    .header__link--cta:active {
+      background-color: transparent;
+    }
   }
 </style>

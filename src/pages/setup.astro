@@ -4,6 +4,7 @@
  *
  * Free, public, SEO-targeted.
  * Instructions for connecting the hosted MCP server.
+ * Mobile-optimized with responsive code blocks and touch-friendly buttons.
  */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -59,13 +60,15 @@ import Button from '../components/Button.astro';
             <li>Click <strong>Edit Config</strong> to open your configuration file</li>
             <li>Add the Jig server to your <code>mcpServers</code> configuration:</li>
           </ol>
-          <pre class="code-block"><code>{`{
+          <div class="code-block-wrapper">
+            <pre class="code-block"><code>{`{
   "mcpServers": {
     "jig": {
       "url": "https://mcp.jig.tools/sse"
     }
   }
 }`}</code></pre>
+          </div>
           <ol start="5">
             <li>Save the file and restart Claude Desktop</li>
           </ol>
@@ -89,7 +92,7 @@ import Button from '../components/Button.astro';
             URL wherever your tool accepts MCP server configurations:
           </p>
           <div class="url-display">
-            <code>https://mcp.jig.tools/sse</code>
+            <code class="url-display__url">https://mcp.jig.tools/sse</code>
             <button class="copy-button" data-copy="https://mcp.jig.tools/sse">
               Copy
             </button>
@@ -128,7 +131,7 @@ import Button from '../components/Button.astro';
           pattern checklists—grab the complete package:
         </p>
         <div class="cta-buttons">
-          <Button href="/google-ads-skills" variant="primary" size="lg">
+          <Button href="/google-ads-skills" variant="primary" size="lg" fullWidth>
             Get Google Ads Skills — $199
           </Button>
         </div>
@@ -151,8 +154,10 @@ import Button from '../components/Button.astro';
         await navigator.clipboard.writeText(text);
         const originalText = button.textContent;
         button.textContent = 'Copied!';
+        button.classList.add('copy-button--success');
         setTimeout(() => {
           button.textContent = originalText;
+          button.classList.remove('copy-button--success');
         }, 2000);
       }
     });
@@ -161,8 +166,15 @@ import Button from '../components/Button.astro';
 
 <style>
   .setup-page {
-    padding: var(--space-8) var(--space-4);
-    padding-top: var(--space-12);
+    padding: var(--space-6) var(--space-4);
+    padding-top: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .setup-page {
+      padding: var(--space-8) var(--space-4);
+      padding-top: var(--space-12);
+    }
   }
 
   .setup-content {
@@ -171,40 +183,79 @@ import Button from '../components/Button.astro';
   }
 
   .setup-header {
-    margin-bottom: var(--space-12);
+    margin-bottom: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .setup-header {
+      margin-bottom: var(--space-12);
+    }
   }
 
   .setup-header h1 {
-    font-size: var(--text-4xl);
+    font-size: var(--text-3xl);
     font-weight: var(--font-bold);
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .setup-header h1 {
+      font-size: var(--text-4xl);
+      margin-bottom: var(--space-4);
+    }
   }
 
   .setup-intro {
-    font-size: var(--text-xl);
+    font-size: var(--text-base);
     color: var(--color-fg-secondary);
     margin: 0;
   }
 
+  @media (min-width: 768px) {
+    .setup-intro {
+      font-size: var(--text-xl);
+    }
+  }
+
   .setup-section {
-    margin-bottom: var(--space-12);
+    margin-bottom: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .setup-section {
+      margin-bottom: var(--space-12);
+    }
   }
 
   .setup-section h2 {
-    font-size: var(--text-2xl);
+    font-size: var(--text-xl);
     font-weight: var(--font-bold);
     margin-bottom: var(--space-4);
   }
 
+  @media (min-width: 768px) {
+    .setup-section h2 {
+      font-size: var(--text-2xl);
+    }
+  }
+
   .setup-section h3 {
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     font-weight: var(--font-semibold);
     margin-bottom: var(--space-3);
-    margin-top: var(--space-6);
+    margin-top: var(--space-5);
+  }
+
+  @media (min-width: 768px) {
+    .setup-section h3 {
+      font-size: var(--text-lg);
+      margin-top: var(--space-6);
+    }
   }
 
   .setup-section p {
     margin-bottom: var(--space-4);
+    font-size: var(--text-base);
   }
 
   .requirements-list {
@@ -217,6 +268,7 @@ import Button from '../components/Button.astro';
     position: relative;
     padding-left: var(--space-6);
     margin-bottom: var(--space-4);
+    font-size: var(--text-base);
   }
 
   .requirements-list li::before {
@@ -227,11 +279,18 @@ import Button from '../components/Button.astro';
   }
 
   .setup-step {
-    margin-bottom: var(--space-8);
-    padding: var(--space-6);
+    margin-bottom: var(--space-6);
+    padding: var(--space-4);
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
+  }
+
+  @media (min-width: 768px) {
+    .setup-step {
+      margin-bottom: var(--space-8);
+      padding: var(--space-6);
+    }
   }
 
   .setup-step h3 {
@@ -245,6 +304,28 @@ import Button from '../components/Button.astro';
 
   .setup-step ol li {
     margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
+  }
+
+  @media (min-width: 768px) {
+    .setup-step ol li {
+      font-size: var(--text-base);
+    }
+  }
+
+  /* Code block wrapper for horizontal scroll */
+  .code-block-wrapper {
+    margin: var(--space-4) calc(-1 * var(--space-4));
+    padding: 0 var(--space-4);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (min-width: 768px) {
+    .code-block-wrapper {
+      margin: var(--space-4) 0;
+      padding: 0;
+    }
   }
 
   .code-block {
@@ -252,49 +333,88 @@ import Button from '../components/Button.astro';
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     padding: var(--space-4);
-    overflow-x: auto;
-    margin: var(--space-4) 0;
+    margin: 0;
+    min-width: max-content;
+  }
+
+  @media (min-width: 768px) {
+    .code-block {
+      min-width: auto;
+    }
   }
 
   .code-block code {
     font-family: var(--font-mono);
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--color-fg);
     background: none;
     padding: 0;
+    white-space: pre;
+  }
+
+  @media (min-width: 768px) {
+    .code-block code {
+      font-size: var(--text-sm);
+    }
   }
 
   .url-display {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: var(--space-3);
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-4);
     background-color: var(--color-bg);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     margin-top: var(--space-3);
   }
 
-  .url-display code {
+  @media (min-width: 480px) {
+    .url-display {
+      flex-direction: row;
+      align-items: center;
+      padding: var(--space-3) var(--space-4);
+    }
+  }
+
+  .url-display__url {
     flex: 1;
     font-family: var(--font-mono);
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--color-accent);
     background: none;
     padding: 0;
+    word-break: break-all;
+  }
+
+  @media (min-width: 480px) {
+    .url-display__url {
+      font-size: var(--text-sm);
+      word-break: normal;
+    }
   }
 
   .copy-button {
     font-family: var(--font-sans);
     font-size: var(--text-sm);
     font-weight: var(--font-medium);
-    padding: var(--space-2) var(--space-3);
+    padding: var(--space-3) var(--space-4);
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     color: var(--color-fg-secondary);
     cursor: pointer;
     transition: all var(--duration-fast) var(--ease-out);
+    /* Touch-friendly */
+    min-height: 48px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (min-width: 480px) {
+    .copy-button {
+      padding: var(--space-2) var(--space-4);
+      min-height: 40px;
+    }
   }
 
   .copy-button:hover {
@@ -302,12 +422,28 @@ import Button from '../components/Button.astro';
     color: var(--color-fg);
   }
 
+  .copy-button:active {
+    transform: scale(0.98);
+  }
+
+  .copy-button--success {
+    background-color: var(--color-success);
+    color: var(--color-fg-inverse);
+    border-color: var(--color-success);
+  }
+
   .section--cta {
-    padding: var(--space-8);
+    padding: var(--space-6);
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .section--cta {
+      padding: var(--space-8);
+    }
   }
 
   .section--cta h2 {
@@ -322,11 +458,46 @@ import Button from '../components/Button.astro';
 
   .cta-buttons {
     margin: var(--space-6) 0;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (min-width: 480px) {
+    .cta-buttons {
+      max-width: none;
+    }
+
+    .cta-buttons :global(.btn) {
+      width: auto;
+    }
   }
 
   .cta-note {
     font-size: var(--text-sm);
     color: var(--color-fg-muted);
     margin-bottom: 0;
+  }
+
+  /* Inline code styling */
+  .setup-section code:not(.code-block code):not(.url-display__url) {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    padding: var(--space-1) var(--space-2);
+    background-color: var(--color-bg-elevated);
+    border-radius: var(--radius-default);
+    color: var(--color-accent);
+  }
+
+  /* General list styling */
+  .setup-section > ol {
+    padding-left: var(--space-5);
+    margin-bottom: var(--space-4);
+  }
+
+  .setup-section > ol li {
+    margin-bottom: var(--space-3);
+    font-size: var(--text-base);
+    padding-left: var(--space-1);
   }
 </style>
