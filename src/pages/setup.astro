@@ -1,0 +1,503 @@
+---
+/**
+ * Setup Guide
+ *
+ * Free, public, SEO-targeted.
+ * Instructions for connecting the hosted MCP server.
+ * Mobile-optimized with responsive code blocks and touch-friendly buttons.
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/Button.astro';
+---
+
+<BaseLayout
+  title="Setup Guide — Connect Jig to Your AI Tools"
+  description="Get started with Jig in under a minute. Connect the MCP server to Claude Desktop, Cursor, or any compatible tool."
+>
+  <Header />
+
+  <main class="setup-page">
+    <article class="setup-content">
+      <header class="setup-header">
+        <h1>Setup Guide</h1>
+        <p class="setup-intro">
+          Get Jig connected to your AI tools in under a minute. No installation
+          required—just add a URL.
+        </p>
+      </header>
+
+      <!-- What You'll Need -->
+      <section class="setup-section">
+        <h2>What you'll need</h2>
+        <ul class="requirements-list">
+          <li>
+            <strong>An MCP-compatible AI tool</strong> — Claude Desktop, Cursor,
+            Windsurf, or any tool that supports the Model Context Protocol.
+          </li>
+          <li>
+            <strong>30 seconds</strong> — That's genuinely all the setup takes.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Connect the MCP -->
+      <section class="setup-section">
+        <h2>Connect the hosted MCP</h2>
+        <p>
+          Jig runs as a hosted MCP server. You don't install anything—you just
+          point your AI tool to our server URL and the skills become available
+          automatically.
+        </p>
+
+        <div class="setup-step">
+          <h3>For Claude Desktop</h3>
+          <ol>
+            <li>Open Claude Desktop and go to <strong>Settings</strong></li>
+            <li>Navigate to the <strong>Developer</strong> section</li>
+            <li>Click <strong>Edit Config</strong> to open your configuration file</li>
+            <li>Add the Jig server to your <code>mcpServers</code> configuration:</li>
+          </ol>
+          <div class="code-block-wrapper">
+            <pre class="code-block"><code>{`{
+  "mcpServers": {
+    "jig": {
+      "url": "https://mcp.jig.tools/sse"
+    }
+  }
+}`}</code></pre>
+          </div>
+          <ol start="5">
+            <li>Save the file and restart Claude Desktop</li>
+          </ol>
+        </div>
+
+        <div class="setup-step">
+          <h3>For Cursor</h3>
+          <ol>
+            <li>Open Cursor Settings (<code>Cmd/Ctrl + ,</code>)</li>
+            <li>Search for "MCP" or navigate to <strong>Features → MCP Servers</strong></li>
+            <li>Click <strong>Add Server</strong></li>
+            <li>Enter the server URL: <code>https://mcp.jig.tools/sse</code></li>
+            <li>Save and restart Cursor</li>
+          </ol>
+        </div>
+
+        <div class="setup-step">
+          <h3>For other MCP tools</h3>
+          <p>
+            The connection process is similar for any MCP-compatible tool. Add this
+            URL wherever your tool accepts MCP server configurations:
+          </p>
+          <div class="url-display">
+            <code class="url-display__url">https://mcp.jig.tools/sse</code>
+            <button class="copy-button" data-copy="https://mcp.jig.tools/sse">
+              Copy
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Verify It Works -->
+      <section class="setup-section">
+        <h2>Verify it works</h2>
+        <p>
+          Once connected, test that the skills are loading correctly:
+        </p>
+        <ol>
+          <li>Start a new conversation with your AI tool</li>
+          <li>
+            Ask: <em>"What Jig skills do you have access to?"</em>
+          </li>
+          <li>
+            Your AI should list available skill categories. If you have purchased
+            skills, they'll appear here.
+          </li>
+        </ol>
+        <p>
+          If the connection isn't working, double-check the URL and make sure
+          you've restarted your AI tool after adding the configuration.
+        </p>
+      </section>
+
+      <!-- What's Next -->
+      <section class="setup-section section--cta">
+        <h2>What's next?</h2>
+        <p>
+          You're connected to Jig's free skill infrastructure. To unlock the full
+          Google Ads skill package—47 GAQL queries, audit workflows, and failure
+          pattern checklists—grab the complete package:
+        </p>
+        <div class="cta-buttons">
+          <Button href="/google-ads-skills" variant="primary" size="lg" fullWidth>
+            Get Google Ads Skills — $199
+          </Button>
+        </div>
+        <p class="cta-note">
+          One-time purchase. Lifetime updates. 14-day money-back guarantee.
+        </p>
+      </section>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Copy button functionality
+  document.querySelectorAll('.copy-button').forEach(button => {
+    button.addEventListener('click', async () => {
+      const text = button.getAttribute('data-copy');
+      if (text) {
+        await navigator.clipboard.writeText(text);
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        button.classList.add('copy-button--success');
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove('copy-button--success');
+        }, 2000);
+      }
+    });
+  });
+</script>
+
+<style>
+  .setup-page {
+    padding: var(--space-6) var(--space-4);
+    padding-top: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .setup-page {
+      padding: var(--space-8) var(--space-4);
+      padding-top: var(--space-12);
+    }
+  }
+
+  .setup-content {
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+
+  .setup-header {
+    margin-bottom: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .setup-header {
+      margin-bottom: var(--space-12);
+    }
+  }
+
+  .setup-header h1 {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .setup-header h1 {
+      font-size: var(--text-4xl);
+      margin-bottom: var(--space-4);
+    }
+  }
+
+  .setup-intro {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .setup-intro {
+      font-size: var(--text-xl);
+    }
+  }
+
+  .setup-section {
+    margin-bottom: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .setup-section {
+      margin-bottom: var(--space-12);
+    }
+  }
+
+  .setup-section h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .setup-section h2 {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .setup-section h3 {
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-3);
+    margin-top: var(--space-5);
+  }
+
+  @media (min-width: 768px) {
+    .setup-section h3 {
+      font-size: var(--text-lg);
+      margin-top: var(--space-6);
+    }
+  }
+
+  .setup-section p {
+    margin-bottom: var(--space-4);
+    font-size: var(--text-base);
+  }
+
+  .requirements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .requirements-list li {
+    position: relative;
+    padding-left: var(--space-6);
+    margin-bottom: var(--space-4);
+    font-size: var(--text-base);
+  }
+
+  .requirements-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+  }
+
+  .setup-step {
+    margin-bottom: var(--space-6);
+    padding: var(--space-4);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  @media (min-width: 768px) {
+    .setup-step {
+      margin-bottom: var(--space-8);
+      padding: var(--space-6);
+    }
+  }
+
+  .setup-step h3 {
+    margin-top: 0;
+  }
+
+  .setup-step ol {
+    padding-left: var(--space-5);
+    margin-bottom: var(--space-4);
+  }
+
+  .setup-step ol li {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
+  }
+
+  @media (min-width: 768px) {
+    .setup-step ol li {
+      font-size: var(--text-base);
+    }
+  }
+
+  /* Code block wrapper for horizontal scroll */
+  .code-block-wrapper {
+    margin: var(--space-4) calc(-1 * var(--space-4));
+    padding: 0 var(--space-4);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (min-width: 768px) {
+    .code-block-wrapper {
+      margin: var(--space-4) 0;
+      padding: 0;
+    }
+  }
+
+  .code-block {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    margin: 0;
+    min-width: max-content;
+  }
+
+  @media (min-width: 768px) {
+    .code-block {
+      min-width: auto;
+    }
+  }
+
+  .code-block code {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg);
+    background: none;
+    padding: 0;
+    white-space: pre;
+  }
+
+  @media (min-width: 768px) {
+    .code-block code {
+      font-size: var(--text-sm);
+    }
+  }
+
+  .url-display {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-3);
+  }
+
+  @media (min-width: 480px) {
+    .url-display {
+      flex-direction: row;
+      align-items: center;
+      padding: var(--space-3) var(--space-4);
+    }
+  }
+
+  .url-display__url {
+    flex: 1;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    background: none;
+    padding: 0;
+    word-break: break-all;
+  }
+
+  @media (min-width: 480px) {
+    .url-display__url {
+      font-size: var(--text-sm);
+      word-break: normal;
+    }
+  }
+
+  .copy-button {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-fg-secondary);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+    /* Touch-friendly */
+    min-height: 48px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (min-width: 480px) {
+    .copy-button {
+      padding: var(--space-2) var(--space-4);
+      min-height: 40px;
+    }
+  }
+
+  .copy-button:hover {
+    background-color: var(--color-bg-hover);
+    color: var(--color-fg);
+  }
+
+  .copy-button:active {
+    transform: scale(0.98);
+  }
+
+  .copy-button--success {
+    background-color: var(--color-success);
+    color: var(--color-fg-inverse);
+    border-color: var(--color-success);
+  }
+
+  .section--cta {
+    padding: var(--space-6);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .section--cta {
+      padding: var(--space-8);
+    }
+  }
+
+  .section--cta h2 {
+    text-align: center;
+  }
+
+  .section--cta p {
+    max-width: 50ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-buttons {
+    margin: var(--space-6) 0;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (min-width: 480px) {
+    .cta-buttons {
+      max-width: none;
+    }
+
+    .cta-buttons :global(.btn) {
+      width: auto;
+    }
+  }
+
+  .cta-note {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    margin-bottom: 0;
+  }
+
+  /* Inline code styling */
+  .setup-section code:not(.code-block code):not(.url-display__url) {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    padding: var(--space-1) var(--space-2);
+    background-color: var(--color-bg-elevated);
+    border-radius: var(--radius-default);
+    color: var(--color-accent);
+  }
+
+  /* General list styling */
+  .setup-section > ol {
+    padding-left: var(--space-5);
+    margin-bottom: var(--space-4);
+  }
+
+  .setup-section > ol li {
+    margin-bottom: var(--space-3);
+    font-size: var(--text-base);
+    padding-left: var(--space-1);
+  }
+</style>
