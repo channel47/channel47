@@ -29,14 +29,25 @@ html {
 
 body {
   font-family: var(--font-body);
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   line-height: var(--leading-relaxed);
   color: var(--color-fg);
   background-color: var(--color-bg);
   min-height: 100vh;
+  min-height: 100dvh;
   /* Safe areas for notched devices */
   padding-left: var(--safe-area-inset-left);
   padding-right: var(--safe-area-inset-right);
+  /* Prevent horizontal overflow on mobile */
+  overflow-x: hidden;
+  /* Smooth momentum scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: var(--text-lg);
+  }
 }
 
 /* ========================================
@@ -578,6 +589,72 @@ th {
 }
 
 /* ========================================
+ * FOCUS STATES
+ * Consistent focus styling across all interactive elements
+ * ======================================== */
+
+/* Default focus-visible styling */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Remove default focus ring on click for elements that have custom styling */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ========================================
+ * MOBILE-SPECIFIC UTILITIES
+ * ======================================== */
+
+/* Hide on mobile, show on tablet+ */
+.hide-mobile {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .hide-mobile {
+    display: initial;
+  }
+}
+
+/* Show on mobile, hide on tablet+ */
+.show-mobile {
+  display: initial;
+}
+
+@media (min-width: 640px) {
+  .show-mobile {
+    display: none;
+  }
+}
+
+/* Full-width on mobile, auto on larger screens */
+.mobile-full-width {
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  .mobile-full-width {
+    width: auto;
+  }
+}
+
+/* Stack vertically on mobile, row on larger screens */
+.mobile-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+@media (min-width: 480px) {
+  .mobile-stack {
+    flex-direction: row;
+  }
+}
+
+/* ========================================
  * REDUCED MOTION
  * ======================================== */
 
@@ -588,5 +665,9 @@ th {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }

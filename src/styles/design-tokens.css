@@ -34,11 +34,28 @@
   --color-border: oklch(25% 0.01 60);       /* Default borders */
   --color-border-subtle: oklch(20% 0.01 60);/* Subtle dividers */
 
+  /* Surface Colors - Aliases for component consistency */
+  --color-surface: var(--color-bg-elevated);
+  --color-surface-elevated: oklch(20% 0.01 60);
+  --color-void: var(--color-bg);             /* Deepest background */
+
+  /* Text Colors - Semantic aliases */
+  --color-text-primary: var(--color-fg);
+  --color-text-secondary: var(--color-fg-secondary);
+  --color-text-muted: var(--color-fg-muted);
+
   /* Semantic Colors */
   --color-success: oklch(70% 0.15 145);
+  --color-success-bg: oklch(70% 0.15 145 / 0.15);
   --color-warning: oklch(75% 0.15 85);
+  --color-warning-bg: oklch(75% 0.15 85 / 0.15);
   --color-error: oklch(65% 0.2 25);
+  --color-error-bg: oklch(65% 0.2 25 / 0.15);
   --color-info: oklch(65% 0.15 250);
+  --color-info-bg: oklch(65% 0.15 250 / 0.15);
+
+  /* Accent variants */
+  --color-accent-subtle: oklch(70% 0.15 30 / 0.15);
 
   /* ========================================
    * TYPOGRAPHY TOKENS

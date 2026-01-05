@@ -28,6 +28,9 @@ const { class: className } = Astro.props;
       <span class="header__menu-icon"></span>
     </button>
 
+    <!-- Mobile backdrop -->
+    <div class="header__backdrop" aria-hidden="true"></div>
+
     <!-- Navigation -->
     <nav class="header__nav" id="header-nav">
       <slot name="nav">
@@ -39,34 +42,57 @@ const { class: className } = Astro.props;
 </header>
 
 <script>
-  // Mobile menu toggle
+  // Mobile menu toggle with scroll lock
   const menuBtn = document.querySelector('.header__menu-btn');
   const nav = document.querySelector('.header__nav');
   const header = document.querySelector('.header');
+  const backdrop = document.querySelector('.header__backdrop');
+
+  function openMenu() {
+    menuBtn?.setAttribute('aria-expanded', 'true');
+    nav?.classList.add('header__nav--open');
+    header?.classList.add('header--menu-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    menuBtn?.setAttribute('aria-expanded', 'false');
+    nav?.classList.remove('header__nav--open');
+    header?.classList.remove('header--menu-open');
+    document.body.style.overflow = '';
+  }
 
   if (menuBtn && nav && header) {
     menuBtn.addEventListener('click', () => {
       const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-      menuBtn.setAttribute('aria-expanded', (!isExpanded).toString());
-      nav.classList.toggle('header__nav--open');
-      header.classList.toggle('header--menu-open');
+      if (isExpanded) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
+
+    // Close menu when clicking backdrop
+    backdrop?.addEventListener('click', closeMenu);
 
     // Close menu when clicking a link
     nav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        menuBtn.setAttribute('aria-expanded', 'false');
-        nav.classList.remove('header__nav--open');
-        header.classList.remove('header--menu-open');
-      });
+      link.addEventListener('click', closeMenu);
     });
 
     // Close menu on escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && nav.classList.contains('header__nav--open')) {
-        menuBtn.setAttribute('aria-expanded', 'false');
-        nav.classList.remove('header__nav--open');
-        header.classList.remove('header--menu-open');
+        closeMenu();
+        menuBtn.focus();
+      }
+    });
+
+    // Handle resize - close menu if window becomes desktop size
+    const mediaQuery = window.matchMedia('(min-width: 640px)');
+    mediaQuery.addEventListener('change', (e) => {
+      if (e.matches && nav.classList.contains('header__nav--open')) {
+        closeMenu();
       }
     });
   }
@@ -76,10 +102,16 @@ const { class: className } = Astro.props;
   .header {
     position: sticky;
     top: 0;
-    z-index: var(--z-sticky);
+    z-index: var(--z-header);
     background-color: oklch(15% 0.01 60 / 0.95);
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border-subtle);
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .header--menu-open {
+    background-color: var(--color-bg);
   }
 
   .header__container {
@@ -99,7 +131,15 @@ const { class: className } = Astro.props;
     gap: var(--space-2);
     /* Ensure minimum touch target */
     min-height: 48px;
-    padding: var(--space-2) 0;
+    padding: var(--space-2) var(--space-1);
+    margin-left: calc(-1 * var(--space-1));
+    border-radius: var(--radius-md);
+    transition: opacity var(--duration-fast) var(--ease-out);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .header__logo:active {
+    opacity: 0.7;
   }
 
   .header__logo-text {
@@ -108,6 +148,7 @@ const { class: className } = Astro.props;
     font-weight: var(--font-bold);
     color: var(--color-fg);
     letter-spacing: var(--tracking-tight);
+    transition: color var(--duration-fast) var(--ease-out);
   }
 
   .header__logo:hover .header__logo-text {
@@ -116,6 +157,8 @@ const { class: className } = Astro.props;
 
   /* Mobile menu button */
   .header__menu-btn {
+    position: relative;
+    z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,13 +169,26 @@ const { class: className } = Astro.props;
     cursor: pointer;
     padding: 0;
     margin-right: calc(-1 * var(--space-2));
+    border-radius: var(--radius-md);
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .header__menu-btn:hover {
+    background-color: var(--color-bg-hover);
+  }
+
+  .header__menu-btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
   }
 
   .header__menu-icon {
     position: relative;
-    width: 24px;
+    width: 22px;
     height: 2px;
     background-color: var(--color-fg);
+    border-radius: 1px;
     transition: background-color var(--duration-fast) var(--ease-out);
   }
 
@@ -141,10 +197,11 @@ const { class: className } = Astro.props;
     content: '';
     position: absolute;
     left: 0;
-    width: 24px;
+    width: 22px;
     height: 2px;
     background-color: var(--color-fg);
-    transition: transform var(--duration-fast) var(--ease-out);
+    border-radius: 1px;
+    transition: transform var(--duration-normal) var(--ease-out);
   }
 
   .header__menu-icon::before {
@@ -168,22 +225,44 @@ const { class: className } = Astro.props;
     transform: translateY(-7px) rotate(-45deg);
   }
 
+  /* Mobile backdrop */
+  .header__backdrop {
+    position: fixed;
+    inset: 0;
+    top: 64px;
+    background-color: oklch(0% 0 0 / 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity var(--duration-normal) var(--ease-out),
+      visibility var(--duration-normal) var(--ease-out);
+    z-index: var(--z-modal-backdrop);
+  }
+
+  .header--menu-open .header__backdrop {
+    opacity: 1;
+    visibility: visible;
+  }
+
   /* Navigation - Mobile first */
   .header__nav {
     position: fixed;
     top: 64px;
-    left: 0;
     right: 0;
     bottom: 0;
-    background-color: oklch(15% 0.01 60 / 0.98);
-    backdrop-filter: blur(12px);
+    width: min(300px, 85vw);
+    background-color: var(--color-bg);
+    border-left: 1px solid var(--color-border-subtle);
     display: flex;
     flex-direction: column;
-    padding: var(--space-8) var(--space-6);
-    gap: var(--space-2);
+    padding: var(--space-6) var(--space-4);
+    gap: var(--space-1);
     transform: translateX(100%);
     transition: transform var(--duration-normal) var(--ease-out);
     visibility: hidden;
+    z-index: var(--z-modal);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .header__nav--open {
@@ -193,38 +272,49 @@ const { class: className } = Astro.props;
 
   .header__link {
     font-family: var(--font-sans);
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     font-weight: var(--font-medium);
     color: var(--color-fg-secondary);
     text-decoration: none;
-    padding: var(--space-4) var(--space-2);
-    min-height: 48px;
+    padding: var(--space-4);
+    min-height: 56px;
     display: flex;
     align-items: center;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
+    -webkit-tap-highlight-color: transparent;
     transition:
       color var(--duration-fast) var(--ease-out),
-      background-color var(--duration-fast) var(--ease-out);
+      background-color var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
   }
 
-  .header__link:hover,
-  .header__link:active {
+  .header__link:hover {
     color: var(--color-fg);
+    background-color: var(--color-bg-hover);
+  }
+
+  .header__link:active {
+    transform: scale(0.98);
     background-color: var(--color-bg-hover);
   }
 
   .header__link[aria-current='page'] {
     color: var(--color-fg);
+    background-color: var(--color-bg-elevated);
   }
 
   .header__link--cta {
     color: var(--color-accent);
+    font-weight: var(--font-semibold);
   }
 
-  .header__link--cta:hover,
-  .header__link--cta:active {
+  .header__link--cta:hover {
     color: var(--color-accent-hover);
-    background-color: oklch(70% 0.15 30 / 0.1);
+    background-color: var(--color-accent-subtle);
+  }
+
+  .header__link--cta:active {
+    background-color: var(--color-accent-subtle);
   }
 
   /* Desktop styles */
@@ -233,16 +323,22 @@ const { class: className } = Astro.props;
       display: none;
     }
 
+    .header__backdrop {
+      display: none;
+    }
+
     .header__nav {
       position: static;
+      width: auto;
       background: none;
-      backdrop-filter: none;
+      border-left: none;
       flex-direction: row;
       padding: 0;
-      gap: var(--space-2);
+      gap: var(--space-1);
       transform: none;
       visibility: visible;
       align-items: center;
+      overflow: visible;
     }
 
     .header__link {
@@ -251,14 +347,31 @@ const { class: className } = Astro.props;
       min-height: 40px;
     }
 
-    .header__link:hover,
+    .header__link:hover {
+      background-color: var(--color-bg-hover);
+    }
+
     .header__link:active {
+      transform: none;
+    }
+
+    .header__link[aria-current='page'] {
       background-color: transparent;
     }
 
-    .header__link--cta:hover,
-    .header__link--cta:active {
-      background-color: transparent;
+    .header__link--cta:hover {
+      background-color: var(--color-accent-subtle);
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .header__nav,
+    .header__backdrop,
+    .header__menu-icon,
+    .header__menu-icon::before,
+    .header__menu-icon::after {
+      transition: none;
     }
   }
 </style>

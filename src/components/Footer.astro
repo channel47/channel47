@@ -35,14 +35,20 @@ const currentYear = new Date().getFullYear();
 <style>
   .footer {
     border-top: 1px solid var(--color-border-subtle);
-    padding: var(--space-10) var(--space-4);
+    padding: var(--space-12) var(--space-4);
     margin-top: auto;
+  }
+
+  @media (min-width: 768px) {
+    .footer {
+      padding: var(--space-16) var(--space-8);
+    }
   }
 
   .footer__container {
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: var(--space-8);
     max-width: var(--container-lg);
     margin: 0 auto;
   }
@@ -55,12 +61,18 @@ const currentYear = new Date().getFullYear();
     }
   }
 
+  .footer__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
   .footer__brand {
     font-family: var(--font-sans);
     font-weight: var(--font-bold);
-    font-size: var(--text-lg);
+    font-size: var(--text-xl);
     color: var(--color-fg);
-    margin-bottom: var(--space-1);
+    margin: 0;
   }
 
   .footer__tagline {
@@ -72,7 +84,7 @@ const currentYear = new Date().getFullYear();
   .footer__meta {
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-5);
   }
 
   @media (min-width: 768px) {
@@ -84,8 +96,15 @@ const currentYear = new Date().getFullYear();
 
   .footer__nav {
     display: flex;
-    gap: var(--space-4);
     flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: calc(-1 * var(--space-2));
+  }
+
+  @media (min-width: 768px) {
+    .footer__nav {
+      gap: var(--space-1);
+    }
   }
 
   .footer__link {
@@ -93,11 +112,36 @@ const currentYear = new Date().getFullYear();
     font-size: var(--text-sm);
     color: var(--color-fg-secondary);
     text-decoration: none;
-    transition: color var(--duration-fast) var(--ease-out);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    /* Touch-friendly size */
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      color var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out);
   }
 
   .footer__link:hover {
     color: var(--color-accent);
+    background-color: var(--color-bg-hover);
+  }
+
+  .footer__link:active {
+    background-color: var(--color-bg-elevated);
+  }
+
+  @media (min-width: 768px) {
+    .footer__link {
+      min-height: auto;
+      padding: var(--space-2) var(--space-3);
+    }
+
+    .footer__link:hover {
+      background-color: transparent;
+    }
   }
 
   .footer__copyright {
