@@ -9,24 +9,25 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import Button from '../../components/Button.astro';
 import EmailSignup from '../../components/EmailSignup.astro';
+import SkillCard from '../../components/SkillCard.astro';
 
 // Product data - add new products here
 const products = [
   {
-    name: 'Google Ads Skills',
+    title: 'Google Ads Skills',
     description: 'Ten years of media buying. One install.',
-    price: '$199',
+    category: 'google-ads',
+    tier: 'premium' as const,
+    price: 199,
     href: '/skills/google-ads',
-    available: true,
   },
   {
-    name: 'Ad Creative Skills',
+    title: 'Ad Creative Skills',
     description: 'Platform specs, best practices, what actually converts.',
-    price: 'Coming soon',
+    category: 'creative',
+    tier: 'premium' as const,
     href: '/skills/ad-creative',
-    available: false,
   },
 ];
 ---
@@ -52,25 +53,14 @@ const products = [
     <section class="products-section">
       <div class="products-grid">
         {products.map((product) => (
-          <a
+          <SkillCard
+            title={product.title}
+            description={product.description}
             href={product.href}
-            class={`product-card ${!product.available ? 'product-card--coming-soon' : ''}`}
-          >
-            <div class="product-card__content">
-              <h2 class="product-card__name">{product.name}</h2>
-              <p class="product-card__description">{product.description}</p>
-            </div>
-            <div class="product-card__footer">
-              <span class={`product-card__price ${!product.available ? 'product-card__price--muted' : ''}`}>
-                {product.price}
-              </span>
-              {product.available ? (
-                <span class="product-card__cta">View details →</span>
-              ) : (
-                <span class="product-card__cta product-card__cta--muted">Learn more →</span>
-              )}
-            </div>
-          </a>
+            category={product.category}
+            tier={product.tier}
+            price={product.price}
+          />
         ))}
       </div>
     </section>
@@ -174,105 +164,6 @@ const products = [
       grid-template-columns: repeat(2, 1fr);
       gap: var(--space-6);
     }
-  }
-
-  /* Product Card */
-  .product-card {
-    display: flex;
-    flex-direction: column;
-    padding: var(--space-6);
-    background-color: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
-    text-decoration: none;
-    transition: all var(--duration-fast) var(--ease-out);
-  }
-
-  @media (min-width: 768px) {
-    .product-card {
-      padding: var(--space-8);
-    }
-  }
-
-  .product-card:hover {
-    border-color: var(--color-accent);
-    transform: translateY(-2px);
-  }
-
-  .product-card--coming-soon {
-    opacity: 0.8;
-  }
-
-  .product-card--coming-soon:hover {
-    border-color: var(--color-border);
-    transform: none;
-  }
-
-  .product-card__content {
-    flex: 1;
-    margin-bottom: var(--space-6);
-  }
-
-  .product-card__name {
-    font-size: var(--text-xl);
-    font-weight: var(--font-bold);
-    color: var(--color-fg);
-    margin-bottom: var(--space-2);
-  }
-
-  @media (min-width: 768px) {
-    .product-card__name {
-      font-size: var(--text-2xl);
-    }
-  }
-
-  .product-card__description {
-    font-size: var(--text-sm);
-    color: var(--color-fg-secondary);
-    margin: 0;
-    line-height: var(--leading-relaxed);
-  }
-
-  @media (min-width: 768px) {
-    .product-card__description {
-      font-size: var(--text-base);
-    }
-  }
-
-  .product-card__footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .product-card__price {
-    font-family: var(--font-sans);
-    font-size: var(--text-lg);
-    font-weight: var(--font-bold);
-    color: var(--color-fg);
-  }
-
-  @media (min-width: 768px) {
-    .product-card__price {
-      font-size: var(--text-xl);
-    }
-  }
-
-  .product-card__price--muted {
-    font-weight: var(--font-medium);
-    color: var(--color-fg-muted);
-  }
-
-  .product-card__cta {
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    color: var(--color-accent);
-  }
-
-  .product-card__cta--muted {
-    color: var(--color-fg-muted);
   }
 
   /* Signup Section */
