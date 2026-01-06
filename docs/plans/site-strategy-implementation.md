@@ -9,7 +9,7 @@ This document outlines the comprehensive implementation plan for aligning the Ji
 | Phase | Status | Completed |
 |-------|--------|-----------|
 | Phase 1: Tools Infrastructure | ✅ Complete | 2026-01-06 |
-| Phase 2: Navigation Restructure | ⏳ Pending | - |
+| Phase 2: Navigation Restructure | ✅ Complete | 2026-01-06 |
 | Phase 3: Homepage Redesign | ⏳ Pending | - |
 | Phase 4: Skills Pages Enhancement | ⏳ Pending | - |
 | Phase 5: Email Capture Segmentation | ⏳ Pending | - |
@@ -23,7 +23,7 @@ This document outlines the comprehensive implementation plan for aligning the Ji
 
 | Area | Current State | Target State | Gap Severity |
 |------|---------------|--------------|--------------|
-| Navigation | Skills, Setup, [Google Ads Skills] | Skills, Tools, Blog, [Get Skills] | Medium |
+| Navigation | ✅ Skills, Tools, Blog, [Get Skills] | Skills, Tools, Blog, [Get Skills] | ~~Medium~~ Done |
 | Homepage | Hero → Body → 2 Paths → Email | Hero (2 CTAs) → Featured → Tools → Email | Medium |
 | Skills Index | ✅ Mostly aligned | Product grid + email | Minor |
 | Skills Sales | Good structure, missing sticky/trust | Add sticky CTA, trust strip | Medium |
@@ -147,6 +147,24 @@ The strategy document positions free tools as the top-of-funnel lead generation 
 ## Phase 2: Navigation Restructure
 **Priority: High**
 **Dependency: Phase 1 (Tools pages must exist before nav links work)**
+**Status: ✅ COMPLETE**
+
+### Implementation Notes (2026-01-06)
+
+**Files Modified:**
+- `src/components/Header.astro` — Updated desktop nav and mobile menu
+- `src/components/Footer.astro` — Updated nav links
+
+**Changes Made:**
+- Desktop nav: Skills | Tools | Blog | [Get Skills]
+- Mobile menu: Home | Skills | Tools | Blog | [Get Skills]
+- Footer nav: Skills | Tools | Blog | Contact
+- CTA changed from product-specific "Google Ads Skills" to generic "Get Skills" → `/skills`
+
+**Validation:**
+- Build passes (12 pages)
+- TypeScript check passes
+- All links verified correct
 
 ### 2.1 Update Header Component
 
