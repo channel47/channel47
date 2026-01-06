@@ -149,16 +149,23 @@ declare module 'astro:content' {
   render(): Render[".md"];
 }>;
 "posts": {
-"design-tokens.md": {
-	id: "design-tokens.md";
-  slug: "design-tokens";
+"claude-google-ads-audits.md": {
+	id: "claude-google-ads-audits.md";
+  slug: "claude-google-ads-audits";
   body: string;
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".md"] };
-"hello-world.md": {
-	id: "hello-world.md";
-  slug: "hello-world";
+"gaql-queries-guide.md": {
+	id: "gaql-queries-guide.md";
+  slug: "gaql-queries-guide";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".md"] };
+"mcp-servers-marketers.md": {
+	id: "mcp-servers-marketers.md";
+  slug: "mcp-servers-marketers";
   body: string;
   collection: "posts";
   data: InferEntrySchema<"posts">
