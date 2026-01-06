@@ -2,8 +2,8 @@
 /**
  * Google Ads Skills Landing Page
  *
- * The sales page. Full conversion architecture.
- * Mobile-optimized with responsive sections and touch-friendly interactions.
+ * Convert visitors to $199 buyers.
+ * Direct, confident tone. More Gary Halbert than HubSpot.
  */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -15,7 +15,7 @@ import EmailSignup from '../components/EmailSignup.astro';
 
 <BaseLayout
   title="Google Ads Skills for AI Tools — Jig"
-  description="47 GAQL queries, audit workflows, and failure checklists. Install ten years of Google Ads expertise into Claude, Cursor, or any MCP-compatible tool."
+  description="47 GAQL queries. Audit workflows. Failure checklists. Everything I use to diagnose accounts—packaged into skill files your tools can run."
 >
   <Header />
 
@@ -23,37 +23,35 @@ import EmailSignup from '../components/EmailSignup.astro';
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero__content">
-        <h1 class="hero__title">Steal my entire Google Ads brain for less than one billable hour</h1>
-        <p class="hero__subtitle">
-          47 battle-tested GAQL queries. Complete audit workflows. Failure pattern checklists.
-          Packaged as skill files your AI tools can actually use.
+        <h1 class="hero__title" data-animate="fade-up">Steal my entire Google Ads brain for less than one billable hour.</h1>
+        <p class="hero__subtitle" data-animate="fade-up">
+          47 GAQL queries. Audit workflows. Failure checklists. Everything I use to diagnose accounts—packaged into skill files your tools can run.
         </p>
-        <div class="hero__credibility">
-          <span class="credibility-item">$50M+ managed spend</span>
-          <span class="credibility-item">10+ years experience</span>
-          <span class="credibility-item">Enterprise & SMB</span>
-        </div>
       </div>
     </section>
 
     <!-- Problem Section -->
     <section class="section section--problem">
       <div class="section__container">
-        <h2 class="section__title">Your tools have API access. They lack judgment.</h2>
-        <div class="problem-content">
+        <h2 class="section__title" data-animate="fade-up">Your tools can connect to Google Ads. That's not the problem.</h2>
+        <div class="prose-content" data-animate="fade-up">
           <p>
-            Claude can query the Google Ads API. Cursor can write GAQL. ChatGPT can
-            explain campaign structures. But ask them to audit an account and you'll
-            get generic advice that misses what actually matters.
+            You've got Claude. Maybe Cursor. Maybe an MCP server already wired up.
           </p>
           <p>
-            The problem isn't capability—it's expertise. These tools don't know which
-            metrics lie, which settings silently drain budget, or which "best practices"
-            only apply to accounts spending $100K/month.
+            You ask it to audit an account. It gives you something. But it's soft. Generic. The kind of advice you'd find in a blog post from 2019.
+          </p>
+          <p class="quote">
+            "Consider reviewing your search terms."<br>
+            "You may want to look at your quality scores."
           </p>
           <p>
-            They don't know because nobody taught them. Until now.
+            That's not an audit. That's a suggestion.
           </p>
+          <p>
+            The issue isn't capability. It's knowledge. The API doesn't teach judgment. The documentation doesn't tell you what actually breaks. And Google's best practices won't help you explain to a client why ROAS dropped 30% last Tuesday.
+          </p>
+          <p class="emphasis">You need the part that takes years to learn.</p>
         </div>
       </div>
     </section>
@@ -61,40 +59,53 @@ import EmailSignup from '../components/EmailSignup.astro';
     <!-- What You Get Section -->
     <section class="section section--features">
       <div class="section__container">
-        <h2 class="section__title">What you get</h2>
-        <div class="features-grid">
-          <div class="feature">
-            <h3 class="feature__title">47 GAQL Queries</h3>
+        <h2 class="section__title" data-animate="fade-up">The 47 GAQL queries that find wasted spend before your client notices.</h2>
+        <p class="section__intro" data-animate="fade-up">Organized by what actually goes wrong:</p>
+        <div class="features-grid" data-animate-stagger>
+          <div class="feature" data-animate="fade-up">
+            <h3 class="feature__title">Search term bleed</h3>
             <p class="feature__description">
-              Not generic documentation examples. Real queries for real problems:
-              finding wasted spend, identifying scaling opportunities, catching
-              silent failures before they hurt.
+              Queries that catch irrelevant traffic you're paying for—before it becomes a pattern.
             </p>
           </div>
-          <div class="feature">
-            <h3 class="feature__title">Complete Audit Workflows</h3>
+          <div class="feature" data-animate="fade-up">
+            <h3 class="feature__title">Budget pacing failures</h3>
             <p class="feature__description">
-              Step-by-step audit processes that tell your AI exactly what to check
-              and in what order. Campaign structure, bidding strategy, audience
-              targeting, conversion tracking—the full sequence.
+              Queries that flag campaigns burning too fast or leaving money on the table.
             </p>
           </div>
-          <div class="feature">
-            <h3 class="feature__title">Failure Pattern Checklists</h3>
+          <div class="feature" data-animate="fade-up">
+            <h3 class="feature__title">Quality score decay</h3>
             <p class="feature__description">
-              The mistakes I've seen kill accounts: attribution gaps, audience
-              overlap, bid strategy misfires, creative fatigue signals. Your AI
-              will check for all of them automatically.
+              Queries that surface the slow degradation most people miss until it's expensive.
             </p>
           </div>
-          <div class="feature">
-            <h3 class="feature__title">Judgment Frameworks</h3>
+          <div class="feature" data-animate="fade-up">
+            <h3 class="feature__title">Shopping feed gaps</h3>
             <p class="feature__description">
-              When to trust automated bidding vs. override it. When low CTR is fine
-              vs. fatal. When to scale vs. when to pause. The contextual knowledge
-              that turns data into decisions.
+              Queries that find missing attributes, disapprovals, and feed hygiene issues.
             </p>
           </div>
+          <div class="feature" data-animate="fade-up">
+            <h3 class="feature__title">Performance Max black box diagnostics</h3>
+            <p class="feature__description">
+              Queries that extract signal from the campaign type Google doesn't want you to see inside.
+            </p>
+          </div>
+          <div class="feature" data-animate="fade-up">
+            <h3 class="feature__title">Audience overlap and cannibalization</h3>
+            <p class="feature__description">
+              Queries that identify when your campaigns are bidding against themselves.
+            </p>
+          </div>
+        </div>
+        <div class="features-plus" data-animate="fade-up">
+          <p>Plus:</p>
+          <ul>
+            <li>Audit workflows that sequence these into a repeatable process</li>
+            <li>Failure checklists for the most common account problems</li>
+            <li>Setup guide to get running in under 10 minutes</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -102,35 +113,32 @@ import EmailSignup from '../components/EmailSignup.astro';
     <!-- How It Works Section -->
     <section class="section section--how-it-works">
       <div class="section__container">
-        <h2 class="section__title">How it works</h2>
-        <div class="steps">
+        <h2 class="section__title" data-animate="fade-up">Three steps. Ten minutes.</h2>
+        <div class="steps" data-animate="fade-up">
           <div class="step">
             <span class="step__number">1</span>
             <div class="step__content">
-              <h3 class="step__title">Connect the MCP server</h3>
+              <h3 class="step__title">Connect the MCP</h3>
               <p class="step__description">
-                Add a single URL to Claude Desktop, Cursor, or any MCP-compatible
-                tool. Takes 30 seconds.
+                Add the hosted URL to Claude or Cursor. No local install. No dependencies.
               </p>
             </div>
           </div>
           <div class="step">
             <span class="step__number">2</span>
             <div class="step__content">
-              <h3 class="step__title">Install the skills</h3>
+              <h3 class="step__title">Drop in the skill files</h3>
               <p class="step__description">
-                Your AI now has access to every query, workflow, and checklist.
-                The expertise loads automatically when you ask about Google Ads.
+                Download, unzip, place in your skills directory.
               </p>
             </div>
           </div>
           <div class="step">
             <span class="step__number">3</span>
             <div class="step__content">
-              <h3 class="step__title">Run real audits</h3>
+              <h3 class="step__title">Run it</h3>
               <p class="step__description">
-                Ask your AI to audit a campaign. Watch it use the right queries,
-                check the right patterns, and surface issues you'd actually care about.
+                Ask your tool to audit an account. Watch it think like a senior media buyer.
               </p>
             </div>
           </div>
@@ -141,24 +149,22 @@ import EmailSignup from '../components/EmailSignup.astro';
     <!-- Who It's For Section -->
     <section class="section section--audience">
       <div class="section__container">
-        <div class="audience-grid">
-          <div class="audience-block">
+        <div class="audience-grid" data-animate-stagger>
+          <div class="audience-block" data-animate="fade-up">
             <h3 class="audience-block__title">This is for you if:</h3>
             <ul class="audience-list audience-list--yes">
-              <li>You manage Google Ads accounts and use AI tools</li>
-              <li>You want audits that catch real problems, not generic advice</li>
-              <li>You're tired of teaching AI the same context over and over</li>
-              <li>You work with Claude, Cursor, or other MCP-compatible tools</li>
-              <li>You value your time more than $199</li>
+              <li>You manage multiple Google Ads accounts and need leverage</li>
+              <li>You run an agency and want to systematize senior-level thinking</li>
+              <li>You bill hourly and resent spending time on repeatable diagnostics</li>
+              <li>You spend $10K+/month and can't afford to miss things</li>
             </ul>
           </div>
-          <div class="audience-block">
+          <div class="audience-block" data-animate="fade-up">
             <h3 class="audience-block__title">This is not for you if:</h3>
             <ul class="audience-list audience-list--no">
-              <li>You don't use Google Ads</li>
-              <li>You don't use AI tools for work</li>
-              <li>You want a done-for-you service, not a tool</li>
-              <li>You're looking for "set it and forget it" automation</li>
+              <li>You've never touched Google Ads</li>
+              <li>You want done-for-you management</li>
+              <li>You're not using Claude, Cursor, or similar tools yet</li>
             </ul>
           </div>
         </div>
@@ -168,20 +174,19 @@ import EmailSignup from '../components/EmailSignup.astro';
     <!-- Proof Section -->
     <section class="section section--proof">
       <div class="section__container">
-        <h2 class="section__title">Why trust this?</h2>
-        <div class="proof-content">
+        <h2 class="section__title" data-animate="fade-up">Who's behind this?</h2>
+        <div class="prose-content" data-animate="fade-up">
           <p>
-            I've spent a decade inside the Google Ads platform. Enterprise accounts,
-            SMB campaigns, lead gen, ecommerce, B2B, local services. I've managed
-            over $50 million in ad spend and made every mistake worth making.
+            I've spent the last ten years buying media—managing accounts at agencies, running my own e-commerce brand, consulting for companies spending $XX,XXX/month.
           </p>
           <p>
-            These skills aren't theoretical. They're the exact queries I run, the
-            exact checks I perform, the exact patterns I look for when auditing
-            accounts. I use them every day with my own AI tools.
+            This is the exact process I use. The queries I run. The checklists I work through.
           </p>
           <p>
-            This is my actual workflow, packaged so your AI can use it too.
+            I got tired of repeating myself. So I packaged it.
+          </p>
+          <p class="emphasis">
+            Now I use these skill files on every account I touch. They catch things faster than I do manually. And they don't forget steps.
           </p>
         </div>
       </div>
@@ -190,27 +195,24 @@ import EmailSignup from '../components/EmailSignup.astro';
     <!-- Pricing Section -->
     <section class="section section--pricing" id="pricing">
       <div class="section__container">
-        <div class="pricing-card">
+        <div class="pricing-card" data-animate="fade-up">
           <div class="pricing-card__header">
-            <p class="pricing-card__label">Google Ads Skills Package</p>
+            <p class="pricing-card__label">Jig: Google Ads Skills</p>
             <p class="pricing-card__price">$199</p>
-            <p class="pricing-card__terms">One-time purchase. Lifetime updates.</p>
+            <p class="pricing-card__terms">One-time. No subscription. Updates included.</p>
           </div>
           <ul class="pricing-card__features">
-            <li>47 production-ready GAQL queries</li>
-            <li>Complete audit workflow system</li>
-            <li>Failure pattern checklists</li>
-            <li>Judgment frameworks for decisions</li>
-            <li>All future updates included</li>
-            <li>Works with Claude, Cursor, and any MCP tool</li>
+            <li>47 GAQL query templates</li>
+            <li>Audit workflows</li>
+            <li>Failure checklists</li>
+            <li>Setup guide</li>
+            <li>Lifetime access</li>
+            <li>Free updates</li>
           </ul>
           <div class="pricing-card__action">
             <Button href="#" variant="primary" size="lg" fullWidth>
-              Get instant access
+              Get the Skills
             </Button>
-            <p class="pricing-card__guarantee">
-              14-day money-back guarantee. No questions asked.
-            </p>
           </div>
         </div>
       </div>
@@ -219,11 +221,11 @@ import EmailSignup from '../components/EmailSignup.astro';
     <!-- Email Capture Section -->
     <section class="section section--email">
       <div class="section__container">
-        <div class="email-wrapper">
+        <div class="email-wrapper" data-animate="fade-up">
           <EmailSignup
             title="Not ready yet?"
-            description="Get notified when we release new Google Ads skills and tactics. No spam, unsubscribe anytime."
-            buttonText="Keep me posted"
+            description="Get the free setup guide for connecting the MCP. No skills included—but you'll see how it works."
+            buttonText="Send it"
             variant="card"
           />
         </div>
@@ -233,83 +235,48 @@ import EmailSignup from '../components/EmailSignup.astro';
     <!-- FAQ Section -->
     <section class="section section--faq">
       <div class="section__container">
-        <h2 class="section__title">Questions</h2>
-        <div class="faq-list">
+        <h2 class="section__title" data-animate="fade-up">Questions</h2>
+        <div class="faq-list" data-animate="fade-up">
           <details class="faq-item">
-            <summary class="faq-item__question">What exactly are "skills"?</summary>
+            <summary class="faq-item__question">Do I need to be technical?</summary>
             <div class="faq-item__answer">
               <p>
-                Skills are structured files that teach AI tools how to approach specific
-                domains. They contain queries, workflows, checklists, and decision
-                frameworks—packaged so your AI can load them when needed. Think of them
-                as expertise made installable.
+                You need to be comfortable with Claude or Cursor. If you've used either, you're fine. No coding required.
               </p>
             </div>
           </details>
           <details class="faq-item">
-            <summary class="faq-item__question">Which tools are supported?</summary>
+            <summary class="faq-item__question">What tools does this work with?</summary>
             <div class="faq-item__answer">
               <p>
-                Any tool that supports the Model Context Protocol (MCP). Currently,
-                that includes Claude Desktop, Cursor, Windsurf, and a growing list
-                of others. If your tool supports MCP, these skills will work.
+                Anything that supports MCP and skill files. Claude, Cursor, and the list is growing.
               </p>
             </div>
           </details>
           <details class="faq-item">
-            <summary class="faq-item__question">Do I need Google Ads API access?</summary>
+            <summary class="faq-item__question">Is this a subscription?</summary>
             <div class="faq-item__answer">
               <p>
-                For the queries to actually run against your accounts, yes. But the skills
-                are valuable even without direct API access—they give your AI the knowledge
-                to ask the right questions and interpret whatever data you provide.
+                No. One payment. You own it.
               </p>
             </div>
           </details>
           <details class="faq-item">
-            <summary class="faq-item__question">What if I'm not technical?</summary>
+            <summary class="faq-item__question">What if I get stuck?</summary>
             <div class="faq-item__answer">
               <p>
-                If you can install a browser extension, you can set this up. The entire
-                process is adding one URL to your AI tool's settings. Detailed setup
-                instructions are included.
+                Email me. I'll help.
               </p>
             </div>
           </details>
           <details class="faq-item">
-            <summary class="faq-item__question">How do updates work?</summary>
+            <summary class="faq-item__question">Will this work for my account?</summary>
             <div class="faq-item__answer">
               <p>
-                When I add new queries, update workflows, or refine the skills based on
-                platform changes, you get them automatically. No action required on your
-                part—the skills update through the MCP connection.
+                If you're running Search or Shopping campaigns, yes. Performance Max, mostly—it's a black box, but these queries extract what's available.
               </p>
             </div>
           </details>
-          <details class="faq-item">
-            <summary class="faq-item__question">What's the refund policy?</summary>
-            <div class="faq-item__answer">
-              <p>
-                14 days, no questions asked. If the skills don't make your AI meaningfully
-                better at Google Ads work, email me and I'll refund you completely.
-              </p>
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section class="section section--final-cta">
-      <div class="section__container">
-        <div class="final-cta">
-          <h2 class="final-cta__title">Make your AI actually useful for Google Ads</h2>
-          <p class="final-cta__description">
-            One purchase. Lifetime updates. 14-day guarantee.
-          </p>
-          <Button href="#pricing" variant="primary" size="lg">
-            Get the skills — $199
-          </Button>
         </div>
       </div>
     </section>
@@ -325,15 +292,13 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   /* Hero Section */
   .hero {
-    padding: var(--space-10) var(--space-4);
-    padding-bottom: var(--space-12);
+    padding: var(--space-16) var(--space-4) var(--space-10);
     text-align: center;
   }
 
   @media (min-width: 768px) {
     .hero {
-      padding: var(--space-20) var(--space-4);
-      padding-bottom: var(--space-16);
+      padding: var(--space-24) var(--space-8) var(--space-16);
     }
   }
 
@@ -344,11 +309,11 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   .hero__title {
     font-size: var(--text-2xl);
-    font-weight: var(--font-bold);
-    letter-spacing: var(--tracking-tight);
+    font-weight: var(--font-black);
+    letter-spacing: var(--tracking-tighter);
     margin-bottom: var(--space-5);
     color: var(--color-fg);
-    line-height: var(--leading-tight);
+    line-height: 1.15;
   }
 
   @media (min-width: 480px) {
@@ -361,6 +326,7 @@ import EmailSignup from '../components/EmailSignup.astro';
     .hero__title {
       font-size: var(--text-5xl);
       margin-bottom: var(--space-6);
+      letter-spacing: var(--tracking-tightest);
     }
   }
 
@@ -368,45 +334,14 @@ import EmailSignup from '../components/EmailSignup.astro';
     font-size: var(--text-base);
     color: var(--color-fg-secondary);
     line-height: var(--leading-relaxed);
-    max-width: 60ch;
-    margin: 0 auto var(--space-6);
+    max-width: 50ch;
+    margin: 0 auto;
   }
 
   @media (min-width: 768px) {
     .hero__subtitle {
       font-size: var(--text-lg);
-      margin-bottom: var(--space-8);
-    }
-  }
-
-  .hero__credibility {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    color: var(--color-fg-muted);
-  }
-
-  @media (min-width: 480px) {
-    .hero__credibility {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: var(--space-4);
-    }
-  }
-
-  .credibility-item {
-    position: relative;
-  }
-
-  @media (min-width: 480px) {
-    .credibility-item:not(:last-child)::after {
-      content: "·";
-      position: absolute;
-      right: calc(-1 * var(--space-2) - 2px);
-      color: var(--color-border);
+      max-width: 60ch;
     }
   }
 
@@ -417,7 +352,7 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   @media (min-width: 768px) {
     .section {
-      padding: var(--space-16) var(--space-4);
+      padding: var(--space-16) var(--space-8);
     }
   }
 
@@ -441,19 +376,41 @@ import EmailSignup from '../components/EmailSignup.astro';
     }
   }
 
+  .section__intro {
+    text-align: center;
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    margin-bottom: var(--space-8);
+  }
+
+  /* Prose Content */
+  .prose-content p {
+    margin-bottom: var(--space-5);
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+  }
+
+  @media (min-width: 768px) {
+    .prose-content p {
+      font-size: var(--text-lg);
+    }
+  }
+
+  .prose-content .quote {
+    font-style: italic;
+    color: var(--color-fg-muted);
+    padding-left: var(--space-4);
+    border-left: 3px solid var(--color-border);
+  }
+
+  .prose-content .emphasis {
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+  }
+
   /* Problem Section */
   .section--problem {
     background-color: var(--color-bg-elevated);
-  }
-
-  .problem-content p {
-    margin-bottom: var(--space-4);
-  }
-
-  .problem-content p:last-child {
-    margin-bottom: 0;
-    font-weight: var(--font-medium);
-    color: var(--color-fg);
   }
 
   /* Features Section */
@@ -472,14 +429,14 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   @media (min-width: 640px) {
     .features-grid {
+      grid-template-columns: repeat(2, 1fr);
       gap: var(--space-6);
     }
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .features-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-8);
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
@@ -487,7 +444,7 @@ import EmailSignup from '../components/EmailSignup.astro';
     padding: var(--space-5);
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
   }
 
   @media (min-width: 768px) {
@@ -507,7 +464,6 @@ import EmailSignup from '../components/EmailSignup.astro';
   @media (min-width: 768px) {
     .feature__title {
       font-size: var(--text-lg);
-      margin-bottom: var(--space-3);
     }
   }
 
@@ -522,6 +478,50 @@ import EmailSignup from '../components/EmailSignup.astro';
     .feature__description {
       font-size: var(--text-base);
     }
+  }
+
+  .features-plus {
+    margin-top: var(--space-8);
+    padding: var(--space-6);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    max-width: var(--content-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .features-plus p {
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+    margin-bottom: var(--space-3);
+  }
+
+  .features-plus ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .features-plus li {
+    position: relative;
+    padding-left: var(--space-6);
+    margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+  }
+
+  @media (min-width: 768px) {
+    .features-plus li {
+      font-size: var(--text-base);
+    }
+  }
+
+  .features-plus li::before {
+    content: "•";
+    position: absolute;
+    left: var(--space-2);
+    color: var(--color-accent);
   }
 
   /* How It Works Section */
@@ -623,7 +623,7 @@ import EmailSignup from '../components/EmailSignup.astro';
     padding: var(--space-5);
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
   }
 
   @media (min-width: 768px) {
@@ -692,16 +692,6 @@ import EmailSignup from '../components/EmailSignup.astro';
     background-color: var(--color-bg-elevated);
   }
 
-  .proof-content p {
-    margin-bottom: var(--space-4);
-  }
-
-  .proof-content p:last-child {
-    margin-bottom: 0;
-    font-weight: var(--font-medium);
-    color: var(--color-fg);
-  }
-
   /* Pricing Section */
   .section--pricing {
     background-color: var(--color-bg);
@@ -710,12 +700,12 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   @media (min-width: 768px) {
     .section--pricing {
-      padding: var(--space-20) var(--space-4);
+      padding: var(--space-20) var(--space-8);
     }
   }
 
   .pricing-card {
-    max-width: 480px;
+    max-width: 400px;
     margin: 0 auto;
     padding: var(--space-6);
     background-color: var(--color-bg-elevated);
@@ -736,27 +726,12 @@ import EmailSignup from '../components/EmailSignup.astro';
     border-bottom: 1px solid var(--color-border);
   }
 
-  @media (min-width: 768px) {
-    .pricing-card__header {
-      margin-bottom: var(--space-6);
-      padding-bottom: var(--space-6);
-    }
-  }
-
   .pricing-card__label {
     font-family: var(--font-sans);
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
     font-weight: var(--font-medium);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-wide);
     color: var(--color-accent);
     margin-bottom: var(--space-2);
-  }
-
-  @media (min-width: 768px) {
-    .pricing-card__label {
-      font-size: var(--text-sm);
-    }
   }
 
   .pricing-card__price {
@@ -811,16 +786,6 @@ import EmailSignup from '../components/EmailSignup.astro';
     text-align: center;
   }
 
-  .pricing-card__action :global(.btn) {
-    margin-bottom: var(--space-3);
-  }
-
-  .pricing-card__guarantee {
-    font-size: var(--text-sm);
-    color: var(--color-fg-muted);
-    margin: 0;
-  }
-
   /* Email Section */
   .section--email {
     background-color: var(--color-bg-elevated);
@@ -851,14 +816,20 @@ import EmailSignup from '../components/EmailSignup.astro';
   .faq-item {
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     overflow: hidden;
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .faq-item[open] {
+    border-color: var(--color-accent);
   }
 
   .faq-item__question {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: var(--space-3);
     padding: var(--space-4);
     font-family: var(--font-sans);
     font-size: var(--text-sm);
@@ -866,14 +837,18 @@ import EmailSignup from '../components/EmailSignup.astro';
     color: var(--color-fg);
     cursor: pointer;
     list-style: none;
-    /* Touch-friendly */
-    min-height: 56px;
+    min-height: 60px;
     -webkit-tap-highlight-color: transparent;
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .faq-item__question:hover {
+    background-color: var(--color-bg-hover);
   }
 
   @media (min-width: 768px) {
     .faq-item__question {
-      padding: var(--space-4) var(--space-5);
+      padding: var(--space-5) var(--space-6);
       font-size: var(--text-base);
     }
   }
@@ -885,24 +860,34 @@ import EmailSignup from '../components/EmailSignup.astro';
   .faq-item__question::after {
     content: "+";
     flex-shrink: 0;
-    margin-left: var(--space-3);
-    font-size: var(--text-lg);
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-xl);
     font-weight: var(--font-normal);
     color: var(--color-fg-muted);
-    transition: transform var(--duration-fast) var(--ease-out);
+    background-color: var(--color-bg);
+    border-radius: var(--radius-full);
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out);
   }
 
   .faq-item[open] .faq-item__question::after {
     content: "−";
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent);
   }
 
   .faq-item__answer {
-    padding: 0 var(--space-4) var(--space-4);
+    padding: 0 var(--space-4) var(--space-5);
   }
 
   @media (min-width: 768px) {
     .faq-item__answer {
-      padding: 0 var(--space-5) var(--space-4);
+      padding: 0 var(--space-6) var(--space-6);
     }
   }
 
@@ -916,49 +901,6 @@ import EmailSignup from '../components/EmailSignup.astro';
   @media (min-width: 768px) {
     .faq-item__answer p {
       font-size: var(--text-base);
-    }
-  }
-
-  /* Final CTA Section */
-  .section--final-cta {
-    background-color: var(--color-bg-elevated);
-    padding: var(--space-12) var(--space-4);
-  }
-
-  @media (min-width: 768px) {
-    .section--final-cta {
-      padding: var(--space-20) var(--space-4);
-    }
-  }
-
-  .final-cta {
-    text-align: center;
-  }
-
-  .final-cta__title {
-    font-size: var(--text-xl);
-    font-weight: var(--font-bold);
-    margin-bottom: var(--space-3);
-    color: var(--color-fg);
-    line-height: var(--leading-tight);
-  }
-
-  @media (min-width: 768px) {
-    .final-cta__title {
-      font-size: var(--text-3xl);
-      margin-bottom: var(--space-4);
-    }
-  }
-
-  .final-cta__description {
-    font-size: var(--text-base);
-    color: var(--color-fg-secondary);
-    margin-bottom: var(--space-6);
-  }
-
-  @media (min-width: 768px) {
-    .final-cta__description {
-      font-size: var(--text-lg);
     }
   }
 </style>

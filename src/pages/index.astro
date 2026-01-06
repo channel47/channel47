@@ -2,8 +2,8 @@
 /**
  * Homepage
  *
- * Soft entry point. Explains Jig, builds interest, routes people.
- * Mobile-optimized with touch-friendly targets and responsive layout.
+ * Introduce concept, build intrigue, route traffic.
+ * Direct, confident tone. Peer to peer.
  */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -14,8 +14,8 @@ import EmailSignup from '../components/EmailSignup.astro';
 ---
 
 <BaseLayout
-  title="Jig — Expertise your tools can install"
-  description="Packaged judgment for the tools you already use. Skill files that make Claude and Cursor actually good at their job."
+  title="Jig — Your tools are capable. Now make them competent."
+  description="Jig is packaged expertise—skill files that teach Claude, Cursor, and other AI tools how to actually do the job."
 >
   <Header />
 
@@ -23,27 +23,54 @@ import EmailSignup from '../components/EmailSignup.astro';
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero__content">
-        <h1 class="hero__title">Expertise your tools can install</h1>
-        <p class="hero__description">
-          Your AI tools have access to everything. APIs, data, documentation.
-          What they lack is judgment—the hard-won knowledge of what to check,
-          what to ignore, and what actually matters. Jig packages that expertise
-          into skill files your tools can use.
+        <h1 class="hero__title" data-animate="fade-up">Your tools are capable. Now make them competent.</h1>
+        <p class="hero__subtitle" data-animate="fade-up">
+          Jig is packaged expertise—skill files that teach Claude, Cursor, and other AI tools how to actually do the job.
         </p>
-        <div class="hero__actions">
-          <Button href="/setup" variant="primary" size="lg">Get started free</Button>
-          <Button href="/google-ads-skills" variant="outline" size="lg">Google Ads Skills</Button>
+      </div>
+    </section>
+
+    <!-- Body Section -->
+    <section class="body-section">
+      <div class="body-content" data-animate="fade-up">
+        <p class="lead">The API is the easy part.</p>
+        <p>
+          Connecting your tools to Google Ads or a codebase or a database—that's solved. Plenty of MCP servers. Plenty of tutorials.
+        </p>
+        <p>But capability isn't competence.</p>
+        <p>
+          Knowing how to query an account isn't the same as knowing what to look for. Having access isn't the same as having judgment.
+        </p>
+        <p class="emphasis">That's where Jig comes in.</p>
+        <p>
+          Skill files that encode real expertise—workflows, checklists, decision logic—so your tools perform like someone who's done this a thousand times.
+        </p>
+      </div>
+    </section>
+
+    <!-- Paths Section -->
+    <section class="paths-section">
+      <div class="paths-grid" data-animate-stagger>
+        <div class="path-card" data-animate="fade-up">
+          <h2 class="path-card__title">Google Ads Skills</h2>
+          <p class="path-card__description">Ten years of media buying. One install. $199.</p>
+          <Button href="/google-ads-skills" variant="primary">See what's included</Button>
+        </div>
+        <div class="path-card" data-animate="fade-up">
+          <h2 class="path-card__title">Setup Guide</h2>
+          <p class="path-card__description">Connect the free hosted MCP in five minutes.</p>
+          <Button href="/setup" variant="outline">Get started</Button>
         </div>
       </div>
     </section>
 
     <!-- Email Signup -->
     <section class="signup-section">
-      <div class="signup-wrapper">
+      <div class="signup-wrapper" data-animate="fade-up">
         <EmailSignup
-          title="Get updates on new skills"
-          description="We're building expertise packages for more domains. Be the first to know."
-          buttonText="Notify me"
+          title="New skills in the works."
+          description="Leave your email. We'll let you know."
+          buttonText="Subscribe"
           variant="card"
         />
       </div>
@@ -57,37 +84,32 @@ import EmailSignup from '../components/EmailSignup.astro';
   .main {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 200px);
   }
 
   /* Hero Section */
   .hero {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--space-10) var(--space-4);
+    padding: var(--space-16) var(--space-4) var(--space-10);
+    text-align: center;
   }
 
   @media (min-width: 768px) {
     .hero {
-      padding: var(--space-16) var(--space-4);
-      padding-top: var(--space-20);
+      padding: var(--space-24) var(--space-8) var(--space-12);
     }
   }
 
   .hero__content {
-    max-width: var(--content-width);
-    text-align: center;
+    max-width: var(--container-md);
+    margin: 0 auto;
   }
 
   .hero__title {
     font-size: var(--text-3xl);
-    font-weight: var(--font-bold);
-    letter-spacing: var(--tracking-tight);
+    font-weight: var(--font-black);
+    letter-spacing: var(--tracking-tighter);
     margin-bottom: var(--space-5);
     color: var(--color-fg);
-    line-height: var(--leading-tight);
+    line-height: 1.1;
   }
 
   @media (min-width: 480px) {
@@ -100,47 +122,132 @@ import EmailSignup from '../components/EmailSignup.astro';
     .hero__title {
       font-size: var(--text-5xl);
       margin-bottom: var(--space-6);
+      letter-spacing: var(--tracking-tightest);
     }
   }
 
-  .hero__description {
+  .hero__subtitle {
     font-size: var(--text-base);
     color: var(--color-fg-secondary);
     line-height: var(--leading-relaxed);
-    max-width: 55ch;
-    margin: 0 auto var(--space-8);
-  }
-
-  @media (min-width: 768px) {
-    .hero__description {
-      font-size: var(--text-lg);
-      margin-bottom: var(--space-10);
-    }
-  }
-
-  .hero__actions {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    width: 100%;
-    max-width: 320px;
+    max-width: 50ch;
     margin: 0 auto;
   }
 
-  .hero__actions :global(.btn) {
-    width: 100%;
+  @media (min-width: 768px) {
+    .hero__subtitle {
+      font-size: var(--text-lg);
+      max-width: 55ch;
+    }
   }
 
-  @media (min-width: 480px) {
-    .hero__actions {
-      flex-direction: row;
-      justify-content: center;
-      max-width: none;
-      gap: var(--space-4);
-    }
+  /* Body Section */
+  .body-section {
+    padding: var(--space-8) var(--space-4);
+    background-color: var(--color-bg-elevated);
+  }
 
-    .hero__actions :global(.btn) {
-      width: auto;
+  @media (min-width: 768px) {
+    .body-section {
+      padding: var(--space-16) var(--space-8);
+    }
+  }
+
+  .body-content {
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+
+  .body-content p {
+    margin-bottom: var(--space-5);
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+  }
+
+  @media (min-width: 768px) {
+    .body-content p {
+      font-size: var(--text-lg);
+    }
+  }
+
+  .body-content .lead {
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+    font-size: var(--text-lg);
+  }
+
+  @media (min-width: 768px) {
+    .body-content .lead {
+      font-size: var(--text-xl);
+    }
+  }
+
+  .body-content .emphasis {
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+  }
+
+  /* Paths Section */
+  .paths-section {
+    padding: var(--space-12) var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .paths-section {
+      padding: var(--space-16) var(--space-8);
+    }
+  }
+
+  .paths-grid {
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--container-lg);
+    margin: 0 auto;
+  }
+
+  @media (min-width: 640px) {
+    .paths-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+    }
+  }
+
+  .path-card {
+    padding: var(--space-6);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .path-card {
+      padding: var(--space-8);
+    }
+  }
+
+  .path-card__title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-2);
+    color: var(--color-fg);
+  }
+
+  @media (min-width: 768px) {
+    .path-card__title {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .path-card__description {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .path-card__description {
+      font-size: var(--text-base);
     }
   }
 
@@ -148,11 +255,13 @@ import EmailSignup from '../components/EmailSignup.astro';
   .signup-section {
     padding: var(--space-8) var(--space-4);
     padding-bottom: var(--space-16);
+    padding-bottom: calc(var(--space-16) + var(--safe-area-inset-bottom));
+    background-color: var(--color-bg-elevated);
   }
 
   @media (min-width: 768px) {
     .signup-section {
-      padding: var(--space-12) var(--space-4);
+      padding: var(--space-12) var(--space-8);
       padding-bottom: var(--space-20);
     }
   }
