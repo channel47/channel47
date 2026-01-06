@@ -44,7 +44,7 @@ const tools = [
       <div class="hero__content">
         <h1 class="hero__title">Free tools. Real capability.</h1>
         <p class="hero__subtitle">
-          Hosted MCP servers you can connect in minutes. No install. No dependencies.
+          MCP servers are connectors that give Claude, Cursor, and other AI tools access to external services. These are hosted—connect in minutes with no local install.
         </p>
       </div>
     </section>
@@ -67,10 +67,15 @@ const tools = [
     <!-- Upsell Banner -->
     <section class="upsell-section">
       <div class="upsell-banner">
-        <p class="upsell-banner__text">
-          Tools give you access. <strong>Skills give you judgment.</strong>
-        </p>
-        <Button href="/skills" variant="primary">Browse Skills</Button>
+        <div class="upsell-banner__content">
+          <p class="upsell-banner__text">
+            <strong>MCP servers give access.</strong> Skills give judgment.
+          </p>
+          <p class="upsell-banner__subtext">
+            Skills teach your AI what to query, when, and what the results mean.
+          </p>
+        </div>
+        <Button href="/skills/google-ads" variant="primary">Get Google Ads Skills</Button>
       </div>
     </section>
 
@@ -208,10 +213,14 @@ const tools = [
     }
   }
 
+  .upsell-banner__content {
+    flex: 1;
+  }
+
   .upsell-banner__text {
     font-size: var(--text-base);
     color: var(--color-fg-secondary);
-    margin: 0;
+    margin: 0 0 var(--space-1);
   }
 
   @media (min-width: 768px) {
@@ -222,6 +231,12 @@ const tools = [
 
   .upsell-banner__text strong {
     color: var(--color-fg);
+  }
+
+  .upsell-banner__subtext {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    margin: 0;
   }
 
   /* Signup Section */
