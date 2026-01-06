@@ -71,7 +71,7 @@ const categoryLabels: Record<string, string> = {
     flex-direction: column;
     padding: var(--space-5);
     border-radius: var(--radius-xl);
-    background-color: var(--color-surface);
+    background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border-subtle);
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
@@ -106,7 +106,7 @@ const categoryLabels: Record<string, string> = {
     border-color: var(--color-accent);
     background: linear-gradient(
       135deg,
-      var(--color-surface) 0%,
+      var(--color-bg-elevated) 0%,
       oklch(18% 0.02 30) 100%
     );
   }
@@ -122,7 +122,7 @@ const categoryLabels: Record<string, string> = {
   .skill-card__category {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    color: var(--color-text-muted);
+    color: var(--color-fg-muted);
     text-transform: uppercase;
     letter-spacing: var(--tracking-wide);
   }
@@ -150,7 +150,7 @@ const categoryLabels: Record<string, string> = {
     font-family: var(--font-display);
     font-size: var(--text-lg);
     font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
+    color: var(--color-fg);
     margin-bottom: var(--space-2);
     line-height: var(--leading-tight);
   }
@@ -163,7 +163,7 @@ const categoryLabels: Record<string, string> = {
 
   .skill-card__description {
     font-size: var(--text-sm);
-    color: var(--color-text-secondary);
+    color: var(--color-fg-secondary);
     line-height: var(--leading-relaxed);
     flex-grow: 1;
     margin-bottom: var(--space-4);
@@ -190,7 +190,7 @@ const categoryLabels: Record<string, string> = {
   .skill-card__tag {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    color: var(--color-text-muted);
+    color: var(--color-fg-muted);
     padding: var(--space-1) var(--space-2);
     background-color: var(--color-void);
     border-radius: var(--radius-md);

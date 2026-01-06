@@ -2,8 +2,14 @@
 /**
  * Homepage
  *
- * Introduce concept, build intrigue, route traffic.
+ * Route qualified traffic. Capture unqualified traffic.
  * Direct, confident tone. Peer to peer.
+ *
+ * Structure per strategy:
+ * 1. Hero with dual CTAs
+ * 2. Featured Product (Google Ads Skills)
+ * 3. Secondary Path (Tools teaser)
+ * 4. Email Capture
  */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -20,47 +26,45 @@ import EmailSignup from '../components/EmailSignup.astro';
   <Header />
 
   <main class="main">
-    <!-- Hero Section -->
+    <!-- Hero Section with Dual CTAs -->
     <section class="hero">
       <div class="hero__content">
         <h1 class="hero__title" data-animate="fade-up">Your tools are capable. Now make them competent.</h1>
         <p class="hero__subtitle" data-animate="fade-up">
-          Jig is packaged expertise—skill files that teach Claude, Cursor, and other AI tools how to actually do the job.
+          Skill files that teach Claude, Cursor, and other AI tools how to actually do the job.
         </p>
+        <div class="hero__ctas" data-animate="fade-up">
+          <Button href="/skills" variant="primary" size="lg">Get the Skills</Button>
+          <Button href="/tools" variant="outline" size="lg">Browse Free Tools</Button>
+        </div>
       </div>
     </section>
 
-    <!-- Body Section -->
-    <section class="body-section">
-      <div class="body-content" data-animate="fade-up">
-        <p class="lead">The API is the easy part.</p>
-        <p>
-          Connecting your tools to Google Ads or a codebase or a database—that's solved. Plenty of MCP servers. Plenty of tutorials.
-        </p>
-        <p>But capability isn't competence.</p>
-        <p>
-          Knowing how to query an account isn't the same as knowing what to look for. Having access isn't the same as having judgment.
-        </p>
-        <p class="emphasis">That's where Jig comes in.</p>
-        <p>
-          Skill files that encode real expertise—workflows, checklists, decision logic—so your tools perform like someone who's done this a thousand times.
-        </p>
-      </div>
+    <!-- Featured Product Section -->
+    <section class="featured-section">
+      <a href="/skills/google-ads" class="featured-card" data-animate="fade-up">
+        <div class="featured-card__content">
+          <p class="featured-card__eyebrow">Featured</p>
+          <h2 class="featured-card__title">Google Ads Skills</h2>
+          <p class="featured-card__description">
+            Steal my entire Google Ads brain for less than one billable hour. 47 GAQL queries. Audit workflows. Failure checklists.
+          </p>
+        </div>
+        <div class="featured-card__footer">
+          <span class="featured-card__price">$199</span>
+          <span class="featured-card__cta">See what's included →</span>
+        </div>
+      </a>
     </section>
 
-    <!-- Paths Section -->
-    <section class="paths-section">
-      <div class="paths-grid" data-animate-stagger>
-        <div class="path-card" data-animate="fade-up">
-          <h2 class="path-card__title">Google Ads Skills</h2>
-          <p class="path-card__description">Ten years of media buying. One install. $199.</p>
-          <Button href="/skills/google-ads" variant="primary">See what's included</Button>
-        </div>
-        <div class="path-card" data-animate="fade-up">
-          <h2 class="path-card__title">Setup Guide</h2>
-          <p class="path-card__description">Connect the free hosted MCP in five minutes.</p>
-          <Button href="/setup" variant="outline">Get started</Button>
-        </div>
+    <!-- Secondary Path: Tools -->
+    <section class="tools-teaser">
+      <div class="tools-teaser__content" data-animate="fade-up">
+        <h2 class="tools-teaser__title">Just want the free tools?</h2>
+        <p class="tools-teaser__description">
+          MCP servers for Google Ads, creative generation, more. Connect in minutes.
+        </p>
+        <Button href="/tools" variant="secondary">Browse Tools</Button>
       </div>
     </section>
 
@@ -68,10 +72,11 @@ import EmailSignup from '../components/EmailSignup.astro';
     <section class="signup-section">
       <div class="signup-wrapper" data-animate="fade-up">
         <EmailSignup
-          title="New skills in the works."
-          description="Leave your email. We'll let you know."
-          buttonText="Subscribe"
+          title="New skills in development."
+          description="Get notified when we release new skill files."
+          buttonText="Notify me"
           variant="card"
+          tag="general"
         />
       </div>
     </section>
@@ -88,13 +93,13 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   /* Hero Section */
   .hero {
-    padding: var(--space-16) var(--space-4) var(--space-10);
+    padding: var(--space-16) var(--space-4) var(--space-12);
     text-align: center;
   }
 
   @media (min-width: 768px) {
     .hero {
-      padding: var(--space-24) var(--space-8) var(--space-12);
+      padding: var(--space-24) var(--space-8) var(--space-16);
     }
   }
 
@@ -131,123 +136,187 @@ import EmailSignup from '../components/EmailSignup.astro';
     color: var(--color-fg-secondary);
     line-height: var(--leading-relaxed);
     max-width: 50ch;
-    margin: 0 auto;
+    margin: 0 auto var(--space-8);
   }
 
   @media (min-width: 768px) {
     .hero__subtitle {
       font-size: var(--text-lg);
       max-width: 55ch;
+      margin-bottom: var(--space-10);
     }
   }
 
-  /* Body Section */
-  .body-section {
+  .hero__ctas {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 480px) {
+    .hero__ctas {
+      flex-direction: row;
+      justify-content: center;
+      max-width: none;
+      gap: var(--space-4);
+    }
+  }
+
+  /* Featured Product Section */
+  .featured-section {
     padding: var(--space-8) var(--space-4);
     background-color: var(--color-bg-elevated);
   }
 
   @media (min-width: 768px) {
-    .body-section {
-      padding: var(--space-16) var(--space-8);
+    .featured-section {
+      padding: var(--space-12) var(--space-8);
     }
   }
 
-  .body-content {
-    max-width: var(--content-width);
+  .featured-card {
+    display: flex;
+    flex-direction: column;
+    max-width: var(--container-md);
     margin: 0 auto;
-  }
-
-  .body-content p {
-    margin-bottom: var(--space-5);
-    font-size: var(--text-base);
-    color: var(--color-fg-secondary);
-  }
-
-  @media (min-width: 768px) {
-    .body-content p {
-      font-size: var(--text-lg);
-    }
-  }
-
-  .body-content .lead {
-    font-weight: var(--font-semibold);
-    color: var(--color-fg);
-    font-size: var(--text-lg);
-  }
-
-  @media (min-width: 768px) {
-    .body-content .lead {
-      font-size: var(--text-xl);
-    }
-  }
-
-  .body-content .emphasis {
-    font-weight: var(--font-semibold);
-    color: var(--color-fg);
-  }
-
-  /* Paths Section */
-  .paths-section {
-    padding: var(--space-12) var(--space-4);
-  }
-
-  @media (min-width: 768px) {
-    .paths-section {
-      padding: var(--space-16) var(--space-8);
-    }
-  }
-
-  .paths-grid {
-    display: grid;
-    gap: var(--space-4);
-    max-width: var(--container-lg);
-    margin: 0 auto;
-  }
-
-  @media (min-width: 640px) {
-    .paths-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-6);
-    }
-  }
-
-  .path-card {
     padding: var(--space-6);
-    background-color: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    border: 2px solid var(--color-accent);
     border-radius: var(--radius-xl);
-    text-align: center;
+    text-decoration: none;
+    transition: all var(--duration-fast) var(--ease-out);
   }
 
   @media (min-width: 768px) {
-    .path-card {
+    .featured-card {
       padding: var(--space-8);
     }
   }
 
-  .path-card__title {
-    font-size: var(--text-xl);
-    font-weight: var(--font-bold);
+  .featured-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px oklch(from var(--color-accent) l c h / 0.15);
+  }
+
+  .featured-card__content {
+    margin-bottom: var(--space-6);
+  }
+
+  .featured-card__eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     margin-bottom: var(--space-2);
+  }
+
+  .featured-card__title {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--color-fg);
+    margin-bottom: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .featured-card__title {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  .featured-card__description {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .featured-card__description {
+      font-size: var(--text-lg);
+    }
+  }
+
+  .featured-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .featured-card__price {
+    font-family: var(--font-sans);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
     color: var(--color-fg);
   }
 
   @media (min-width: 768px) {
-    .path-card__title {
+    .featured-card__price {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  .featured-card__cta {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-accent);
+  }
+
+  @media (min-width: 768px) {
+    .featured-card__cta {
+      font-size: var(--text-base);
+    }
+  }
+
+  .featured-card:hover .featured-card__cta {
+    color: var(--color-accent-hover);
+  }
+
+  /* Tools Teaser Section */
+  .tools-teaser {
+    padding: var(--space-12) var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .tools-teaser {
+      padding: var(--space-16) var(--space-8);
+    }
+  }
+
+  .tools-teaser__content {
+    max-width: var(--container-sm);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .tools-teaser__title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--color-fg);
+    margin-bottom: var(--space-2);
+  }
+
+  @media (min-width: 768px) {
+    .tools-teaser__title {
       font-size: var(--text-2xl);
     }
   }
 
-  .path-card__description {
-    font-size: var(--text-sm);
+  .tools-teaser__description {
+    font-size: var(--text-base);
     color: var(--color-fg-secondary);
     margin-bottom: var(--space-6);
   }
 
   @media (min-width: 768px) {
-    .path-card__description {
-      font-size: var(--text-base);
+    .tools-teaser__description {
+      font-size: var(--text-lg);
+      margin-bottom: var(--space-8);
     }
   }
 

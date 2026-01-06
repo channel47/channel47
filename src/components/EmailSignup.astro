@@ -11,6 +11,7 @@ interface Props {
   description?: string;
   buttonText?: string;
   variant?: 'inline' | 'card';
+  tag?: string;
   class?: string;
 }
 
@@ -19,6 +20,7 @@ const {
   description = "Leave your email. We'll let you know.",
   buttonText = 'Subscribe',
   variant = 'card',
+  tag,
   class: className,
 } = Astro.props;
 
@@ -40,6 +42,7 @@ const BEEHIIV_EMBED_URL = 'https://embeds.beehiiv.com/YOUR_EMBED_ID';
     method="POST"
     data-beehiiv-form
   >
+    {tag && <input type="hidden" name="tag" value={tag} />}
     <div class="email-signup__input-group">
       <label for="email" class="visually-hidden">Email address</label>
       <input
@@ -67,7 +70,7 @@ const BEEHIIV_EMBED_URL = 'https://embeds.beehiiv.com/YOUR_EMBED_ID';
 
   .email-signup--card {
     padding: var(--space-6);
-    background-color: var(--color-surface);
+    background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
   }
@@ -87,7 +90,7 @@ const BEEHIIV_EMBED_URL = 'https://embeds.beehiiv.com/YOUR_EMBED_ID';
     font-family: var(--font-display);
     font-size: var(--text-xl);
     font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
+    color: var(--color-fg);
     margin-bottom: var(--space-2);
     line-height: var(--leading-tight);
   }
@@ -100,7 +103,7 @@ const BEEHIIV_EMBED_URL = 'https://embeds.beehiiv.com/YOUR_EMBED_ID';
 
   .email-signup__description {
     font-size: var(--text-sm);
-    color: var(--color-text-secondary);
+    color: var(--color-fg-secondary);
     margin: 0;
     line-height: var(--leading-relaxed);
   }
@@ -134,7 +137,7 @@ const BEEHIIV_EMBED_URL = 'https://embeds.beehiiv.com/YOUR_EMBED_ID';
     padding: var(--space-4);
     font-family: var(--font-sans);
     font-size: var(--text-base);
-    color: var(--color-text-primary);
+    color: var(--color-fg);
     background-color: var(--color-void);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -148,7 +151,7 @@ const BEEHIIV_EMBED_URL = 'https://embeds.beehiiv.com/YOUR_EMBED_ID';
   }
 
   .email-signup__input::placeholder {
-    color: var(--color-text-muted);
+    color: var(--color-fg-muted);
   }
 
   .email-signup__input:focus {
@@ -194,7 +197,7 @@ const BEEHIIV_EMBED_URL = 'https://embeds.beehiiv.com/YOUR_EMBED_ID';
 
   .email-signup__privacy {
     font-size: var(--text-xs);
-    color: var(--color-text-muted);
+    color: var(--color-fg-muted);
     text-align: center;
     margin: 0;
   }

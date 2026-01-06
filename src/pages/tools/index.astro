@@ -1,0 +1,396 @@
+---
+/**
+ * Tools Index Page
+ *
+ * Catalog of free MCP servers.
+ * Top-of-funnel lead generation with soft sell to Skills.
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Button from '../../components/Button.astro';
+import EmailSignup from '../../components/EmailSignup.astro';
+
+// Tool data - add new tools here
+const tools = [
+  {
+    name: 'Google Ads MCP',
+    description: 'Query accounts, pull metrics, run GAQL. Connect in five minutes.',
+    href: '/tools/google-ads',
+    available: true,
+    icon: 'ads',
+  },
+  {
+    name: 'Nano Banana MCP',
+    description: 'Generate ad creatives with platform specs baked in.',
+    href: '/tools/nano-banana',
+    available: false,
+    icon: 'creative',
+  },
+];
+---
+
+<BaseLayout
+  title="Free Tools — Jig"
+  description="Free hosted MCP servers you can connect in minutes. Google Ads, creative generation, and more."
+>
+  <Header />
+
+  <main class="tools-index">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero__content">
+        <h1 class="hero__title">Free tools. Real capability.</h1>
+        <p class="hero__subtitle">
+          Hosted MCP servers you can connect in minutes. No install. No dependencies.
+        </p>
+      </div>
+    </section>
+
+    <!-- Tools Grid -->
+    <section class="tools-section">
+      <div class="tools-grid">
+        {tools.map((tool) => (
+          <a
+            href={tool.available ? tool.href : undefined}
+            class={`tool-card ${!tool.available ? 'tool-card--coming-soon' : ''}`}
+            aria-disabled={!tool.available}
+          >
+            <div class="tool-card__icon">
+              {tool.icon === 'ads' && (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 20V10" />
+                  <path d="M18 20V4" />
+                  <path d="M6 20v-4" />
+                </svg>
+              )}
+              {tool.icon === 'creative' && (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21 15 16 10 5 21" />
+                </svg>
+              )}
+            </div>
+            <div class="tool-card__content">
+              <h2 class="tool-card__name">{tool.name}</h2>
+              <p class="tool-card__description">{tool.description}</p>
+            </div>
+            <div class="tool-card__footer">
+              <span class="tool-card__badge">Free</span>
+              {tool.available ? (
+                <span class="tool-card__cta">Setup guide →</span>
+              ) : (
+                <span class="tool-card__cta tool-card__cta--muted">Coming soon</span>
+              )}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Upsell Banner -->
+    <section class="upsell-section">
+      <div class="upsell-banner">
+        <p class="upsell-banner__text">
+          Tools give you access. <strong>Skills give you judgment.</strong>
+        </p>
+        <Button href="/skills" variant="primary">Browse Skills</Button>
+      </div>
+    </section>
+
+    <!-- Email Signup -->
+    <section class="signup-section">
+      <div class="signup-wrapper">
+        <EmailSignup
+          title="New tools in development."
+          description="Leave your email. We'll let you know when they're ready."
+          buttonText="Notify me"
+          variant="card"
+          tag="tools-user"
+        />
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .tools-index {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: var(--space-16) var(--space-4) var(--space-10);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero {
+      padding: var(--space-24) var(--space-8) var(--space-16);
+    }
+  }
+
+  .hero__content {
+    max-width: var(--container-md);
+    margin: 0 auto;
+  }
+
+  .hero__title {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-black);
+    letter-spacing: var(--tracking-tighter);
+    margin-bottom: var(--space-4);
+    color: var(--color-fg);
+    line-height: 1.1;
+  }
+
+  @media (min-width: 480px) {
+    .hero__title {
+      font-size: var(--text-4xl);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero__title {
+      font-size: var(--text-5xl);
+      letter-spacing: var(--tracking-tightest);
+    }
+  }
+
+  .hero__subtitle {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+    max-width: 45ch;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .hero__subtitle {
+      font-size: var(--text-lg);
+    }
+  }
+
+  /* Tools Section */
+  .tools-section {
+    padding: var(--space-8) var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .tools-section {
+      padding: var(--space-12) var(--space-8);
+    }
+  }
+
+  .tools-grid {
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--container-lg);
+    margin: 0 auto;
+  }
+
+  @media (min-width: 640px) {
+    .tools-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+    }
+  }
+
+  /* Tool Card */
+  .tool-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    transition: all var(--duration-fast) var(--ease-out);
+  }
+
+  @media (min-width: 768px) {
+    .tool-card {
+      padding: var(--space-8);
+    }
+  }
+
+  .tool-card:hover {
+    border-color: var(--color-fg-muted);
+    transform: translateY(-2px);
+  }
+
+  .tool-card--coming-soon {
+    opacity: 0.7;
+    cursor: default;
+  }
+
+  .tool-card--coming-soon:hover {
+    border-color: var(--color-border);
+    transform: none;
+  }
+
+  .tool-card__icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    color: var(--color-fg-secondary);
+    margin-bottom: var(--space-4);
+  }
+
+  .tool-card:hover .tool-card__icon {
+    color: var(--color-fg);
+    border-color: var(--color-fg-muted);
+  }
+
+  .tool-card--coming-soon:hover .tool-card__icon {
+    color: var(--color-fg-secondary);
+    border-color: var(--color-border);
+  }
+
+  .tool-card__content {
+    flex: 1;
+    margin-bottom: var(--space-6);
+  }
+
+  .tool-card__name {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--color-fg);
+    margin-bottom: var(--space-2);
+  }
+
+  @media (min-width: 768px) {
+    .tool-card__name {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .tool-card__description {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    margin: 0;
+    line-height: var(--leading-relaxed);
+  }
+
+  @media (min-width: 768px) {
+    .tool-card__description {
+      font-size: var(--text-base);
+    }
+  }
+
+  .tool-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .tool-card__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-success);
+    background-color: oklch(from var(--color-success) l c h / 0.1);
+    border-radius: var(--radius-full);
+  }
+
+  .tool-card__cta {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-fg-secondary);
+  }
+
+  .tool-card:hover .tool-card__cta {
+    color: var(--color-fg);
+  }
+
+  .tool-card__cta--muted {
+    color: var(--color-fg-muted);
+  }
+
+  .tool-card--coming-soon:hover .tool-card__cta {
+    color: var(--color-fg-muted);
+  }
+
+  /* Upsell Section */
+  .upsell-section {
+    padding: var(--space-8) var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .upsell-section {
+      padding: var(--space-12) var(--space-8);
+    }
+  }
+
+  .upsell-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+    max-width: var(--container-md);
+    margin: 0 auto;
+    padding: var(--space-8);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    text-align: center;
+  }
+
+  @media (min-width: 640px) {
+    .upsell-banner {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+
+  .upsell-banner__text {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .upsell-banner__text {
+      font-size: var(--text-lg);
+    }
+  }
+
+  .upsell-banner__text strong {
+    color: var(--color-fg);
+  }
+
+  /* Signup Section */
+  .signup-section {
+    padding: var(--space-8) var(--space-4);
+    padding-bottom: var(--space-16);
+    background-color: var(--color-bg-elevated);
+  }
+
+  @media (min-width: 768px) {
+    .signup-section {
+      padding: var(--space-12) var(--space-8);
+      padding-bottom: var(--space-20);
+    }
+  }
+
+  .signup-wrapper {
+    max-width: var(--container-sm);
+    margin: 0 auto;
+  }
+</style>

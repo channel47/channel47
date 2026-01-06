@@ -40,12 +40,12 @@ const classes = `card card--${variant} ${href ? 'card--link' : ''} ${className |
   }
 
   .card--default {
-    background-color: var(--color-surface);
+    background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border-subtle);
   }
 
   .card--elevated {
-    background-color: var(--color-surface-elevated);
+    background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-md);
   }
@@ -79,7 +79,7 @@ const classes = `card card--${variant} ${href ? 'card--link' : ''} ${className |
     font-family: var(--font-display);
     font-size: var(--text-lg);
     font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
+    color: var(--color-fg);
     margin-bottom: var(--space-2);
     line-height: var(--leading-tight);
   }
@@ -92,14 +92,14 @@ const classes = `card card--${variant} ${href ? 'card--link' : ''} ${className |
 
   .card :global(.card__description) {
     font-size: var(--text-sm);
-    color: var(--color-text-secondary);
+    color: var(--color-fg-secondary);
     margin-bottom: 0;
     line-height: var(--leading-relaxed);
   }
 
   .card :global(.card__meta) {
     font-size: var(--text-xs);
-    color: var(--color-text-muted);
+    color: var(--color-fg-muted);
     font-family: var(--font-mono);
     margin-top: var(--space-4);
   }

@@ -11,6 +11,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import Button from '../../components/Button.astro';
 import EmailSignup from '../../components/EmailSignup.astro';
+import StickyBuyBar from '../../components/StickyBuyBar.astro';
 ---
 
 <BaseLayout
@@ -227,6 +228,7 @@ import EmailSignup from '../../components/EmailSignup.astro';
             description="Get the free setup guide for connecting the MCP. No skills included—but you'll see how it works."
             buttonText="Send it"
             variant="card"
+            tag="google-ads-interested"
           />
         </div>
       </div>
@@ -283,6 +285,12 @@ import EmailSignup from '../../components/EmailSignup.astro';
   </main>
 
   <Footer />
+
+  <StickyBuyBar
+    productName="Google Ads Skills"
+    price="$199"
+    href="#pricing"
+  />
 </BaseLayout>
 
 <style>
