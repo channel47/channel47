@@ -2,85 +2,99 @@
 /**
  * Card Component
  *
- * A flexible card component for displaying content blocks.
+ * A flexible base card for general content display.
+ * Design philosophy: Clean, versatile, consistent.
+ * Provides a solid foundation that works across contexts.
  */
 
 interface Props {
   href?: string;
   class?: string;
-  variant?: 'default' | 'elevated' | 'bordered';
+  variant?: 'default' | 'elevated' | 'ghost';
 }
 
 const { href, class: className, variant = 'default' } = Astro.props;
 
 const Tag = href ? 'a' : 'div';
-const classes = `card card--${variant} ${href ? 'card--link' : ''} ${className || ''}`.trim();
 ---
 
-<Tag class={classes} href={href}>
+<Tag
+  class:list={[
+    'card',
+    `card--${variant}`,
+    { 'card--interactive': !!href },
+    className,
+  ]}
+  href={href}
+>
   <slot />
 </Tag>
 
 <style>
   .card {
     display: block;
-    padding: var(--space-5);
-    border-radius: var(--radius-xl);
+    padding: var(--card-padding);
+    border-radius: var(--card-radius);
     -webkit-tap-highlight-color: transparent;
-    transition:
-      transform var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out),
-      border-color var(--duration-fast) var(--ease-out);
+    transition: var(--card-transition);
   }
 
   @media (min-width: 640px) {
     .card {
-      padding: var(--space-6);
+      padding: var(--card-padding-lg);
     }
   }
 
+  /* Variants */
   .card--default {
-    background-color: var(--color-bg-elevated);
-    border: 1px solid var(--color-border-subtle);
+    background: var(--card-bg);
+    border: var(--card-border);
   }
 
   .card--elevated {
-    background-color: var(--color-bg-elevated);
+    background: var(--card-bg);
     border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
   }
 
-  .card--bordered {
-    background-color: transparent;
-    border: 1px solid var(--color-border);
+  .card--ghost {
+    background: transparent;
+    border: 1px solid var(--color-border-subtle);
   }
 
-  .card--link {
+  /* Interactive state */
+  .card--interactive {
     text-decoration: none;
+    color: inherit;
     cursor: pointer;
   }
 
-  .card--link:hover {
-    transform: translateY(-2px);
+  .card--interactive:hover {
+    transform: translateY(var(--card-hover-lift));
     border-color: var(--color-accent);
+  }
+
+  .card--interactive.card--default:hover,
+  .card--interactive.card--elevated:hover {
     box-shadow: var(--glow-sm);
   }
 
-  .card--link:active {
-    transform: scale(0.98);
+  .card--interactive:active {
+    transform: scale(var(--card-press-scale));
   }
 
-  .card--link:focus-visible {
+  .card--interactive:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }
 
+  /* Slot content styling via global selectors */
   .card :global(.card__title) {
     font-family: var(--font-display);
     font-size: var(--text-lg);
     font-weight: var(--font-semibold);
     color: var(--color-fg);
-    margin-bottom: var(--space-2);
+    margin: 0 0 var(--space-2) 0;
     line-height: var(--leading-tight);
   }
 
@@ -91,17 +105,19 @@ const classes = `card card--${variant} ${href ? 'card--link' : ''} ${className |
   }
 
   .card :global(.card__description) {
+    font-family: var(--font-body);
     font-size: var(--text-sm);
     color: var(--color-fg-secondary);
-    margin-bottom: 0;
     line-height: var(--leading-relaxed);
+    margin: 0;
   }
 
   .card :global(.card__meta) {
+    font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--color-fg-muted);
-    font-family: var(--font-mono);
     margin-top: var(--space-4);
+    letter-spacing: var(--tracking-wide);
   }
 
   /* Reduced motion */
@@ -110,11 +126,8 @@ const classes = `card card--${variant} ${href ? 'card--link' : ''} ${className |
       transition: none;
     }
 
-    .card--link:hover {
-      transform: none;
-    }
-
-    .card--link:active {
+    .card--interactive:hover,
+    .card--interactive:active {
       transform: none;
     }
   }
