@@ -6,7 +6,7 @@ tags:
   - google-ads
   - gaql
   - automation
-author: Jig
+author: Channel47
 ---
 
 If you've ever wished you could just *ask* Google Ads what's going wrong with your account, GAQL is the closest thing to that. It's the query language that powers the Google Ads API, and learning it changes how you work.

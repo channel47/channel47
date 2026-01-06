@@ -14,7 +14,7 @@ import EmailSignup from '../../components/EmailSignup.astro';
 ---
 
 <BaseLayout
-  title="Google Ads MCP — Free Setup Guide | Jig"
+  title="Google Ads MCP — Free Setup Guide | Channel47"
   description="Connect the free Google Ads MCP server to Claude or Cursor in five minutes. Query any account. No install required."
 >
   <Header />
@@ -55,7 +55,7 @@ import EmailSignup from '../../components/EmailSignup.astro';
       <section class="tool-section">
         <h2>Add the MCP</h2>
         <p>
-          Jig runs as a hosted MCP server. No local install. Just point your AI tool to our URL.
+          Channel47 runs as a hosted MCP server. No local install. Just point your AI tool to our URL.
         </p>
 
         <div class="setup-step">
@@ -64,12 +64,12 @@ import EmailSignup from '../../components/EmailSignup.astro';
             <li>Open Claude Desktop and go to <strong>Settings</strong></li>
             <li>Navigate to the <strong>Developer</strong> section</li>
             <li>Click <strong>Edit Config</strong> to open your configuration file</li>
-            <li>Add the Jig server to your <code>mcpServers</code> configuration:</li>
+            <li>Add the Channel47 server to your <code>mcpServers</code> configuration:</li>
           </ol>
           <div class="code-block-wrapper">
             <pre class="code-block"><code>{`{
   "mcpServers": {
-    "jig": {
+    "channel47": {
       "url": "https://mcp.jig.tools/sse"
     }
   }
@@ -109,7 +109,7 @@ import EmailSignup from '../../components/EmailSignup.astro';
       <section class="tool-section">
         <h2>Authenticate</h2>
         <p>
-          On first use, Jig will prompt you to connect your Google Ads account via OAuth.
+          On first use, Channel47 will prompt you to connect your Google Ads account via OAuth.
           Standard Google authentication—we never see your password.
         </p>
         <p>
