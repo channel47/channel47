@@ -20,14 +20,14 @@ const tools = [
     description: 'Query accounts, pull metrics, run GAQL. Connect in five minutes.',
     href: '/tools/google-ads',
     available: true,
-    icon: 'ads' as const,
+    label: 'MCP Server',
   },
   {
     name: 'Nano Banana MCP',
     description: 'Generate ad creatives with platform specs baked in.',
     href: '/tools/nano-banana',
     available: false,
-    icon: 'creative' as const,
+    label: 'MCP Server',
   },
 ];
 ---
@@ -57,7 +57,7 @@ const tools = [
             name={tool.name}
             description={tool.description}
             href={tool.href}
-            icon={tool.icon}
+            label={tool.label}
             available={tool.available}
           />
         ))}
