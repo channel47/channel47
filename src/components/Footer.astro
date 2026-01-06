@@ -2,7 +2,7 @@
 /**
  * Footer Component
  *
- * Minimal site footer.
+ * Minimal site footer with consistent branding.
  */
 
 interface Props {
@@ -16,32 +16,32 @@ const currentYear = new Date().getFullYear();
 <footer class={`footer ${className || ''}`.trim()}>
   <div class="footer__container">
     <div class="footer__content">
-      <p class="footer__brand">Jig</p>
-      <p class="footer__tagline">Expertise your tools can install</p>
+      <p class="footer__brand">JIG</p>
+      <p class="footer__tagline">Expertise your tools can install.</p>
     </div>
-    <div class="footer__meta">
-      <nav class="footer__nav">
-        <a href="/setup" class="footer__link">Setup</a>
-        <a href="/google-ads-skills" class="footer__link">Google Ads Skills</a>
-        <a href="mailto:support@jig.tools" class="footer__link">Contact</a>
-      </nav>
-      <p class="footer__copyright">
-        &copy; {currentYear} Jig. All rights reserved.
-      </p>
-    </div>
+
+    <nav class="footer__nav">
+      <a href="/setup" class="footer__link">Setup</a>
+      <a href="/google-ads-skills" class="footer__link">Google Ads Skills</a>
+      <a href="mailto:support@jig.tools" class="footer__link">Contact</a>
+    </nav>
+
+    <p class="footer__copyright">
+      &copy; {currentYear} Jig
+    </p>
   </div>
 </footer>
 
 <style>
   .footer {
     border-top: 1px solid var(--color-border-subtle);
-    padding: var(--space-12) var(--space-4);
+    padding: var(--space-10) var(--space-4);
     margin-top: auto;
   }
 
   @media (min-width: 768px) {
     .footer {
-      padding: var(--space-16) var(--space-8);
+      padding: var(--space-12) var(--space-8);
     }
   }
 
@@ -57,7 +57,8 @@ const currentYear = new Date().getFullYear();
     .footer__container {
       flex-direction: row;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
+      gap: var(--space-6);
     }
   }
 
@@ -70,8 +71,9 @@ const currentYear = new Date().getFullYear();
   .footer__brand {
     font-family: var(--font-sans);
     font-weight: var(--font-bold);
-    font-size: var(--text-xl);
+    font-size: var(--text-lg);
     color: var(--color-fg);
+    letter-spacing: 0.1em;
     margin: 0;
   }
 
@@ -81,30 +83,11 @@ const currentYear = new Date().getFullYear();
     margin: 0;
   }
 
-  .footer__meta {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-  }
-
-  @media (min-width: 768px) {
-    .footer__meta {
-      align-items: flex-end;
-      text-align: right;
-    }
-  }
-
   .footer__nav {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-2);
+    gap: var(--space-1);
     margin: calc(-1 * var(--space-2));
-  }
-
-  @media (min-width: 768px) {
-    .footer__nav {
-      gap: var(--space-1);
-    }
   }
 
   .footer__link {
@@ -114,33 +97,20 @@ const currentYear = new Date().getFullYear();
     text-decoration: none;
     padding: var(--space-2) var(--space-3);
     border-radius: var(--radius-md);
-    /* Touch-friendly size */
     min-height: 44px;
     display: inline-flex;
     align-items: center;
     -webkit-tap-highlight-color: transparent;
-    transition:
-      color var(--duration-fast) var(--ease-out),
-      background-color var(--duration-fast) var(--ease-out);
+    transition: color var(--duration-fast) var(--ease-out);
   }
 
   .footer__link:hover {
-    color: var(--color-accent);
-    background-color: var(--color-bg-hover);
-  }
-
-  .footer__link:active {
-    background-color: var(--color-bg-elevated);
+    color: var(--color-fg);
   }
 
   @media (min-width: 768px) {
     .footer__link {
       min-height: auto;
-      padding: var(--space-2) var(--space-3);
-    }
-
-    .footer__link:hover {
-      background-color: transparent;
     }
   }
 
@@ -148,5 +118,11 @@ const currentYear = new Date().getFullYear();
     font-size: var(--text-xs);
     color: var(--color-fg-muted);
     margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .footer__copyright {
+      order: -1;
+    }
   }
 </style>

@@ -23,6 +23,8 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  /* Account for sticky header when scrolling to anchors */
+  scroll-padding-top: 80px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
