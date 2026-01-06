@@ -230,13 +230,14 @@ const { class: className } = Astro.props;
     position: fixed;
     inset: 0;
     top: 64px;
-    background-color: oklch(0% 0 0 / 0.5);
+    background-color: oklch(0% 0 0 / 0.7);
     opacity: 0;
     visibility: hidden;
     transition:
       opacity var(--duration-normal) var(--ease-out),
       visibility var(--duration-normal) var(--ease-out);
     z-index: var(--z-modal-backdrop);
+    -webkit-tap-highlight-color: transparent;
   }
 
   .header--menu-open .header__backdrop {
@@ -251,8 +252,9 @@ const { class: className } = Astro.props;
     right: 0;
     bottom: 0;
     width: min(300px, 85vw);
-    background-color: var(--color-bg);
-    border-left: 1px solid var(--color-border-subtle);
+    background-color: oklch(18% 0.01 60);
+    border-left: 1px solid var(--color-border);
+    box-shadow: -8px 0 32px oklch(0% 0 0 / 0.4);
     display: flex;
     flex-direction: column;
     padding: var(--space-6) var(--space-4);
