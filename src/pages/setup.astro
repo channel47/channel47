@@ -4,7 +4,7 @@
  *
  * Free, public, SEO-targeted.
  * Instructions for connecting the hosted MCP server.
- * Mobile-optimized with responsive code blocks and touch-friendly buttons.
+ * Direct, confident tone. Peer to peer.
  */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -15,17 +15,16 @@ import Button from '../components/Button.astro';
 
 <BaseLayout
   title="Setup Guide — Connect Jig to Your AI Tools"
-  description="Get started with Jig in under a minute. Connect the MCP server to Claude Desktop, Cursor, or any compatible tool."
+  description="Free hosted MCP server. No install. Just add the URL and you're connected to Google Ads."
 >
   <Header />
 
   <main class="setup-page">
     <article class="setup-content">
       <header class="setup-header">
-        <h1>Setup Guide</h1>
+        <h1>Connect the Jig MCP in five minutes.</h1>
         <p class="setup-intro">
-          Get Jig connected to your AI tools in under a minute. No installation
-          required—just add a URL.
+          Free hosted MCP server. No install. Just add the URL and you're connected to Google Ads.
         </p>
       </header>
 
@@ -34,22 +33,22 @@ import Button from '../components/Button.astro';
         <h2>What you'll need</h2>
         <ul class="requirements-list">
           <li>
-            <strong>An MCP-compatible AI tool</strong> — Claude Desktop, Cursor,
-            Windsurf, or any tool that supports the Model Context Protocol.
+            <strong>Claude Desktop, Cursor, or another MCP-compatible tool</strong>
           </li>
           <li>
-            <strong>30 seconds</strong> — That's genuinely all the setup takes.
+            <strong>Access to your Google Ads account</strong> (you'll authenticate through OAuth)
+          </li>
+          <li>
+            <strong>Five minutes</strong>
           </li>
         </ul>
       </section>
 
-      <!-- Connect the MCP -->
+      <!-- Add the MCP -->
       <section class="setup-section">
-        <h2>Connect the hosted MCP</h2>
+        <h2>Add the MCP</h2>
         <p>
-          Jig runs as a hosted MCP server. You don't install anything—you just
-          point your AI tool to our server URL and the skills become available
-          automatically.
+          Jig runs as a hosted MCP server. No local install. Just point your AI tool to our URL.
         </p>
 
         <div class="setup-step">
@@ -70,17 +69,17 @@ import Button from '../components/Button.astro';
 }`}</code></pre>
           </div>
           <ol start="5">
-            <li>Save the file and restart Claude Desktop</li>
+            <li>Save and restart Claude Desktop</li>
           </ol>
         </div>
 
         <div class="setup-step">
           <h3>For Cursor</h3>
           <ol>
-            <li>Open Cursor Settings (<code>Cmd/Ctrl + ,</code>)</li>
-            <li>Search for "MCP" or navigate to <strong>Features → MCP Servers</strong></li>
+            <li>Open Settings (<code>Cmd/Ctrl + ,</code>)</li>
+            <li>Navigate to <strong>Features → MCP Servers</strong></li>
             <li>Click <strong>Add Server</strong></li>
-            <li>Enter the server URL: <code>https://mcp.jig.tools/sse</code></li>
+            <li>Enter the URL: <code>https://mcp.jig.tools/sse</code></li>
             <li>Save and restart Cursor</li>
           </ol>
         </div>
@@ -88,8 +87,7 @@ import Button from '../components/Button.astro';
         <div class="setup-step">
           <h3>For other MCP tools</h3>
           <p>
-            The connection process is similar for any MCP-compatible tool. Add this
-            URL wherever your tool accepts MCP server configurations:
+            Add this URL wherever your tool accepts MCP server configurations:
           </p>
           <div class="url-display">
             <code class="url-display__url">https://mcp.jig.tools/sse</code>
@@ -100,25 +98,29 @@ import Button from '../components/Button.astro';
         </div>
       </section>
 
-      <!-- Verify It Works -->
+      <!-- Authenticate -->
       <section class="setup-section">
-        <h2>Verify it works</h2>
+        <h2>Authenticate</h2>
         <p>
-          Once connected, test that the skills are loading correctly:
+          On first use, Jig will prompt you to connect your Google Ads account via OAuth.
+          Standard Google authentication—we never see your password.
         </p>
-        <ol>
-          <li>Start a new conversation with your AI tool</li>
-          <li>
-            Ask: <em>"What Jig skills do you have access to?"</em>
-          </li>
-          <li>
-            Your AI should list available skill categories. If you have purchased
-            skills, they'll appear here.
-          </li>
-        </ol>
         <p>
-          If the connection isn't working, double-check the URL and make sure
-          you've restarted your AI tool after adding the configuration.
+          You'll grant read access to your account data. That's it.
+        </p>
+      </section>
+
+      <!-- Test It -->
+      <section class="setup-section">
+        <h2>Test it</h2>
+        <p>
+          Start a new conversation and ask something like:
+        </p>
+        <div class="test-prompt">
+          <p>"What's my top spending campaign this month?"</p>
+        </div>
+        <p>
+          If you see data, you're connected. If you see an error, double-check the URL and restart your tool.
         </p>
       </section>
 
@@ -126,9 +128,10 @@ import Button from '../components/Button.astro';
       <section class="setup-section section--cta">
         <h2>What's next?</h2>
         <p>
-          You're connected to Jig's free skill infrastructure. To unlock the full
-          Google Ads skill package—47 GAQL queries, audit workflows, and failure
-          pattern checklists—grab the complete package:
+          You're connected. But connected doesn't mean competent.
+        </p>
+        <p>
+          The MCP gives your AI access to your Google Ads data. The skill files teach it what to do with that access.
         </p>
         <div class="cta-buttons">
           <Button href="/google-ads-skills" variant="primary" size="lg" fullWidth>
@@ -430,6 +433,21 @@ import Button from '../components/Button.astro';
     background-color: var(--color-success);
     color: var(--color-fg-inverse);
     border-color: var(--color-success);
+  }
+
+  /* Test prompt styling */
+  .test-prompt {
+    padding: var(--space-4);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin: var(--space-4) 0;
+  }
+
+  .test-prompt p {
+    font-style: italic;
+    color: var(--color-fg);
+    margin: 0;
   }
 
   .section--cta {
