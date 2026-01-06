@@ -182,7 +182,7 @@ const formatRelatedDate = (date: Date) =>
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     padding: var(--space-1) var(--space-3);
-    background-color: var(--color-surface);
+    background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
     color: var(--color-accent);
@@ -196,10 +196,7 @@ const formatRelatedDate = (date: Date) =>
     letter-spacing: var(--tracking-tighter);
     margin-bottom: var(--space-4);
     line-height: var(--leading-tight);
-    background: linear-gradient(135deg, var(--color-text-primary), var(--color-accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--color-fg);
   }
 
   @media (min-width: 640px) {
@@ -217,7 +214,7 @@ const formatRelatedDate = (date: Date) =>
 
   .article__description {
     font-size: var(--text-base);
-    color: var(--color-text-secondary);
+    color: var(--color-fg-secondary);
     margin-bottom: var(--space-4);
     line-height: var(--leading-relaxed);
   }
@@ -234,7 +231,7 @@ const formatRelatedDate = (date: Date) =>
     gap: var(--space-2) var(--space-4);
     justify-content: center;
     font-size: var(--text-sm);
-    color: var(--color-text-muted);
+    color: var(--color-fg-muted);
   }
 
   .article__author::after {
@@ -359,7 +356,7 @@ const formatRelatedDate = (date: Date) =>
     gap: var(--space-2);
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    color: var(--color-text-secondary);
+    color: var(--color-fg-secondary);
     text-decoration: none;
     padding: var(--space-2);
     margin: calc(-1 * var(--space-2));
