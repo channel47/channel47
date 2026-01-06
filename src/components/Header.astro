@@ -15,8 +15,7 @@ const { class: className } = Astro.props;
 <header class={`header ${className || ''}`.trim()}>
   <div class="header__container">
     <a href="/" class="header__logo">
-      <span class="header__logo-text">J<span class="header__logo-dot">i</span>g</span>
-      <span class="header__logo-mark"></span>
+      <span class="header__logo-text">JIG</span>
     </a>
 
     <!-- Desktop navigation -->
@@ -45,8 +44,7 @@ const { class: className } = Astro.props;
       <!-- Header with logo and close -->
       <div class="mobile-menu__header">
         <a href="/" class="mobile-menu__logo">
-          <span class="mobile-menu__logo-text">J<span class="mobile-menu__logo-dot">i</span>g</span>
-          <span class="mobile-menu__logo-mark"></span>
+          <span class="mobile-menu__logo-text">JIG</span>
         </a>
         <button class="mobile-menu__close" aria-label="Close menu">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -142,7 +140,6 @@ const { class: className } = Astro.props;
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: var(--space-1);
     min-height: 48px;
     padding: var(--space-2);
     margin-left: calc(-1 * var(--space-2));
@@ -152,53 +149,14 @@ const { class: className } = Astro.props;
 
   .header__logo-text {
     font-family: var(--font-sans);
-    font-size: var(--text-2xl);
-    font-weight: var(--font-black);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
     color: var(--color-fg);
-    letter-spacing: var(--tracking-tighter);
-    line-height: 1;
+    letter-spacing: 0.1em;
   }
 
-  /* The 'i' with accent-colored dot */
-  .header__logo-dot {
-    position: relative;
-    color: inherit;
-  }
-
-  .header__logo-dot::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 5px;
-    height: 5px;
-    background-color: var(--color-accent);
-    border-radius: var(--radius-full);
-    transition: transform var(--duration-fast) var(--ease-out);
-  }
-
-  /* Small accent mark after text */
-  .header__logo-mark {
-    width: 6px;
-    height: 6px;
-    background-color: var(--color-accent);
-    border-radius: var(--radius-full);
-    flex-shrink: 0;
-    transition: transform var(--duration-fast) var(--ease-out);
-  }
-
-  .header__logo:hover .header__logo-mark {
-    transform: scale(1.3);
-  }
-
-  .header__logo:hover .header__logo-dot::before {
-    transform: translateX(-50%) scale(1.3);
-  }
-
-  .header__logo:active .header__logo-mark,
-  .header__logo:active .header__logo-dot::before {
-    transform: scale(0.9);
+  .header__logo:hover .header__logo-text {
+    color: var(--color-accent);
   }
 
   /* Desktop navigation */
@@ -308,7 +266,6 @@ const { class: className } = Astro.props;
   .mobile-menu__logo {
     display: flex;
     align-items: center;
-    gap: var(--space-1);
     text-decoration: none;
     padding: var(--space-2);
     margin-left: calc(-1 * var(--space-2));
@@ -316,34 +273,10 @@ const { class: className } = Astro.props;
 
   .mobile-menu__logo-text {
     font-family: var(--font-sans);
-    font-size: var(--text-2xl);
-    font-weight: var(--font-black);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
     color: var(--color-fg);
-    letter-spacing: var(--tracking-tighter);
-    line-height: 1;
-  }
-
-  .mobile-menu__logo-dot {
-    position: relative;
-  }
-
-  .mobile-menu__logo-dot::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 5px;
-    height: 5px;
-    background-color: var(--color-accent);
-    border-radius: var(--radius-full);
-  }
-
-  .mobile-menu__logo-mark {
-    width: 6px;
-    height: 6px;
-    background-color: var(--color-accent);
-    border-radius: var(--radius-full);
+    letter-spacing: 0.1em;
   }
 
   /* Close button */
