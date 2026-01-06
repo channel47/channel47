@@ -1,0 +1,956 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Sample skill data
+const sampleSkill = {
+  title: "Performance Max Diagnostic",
+  description: "Deep-dive analysis of your PMax campaigns with actionable recommendations for asset groups, audiences, and bidding strategies.",
+  category: "Google Ads",
+  tier: "premium" as const,
+  price: 29,
+  tags: ["pmax", "audit", "optimization"],
+};
+
+const sampleFree = {
+  title: "Search Term Audit",
+  description: "Identify wasted spend and discover high-intent queries hiding in your search terms report.",
+  category: "Google Ads",
+  tier: "free" as const,
+  price: 0,
+  tags: ["search", "negative keywords"],
+};
+---
+
+<BaseLayout title="Card Variants | Channel47">
+  <main class="variants-page">
+    <header class="variants-header">
+      <h1>Product Card Variants</h1>
+      <p>Select a design direction for skill product cards</p>
+    </header>
+
+    <!-- VARIANT A: Minimal Glow -->
+    <section class="variant-section">
+      <div class="variant-label">
+        <span class="variant-letter">A</span>
+        <span class="variant-name">Minimal Glow</span>
+      </div>
+      <p class="variant-desc">Clean lines with subtle accent glow on hover. Focus on typography hierarchy.</p>
+      <div class="card-showcase">
+        <article class="card-a">
+          <div class="card-a__badge" data-tier="premium">$29</div>
+          <div class="card-a__content">
+            <span class="card-a__category">{sampleSkill.category}</span>
+            <h3 class="card-a__title">{sampleSkill.title}</h3>
+            <p class="card-a__description">{sampleSkill.description}</p>
+          </div>
+          <div class="card-a__footer">
+            <span class="card-a__cta">View skill →</span>
+          </div>
+        </article>
+        <article class="card-a">
+          <div class="card-a__badge" data-tier="free">Free</div>
+          <div class="card-a__content">
+            <span class="card-a__category">{sampleFree.category}</span>
+            <h3 class="card-a__title">{sampleFree.title}</h3>
+            <p class="card-a__description">{sampleFree.description}</p>
+          </div>
+          <div class="card-a__footer">
+            <span class="card-a__cta">View skill →</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- VARIANT B: Accent Edge -->
+    <section class="variant-section">
+      <div class="variant-label">
+        <span class="variant-letter">B</span>
+        <span class="variant-name">Accent Edge</span>
+      </div>
+      <p class="variant-desc">Bold left accent strip creates visual anchor. Strong brand presence.</p>
+      <div class="card-showcase">
+        <article class="card-b">
+          <div class="card-b__edge"></div>
+          <div class="card-b__inner">
+            <div class="card-b__header">
+              <span class="card-b__category">{sampleSkill.category}</span>
+              <span class="card-b__price" data-tier="premium">$29</span>
+            </div>
+            <h3 class="card-b__title">{sampleSkill.title}</h3>
+            <p class="card-b__description">{sampleSkill.description}</p>
+            <div class="card-b__tags">
+              {sampleSkill.tags.map(tag => <span class="card-b__tag">{tag}</span>)}
+            </div>
+          </div>
+        </article>
+        <article class="card-b">
+          <div class="card-b__edge" data-tier="free"></div>
+          <div class="card-b__inner">
+            <div class="card-b__header">
+              <span class="card-b__category">{sampleFree.category}</span>
+              <span class="card-b__price" data-tier="free">Free</span>
+            </div>
+            <h3 class="card-b__title">{sampleFree.title}</h3>
+            <p class="card-b__description">{sampleFree.description}</p>
+            <div class="card-b__tags">
+              {sampleFree.tags.map(tag => <span class="card-b__tag">{tag}</span>)}
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- VARIANT C: Floating Label -->
+    <section class="variant-section">
+      <div class="variant-label">
+        <span class="variant-letter">C</span>
+        <span class="variant-name">Floating Label</span>
+      </div>
+      <p class="variant-desc">Price badge floats outside the card boundary. Playful yet professional.</p>
+      <div class="card-showcase">
+        <article class="card-c">
+          <div class="card-c__badge" data-tier="premium">$29</div>
+          <span class="card-c__category">{sampleSkill.category}</span>
+          <h3 class="card-c__title">{sampleSkill.title}</h3>
+          <p class="card-c__description">{sampleSkill.description}</p>
+          <div class="card-c__footer">
+            <div class="card-c__tags">
+              {sampleSkill.tags.slice(0, 2).map(tag => <span class="card-c__tag">{tag}</span>)}
+            </div>
+            <span class="card-c__arrow">→</span>
+          </div>
+        </article>
+        <article class="card-c">
+          <div class="card-c__badge" data-tier="free">Free</div>
+          <span class="card-c__category">{sampleFree.category}</span>
+          <h3 class="card-c__title">{sampleFree.title}</h3>
+          <p class="card-c__description">{sampleFree.description}</p>
+          <div class="card-c__footer">
+            <div class="card-c__tags">
+              {sampleFree.tags.slice(0, 2).map(tag => <span class="card-c__tag">{tag}</span>)}
+            </div>
+            <span class="card-c__arrow">→</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- VARIANT D: Stacked -->
+    <section class="variant-section">
+      <div class="variant-label">
+        <span class="variant-letter">D</span>
+        <span class="variant-name">Stacked</span>
+      </div>
+      <p class="variant-desc">Layered depth effect suggests premium content. Shadow creates dimension.</p>
+      <div class="card-showcase">
+        <div class="card-d-wrapper">
+          <div class="card-d__shadow"></div>
+          <article class="card-d">
+            <div class="card-d__top">
+              <span class="card-d__category">{sampleSkill.category}</span>
+              <span class="card-d__price" data-tier="premium">$29</span>
+            </div>
+            <h3 class="card-d__title">{sampleSkill.title}</h3>
+            <p class="card-d__description">{sampleSkill.description}</p>
+            <span class="card-d__cta">Explore →</span>
+          </article>
+        </div>
+        <div class="card-d-wrapper">
+          <div class="card-d__shadow" data-tier="free"></div>
+          <article class="card-d">
+            <div class="card-d__top">
+              <span class="card-d__category">{sampleFree.category}</span>
+              <span class="card-d__price" data-tier="free">Free</span>
+            </div>
+            <h3 class="card-d__title">{sampleFree.title}</h3>
+            <p class="card-d__description">{sampleFree.description}</p>
+            <span class="card-d__cta">Explore →</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VARIANT E: Gradient Border -->
+    <section class="variant-section">
+      <div class="variant-label">
+        <span class="variant-letter">E</span>
+        <span class="variant-name">Gradient Border</span>
+      </div>
+      <p class="variant-desc">Animated gradient border on hover. Modern, high-end aesthetic.</p>
+      <div class="card-showcase">
+        <article class="card-e" data-tier="premium">
+          <div class="card-e__inner">
+            <div class="card-e__header">
+              <span class="card-e__category">{sampleSkill.category}</span>
+              <span class="card-e__price">$29</span>
+            </div>
+            <h3 class="card-e__title">{sampleSkill.title}</h3>
+            <p class="card-e__description">{sampleSkill.description}</p>
+            <div class="card-e__footer">
+              <div class="card-e__tags">
+                {sampleSkill.tags.map(tag => <span class="card-e__tag">{tag}</span>)}
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="card-e" data-tier="free">
+          <div class="card-e__inner">
+            <div class="card-e__header">
+              <span class="card-e__category">{sampleFree.category}</span>
+              <span class="card-e__price">Free</span>
+            </div>
+            <h3 class="card-e__title">{sampleFree.title}</h3>
+            <p class="card-e__description">{sampleFree.description}</p>
+            <div class="card-e__footer">
+              <div class="card-e__tags">
+                {sampleFree.tags.map(tag => <span class="card-e__tag">{tag}</span>)}
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- VARIANT F: Compact Badge -->
+    <section class="variant-section">
+      <div class="variant-label">
+        <span class="variant-letter">F</span>
+        <span class="variant-name">Compact Badge</span>
+      </div>
+      <p class="variant-desc">Corner badge with notched design. Efficient use of space, strong visual identity.</p>
+      <div class="card-showcase">
+        <article class="card-f">
+          <div class="card-f__badge" data-tier="premium">
+            <span>$29</span>
+          </div>
+          <div class="card-f__content">
+            <span class="card-f__category">{sampleSkill.category}</span>
+            <h3 class="card-f__title">{sampleSkill.title}</h3>
+            <p class="card-f__description">{sampleSkill.description}</p>
+          </div>
+          <div class="card-f__bar"></div>
+        </article>
+        <article class="card-f">
+          <div class="card-f__badge" data-tier="free">
+            <span>Free</span>
+          </div>
+          <div class="card-f__content">
+            <span class="card-f__category">{sampleFree.category}</span>
+            <h3 class="card-f__title">{sampleFree.title}</h3>
+            <p class="card-f__description">{sampleFree.description}</p>
+          </div>
+          <div class="card-f__bar" data-tier="free"></div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>
+
+<style>
+  .variants-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  .variants-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+  }
+
+  .variants-header h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .variants-header p {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+  }
+
+  .variant-section {
+    margin-bottom: var(--space-16);
+    padding-bottom: var(--space-12);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .variant-section:last-child {
+    border-bottom: none;
+  }
+
+  .variant-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+
+  .variant-letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    border-radius: var(--radius-md);
+  }
+
+  .variant-name {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+  }
+
+  .variant-desc {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-6);
+  }
+
+  .card-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-6);
+  }
+
+  /* ========================================
+     VARIANT A: Minimal Glow
+     ======================================== */
+  .card-a {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-xl);
+    transition: all var(--duration-fast) var(--ease-out);
+    cursor: pointer;
+  }
+
+  .card-a:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--glow-sm);
+    transform: translateY(-2px);
+  }
+
+  .card-a__badge {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    padding: var(--space-1) var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    border-radius: var(--radius-full);
+  }
+
+  .card-a__badge[data-tier="premium"] {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .card-a__badge[data-tier="free"] {
+    background: var(--color-success);
+    color: var(--color-bg);
+  }
+
+  .card-a__content {
+    flex: 1;
+  }
+
+  .card-a__category {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+  }
+
+  .card-a__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    margin: var(--space-2) 0 var(--space-3);
+    line-height: var(--leading-snug);
+  }
+
+  .card-a__description {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-a__footer {
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .card-a__cta {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-accent);
+    transition: color var(--duration-fast);
+  }
+
+  .card-a:hover .card-a__cta {
+    color: var(--color-accent-hover);
+  }
+
+  /* ========================================
+     VARIANT B: Accent Edge
+     ======================================== */
+  .card-b {
+    display: flex;
+    background: var(--color-surface);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--color-border-subtle);
+    transition: all var(--duration-fast) var(--ease-out);
+    cursor: pointer;
+  }
+
+  .card-b:hover {
+    border-color: var(--color-border);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .card-b__edge {
+    width: 4px;
+    flex-shrink: 0;
+    background: var(--color-accent);
+  }
+
+  .card-b__edge[data-tier="free"] {
+    background: var(--color-success);
+  }
+
+  .card-b__inner {
+    flex: 1;
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-b__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-3);
+  }
+
+  .card-b__category {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+  }
+
+  .card-b__price {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+  }
+
+  .card-b__price[data-tier="premium"] {
+    color: var(--color-accent);
+  }
+
+  .card-b__price[data-tier="free"] {
+    color: var(--color-success);
+  }
+
+  .card-b__title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+    line-height: var(--leading-snug);
+  }
+
+  .card-b__description {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-b__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+
+  .card-b__tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    padding: var(--space-1) var(--space-2);
+    background: var(--color-bg);
+    border-radius: var(--radius-sm);
+  }
+
+  /* ========================================
+     VARIANT C: Floating Label
+     ======================================== */
+  .card-c {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    padding-top: var(--space-8);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-xl);
+    transition: all var(--duration-fast) var(--ease-out);
+    cursor: pointer;
+    margin-top: var(--space-4);
+  }
+
+  .card-c:hover {
+    border-color: var(--color-border);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .card-c__badge {
+    position: absolute;
+    top: calc(-1 * var(--space-3));
+    left: var(--space-5);
+    padding: var(--space-2) var(--space-4);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+  }
+
+  .card-c__badge[data-tier="premium"] {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .card-c__badge[data-tier="free"] {
+    background: var(--color-success);
+    color: var(--color-bg);
+  }
+
+  .card-c__category {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    margin-bottom: var(--space-2);
+  }
+
+  .card-c__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-snug);
+  }
+
+  .card-c__description {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-c__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .card-c__tags {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .card-c__tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+
+  .card-c__arrow {
+    font-size: var(--text-xl);
+    color: var(--color-accent);
+    transition: transform var(--duration-fast);
+  }
+
+  .card-c:hover .card-c__arrow {
+    transform: translateX(4px);
+  }
+
+  /* ========================================
+     VARIANT D: Stacked
+     ======================================== */
+  .card-d-wrapper {
+    position: relative;
+    margin-top: var(--space-2);
+    margin-left: var(--space-2);
+  }
+
+  .card-d__shadow {
+    position: absolute;
+    inset: 6px -6px -6px 6px;
+    background: var(--color-accent);
+    border-radius: var(--radius-xl);
+    opacity: 0.3;
+    transition: all var(--duration-fast) var(--ease-out);
+  }
+
+  .card-d__shadow[data-tier="free"] {
+    background: var(--color-success);
+  }
+
+  .card-d-wrapper:hover .card-d__shadow {
+    inset: 8px -8px -8px 8px;
+    opacity: 0.4;
+  }
+
+  .card-d {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-xl);
+    transition: all var(--duration-fast) var(--ease-out);
+    cursor: pointer;
+  }
+
+  .card-d-wrapper:hover .card-d {
+    transform: translate(-2px, -2px);
+  }
+
+  .card-d__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-3);
+  }
+
+  .card-d__category {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+  }
+
+  .card-d__price {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+  }
+
+  .card-d__price[data-tier="premium"] {
+    color: var(--color-accent);
+  }
+
+  .card-d__price[data-tier="free"] {
+    color: var(--color-success);
+  }
+
+  .card-d__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-snug);
+  }
+
+  .card-d__description {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-d__cta {
+    display: inline-block;
+    margin-top: var(--space-4);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-accent);
+  }
+
+  /* ========================================
+     VARIANT E: Gradient Border
+     ======================================== */
+  .card-e {
+    position: relative;
+    padding: 1px;
+    border-radius: var(--radius-xl);
+    background: var(--color-border-subtle);
+    transition: all var(--duration-fast) var(--ease-out);
+    cursor: pointer;
+  }
+
+  .card-e::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-xl);
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      var(--color-accent) 0%,
+      oklch(70% 0.15 60) 50%,
+      var(--color-accent) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .card-e[data-tier="free"]::before {
+    background: linear-gradient(
+      135deg,
+      var(--color-success) 0%,
+      oklch(70% 0.12 120) 50%,
+      var(--color-success) 100%
+    );
+  }
+
+  .card-e:hover::before {
+    opacity: 1;
+  }
+
+  .card-e:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glow-sm);
+  }
+
+  .card-e__inner {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border-radius: calc(var(--radius-xl) - 1px);
+    height: 100%;
+  }
+
+  .card-e__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-3);
+  }
+
+  .card-e__category {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+  }
+
+  .card-e__price {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    color: var(--color-accent);
+  }
+
+  .card-e[data-tier="free"] .card-e__price {
+    color: var(--color-success);
+  }
+
+  .card-e__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-snug);
+  }
+
+  .card-e__description {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-e__footer {
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .card-e__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .card-e__tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    padding: var(--space-1) var(--space-2);
+    background: var(--color-bg);
+    border-radius: var(--radius-sm);
+  }
+
+  /* ========================================
+     VARIANT F: Compact Badge
+     ======================================== */
+  .card-f {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: all var(--duration-fast) var(--ease-out);
+    cursor: pointer;
+  }
+
+  .card-f:hover {
+    border-color: var(--color-border);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .card-f__badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: var(--space-2) var(--space-4);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    border-bottom-left-radius: var(--radius-lg);
+  }
+
+  .card-f__badge[data-tier="premium"] {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .card-f__badge[data-tier="free"] {
+    background: var(--color-success);
+    color: var(--color-bg);
+  }
+
+  .card-f__content {
+    padding: var(--space-6);
+    padding-right: calc(var(--space-6) + 60px);
+    flex: 1;
+  }
+
+  .card-f__category {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    margin-bottom: var(--space-2);
+  }
+
+  .card-f__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-snug);
+  }
+
+  .card-f__description {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-f__bar {
+    height: 3px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+
+  .card-f__bar[data-tier="free"] {
+    background: var(--color-success);
+  }
+
+  .card-f:hover .card-f__bar {
+    transform: scaleX(1);
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .card-showcase {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
