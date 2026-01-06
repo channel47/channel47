@@ -6,10 +6,11 @@
  * Direct, confident tone. Peer to peer.
  *
  * Structure per strategy:
- * 1. Hero with dual CTAs
- * 2. Featured Product (Google Ads Skills)
- * 3. Secondary Path (Tools teaser)
- * 4. Email Capture
+ * 1. Hero with primary CTA
+ * 2. What are skills? (brief explainer)
+ * 3. Featured Product (Google Ads Skills)
+ * 4. Secondary Path (Tools teaser)
+ * 5. Email Capture
  */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -26,28 +27,42 @@ import EmailSignup from '../components/EmailSignup.astro';
   <Header />
 
   <main class="main">
-    <!-- Hero Section with Dual CTAs -->
+    <!-- Hero Section -->
     <section class="hero">
       <div class="hero__content">
         <h1 class="hero__title" data-animate="fade-up">Your tools are capable. Now make them competent.</h1>
         <p class="hero__subtitle" data-animate="fade-up">
           Skill files that teach Claude, Cursor, and other AI tools how to actually do the job.
         </p>
-        <div class="hero__ctas" data-animate="fade-up">
-          <Button href="/skills" variant="primary" size="lg">Get the Skills</Button>
-          <Button href="/tools" variant="outline" size="lg">Browse Free Tools</Button>
+        <div class="hero__cta" data-animate="fade-up">
+          <Button href="/skills/google-ads" variant="primary" size="lg">Get Google Ads Skills — $199</Button>
         </div>
+      </div>
+    </section>
+
+    <!-- What Are Skills Section -->
+    <section class="explainer-section">
+      <div class="explainer" data-animate="fade-up">
+        <h2 class="explainer__title">What are skill files?</h2>
+        <p class="explainer__text">
+          Skills are packaged expertise—markdown files containing instructions, queries, and workflows your AI tools can run. Unlike generic prompts, skills bundle real domain knowledge: what to look for, how to diagnose problems, and what the results mean.
+        </p>
+        <p class="explainer__text explainer__text--highlight">
+          Drop them into Claude or Cursor. They auto-activate when relevant. No commands to memorize.
+        </p>
       </div>
     </section>
 
     <!-- Featured Product Section -->
     <section class="featured-section">
+      <div class="featured-header" data-animate="fade-up">
+        <p class="featured-header__label">Available now</p>
+      </div>
       <a href="/skills/google-ads" class="featured-card" data-animate="fade-up">
         <div class="featured-card__content">
-          <p class="featured-card__eyebrow">Featured</p>
           <h2 class="featured-card__title">Google Ads Skills</h2>
           <p class="featured-card__description">
-            Steal my entire Google Ads brain for less than one billable hour. 47 GAQL queries. Audit workflows. Failure checklists.
+            Ten years of Google Ads expertise in one install. 47 GAQL queries. Audit workflows. Failure checklists. Everything I use to diagnose accounts—packaged for your AI tools.
           </p>
         </div>
         <div class="featured-card__footer">
@@ -60,11 +75,11 @@ import EmailSignup from '../components/EmailSignup.astro';
     <!-- Secondary Path: Tools -->
     <section class="tools-teaser">
       <div class="tools-teaser__content" data-animate="fade-up">
-        <h2 class="tools-teaser__title">Just want the free tools?</h2>
+        <h2 class="tools-teaser__title">Just want the connection?</h2>
         <p class="tools-teaser__description">
-          MCP servers for Google Ads, creative generation, more. Connect in minutes.
+          Free MCP servers give your AI tools access to Google Ads data. Skills give them the judgment to know what to do with it.
         </p>
-        <Button href="/tools" variant="secondary">Browse Tools</Button>
+        <Button href="/tools" variant="secondary">Browse Free Tools</Button>
       </div>
     </section>
 
@@ -147,26 +162,62 @@ import EmailSignup from '../components/EmailSignup.astro';
     }
   }
 
-  .hero__ctas {
+  .hero__cta {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    max-width: 320px;
-    margin: 0 auto;
+    justify-content: center;
   }
 
-  @media (min-width: 480px) {
-    .hero__ctas {
-      flex-direction: row;
-      justify-content: center;
-      max-width: none;
-      gap: var(--space-4);
+  /* Explainer Section */
+  .explainer-section {
+    padding: var(--space-10) var(--space-4);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  @media (min-width: 768px) {
+    .explainer-section {
+      padding: var(--space-12) var(--space-8);
     }
+  }
+
+  .explainer {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .explainer__title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+    margin-bottom: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .explainer__title {
+      font-size: var(--text-xl);
+      margin-bottom: var(--space-5);
+    }
+  }
+
+  .explainer__text {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-4);
+  }
+
+  .explainer__text:last-child {
+    margin-bottom: 0;
+  }
+
+  .explainer__text--highlight {
+    color: var(--color-fg);
+    font-weight: var(--font-medium);
   }
 
   /* Featured Product Section */
   .featured-section {
-    padding: var(--space-8) var(--space-4);
+    padding: var(--space-10) var(--space-4);
     background-color: var(--color-bg-elevated);
   }
 
@@ -176,6 +227,21 @@ import EmailSignup from '../components/EmailSignup.astro';
     }
   }
 
+  .featured-header {
+    text-align: center;
+    margin-bottom: var(--space-5);
+  }
+
+  .featured-header__label {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+  }
+
   .featured-card {
     display: flex;
     flex-direction: column;
@@ -183,7 +249,7 @@ import EmailSignup from '../components/EmailSignup.astro';
     margin: 0 auto;
     padding: var(--space-6);
     background-color: var(--color-bg);
-    border: 2px solid var(--color-accent);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
     text-decoration: none;
     transition: all var(--duration-fast) var(--ease-out);
@@ -197,21 +263,12 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   .featured-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px oklch(from var(--color-accent) l c h / 0.15);
+    border-color: var(--color-accent);
+    box-shadow: 0 8px 24px oklch(from var(--color-accent) l c h / 0.1);
   }
 
   .featured-card__content {
     margin-bottom: var(--space-6);
-  }
-
-  .featured-card__eyebrow {
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    color: var(--color-accent);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: var(--space-2);
   }
 
   .featured-card__title {
