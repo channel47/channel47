@@ -38,10 +38,9 @@ const linkProps = available && href ? { href } : {};
   {...linkProps}
   aria-disabled={!available ? 'true' : undefined}
 >
-  <div class="tool-card__header">
-    <span class="tool-card__label">{label}</span>
-    <span class="tool-card__badge">Free</span>
-  </div>
+  <span class="tool-card__badge">Free</span>
+
+  <span class="tool-card__label">{label}</span>
 
   <h3 class="tool-card__title">{name}</h3>
   <p class="tool-card__description">{description}</p>
@@ -56,6 +55,7 @@ const linkProps = available && href ? { href } : {};
 
 <style>
   .tool-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     padding: var(--space-5);
@@ -64,6 +64,7 @@ const linkProps = available && href ? { href } : {};
     border-radius: var(--radius-xl);
     text-decoration: none;
     color: inherit;
+    overflow: hidden;
     -webkit-tap-highlight-color: transparent;
     transition:
       transform var(--duration-fast) var(--ease-out),
@@ -99,15 +100,21 @@ const linkProps = available && href ? { href } : {};
     cursor: not-allowed;
   }
 
-  /* Header */
-  .tool-card__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-3);
-    margin-bottom: var(--space-4);
+  /* Badge - positioned in top-right corner */
+  .tool-card__badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    padding: var(--space-2) var(--space-3);
+    border-bottom-left-radius: var(--radius-lg);
+    background: oklch(from var(--color-success) l c h / 0.15);
+    color: var(--color-success);
   }
 
+  /* Label */
   .tool-card__label {
     font-family: var(--font-sans);
     font-size: var(--text-xs);
@@ -115,17 +122,7 @@ const linkProps = available && href ? { href } : {};
     color: var(--color-fg-muted);
     text-transform: uppercase;
     letter-spacing: var(--tracking-wide);
-  }
-
-  .tool-card__badge {
-    flex-shrink: 0;
-    font-family: var(--font-sans);
-    font-size: var(--text-xs);
-    font-weight: var(--font-medium);
-    padding: var(--space-1) var(--space-2);
-    border-radius: var(--radius-full);
-    background: oklch(from var(--color-success) l c h / 0.1);
-    color: var(--color-success);
+    margin-bottom: var(--space-3);
   }
 
   /* Content */
