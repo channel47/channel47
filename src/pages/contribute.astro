@@ -1,0 +1,430 @@
+---
+/**
+ * Contributor Page
+ *
+ * Platform positioning for future expert contributors.
+ * Collects expressions of interest.
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import EmailSignup from '../components/EmailSignup.astro';
+---
+
+<BaseLayout
+  title="Contribute — Jig"
+  description="Package your expertise. Reach people who need it. Jig is becoming a platform for experts to distribute their knowledge through skill files."
+>
+  <Header />
+
+  <main class="contribute-page">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero__content">
+        <h1 class="hero__title">Package your expertise. Reach people who need it.</h1>
+        <p class="hero__subtitle">
+          Jig is becoming a platform for experts to distribute their knowledge through skill files.
+        </p>
+      </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="section section--vision">
+      <div class="section__container">
+        <h2 class="section__title">The opportunity</h2>
+        <div class="prose-content">
+          <p>
+            You've spent years building expertise. You know things that can't be Googled. The kind of knowledge that comes from doing the work, making the mistakes, and figuring out what actually matters.
+          </p>
+          <p>
+            AI tools are getting capable. But capable isn't the same as competent. They can connect to APIs. They can't tell you what to look for.
+          </p>
+          <p class="emphasis">
+            Skill files are how expertise travels. Your knowledge, packaged into something AI tools can run.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section section--how">
+      <div class="section__container">
+        <h2 class="section__title">How it works</h2>
+        <div class="how-grid">
+          <div class="how-item">
+            <span class="how-item__number">1</span>
+            <h3 class="how-item__title">You create skill files</h3>
+            <p class="how-item__description">
+              Package your queries, workflows, checklists, and judgment into structured markdown files that AI tools can use.
+            </p>
+          </div>
+          <div class="how-item">
+            <span class="how-item__number">2</span>
+            <h3 class="how-item__title">We handle distribution</h3>
+            <p class="how-item__description">
+              Jig manages the platform, payments, updates, and customer support. You focus on the expertise.
+            </p>
+          </div>
+          <div class="how-item">
+            <span class="how-item__number">3</span>
+            <h3 class="how-item__title">Revenue share</h3>
+            <p class="how-item__description">
+              Competitive split on every sale. Passive income from knowledge you've already built.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who We're Looking For Section -->
+    <section class="section section--who">
+      <div class="section__container">
+        <h2 class="section__title">Who we're looking for</h2>
+        <div class="who-grid">
+          <div class="who-item">
+            <h3 class="who-item__title">Domain experts</h3>
+            <p class="who-item__description">
+              Google Ads, Meta, Analytics, SEO, e-commerce, finance—any area where expertise creates value.
+            </p>
+          </div>
+          <div class="who-item">
+            <h3 class="who-item__title">Practitioners, not theorists</h3>
+            <p class="who-item__description">
+              People who do the work. Consultants, agency leads, in-house specialists with real experience.
+            </p>
+          </div>
+          <div class="who-item">
+            <h3 class="who-item__title">Clear communicators</h3>
+            <p class="who-item__description">
+              Ability to articulate what you know in structured, actionable ways. Teaching instincts help.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Expression of Interest Section -->
+    <section class="section section--cta">
+      <div class="section__container">
+        <div class="cta-card">
+          <h2 class="cta-card__title">Interested?</h2>
+          <p class="cta-card__description">
+            We're building the contributor program now. Leave your email and we'll reach out when it's ready.
+          </p>
+          <EmailSignup
+            title=""
+            description=""
+            buttonText="Express interest"
+            variant="inline"
+            tag="contributor-interest"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Back Link -->
+    <section class="section section--back">
+      <div class="section__container">
+        <a href="/" class="back-link">← Back to Jig</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .contribute-page {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: var(--space-16) var(--space-4) var(--space-10);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero {
+      padding: var(--space-24) var(--space-8) var(--space-16);
+    }
+  }
+
+  .hero__content {
+    max-width: var(--container-md);
+    margin: 0 auto;
+  }
+
+  .hero__title {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-black);
+    letter-spacing: var(--tracking-tighter);
+    margin-bottom: var(--space-5);
+    color: var(--color-fg);
+    line-height: 1.15;
+  }
+
+  @media (min-width: 480px) {
+    .hero__title {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero__title {
+      font-size: var(--text-5xl);
+      margin-bottom: var(--space-6);
+      letter-spacing: var(--tracking-tightest);
+    }
+  }
+
+  .hero__subtitle {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+    max-width: 50ch;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .hero__subtitle {
+      font-size: var(--text-lg);
+    }
+  }
+
+  /* Sections */
+  .section {
+    padding: var(--space-10) var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .section {
+      padding: var(--space-16) var(--space-8);
+    }
+  }
+
+  .section__container {
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+
+  .section__title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-6);
+    color: var(--color-fg);
+  }
+
+  @media (min-width: 768px) {
+    .section__title {
+      font-size: var(--text-2xl);
+      margin-bottom: var(--space-8);
+    }
+  }
+
+  /* Prose Content */
+  .prose-content p {
+    margin-bottom: var(--space-5);
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+  }
+
+  @media (min-width: 768px) {
+    .prose-content p {
+      font-size: var(--text-lg);
+    }
+  }
+
+  .prose-content .emphasis {
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+  }
+
+  /* Vision Section */
+  .section--vision {
+    background-color: var(--color-bg-elevated);
+  }
+
+  /* How Section */
+  .section--how .section__container {
+    max-width: var(--container-lg);
+  }
+
+  .how-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .how-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-8);
+    }
+  }
+
+  .how-item {
+    padding: var(--space-6);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+  }
+
+  .how-item__number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: var(--color-accent);
+    color: var(--color-fg-inverse);
+    font-family: var(--font-sans);
+    font-weight: var(--font-bold);
+    font-size: var(--text-base);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-4);
+  }
+
+  .how-item__title {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-2);
+    color: var(--color-fg);
+  }
+
+  @media (min-width: 768px) {
+    .how-item__title {
+      font-size: var(--text-lg);
+    }
+  }
+
+  .how-item__description {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    margin: 0;
+    line-height: var(--leading-relaxed);
+  }
+
+  @media (min-width: 768px) {
+    .how-item__description {
+      font-size: var(--text-base);
+    }
+  }
+
+  /* Who Section */
+  .section--who {
+    background-color: var(--color-bg-elevated);
+  }
+
+  .section--who .section__container {
+    max-width: var(--container-lg);
+  }
+
+  .who-grid {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .who-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+  }
+
+  .who-item {
+    padding: var(--space-5);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  @media (min-width: 768px) {
+    .who-item {
+      padding: var(--space-6);
+    }
+  }
+
+  .who-item__title {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-2);
+    color: var(--color-fg);
+  }
+
+  .who-item__description {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    margin: 0;
+    line-height: var(--leading-relaxed);
+  }
+
+  /* CTA Section */
+  .section--cta {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+  }
+
+  @media (min-width: 768px) {
+    .section--cta {
+      padding-top: var(--space-16);
+      padding-bottom: var(--space-16);
+    }
+  }
+
+  .cta-card {
+    max-width: var(--container-sm);
+    margin: 0 auto;
+    padding: var(--space-8);
+    background-color: var(--color-bg-elevated);
+    border: 2px solid var(--color-accent);
+    border-radius: var(--radius-xl);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .cta-card {
+      padding: var(--space-10);
+    }
+  }
+
+  .cta-card__title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-3);
+    color: var(--color-fg);
+  }
+
+  @media (min-width: 768px) {
+    .cta-card__title {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .cta-card__description {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Back Section */
+  .section--back {
+    padding-top: 0;
+    padding-bottom: var(--space-16);
+  }
+
+  .back-link {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+  }
+</style>

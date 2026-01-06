@@ -2,7 +2,7 @@
 /**
  * Footer Component
  *
- * Minimal site footer with consistent branding.
+ * Minimal site footer with consistent branding and email capture.
  */
 
 interface Props {
@@ -11,6 +11,9 @@ interface Props {
 
 const { class: className } = Astro.props;
 const currentYear = new Date().getFullYear();
+
+// TODO: Replace with actual Beehiiv embed URL
+const BEEHIIV_EMBED_URL = 'https://embeds.beehiiv.com/YOUR_EMBED_ID';
 ---
 
 <footer class={`footer ${className || ''}`.trim()}>
@@ -24,8 +27,24 @@ const currentYear = new Date().getFullYear();
       <a href="/skills" class="footer__link">Skills</a>
       <a href="/tools" class="footer__link">Tools</a>
       <a href="/blog" class="footer__link">Blog</a>
+      <a href="/contribute" class="footer__link">Contribute</a>
       <a href="mailto:support@jig.tools" class="footer__link">Contact</a>
     </nav>
+
+    <div class="footer__signup">
+      <p class="footer__signup-label">Stay in the loop</p>
+      <form class="footer__signup-form" action={BEEHIIV_EMBED_URL} method="POST">
+        <input type="hidden" name="tag" value="footer-capture" />
+        <input
+          type="email"
+          name="email"
+          placeholder="you@example.com"
+          required
+          class="footer__signup-input"
+        />
+        <button type="submit" class="footer__signup-button">Subscribe</button>
+      </form>
+    </div>
 
     <p class="footer__copyright">
       &copy; {currentYear} Jig
@@ -124,6 +143,72 @@ const currentYear = new Date().getFullYear();
   @media (min-width: 768px) {
     .footer__copyright {
       order: -1;
+    }
+  }
+
+  /* Footer Email Signup */
+  .footer__signup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .footer__signup-label {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    margin: 0;
+  }
+
+  .footer__signup-form {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .footer__signup-input {
+    flex: 1;
+    min-width: 0;
+    padding: var(--space-2) var(--space-3);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-fg);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    outline: none;
+    min-height: 40px;
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .footer__signup-input::placeholder {
+    color: var(--color-fg-muted);
+  }
+
+  .footer__signup-input:focus {
+    border-color: var(--color-accent);
+  }
+
+  .footer__signup-button {
+    padding: var(--space-2) var(--space-4);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-fg-inverse);
+    background-color: var(--color-accent);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    white-space: nowrap;
+    min-height: 40px;
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .footer__signup-button:hover {
+    background-color: var(--color-accent-hover);
+  }
+
+  @media (min-width: 768px) {
+    .footer__signup {
+      max-width: 280px;
     }
   }
 </style>

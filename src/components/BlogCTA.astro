@@ -1,0 +1,163 @@
+---
+/**
+ * BlogCTA Component
+ *
+ * Contextual product CTA for blog posts.
+ * Shows relevant product based on post tags.
+ */
+
+interface Props {
+  tags?: string[];
+  class?: string;
+}
+
+const { tags = [], class: className } = Astro.props;
+
+// Product recommendations based on tags
+const products = {
+  'google-ads': {
+    title: 'Want to go deeper?',
+    description: 'Get the full Google Ads Skills package—47 GAQL queries, audit workflows, and failure checklists.',
+    href: '/skills/google-ads',
+    cta: 'Get Google Ads Skills',
+    price: '$199',
+  },
+  'mcp': {
+    title: 'Ready to connect?',
+    description: 'Set up the free Google Ads MCP server and start querying your accounts in minutes.',
+    href: '/tools/google-ads',
+    cta: 'Setup Guide',
+    price: 'Free',
+  },
+  'default': {
+    title: 'Explore Jig Skills',
+    description: 'Skill files that teach your AI tools how to actually do the job.',
+    href: '/skills',
+    cta: 'Browse Skills',
+    price: null,
+  },
+};
+
+// Determine which product to show based on tags
+function getProduct(tags: string[]) {
+  const normalizedTags = tags.map(t => t.toLowerCase());
+
+  if (normalizedTags.some(t => t.includes('google') || t.includes('ads') || t.includes('ppc'))) {
+    return products['google-ads'];
+  }
+  if (normalizedTags.some(t => t.includes('mcp') || t.includes('tool') || t.includes('setup'))) {
+    return products['mcp'];
+  }
+  return products['default'];
+}
+
+const product = getProduct(tags);
+---
+
+<aside class:list={['blog-cta', className]}>
+  <div class="blog-cta__content">
+    <h3 class="blog-cta__title">{product.title}</h3>
+    <p class="blog-cta__description">{product.description}</p>
+  </div>
+  <div class="blog-cta__action">
+    <a href={product.href} class="blog-cta__link">
+      {product.cta}
+      {product.price && <span class="blog-cta__price">{product.price}</span>}
+      <span class="blog-cta__arrow">→</span>
+    </a>
+  </div>
+</aside>
+
+<style>
+  .blog-cta {
+    margin: var(--space-10) 0;
+    padding: var(--space-6);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-accent);
+    border-radius: var(--radius-lg);
+  }
+
+  @media (min-width: 768px) {
+    .blog-cta {
+      margin: var(--space-12) 0;
+      padding: var(--space-8);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6);
+    }
+  }
+
+  .blog-cta__content {
+    margin-bottom: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .blog-cta__content {
+      margin-bottom: 0;
+      flex: 1;
+    }
+  }
+
+  .blog-cta__title {
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+    margin: 0 0 var(--space-2);
+  }
+
+  .blog-cta__description {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    margin: 0;
+    line-height: var(--leading-relaxed);
+  }
+
+  @media (min-width: 768px) {
+    .blog-cta__description {
+      font-size: var(--text-base);
+    }
+  }
+
+  .blog-cta__action {
+    flex-shrink: 0;
+  }
+
+  .blog-cta__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg-inverse);
+    background-color: var(--color-accent);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    white-space: nowrap;
+    min-height: 48px;
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .blog-cta__link:hover {
+    background-color: var(--color-accent-hover);
+  }
+
+  .blog-cta__price {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--text-xs);
+    background-color: oklch(from var(--color-fg-inverse) l c h / 0.2);
+    border-radius: var(--radius-sm);
+  }
+
+  .blog-cta__arrow {
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  .blog-cta__link:hover .blog-cta__arrow {
+    transform: translateX(2px);
+  }
+</style>

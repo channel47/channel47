@@ -4,11 +4,15 @@
  *
  * Layout for markdown content pages (blog posts, articles).
  * Extends BaseLayout with article-specific structure.
+ * Includes contextual CTAs, related posts, and email capture.
  */
 
+import { getCollection } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import BlogCTA from '../components/BlogCTA.astro';
+import EmailSignup from '../components/EmailSignup.astro';
 
 interface Props {
   title: string;
@@ -31,6 +35,35 @@ const formattedDate = date
       day: 'numeric',
     }).format(date)
   : null;
+
+// Get related posts based on tags
+const allPosts = await getCollection('posts');
+const currentSlug = Astro.url.pathname.split('/').filter(Boolean).pop();
+
+let relatedPosts = allPosts
+  .filter(post => !post.data.draft && post.slug !== currentSlug)
+  .filter(post => {
+    if (!tags || tags.length === 0) return false;
+    const postTags = post.data.tags || [];
+    return tags.some(tag => postTags.includes(tag));
+  })
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
+
+// Fallback to most recent posts if no tag matches
+if (relatedPosts.length === 0) {
+  relatedPosts = allPosts
+    .filter(post => !post.data.draft && post.slug !== currentSlug)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+    .slice(0, 2);
+}
+
+const formatRelatedDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(date);
 ---
 
 <BaseLayout title={title} description={description}>
@@ -64,8 +97,40 @@ const formattedDate = date
         <slot />
       </div>
 
+      <!-- Contextual CTA -->
+      <BlogCTA tags={tags} />
+
+      <!-- Email Signup -->
+      <div class="article__email">
+        <EmailSignup
+          title="More like this?"
+          description="Subscribe for new posts on AI tools, Google Ads automation, and MCP skills."
+          buttonText="Subscribe"
+          variant="card"
+          tag="content-reader"
+        />
+      </div>
+
+      <!-- Related Posts -->
+      {relatedPosts.length > 0 && (
+        <section class="related-posts">
+          <h2 class="related-posts__title">Keep reading</h2>
+          <div class="related-posts__grid">
+            {relatedPosts.map((post) => (
+              <a href={`/blog/${post.slug}`} class="related-post">
+                <h3 class="related-post__title">{post.data.title}</h3>
+                <p class="related-post__description">{post.data.description}</p>
+                <time class="related-post__date" datetime={post.data.date.toISOString()}>
+                  {formatRelatedDate(post.data.date)}
+                </time>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
       <nav class="post-nav">
-        <a href="/posts" class="post-nav__link">
+        <a href="/blog" class="post-nav__link">
           <span class="post-nav__arrow">&larr;</span>
           Back to all posts
         </a>
@@ -320,5 +385,98 @@ const formattedDate = date
 
   .post-nav__link:hover .post-nav__arrow {
     transform: translateX(-4px);
+  }
+
+  /* Article Email */
+  .article__email {
+    margin: var(--space-10) 0;
+  }
+
+  @media (min-width: 768px) {
+    .article__email {
+      margin: var(--space-12) 0;
+    }
+  }
+
+  /* Related Posts */
+  .related-posts {
+    margin: var(--space-10) 0;
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 768px) {
+    .related-posts {
+      margin: var(--space-12) 0;
+      padding-top: var(--space-10);
+    }
+  }
+
+  .related-posts__title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-6);
+    color: var(--color-fg);
+  }
+
+  @media (min-width: 768px) {
+    .related-posts__title {
+      font-size: var(--text-xl);
+    }
+  }
+
+  .related-posts__grid {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 640px) {
+    .related-posts__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+    }
+  }
+
+  .related-post {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-5);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all var(--duration-fast) var(--ease-out);
+  }
+
+  .related-post:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .related-post__title {
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+    margin-bottom: var(--space-2);
+    line-height: var(--leading-tight);
+  }
+
+  @media (min-width: 768px) {
+    .related-post__title {
+      font-size: var(--text-lg);
+    }
+  }
+
+  .related-post__description {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    margin: 0 0 var(--space-3);
+    line-height: var(--leading-relaxed);
+    flex: 1;
+  }
+
+  .related-post__date {
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
   }
 </style>

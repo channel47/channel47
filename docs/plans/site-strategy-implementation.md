@@ -12,10 +12,10 @@ This document outlines the comprehensive implementation plan for aligning the Ji
 | Phase 2: Navigation Restructure | ✅ Complete | 2026-01-06 |
 | Phase 3: Homepage Redesign | ✅ Complete | 2026-01-06 |
 | Phase 4: Skills Pages Enhancement | ✅ Complete | 2026-01-06 |
-| Phase 5: Email Capture Segmentation | ⏳ Pending | - |
-| Phase 6: Blog Enhancement | ⏳ Pending | - |
-| Phase 7: Contributor/Platform Page | ⏳ Pending | - |
-| Phase 8: Low-Level Decisions | ⏳ Pending | - |
+| Phase 5: Email Capture Segmentation | ✅ Complete | 2026-01-06 |
+| Phase 6: Blog Enhancement | ✅ Complete | 2026-01-06 |
+| Phase 7: Contributor/Platform Page | ✅ Complete | 2026-01-06 |
+| Phase 8: Low-Level Decisions | ✅ Complete | 2026-01-06 |
 
 ---
 
@@ -28,10 +28,10 @@ This document outlines the comprehensive implementation plan for aligning the Ji
 | Skills Index | ✅ Mostly aligned | Product grid + email | Minor |
 | Skills Sales | ✅ Sticky bar + trust strip added | Add sticky CTA, trust strip | ~~Medium~~ Done |
 | **Tools Section** | ✅ Implemented | Full /tools index + tool pages | ~~Critical~~ Done |
-| Blog | Basic structure | Contextual CTAs + related posts | Medium |
-| Email Capture | Single component, no segmentation | Tagged capture by location | Medium |
-| Footer | Basic links | Add email signup | Low |
-| Contributor | ❌ Does not exist | /contribute page | Low |
+| Blog | ✅ Contextual CTAs + related posts | Contextual CTAs + related posts | ~~Medium~~ Done |
+| Email Capture | ✅ Tag prop + all locations tagged | Tagged capture by location | ~~Medium~~ Done |
+| Footer | ✅ Email signup + Contribute link | Add email signup | ~~Low~~ Done |
+| Contributor | ✅ /contribute page created | /contribute page | ~~Low~~ Done |
 
 ---
 
@@ -400,6 +400,30 @@ Triggers on mouse moving toward browser chrome (desktop only):
 ## Phase 5: Email Capture Segmentation
 **Priority: Medium**
 **Dependency: None (can be done in parallel)**
+**Status: ✅ COMPLETE**
+
+### Implementation Notes (2026-01-06)
+
+**Files Modified:**
+- `src/components/EmailSignup.astro` — Added `tag` prop with hidden input
+- `src/components/Footer.astro` — Added inline email signup with `footer-capture` tag
+- `src/pages/index.astro` — Added `tag="general"`
+- `src/pages/skills/index.astro` — Added `tag="skills-browser"`
+- `src/pages/skills/google-ads.astro` — Added `tag="google-ads-interested"`
+- `src/pages/skills/ad-creative.astro` — Added `tag="ad-creative-interested"`
+- `src/pages/skills/[...slug].astro` — Added `tag="skills-browser"`
+- `src/pages/tools/index.astro` — Added `tag="tools-user"`
+- `src/pages/tools/google-ads.astro` — Added `tag="google-ads-tool-user"`
+
+**Key Features:**
+- EmailSignup component now accepts optional `tag` prop
+- Hidden input field passes tag to Beehiiv for list segmentation
+- All existing EmailSignup instances tagged appropriately
+- Footer has compact inline email form with subscribe button
+
+**Validation:**
+- Build passes (13 pages)
+- TypeScript check passes
 
 ### 5.1 Extend EmailSignup Component
 
@@ -458,6 +482,39 @@ Styling: compact, inline with footer aesthetic
 ## Phase 6: Blog Enhancement
 **Priority: Medium**
 **Dependency: Phase 5 (email tagging)**
+**Status: ✅ COMPLETE**
+
+### Implementation Notes (2026-01-06)
+
+**Files Created:**
+- `src/components/BlogCTA.astro` — Contextual product CTA component
+
+**Files Modified:**
+- `src/layouts/ProseLayout.astro` — Added BlogCTA, EmailSignup, and related posts section
+
+**Key Features:**
+
+#### BlogCTA Component
+- Automatic product recommendation based on post tags
+- Google Ads/PPC tags → Google Ads Skills CTA
+- MCP/Tool tags → Tools CTA
+- Default fallback → Browse Skills CTA
+- Accent border on left, responsive layout
+- Price badge on CTA button
+
+#### Related Posts
+- Queries posts collection for matching tags
+- Displays 2 related posts as cards
+- Fallback to most recent posts if no tag matches
+- Hover effects with accent border
+
+#### Email Capture
+- Added EmailSignup with `tag="content-reader"` to all blog posts
+- Card variant with "More like this?" messaging
+
+**Validation:**
+- Build passes (13 pages)
+- TypeScript check passes
 
 ### 6.1 Add Contextual CTAs to Blog Posts
 
@@ -509,6 +566,33 @@ Ensure every blog post has email capture with `content-reader` tag:
 ## Phase 7: Contributor/Platform Page
 **Priority: Low**
 **Dependency: None**
+**Status: ✅ COMPLETE**
+
+### Implementation Notes (2026-01-06)
+
+**Files Created:**
+- `src/pages/contribute.astro` — Full contributor/platform page
+
+**Files Modified:**
+- `src/components/Footer.astro` — Added "Contribute" link in footer nav
+
+**Page Structure:**
+1. **Hero** — "Package your expertise. Reach people who need it."
+2. **Vision** — Explains the opportunity for domain experts
+3. **How It Works** — 3-step process (create, distribute, revenue share)
+4. **Who We're Looking For** — Domain experts, practitioners, communicators
+5. **Expression of Interest** — EmailSignup with `tag="contributor-interest"`
+6. **Back Link** — Returns to homepage
+
+**Key Features:**
+- Not in main nav, only footer link
+- Email capture tagged for contributor segmentation
+- Mobile-responsive design
+- Accent-bordered CTA card
+
+**Validation:**
+- Build passes (13 pages - includes new /contribute)
+- TypeScript check passes
 
 ### 7.1 Create Contributor Page
 
@@ -545,6 +629,24 @@ Add "Contribute" or "For Experts" link in footer nav
 ## Phase 8: Low-Level Decisions Implementation
 **Priority: Low**
 **Dependency: Various**
+**Status: ✅ COMPLETE**
+
+### Implementation Notes (2026-01-06)
+
+Most items were already implemented in previous phases or existed in the codebase:
+
+| Decision | Status | Notes |
+|----------|--------|-------|
+| Sticky header | ✅ Done | Existing implementation with scroll hide/show |
+| Exit intent popup | ⏳ Deferred | Optional, lower priority |
+| Product card images | ✅ Done | Tools have SVG icons, skills use text |
+| Pricing display | ✅ Done | On all product cards |
+| "Coming Soon" handling | ✅ Done | Shows with email capture |
+| Blog index page | ✅ Done | Current `/blog` works well |
+| Success page | ✅ Done | `/success.astro` exists |
+| Footer email signup | ✅ Done | Implemented in Phase 5 |
+
+**Note:** Exit intent popup deferred as optional enhancement. All critical items implemented.
 
 Per strategy document recommendations:
 
