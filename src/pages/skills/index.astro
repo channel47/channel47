@@ -2,18 +2,29 @@
 /**
  * Skills Index Page
  *
- * Product catalog for Skill Suites.
- * Clean, minimal. Let the products speak.
+ * Product catalog for Skills.
+ * Displays individual skills from the collection alongside skill suites.
  */
 
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import Button from '../../components/Button.astro';
+import ProductSkillCard from '../../components/ProductSkillCard.astro';
 import EmailSignup from '../../components/EmailSignup.astro';
 
-// Product data - add new products here
-const products = [
+// Get all published skills from the collection
+const allSkills = await getCollection('skills', ({ data }) => !data.draft);
+
+// Sort: featured first, then by publish date
+const skills = allSkills.sort((a, b) => {
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  return new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime();
+});
+
+// Skill Suites - curated bundles (link to landing pages)
+const skillSuites = [
   {
     name: 'Google Ads Skills',
     description: 'Ten years of media buying. One install.',
@@ -32,7 +43,7 @@ const products = [
 ---
 
 <BaseLayout
-  title="Skill Suites — Jig"
+  title="Skills — Jig"
   description="Packaged expertise for AI tools. Browse skill files that teach Claude, Cursor, and other AI tools how to actually do the job."
 >
   <Header />
@@ -48,26 +59,54 @@ const products = [
       </div>
     </section>
 
-    <!-- Products Grid -->
-    <section class="products-section">
-      <div class="products-grid">
-        {products.map((product) => (
+    <!-- Individual Skills -->
+    {skills.length > 0 && (
+      <section class="skills-section">
+        <div class="section-header">
+          <h2 class="section-title">Individual Skills</h2>
+          <p class="section-subtitle">Focused tools for specific tasks</p>
+        </div>
+        <div class="skills-grid">
+          {skills.map((skill) => (
+            <ProductSkillCard
+              title={skill.data.title}
+              description={skill.data.description}
+              href={`/skills/${skill.slug}`}
+              category={skill.data.category}
+              tier={skill.data.tier}
+              price={skill.data.price}
+              tags={skill.data.tags}
+              featured={skill.data.featured}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Skill Suites -->
+    <section class="suites-section">
+      <div class="section-header">
+        <h2 class="section-title">Skill Suites</h2>
+        <p class="section-subtitle">Complete toolkits for entire disciplines</p>
+      </div>
+      <div class="suites-grid">
+        {skillSuites.map((suite) => (
           <a
-            href={product.href}
-            class={`product-card ${!product.available ? 'product-card--coming-soon' : ''}`}
+            href={suite.href}
+            class={`suite-card ${!suite.available ? 'suite-card--coming-soon' : ''}`}
           >
-            <div class="product-card__content">
-              <h2 class="product-card__name">{product.name}</h2>
-              <p class="product-card__description">{product.description}</p>
+            <div class="suite-card__content">
+              <h3 class="suite-card__name">{suite.name}</h3>
+              <p class="suite-card__description">{suite.description}</p>
             </div>
-            <div class="product-card__footer">
-              <span class={`product-card__price ${!product.available ? 'product-card__price--muted' : ''}`}>
-                {product.price}
+            <div class="suite-card__footer">
+              <span class={`suite-card__price ${!suite.available ? 'suite-card__price--muted' : ''}`}>
+                {suite.price}
               </span>
-              {product.available ? (
-                <span class="product-card__cta">View details →</span>
+              {suite.available ? (
+                <span class="suite-card__cta">View suite &rarr;</span>
               ) : (
-                <span class="product-card__cta product-card__cta--muted">Learn more →</span>
+                <span class="suite-card__cta suite-card__cta--muted">Learn more &rarr;</span>
               )}
             </div>
           </a>
@@ -150,18 +189,54 @@ const products = [
     }
   }
 
-  /* Products Section */
-  .products-section {
+  /* Section Headers */
+  .section-header {
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .section-header {
+      margin-bottom: var(--space-8);
+    }
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--color-fg);
+    margin-bottom: var(--space-1);
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .section-subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+  }
+
+  @media (min-width: 768px) {
+    .section-subtitle {
+      font-size: var(--text-base);
+    }
+  }
+
+  /* Skills Section */
+  .skills-section {
     padding: var(--space-8) var(--space-4);
   }
 
   @media (min-width: 768px) {
-    .products-section {
+    .skills-section {
       padding: var(--space-12) var(--space-8);
     }
   }
 
-  .products-grid {
+  .skills-grid {
     display: grid;
     gap: var(--space-4);
     max-width: var(--container-lg);
@@ -169,14 +244,46 @@ const products = [
   }
 
   @media (min-width: 640px) {
-    .products-grid {
+    .skills-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: var(--space-6);
     }
   }
 
-  /* Product Card */
-  .product-card {
+  @media (min-width: 1024px) {
+    .skills-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Suites Section */
+  .suites-section {
+    padding: var(--space-8) var(--space-4);
+    background-color: var(--color-bg);
+  }
+
+  @media (min-width: 768px) {
+    .suites-section {
+      padding: var(--space-12) var(--space-8);
+    }
+  }
+
+  .suites-grid {
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--container-lg);
+    margin: 0 auto;
+  }
+
+  @media (min-width: 640px) {
+    .suites-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+    }
+  }
+
+  /* Suite Card */
+  .suite-card {
     display: flex;
     flex-direction: column;
     padding: var(--space-6);
@@ -188,31 +295,31 @@ const products = [
   }
 
   @media (min-width: 768px) {
-    .product-card {
+    .suite-card {
       padding: var(--space-8);
     }
   }
 
-  .product-card:hover {
+  .suite-card:hover {
     border-color: var(--color-accent);
     transform: translateY(-2px);
   }
 
-  .product-card--coming-soon {
+  .suite-card--coming-soon {
     opacity: 0.8;
   }
 
-  .product-card--coming-soon:hover {
+  .suite-card--coming-soon:hover {
     border-color: var(--color-border);
     transform: none;
   }
 
-  .product-card__content {
+  .suite-card__content {
     flex: 1;
     margin-bottom: var(--space-6);
   }
 
-  .product-card__name {
+  .suite-card__name {
     font-size: var(--text-xl);
     font-weight: var(--font-bold);
     color: var(--color-fg);
@@ -220,12 +327,12 @@ const products = [
   }
 
   @media (min-width: 768px) {
-    .product-card__name {
+    .suite-card__name {
       font-size: var(--text-2xl);
     }
   }
 
-  .product-card__description {
+  .suite-card__description {
     font-size: var(--text-sm);
     color: var(--color-fg-secondary);
     margin: 0;
@@ -233,12 +340,12 @@ const products = [
   }
 
   @media (min-width: 768px) {
-    .product-card__description {
+    .suite-card__description {
       font-size: var(--text-base);
     }
   }
 
-  .product-card__footer {
+  .suite-card__footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -246,7 +353,7 @@ const products = [
     border-top: 1px solid var(--color-border);
   }
 
-  .product-card__price {
+  .suite-card__price {
     font-family: var(--font-sans);
     font-size: var(--text-lg);
     font-weight: var(--font-bold);
@@ -254,23 +361,23 @@ const products = [
   }
 
   @media (min-width: 768px) {
-    .product-card__price {
+    .suite-card__price {
       font-size: var(--text-xl);
     }
   }
 
-  .product-card__price--muted {
+  .suite-card__price--muted {
     font-weight: var(--font-medium);
     color: var(--color-fg-muted);
   }
 
-  .product-card__cta {
+  .suite-card__cta {
     font-size: var(--text-sm);
     font-weight: var(--font-medium);
     color: var(--color-accent);
   }
 
-  .product-card__cta--muted {
+  .suite-card__cta--muted {
     color: var(--color-fg-muted);
   }
 
