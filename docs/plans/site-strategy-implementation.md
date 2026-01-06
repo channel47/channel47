@@ -10,7 +10,7 @@ This document outlines the comprehensive implementation plan for aligning the Ji
 |-------|--------|-----------|
 | Phase 1: Tools Infrastructure | ✅ Complete | 2026-01-06 |
 | Phase 2: Navigation Restructure | ✅ Complete | 2026-01-06 |
-| Phase 3: Homepage Redesign | ⏳ Pending | - |
+| Phase 3: Homepage Redesign | ✅ Complete | 2026-01-06 |
 | Phase 4: Skills Pages Enhancement | ⏳ Pending | - |
 | Phase 5: Email Capture Segmentation | ⏳ Pending | - |
 | Phase 6: Blog Enhancement | ⏳ Pending | - |
@@ -24,7 +24,7 @@ This document outlines the comprehensive implementation plan for aligning the Ji
 | Area | Current State | Target State | Gap Severity |
 |------|---------------|--------------|--------------|
 | Navigation | ✅ Skills, Tools, Blog, [Get Skills] | Skills, Tools, Blog, [Get Skills] | ~~Medium~~ Done |
-| Homepage | Hero → Body → 2 Paths → Email | Hero (2 CTAs) → Featured → Tools → Email | Medium |
+| Homepage | ✅ Hero (2 CTAs) → Featured → Tools → Email | Hero (2 CTAs) → Featured → Tools → Email | ~~Medium~~ Done |
 | Skills Index | ✅ Mostly aligned | Product grid + email | Minor |
 | Skills Sales | Good structure, missing sticky/trust | Add sticky CTA, trust strip | Medium |
 | **Tools Section** | ✅ Implemented | Full /tools index + tool pages | ~~Critical~~ Done |
@@ -208,6 +208,35 @@ Jig | Skills | Tools | Blog | [Get Skills]
 ## Phase 3: Homepage Redesign
 **Priority: High**
 **Dependency: Phase 1 (need /tools to exist for secondary CTA)**
+**Status: ✅ COMPLETE**
+
+### Implementation Notes (2026-01-06)
+
+**Files Modified:**
+- `src/pages/index.astro` — Complete homepage restructure
+
+**New Structure:**
+1. **Hero** with dual CTAs:
+   - Primary: "Get the Skills" → `/skills` (accent button)
+   - Secondary: "Browse Free Tools" → `/tools` (outline button)
+2. **Featured Product** section:
+   - Google Ads Skills card with accent border
+   - "Featured" eyebrow, title, description
+   - $199 price anchor prominently displayed
+   - Links to `/skills/google-ads`
+3. **Tools Teaser** section:
+   - "Just want the free tools?" heading
+   - Links to `/tools`
+4. **Email Capture** (unchanged)
+
+**Removed:**
+- Body section (prose explanation) — per strategy, homepage routes, doesn't educate
+- Old "Paths" section (2 equal cards) — replaced with featured + teaser hierarchy
+
+**Validation:**
+- Build passes (12 pages)
+- TypeScript check passes
+- All links verified: /skills, /tools, /skills/google-ads
 
 ### 3.1 Restructure Homepage Sections
 
