@@ -68,15 +68,17 @@ const { class: className } = Astro.props;
   const menuBtn = document.querySelector('.header__menu-btn');
   const closeBtn = document.querySelector('.mobile-menu__close');
   const mobileMenu = document.getElementById('mobile-menu');
-  const header = document.querySelector('.header');
+  const header = document.querySelector('.header') as HTMLElement;
 
+  // ===================
+  // Mobile Menu
+  // ===================
   function openMenu() {
     mobileMenu?.classList.add('mobile-menu--open');
     mobileMenu?.setAttribute('aria-hidden', 'false');
     menuBtn?.setAttribute('aria-expanded', 'true');
     header?.classList.add('header--menu-open');
     document.body.style.overflow = 'hidden';
-    // Focus the close button for accessibility
     closeBtn?.focus();
   }
 
@@ -88,21 +90,16 @@ const { class: className } = Astro.props;
     document.body.style.overflow = '';
   }
 
-  // Open menu
   menuBtn?.addEventListener('click', openMenu);
-
-  // Close menu
   closeBtn?.addEventListener('click', () => {
     closeMenu();
     menuBtn?.focus();
   });
 
-  // Close on link click
   mobileMenu?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', closeMenu);
   });
 
-  // Close on escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && mobileMenu?.classList.contains('mobile-menu--open')) {
       closeMenu();
@@ -110,10 +107,55 @@ const { class: className } = Astro.props;
     }
   });
 
-  // Close on resize to desktop
   window.matchMedia('(min-width: 640px)').addEventListener('change', (e) => {
     if (e.matches) closeMenu();
   });
+
+  // ===================
+  // Scroll Hide/Show
+  // ===================
+  const SCROLL_THRESHOLD = 10;
+  const HIDE_OFFSET = 100; // Don't hide until scrolled past this point
+  let lastScrollY = 0;
+  let ticking = false;
+
+  function updateHeader() {
+    const currentScrollY = window.scrollY;
+    const isMenuOpen = header?.classList.contains('header--menu-open');
+
+    // Don't hide if menu is open or at top of page
+    if (isMenuOpen || currentScrollY < HIDE_OFFSET) {
+      header?.classList.remove('header--hidden');
+      lastScrollY = currentScrollY;
+      ticking = false;
+      return;
+    }
+
+    const scrollDelta = currentScrollY - lastScrollY;
+
+    if (scrollDelta > SCROLL_THRESHOLD) {
+      // Scrolling down - hide header
+      header?.classList.add('header--hidden');
+    } else if (scrollDelta < -SCROLL_THRESHOLD) {
+      // Scrolling up - show header
+      header?.classList.remove('header--hidden');
+    }
+
+    lastScrollY = currentScrollY;
+    ticking = false;
+  }
+
+  // Respect reduced motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateHeader);
+        ticking = true;
+      }
+    }, { passive: true });
+  }
 </script>
 
 <style>
@@ -123,6 +165,17 @@ const { class: className } = Astro.props;
     z-index: var(--z-header);
     background-color: var(--color-bg);
     border-bottom: 1px solid var(--color-border-subtle);
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+
+  .header--hidden {
+    transform: translateY(-100%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .header {
+      transition: none;
+    }
   }
 
   .header__container {

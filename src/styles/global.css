@@ -476,6 +476,56 @@ th {
 .stagger-5 { animation-delay: var(--stagger-5); }
 
 /* ========================================
+ * SCROLL-TRIGGERED ANIMATIONS
+ * Use data-animate attribute for reveal effects
+ * ======================================== */
+
+/* Base state - hidden before animation triggers */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+}
+
+/* Visible state - when element enters viewport */
+[data-animate].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animation variants */
+[data-animate="fade"] {
+  transform: none;
+}
+
+[data-animate="fade-up"] {
+  transform: translateY(24px);
+}
+
+[data-animate="fade-up"].is-visible {
+  transform: translateY(0);
+}
+
+/* Stagger delays for child animations */
+[data-animate-stagger] > [data-animate]:nth-child(1) { transition-delay: 0ms; }
+[data-animate-stagger] > [data-animate]:nth-child(2) { transition-delay: 60ms; }
+[data-animate-stagger] > [data-animate]:nth-child(3) { transition-delay: 120ms; }
+[data-animate-stagger] > [data-animate]:nth-child(4) { transition-delay: 180ms; }
+[data-animate-stagger] > [data-animate]:nth-child(5) { transition-delay: 240ms; }
+[data-animate-stagger] > [data-animate]:nth-child(6) { transition-delay: 300ms; }
+
+/* Respect reduced motion - show content immediately */
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ========================================
  * INTERACTIVE ELEMENTS
  * Touch targets and micro-interactions
  * ======================================== */

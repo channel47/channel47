@@ -23,8 +23,8 @@ import EmailSignup from '../components/EmailSignup.astro';
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero__content">
-        <h1 class="hero__title">Your tools are capable. Now make them competent.</h1>
-        <p class="hero__subtitle">
+        <h1 class="hero__title" data-animate="fade-up">Your tools are capable. Now make them competent.</h1>
+        <p class="hero__subtitle" data-animate="fade-up">
           Jig is packaged expertise—skill files that teach Claude, Cursor, and other AI tools how to actually do the job.
         </p>
       </div>
@@ -32,7 +32,7 @@ import EmailSignup from '../components/EmailSignup.astro';
 
     <!-- Body Section -->
     <section class="body-section">
-      <div class="body-content">
+      <div class="body-content" data-animate="fade-up">
         <p class="lead">The API is the easy part.</p>
         <p>
           Connecting your tools to Google Ads or a codebase or a database—that's solved. Plenty of MCP servers. Plenty of tutorials.
@@ -50,13 +50,13 @@ import EmailSignup from '../components/EmailSignup.astro';
 
     <!-- Paths Section -->
     <section class="paths-section">
-      <div class="paths-grid">
-        <div class="path-card">
+      <div class="paths-grid" data-animate-stagger>
+        <div class="path-card" data-animate="fade-up">
           <h2 class="path-card__title">Google Ads Skills</h2>
           <p class="path-card__description">Ten years of media buying. One install. $199.</p>
           <Button href="/google-ads-skills" variant="primary">See what's included</Button>
         </div>
-        <div class="path-card">
+        <div class="path-card" data-animate="fade-up">
           <h2 class="path-card__title">Setup Guide</h2>
           <p class="path-card__description">Connect the free hosted MCP in five minutes.</p>
           <Button href="/setup" variant="outline">Get started</Button>
@@ -66,7 +66,7 @@ import EmailSignup from '../components/EmailSignup.astro';
 
     <!-- Email Signup -->
     <section class="signup-section">
-      <div class="signup-wrapper">
+      <div class="signup-wrapper" data-animate="fade-up">
         <EmailSignup
           title="New skills in the works."
           description="Leave your email. We'll let you know."
