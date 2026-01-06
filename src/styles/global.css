@@ -1,8 +1,7 @@
 /**
- * Channel 47 Design System
+ * Jig Design System
  * Global Styles
  *
- * Philosophy: "Less is more" - intentional simplicity
  * Base styles, resets, and utility classes using design tokens.
  */
 
@@ -23,7 +22,6 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  /* Account for sticky header when scrolling to anchors */
   scroll-padding-top: 80px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -37,12 +35,9 @@ body {
   background-color: var(--color-bg);
   min-height: 100vh;
   min-height: 100dvh;
-  /* Safe areas for notched devices */
   padding-left: var(--safe-area-inset-left);
   padding-right: var(--safe-area-inset-right);
-  /* Prevent horizontal overflow on mobile */
   overflow-x: hidden;
-  /* Smooth momentum scrolling on iOS */
   -webkit-overflow-scrolling: touch;
 }
 
@@ -54,7 +49,6 @@ body {
 
 /* ========================================
  * TYPOGRAPHY BASE
- * Headlines use Geist Sans, body uses Lora
  * ======================================== */
 
 h1, h2, h3, h4, h5, h6 {
@@ -65,7 +59,6 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-fg);
 }
 
-/* Extreme weights with tight tracking for impact */
 h1 {
   font-size: var(--text-5xl);
   font-weight: var(--font-black);
@@ -87,7 +80,6 @@ h4 { font-size: var(--text-xl); }
 h5 { font-size: var(--text-lg); }
 h6 { font-size: var(--text-base); }
 
-/* Body text - Lora for long-form reading */
 p {
   margin-bottom: var(--space-6);
   color: var(--color-fg-secondary);
@@ -118,7 +110,6 @@ small {
   font-size: var(--text-sm);
 }
 
-/* Code uses Geist Mono */
 code {
   font-family: var(--font-mono);
   font-size: 0.9em;
@@ -199,7 +190,6 @@ figcaption {
   text-align: center;
 }
 
-/* Hero image treatment - atmospheric background */
 .hero-image {
   opacity: var(--image-bg-opacity);
   position: absolute;
@@ -209,11 +199,7 @@ figcaption {
 }
 
 .hero-image-gradient {
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    var(--color-bg) 100%
-  );
+  background: linear-gradient(to bottom, transparent 0%, var(--color-bg) 100%);
 }
 
 /* ========================================
@@ -285,7 +271,6 @@ th {
 
 /* ========================================
  * LAYOUT UTILITIES
- * Maximum 672px for optimal reading
  * ======================================== */
 
 .container {
@@ -421,66 +406,9 @@ th {
 }
 
 /* ========================================
- * ANIMATIONS - Scroll & Micro-interactions
- * ======================================== */
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-.animate-fade-in {
-  animation: fade-in var(--duration-normal) var(--ease-out);
-}
-
-.animate-fade-up {
-  animation: fade-up var(--duration-normal) var(--ease-out) both;
-}
-
-.animate-slide-up {
-  animation: slide-up var(--duration-normal) var(--ease-out);
-}
-
-/* Staggered scroll animations */
-.stagger-1 { animation-delay: var(--stagger-1); }
-.stagger-2 { animation-delay: var(--stagger-2); }
-.stagger-3 { animation-delay: var(--stagger-3); }
-.stagger-4 { animation-delay: var(--stagger-4); }
-.stagger-5 { animation-delay: var(--stagger-5); }
-
-/* ========================================
  * SCROLL-TRIGGERED ANIMATIONS
- * Use data-animate attribute for reveal effects
  * ======================================== */
 
-/* Base state - hidden before animation triggers */
 [data-animate] {
   opacity: 0;
   transform: translateY(16px);
@@ -489,13 +417,11 @@ th {
     transform var(--duration-slow) var(--ease-out);
 }
 
-/* Visible state - when element enters viewport */
 [data-animate].is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Animation variants */
 [data-animate="fade"] {
   transform: none;
 }
@@ -516,7 +442,6 @@ th {
 [data-animate-stagger] > [data-animate]:nth-child(5) { transition-delay: 240ms; }
 [data-animate-stagger] > [data-animate]:nth-child(6) { transition-delay: 300ms; }
 
-/* Respect reduced motion - show content immediately */
 @media (prefers-reduced-motion: reduce) {
   [data-animate] {
     opacity: 1;
@@ -526,11 +451,9 @@ th {
 }
 
 /* ========================================
- * INTERACTIVE ELEMENTS
- * Touch targets and micro-interactions
+ * INTERACTIVE UTILITIES
  * ======================================== */
 
-/* Ensure minimum touch targets */
 .touch-target {
   min-height: var(--touch-target-min);
   min-width: var(--touch-target-min);
@@ -539,7 +462,6 @@ th {
   justify-content: center;
 }
 
-/* Scale feedback for tactile response */
 .scale-press:active {
   transform: scale(var(--scale-press));
 }
@@ -548,7 +470,6 @@ th {
   transform: scale(var(--scale-hover));
 }
 
-/* Interactive link with underline animation */
 .link-underline {
   position: relative;
   text-decoration: none;
@@ -573,54 +494,12 @@ th {
 }
 
 /* ========================================
- * HEADER BEHAVIOR
- * Hides on scroll down, reappears on scroll up
- * ======================================== */
-
-.header-hidden {
-  transform: translateY(-100%);
-}
-
-.header-visible {
-  transform: translateY(0);
-}
-
-/* ========================================
- * HAND-DRAWN AESTHETIC UTILITIES
+ * DECORATIVE UTILITIES
  * ======================================== */
 
 .decorative {
   opacity: var(--decorative-opacity);
 }
-
-.stroke-hand {
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* ========================================
- * CTA UNDERLINE VARIANTS
- * Wavy, rough, and scribble styles
- * ======================================== */
-
-.underline-wavy {
-  text-decoration: underline;
-  text-decoration-style: wavy;
-  text-decoration-color: var(--color-accent);
-  text-underline-offset: 4px;
-}
-
-.underline-rough {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6'%3E%3Cpath d='M0 3 Q 25 0, 50 3 T 100 3' stroke='%23E07A5F' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: repeat-x;
-  background-position: bottom;
-  background-size: 100px 6px;
-  padding-bottom: 6px;
-}
-
-/* ========================================
- * IMAGE TREATMENT
- * ======================================== */
 
 .image-atmospheric {
   opacity: var(--image-bg-opacity);
@@ -642,25 +521,21 @@ th {
 
 /* ========================================
  * FOCUS STATES
- * Consistent focus styling across all interactive elements
  * ======================================== */
 
-/* Default focus-visible styling */
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
-/* Remove default focus ring on click for elements that have custom styling */
 :focus:not(:focus-visible) {
   outline: none;
 }
 
 /* ========================================
- * MOBILE-SPECIFIC UTILITIES
+ * RESPONSIVE UTILITIES
  * ======================================== */
 
-/* Hide on mobile, show on tablet+ */
 .hide-mobile {
   display: none;
 }
@@ -671,7 +546,6 @@ th {
   }
 }
 
-/* Show on mobile, hide on tablet+ */
 .show-mobile {
   display: initial;
 }
@@ -682,7 +556,6 @@ th {
   }
 }
 
-/* Full-width on mobile, auto on larger screens */
 .mobile-full-width {
   width: 100%;
 }
@@ -693,7 +566,6 @@ th {
   }
 }
 
-/* Stack vertically on mobile, row on larger screens */
 .mobile-stack {
   display: flex;
   flex-direction: column;
