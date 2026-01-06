@@ -1,0 +1,505 @@
+---
+/**
+ * Card Variants Page
+ *
+ * Temporary page to experiment with unified card designs.
+ * Each variant shows skill and tool cards side by side.
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+
+// Sample data
+const skillData = {
+  label: 'Google Ads',
+  title: 'Google Ads Skills',
+  description: 'Ten years of media buying. One install.',
+  price: '$199',
+  cta: 'View details',
+};
+
+const toolData = {
+  label: 'MCP Server',
+  title: 'Google Ads MCP',
+  description: 'Query accounts, pull metrics, run GAQL. Connect in five minutes.',
+  badge: 'Free',
+  cta: 'Setup guide',
+};
+---
+
+<BaseLayout title="Card Variants — Jig" description="Card design experiments">
+  <Header />
+
+  <main class="cards-page">
+    <div class="cards-page__header">
+      <h1>Card Variants</h1>
+      <p>Experimenting with unified card designs. Skill cards should feel slightly more premium.</p>
+    </div>
+
+    <!-- Variant A: Accent CTA vs Muted CTA -->
+    <section class="variant">
+      <h2 class="variant__title">Variant A: CTA Color Difference</h2>
+      <p class="variant__desc">Same structure. Skill has accent CTA, tool has muted CTA.</p>
+      <div class="variant__grid">
+        <div class="card-a card-a--skill">
+          <div class="card-a__header">
+            <span class="card-a__label">{skillData.label}</span>
+            <span class="card-a__badge card-a__badge--premium">{skillData.price}</span>
+          </div>
+          <h3 class="card-a__title">{skillData.title}</h3>
+          <p class="card-a__description">{skillData.description}</p>
+          <div class="card-a__footer">
+            <span class="card-a__cta card-a__cta--accent">{skillData.cta} →</span>
+          </div>
+        </div>
+
+        <div class="card-a card-a--tool">
+          <div class="card-a__header">
+            <span class="card-a__label">{toolData.label}</span>
+            <span class="card-a__badge card-a__badge--free">{toolData.badge}</span>
+          </div>
+          <h3 class="card-a__title">{toolData.title}</h3>
+          <p class="card-a__description">{toolData.description}</p>
+          <div class="card-a__footer">
+            <span class="card-a__cta card-a__cta--muted">{toolData.cta} →</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variant B: Border Weight Difference -->
+    <section class="variant">
+      <h2 class="variant__title">Variant B: Border Weight</h2>
+      <p class="variant__desc">Skill has slightly thicker border for premium feel.</p>
+      <div class="variant__grid">
+        <div class="card-b card-b--skill">
+          <div class="card-b__header">
+            <span class="card-b__label">{skillData.label}</span>
+            <span class="card-b__badge card-b__badge--premium">{skillData.price}</span>
+          </div>
+          <h3 class="card-b__title">{skillData.title}</h3>
+          <p class="card-b__description">{skillData.description}</p>
+          <div class="card-b__footer">
+            <span class="card-b__cta">{skillData.cta} →</span>
+          </div>
+        </div>
+
+        <div class="card-b card-b--tool">
+          <div class="card-b__header">
+            <span class="card-b__label">{toolData.label}</span>
+            <span class="card-b__badge card-b__badge--free">{toolData.badge}</span>
+          </div>
+          <h3 class="card-b__title">{toolData.title}</h3>
+          <p class="card-b__description">{toolData.description}</p>
+          <div class="card-b__footer">
+            <span class="card-b__cta">{toolData.cta} →</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variant C: Subtle Background Tint -->
+    <section class="variant">
+      <h2 class="variant__title">Variant C: Subtle Background Tint</h2>
+      <p class="variant__desc">Skill has warm tint, tool is neutral.</p>
+      <div class="variant__grid">
+        <div class="card-c card-c--skill">
+          <div class="card-c__header">
+            <span class="card-c__label">{skillData.label}</span>
+            <span class="card-c__badge card-c__badge--premium">{skillData.price}</span>
+          </div>
+          <h3 class="card-c__title">{skillData.title}</h3>
+          <p class="card-c__description">{skillData.description}</p>
+          <div class="card-c__footer">
+            <span class="card-c__cta">{skillData.cta} →</span>
+          </div>
+        </div>
+
+        <div class="card-c card-c--tool">
+          <div class="card-c__header">
+            <span class="card-c__label">{toolData.label}</span>
+            <span class="card-c__badge card-c__badge--free">{toolData.badge}</span>
+          </div>
+          <h3 class="card-c__title">{toolData.title}</h3>
+          <p class="card-c__description">{toolData.description}</p>
+          <div class="card-c__footer">
+            <span class="card-c__cta">{toolData.cta} →</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variant D: Top Accent Line -->
+    <section class="variant">
+      <h2 class="variant__title">Variant D: Top Accent Line</h2>
+      <p class="variant__desc">Skill has subtle accent line at top.</p>
+      <div class="variant__grid">
+        <div class="card-d card-d--skill">
+          <div class="card-d__header">
+            <span class="card-d__label">{skillData.label}</span>
+            <span class="card-d__badge card-d__badge--premium">{skillData.price}</span>
+          </div>
+          <h3 class="card-d__title">{skillData.title}</h3>
+          <p class="card-d__description">{skillData.description}</p>
+          <div class="card-d__footer">
+            <span class="card-d__cta">{skillData.cta} →</span>
+          </div>
+        </div>
+
+        <div class="card-d card-d--tool">
+          <div class="card-d__header">
+            <span class="card-d__label">{toolData.label}</span>
+            <span class="card-d__badge card-d__badge--free">{toolData.badge}</span>
+          </div>
+          <h3 class="card-d__title">{toolData.title}</h3>
+          <p class="card-d__description">{toolData.description}</p>
+          <div class="card-d__footer">
+            <span class="card-d__cta">{toolData.cta} →</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variant E: Hover Glow Difference -->
+    <section class="variant">
+      <h2 class="variant__title">Variant E: Hover Glow (hover to see)</h2>
+      <p class="variant__desc">Skill gets accent glow on hover, tool gets subtle shadow.</p>
+      <div class="variant__grid">
+        <div class="card-e card-e--skill">
+          <div class="card-e__header">
+            <span class="card-e__label">{skillData.label}</span>
+            <span class="card-e__badge card-e__badge--premium">{skillData.price}</span>
+          </div>
+          <h3 class="card-e__title">{skillData.title}</h3>
+          <p class="card-e__description">{skillData.description}</p>
+          <div class="card-e__footer">
+            <span class="card-e__cta">{skillData.cta} →</span>
+          </div>
+        </div>
+
+        <div class="card-e card-e--tool">
+          <div class="card-e__header">
+            <span class="card-e__label">{toolData.label}</span>
+            <span class="card-e__badge card-e__badge--free">{toolData.badge}</span>
+          </div>
+          <h3 class="card-e__title">{toolData.title}</h3>
+          <p class="card-e__description">{toolData.description}</p>
+          <div class="card-e__footer">
+            <span class="card-e__cta">{toolData.cta} →</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variant F: Combined Subtle Differences -->
+    <section class="variant">
+      <h2 class="variant__title">Variant F: Combined (Recommended)</h2>
+      <p class="variant__desc">Accent CTA + accent hover border + subtle glow for skills.</p>
+      <div class="variant__grid">
+        <div class="card-f card-f--skill">
+          <div class="card-f__header">
+            <span class="card-f__label">{skillData.label}</span>
+            <span class="card-f__badge card-f__badge--premium">{skillData.price}</span>
+          </div>
+          <h3 class="card-f__title">{skillData.title}</h3>
+          <p class="card-f__description">{skillData.description}</p>
+          <div class="card-f__footer">
+            <span class="card-f__cta card-f__cta--accent">{skillData.cta} →</span>
+          </div>
+        </div>
+
+        <div class="card-f card-f--tool">
+          <div class="card-f__header">
+            <span class="card-f__label">{toolData.label}</span>
+            <span class="card-f__badge card-f__badge--free">{toolData.badge}</span>
+          </div>
+          <h3 class="card-f__title">{toolData.title}</h3>
+          <p class="card-f__description">{toolData.description}</p>
+          <div class="card-f__footer">
+            <span class="card-f__cta card-f__cta--muted">{toolData.cta} →</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>
+
+<style>
+  .cards-page {
+    max-width: var(--container-lg);
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  .cards-page__header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+  }
+
+  .cards-page__header h1 {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-2);
+  }
+
+  .cards-page__header p {
+    color: var(--color-fg-secondary);
+  }
+
+  .variant {
+    margin-bottom: var(--space-12);
+    padding-bottom: var(--space-12);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .variant:last-child {
+    border-bottom: none;
+  }
+
+  .variant__title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-2);
+  }
+
+  .variant__desc {
+    color: var(--color-fg-muted);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-6);
+  }
+
+  .variant__grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    .variant__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ============================================
+   * SHARED BASE STYLES
+   * ============================================ */
+
+  [class^="card-"] {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-5);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  @media (min-width: 640px) {
+    [class^="card-"] {
+      padding: var(--space-6);
+    }
+  }
+
+  [class^="card-"]:hover {
+    transform: translateY(-2px);
+  }
+
+  [class*="__header"] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  [class*="__label"] {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  [class*="__badge"] {
+    flex-shrink: 0;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-full);
+  }
+
+  [class*="__badge--free"] {
+    background: oklch(from var(--color-success) l c h / 0.1);
+    color: var(--color-success);
+  }
+
+  [class*="__badge--premium"] {
+    background: oklch(from var(--color-accent) l c h / 0.1);
+    color: var(--color-accent);
+  }
+
+  [class*="__title"] {
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+    margin: 0 0 var(--space-2) 0;
+    line-height: var(--leading-tight);
+  }
+
+  @media (min-width: 640px) {
+    [class*="__title"] {
+      font-size: var(--text-xl);
+    }
+  }
+
+  [class*="__description"] {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+    flex: 1;
+  }
+
+  [class*="__footer"] {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: var(--space-4);
+    margin-top: var(--space-4);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  [class*="__cta"] {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-fg-secondary);
+  }
+
+  /* ============================================
+   * VARIANT A: CTA Color
+   * ============================================ */
+
+  .card-a:hover {
+    border-color: var(--color-border);
+  }
+
+  .card-a__cta--accent {
+    color: var(--color-accent);
+  }
+
+  .card-a__cta--muted {
+    color: var(--color-fg-muted);
+  }
+
+  /* ============================================
+   * VARIANT B: Border Weight
+   * ============================================ */
+
+  .card-b--skill {
+    border-width: 1.5px;
+  }
+
+  .card-b--tool {
+    border-width: 1px;
+  }
+
+  .card-b:hover {
+    border-color: var(--color-border);
+  }
+
+  /* ============================================
+   * VARIANT C: Background Tint
+   * ============================================ */
+
+  .card-c--skill {
+    background: linear-gradient(
+      135deg,
+      var(--color-bg-elevated) 0%,
+      oklch(18% 0.015 30) 100%
+    );
+  }
+
+  .card-c--tool {
+    background: var(--color-bg-elevated);
+  }
+
+  .card-c:hover {
+    border-color: var(--color-border);
+  }
+
+  /* ============================================
+   * VARIANT D: Top Accent Line
+   * ============================================ */
+
+  .card-d--skill {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-d--skill::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--color-accent) 50%,
+      transparent 100%
+    );
+    opacity: 0.6;
+  }
+
+  .card-d:hover {
+    border-color: var(--color-border);
+  }
+
+  /* ============================================
+   * VARIANT E: Hover Glow
+   * ============================================ */
+
+  .card-e--skill:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 4px 20px oklch(from var(--color-accent) l c h / 0.15);
+  }
+
+  .card-e--tool:hover {
+    border-color: var(--color-border);
+    box-shadow: 0 4px 16px oklch(0% 0 0 / 0.1);
+  }
+
+  /* ============================================
+   * VARIANT F: Combined (Recommended)
+   * ============================================ */
+
+  .card-f--skill:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 4px 20px oklch(0% 0 0 / 0.12);
+  }
+
+  .card-f--tool:hover {
+    border-color: var(--color-fg-muted);
+  }
+
+  .card-f__cta--accent {
+    color: var(--color-accent);
+  }
+
+  .card-f__cta--muted {
+    color: var(--color-fg-muted);
+  }
+</style>
