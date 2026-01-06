@@ -11,6 +11,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import Button from '../../components/Button.astro';
 import EmailSignup from '../../components/EmailSignup.astro';
+import StickyBuyBar from '../../components/StickyBuyBar.astro';
 ---
 
 <BaseLayout
@@ -195,6 +196,22 @@ import EmailSignup from '../../components/EmailSignup.astro';
     <!-- Pricing Section -->
     <section class="section section--pricing" id="pricing">
       <div class="section__container">
+        <!-- Trust Strip -->
+        <div class="trust-strip" data-animate="fade-up">
+          <div class="trust-strip__item">
+            <span class="trust-strip__value">10+</span>
+            <span class="trust-strip__label">Years experience</span>
+          </div>
+          <div class="trust-strip__item">
+            <span class="trust-strip__value">$10M+</span>
+            <span class="trust-strip__label">Managed ad spend</span>
+          </div>
+          <div class="trust-strip__item">
+            <span class="trust-strip__value">100+</span>
+            <span class="trust-strip__label">Accounts audited</span>
+          </div>
+        </div>
+
         <div class="pricing-card" data-animate="fade-up">
           <div class="pricing-card__header">
             <p class="pricing-card__label">Jig: Google Ads Skills</p>
@@ -283,6 +300,12 @@ import EmailSignup from '../../components/EmailSignup.astro';
   </main>
 
   <Footer />
+
+  <StickyBuyBar
+    productName="Google Ads Skills"
+    price="$199"
+    href="#pricing"
+  />
 </BaseLayout>
 
 <style>
@@ -701,6 +724,54 @@ import EmailSignup from '../../components/EmailSignup.astro';
   @media (min-width: 768px) {
     .section--pricing {
       padding: var(--space-20) var(--space-8);
+    }
+  }
+
+  /* Trust Strip */
+  .trust-strip {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-6);
+    margin-bottom: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .trust-strip {
+      gap: var(--space-12);
+      margin-bottom: var(--space-12);
+    }
+  }
+
+  .trust-strip__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .trust-strip__value {
+    font-family: var(--font-sans);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--color-accent);
+  }
+
+  @media (min-width: 768px) {
+    .trust-strip__value {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  .trust-strip__label {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    margin-top: var(--space-1);
+  }
+
+  @media (min-width: 768px) {
+    .trust-strip__label {
+      font-size: var(--text-base);
     }
   }
 

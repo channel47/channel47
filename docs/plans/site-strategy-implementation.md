@@ -11,7 +11,7 @@ This document outlines the comprehensive implementation plan for aligning the Ji
 | Phase 1: Tools Infrastructure | ✅ Complete | 2026-01-06 |
 | Phase 2: Navigation Restructure | ✅ Complete | 2026-01-06 |
 | Phase 3: Homepage Redesign | ✅ Complete | 2026-01-06 |
-| Phase 4: Skills Pages Enhancement | ⏳ Pending | - |
+| Phase 4: Skills Pages Enhancement | ✅ Complete | 2026-01-06 |
 | Phase 5: Email Capture Segmentation | ⏳ Pending | - |
 | Phase 6: Blog Enhancement | ⏳ Pending | - |
 | Phase 7: Contributor/Platform Page | ⏳ Pending | - |
@@ -26,7 +26,7 @@ This document outlines the comprehensive implementation plan for aligning the Ji
 | Navigation | ✅ Skills, Tools, Blog, [Get Skills] | Skills, Tools, Blog, [Get Skills] | ~~Medium~~ Done |
 | Homepage | ✅ Hero (2 CTAs) → Featured → Tools → Email | Hero (2 CTAs) → Featured → Tools → Email | ~~Medium~~ Done |
 | Skills Index | ✅ Mostly aligned | Product grid + email | Minor |
-| Skills Sales | Good structure, missing sticky/trust | Add sticky CTA, trust strip | Medium |
+| Skills Sales | ✅ Sticky bar + trust strip added | Add sticky CTA, trust strip | ~~Medium~~ Done |
 | **Tools Section** | ✅ Implemented | Full /tools index + tool pages | ~~Critical~~ Done |
 | Blog | Basic structure | Contextual CTAs + related posts | Medium |
 | Email Capture | Single component, no segmentation | Tagged capture by location | Medium |
@@ -298,6 +298,37 @@ The current prose-heavy "body section" explaining capability vs. competence shou
 ## Phase 4: Skills Pages Enhancement
 **Priority: Medium**
 **Dependency: None**
+**Status: ✅ COMPLETE**
+
+### Implementation Notes (2026-01-06)
+
+**Files Created:**
+- `src/components/StickyBuyBar.astro` — Fixed bottom bar with product name, price, and CTA
+
+**Files Modified:**
+- `src/pages/skills/google-ads.astro` — Added StickyBuyBar and Trust Strip
+
+**Key Features Implemented:**
+
+#### StickyBuyBar Component
+- Fixed position at bottom of viewport
+- Hidden by default using `data-hidden="true"` attribute
+- IntersectionObserver triggers visibility when hero exits viewport
+- Smooth slide-up animation with `transform: translateY()`
+- Mobile-responsive with proper safe area padding for notched devices
+- Respects `prefers-reduced-motion` for accessibility
+- Props: `productName`, `price`, `href`, `buttonText`
+
+#### Trust Strip
+- Displays credibility metrics: "10+ Years experience", "$10M+ Managed ad spend", "100+ Accounts audited"
+- Flexbox layout with responsive gaps
+- Accent color for values, muted color for labels
+- Positioned above pricing card for trust building before purchase
+
+**Validation:**
+- Build passes (12 pages)
+- TypeScript check passes
+- Sticky bar correctly appears/disappears on scroll
 
 ### 4.1 Skills Index Minor Updates
 
