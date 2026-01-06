@@ -1,6 +1,6 @@
 ---
 /**
- * Posts Listing Page
+ * Blog Listing Page
  *
  * Displays all published posts from the content collection.
  */
@@ -23,20 +23,20 @@ const formatDate = (date: Date) =>
   }).format(date);
 ---
 
-<BaseLayout title="Posts | Channel 47" description="All posts from Channel 47">
+<BaseLayout title="Blog | Jig" description="Insights on AI tools, Google Ads automation, and MCP skills.">
   <Header />
 
-  <main class="posts-page">
-    <div class="posts-page__header">
-      <h1 class="posts-page__title">Posts</h1>
-      <p class="posts-page__description">
-        Thoughts, ideas, and explorations.
+  <main class="blog-page">
+    <div class="blog-page__header">
+      <h1 class="blog-page__title">Blog</h1>
+      <p class="blog-page__description">
+        Insights on AI tools, Google Ads automation, and MCP skills.
       </p>
     </div>
 
-    <div class="posts-grid">
+    <div class="blog-grid">
       {posts.map((post) => (
-        <Card href={`/posts/${post.slug}`} variant="bordered">
+        <Card href={`/blog/${post.slug}`} variant="bordered">
           <h2 class="card__title">{post.data.title}</h2>
           <p class="card__description">{post.data.description}</p>
           <div class="card__meta">
@@ -54,7 +54,7 @@ const formatDate = (date: Date) =>
     </div>
 
     {posts.length === 0 && (
-      <p class="posts-page__empty">No posts yet. Check back soon.</p>
+      <p class="blog-page__empty">No posts yet. Check back soon.</p>
     )}
   </main>
 
@@ -62,41 +62,41 @@ const formatDate = (date: Date) =>
 </BaseLayout>
 
 <style>
-  .posts-page {
+  .blog-page {
     min-height: 100vh;
     padding: var(--space-8) var(--space-4);
     max-width: var(--container-lg);
     margin: 0 auto;
   }
 
-  .posts-page__header {
+  .blog-page__header {
     margin-bottom: var(--space-12);
     text-align: center;
   }
 
-  .posts-page__title {
+  .blog-page__title {
     font-size: var(--text-4xl);
     margin-bottom: var(--space-4);
   }
 
-  .posts-page__description {
+  .blog-page__description {
     font-size: var(--text-lg);
     color: var(--color-text-secondary);
     margin: 0;
   }
 
-  .posts-grid {
+  .blog-grid {
     display: grid;
     gap: var(--space-6);
   }
 
   @media (min-width: 768px) {
-    .posts-grid {
+    .blog-grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  .posts-page__empty {
+  .blog-page__empty {
     text-align: center;
     color: var(--color-text-muted);
     font-style: italic;
