@@ -335,14 +335,20 @@ const sampleFree = {
     background: var(--color-surface);
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-xl);
-    transition: all var(--duration-fast) var(--ease-out);
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out);
     cursor: pointer;
   }
 
   .card-a:hover {
     border-color: var(--color-accent);
-    box-shadow: var(--glow-sm);
-    transform: translateY(-2px);
+    box-shadow:
+      0 0 0 1px var(--color-accent),
+      0 0 20px oklch(70% 0.15 30 / 0.25),
+      0 0 40px oklch(70% 0.15 30 / 0.1);
+    transform: translateY(-3px);
   }
 
   .card-a__badge {
@@ -352,25 +358,30 @@ const sampleFree = {
     padding: var(--space-1) var(--space-3);
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
+    font-weight: var(--font-bold);
     border-radius: var(--radius-full);
+    letter-spacing: 0.02em;
   }
 
   .card-a__badge[data-tier="premium"] {
     background: var(--color-accent);
     color: var(--color-bg);
+    box-shadow: 0 2px 8px oklch(70% 0.15 30 / 0.3);
   }
 
   .card-a__badge[data-tier="free"] {
     background: var(--color-success);
     color: var(--color-bg);
+    box-shadow: 0 2px 8px oklch(70% 0.15 145 / 0.3);
   }
 
   .card-a__content {
     flex: 1;
+    padding-right: var(--space-10);
   }
 
   .card-a__category {
+    display: inline-block;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--color-text-muted);
@@ -409,11 +420,14 @@ const sampleFree = {
     font-size: var(--text-sm);
     font-weight: var(--font-medium);
     color: var(--color-accent);
-    transition: color var(--duration-fast);
+    transition:
+      color var(--duration-fast),
+      letter-spacing var(--duration-fast);
   }
 
   .card-a:hover .card-a__cta {
     color: var(--color-accent-hover);
+    letter-spacing: 0.03em;
   }
 
   /* ========================================
@@ -425,24 +439,42 @@ const sampleFree = {
     border-radius: var(--radius-xl);
     overflow: hidden;
     border: 1px solid var(--color-border-subtle);
-    transition: all var(--duration-fast) var(--ease-out);
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
     cursor: pointer;
   }
 
   .card-b:hover {
     border-color: var(--color-border);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+    box-shadow:
+      0 4px 12px oklch(0% 0 0 / 0.15),
+      0 8px 24px oklch(0% 0 0 / 0.1);
   }
 
   .card-b__edge {
-    width: 4px;
+    width: 5px;
     flex-shrink: 0;
-    background: var(--color-accent);
+    background: linear-gradient(
+      180deg,
+      var(--color-accent) 0%,
+      oklch(65% 0.18 35) 100%
+    );
+    transition: width var(--duration-fast) var(--ease-out);
+  }
+
+  .card-b:hover .card-b__edge {
+    width: 6px;
   }
 
   .card-b__edge[data-tier="free"] {
-    background: var(--color-success);
+    background: linear-gradient(
+      180deg,
+      var(--color-success) 0%,
+      oklch(60% 0.18 155) 100%
+    );
   }
 
   .card-b__inner {
@@ -471,14 +503,18 @@ const sampleFree = {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
     font-weight: var(--font-bold);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
   }
 
   .card-b__price[data-tier="premium"] {
     color: var(--color-accent);
+    background: oklch(70% 0.15 30 / 0.1);
   }
 
   .card-b__price[data-tier="free"] {
     color: var(--color-success);
+    background: oklch(70% 0.15 145 / 0.1);
   }
 
   .card-b__title {
@@ -507,6 +543,8 @@ const sampleFree = {
     flex-wrap: wrap;
     gap: var(--space-2);
     margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border-subtle);
   }
 
   .card-b__tag {
@@ -516,6 +554,11 @@ const sampleFree = {
     padding: var(--space-1) var(--space-2);
     background: var(--color-bg);
     border-radius: var(--radius-sm);
+    transition: color var(--duration-fast);
+  }
+
+  .card-b:hover .card-b__tag {
+    color: var(--color-text-secondary);
   }
 
   /* ========================================
@@ -530,40 +573,71 @@ const sampleFree = {
     background: var(--color-surface);
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-xl);
-    transition: all var(--duration-fast) var(--ease-out);
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
     cursor: pointer;
-    margin-top: var(--space-4);
+    margin-top: var(--space-5);
   }
 
   .card-c:hover {
     border-color: var(--color-border);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+    box-shadow:
+      0 8px 24px oklch(0% 0 0 / 0.12),
+      0 16px 48px oklch(0% 0 0 / 0.08);
   }
 
   .card-c__badge {
     position: absolute;
-    top: calc(-1 * var(--space-3));
+    top: 0;
     left: var(--space-5);
     padding: var(--space-2) var(--space-4);
     font-family: var(--font-mono);
     font-size: var(--text-sm);
     font-weight: var(--font-bold);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    transform: translateY(-100%);
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .card-c:hover .card-c__badge {
+    transform: translateY(calc(-100% - 4px));
   }
 
   .card-c__badge[data-tier="premium"] {
     background: var(--color-accent);
     color: var(--color-bg);
+    box-shadow:
+      0 4px 12px oklch(70% 0.15 30 / 0.35),
+      0 -2px 8px oklch(70% 0.15 30 / 0.15) inset;
+  }
+
+  .card-c:hover .card-c__badge[data-tier="premium"] {
+    box-shadow:
+      0 6px 16px oklch(70% 0.15 30 / 0.45),
+      0 -2px 8px oklch(70% 0.15 30 / 0.15) inset;
   }
 
   .card-c__badge[data-tier="free"] {
     background: var(--color-success);
     color: var(--color-bg);
+    box-shadow:
+      0 4px 12px oklch(70% 0.15 145 / 0.35),
+      0 -2px 8px oklch(70% 0.15 145 / 0.15) inset;
+  }
+
+  .card-c:hover .card-c__badge[data-tier="free"] {
+    box-shadow:
+      0 6px 16px oklch(70% 0.15 145 / 0.45),
+      0 -2px 8px oklch(70% 0.15 145 / 0.15) inset;
   }
 
   .card-c__category {
+    display: inline-block;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--color-text-muted);
@@ -604,23 +678,35 @@ const sampleFree = {
 
   .card-c__tags {
     display: flex;
-    gap: var(--space-2);
+    gap: var(--space-3);
   }
 
   .card-c__tag {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--color-text-muted);
+    padding: var(--space-1) 0;
+    border-bottom: 1px dashed var(--color-border-subtle);
   }
 
   .card-c__arrow {
-    font-size: var(--text-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    font-size: var(--text-lg);
     color: var(--color-accent);
-    transition: transform var(--duration-fast);
+    background: oklch(70% 0.15 30 / 0.1);
+    border-radius: var(--radius-full);
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      background var(--duration-fast) var(--ease-out);
   }
 
   .card-c:hover .card-c__arrow {
-    transform: translateX(4px);
+    transform: translateX(3px);
+    background: oklch(70% 0.15 30 / 0.15);
   }
 
   /* ========================================
@@ -628,17 +714,21 @@ const sampleFree = {
      ======================================== */
   .card-d-wrapper {
     position: relative;
-    margin-top: var(--space-2);
-    margin-left: var(--space-2);
+    margin-bottom: var(--space-2);
   }
 
   .card-d__shadow {
     position: absolute;
-    inset: 6px -6px -6px 6px;
+    top: 8px;
+    left: 8px;
+    right: -8px;
+    bottom: -8px;
     background: var(--color-accent);
     border-radius: var(--radius-xl);
-    opacity: 0.3;
-    transition: all var(--duration-fast) var(--ease-out);
+    opacity: 0.2;
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      opacity var(--duration-fast) var(--ease-out);
   }
 
   .card-d__shadow[data-tier="free"] {
@@ -646,8 +736,8 @@ const sampleFree = {
   }
 
   .card-d-wrapper:hover .card-d__shadow {
-    inset: 8px -8px -8px 8px;
-    opacity: 0.4;
+    transform: translate(2px, 2px);
+    opacity: 0.35;
   }
 
   .card-d {
@@ -658,12 +748,15 @@ const sampleFree = {
     background: var(--color-surface);
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-xl);
-    transition: all var(--duration-fast) var(--ease-out);
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
     cursor: pointer;
   }
 
   .card-d-wrapper:hover .card-d {
-    transform: translate(-2px, -2px);
+    transform: translate(-4px, -4px);
+    box-shadow: 0 4px 16px oklch(0% 0 0 / 0.1);
   }
 
   .card-d__top {
@@ -685,14 +778,18 @@ const sampleFree = {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
     font-weight: var(--font-bold);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
   }
 
   .card-d__price[data-tier="premium"] {
-    color: var(--color-accent);
+    color: var(--color-bg);
+    background: var(--color-accent);
   }
 
   .card-d__price[data-tier="free"] {
-    color: var(--color-success);
+    color: var(--color-bg);
+    background: var(--color-success);
   }
 
   .card-d__title {
@@ -717,23 +814,35 @@ const sampleFree = {
   }
 
   .card-d__cta {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
     margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border-subtle);
     font-family: var(--font-display);
     font-size: var(--text-sm);
     font-weight: var(--font-medium);
     color: var(--color-accent);
+    transition: gap var(--duration-fast) var(--ease-out);
+  }
+
+  .card-d-wrapper:hover .card-d__cta {
+    gap: var(--space-3);
   }
 
   /* ========================================
      VARIANT E: Gradient Border
      ======================================== */
   .card-e {
+    --border-width: 2px;
     position: relative;
-    padding: 1px;
+    padding: var(--border-width);
     border-radius: var(--radius-xl);
     background: var(--color-border-subtle);
-    transition: all var(--duration-fast) var(--ease-out);
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out);
     cursor: pointer;
   }
 
@@ -742,46 +851,58 @@ const sampleFree = {
     position: absolute;
     inset: 0;
     border-radius: var(--radius-xl);
-    padding: 1px;
     background: linear-gradient(
       135deg,
       var(--color-accent) 0%,
-      oklch(70% 0.15 60) 50%,
+      oklch(75% 0.12 50) 35%,
+      oklch(65% 0.18 40) 65%,
       var(--color-accent) 100%
     );
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
+    background-size: 200% 200%;
     opacity: 0;
-    transition: opacity var(--duration-fast) var(--ease-out);
+    transition:
+      opacity var(--duration-normal) var(--ease-out),
+      background-position var(--duration-slow) var(--ease-out);
+    z-index: 0;
   }
 
   .card-e[data-tier="free"]::before {
     background: linear-gradient(
       135deg,
       var(--color-success) 0%,
-      oklch(70% 0.12 120) 50%,
+      oklch(75% 0.1 130) 35%,
+      oklch(60% 0.15 160) 65%,
       var(--color-success) 100%
     );
+    background-size: 200% 200%;
   }
 
   .card-e:hover::before {
     opacity: 1;
+    background-position: 100% 100%;
   }
 
   .card-e:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--glow-sm);
+    transform: translateY(-3px);
+    box-shadow:
+      0 0 20px oklch(70% 0.15 30 / 0.2),
+      0 8px 24px oklch(0% 0 0 / 0.1);
+  }
+
+  .card-e[data-tier="free"]:hover {
+    box-shadow:
+      0 0 20px oklch(70% 0.15 145 / 0.2),
+      0 8px 24px oklch(0% 0 0 / 0.1);
   }
 
   .card-e__inner {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     padding: var(--space-6);
     background: var(--color-surface);
-    border-radius: calc(var(--radius-xl) - 1px);
+    border-radius: calc(var(--radius-xl) - var(--border-width));
     height: 100%;
   }
 
@@ -804,11 +925,29 @@ const sampleFree = {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
     font-weight: var(--font-bold);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    transition: all var(--duration-fast) var(--ease-out);
+  }
+
+  .card-e[data-tier="premium"] .card-e__price {
     color: var(--color-accent);
+    background: oklch(70% 0.15 30 / 0.1);
+  }
+
+  .card-e[data-tier="premium"]:hover .card-e__price {
+    color: var(--color-bg);
+    background: var(--color-accent);
   }
 
   .card-e[data-tier="free"] .card-e__price {
     color: var(--color-success);
+    background: oklch(70% 0.15 145 / 0.1);
+  }
+
+  .card-e[data-tier="free"]:hover .card-e__price {
+    color: var(--color-bg);
+    background: var(--color-success);
   }
 
   .card-e__title {
@@ -851,6 +990,11 @@ const sampleFree = {
     padding: var(--space-1) var(--space-2);
     background: var(--color-bg);
     border-radius: var(--radius-sm);
+    transition: color var(--duration-fast);
+  }
+
+  .card-e:hover .card-e__tag {
+    color: var(--color-text-secondary);
   }
 
   /* ========================================
@@ -864,45 +1008,69 @@ const sampleFree = {
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-xl);
     overflow: hidden;
-    transition: all var(--duration-fast) var(--ease-out);
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
     cursor: pointer;
   }
 
   .card-f:hover {
     border-color: var(--color-border);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+    box-shadow:
+      0 4px 12px oklch(0% 0 0 / 0.12),
+      0 8px 24px oklch(0% 0 0 / 0.08);
   }
 
   .card-f__badge {
     position: absolute;
     top: 0;
     right: 0;
-    padding: var(--space-2) var(--space-4);
+    padding: var(--space-2) var(--space-5);
     font-family: var(--font-mono);
     font-size: var(--text-sm);
     font-weight: var(--font-bold);
-    border-bottom-left-radius: var(--radius-lg);
+    border-bottom-left-radius: var(--radius-xl);
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  .card-f:hover .card-f__badge {
+    transform: scale(1.02);
   }
 
   .card-f__badge[data-tier="premium"] {
-    background: var(--color-accent);
+    background: linear-gradient(
+      135deg,
+      var(--color-accent) 0%,
+      oklch(65% 0.18 35) 100%
+    );
     color: var(--color-bg);
+    box-shadow:
+      0 2px 8px oklch(70% 0.15 30 / 0.25),
+      inset 0 1px 0 oklch(100% 0 0 / 0.15);
   }
 
   .card-f__badge[data-tier="free"] {
-    background: var(--color-success);
+    background: linear-gradient(
+      135deg,
+      var(--color-success) 0%,
+      oklch(60% 0.18 155) 100%
+    );
     color: var(--color-bg);
+    box-shadow:
+      0 2px 8px oklch(70% 0.15 145 / 0.25),
+      inset 0 1px 0 oklch(100% 0 0 / 0.15);
   }
 
   .card-f__content {
     padding: var(--space-6);
-    padding-right: calc(var(--space-6) + 60px);
+    padding-right: calc(var(--space-6) + 70px);
     flex: 1;
   }
 
   .card-f__category {
-    display: block;
+    display: inline-block;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--color-text-muted);
@@ -918,6 +1086,11 @@ const sampleFree = {
     color: var(--color-text-primary);
     margin-bottom: var(--space-3);
     line-height: var(--leading-snug);
+    transition: color var(--duration-fast);
+  }
+
+  .card-f:hover .card-f__title {
+    color: var(--color-fg);
   }
 
   .card-f__description {
@@ -933,14 +1106,22 @@ const sampleFree = {
 
   .card-f__bar {
     height: 3px;
-    background: var(--color-accent);
+    background: linear-gradient(
+      90deg,
+      var(--color-accent) 0%,
+      oklch(75% 0.12 50) 100%
+    );
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform var(--duration-normal) var(--ease-out);
+    transition: transform var(--duration-normal) cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .card-f__bar[data-tier="free"] {
-    background: var(--color-success);
+    background: linear-gradient(
+      90deg,
+      var(--color-success) 0%,
+      oklch(75% 0.1 130) 100%
+    );
   }
 
   .card-f:hover .card-f__bar {
@@ -951,6 +1132,10 @@ const sampleFree = {
   @media (max-width: 640px) {
     .card-showcase {
       grid-template-columns: 1fr;
+    }
+
+    .card-f__content {
+      padding-right: calc(var(--space-4) + 60px);
     }
   }
 </style>
