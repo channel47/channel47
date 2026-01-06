@@ -36,7 +36,7 @@ const formatDate = (date: Date) =>
 
     <div class="blog-grid">
       {posts.map((post) => (
-        <Card href={`/blog/${post.slug}`} variant="bordered">
+        <Card href={`/blog/${post.slug}`} variant="ghost">
           <h2 class="card__title">{post.data.title}</h2>
           <p class="card__description">{post.data.description}</p>
           <div class="card__meta">
