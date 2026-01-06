@@ -2,5 +2,8 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: []
+  integrations: [],
+  redirects: {
+    '/setup': '/tools/google-ads'
+  }
 });

@@ -4,6 +4,21 @@ This document outlines the comprehensive implementation plan for aligning the Ji
 
 ---
 
+## Implementation Status
+
+| Phase | Status | Completed |
+|-------|--------|-----------|
+| Phase 1: Tools Infrastructure | ✅ Complete | 2026-01-06 |
+| Phase 2: Navigation Restructure | ⏳ Pending | - |
+| Phase 3: Homepage Redesign | ⏳ Pending | - |
+| Phase 4: Skills Pages Enhancement | ⏳ Pending | - |
+| Phase 5: Email Capture Segmentation | ⏳ Pending | - |
+| Phase 6: Blog Enhancement | ⏳ Pending | - |
+| Phase 7: Contributor/Platform Page | ⏳ Pending | - |
+| Phase 8: Low-Level Decisions | ⏳ Pending | - |
+
+---
+
 ## Executive Summary: Current State vs. Target State
 
 | Area | Current State | Target State | Gap Severity |
@@ -12,7 +27,7 @@ This document outlines the comprehensive implementation plan for aligning the Ji
 | Homepage | Hero → Body → 2 Paths → Email | Hero (2 CTAs) → Featured → Tools → Email | Medium |
 | Skills Index | ✅ Mostly aligned | Product grid + email | Minor |
 | Skills Sales | Good structure, missing sticky/trust | Add sticky CTA, trust strip | Medium |
-| **Tools Section** | ❌ Does not exist | Full /tools index + tool pages | **Critical** |
+| **Tools Section** | ✅ Implemented | Full /tools index + tool pages | ~~Critical~~ Done |
 | Blog | Basic structure | Contextual CTAs + related posts | Medium |
 | Email Capture | Single component, no segmentation | Tagged capture by location | Medium |
 | Footer | Basic links | Add email signup | Low |
@@ -23,8 +38,35 @@ This document outlines the comprehensive implementation plan for aligning the Ji
 ## Phase 1: Foundation — Tools Infrastructure
 **Priority: Critical**
 **Dependency: None**
+**Status: ✅ COMPLETE**
 
 The strategy document positions free tools as the top-of-funnel lead generation mechanism. Currently, the site has no `/tools` section—only a `/setup` page that provides generic MCP setup instructions.
+
+### Implementation Notes (2026-01-06)
+
+**Files Created:**
+- `src/pages/tools/index.astro` — Tools catalog with hero, grid, upsell banner, email signup
+- `src/pages/tools/google-ads.astro` — Full setup guide with "The Gap" soft-sell section
+
+**Files Modified:**
+- `astro.config.mjs` — Added redirect `/setup` → `/tools/google-ads`
+
+**Files Deleted:**
+- `src/pages/setup.astro` — Replaced by redirect and new tool page
+
+**Key Features Implemented:**
+- Tools grid with "Free" badge styling (green success color)
+- Icon-based tool cards with visual differentiation from skills
+- Upsell banner: "Tools give you access. Skills give you judgment."
+- "The Gap" section with accent border for soft-sell to skills
+- Breadcrumb navigation on tool detail page
+- Copy button functionality for MCP URL
+
+**Validation:**
+- Build passes with 12 pages generated
+- TypeScript check passes
+- Redirect generates proper meta refresh HTML
+- All links verified correct
 
 ### 1.1 Create Tools Index Page (`/tools`)
 

@@ -1,35 +1,42 @@
 ---
 /**
- * Setup Guide
+ * Google Ads MCP Tool Page
  *
- * Free, public, SEO-targeted.
- * Instructions for connecting the hosted MCP server.
- * Direct, confident tone. Peer to peer.
+ * Setup guide for the free Google Ads MCP server.
+ * Delivers value first, then soft-sells to Skills.
  */
 
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import Button from '../components/Button.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Button from '../../components/Button.astro';
+import EmailSignup from '../../components/EmailSignup.astro';
 ---
 
 <BaseLayout
-  title="Setup Guide — Connect Jig to Your AI Tools"
-  description="Free hosted MCP server. No install. Just add the URL and you're connected to Google Ads."
+  title="Google Ads MCP — Free Setup Guide | Jig"
+  description="Connect the free Google Ads MCP server to Claude or Cursor in five minutes. Query any account. No install required."
 >
   <Header />
 
-  <main class="setup-page">
-    <article class="setup-content">
-      <header class="setup-header">
-        <h1>Connect the Jig MCP in five minutes.</h1>
-        <p class="setup-intro">
-          Free hosted MCP server. No install. Just add the URL and you're connected to Google Ads.
+  <main class="tool-page">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <a href="/tools" class="breadcrumb__link">← Back to Tools</a>
+    </nav>
+
+    <article class="tool-content">
+      <!-- Hero -->
+      <header class="tool-header">
+        <div class="tool-header__badge">Free</div>
+        <h1>Google Ads MCP</h1>
+        <p class="tool-header__intro">
+          Connect in five minutes. Query any account. No install required.
         </p>
       </header>
 
       <!-- What You'll Need -->
-      <section class="setup-section">
+      <section class="tool-section">
         <h2>What you'll need</h2>
         <ul class="requirements-list">
           <li>
@@ -45,7 +52,7 @@ import Button from '../components/Button.astro';
       </section>
 
       <!-- Add the MCP -->
-      <section class="setup-section">
+      <section class="tool-section">
         <h2>Add the MCP</h2>
         <p>
           Jig runs as a hosted MCP server. No local install. Just point your AI tool to our URL.
@@ -99,7 +106,7 @@ import Button from '../components/Button.astro';
       </section>
 
       <!-- Authenticate -->
-      <section class="setup-section">
+      <section class="tool-section">
         <h2>Authenticate</h2>
         <p>
           On first use, Jig will prompt you to connect your Google Ads account via OAuth.
@@ -111,7 +118,7 @@ import Button from '../components/Button.astro';
       </section>
 
       <!-- Test It -->
-      <section class="setup-section">
+      <section class="tool-section">
         <h2>Test it</h2>
         <p>
           Start a new conversation and ask something like:
@@ -124,23 +131,34 @@ import Button from '../components/Button.astro';
         </p>
       </section>
 
-      <!-- What's Next -->
-      <section class="setup-section section--cta">
-        <h2>What's next?</h2>
-        <p>
-          You're connected. But connected doesn't mean competent.
-        </p>
-        <p>
-          The MCP gives your AI access to your Google Ads data. The skill files teach it what to do with that access.
-        </p>
-        <div class="cta-buttons">
-          <Button href="/skills/google-ads" variant="primary" size="lg" fullWidth>
-            Get Google Ads Skills — $199
-          </Button>
+      <!-- The Gap - Soft Sell -->
+      <section class="tool-section section--gap">
+        <div class="gap-content">
+          <h2>You've got the connection.</h2>
+          <p class="gap-lead">Now you need the judgment.</p>
+          <p>
+            The MCP lets you query your Google Ads data. But knowing <em>how</em> to query isn't the same as knowing <em>what</em> to look for.
+          </p>
+          <p>
+            The Skills tell your AI what to query, when, and what to do with the results. 47 GAQL queries. Audit workflows. Failure checklists. Everything that takes years to learn—packaged into files your tools can run.
+          </p>
+          <div class="gap-cta">
+            <Button href="/skills/google-ads" variant="primary" size="lg">
+              Get Google Ads Skills — $199
+            </Button>
+            <p class="gap-cta__note">One-time purchase. Lifetime updates.</p>
+          </div>
         </div>
-        <p class="cta-note">
-          One-time purchase. Lifetime updates. 14-day money-back guarantee.
-        </p>
+      </section>
+
+      <!-- Email Signup -->
+      <section class="tool-section section--email">
+        <EmailSignup
+          title="Get updates on this tool."
+          description="New features, fixes, and tips. No spam."
+          buttonText="Subscribe"
+          variant="card"
+        />
       </section>
     </article>
   </main>
@@ -168,81 +186,113 @@ import Button from '../components/Button.astro';
 </script>
 
 <style>
-  .setup-page {
+  .tool-page {
     padding: var(--space-6) var(--space-4);
-    padding-top: var(--space-8);
+    padding-top: var(--space-4);
   }
 
   @media (min-width: 768px) {
-    .setup-page {
+    .tool-page {
       padding: var(--space-8) var(--space-4);
-      padding-top: var(--space-12);
+      padding-top: var(--space-6);
     }
   }
 
-  .setup-content {
+  /* Breadcrumb */
+  .breadcrumb {
+    max-width: var(--content-width);
+    margin: 0 auto var(--space-6);
+  }
+
+  .breadcrumb__link {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .breadcrumb__link:hover {
+    color: var(--color-fg);
+  }
+
+  .tool-content {
     max-width: var(--content-width);
     margin: 0 auto;
   }
 
-  .setup-header {
+  /* Tool Header */
+  .tool-header {
     margin-bottom: var(--space-10);
   }
 
   @media (min-width: 768px) {
-    .setup-header {
+    .tool-header {
       margin-bottom: var(--space-12);
     }
   }
 
-  .setup-header h1 {
+  .tool-header__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-success);
+    background-color: oklch(from var(--color-success) l c h / 0.1);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-4);
+  }
+
+  .tool-header h1 {
     font-size: var(--text-3xl);
     font-weight: var(--font-bold);
     margin-bottom: var(--space-3);
   }
 
   @media (min-width: 768px) {
-    .setup-header h1 {
+    .tool-header h1 {
       font-size: var(--text-4xl);
       margin-bottom: var(--space-4);
     }
   }
 
-  .setup-intro {
+  .tool-header__intro {
     font-size: var(--text-base);
     color: var(--color-fg-secondary);
     margin: 0;
   }
 
   @media (min-width: 768px) {
-    .setup-intro {
+    .tool-header__intro {
       font-size: var(--text-xl);
     }
   }
 
-  .setup-section {
+  /* Sections */
+  .tool-section {
     margin-bottom: var(--space-10);
   }
 
   @media (min-width: 768px) {
-    .setup-section {
+    .tool-section {
       margin-bottom: var(--space-12);
     }
   }
 
-  .setup-section h2 {
+  .tool-section h2 {
     font-size: var(--text-xl);
     font-weight: var(--font-bold);
     margin-bottom: var(--space-4);
   }
 
   @media (min-width: 768px) {
-    .setup-section h2 {
+    .tool-section h2 {
       font-size: var(--text-2xl);
     }
   }
 
-  .setup-section h3 {
+  .tool-section h3 {
     font-size: var(--text-base);
     font-weight: var(--font-semibold);
     margin-bottom: var(--space-3);
@@ -250,17 +300,18 @@ import Button from '../components/Button.astro';
   }
 
   @media (min-width: 768px) {
-    .setup-section h3 {
+    .tool-section h3 {
       font-size: var(--text-lg);
       margin-top: var(--space-6);
     }
   }
 
-  .setup-section p {
+  .tool-section p {
     margin-bottom: var(--space-4);
     font-size: var(--text-base);
   }
 
+  /* Requirements List */
   .requirements-list {
     list-style: none;
     padding: 0;
@@ -281,6 +332,7 @@ import Button from '../components/Button.astro';
     color: var(--color-accent);
   }
 
+  /* Setup Steps */
   .setup-step {
     margin-bottom: var(--space-6);
     padding: var(--space-4);
@@ -316,7 +368,7 @@ import Button from '../components/Button.astro';
     }
   }
 
-  /* Code block wrapper for horizontal scroll */
+  /* Code Block */
   .code-block-wrapper {
     margin: var(--space-4) calc(-1 * var(--space-4));
     padding: 0 var(--space-4);
@@ -361,6 +413,7 @@ import Button from '../components/Button.astro';
     }
   }
 
+  /* URL Display */
   .url-display {
     display: flex;
     flex-direction: column;
@@ -408,7 +461,6 @@ import Button from '../components/Button.astro';
     color: var(--color-fg-secondary);
     cursor: pointer;
     transition: all var(--duration-fast) var(--ease-out);
-    /* Touch-friendly */
     min-height: 48px;
     -webkit-tap-highlight-color: transparent;
   }
@@ -435,7 +487,7 @@ import Button from '../components/Button.astro';
     border-color: var(--color-success);
   }
 
-  /* Test prompt styling */
+  /* Test Prompt */
   .test-prompt {
     padding: var(--space-4);
     background-color: var(--color-bg-elevated);
@@ -450,55 +502,8 @@ import Button from '../components/Button.astro';
     margin: 0;
   }
 
-  .section--cta {
-    padding: var(--space-6);
-    background-color: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    text-align: center;
-  }
-
-  @media (min-width: 768px) {
-    .section--cta {
-      padding: var(--space-8);
-    }
-  }
-
-  .section--cta h2 {
-    text-align: center;
-  }
-
-  .section--cta p {
-    max-width: 50ch;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .cta-buttons {
-    margin: var(--space-6) 0;
-    max-width: 320px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  @media (min-width: 480px) {
-    .cta-buttons {
-      max-width: none;
-    }
-
-    .cta-buttons :global(.btn) {
-      width: auto;
-    }
-  }
-
-  .cta-note {
-    font-size: var(--text-sm);
-    color: var(--color-fg-muted);
-    margin-bottom: 0;
-  }
-
-  /* Inline code styling */
-  .setup-section code:not(.code-block code):not(.url-display__url) {
+  /* Inline Code */
+  .tool-section code:not(.code-block code):not(.url-display__url) {
     font-family: var(--font-mono);
     font-size: 0.85em;
     padding: var(--space-1) var(--space-2);
@@ -507,15 +512,89 @@ import Button from '../components/Button.astro';
     color: var(--color-accent);
   }
 
-  /* General list styling */
-  .setup-section > ol {
-    padding-left: var(--space-5);
-    margin-bottom: var(--space-4);
+  /* The Gap Section */
+  .section--gap {
+    margin-top: var(--space-12);
+    margin-bottom: var(--space-12);
   }
 
-  .setup-section > ol li {
-    margin-bottom: var(--space-3);
-    font-size: var(--text-base);
-    padding-left: var(--space-1);
+  @media (min-width: 768px) {
+    .section--gap {
+      margin-top: var(--space-16);
+      margin-bottom: var(--space-16);
+    }
+  }
+
+  .gap-content {
+    padding: var(--space-8);
+    background-color: var(--color-bg-elevated);
+    border: 2px solid var(--color-accent);
+    border-radius: var(--radius-xl);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .gap-content {
+      padding: var(--space-12);
+    }
+  }
+
+  .gap-content h2 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-2);
+  }
+
+  @media (min-width: 768px) {
+    .gap-content h2 {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  .gap-lead {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-accent);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .gap-lead {
+      font-size: var(--text-xl);
+    }
+  }
+
+  .gap-content p {
+    max-width: 55ch;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--color-fg-secondary);
+  }
+
+  .gap-content em {
+    color: var(--color-fg);
+    font-style: normal;
+    font-weight: var(--font-medium);
+  }
+
+  .gap-cta {
+    margin-top: var(--space-8);
+  }
+
+  .gap-cta__note {
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    margin-top: var(--space-3);
+    margin-bottom: 0;
+  }
+
+  /* Email Section */
+  .section--email {
+    padding-bottom: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .section--email {
+      padding-bottom: var(--space-12);
+    }
   }
 </style>
