@@ -61,115 +61,6 @@ const sampleFree = {
       </div>
     </section>
 
-    <!-- VARIANT B: Accent Edge -->
-    <section class="variant-section">
-      <div class="variant-label">
-        <span class="variant-letter">B</span>
-        <span class="variant-name">Accent Edge</span>
-      </div>
-      <p class="variant-desc">Bold left accent strip creates visual anchor. Strong brand presence.</p>
-      <div class="card-showcase">
-        <article class="card-b">
-          <div class="card-b__edge"></div>
-          <div class="card-b__inner">
-            <div class="card-b__header">
-              <span class="card-b__category">{sampleSkill.category}</span>
-              <span class="card-b__price" data-tier="premium">$29</span>
-            </div>
-            <h3 class="card-b__title">{sampleSkill.title}</h3>
-            <p class="card-b__description">{sampleSkill.description}</p>
-            <div class="card-b__tags">
-              {sampleSkill.tags.map(tag => <span class="card-b__tag">{tag}</span>)}
-            </div>
-          </div>
-        </article>
-        <article class="card-b">
-          <div class="card-b__edge" data-tier="free"></div>
-          <div class="card-b__inner">
-            <div class="card-b__header">
-              <span class="card-b__category">{sampleFree.category}</span>
-              <span class="card-b__price" data-tier="free">Free</span>
-            </div>
-            <h3 class="card-b__title">{sampleFree.title}</h3>
-            <p class="card-b__description">{sampleFree.description}</p>
-            <div class="card-b__tags">
-              {sampleFree.tags.map(tag => <span class="card-b__tag">{tag}</span>)}
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- VARIANT C: Floating Label -->
-    <section class="variant-section">
-      <div class="variant-label">
-        <span class="variant-letter">C</span>
-        <span class="variant-name">Floating Label</span>
-      </div>
-      <p class="variant-desc">Price badge floats outside the card boundary. Playful yet professional.</p>
-      <div class="card-showcase">
-        <article class="card-c">
-          <div class="card-c__badge" data-tier="premium">$29</div>
-          <span class="card-c__category">{sampleSkill.category}</span>
-          <h3 class="card-c__title">{sampleSkill.title}</h3>
-          <p class="card-c__description">{sampleSkill.description}</p>
-          <div class="card-c__footer">
-            <div class="card-c__tags">
-              {sampleSkill.tags.slice(0, 2).map(tag => <span class="card-c__tag">{tag}</span>)}
-            </div>
-            <span class="card-c__arrow">→</span>
-          </div>
-        </article>
-        <article class="card-c">
-          <div class="card-c__badge" data-tier="free">Free</div>
-          <span class="card-c__category">{sampleFree.category}</span>
-          <h3 class="card-c__title">{sampleFree.title}</h3>
-          <p class="card-c__description">{sampleFree.description}</p>
-          <div class="card-c__footer">
-            <div class="card-c__tags">
-              {sampleFree.tags.slice(0, 2).map(tag => <span class="card-c__tag">{tag}</span>)}
-            </div>
-            <span class="card-c__arrow">→</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- VARIANT D: Stacked -->
-    <section class="variant-section">
-      <div class="variant-label">
-        <span class="variant-letter">D</span>
-        <span class="variant-name">Stacked</span>
-      </div>
-      <p class="variant-desc">Layered depth effect suggests premium content. Shadow creates dimension.</p>
-      <div class="card-showcase">
-        <div class="card-d-wrapper">
-          <div class="card-d__shadow"></div>
-          <article class="card-d">
-            <div class="card-d__top">
-              <span class="card-d__category">{sampleSkill.category}</span>
-              <span class="card-d__price" data-tier="premium">$29</span>
-            </div>
-            <h3 class="card-d__title">{sampleSkill.title}</h3>
-            <p class="card-d__description">{sampleSkill.description}</p>
-            <span class="card-d__cta">Explore →</span>
-          </article>
-        </div>
-        <div class="card-d-wrapper">
-          <div class="card-d__shadow" data-tier="free"></div>
-          <article class="card-d">
-            <div class="card-d__top">
-              <span class="card-d__category">{sampleFree.category}</span>
-              <span class="card-d__price" data-tier="free">Free</span>
-            </div>
-            <h3 class="card-d__title">{sampleFree.title}</h3>
-            <p class="card-d__description">{sampleFree.description}</p>
-            <span class="card-d__cta">Explore →</span>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <!-- VARIANT E: Gradient Border -->
     <section class="variant-section">
       <div class="variant-label">
@@ -244,8 +135,79 @@ const sampleFree = {
       </div>
     </section>
 
+    <!-- VARIANT G: Scroll-Triggered Border Fill -->
+    <section class="variant-section">
+      <div class="variant-label">
+        <span class="variant-letter">G</span>
+        <span class="variant-name">Border Fill (Scroll)</span>
+      </div>
+      <p class="variant-desc">Gradient border "fills up" around the card perimeter when scrolled into view. Creates anticipation and allure.</p>
+      <div class="card-showcase">
+        <article class="card-g" data-tier="premium">
+          <div class="card-g__border"></div>
+          <div class="card-g__inner">
+            <div class="card-g__header">
+              <span class="card-g__category">{sampleSkill.category}</span>
+              <span class="card-g__price">$29</span>
+            </div>
+            <h3 class="card-g__title">{sampleSkill.title}</h3>
+            <p class="card-g__description">{sampleSkill.description}</p>
+            <div class="card-g__footer">
+              <div class="card-g__tags">
+                {sampleSkill.tags.map(tag => <span class="card-g__tag">{tag}</span>)}
+              </div>
+              <span class="card-g__cta">View skill →</span>
+            </div>
+          </div>
+        </article>
+        <article class="card-g" data-tier="free">
+          <div class="card-g__border"></div>
+          <div class="card-g__inner">
+            <div class="card-g__header">
+              <span class="card-g__category">{sampleFree.category}</span>
+              <span class="card-g__price">Free</span>
+            </div>
+            <h3 class="card-g__title">{sampleFree.title}</h3>
+            <p class="card-g__description">{sampleFree.description}</p>
+            <div class="card-g__footer">
+              <div class="card-g__tags">
+                {sampleFree.tags.map(tag => <span class="card-g__tag">{tag}</span>)}
+              </div>
+              <span class="card-g__cta">View skill →</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
   </main>
 </BaseLayout>
+
+<script>
+  // Scroll-triggered animation for card-g
+  function initScrollAnimation() {
+    const cards = document.querySelectorAll('.card-g');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, {
+      threshold: 0.3,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    cards.forEach(card => observer.observe(card));
+  }
+
+  // Run on initial load
+  initScrollAnimation();
+
+  // Re-run on Astro page transitions
+  document.addEventListener('astro:page-load', initScrollAnimation);
+</script>
 
 <style>
   .variants-page {
@@ -428,407 +390,6 @@ const sampleFree = {
   .card-a:hover .card-a__cta {
     color: var(--color-accent-hover);
     letter-spacing: 0.03em;
-  }
-
-  /* ========================================
-     VARIANT B: Accent Edge
-     ======================================== */
-  .card-b {
-    display: flex;
-    background: var(--color-surface);
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    border: 1px solid var(--color-border-subtle);
-    transition:
-      transform var(--duration-fast) var(--ease-out),
-      border-color var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out);
-    cursor: pointer;
-  }
-
-  .card-b:hover {
-    border-color: var(--color-border);
-    transform: translateY(-3px);
-    box-shadow:
-      0 4px 12px oklch(0% 0 0 / 0.15),
-      0 8px 24px oklch(0% 0 0 / 0.1);
-  }
-
-  .card-b__edge {
-    width: 5px;
-    flex-shrink: 0;
-    background: linear-gradient(
-      180deg,
-      var(--color-accent) 0%,
-      oklch(65% 0.18 35) 100%
-    );
-    transition: width var(--duration-fast) var(--ease-out);
-  }
-
-  .card-b:hover .card-b__edge {
-    width: 6px;
-  }
-
-  .card-b__edge[data-tier="free"] {
-    background: linear-gradient(
-      180deg,
-      var(--color-success) 0%,
-      oklch(60% 0.18 155) 100%
-    );
-  }
-
-  .card-b__inner {
-    flex: 1;
-    padding: var(--space-5);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .card-b__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--space-3);
-  }
-
-  .card-b__category {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-wider);
-  }
-
-  .card-b__price {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: var(--font-bold);
-    padding: var(--space-1) var(--space-2);
-    border-radius: var(--radius-sm);
-  }
-
-  .card-b__price[data-tier="premium"] {
-    color: var(--color-accent);
-    background: oklch(70% 0.15 30 / 0.1);
-  }
-
-  .card-b__price[data-tier="free"] {
-    color: var(--color-success);
-    background: oklch(70% 0.15 145 / 0.1);
-  }
-
-  .card-b__title {
-    font-family: var(--font-display);
-    font-size: var(--text-lg);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-2);
-    line-height: var(--leading-snug);
-  }
-
-  .card-b__description {
-    font-family: var(--font-body);
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
-    line-height: var(--leading-relaxed);
-    flex: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .card-b__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin-top: var(--space-4);
-    padding-top: var(--space-3);
-    border-top: 1px solid var(--color-border-subtle);
-  }
-
-  .card-b__tag {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    padding: var(--space-1) var(--space-2);
-    background: var(--color-bg);
-    border-radius: var(--radius-sm);
-    transition: color var(--duration-fast);
-  }
-
-  .card-b:hover .card-b__tag {
-    color: var(--color-text-secondary);
-  }
-
-  /* ========================================
-     VARIANT C: Floating Label
-     ======================================== */
-  .card-c {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: var(--space-6);
-    padding-top: var(--space-8);
-    background: var(--color-surface);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-xl);
-    transition:
-      transform var(--duration-fast) var(--ease-out),
-      border-color var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out);
-    cursor: pointer;
-    margin-top: var(--space-5);
-  }
-
-  .card-c:hover {
-    border-color: var(--color-border);
-    transform: translateY(-3px);
-    box-shadow:
-      0 8px 24px oklch(0% 0 0 / 0.12),
-      0 16px 48px oklch(0% 0 0 / 0.08);
-  }
-
-  .card-c__badge {
-    position: absolute;
-    top: 0;
-    left: var(--space-5);
-    padding: var(--space-2) var(--space-4);
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: var(--font-bold);
-    border-radius: 0 0 var(--radius-md) var(--radius-md);
-    transform: translateY(-100%);
-    transition:
-      transform var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out);
-  }
-
-  .card-c:hover .card-c__badge {
-    transform: translateY(calc(-100% - 4px));
-  }
-
-  .card-c__badge[data-tier="premium"] {
-    background: var(--color-accent);
-    color: var(--color-bg);
-    box-shadow:
-      0 4px 12px oklch(70% 0.15 30 / 0.35),
-      0 -2px 8px oklch(70% 0.15 30 / 0.15) inset;
-  }
-
-  .card-c:hover .card-c__badge[data-tier="premium"] {
-    box-shadow:
-      0 6px 16px oklch(70% 0.15 30 / 0.45),
-      0 -2px 8px oklch(70% 0.15 30 / 0.15) inset;
-  }
-
-  .card-c__badge[data-tier="free"] {
-    background: var(--color-success);
-    color: var(--color-bg);
-    box-shadow:
-      0 4px 12px oklch(70% 0.15 145 / 0.35),
-      0 -2px 8px oklch(70% 0.15 145 / 0.15) inset;
-  }
-
-  .card-c:hover .card-c__badge[data-tier="free"] {
-    box-shadow:
-      0 6px 16px oklch(70% 0.15 145 / 0.45),
-      0 -2px 8px oklch(70% 0.15 145 / 0.15) inset;
-  }
-
-  .card-c__category {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-wider);
-    margin-bottom: var(--space-2);
-  }
-
-  .card-c__title {
-    font-family: var(--font-display);
-    font-size: var(--text-xl);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-3);
-    line-height: var(--leading-snug);
-  }
-
-  .card-c__description {
-    font-family: var(--font-body);
-    font-size: var(--text-base);
-    color: var(--color-text-secondary);
-    line-height: var(--leading-relaxed);
-    flex: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .card-c__footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: var(--space-4);
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--color-border-subtle);
-  }
-
-  .card-c__tags {
-    display: flex;
-    gap: var(--space-3);
-  }
-
-  .card-c__tag {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    padding: var(--space-1) 0;
-    border-bottom: 1px dashed var(--color-border-subtle);
-  }
-
-  .card-c__arrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    font-size: var(--text-lg);
-    color: var(--color-accent);
-    background: oklch(70% 0.15 30 / 0.1);
-    border-radius: var(--radius-full);
-    transition:
-      transform var(--duration-fast) var(--ease-out),
-      background var(--duration-fast) var(--ease-out);
-  }
-
-  .card-c:hover .card-c__arrow {
-    transform: translateX(3px);
-    background: oklch(70% 0.15 30 / 0.15);
-  }
-
-  /* ========================================
-     VARIANT D: Stacked
-     ======================================== */
-  .card-d-wrapper {
-    position: relative;
-    margin-bottom: var(--space-2);
-  }
-
-  .card-d__shadow {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    right: -8px;
-    bottom: -8px;
-    background: var(--color-accent);
-    border-radius: var(--radius-xl);
-    opacity: 0.2;
-    transition:
-      transform var(--duration-fast) var(--ease-out),
-      opacity var(--duration-fast) var(--ease-out);
-  }
-
-  .card-d__shadow[data-tier="free"] {
-    background: var(--color-success);
-  }
-
-  .card-d-wrapper:hover .card-d__shadow {
-    transform: translate(2px, 2px);
-    opacity: 0.35;
-  }
-
-  .card-d {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: var(--space-6);
-    background: var(--color-surface);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-xl);
-    transition:
-      transform var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out);
-    cursor: pointer;
-  }
-
-  .card-d-wrapper:hover .card-d {
-    transform: translate(-4px, -4px);
-    box-shadow: 0 4px 16px oklch(0% 0 0 / 0.1);
-  }
-
-  .card-d__top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--space-3);
-  }
-
-  .card-d__category {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-wider);
-  }
-
-  .card-d__price {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: var(--font-bold);
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius-full);
-  }
-
-  .card-d__price[data-tier="premium"] {
-    color: var(--color-bg);
-    background: var(--color-accent);
-  }
-
-  .card-d__price[data-tier="free"] {
-    color: var(--color-bg);
-    background: var(--color-success);
-  }
-
-  .card-d__title {
-    font-family: var(--font-display);
-    font-size: var(--text-xl);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-3);
-    line-height: var(--leading-snug);
-  }
-
-  .card-d__description {
-    font-family: var(--font-body);
-    font-size: var(--text-base);
-    color: var(--color-text-secondary);
-    line-height: var(--leading-relaxed);
-    flex: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .card-d__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    margin-top: var(--space-4);
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--color-border-subtle);
-    font-family: var(--font-display);
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    color: var(--color-accent);
-    transition: gap var(--duration-fast) var(--ease-out);
-  }
-
-  .card-d-wrapper:hover .card-d__cta {
-    gap: var(--space-3);
   }
 
   /* ========================================
@@ -1126,6 +687,261 @@ const sampleFree = {
 
   .card-f:hover .card-f__bar {
     transform: scaleX(1);
+  }
+
+  /* ========================================
+     VARIANT G: Scroll-Triggered Border Fill
+     ======================================== */
+  .card-g {
+    --border-width: 2px;
+    --card-radius: var(--radius-xl);
+    position: relative;
+    padding: var(--border-width);
+    border-radius: var(--card-radius);
+    background: var(--color-border-subtle);
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out);
+    cursor: pointer;
+  }
+
+  /* The animated border - uses conic gradient that reveals on scroll */
+  .card-g__border {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--card-radius);
+    background: conic-gradient(
+      from 0deg at 50% 50%,
+      var(--color-accent) 0deg,
+      oklch(75% 0.12 50) 90deg,
+      oklch(65% 0.18 40) 180deg,
+      oklch(70% 0.15 35) 270deg,
+      var(--color-accent) 360deg
+    );
+    opacity: 0;
+    transition: opacity 0.6s var(--ease-out);
+    z-index: 0;
+  }
+
+  /* Mask that creates the "fill up" effect */
+  .card-g__border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--card-radius);
+    background: conic-gradient(
+      from 225deg at 50% 50%,
+      transparent 0deg,
+      var(--color-bg) 0deg
+    );
+    transition: background 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* When visible - animate the fill */
+  .card-g.is-visible .card-g__border {
+    opacity: 1;
+  }
+
+  .card-g.is-visible .card-g__border::before {
+    background: conic-gradient(
+      from 225deg at 50% 50%,
+      transparent 360deg,
+      var(--color-bg) 360deg
+    );
+  }
+
+  /* Free tier colors */
+  .card-g[data-tier="free"] .card-g__border {
+    background: conic-gradient(
+      from 0deg at 50% 50%,
+      var(--color-success) 0deg,
+      oklch(75% 0.1 130) 90deg,
+      oklch(60% 0.15 160) 180deg,
+      oklch(68% 0.12 145) 270deg,
+      var(--color-success) 360deg
+    );
+  }
+
+  /* Glow effect on visible */
+  .card-g.is-visible {
+    box-shadow:
+      0 0 20px oklch(70% 0.15 30 / 0.15),
+      0 8px 32px oklch(0% 0 0 / 0.1);
+  }
+
+  .card-g[data-tier="free"].is-visible {
+    box-shadow:
+      0 0 20px oklch(70% 0.15 145 / 0.15),
+      0 8px 32px oklch(0% 0 0 / 0.1);
+  }
+
+  /* Hover enhancement */
+  .card-g:hover {
+    transform: translateY(-3px);
+  }
+
+  .card-g.is-visible:hover {
+    box-shadow:
+      0 0 30px oklch(70% 0.15 30 / 0.25),
+      0 12px 40px oklch(0% 0 0 / 0.12);
+  }
+
+  .card-g[data-tier="free"].is-visible:hover {
+    box-shadow:
+      0 0 30px oklch(70% 0.15 145 / 0.25),
+      0 12px 40px oklch(0% 0 0 / 0.12);
+  }
+
+  .card-g__inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border-radius: calc(var(--card-radius) - var(--border-width));
+    height: 100%;
+  }
+
+  .card-g__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-3);
+  }
+
+  .card-g__category {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+  }
+
+  .card-g__price {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    transition: all 0.4s var(--ease-out);
+    transition-delay: 0.8s;
+  }
+
+  .card-g[data-tier="premium"] .card-g__price {
+    color: var(--color-text-muted);
+    background: transparent;
+  }
+
+  .card-g[data-tier="premium"].is-visible .card-g__price {
+    color: var(--color-bg);
+    background: var(--color-accent);
+    box-shadow: 0 2px 8px oklch(70% 0.15 30 / 0.3);
+  }
+
+  .card-g[data-tier="free"] .card-g__price {
+    color: var(--color-text-muted);
+    background: transparent;
+  }
+
+  .card-g[data-tier="free"].is-visible .card-g__price {
+    color: var(--color-bg);
+    background: var(--color-success);
+    box-shadow: 0 2px 8px oklch(70% 0.15 145 / 0.3);
+  }
+
+  .card-g__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-snug);
+  }
+
+  .card-g__description {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-g__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .card-g__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .card-g__tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    padding: var(--space-1) var(--space-2);
+    background: var(--color-bg);
+    border-radius: var(--radius-sm);
+    transition: color var(--duration-fast);
+  }
+
+  .card-g:hover .card-g__tag {
+    color: var(--color-text-secondary);
+  }
+
+  .card-g__cta {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-accent);
+    opacity: 0;
+    transform: translateX(-8px);
+    transition:
+      opacity 0.4s var(--ease-out),
+      transform 0.4s var(--ease-out),
+      color var(--duration-fast);
+    transition-delay: 1s;
+  }
+
+  .card-g.is-visible .card-g__cta {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .card-g:hover .card-g__cta {
+    color: var(--color-accent-hover);
+  }
+
+  .card-g[data-tier="free"] .card-g__cta {
+    color: var(--color-success);
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .card-g__border::before {
+      transition: none;
+    }
+    .card-g__border {
+      transition: opacity 0.2s;
+    }
+    .card-g.is-visible .card-g__border::before {
+      background: transparent;
+    }
+    .card-g__price,
+    .card-g__cta {
+      transition-delay: 0s;
+    }
   }
 
   /* Responsive */
