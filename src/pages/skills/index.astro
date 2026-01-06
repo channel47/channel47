@@ -1,138 +1,111 @@
 ---
 /**
- * Skills Listing Page
+ * Skills Index Page
  *
- * Browse all available MCP skills for Google Ads.
+ * Product catalog for Skill Suites.
+ * Clean, minimal. Let the products speak.
  */
 
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import SkillCard from '../../components/SkillCard.astro';
+import Button from '../../components/Button.astro';
 import EmailSignup from '../../components/EmailSignup.astro';
 
-const allSkills = await getCollection('skills');
-const skills = allSkills
-  .filter((skill) => !skill.data.draft)
-  .sort((a, b) => {
-    // Featured first, then by date
-    if (a.data.featured && !b.data.featured) return -1;
-    if (!a.data.featured && b.data.featured) return 1;
-    return b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf();
-  });
-
-const freeSkills = skills.filter((s) => s.data.tier === 'free');
-const premiumSkills = skills.filter((s) => s.data.tier === 'premium');
-
-const categories = [...new Set(skills.map((s) => s.data.category))];
+// Product data - add new products here
+const products = [
+  {
+    name: 'Google Ads Skills',
+    description: 'Ten years of media buying. One install.',
+    price: '$199',
+    href: '/skills/google-ads',
+    available: true,
+  },
+  {
+    name: 'Ad Creative Skills',
+    description: 'Platform specs, best practices, what actually converts.',
+    price: 'Coming soon',
+    href: '/skills/ad-creative',
+    available: false,
+  },
+];
 ---
 
 <BaseLayout
-  title="MCP Skills for Google Ads | Channel 47"
-  description="AI-powered workflows for Google Ads. Download free skills or unlock premium automations."
+  title="Skill Suites — Jig"
+  description="Packaged expertise for AI tools. Browse skill files that teach Claude, Cursor, and other AI tools how to actually do the job."
 >
   <Header />
 
-  <main>
+  <main class="skills-index">
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero__content">
-        <p class="hero__eyebrow">MCP Skills</p>
-        <h1 class="hero__title">Google Ads on Autopilot</h1>
-        <p class="hero__description">
-          AI-powered workflows that audit, analyze, and optimize your Google Ads accounts.
-          Built for Claude Code. Works in any MCP-compatible environment.
+        <h1 class="hero__title">Expertise, packaged.</h1>
+        <p class="hero__subtitle">
+          Skill files that teach your AI tools how to actually do the job.
         </p>
       </div>
     </section>
 
-    <!-- Free Skills Section -->
-    {freeSkills.length > 0 && (
-      <section class="section" id="free">
-        <div class="section__header">
-          <h2 class="section__title">Free Skills</h2>
-          <p class="section__description">
-            Get started with these open-source skills. No signup required.
-          </p>
-        </div>
-        <div class="skills-grid">
-          {freeSkills.map((skill) => (
-            <SkillCard
-              title={skill.data.title}
-              description={skill.data.description}
-              href={`/skills/${skill.slug}`}
-              category={skill.data.category}
-              tier={skill.data.tier}
-              featured={skill.data.featured}
-              tags={skill.data.tags}
-            />
-          ))}
-        </div>
-      </section>
-    )}
-
-    <!-- Email Signup -->
-    <section class="section section--alt">
-      <div class="signup-wrapper">
-        <EmailSignup
-          title="Get notified about new skills"
-          description="Weekly Google Ads insights + first access to new skills. Real tactics from real campaigns."
-        />
+    <!-- Products Grid -->
+    <section class="products-section">
+      <div class="products-grid">
+        {products.map((product) => (
+          <a
+            href={product.href}
+            class={`product-card ${!product.available ? 'product-card--coming-soon' : ''}`}
+          >
+            <div class="product-card__content">
+              <h2 class="product-card__name">{product.name}</h2>
+              <p class="product-card__description">{product.description}</p>
+            </div>
+            <div class="product-card__footer">
+              <span class={`product-card__price ${!product.available ? 'product-card__price--muted' : ''}`}>
+                {product.price}
+              </span>
+              {product.available ? (
+                <span class="product-card__cta">View details →</span>
+              ) : (
+                <span class="product-card__cta product-card__cta--muted">Learn more →</span>
+              )}
+            </div>
+          </a>
+        ))}
       </div>
     </section>
 
-    <!-- Premium Skills Section -->
-    {premiumSkills.length > 0 && (
-      <section class="section" id="premium">
-        <div class="section__header">
-          <h2 class="section__title">Premium Skills</h2>
-          <p class="section__description">
-            Advanced workflows for serious advertisers. One-time purchase, lifetime access.
-          </p>
-        </div>
-        <div class="skills-grid">
-          {premiumSkills.map((skill) => (
-            <SkillCard
-              title={skill.data.title}
-              description={skill.data.description}
-              href={`/skills/${skill.slug}`}
-              category={skill.data.category}
-              tier={skill.data.tier}
-              price={skill.data.price}
-              featured={skill.data.featured}
-              tags={skill.data.tags}
-            />
-          ))}
-        </div>
-      </section>
-    )}
-
-    <!-- Empty State -->
-    {skills.length === 0 && (
-      <section class="section">
-        <div class="empty-state">
-          <h2>Skills coming soon</h2>
-          <p>Sign up below to get notified when we launch.</p>
-          <EmailSignup variant="inline" />
-        </div>
-      </section>
-    )}
+    <!-- Email Signup -->
+    <section class="signup-section">
+      <div class="signup-wrapper">
+        <EmailSignup
+          title="New skills in the works."
+          description="Leave your email. We'll let you know when they're ready."
+          buttonText="Subscribe"
+          variant="card"
+        />
+      </div>
+    </section>
   </main>
 
   <Footer />
 </BaseLayout>
 
 <style>
+  .skills-index {
+    display: flex;
+    flex-direction: column;
+  }
+
   /* Hero Section */
   .hero {
-    padding: var(--space-12) var(--space-4) var(--space-10);
+    padding: var(--space-16) var(--space-4) var(--space-10);
     text-align: center;
   }
 
   @media (min-width: 768px) {
     .hero {
-      padding: var(--space-20) var(--space-8) var(--space-12);
+      padding: var(--space-24) var(--space-8) var(--space-16);
     }
   }
 
@@ -141,31 +114,16 @@ const categories = [...new Set(skills.map((s) => s.data.category))];
     margin: 0 auto;
   }
 
-  .hero__eyebrow {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--color-accent);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-widest);
-    margin-bottom: var(--space-3);
-  }
-
-  @media (min-width: 640px) {
-    .hero__eyebrow {
-      font-size: var(--text-sm);
-      margin-bottom: var(--space-4);
-    }
-  }
-
   .hero__title {
     font-size: var(--text-3xl);
     font-weight: var(--font-black);
     letter-spacing: var(--tracking-tighter);
     margin-bottom: var(--space-4);
-    line-height: var(--leading-tight);
+    color: var(--color-fg);
+    line-height: 1.1;
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 480px) {
     .hero__title {
       font-size: var(--text-4xl);
     }
@@ -178,130 +136,160 @@ const categories = [...new Set(skills.map((s) => s.data.category))];
     }
   }
 
-  .hero__description {
+  .hero__subtitle {
     font-size: var(--text-base);
-    color: var(--color-text-secondary);
-    max-width: 50ch;
-    margin: 0 auto;
+    color: var(--color-fg-secondary);
     line-height: var(--leading-relaxed);
-  }
-
-  @media (min-width: 640px) {
-    .hero__description {
-      font-size: var(--text-lg);
-      max-width: 55ch;
-    }
-  }
-
-  /* Sections */
-  .section {
-    padding: var(--space-12) var(--space-4);
-    max-width: var(--container-lg);
+    max-width: 45ch;
     margin: 0 auto;
   }
 
   @media (min-width: 768px) {
-    .section {
-      padding: var(--space-16) var(--space-8);
+    .hero__subtitle {
+      font-size: var(--text-lg);
     }
   }
 
-  .section--alt {
-    background-color: var(--color-surface);
-    max-width: none;
-    padding: var(--space-10) var(--space-4);
+  /* Products Section */
+  .products-section {
+    padding: var(--space-8) var(--space-4);
   }
 
   @media (min-width: 768px) {
-    .section--alt {
+    .products-section {
       padding: var(--space-12) var(--space-8);
     }
   }
 
-  .section__header {
-    text-align: center;
-    margin-bottom: var(--space-8);
-  }
-
-  @media (min-width: 768px) {
-    .section__header {
-      margin-bottom: var(--space-10);
-    }
-  }
-
-  .section__title {
-    font-size: var(--text-xl);
-    font-weight: var(--font-bold);
-    margin-bottom: var(--space-2);
-  }
-
-  @media (min-width: 768px) {
-    .section__title {
-      font-size: var(--text-2xl);
-    }
-  }
-
-  .section__description {
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
-    margin: 0;
-  }
-
-  @media (min-width: 768px) {
-    .section__description {
-      font-size: var(--text-base);
-    }
-  }
-
-  /* Skills Grid */
-  .skills-grid {
+  .products-grid {
     display: grid;
     gap: var(--space-4);
+    max-width: var(--container-lg);
+    margin: 0 auto;
   }
 
   @media (min-width: 640px) {
-    .skills-grid {
+    .products-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: var(--space-6);
     }
   }
 
-  @media (min-width: 1024px) {
-    .skills-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  /* Signup Wrapper */
-  .signup-wrapper {
-    max-width: var(--container-sm);
-    margin: 0 auto;
-  }
-
-  /* Empty State */
-  .empty-state {
-    text-align: center;
-    padding: var(--space-10) 0;
+  /* Product Card */
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    transition: all var(--duration-fast) var(--ease-out);
   }
 
   @media (min-width: 768px) {
-    .empty-state {
-      padding: var(--space-12) 0;
+    .product-card {
+      padding: var(--space-8);
     }
   }
 
-  .empty-state h2 {
-    margin-bottom: var(--space-2);
+  .product-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
   }
 
-  .empty-state p {
-    color: var(--color-text-secondary);
+  .product-card--coming-soon {
+    opacity: 0.8;
+  }
+
+  .product-card--coming-soon:hover {
+    border-color: var(--color-border);
+    transform: none;
+  }
+
+  .product-card__content {
+    flex: 1;
     margin-bottom: var(--space-6);
   }
 
+  .product-card__name {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--color-fg);
+    margin-bottom: var(--space-2);
+  }
+
   @media (min-width: 768px) {
-    .empty-state p {
-      margin-bottom: var(--space-8);
+    .product-card__name {
+      font-size: var(--text-2xl);
     }
+  }
+
+  .product-card__description {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    margin: 0;
+    line-height: var(--leading-relaxed);
+  }
+
+  @media (min-width: 768px) {
+    .product-card__description {
+      font-size: var(--text-base);
+    }
+  }
+
+  .product-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .product-card__price {
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-fg);
+  }
+
+  @media (min-width: 768px) {
+    .product-card__price {
+      font-size: var(--text-xl);
+    }
+  }
+
+  .product-card__price--muted {
+    font-weight: var(--font-medium);
+    color: var(--color-fg-muted);
+  }
+
+  .product-card__cta {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-accent);
+  }
+
+  .product-card__cta--muted {
+    color: var(--color-fg-muted);
+  }
+
+  /* Signup Section */
+  .signup-section {
+    padding: var(--space-8) var(--space-4);
+    padding-bottom: var(--space-16);
+    background-color: var(--color-bg-elevated);
+  }
+
+  @media (min-width: 768px) {
+    .signup-section {
+      padding: var(--space-12) var(--space-8);
+      padding-bottom: var(--space-20);
+    }
+  }
+
+  .signup-wrapper {
+    max-width: var(--container-sm);
+    margin: 0 auto;
   }
 </style>
