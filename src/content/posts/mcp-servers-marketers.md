@@ -6,7 +6,7 @@ tags:
   - mcp
   - ai-tools
   - marketing
-author: Jig
+author: Channel47
 ---
 
 You've probably heard about AI transforming marketing. Maybe you've used ChatGPT to write ad copy or asked Claude to analyze some data you pasted in. That's useful, but it's also limited—you're constantly copying and pasting, and the AI only knows what you tell it.

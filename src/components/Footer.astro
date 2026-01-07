@@ -5,6 +5,8 @@
  * Minimal site footer with consistent branding.
  */
 
+import Logo from './Logo.astro';
+
 interface Props {
   class?: string;
 }
@@ -16,7 +18,7 @@ const currentYear = new Date().getFullYear();
 <footer class={`footer ${className || ''}`.trim()}>
   <div class="footer__container">
     <div class="footer__content">
-      <p class="footer__brand">JIG</p>
+      <Logo />
       <p class="footer__tagline">Expertise your tools can install.</p>
     </div>
 
@@ -28,7 +30,7 @@ const currentYear = new Date().getFullYear();
     </nav>
 
     <p class="footer__copyright">
-      &copy; {currentYear} JIG
+      &copy; {currentYear} Channel47
     </p>
   </div>
 </footer>
@@ -67,15 +69,6 @@ const currentYear = new Date().getFullYear();
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
-  }
-
-  .footer__brand {
-    font-family: var(--font-sans);
-    font-weight: var(--font-bold);
-    font-size: var(--text-lg);
-    color: var(--color-fg);
-    letter-spacing: 0.1em;
-    margin: 0;
   }
 
   .footer__tagline {

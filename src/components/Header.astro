@@ -5,6 +5,8 @@
  * Minimal site header with full-screen mobile navigation.
  */
 
+import Logo from './Logo.astro';
+
 interface Props {
   class?: string;
 }
@@ -15,7 +17,7 @@ const { class: className } = Astro.props;
 <header class={`header ${className || ''}`.trim()}>
   <div class="header__container">
     <a href="/" class="header__logo">
-      <span class="header__logo-text">JIG</span>
+      <Logo />
     </a>
 
     <!-- Desktop navigation -->
@@ -46,7 +48,7 @@ const { class: className } = Astro.props;
       <!-- Header with logo and close -->
       <div class="mobile-menu__header">
         <a href="/" class="mobile-menu__logo">
-          <span class="mobile-menu__logo-text">JIG</span>
+          <Logo />
         </a>
         <button class="mobile-menu__close" aria-label="Close menu">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -203,16 +205,12 @@ const { class: className } = Astro.props;
     -webkit-tap-highlight-color: transparent;
   }
 
-  .header__logo-text {
-    font-family: var(--font-sans);
-    font-size: var(--text-lg);
-    font-weight: var(--font-bold);
-    color: var(--color-fg);
-    letter-spacing: 0.1em;
+  .header__logo:hover :global(.logo) {
+    color: var(--color-accent);
   }
 
-  .header__logo:hover .header__logo-text {
-    color: var(--color-accent);
+  .header__logo:hover :global(.logo__47) {
+    color: var(--color-accent-muted);
   }
 
   /* Desktop navigation */
@@ -325,14 +323,6 @@ const { class: className } = Astro.props;
     text-decoration: none;
     padding: var(--space-2);
     margin-left: calc(-1 * var(--space-2));
-  }
-
-  .mobile-menu__logo-text {
-    font-family: var(--font-sans);
-    font-size: var(--text-lg);
-    font-weight: var(--font-bold);
-    color: var(--color-fg);
-    letter-spacing: 0.1em;
   }
 
   /* Close button */

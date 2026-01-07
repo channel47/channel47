@@ -7,7 +7,7 @@ tags:
   - claude
   - workflow
   - audit
-author: Jig
+author: Channel47
 ---
 
 Google Ads account audits are tedious. You click through dozens of tabs, export data to spreadsheets, manually calculate metrics, and compile findings into a document. It takes hours, and most of that time is mechanical work that adds no value.
