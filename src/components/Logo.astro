@@ -1,0 +1,31 @@
+---
+/**
+ * Logo Component
+ *
+ * CH47 wordmark with subtle distinction between CH and 47.
+ */
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<span class={`logo ${className || ''}`.trim()}>
+  <span class="logo__ch">CH</span><span class="logo__47">47</span>
+</span>
+
+<style>
+  .logo {
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-fg);
+    letter-spacing: -0.02em;
+  }
+
+  .logo__47 {
+    color: var(--color-fg-secondary);
+  }
+</style>
