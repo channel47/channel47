@@ -1,0 +1,24 @@
+{
+  "name": "google-ads-specialist",
+  "version": "3.1.0",
+  "description": "Google Ads Specialist Claude Code Plugin - Skills and workflows for Google Ads campaign management",
+  "type": "module",
+  "scripts": {
+    "pack": "mcpb pack .",
+    "build": "node build.js",
+    "publish-to-marketplace": "node build.js publish"
+  },
+  "keywords": [
+    "claude-code-plugin",
+    "google-ads",
+    "gaql",
+    "analytics",
+    "advertising",
+    "mcp"
+  ],
+  "author": "Channel47",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

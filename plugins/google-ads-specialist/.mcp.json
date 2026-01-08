@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "google-ads-nodejs": {
+      "command": "npx",
+      "args": ["-y", "@channel47/google-ads-mcp@latest"]
+    }
+  }
+}
