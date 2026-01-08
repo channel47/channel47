@@ -1,0 +1,12 @@
+{
+  "name": "channel47-monorepo",
+  "private": true,
+  "workspaces": [
+    "site"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=site",
+    "build": "npm run build --workspace=site",
+    "preview": "npm run preview --workspace=site"
+  }
+}
