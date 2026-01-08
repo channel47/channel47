@@ -2,8 +2,7 @@
 /**
  * EmailSignup Component
  *
- * Beehiiv-ready email capture form.
- * Replace BEEHIIV_EMBED_URL with your actual Beehiiv form URL.
+ * Beehiiv-ready email capture form with context-aware default copy.
  */
 
 interface Props {
@@ -12,20 +11,41 @@ interface Props {
   buttonText?: string;
   variant?: 'inline' | 'card';
   tag?: string;
+  context?: 'tool' | 'blog' | 'homepage';
   class?: string;
 }
 
 const {
-  title = 'New skills in the works.',
-  description = "Leave your email. We'll let you know.",
-  buttonText = 'Subscribe',
+  tag = 'general',
+  context = 'homepage',
   variant = 'card',
-  tag,
-  class: className,
+  class: className = ''
 } = Astro.props;
 
-// TODO: Replace with actual Beehiiv embed URL
-const BEEHIIV_EMBED_URL = 'https://embeds.beehiiv.com/YOUR_EMBED_ID';
+const defaultCopy = {
+  homepage: {
+    title: "Get the newsletter",
+    description: "Open-source AI tools, workflow tips, and what I'm building. No spam.",
+    button: "Subscribe"
+  },
+  tool: {
+    title: "Get notified of updates",
+    description: "New features, fixes, and tips for this tool.",
+    button: "Subscribe"
+  },
+  blog: {
+    title: "More like this",
+    description: "Weekly AI tooling insights for marketers and builders.",
+    button: "Subscribe"
+  }
+};
+
+const defaults = defaultCopy[context] || defaultCopy.homepage;
+const title = Astro.props.title || defaults.title;
+const description = Astro.props.description || defaults.description;
+const buttonText = Astro.props.buttonText || defaults.button;
+
+const BEEHIIV_FORM_URL = import.meta.env.BEEHIIV_FORM_URL || '#';
 ---
 
 <div class:list={['email-signup', `email-signup--${variant}`, className]}>
@@ -38,7 +58,7 @@ const BEEHIIV_EMBED_URL = 'https://embeds.beehiiv.com/YOUR_EMBED_ID';
 
   <form
     class="email-signup__form"
-    action={BEEHIIV_EMBED_URL}
+    action={BEEHIIV_FORM_URL}
     method="POST"
     data-beehiiv-form
   >
