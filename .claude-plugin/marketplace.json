@@ -1,0 +1,45 @@
+{
+  "name": "channel47",
+  "owner": {
+    "name": "Jackson",
+    "url": "https://channel47.dev"
+  },
+  "metadata": {
+    "pluginRoot": "./plugins",
+    "description": "Open-source AI tools for media buyers and marketers"
+  },
+  "plugins": [
+    {
+      "name": "google-ads-specialist",
+      "source": "google-ads-specialist",
+      "description": "Google Ads campaign management with GAQL",
+      "version": "3.1.0",
+      "category": "marketing",
+      "tags": ["google-ads", "gaql", "marketing", "analytics", "ppc"]
+    },
+    {
+      "name": "creative-designer",
+      "source": "creative-designer",
+      "description": "AI image generation with Gemini",
+      "version": "1.2.0",
+      "category": "creative",
+      "tags": ["image-generation", "ai-art", "gemini", "mcp"]
+    },
+    {
+      "name": "copywriting-expert",
+      "source": "copywriting-expert",
+      "description": "Master copywriting frameworks",
+      "version": "1.0.0",
+      "category": "writing",
+      "tags": ["copywriting", "sales-copy", "direct-response"]
+    },
+    {
+      "name": "prompt-enhancer",
+      "source": "prompt-enhancer",
+      "description": "Optimize prompts for Claude",
+      "version": "1.0.0",
+      "category": "development",
+      "tags": ["prompts", "optimization", "prompt-engineering"]
+    }
+  ]
+}
