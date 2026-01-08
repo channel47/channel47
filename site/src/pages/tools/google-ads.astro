@@ -12,12 +12,19 @@ import Footer from '../../components/Footer.astro';
 import Button from '../../components/Button.astro';
 import EmailSignup from '../../components/EmailSignup.astro';
 import InstallTabs from '../../components/InstallTabs.astro';
+import ToolSchema from '../../components/SEO/ToolSchema.astro';
 ---
 
 <BaseLayout
   title="Google Ads MCP — Free Setup Guide | Channel47"
   description="Connect the free Google Ads MCP server to Claude or Cursor in five minutes. Query any account. No install required."
 >
+  <ToolSchema
+    name="Google Ads MCP Server"
+    description="Query Google Ads data using GAQL with OAuth authentication"
+    url="https://channel47.dev/tools/google-ads"
+    version="3.1.0"
+  />
   <Header />
 
   <main class="tool-page">

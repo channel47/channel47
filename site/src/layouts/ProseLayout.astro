@@ -13,6 +13,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import BlogCTA from '../components/BlogCTA.astro';
 import EmailSignup from '../components/EmailSignup.astro';
+import ArticleSchema from '../components/SEO/ArticleSchema.astro';
 
 interface Props {
   title: string;
@@ -67,6 +68,14 @@ const formatRelatedDate = (date: Date) =>
 ---
 
 <BaseLayout title={title} description={description}>
+  {date && (
+    <ArticleSchema
+      title={title}
+      description={description}
+      datePublished={date}
+      url={Astro.url.href}
+    />
+  )}
   <Header />
 
   <main class="prose-layout">
