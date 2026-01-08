@@ -72,7 +72,8 @@
       "mcp__plugin_playwright_playwright__browser_hover",
       "mcp__plugin_playwright_playwright__browser_type",
       "Bash(git reset:*)",
-      "mcp__plugin_playwright_playwright__browser_run_code"
+      "mcp__plugin_playwright_playwright__browser_run_code",
+      "Skill(superpowers:executing-plans)"
     ]
   }
 }

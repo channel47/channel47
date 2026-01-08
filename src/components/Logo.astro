@@ -2,7 +2,8 @@
 /**
  * Logo Component
  *
- * CH47 wordmark with subtle distinction between CH and 47.
+ * CH47 wordmark in ASCII block letter style.
+ * Uses unicode block characters to form the letters.
  */
 
 interface Props {
@@ -12,20 +13,45 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 
-<span class={`logo ${className || ''}`.trim()}>
-  <span class="logo__ch">CH</span><span class="logo__47">47</span>
+<span class={`logo ${className || ''}`.trim()} role="img" aria-label="CH47 Logo">
+  <span class="logo__line" aria-hidden="true">
+    <span class="logo__ch">█▀▀ █ █</span><span class="logo__47"> █ █ ▀▀█</span>
+  </span>
+  <span class="logo__line" aria-hidden="true">
+    <span class="logo__ch">█▄▄ █▀█</span><span class="logo__47"> ▀▀█   █</span>
+  </span>
 </span>
 
 <style>
   .logo {
-    font-family: var(--font-sans);
-    font-size: var(--text-lg);
-    font-weight: var(--font-bold);
+    display: inline-flex;
+    flex-direction: column;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs); /* ~12px for crisp block rendering */
+    line-height: 1;
+    font-weight: normal; /* Normal weight ensures blocks match em-box */
     color: var(--color-fg);
-    letter-spacing: var(--tracking-tight);
+    white-space: pre;
+    user-select: none;
+    letter-spacing: -0.05em; /* Tighten to merge blocks horizontally */
+  }
+
+  .logo__line {
+    display: block;
+    height: 1em;
+  }
+
+  .logo__ch {
+    color: var(--color-fg);
   }
 
   .logo__47 {
     color: var(--color-fg-secondary);
+  }
+
+  /* Ensure consistent block rendering without font artifacts */
+  .logo span {
+    font-variant-ligatures: none;
+    font-feature-settings: normal;
   }
 </style>
