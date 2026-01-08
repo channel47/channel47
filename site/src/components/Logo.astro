@@ -2,8 +2,7 @@
 /**
  * Logo Component
  *
- * CH47 wordmark in ASCII block letter style.
- * Uses unicode block characters to form the letters.
+ * 47 in stencil block style with subtle glow and scan-line effects.
  */
 
 interface Props {
@@ -14,44 +13,99 @@ const { class: className } = Astro.props;
 ---
 
 <span class={`logo ${className || ''}`.trim()} role="img" aria-label="CH47 Logo">
-  <span class="logo__line" aria-hidden="true">
-    <span class="logo__ch">█▀▀ █ █</span><span class="logo__47"> █ █ ▀▀█</span>
+  <span class="logo__glyph" aria-hidden="true">
+    <span class="logo__line">█ █ ▀▀█</span>
+    <span class="logo__line">▀▀█  █</span>
   </span>
-  <span class="logo__line" aria-hidden="true">
-    <span class="logo__ch">█▄▄ █▀█</span><span class="logo__47"> ▀▀█   █</span>
-  </span>
+  <span class="logo__scanlines" aria-hidden="true"></span>
 </span>
 
 <style>
   .logo {
+    --logo-glow: color-mix(in srgb, var(--color-fg) 35%, transparent);
+    --logo-glow-mid: color-mix(in srgb, var(--color-fg) 50%, transparent);
+    --logo-glow-intense: color-mix(in srgb, var(--color-fg) 70%, transparent);
+
+    position: relative;
     display: inline-flex;
     flex-direction: column;
     font-family: var(--font-mono);
-    font-size: var(--text-xs); /* ~12px for crisp block rendering */
+    font-size: var(--text-xs);
     line-height: 1;
-    font-weight: normal; /* Normal weight ensures blocks match em-box */
+    font-weight: normal;
     color: var(--color-fg);
     white-space: pre;
     user-select: none;
-    letter-spacing: -0.05em; /* Tighten to merge blocks horizontally */
+    letter-spacing: -0.08em;
+  }
+
+  .logo__glyph {
+    display: flex;
+    flex-direction: column;
+    text-shadow:
+      0 0 1px var(--logo-glow-mid),
+      0 0 4px var(--logo-glow),
+      0 0 10px color-mix(in srgb, var(--color-fg) 15%, transparent);
+    animation: logo-breathe 5s ease-in-out infinite;
+    transition: text-shadow 0.3s ease, transform 0.2s ease;
   }
 
   .logo__line {
     display: block;
     height: 1em;
-  }
-
-  .logo__ch {
-    color: var(--color-fg);
-  }
-
-  .logo__47 {
-    color: var(--color-fg-secondary);
-  }
-
-  /* Ensure consistent block rendering without font artifacts */
-  .logo span {
     font-variant-ligatures: none;
     font-feature-settings: normal;
+  }
+
+  .logo__scanlines {
+    position: absolute;
+    inset: -2px -4px;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 2px,
+      color-mix(in srgb, var(--color-bg) 12%, transparent) 2px,
+      color-mix(in srgb, var(--color-bg) 12%, transparent) 4px
+    );
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+  }
+
+  @keyframes logo-breathe {
+    0%, 100% {
+      text-shadow:
+        0 0 1px var(--logo-glow-mid),
+        0 0 4px var(--logo-glow),
+        0 0 10px color-mix(in srgb, var(--color-fg) 15%, transparent);
+      filter: brightness(1);
+    }
+    50% {
+      text-shadow:
+        0 0 2px var(--logo-glow-intense),
+        0 0 6px var(--logo-glow-mid),
+        0 0 14px color-mix(in srgb, var(--color-fg) 20%, transparent);
+      filter: brightness(1.05);
+    }
+  }
+
+  /* Hover: intensify glow + subtle lift */
+  .logo:hover .logo__glyph {
+    text-shadow:
+      0 0 2px var(--logo-glow-intense),
+      0 0 8px var(--logo-glow-mid),
+      0 0 18px color-mix(in srgb, var(--color-fg) 25%, transparent);
+    transform: translateY(-1px);
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .logo__glyph {
+      animation: none;
+      transition: none;
+    }
+    .logo:hover .logo__glyph {
+      transform: none;
+    }
   }
 </style>
