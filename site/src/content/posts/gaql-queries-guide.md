@@ -66,7 +66,7 @@ LIMIT 100
 
 This surfaces search terms that have spent more than $10 (cost is in micros, so 10000000 = $10) without a single conversion. It's usually shocking how much spend accumulates on irrelevant queries.
 
-**Pro tip:** When working with the [Google Ads Audit skill](/skills/google-ads), this query is automated. The skill knows to run it early and flag the worst offenders.
+**Pro tip:** When working with the [Google Ads MCP](/tools/google-ads), this query is automated. The skill knows to run it early and flag the worst offenders.
 
 ### Quality Score Decay
 
@@ -227,7 +227,7 @@ When you use the [Google Ads MCP server](/tools/google-ads), you can run these q
 - Prioritize which issues to fix first based on potential impact
 - Generate specific recommendations with supporting data
 
-The [Google Ads Audit skill](/skills/google-ads) packages this workflow into a repeatable process. It knows which queries to run, what the outputs mean, and how to present findings in a way that's actually actionable.
+The [Google Ads MCP](/tools/google-ads) packages this workflow into a repeatable process. It knows which queries to run, what the outputs mean, and how to present findings in a way that's actually actionable.
 
 ## What's Next
 

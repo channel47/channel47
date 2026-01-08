@@ -17,10 +17,10 @@ const { tags = [], class: className } = Astro.props;
 const products = {
   'google-ads': {
     title: 'Want to go deeper?',
-    description: 'Get the full Google Ads Skills package—47 GAQL queries, audit workflows, and failure checklists.',
-    href: '/skills/google-ads',
-    cta: 'Get Google Ads Skills',
-    price: '$199',
+    description: 'Set up the Google Ads MCP server with 47 GAQL queries, audit workflows, and failure checklists.',
+    href: '/tools/google-ads',
+    cta: 'Get Google Ads Tools',
+    price: 'Free',
   },
   'mcp': {
     title: 'Ready to connect?',
@@ -29,11 +29,18 @@ const products = {
     cta: 'Setup Guide',
     price: 'Free',
   },
+  'creative': {
+    title: 'Generate ad creatives',
+    description: 'AI image generation with platform specs baked in. Powered by Google Gemini.',
+    href: '/tools/creative-designer',
+    cta: 'Try Creative Designer',
+    price: 'Free',
+  },
   'default': {
-    title: 'Explore Channel47 Skills',
-    description: 'Skill files that teach your AI tools how to actually do the job.',
-    href: '/skills',
-    cta: 'Browse Skills',
+    title: 'Explore Channel47 Tools',
+    description: 'Open-source MCP servers and Claude Code plugins for marketers.',
+    href: '/tools',
+    cta: 'Browse Tools',
     price: null,
   },
 };
@@ -42,8 +49,11 @@ const products = {
 function getProduct(tags: string[]) {
   const normalizedTags = tags.map(t => t.toLowerCase());
 
-  if (normalizedTags.some(t => t.includes('google') || t.includes('ads') || t.includes('ppc'))) {
+  if (normalizedTags.some(t => t.includes('google') || t.includes('ads') || t.includes('ppc') || t.includes('gaql'))) {
     return products['google-ads'];
+  }
+  if (normalizedTags.some(t => t.includes('creative') || t.includes('image') || t.includes('design'))) {
+    return products['creative'];
   }
   if (normalizedTags.some(t => t.includes('mcp') || t.includes('tool') || t.includes('setup'))) {
     return products['mcp'];

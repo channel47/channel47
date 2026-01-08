@@ -1,8 +1,8 @@
 ---
 /**
- * Google Ads MCP Tool Page
+ * Creative Designer Tool Page
  *
- * Setup guide for the open-source Google Ads MCP server.
+ * Setup guide for the open-source Creative Designer plugin.
  * MIT licensed.
  */
 
@@ -15,30 +15,30 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
 ---
 
 <BaseLayout
-  title="Google Ads MCP — Free Setup Guide | Channel47"
-  description="Connect the free Google Ads MCP server to Claude or Cursor in five minutes. Query any account. No install required."
+  title="Creative Designer — AI Image Generation | Channel47"
+  description="Generate ad creatives with platform specs baked in. Powered by Google Gemini. Open-source and MIT licensed."
 >
   <ToolSchema
-    name="Google Ads MCP Server"
-    description="Query Google Ads data using GAQL with OAuth authentication"
-    url="https://channel47.dev/tools/google-ads"
-    version="3.1.0"
+    name="Creative Designer"
+    description="AI image generation with platform specs baked in. Powered by Gemini."
+    url="https://channel47.dev/tools/creative-designer"
+    version="1.2.0"
   />
   <Header />
 
   <main class="tool-page">
     <!-- Breadcrumb -->
     <nav class="breadcrumb">
-      <a href="/tools" class="breadcrumb__link">← Back to Tools</a>
+      <a href="/tools" class="breadcrumb__link">&larr; Back to Tools</a>
     </nav>
 
     <article class="tool-content">
       <!-- Hero -->
       <header class="tool-header">
         <div class="tool-header__badge">Free</div>
-        <h1>Google Ads MCP</h1>
+        <h1>Creative Designer</h1>
         <p class="tool-header__intro">
-          Connect in five minutes. Query any account. No install required.
+          AI image generation with platform specs baked in. Powered by Google Gemini.
         </p>
       </header>
 
@@ -47,10 +47,10 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
         <h2>What you'll need</h2>
         <ul class="requirements-list">
           <li>
-            <strong>Claude Desktop, Cursor, or another MCP-compatible tool</strong>
+            <strong>Claude Code or Claude Desktop</strong>
           </li>
           <li>
-            <strong>Access to your Google Ads account</strong> (you'll authenticate through OAuth)
+            <strong>A Google Gemini API key</strong> (free tier available)
           </li>
           <li>
             <strong>Five minutes</strong>
@@ -58,46 +58,26 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
         </ul>
       </section>
 
-      <!-- Add the MCP -->
+      <!-- Installation -->
       <section class="tool-section">
-        <h2>Add the MCP</h2>
+        <h2>Installation</h2>
         <p>
-          Choose your setup method below. The MCP server connects Claude to your Google Ads account.
+          Choose your setup method below. Creative Designer works as both an MCP server and a Claude Code plugin.
         </p>
 
-        <InstallTabs plugin="google-ads" />
-
-        <div class="setup-step setup-step--other">
-          <h3>For Cursor or other MCP tools</h3>
-          <p>
-            Add this to your MCP server configuration:
-          </p>
-          <div class="code-block-wrapper">
-            <pre class="code-block"><code>{`{
-  "google-ads": {
-    "command": "npx",
-    "args": ["-y", "@channel47/google-ads-mcp@latest"],
-    "env": {
-      "GOOGLE_ADS_DEVELOPER_TOKEN": "your-token",
-      "GOOGLE_ADS_CLIENT_ID": "your-client-id",
-      "GOOGLE_ADS_CLIENT_SECRET": "your-client-secret",
-      "GOOGLE_ADS_REFRESH_TOKEN": "your-refresh-token"
-    }
-  }
-}`}</code></pre>
-          </div>
-        </div>
+        <InstallTabs plugin="creative-designer" />
       </section>
 
-      <!-- Authenticate -->
+      <!-- Getting Your API Key -->
       <section class="tool-section">
-        <h2>Authenticate</h2>
+        <h2>Getting your Gemini API key</h2>
+        <ol class="numbered-list">
+          <li>Go to <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a></li>
+          <li>Click "Create API key"</li>
+          <li>Copy the key and add it to your configuration</li>
+        </ol>
         <p>
-          On first use, Channel47 will prompt you to connect your Google Ads account via OAuth.
-          Standard Google authentication—we never see your password.
-        </p>
-        <p>
-          You'll grant read access to your account data. That's it.
+          The free tier includes generous usage limits for image generation.
         </p>
       </section>
 
@@ -108,10 +88,10 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
           Start a new conversation and ask something like:
         </p>
         <div class="test-prompt">
-          <p>"What's my top spending campaign this month?"</p>
+          <p>"Generate a Facebook ad creative for a coffee brand, 1200x628"</p>
         </div>
         <p>
-          If you see data, you're connected. If you see an error, double-check the URL and restart your tool.
+          The tool will generate an image with the correct dimensions and platform specifications.
         </p>
       </section>
 
@@ -119,14 +99,14 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
       <section class="tool-section section--features">
         <h2>What's included</h2>
         <ul class="feature-list">
-          <li>47 GAQL query templates for common tasks</li>
-          <li>Account audit workflows</li>
-          <li>Campaign performance analysis</li>
-          <li>Search term mining and negative keyword management</li>
-          <li>Budget pacing and spend optimization</li>
+          <li>Platform-aware image generation (Facebook, Instagram, Google Ads, etc.)</li>
+          <li>Automatic dimension handling for each ad format</li>
+          <li>Best practices for ad creative composition</li>
+          <li>Batch generation for A/B testing</li>
+          <li>Image variation and iteration tools</li>
         </ul>
         <p class="feature-note">
-          All features are open-source and MIT licensed. <a href="https://github.com/channel47/channel47/tree/main/plugins/google-ads-specialist">View on GitHub</a>
+          All features are open-source and MIT licensed. <a href="https://github.com/channel47/channel47/tree/main/plugins/creative-designer">View on GitHub</a>
         </p>
       </section>
 
@@ -137,7 +117,7 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
           description="New features, fixes, and tips. No spam."
           buttonText="Subscribe"
           variant="card"
-          tag="google-ads-tool-user"
+          tag="creative-designer-tool-user"
         />
       </section>
     </article>
@@ -145,7 +125,6 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
 
   <Footer />
 </BaseLayout>
-
 
 <style>
   .tool-page {
@@ -254,20 +233,6 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
     }
   }
 
-  .tool-section h3 {
-    font-size: var(--text-base);
-    font-weight: var(--font-semibold);
-    margin-bottom: var(--space-3);
-    margin-top: var(--space-5);
-  }
-
-  @media (min-width: 768px) {
-    .tool-section h3 {
-      font-size: var(--text-lg);
-      margin-top: var(--space-6);
-    }
-  }
-
   .tool-section p {
     margin-bottom: var(--space-4);
     font-size: var(--text-base);
@@ -288,108 +253,25 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
   }
 
   .requirements-list li::before {
-    content: "→";
+    content: "\2192";
     position: absolute;
     left: 0;
     color: var(--color-accent);
   }
 
-  /* Setup Steps */
-  .setup-step {
-    margin-bottom: var(--space-6);
-    padding: var(--space-4);
-    background-color: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+  /* Numbered List */
+  .numbered-list {
+    padding-left: var(--space-6);
+    margin: 0 0 var(--space-4) 0;
   }
 
-  @media (min-width: 768px) {
-    .setup-step {
-      margin-bottom: var(--space-8);
-      padding: var(--space-6);
-    }
+  .numbered-list li {
+    margin-bottom: var(--space-3);
+    font-size: var(--text-base);
   }
 
-  .setup-step h3 {
-    margin-top: 0;
-  }
-
-  .setup-step--other {
-    margin-top: var(--space-8);
-    background-color: transparent;
-    border-style: dashed;
-  }
-
-  .setup-step--other h3 {
-    font-size: var(--text-sm);
-    color: var(--color-fg-secondary);
-  }
-
-  @media (min-width: 768px) {
-    .setup-step--other h3 {
-      font-size: var(--text-base);
-    }
-  }
-
-  .setup-step ol {
-    padding-left: var(--space-5);
-    margin-bottom: var(--space-4);
-  }
-
-  .setup-step ol li {
-    margin-bottom: var(--space-2);
-    font-size: var(--text-sm);
-  }
-
-  @media (min-width: 768px) {
-    .setup-step ol li {
-      font-size: var(--text-base);
-    }
-  }
-
-  /* Code Block */
-  .code-block-wrapper {
-    margin: var(--space-4) calc(-1 * var(--space-4));
-    padding: 0 var(--space-4);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  @media (min-width: 768px) {
-    .code-block-wrapper {
-      margin: var(--space-4) 0;
-      padding: 0;
-    }
-  }
-
-  .code-block {
-    background-color: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-4);
-    margin: 0;
-    min-width: max-content;
-  }
-
-  @media (min-width: 768px) {
-    .code-block {
-      min-width: auto;
-    }
-  }
-
-  .code-block code {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--color-fg);
-    background: none;
-    padding: 0;
-    white-space: pre;
-  }
-
-  @media (min-width: 768px) {
-    .code-block code {
-      font-size: var(--text-sm);
-    }
+  .numbered-list a {
+    color: var(--color-accent);
   }
 
   /* Test Prompt */
@@ -405,16 +287,6 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
     font-style: italic;
     color: var(--color-fg);
     margin: 0;
-  }
-
-  /* Inline Code */
-  .tool-section code:not(.code-block code) {
-    font-family: var(--font-mono);
-    font-size: 0.85em;
-    padding: var(--space-1) var(--space-2);
-    background-color: var(--color-bg-elevated);
-    border-radius: var(--radius-default);
-    color: var(--color-accent);
   }
 
   /* Features Section */
@@ -443,7 +315,7 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
   }
 
   .feature-list li::before {
-    content: "✓";
+    content: "\2713";
     position: absolute;
     left: 0;
     color: var(--color-success);

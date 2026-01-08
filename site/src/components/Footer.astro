@@ -19,14 +19,14 @@ const currentYear = new Date().getFullYear();
   <div class="footer__container">
     <div class="footer__content">
       <Logo />
-      <p class="footer__tagline">Expertise your tools can install.</p>
+      <p class="footer__tagline">Open-source AI tools for marketers.</p>
     </div>
 
     <nav class="footer__nav">
-      <a href="/skills" class="footer__link">Skills</a>
       <a href="/tools" class="footer__link">Tools</a>
       <a href="/blog" class="footer__link">Blog</a>
-      <a href="mailto:support@jig.tools" class="footer__link">Contact</a>
+      <a href="https://github.com/channel47/channel47" class="footer__link">GitHub</a>
+      <a href="mailto:support@channel47.dev" class="footer__link">Contact</a>
     </nav>
 
     <p class="footer__copyright">
@@ -38,20 +38,20 @@ const currentYear = new Date().getFullYear();
 <style>
   .footer {
     border-top: 1px solid var(--color-border-subtle);
-    padding: var(--space-10) var(--space-4);
+    padding: var(--space-6) var(--space-4);
     margin-top: auto;
   }
 
   @media (min-width: 768px) {
     .footer {
-      padding: var(--space-12) var(--space-8);
+      padding: var(--space-8) var(--space-8);
     }
   }
 
   .footer__container {
     display: flex;
     flex-direction: column;
-    gap: var(--space-8);
+    gap: var(--space-5);
     max-width: var(--container-lg);
     margin: 0 auto;
   }
@@ -61,7 +61,7 @@ const currentYear = new Date().getFullYear();
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      gap: var(--space-6);
+      gap: var(--space-4);
     }
   }
 

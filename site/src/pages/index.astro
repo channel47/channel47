@@ -16,6 +16,23 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Button from '../components/Button.astro';
 import EmailSignup from '../components/EmailSignup.astro';
+import ToolCard from '../components/ToolCard.astro';
+
+// Featured tools for homepage
+const featuredTools = [
+  {
+    name: 'Google Ads MCP',
+    description: 'Query accounts, pull metrics, run GAQL. Connect in five minutes.',
+    href: '/tools/google-ads',
+    label: 'MCP Server',
+  },
+  {
+    name: 'Creative Designer',
+    description: 'AI image generation with platform specs baked in. Powered by Gemini.',
+    href: '/tools/creative-designer',
+    label: 'MCP Server + Plugin',
+  },
+];
 ---
 
 <BaseLayout
@@ -39,14 +56,18 @@ import EmailSignup from '../components/EmailSignup.astro';
       </div>
     </section>
 
-    <!-- Tools Section -->
-    <section class="tools-teaser">
-      <div class="tools-teaser__content" data-animate="fade-up">
-        <h2 class="tools-teaser__title">Built for performance marketers</h2>
-        <p class="tools-teaser__description">
-          MCP servers for Google Ads, creative generation, and more. Connect in minutes.
-        </p>
-        <Button href="/tools" variant="secondary">Explore the Tools</Button>
+    <!-- Featured Tools -->
+    <section class="featured-tools">
+      <div class="featured-tools__grid" data-animate="fade-up">
+        {featuredTools.map((tool) => (
+          <ToolCard
+            name={tool.name}
+            description={tool.description}
+            href={tool.href}
+            label={tool.label}
+            available={true}
+          />
+        ))}
       </div>
     </section>
 
@@ -75,13 +96,13 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   /* Hero Section */
   .hero {
-    padding: var(--space-16) var(--space-4) var(--space-12);
+    padding: var(--space-10) var(--space-4) var(--space-8);
     text-align: center;
   }
 
   @media (min-width: 768px) {
     .hero {
-      padding: var(--space-24) var(--space-8) var(--space-16);
+      padding: var(--space-16) var(--space-8) var(--space-12);
     }
   }
 
@@ -94,7 +115,7 @@ import EmailSignup from '../components/EmailSignup.astro';
     font-size: var(--text-3xl);
     font-weight: var(--font-black);
     letter-spacing: var(--tracking-tighter);
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--space-4);
     color: var(--color-fg);
     line-height: var(--leading-tight);
   }
@@ -108,7 +129,7 @@ import EmailSignup from '../components/EmailSignup.astro';
   @media (min-width: 768px) {
     .hero__title {
       font-size: var(--text-5xl);
-      margin-bottom: var(--space-6);
+      margin-bottom: var(--space-5);
       letter-spacing: var(--tracking-tightest);
     }
   }
@@ -118,14 +139,14 @@ import EmailSignup from '../components/EmailSignup.astro';
     color: var(--color-fg-secondary);
     line-height: var(--leading-relaxed);
     max-width: 50ch;
-    margin: 0 auto var(--space-8);
+    margin: 0 auto var(--space-6);
   }
 
   @media (min-width: 768px) {
     .hero__subtitle {
       font-size: var(--text-lg);
       max-width: 55ch;
-      margin-bottom: var(--space-10);
+      margin-bottom: var(--space-8);
     }
   }
 
@@ -146,61 +167,44 @@ import EmailSignup from '../components/EmailSignup.astro';
     }
   }
 
-  /* Tools Teaser Section */
-  .tools-teaser {
-    padding: var(--space-12) var(--space-4);
+  /* Featured Tools Section */
+  .featured-tools {
+    padding: var(--space-6) var(--space-4);
   }
 
   @media (min-width: 768px) {
-    .tools-teaser {
-      padding: var(--space-16) var(--space-8);
+    .featured-tools {
+      padding: var(--space-8) var(--space-8);
     }
   }
 
-  .tools-teaser__content {
-    max-width: var(--container-sm);
+  .featured-tools__grid {
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--container-lg);
     margin: 0 auto;
-    text-align: center;
   }
 
-  .tools-teaser__title {
-    font-size: var(--text-xl);
-    font-weight: var(--font-bold);
-    color: var(--color-fg);
-    margin-bottom: var(--space-2);
-  }
-
-  @media (min-width: 768px) {
-    .tools-teaser__title {
-      font-size: var(--text-2xl);
-    }
-  }
-
-  .tools-teaser__description {
-    font-size: var(--text-base);
-    color: var(--color-fg-secondary);
-    margin-bottom: var(--space-6);
-  }
-
-  @media (min-width: 768px) {
-    .tools-teaser__description {
-      font-size: var(--text-lg);
-      margin-bottom: var(--space-8);
+  @media (min-width: 640px) {
+    .featured-tools__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-5);
     }
   }
 
   /* Signup Section */
   .signup-section {
     padding: var(--space-8) var(--space-4);
-    padding-bottom: var(--space-16);
-    padding-bottom: calc(var(--space-16) + var(--safe-area-inset-bottom));
-    background-color: var(--color-bg-elevated);
+    padding-bottom: calc(var(--space-10) + var(--safe-area-inset-bottom));
+    border-top: 1px solid var(--color-border-subtle);
+    margin-top: var(--space-4);
   }
 
   @media (min-width: 768px) {
     .signup-section {
-      padding: var(--space-12) var(--space-8);
-      padding-bottom: var(--space-20);
+      padding: var(--space-10) var(--space-8);
+      padding-bottom: var(--space-12);
+      margin-top: var(--space-6);
     }
   }
 

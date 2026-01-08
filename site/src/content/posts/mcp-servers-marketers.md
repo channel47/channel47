@@ -174,7 +174,7 @@ A skill file is a structured prompt that encodes domain expertise. It tells Clau
 - How to interpret specific metrics
 - What recommendations apply to specific situations
 
-The [Google Ads Audit skill](/skills/google-ads), for example, packages the methodology an experienced PPC strategist would use when auditing an account. It runs the right queries, applies industry-appropriate benchmarks, and generates prioritized recommendations.
+The [Google Ads MCP](/tools/google-ads), for example, packages the methodology an experienced PPC strategist would use when auditing an account. It runs the right queries, applies industry-appropriate benchmarks, and generates prioritized recommendations.
 
 Think of it as:
 
@@ -202,7 +202,7 @@ If you're new to MCP:
 
 1. **Start with one connection**: Pick the platform where you spend most time. For most paid media people, that's [Google Ads](/tools/google-ads).
 
-2. **Use existing skill files**: Don't start from scratch. The [skills library](/skills) has tested expertise packages.
+2. **Use existing skill files**: Don't start from scratch. The [tools library](/tools) has tested expertise packages.
 
 3. **Focus on workflows, not features**: The value isn't "Claude can access my data." The value is "I can audit accounts in 30 minutes instead of 6 hours."
 

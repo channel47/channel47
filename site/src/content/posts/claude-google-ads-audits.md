@@ -143,7 +143,7 @@ Claude with MCP access is a force multiplier, not a replacement for expertise. H
 
 **Strategic direction**: Claude analyzes what is. Deciding what should be—that's your job.
 
-This is why we built skill files. The [Google Ads Audit skill](/skills/google-ads) encodes domain expertise—which queries to run, what thresholds indicate problems, how to prioritize findings—so Claude's analysis starts from a foundation of PPC knowledge rather than generic AI capability.
+This is why we built skill files. The [Google Ads MCP](/tools/google-ads) encodes domain expertise—which queries to run, what thresholds indicate problems, how to prioritize findings—so Claude's analysis starts from a foundation of PPC knowledge rather than generic AI capability.
 
 ## A Sample Audit Conversation
 
@@ -189,7 +189,7 @@ If this workflow sounds useful, here's how to start:
 
 2. **Start with one audit**: Pick an account you know well. Run through the framework above.
 
-3. **Add the expertise layer**: Use the [Google Ads Audit skill](/skills/google-ads) to get structured, consistent analysis.
+3. **Add the expertise layer**: Use the [Google Ads MCP](/tools/google-ads) to get structured, consistent analysis.
 
 4. **Build your prompt library**: Save the queries that work for your use cases.
 
