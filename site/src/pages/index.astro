@@ -7,9 +7,8 @@
  *
  * Structure per strategy:
  * 1. Hero with dual CTAs
- * 2. Featured Product (Google Ads Skills)
- * 3. Secondary Path (Tools teaser)
- * 4. Email Capture
+ * 2. Tools showcase
+ * 3. Email Capture
  */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -20,8 +19,8 @@ import EmailSignup from '../components/EmailSignup.astro';
 ---
 
 <BaseLayout
-  title="Channel47 — Your tools are capable. Now make them competent."
-  description="Channel47 is packaged expertise—skill files that teach Claude, Cursor, and other AI tools how to actually do the job."
+  title="Channel47 — Open-source AI tools for media buyers"
+  description="Free Claude Code plugins and MCP servers for Google Ads, creative generation, and more."
 >
   <Header />
 
@@ -29,42 +28,25 @@ import EmailSignup from '../components/EmailSignup.astro';
     <!-- Hero Section with Dual CTAs -->
     <section class="hero">
       <div class="hero__content">
-        <h1 class="hero__title" data-animate="fade-up">Your tools are capable. Now make them competent.</h1>
+        <h1 class="hero__title" data-animate="fade-up">Open-source AI tools for media buyers</h1>
         <p class="hero__subtitle" data-animate="fade-up">
-          Skill files that teach Claude, Cursor, and other AI tools how to actually do the job.
+          Claude Code plugins and MCP servers. Free forever.
         </p>
         <div class="hero__ctas" data-animate="fade-up">
-          <Button href="/skills" variant="primary" size="lg">Get the Skills</Button>
-          <Button href="/tools" variant="outline" size="lg">Browse Free Tools</Button>
+          <Button href="/tools" variant="primary" size="lg">Browse Tools</Button>
+          <Button href="https://github.com/channel47/channel47" variant="outline" size="lg">Star on GitHub</Button>
         </div>
       </div>
     </section>
 
-    <!-- Featured Product Section -->
-    <section class="featured-section">
-      <a href="/skills/google-ads" class="featured-card" data-animate="fade-up">
-        <div class="featured-card__content">
-          <p class="featured-card__eyebrow">Featured</p>
-          <h2 class="featured-card__title">Google Ads Skills</h2>
-          <p class="featured-card__description">
-            Steal my entire Google Ads brain for less than one billable hour. 47 GAQL queries. Audit workflows. Failure checklists.
-          </p>
-        </div>
-        <div class="featured-card__footer">
-          <span class="featured-card__price">$199</span>
-          <span class="featured-card__cta">See what's included →</span>
-        </div>
-      </a>
-    </section>
-
-    <!-- Secondary Path: Tools -->
+    <!-- Tools Section -->
     <section class="tools-teaser">
       <div class="tools-teaser__content" data-animate="fade-up">
-        <h2 class="tools-teaser__title">Just want the free tools?</h2>
+        <h2 class="tools-teaser__title">Built for performance marketers</h2>
         <p class="tools-teaser__description">
-          MCP servers for Google Ads, creative generation, more. Connect in minutes.
+          MCP servers for Google Ads, creative generation, and more. Connect in minutes.
         </p>
-        <Button href="/tools" variant="secondary">Browse Tools</Button>
+        <Button href="/tools" variant="secondary">Explore the Tools</Button>
       </div>
     </section>
 
@@ -72,8 +54,8 @@ import EmailSignup from '../components/EmailSignup.astro';
     <section class="signup-section">
       <div class="signup-wrapper" data-animate="fade-up">
         <EmailSignup
-          title="New skills in development."
-          description="Get notified when we release new skill files."
+          title="New tools in development."
+          description="Get notified when we release new plugins and servers."
           buttonText="Notify me"
           variant="card"
           tag="general"
@@ -162,119 +144,6 @@ import EmailSignup from '../components/EmailSignup.astro';
       max-width: none;
       gap: var(--space-4);
     }
-  }
-
-  /* Featured Product Section */
-  .featured-section {
-    padding: var(--space-8) var(--space-4);
-    background-color: var(--color-bg-elevated);
-  }
-
-  @media (min-width: 768px) {
-    .featured-section {
-      padding: var(--space-12) var(--space-8);
-    }
-  }
-
-  .featured-card {
-    display: flex;
-    flex-direction: column;
-    max-width: var(--container-md);
-    margin: 0 auto;
-    padding: var(--space-6);
-    background-color: var(--color-bg);
-    border: 2px solid var(--color-accent);
-    border-radius: var(--radius-xl);
-    text-decoration: none;
-    transition: all var(--duration-fast) var(--ease-out);
-  }
-
-  @media (min-width: 768px) {
-    .featured-card {
-      padding: var(--space-8);
-    }
-  }
-
-  .featured-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px oklch(from var(--color-accent) l c h / 0.15);
-  }
-
-  .featured-card__content {
-    margin-bottom: var(--space-6);
-  }
-
-  .featured-card__eyebrow {
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    color: var(--color-accent);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-wider);
-    margin-bottom: var(--space-2);
-  }
-
-  .featured-card__title {
-    font-size: var(--text-2xl);
-    font-weight: var(--font-bold);
-    color: var(--color-fg);
-    margin-bottom: var(--space-3);
-  }
-
-  @media (min-width: 768px) {
-    .featured-card__title {
-      font-size: var(--text-3xl);
-    }
-  }
-
-  .featured-card__description {
-    font-size: var(--text-base);
-    color: var(--color-fg-secondary);
-    line-height: var(--leading-relaxed);
-    margin: 0;
-  }
-
-  @media (min-width: 768px) {
-    .featured-card__description {
-      font-size: var(--text-lg);
-    }
-  }
-
-  .featured-card__footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: var(--space-5);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .featured-card__price {
-    font-family: var(--font-sans);
-    font-size: var(--text-2xl);
-    font-weight: var(--font-bold);
-    color: var(--color-fg);
-  }
-
-  @media (min-width: 768px) {
-    .featured-card__price {
-      font-size: var(--text-3xl);
-    }
-  }
-
-  .featured-card__cta {
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    color: var(--color-accent);
-  }
-
-  @media (min-width: 768px) {
-    .featured-card__cta {
-      font-size: var(--text-base);
-    }
-  }
-
-  .featured-card:hover .featured-card__cta {
-    color: var(--color-accent-hover);
   }
 
   /* Tools Teaser Section */
