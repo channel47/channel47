@@ -843,6 +843,10 @@ async def delete_file(params: DeleteFileInput) -> str:
 # SERVER INITIALIZATION
 # ============================================================================
 
-if __name__ == "__main__":
-    # Run the MCP server using stdio transport
+def main():
+    """Entry point for the MCP server."""
     mcp.run()
+
+
+if __name__ == "__main__":
+    main()
