@@ -11,6 +11,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import Button from '../../components/Button.astro';
 import EmailSignup from '../../components/EmailSignup.astro';
+import InstallTabs from '../../components/InstallTabs.astro';
 ---
 
 <BaseLayout
@@ -55,52 +56,29 @@ import EmailSignup from '../../components/EmailSignup.astro';
       <section class="tool-section">
         <h2>Add the MCP</h2>
         <p>
-          Channel47 runs as a hosted MCP server. No local install. Just point your AI tool to our URL.
+          Choose your setup method below. The MCP server connects Claude to your Google Ads account.
         </p>
 
-        <div class="setup-step">
-          <h3>For Claude Desktop</h3>
-          <ol>
-            <li>Open Claude Desktop and go to <strong>Settings</strong></li>
-            <li>Navigate to the <strong>Developer</strong> section</li>
-            <li>Click <strong>Edit Config</strong> to open your configuration file</li>
-            <li>Add the Channel47 server to your <code>mcpServers</code> configuration:</li>
-          </ol>
+        <InstallTabs plugin="google-ads" />
+
+        <div class="setup-step setup-step--other">
+          <h3>For Cursor or other MCP tools</h3>
+          <p>
+            Add this to your MCP server configuration:
+          </p>
           <div class="code-block-wrapper">
             <pre class="code-block"><code>{`{
-  "mcpServers": {
-    "channel47": {
-      "url": "https://mcp.jig.tools/sse"
+  "google-ads": {
+    "command": "npx",
+    "args": ["-y", "@channel47/google-ads-mcp@latest"],
+    "env": {
+      "GOOGLE_ADS_DEVELOPER_TOKEN": "your-token",
+      "GOOGLE_ADS_CLIENT_ID": "your-client-id",
+      "GOOGLE_ADS_CLIENT_SECRET": "your-client-secret",
+      "GOOGLE_ADS_REFRESH_TOKEN": "your-refresh-token"
     }
   }
 }`}</code></pre>
-          </div>
-          <ol start="5">
-            <li>Save and restart Claude Desktop</li>
-          </ol>
-        </div>
-
-        <div class="setup-step">
-          <h3>For Cursor</h3>
-          <ol>
-            <li>Open Settings (<code>Cmd/Ctrl + ,</code>)</li>
-            <li>Navigate to <strong>Features → MCP Servers</strong></li>
-            <li>Click <strong>Add Server</strong></li>
-            <li>Enter the URL: <code>https://mcp.jig.tools/sse</code></li>
-            <li>Save and restart Cursor</li>
-          </ol>
-        </div>
-
-        <div class="setup-step">
-          <h3>For other MCP tools</h3>
-          <p>
-            Add this URL wherever your tool accepts MCP server configurations:
-          </p>
-          <div class="url-display">
-            <code class="url-display__url">https://mcp.jig.tools/sse</code>
-            <button class="copy-button" data-copy="https://mcp.jig.tools/sse">
-              Copy
-            </button>
           </div>
         </div>
       </section>
@@ -167,24 +145,6 @@ import EmailSignup from '../../components/EmailSignup.astro';
   <Footer />
 </BaseLayout>
 
-<script>
-  // Copy button functionality
-  document.querySelectorAll('.copy-button').forEach(button => {
-    button.addEventListener('click', async () => {
-      const text = button.getAttribute('data-copy');
-      if (text) {
-        await navigator.clipboard.writeText(text);
-        const originalText = button.textContent;
-        button.textContent = 'Copied!';
-        button.classList.add('copy-button--success');
-        setTimeout(() => {
-          button.textContent = originalText;
-          button.classList.remove('copy-button--success');
-        }, 2000);
-      }
-    });
-  });
-</script>
 
 <style>
   .tool-page {
@@ -353,6 +313,23 @@ import EmailSignup from '../../components/EmailSignup.astro';
     margin-top: 0;
   }
 
+  .setup-step--other {
+    margin-top: var(--space-8);
+    background-color: transparent;
+    border-style: dashed;
+  }
+
+  .setup-step--other h3 {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+  }
+
+  @media (min-width: 768px) {
+    .setup-step--other h3 {
+      font-size: var(--text-base);
+    }
+  }
+
   .setup-step ol {
     padding-left: var(--space-5);
     margin-bottom: var(--space-4);
@@ -414,80 +391,6 @@ import EmailSignup from '../../components/EmailSignup.astro';
     }
   }
 
-  /* URL Display */
-  .url-display {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    padding: var(--space-4);
-    background-color: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    margin-top: var(--space-3);
-  }
-
-  @media (min-width: 480px) {
-    .url-display {
-      flex-direction: row;
-      align-items: center;
-      padding: var(--space-3) var(--space-4);
-    }
-  }
-
-  .url-display__url {
-    flex: 1;
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--color-accent);
-    background: none;
-    padding: 0;
-    word-break: break-all;
-  }
-
-  @media (min-width: 480px) {
-    .url-display__url {
-      font-size: var(--text-sm);
-      word-break: normal;
-    }
-  }
-
-  .copy-button {
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    padding: var(--space-3) var(--space-4);
-    background-color: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    color: var(--color-fg-secondary);
-    cursor: pointer;
-    transition: all var(--duration-fast) var(--ease-out);
-    min-height: 48px;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  @media (min-width: 480px) {
-    .copy-button {
-      padding: var(--space-2) var(--space-4);
-      min-height: 40px;
-    }
-  }
-
-  .copy-button:hover {
-    background-color: var(--color-bg-hover);
-    color: var(--color-fg);
-  }
-
-  .copy-button:active {
-    transform: scale(0.98);
-  }
-
-  .copy-button--success {
-    background-color: var(--color-success);
-    color: var(--color-fg-inverse);
-    border-color: var(--color-success);
-  }
-
   /* Test Prompt */
   .test-prompt {
     padding: var(--space-4);
@@ -504,7 +407,7 @@ import EmailSignup from '../../components/EmailSignup.astro';
   }
 
   /* Inline Code */
-  .tool-section code:not(.code-block code):not(.url-display__url) {
+  .tool-section code:not(.code-block code) {
     font-family: var(--font-mono);
     font-size: 0.85em;
     padding: var(--space-1) var(--space-2);
