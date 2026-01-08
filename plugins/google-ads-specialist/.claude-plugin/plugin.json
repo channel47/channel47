@@ -7,7 +7,7 @@
     "url": "https://channel47.dev"
   },
   "homepage": "https://channel47.dev/plugins/google-ads-specialist",
-  "repository": "https://github.com/ctrlswing/channel47-marketplace",
+  "repository": "https://github.com/channel47/channel47",
   "keywords": ["google-ads", "advertising", "gaql", "ppc", "marketing", "analytics"],
   "license": "MIT",
   "mcpServers": "./.mcp.json"

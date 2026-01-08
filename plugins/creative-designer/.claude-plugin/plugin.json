@@ -7,7 +7,7 @@
     "url": "https://channel47.dev"
   },
   "homepage": "https://channel47.dev/plugins/creative-designer",
-  "repository": "https://github.com/ctrlswing/channel47-marketplace",
+  "repository": "https://github.com/channel47/channel47",
   "license": "MIT",
   "keywords": [
     "image-generation",
