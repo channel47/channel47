@@ -6,7 +6,8 @@
   },
   "metadata": {
     "pluginRoot": "./plugins",
-    "description": "Open-source AI tools for media buyers and marketers"
+    "description": "Open-source AI tools for media buyers and marketers",
+    "version": "1.0.0"
   },
   "plugins": [
     {
