@@ -65,7 +65,7 @@ def main():
     tool_input = hook_input.get("tool_input", {})
 
     # Only validate Google Ads MCP operations
-    if not tool_name.startswith("mcp__google_ads__"):
+    if not tool_name.startswith("mcp__google-ads__"):
         sys.exit(0)
 
     # Exempt list_accounts - safe enumeration
@@ -73,7 +73,7 @@ def main():
         sys.exit(0)
 
     # Only validate query and mutate operations
-    if tool_name not in ["mcp__google_ads__query", "mcp__google_ads__mutate"]:
+    if tool_name not in ["mcp__google-ads__query", "mcp__google-ads__mutate"]:
         sys.exit(0)
 
     # Check if skill was referenced

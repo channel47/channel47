@@ -96,11 +96,11 @@ Enhanced: "A fluffy orange tabby cat sitting on a sunny windowsill, warm afterno
 
 ### Step 4: Generate Image
 
-Call the appropriate MCP tool:
+Call the nano-banana MCP tool:
 
 For full control:
 ```
-generate_image(
+mcp__nano-banana__generate_image(
   prompt="enhanced prompt here",
   model_tier="auto|flash|pro",
   aspect_ratio="1:1|16:9|9:16|21:9",
@@ -119,9 +119,9 @@ When user provides or wants to use a reference image:
 
 **With uploaded file:**
 ```
-generate_image(
+mcp__nano-banana__generate_image(
   prompt="Your detailed prompt describing desired output",
-  reference_file_uri="files/abc123",  # URI from upload_file
+  reference_file_uri="files/abc123",  # URI from mcp__nano-banana__upload_file
   reference_file_mime_type="image/png",
   model_tier="pro",  # Pro model recommended for reference-based generation
   ...other params
@@ -130,7 +130,7 @@ generate_image(
 
 **With base64 data:**
 ```
-generate_image(
+mcp__nano-banana__generate_image(
   prompt="Your detailed prompt",
   reference_image_base64="iVBORw0KGg...",  # Base64 string
   reference_file_mime_type="image/jpeg",

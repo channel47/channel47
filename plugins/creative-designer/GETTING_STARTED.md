@@ -133,9 +133,11 @@ For programmatic use, you can provide base64-encoded image data directly. The re
 - Similar composition and framing
 - Brand consistency across generated images
 
-## Available Tools
+## Available Tools (nano-banana MCP)
 
-### generate_image
+The plugin provides the following tools via the `nano-banana` MCP server:
+
+### mcp__nano-banana__generate_image
 Full-featured image generation with all options:
 - Model selection (flash/pro/auto)
 - Aspect ratio control
@@ -143,19 +145,19 @@ Full-featured image generation with all options:
 - Google Search grounding
 - File output
 
-### list_files
+### mcp__nano-banana__list_files
 View files uploaded to Gemini Files API:
 - File names and metadata
 - Upload timestamps
 - File states
 
-### upload_file
+### mcp__nano-banana__upload_file
 Upload files for use in generation:
 - Images, videos, PDFs
 - Reference materials
 - Style guides
 
-### delete_file
+### mcp__nano-banana__delete_file
 Remove uploaded files:
 - Free up storage
 - Manage file library
@@ -260,7 +262,7 @@ Google Gemini API has generous free tier limits:
 - Free tier: 60 requests per minute
 - Paid tier: Higher limits available
 
-The MCP server handles rate limiting automatically.
+The nano-banana MCP server handles rate limiting automatically.
 
 ## Next Steps
 

@@ -5,6 +5,13 @@ All notable changes to the Nano Banana Pro plugin will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-01-08
+
+### Changed
+- **MCP Server Renamed**: The MCP server is now named `nano-banana` (was `creative-designer`)
+  - Tools are now accessed as `mcp__nano-banana__generate_image`, `mcp__nano-banana__list_files`, etc.
+  - Updated all documentation to reflect the new tool naming convention
+
 ## [1.2.0] - 2025-12-28
 
 ### Added

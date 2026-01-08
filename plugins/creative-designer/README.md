@@ -15,6 +15,7 @@ AI-powered image generation using Google's Nano Banana Pro (Gemini 3 Pro Image) 
 - **Aspect Ratio Control**: Support for various formats (16:9, 1:1, 9:16, etc.)
 - **Advanced Reasoning**: Configurable "thinking" levels for complex prompts
 - **File Management**: Upload and manage files via Gemini Files API
+- **MCP Integration**: All tools available via the `nano-banana` MCP server (e.g., `mcp__nano-banana__generate_image`)
 
 ## Required Environment Variables
 

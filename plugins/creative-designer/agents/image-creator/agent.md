@@ -13,14 +13,14 @@ triggerWords:
   - nano banana
 color: purple
 tools:
-  - generate_image
-  - list_files
-  - upload_file
+  - mcp__nano-banana__generate_image
+  - mcp__nano-banana__list_files
+  - mcp__nano-banana__upload_file
 ---
 
 # Image Creator Agent
 
-An intelligent agent for guided image creation using Nano Banana Pro.
+An intelligent agent for guided image creation using the nano-banana MCP server (Nano Banana Pro).
 
 ## Workflow
 
@@ -90,13 +90,13 @@ Enhanced: "A fluffy orange tabby cat curled up on a cozy armchair by a window, s
 
 ### Step 4: Generate and Review
 
-1. Call the generate_image tool
+1. Call the `mcp__nano-banana__generate_image` tool
 2. Present the result to the user
 3. Explain what settings were used
 
-If using generate_image:
+Using the nano-banana MCP tool:
 ```
-generate_image(
+mcp__nano-banana__generate_image(
   prompt="[crafted prompt]",
   model_tier="[selected tier]",
   aspect_ratio="[selected ratio]",
@@ -153,7 +153,7 @@ Help users explore different aesthetics:
 ### Reference-Based Generation
 When user provides reference:
 
-1. Use upload_file to add reference
+1. Use `mcp__nano-banana__upload_file` to add reference
 2. Incorporate reference in prompt
 3. Generate inspired content
 

@@ -27,8 +27,8 @@ Claude references skill files to learn proper GAQL patterns, then executes via t
 - **Minimal Tool Surface**: Just 3 tools vs 13 in previous versions
 - **Progressive Disclosure**: Domain knowledge in readable skill files
 - **Hook Validation**: Prevents hallucinated queries by requiring skill references
-- **Full GAQL Access**: Any SELECT query via `query` tool
-- **Safe Mutations**: Write operations via `mutate` tool with dry_run default
+- **Full GAQL Access**: Any SELECT query via `mcp__google-ads__query` tool
+- **Safe Mutations**: Write operations via `mcp__google-ads__mutate` tool with dry_run default
 - **OAuth 2.0 Authentication**: Secure refresh token auth
 
 ## Requirements
@@ -79,13 +79,17 @@ Optional:
 | `GOOGLE_ADS_LOGIN_CUSTOMER_ID` | MCC Account ID (10 digits, no dashes) |
 | `GOOGLE_ADS_DEFAULT_CUSTOMER_ID` | Default account ID for queries |
 
-See `GETTING_STARTED.md` for OAuth setup instructions.
+**Quick Setup:** Run `/google-ads-specialist:setup` for an interactive setup wizard.
+
+See `GETTING_STARTED.md` for detailed OAuth setup instructions.
 
 **Note:** The MCP server (`@channel47/google-ads-mcp`) is automatically installed via npx. You do not need to manually install it.
 
-## Core MCP Tools
+## Core MCP Tools (google-ads)
 
-### 1. list_accounts
+The plugin provides tools via the `google-ads` MCP server. Tools are accessed as `mcp__google-ads__<tool_name>`.
+
+### 1. mcp__google-ads__list_accounts
 
 List all accessible Google Ads accounts.
 
@@ -99,7 +103,7 @@ List all accessible Google Ads accounts.
 }
 ```
 
-### 2. query
+### 2. mcp__google-ads__query
 
 Execute any GAQL SELECT query. **Requires skill reference** (enforced by hook).
 
@@ -116,7 +120,7 @@ Execute any GAQL SELECT query. **Requires skill reference** (enforced by hook).
 }
 ```
 
-### 3. mutate
+### 3. mcp__google-ads__mutate
 
 Execute write operations via GoogleAdsService.Mutate. **Requires skill reference** (enforced by hook).
 
@@ -149,7 +153,7 @@ Execute write operations via GoogleAdsService.Mutate. **Requires skill reference
 
 ## Skills
 
-Skills contain GAQL patterns, best practices, and troubleshooting guides. Reference skills before using `query` or `mutate` tools.
+Skills contain GAQL patterns, best practices, and troubleshooting guides. Reference skills before using `mcp__google-ads__query` or `mcp__google-ads__mutate` tools.
 
 ### Atomic Skills
 
@@ -190,8 +194,8 @@ Skills contain GAQL patterns, best practices, and troubleshooting guides. Refere
 
 The PreToolUse hook prevents hallucinated queries:
 
-- **Blocks** `query` and `mutate` operations without skill reference
-- **Exempts** `list_accounts` (safe enumeration)
+- **Blocks** `mcp__google-ads__query` and `mcp__google-ads__mutate` operations without skill reference
+- **Exempts** `mcp__google-ads__list_accounts` (safe enumeration)
 - **Fail-open** on errors (prevents workflow breakage)
 - **Clear error message** directs Claude to reference appropriate skill
 
@@ -291,13 +295,13 @@ Version 3.0.0 is a **breaking change**:
 
 **Removed:**
 - 11 specialized tools (get_performance, search_terms_report, find_wasted_spend, etc.)
-- All tools now accessible via `query` and `mutate` with skill guidance
+- All tools now accessible via `mcp__google-ads__query` and `mcp__google-ads__mutate` with skill guidance
 
 **Migration Path:**
 1. Update to v3.0.0
 2. Reference appropriate skills for your use case
-3. Use `query` tool with GAQL from skills
-4. Use `mutate` tool for write operations (with dry_run checklist)
+3. Use `mcp__google-ads__query` tool with GAQL from skills
+4. Use `mcp__google-ads__mutate` tool for write operations (with dry_run checklist)
 
 **Benefits:**
 - Simpler mental model (3 tools instead of 13)

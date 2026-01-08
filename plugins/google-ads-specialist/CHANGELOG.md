@@ -5,6 +5,25 @@ All notable changes to the Google Ads Specialist Plugin will be documented in th
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] - 2026-01-08
+
+### Added
+
+- **Interactive Setup Wizard**: New `/google-ads-specialist:setup` command
+  - Step-by-step guidance through Google Cloud project setup
+  - OAuth consent screen and credentials configuration
+  - Developer token retrieval instructions
+  - Refresh token generation with helper script option
+  - Environment variable configuration
+  - Connection verification and troubleshooting
+
+### Changed
+
+- **MCP Server Renamed**: Server name changed from `google-ads-nodejs` to `google-ads`
+  - Tools now accessed as `mcp__google-ads__query`, `mcp__google-ads__mutate`, `mcp__google-ads__list_accounts`
+  - Updated hook validation to use new tool name prefix
+  - Updated documentation with full MCP tool names
+
 ## [3.1.0] - 2026-01-07
 
 ### Changed

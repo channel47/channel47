@@ -52,7 +52,7 @@ If you've cloned the plugin repository:
      ```json
      {
        "mcpServers": {
-         "google-ads-nodejs": {
+         "google-ads": {
            "command": "node",
            "args": ["/path/to/google-ads-mcp-server/server/index.js"]
          }

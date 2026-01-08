@@ -2,7 +2,7 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "mcp__google_ads__(query|mutate)",
+        "matcher": "mcp__google-ads__(query|mutate)",
         "hooks": [
           {
             "type": "command",

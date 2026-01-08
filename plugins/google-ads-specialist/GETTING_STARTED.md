@@ -1,4 +1,4 @@
-# Getting Started with Google Ads MCP Server (Node.js)
+# Getting Started with Google Ads MCP Server
 
 This guide walks you through setting up the Google Ads MCP Server from scratch.
 
@@ -22,7 +22,13 @@ If you've already configured Google Ads API access:
 
 The first time you activate the plugin, npx will download and cache the MCP server. Subsequent uses will be instant.
 
-**If this is your first time:** Follow the complete setup guide below.
+**If this is your first time:** Run the interactive setup wizard:
+
+```
+/google-ads-specialist:setup
+```
+
+Or follow the complete manual setup guide below.
 
 ## Step 1: Google Cloud Project Setup
 
@@ -206,7 +212,7 @@ Try commands that reference skills:
 - "Use the campaign-performance skill to show my top campaigns for the last 30 days"
 - "Reference the wasted-spend-analysis skill and find opportunities to save money"
 
-**Note:** The `query` and `mutate` tools require skill references. Claude will automatically reference the appropriate skill file before executing operations.
+**Note:** The `mcp__google-ads__query` and `mcp__google-ads__mutate` tools require skill references. Claude will automatically reference the appropriate skill file before executing operations.
 
 ## Troubleshooting
 
@@ -272,7 +278,7 @@ Common GAQL issues:
 2. **Learn GAQL**: Review the [GAQL reference](https://developers.google.com/google-ads/api/docs/query/overview)
 
 3. **Understand the Architecture**: Read the [README](./README.md) to learn about:
-   - 3-tool architecture (list_accounts, query, mutate)
+   - 3-tool architecture via `google-ads` MCP server (`mcp__google-ads__list_accounts`, `mcp__google-ads__query`, `mcp__google-ads__mutate`)
    - Hook validation workflow
    - Skill-based progressive disclosure
 
