@@ -37,18 +37,11 @@ const formatDate = (date: Date) =>
     <div class="blog-grid">
       {posts.map((post) => (
         <Card href={`/blog/${post.slug}`} variant="ghost">
+          <time class="card__date" datetime={post.data.date.toISOString()}>
+            {formatDate(post.data.date)}
+          </time>
           <h2 class="card__title">{post.data.title}</h2>
           <p class="card__description">{post.data.description}</p>
-          <div class="card__meta">
-            <time datetime={post.data.date.toISOString()}>
-              {formatDate(post.data.date)}
-            </time>
-            {post.data.tags && (
-              <span class="card__tags">
-                {post.data.tags.slice(0, 2).join(' · ')}
-              </span>
-            )}
-          </div>
         </Card>
       ))}
     </div>
@@ -142,8 +135,10 @@ const formatDate = (date: Date) =>
     padding: var(--space-16) var(--space-4);
   }
 
-  .card__tags {
-    margin-left: var(--space-3);
-    color: var(--color-accent);
+  .card__date {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-2);
   }
 </style>
