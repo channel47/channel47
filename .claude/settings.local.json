@@ -84,7 +84,10 @@
       "Bash(then cat $plugin/.claude-plugin/plugin.json)",
       "Bash(done)",
       "Bash(git tag:*)",
-      "mcp__plugin_playwright_playwright__browser_snapshot"
+      "mcp__plugin_playwright_playwright__browser_snapshot",
+      "Bash(vercel ls:*)",
+      "Bash(vercel inspect:*)",
+      "Bash(vercel logs:*)"
     ]
   }
 }

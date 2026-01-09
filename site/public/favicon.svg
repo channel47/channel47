@@ -1,20 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 24">
   <style>
     text {
       fill: #0a0a0a;
-      font-family: monospace;
-      font-size: 12px;
-      font-weight: bold;
-      line-height: 10px;
+      font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+      font-size: 10px;
       white-space: pre;
     }
     @media (prefers-color-scheme: dark) {
-      text {
-        fill: #fafafa;
-      }
+      text { fill: #fafafa; }
     }
   </style>
-  <text x="0" y="10">█▀▀ █ █ █▀█ ▀▀█</text>
-  <text x="0" y="20">█   █▀█ ██▀  ▄▀</text>
-  <text x="0" y="30">▀▀▀ ▀ ▀ ▀   ▀▀▀</text>
+  <text x="2" y="10">█ █ ▀▀█</text>
+  <text x="2" y="20">▀▀█  █</text>
 </svg>
