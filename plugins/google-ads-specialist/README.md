@@ -1,34 +1,36 @@
 # Google Ads Specialist Plugin
 
-A Claude Code plugin for Google Ads campaign management using GAQL (Google Ads Query Language). This plugin provides a minimal 3-tool MCP server with progressive disclosure through skill files, enabling comprehensive read and write access to Google Ads campaigns, keywords, search terms, and account data.
+A Claude Code plugin for Google Ads campaign management using GAQL (Google Ads Query Language). Version 4.0.0 introduces a subagent-based architecture where queries are handled autonomously by a specialized analyst subagent, while mutations remain gated by hook validation.
 
 ## Architecture
 
-**Version 3.1.0** introduces npm-based MCP server distribution:
+**Version 4.0.0** - Subagent-based design with minimal token footprint:
 
 - **NPM Package**: MCP server published as `@channel47/google-ads-mcp`
 - **Auto-Installation**: Server installed via npx on first use
 - **3 Core MCP Tools**: Minimal data access layer (list_accounts, query, mutate)
-- **9 Skill Files**: Progressive disclosure of Google Ads domain knowledge
-- **PreToolUse Hook**: Validates skill reference before query/mutate operations
-- **~200 Lines of Server Code**: Down from 718 lines
+- **1 Subagent**: `google-ads-analyst` for query isolation and autonomous GAQL generation
+- **1 Skill**: Troubleshooting guide for plugin-specific errors
+- **PreToolUse Hook**: Validates dry_run on mutations only (queries flow freely)
+- **~450 Tokens**: Down from 7,883 tokens (94% reduction)
 
 ### Design Philosophy
 
-The MCP server is distributed as a standalone npm package and automatically installed when the plugin is activated. The plugin provides:
-- **Atomic Skills** (7): Single-operation patterns (performance, search terms, QS, budget, negatives, bids, wasted spend)
-- **Playbooks** (1): Multi-step workflows (account health audit)
-- **Troubleshooting** (1): Error handling and debugging (GAQL errors)
+The subagent architecture separates concerns:
+- **Queries**: Handled autonomously by `google-ads-analyst` subagent (no skill lookup needed)
+- **Mutations**: Gated by hook validation requiring explicit dry_run handling
+- **Troubleshooting**: Minimal skill for plugin-specific errors only (GAQL syntax in Google docs)
 
-Claude references skill files to learn proper GAQL patterns, then executes via the core tools.
+This design eliminates token overhead from skill files while maintaining safety for write operations.
 
 ## Features
 
-- **Minimal Tool Surface**: Just 3 tools vs 13 in previous versions
-- **Progressive Disclosure**: Domain knowledge in readable skill files
-- **Hook Validation**: Prevents hallucinated queries by requiring skill references
+- **Subagent Query Isolation**: Analyst subagent handles all GAQL queries autonomously
+- **Minimal Tool Surface**: Just 3 tools (list_accounts, query, mutate)
+- **Autonomous GAQL Generation**: No skill reference required for queries
+- **Mutation Oversight**: Hook validates dry_run on write operations
 - **Full GAQL Access**: Any SELECT query via `mcp__google-ads__query` tool
-- **Safe Mutations**: Write operations via `mcp__google-ads__mutate` tool with dry_run default
+- **Safe Mutations**: Write operations via `mcp__google-ads__mutate` tool with dry_run validation
 - **OAuth 2.0 Authentication**: Secure refresh token auth
 
 ## Requirements
@@ -105,7 +107,7 @@ List all accessible Google Ads accounts.
 
 ### 2. mcp__google-ads__query
 
-Execute any GAQL SELECT query. **Requires skill reference** (enforced by hook).
+Execute any GAQL SELECT query. Queries are handled autonomously - no skill reference required.
 
 **Parameters:**
 - `customer_id` (string, optional): Account ID (uses default if not specified)
@@ -122,7 +124,7 @@ Execute any GAQL SELECT query. **Requires skill reference** (enforced by hook).
 
 ### 3. mcp__google-ads__mutate
 
-Execute write operations via GoogleAdsService.Mutate. **Requires skill reference** (enforced by hook).
+Execute write operations via GoogleAdsService.Mutate. **Requires dry_run validation** (enforced by hook).
 
 **Parameters:**
 - `customer_id` (string, optional): Account ID
@@ -151,97 +153,89 @@ Execute write operations via GoogleAdsService.Mutate. **Requires skill reference
 }
 ```
 
-## Skills
+## Subagent
 
-Skills contain GAQL patterns, best practices, and troubleshooting guides. Reference skills before using `mcp__google-ads__query` or `mcp__google-ads__mutate` tools.
+### google-ads-analyst
 
-### Atomic Skills
+The analyst subagent handles all Google Ads query operations autonomously. It:
 
-1. **atomic-campaign-performance**: Query campaign metrics with date ranges and filters
-2. **atomic-search-terms-report**: Analyze search queries triggering ads
-3. **atomic-wasted-spend-analysis**: Identify high-spend, zero-conversion opportunities
-4. **atomic-quality-score-audit**: Analyze Quality Score and improvement opportunities
-5. **atomic-budget-pacing**: Check budget utilization and pacing
-6. **atomic-add-negative-keywords**: Add negative keywords with mutation checklist
-7. **atomic-adjust-bids**: Modify bids for keywords and ad groups
+- Constructs GAQL queries from natural language requests
+- Executes queries via `mcp__google-ads__query` tool
+- Formats results appropriately (inline for small results, file output for large datasets)
+- Handles query errors and provides troubleshooting guidance
 
-### Playbooks
+**When spawned:**
+- User requests campaign performance data
+- User asks for search terms analysis
+- User needs budget or spend information
+- Any read-only Google Ads data request
 
-8. **playbook-account-health-audit**: Comprehensive 6-step account health audit workflow
+The subagent operates independently without requiring skill references, generating GAQL queries based on its training knowledge and the Google Ads API schema.
 
-### Troubleshooting
+## Skill
 
-9. **troubleshooting-gaql-errors**: Common GAQL errors, causes, and fixes
+### troubleshooting
+
+The single troubleshooting skill provides guidance for plugin-specific errors:
+
+- MCP server connection issues
+- OAuth authentication problems
+- Hook validation errors
+- Plugin configuration issues
+
+For GAQL syntax help, refer to [Google's GAQL documentation](https://developers.google.com/google-ads/api/docs/query/overview).
 
 ## Workflow Example
 
 1. **User:** "Show me campaign performance for the last 30 days"
 
-2. **Claude** references `atomic-campaign-performance` skill to learn GAQL pattern
+2. **Claude** spawns `google-ads-analyst` subagent
 
-3. **Claude** constructs query from skill example:
+3. **Subagent** autonomously constructs GAQL:
    ```sql
    SELECT campaign.id, campaign.name, metrics.cost_micros, metrics.conversions
    FROM campaign
    WHERE segments.date DURING LAST_30_DAYS
    ```
 
-4. **Hook** detects skill reference in transcript and allows operation
+4. **Subagent** executes query via `mcp__google-ads__query` tool
 
-5. **Tool** executes query and returns results
+5. **Subagent** formats and returns results to main conversation
+
+For mutations:
+
+1. **User:** "Add 'free' as a negative keyword to campaign X"
+
+2. **Claude** constructs mutation operation
+
+3. **Hook** validates that `dry_run` parameter is explicitly set
+
+4. **Claude** executes with `dry_run: true` first, then confirms with user before live execution
 
 ## Hook Validation
 
-The PreToolUse hook prevents hallucinated queries:
+The PreToolUse hook gates mutation operations:
 
-- **Blocks** `mcp__google-ads__query` and `mcp__google-ads__mutate` operations without skill reference
-- **Exempts** `mcp__google-ads__list_accounts` (safe enumeration)
+- **Monitors** `mcp__google-ads__mutate` tool calls
+- **Validates** that `dry_run` parameter is explicitly handled
+- **Allows** all query operations without validation (queries are read-only)
+- **Allows** `mcp__google-ads__list_accounts` (safe enumeration)
 - **Fail-open** on errors (prevents workflow breakage)
-- **Clear error message** directs Claude to reference appropriate skill
 
-This ensures Claude always consults domain knowledge before executing operations.
+This ensures mutations receive human oversight while queries flow freely.
 
 ## Architecture Details
 
-### Server Structure (199 lines)
+### Plugin Structure
 
 ```
-server/
-├── index.js              # MCP server with 3 tools
-├── auth.js              # OAuth authentication
-├── tools/
-│   ├── list-accounts.js  # Account enumeration
-│   ├── gaql-query.js     # GAQL SELECT execution
-│   └── mutate.js         # Write operations
-├── resources/           # GAQL reference docs
-├── prompts/             # Prompt templates
-└── utils/               # Validation, formatting
-```
-
-### Skills Structure
-
-```
+agents/
+└── google-ads-analyst.md   # Subagent for query isolation
 skills/
-├── atomic-campaign-performance/
-│   └── SKILL.md
-├── atomic-search-terms-report/
-│   └── SKILL.md
-├── atomic-wasted-spend-analysis/
-│   └── SKILL.md
-├── atomic-quality-score-audit/
-│   └── SKILL.md
-├── atomic-budget-pacing/
-│   └── SKILL.md
-├── atomic-add-negative-keywords/
-│   └── SKILL.md
-├── atomic-adjust-bids/
-│   └── SKILL.md
-├── playbook-account-health-audit/
-│   ├── SKILL.md              # Main workflow
-│   ├── audit-workflow.md     # Detailed steps
-│   └── query-patterns.md     # Copy-paste queries
-└── troubleshooting-gaql-errors/
-    └── SKILL.md
+└── troubleshooting/
+    └── SKILL.md            # Plugin-specific errors only
+.claude/hooks/
+└── validate-mutations.py   # Gates live mutations only
 ```
 
 ### Hook Configuration
@@ -249,15 +243,16 @@ skills/
 ```
 .claude/
 ├── hooks/
-│   └── validate-google-ads.py   # Validation script
-└── settings.json                # Hook registration
+│   └── validate-mutations.py   # Mutation validation script
+└── settings.json               # Hook registration
 ```
 
 ## Security
 
 - **Dry Run Default**: Mutations default to `dry_run: true` for safety
 - **Mutation Blocking**: Query tool blocks CREATE/UPDATE/REMOVE keywords
-- **Hook Validation**: Requires skill reference before operations
+- **Hook Validation**: Requires explicit dry_run handling for mutations
+- **Query Freedom**: Read-only operations flow without friction
 - **OAuth 2.0**: Secure refresh token authentication
 - **Input Validation**: All parameters validated before execution
 
@@ -267,10 +262,10 @@ This plugin uses the `@channel47/google-ads-mcp` npm package for the MCP server.
 
 ### Plugin Development
 
-To modify skills or documentation:
+To modify the subagent, skill, or documentation:
 
 1. Clone this repository
-2. Edit skill files in `skills/`
+2. Edit files in `agents/`, `skills/`, or `.claude/hooks/`
 3. Update documentation as needed
 4. Test locally by copying to `~/.claude/plugins/google-ads-specialist`
 
@@ -289,25 +284,34 @@ To test with a local server build:
 npm run publish-to-marketplace
 ```
 
-## Migration from v2.x
+## Migration from v3.x
 
-Version 3.0.0 is a **breaking change**:
+Version 4.0.0 is a **breaking change**:
 
 **Removed:**
-- 11 specialized tools (get_performance, search_terms_report, find_wasted_spend, etc.)
-- All tools now accessible via `mcp__google-ads__query` and `mcp__google-ads__mutate` with skill guidance
+- 7 atomic skills (campaign-performance, search-terms, wasted-spend, quality-score, budget-pacing, add-negatives, adjust-bids)
+- 1 playbook skill (account-health-audit)
+- Skill-reference requirement for queries
+
+**Added:**
+- `google-ads-analyst` subagent for query isolation
+- Autonomous GAQL generation (no skill lookup needed)
+
+**Changed:**
+- Hook now gates mutations only (queries flow freely)
+- Troubleshooting skill reduced to plugin-specific errors only
 
 **Migration Path:**
-1. Update to v3.0.0
-2. Reference appropriate skills for your use case
-3. Use `mcp__google-ads__query` tool with GAQL from skills
-4. Use `mcp__google-ads__mutate` tool for write operations (with dry_run checklist)
+1. Update to v4.0.0
+2. Queries work immediately - no changes needed
+3. Mutations unchanged - still require dry_run handling
+4. For GAQL syntax help, use [Google's documentation](https://developers.google.com/google-ads/api/docs/query/overview)
 
 **Benefits:**
-- Simpler mental model (3 tools instead of 13)
-- More flexible (any GAQL query possible)
-- Better learning (skills teach proper patterns)
-- Safer (hook validation prevents mistakes)
+- 94% token reduction (7,883 -> ~450 tokens)
+- Faster query execution (no skill lookup overhead)
+- Simpler mental model (subagent handles queries autonomously)
+- Maintained safety (mutations still gated)
 
 ## Resources
 
