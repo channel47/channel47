@@ -1,7 +1,7 @@
 {
   "name": "google-ads-specialist",
-  "version": "3.2.0",
-  "description": "Google Ads Specialist Claude Code Plugin - Skills and workflows for Google Ads campaign management",
+  "version": "4.0.0",
+  "description": "Google Ads Specialist Claude Code Plugin - Subagent-based architecture for Google Ads campaign management",
   "type": "module",
   "scripts": {
     "pack": "mcpb pack .",
