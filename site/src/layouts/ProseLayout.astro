@@ -237,15 +237,16 @@ const formatRelatedDate = (date: Date) =>
   .article__meta {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-2) var(--space-4);
+    gap: var(--space-1) var(--space-3);
     justify-content: center;
     font-size: var(--text-sm);
     color: var(--color-fg-muted);
   }
 
-  .article__author::after {
+  .article__meta > *:not(:last-child)::after {
     content: '·';
-    margin-left: var(--space-4);
+    margin-left: var(--space-3);
+    opacity: 0.5;
   }
 
   .article__hero {
@@ -347,15 +348,13 @@ const formatRelatedDate = (date: Date) =>
   }
 
   .post-nav {
-    margin-top: var(--space-10);
+    margin-top: var(--space-8);
     padding-top: var(--space-6);
-    border-top: 1px solid var(--color-border);
   }
 
   @media (min-width: 768px) {
     .post-nav {
-      margin-top: var(--space-12);
-      padding-top: var(--space-8);
+      margin-top: var(--space-10);
     }
   }
 
@@ -395,40 +394,36 @@ const formatRelatedDate = (date: Date) =>
 
   /* Article Email */
   .article__email {
-    margin: var(--space-10) 0;
+    margin: var(--space-8) 0;
   }
 
   @media (min-width: 768px) {
     .article__email {
-      margin: var(--space-12) 0;
+      margin: var(--space-10) 0;
     }
   }
 
   /* Related Posts */
   .related-posts {
-    margin: var(--space-10) 0;
-    padding-top: var(--space-8);
+    margin: var(--space-8) 0;
+    padding-top: var(--space-6);
     border-top: 1px solid var(--color-border);
   }
 
   @media (min-width: 768px) {
     .related-posts {
-      margin: var(--space-12) 0;
-      padding-top: var(--space-10);
+      margin: var(--space-10) 0;
+      padding-top: var(--space-8);
     }
   }
 
   .related-posts__title {
-    font-size: var(--text-lg);
-    font-weight: var(--font-bold);
-    margin-bottom: var(--space-6);
-    color: var(--color-fg);
-  }
-
-  @media (min-width: 768px) {
-    .related-posts__title {
-      font-size: var(--text-xl);
-    }
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-4);
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
   }
 
   .related-posts__grid {
@@ -446,17 +441,16 @@ const formatRelatedDate = (date: Date) =>
   .related-post {
     display: flex;
     flex-direction: column;
-    padding: var(--space-5);
-    background-color: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
+    padding: var(--space-4);
+    background-color: transparent;
+    border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-lg);
     text-decoration: none;
-    transition: all var(--duration-fast) var(--ease-out);
+    transition: border-color var(--duration-fast) var(--ease-out);
   }
 
   .related-post:hover {
-    border-color: var(--color-accent);
-    transform: translateY(-2px);
+    border-color: var(--color-border);
   }
 
   .related-post__title {
