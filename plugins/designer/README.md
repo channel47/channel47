@@ -42,7 +42,7 @@ AI-powered image generation using Google's Nano Banana Pro (Gemini 3 Pro Image) 
 
 Test your configuration:
 ```bash
-python ~/.claude/plugins/creative-designer/scripts/test_auth.py
+python ~/.claude/plugins/designer/scripts/test_auth.py
 ```
 
 Or try:

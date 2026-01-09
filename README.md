@@ -6,10 +6,10 @@ Open-source AI tools for media buyers and marketers.
 
 | Plugin | Description | Install |
 |--------|-------------|---------|
-| [Google Ads Specialist](./plugins/google-ads-specialist) | GAQL queries and campaign management | `npx -y @channel47/google-ads-mcp` |
-| [Creative Designer](./plugins/creative-designer) | AI image generation with Gemini | `uvx channel47-creative-designer` |
-| [Copywriting Expert](./plugins/copywriting-expert) | Master copywriting frameworks | Claude Code only |
-| [Prompt Enhancer](./plugins/prompt-enhancer) | Optimize prompts for Claude | Claude Code only |
+| [Google Ads Specialist](./plugins/google-ads-specialist) | GAQL queries and campaign management | `npx -y @channel47/google-ads-specialist` |
+| [Designer](./plugins/designer) | AI image generation with Gemini | `uvx channel47-designer` |
+| [Copywriter](./plugins/copywriter) | Master copywriting frameworks | Claude Code only |
+| [Prompt Engineer](./plugins/prompt-engineer) | Optimize prompts for Claude | Claude Code only |
 
 ## Installation
 

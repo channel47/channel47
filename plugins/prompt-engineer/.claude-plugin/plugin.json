@@ -1,12 +1,12 @@
 {
-  "name": "prompt-enhancer",
+  "name": "prompt-engineer",
   "version": "1.0.0",
   "description": "Optimize prompts using Anthropic's 2025 best practices for Claude 4.x models",
   "author": {
     "name": "Jackson",
     "url": "https://channel47.dev"
   },
-  "homepage": "https://channel47.dev/plugins/prompt-enhancer",
+  "homepage": "https://channel47.dev/tools/prompt-engineer",
   "repository": "https://github.com/channel47/channel47",
   "license": "MIT",
   "keywords": ["prompts", "optimization", "anthropic", "best-practices", "claude-4x", "prompt-engineering"]

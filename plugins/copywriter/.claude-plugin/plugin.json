@@ -1,12 +1,12 @@
 {
-  "name": "copywriting-expert",
+  "name": "copywriter",
   "version": "1.0.0",
   "description": "Master copywriting combining storyteller craft with direct response mastery. Fuse the emotional power of Homer, Hemingway, and Dickens with the conversion science of Schwartz, Halbert, and Ogilvy.",
   "author": {
     "name": "Jackson",
     "url": "https://channel47.dev"
   },
-  "homepage": "https://channel47.dev/plugins/copywriting-expert",
+  "homepage": "https://channel47.dev/tools/copywriter",
   "repository": "https://github.com/channel47/channel47",
   "license": "MIT",
   "keywords": [

@@ -19,24 +19,24 @@
       "tags": ["google-ads", "gaql", "marketing", "analytics", "ppc"]
     },
     {
-      "name": "creative-designer",
-      "source": "./plugins/creative-designer",
+      "name": "designer",
+      "source": "./plugins/designer",
       "description": "AI image generation with Gemini",
       "version": "1.3.0",
       "category": "creative",
       "tags": ["image-generation", "ai-art", "gemini", "mcp"]
     },
     {
-      "name": "copywriting-expert",
-      "source": "./plugins/copywriting-expert",
+      "name": "copywriter",
+      "source": "./plugins/copywriter",
       "description": "Master copywriting frameworks",
       "version": "1.0.0",
       "category": "writing",
       "tags": ["copywriting", "sales-copy", "direct-response"]
     },
     {
-      "name": "prompt-enhancer",
-      "source": "./plugins/prompt-enhancer",
+      "name": "prompt-engineer",
+      "source": "./plugins/prompt-engineer",
       "description": "Optimize prompts for Claude",
       "version": "1.0.0",
       "category": "development",

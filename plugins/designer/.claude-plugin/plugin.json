@@ -1,12 +1,12 @@
 {
-  "name": "creative-designer",
+  "name": "designer",
   "version": "1.3.0",
   "description": "AI-powered image generation using Google's Nano Banana Pro (Gemini 3 Pro Image) and Nano Banana (Gemini 2.5 Flash Image) with professional 4K quality, smart model selection, and Google Search grounding",
   "author": {
     "name": "Jackson",
     "url": "https://channel47.dev"
   },
-  "homepage": "https://channel47.dev/plugins/creative-designer",
+  "homepage": "https://channel47.dev/tools/designer",
   "repository": "https://github.com/channel47/channel47",
   "license": "MIT",
   "keywords": [
