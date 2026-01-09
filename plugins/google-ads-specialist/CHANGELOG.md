@@ -5,6 +5,27 @@ All notable changes to the Google Ads Specialist Plugin will be documented in th
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2026-01-09
+
+### Breaking Changes
+- Removed all atomic skills (7 skills)
+- Removed playbook skill
+- Removed skill-reference requirement for queries
+
+### Added
+- `google-ads-analyst` subagent for query isolation
+- Adaptive result sizing (inline vs file output)
+- Minimal troubleshooting skill (plugin-specific only)
+
+### Changed
+- Hook now gates mutations only (queries flow freely)
+- 94% token reduction (7,883 -> ~450 tokens)
+
+### Migration
+- No action needed for queries - they work autonomously now
+- Mutations still require dry_run handling (unchanged behavior)
+- For GAQL syntax help, see Google docs (no longer bundled)
+
 ## [3.2.0] - 2026-01-08
 
 ### Added
