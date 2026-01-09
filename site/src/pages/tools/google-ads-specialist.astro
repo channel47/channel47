@@ -1,8 +1,8 @@
 ---
 /**
- * Google Ads MCP Tool Page
+ * Google Ads Specialist Tool Page
  *
- * Setup guide for the open-source Google Ads MCP server.
+ * Setup guide for the open-source Google Ads Specialist plugin.
  * MIT licensed.
  */
 
@@ -15,14 +15,14 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
 ---
 
 <BaseLayout
-  title="Google Ads MCP — Free Setup Guide | Channel47"
-  description="Connect the free Google Ads MCP server to Claude or Cursor in five minutes. Query any account. No install required."
+  title="Google Ads Specialist — Free Setup Guide | Channel47"
+  description="Connect the free Google Ads Specialist plugin to Claude or Cursor in five minutes. Query any account. No install required."
 >
   <ToolSchema
-    name="Google Ads MCP Server"
+    name="Google Ads Specialist"
     description="Query Google Ads data using GAQL with OAuth authentication"
-    url="https://channel47.dev/tools/google-ads"
-    version="3.1.0"
+    url="https://channel47.dev/tools/google-ads-specialist"
+    version="3.2.0"
   />
   <Header />
 
@@ -36,7 +36,7 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
       <!-- Hero -->
       <header class="tool-header">
         <div class="tool-header__badge">Free</div>
-        <h1>Google Ads MCP</h1>
+        <h1>Google Ads Specialist</h1>
         <p class="tool-header__intro">
           Connect in five minutes. Query any account. No install required.
         </p>
@@ -65,7 +65,7 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
           Choose your setup method below. The MCP server connects Claude to your Google Ads account.
         </p>
 
-        <InstallTabs plugin="google-ads" />
+        <InstallTabs plugin="google-ads-specialist" />
 
         <div class="setup-step setup-step--other">
           <h3>For Cursor or other MCP tools</h3>
@@ -74,9 +74,9 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
           </p>
           <div class="code-block-wrapper">
             <pre class="code-block"><code>{`{
-  "google-ads": {
+  "google-ads-specialist": {
     "command": "npx",
-    "args": ["-y", "@channel47/google-ads-mcp@latest"],
+    "args": ["-y", "@channel47/google-ads-specialist@latest"],
     "env": {
       "GOOGLE_ADS_DEVELOPER_TOKEN": "your-token",
       "GOOGLE_ADS_CLIENT_ID": "your-client-id",
