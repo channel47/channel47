@@ -13,10 +13,10 @@
     {
       "name": "google-ads-specialist",
       "source": "./plugins/google-ads-specialist",
-      "description": "Google Ads campaign management with GAQL",
-      "version": "3.2.0",
+      "description": "Google Ads management with subagent-based architecture",
+      "version": "4.0.0",
       "category": "marketing",
-      "tags": ["google-ads", "gaql", "marketing", "analytics", "ppc"]
+      "tags": ["google-ads", "gaql", "marketing", "analytics", "ppc", "subagent"]
     },
     {
       "name": "creative-designer",
