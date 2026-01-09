@@ -1,14 +1,14 @@
 {
   "name": "google-ads-specialist",
-  "version": "3.2.0",
-  "description": "Google Ads management with GAQL query and mutation capabilities via skills. Progressive disclosure through atomic skills, playbooks, and troubleshooting guides.",
+  "version": "4.0.0",
+  "description": "Google Ads management with subagent-based architecture. Query isolation via analyst subagent, autonomous GAQL generation, mutation oversight via hooks.",
   "author": {
     "name": "Jackson",
     "url": "https://channel47.dev"
   },
   "homepage": "https://channel47.dev/plugins/google-ads-specialist",
   "repository": "https://github.com/channel47/channel47",
-  "keywords": ["google-ads", "advertising", "gaql", "ppc", "marketing", "analytics"],
+  "keywords": ["google-ads", "advertising", "gaql", "ppc", "marketing", "analytics", "subagent"],
   "license": "MIT",
   "mcpServers": "./.mcp.json"
 }
