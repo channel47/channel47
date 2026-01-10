@@ -70,96 +70,19 @@ const { class: className } = Astro.props;
 </header>
 
 <script>
-  const menuBtn = document.querySelector('.header__menu-btn');
-  const closeBtn = document.querySelector('.mobile-menu__close');
-  const mobileMenu = document.getElementById('mobile-menu');
+  import { initHeaderScroll } from '../utils/headerScroll';
+  import { initMobileMenu } from '../utils/mobileMenu';
+
+  // Get required DOM elements
   const header = document.querySelector('.header') as HTMLElement;
+  const menu = document.getElementById('mobile-menu') as HTMLElement;
+  const openButton = document.querySelector('.header__menu-btn') as HTMLElement;
+  const closeButton = document.querySelector('.mobile-menu__close') as HTMLElement;
 
-  // ===================
-  // Mobile Menu
-  // ===================
-  function openMenu() {
-    mobileMenu?.classList.add('mobile-menu--open');
-    mobileMenu?.setAttribute('aria-hidden', 'false');
-    menuBtn?.setAttribute('aria-expanded', 'true');
-    header?.classList.add('header--menu-open');
-    document.body.style.overflow = 'hidden';
-    closeBtn?.focus();
-  }
-
-  function closeMenu() {
-    mobileMenu?.classList.remove('mobile-menu--open');
-    mobileMenu?.setAttribute('aria-hidden', 'true');
-    menuBtn?.setAttribute('aria-expanded', 'false');
-    header?.classList.remove('header--menu-open');
-    document.body.style.overflow = '';
-  }
-
-  menuBtn?.addEventListener('click', openMenu);
-  closeBtn?.addEventListener('click', () => {
-    closeMenu();
-    menuBtn?.focus();
-  });
-
-  mobileMenu?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mobileMenu?.classList.contains('mobile-menu--open')) {
-      closeMenu();
-      menuBtn?.focus();
-    }
-  });
-
-  window.matchMedia('(min-width: 640px)').addEventListener('change', (e) => {
-    if (e.matches) closeMenu();
-  });
-
-  // ===================
-  // Scroll Hide/Show
-  // ===================
-  const SCROLL_THRESHOLD = 10;
-  const HIDE_OFFSET = 100; // Don't hide until scrolled past this point
-  let lastScrollY = 0;
-  let ticking = false;
-
-  function updateHeader() {
-    const currentScrollY = window.scrollY;
-    const isMenuOpen = header?.classList.contains('header--menu-open');
-
-    // Don't hide if menu is open or at top of page
-    if (isMenuOpen || currentScrollY < HIDE_OFFSET) {
-      header?.classList.remove('header--hidden');
-      lastScrollY = currentScrollY;
-      ticking = false;
-      return;
-    }
-
-    const scrollDelta = currentScrollY - lastScrollY;
-
-    if (scrollDelta > SCROLL_THRESHOLD) {
-      // Scrolling down - hide header
-      header?.classList.add('header--hidden');
-    } else if (scrollDelta < -SCROLL_THRESHOLD) {
-      // Scrolling up - show header
-      header?.classList.remove('header--hidden');
-    }
-
-    lastScrollY = currentScrollY;
-    ticking = false;
-  }
-
-  // Respect reduced motion preference
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (!prefersReducedMotion) {
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(updateHeader);
-        ticking = true;
-      }
-    }, { passive: true });
+  // Initialize behaviors
+  if (header && menu && openButton && closeButton) {
+    initMobileMenu({ menu, openButton, closeButton, header });
+    initHeaderScroll(header);
   }
 </script>
 
