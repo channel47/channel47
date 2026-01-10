@@ -2,7 +2,7 @@
   "mcpServers": {
     "nano-banana": {
       "command": "uvx",
-      "args": ["nano-banana-mcp"]
+      "args": ["gemini-image-mcp"]
     }
   }
 }
