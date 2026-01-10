@@ -1,8 +1,8 @@
 ---
 /**
- * Copywriting Expert Tool Page
+ * Prompt Engineer Tool Page
  *
- * Setup guide for the open-source Copywriting Expert plugin.
+ * Setup guide for the open-source Prompt Engineer plugin.
  * Claude Code only - no MCP server.
  * MIT licensed.
  */
@@ -16,13 +16,13 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
 ---
 
 <BaseLayout
-  title="Copywriting Expert — Master Copywriting Frameworks | Channel47"
-  description="Direct response copywriting frameworks, headline formulas, and conversion-focused writing patterns. Open-source and MIT licensed."
+  title="Prompt Engineer — Optimize Prompts for Claude | Channel47"
+  description="Optimize your prompts using Anthropic best practices. Better prompts mean better results. Open-source and MIT licensed."
 >
   <ToolSchema
-    name="Copywriting Expert"
-    description="Master copywriting frameworks for direct response, headlines, and hooks."
-    url="https://channel47.dev/tools/copywriting"
+    name="Prompt Engineer"
+    description="Optimize prompts for Claude using Anthropic best practices."
+    url="https://channel47.dev/tools/prompt-engineer"
     version="1.0.0"
   />
   <Header />
@@ -37,9 +37,9 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
       <!-- Hero -->
       <header class="tool-header">
         <div class="tool-header__badge">Free</div>
-        <h1>Copywriting Expert</h1>
+        <h1>Prompt Engineer</h1>
         <p class="tool-header__intro">
-          Direct response copywriting frameworks. Headlines, hooks, and conversion-focused writing.
+          Optimize your prompts using Anthropic best practices. Better prompts, better results.
         </p>
       </header>
 
@@ -63,22 +63,22 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
           This tool is a Claude Code plugin. Install it directly from the marketplace.
         </p>
 
-        <InstallTabs plugin="copywriting" />
+        <InstallTabs plugin="prompt-engineer" />
       </section>
 
       <!-- How It Works -->
       <section class="tool-section">
         <h2>How it works</h2>
         <p>
-          Once installed, the plugin teaches Claude proven copywriting frameworks and formulas.
-          Ask Claude to write copy, and it will apply the right framework for your use case.
+          Once installed, use the <code>/build-prompt</code> command or ask Claude to enhance a prompt.
+          The plugin applies Anthropic's documented best practices to improve clarity, specificity, and effectiveness.
         </p>
         <div class="test-prompt">
-          <p>"Write a headline for a SaaS product that helps teams collaborate better"</p>
+          <p>"/build-prompt"</p>
         </div>
         <p>
-          Claude will use headline formulas, power words, and conversion principles
-          to craft copy that actually converts.
+          The interactive wizard guides you through building an optimized prompt step by step,
+          applying proven patterns from Anthropic's prompt engineering documentation.
         </p>
       </section>
 
@@ -86,15 +86,15 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
       <section class="tool-section section--features">
         <h2>What's included</h2>
         <ul class="feature-list">
-          <li>Classic direct response frameworks (AIDA, PAS, etc.)</li>
-          <li>Headline formulas and templates</li>
-          <li>Hook and opening line patterns</li>
-          <li>Email subject line optimization</li>
-          <li>Landing page copy structures</li>
-          <li>Ad copy best practices</li>
+          <li>Interactive prompt building wizard</li>
+          <li>Anthropic best practices applied automatically</li>
+          <li>Structured output optimization</li>
+          <li>Chain-of-thought prompting patterns</li>
+          <li>Role and context framing techniques</li>
+          <li>Example-based learning (few-shot) templates</li>
         </ul>
         <p class="feature-note">
-          All features are open-source and MIT licensed. <a href="https://github.com/channel47/channel47/tree/main/plugins/copywriting-expert">View on GitHub</a>
+          All features are open-source and MIT licensed. <a href="https://github.com/channel47/channel47/tree/main/plugins/prompt-engineer">View on GitHub</a>
         </p>
       </section>
 
@@ -105,7 +105,7 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
           description="New features, fixes, and tips. No spam."
           buttonText="Subscribe"
           variant="card"
-          tag="copywriting-tool-user"
+          tag="prompt-engineer-tool-user"
         />
       </section>
     </article>
@@ -226,6 +226,15 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
     font-size: var(--text-base);
   }
 
+  .tool-section code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    padding: var(--space-1) var(--space-2);
+    background-color: var(--color-bg-elevated);
+    border-radius: var(--radius-default);
+    color: var(--color-accent);
+  }
+
   /* Requirements List */
   .requirements-list {
     list-style: none;
@@ -257,8 +266,8 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
   }
 
   .test-prompt p {
-    font-style: italic;
-    color: var(--color-fg);
+    font-family: var(--font-mono);
+    color: var(--color-accent);
     margin: 0;
   }
 

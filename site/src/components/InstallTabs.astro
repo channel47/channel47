@@ -1,17 +1,17 @@
 ---
 interface Props {
-  plugin: 'google-ads' | 'creative-designer' | 'copywriting' | 'prompt-enhancer';
+  plugin: 'google-ads-specialist' | 'designer' | 'copywriter' | 'prompt-engineer';
 }
 
 const { plugin } = Astro.props;
 
 const configs: Record<string, { claudeDesktop: string | null; claudeCode: string }> = {
-  'google-ads': {
+  'google-ads-specialist': {
     claudeDesktop: `{
   "mcpServers": {
-    "google-ads": {
+    "google-ads-specialist": {
       "command": "npx",
-      "args": ["-y", "@channel47/google-ads-mcp@latest"],
+      "args": ["-y", "@channel47/google-ads-specialist@latest"],
       "env": {
         "GOOGLE_ADS_DEVELOPER_TOKEN": "your-token",
         "GOOGLE_ADS_CLIENT_ID": "your-client-id",
@@ -24,12 +24,12 @@ const configs: Record<string, { claudeDesktop: string | null; claudeCode: string
     claudeCode: `/plugin marketplace add github:channel47/channel47
 /plugin install google-ads-specialist@channel47`
   },
-  'creative-designer': {
+  'designer': {
     claudeDesktop: `{
   "mcpServers": {
-    "creative-designer": {
+    "designer": {
       "command": "uvx",
-      "args": ["channel47-creative-designer"],
+      "args": ["channel47-designer"],
       "env": {
         "GEMINI_API_KEY": "your-gemini-key"
       }
@@ -37,17 +37,17 @@ const configs: Record<string, { claudeDesktop: string | null; claudeCode: string
   }
 }`,
     claudeCode: `/plugin marketplace add github:channel47/channel47
-/plugin install creative-designer@channel47`
+/plugin install designer@channel47`
   },
-  'copywriting': {
+  'copywriter': {
     claudeDesktop: null,
     claudeCode: `/plugin marketplace add github:channel47/channel47
-/plugin install copywriting-expert@channel47`
+/plugin install copywriter@channel47`
   },
-  'prompt-enhancer': {
+  'prompt-engineer': {
     claudeDesktop: null,
     claudeCode: `/plugin marketplace add github:channel47/channel47
-/plugin install prompt-enhancer@channel47`
+/plugin install prompt-engineer@channel47`
   }
 };
 
