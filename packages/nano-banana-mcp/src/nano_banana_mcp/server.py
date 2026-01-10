@@ -1,4 +1,4 @@
-# File: src/nanobanana_mcp.py
+# File: server.py
 # What: Nano Banana Pro MCP server for AI-powered image generation.
 # Why: Provides Claude Code with access to Google's Gemini 3 Pro Image and
 #      Gemini 2.5 Flash Image models for professional-grade image generation.
@@ -23,7 +23,7 @@ Access Level: Read-write for image generation and file management
 
 from mcp.server.fastmcp import FastMCP
 from pydantic import BaseModel, Field, ConfigDict
-from typing import Optional, List, Literal
+from typing import Optional
 from enum import Enum
 import os
 import json
@@ -31,7 +31,6 @@ import base64
 import httpx
 import re
 from pathlib import Path
-from datetime import datetime
 
 # Module-level constants
 GEMINI_API_BASE = "https://generativelanguage.googleapis.com/v1beta"

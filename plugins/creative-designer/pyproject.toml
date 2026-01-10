@@ -4,38 +4,26 @@ build-backend = "hatchling.build"
 
 [project]
 name = "channel47-creative-designer"
-version = "1.2.0"
-description = "AI-powered image generation MCP server using Google Gemini"
+version = "2.0.0"
+description = "Creative Designer Claude Code Plugin - AI-powered image generation"
 readme = "README.md"
 license = "MIT"
 authors = [
     { name = "Jackson", email = "jackson@channel47.dev" }
 ]
-keywords = ["mcp", "gemini", "image-generation", "ai", "claude"]
+keywords = ["claude-code-plugin", "image-generation", "ai", "gemini", "nano-banana"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
 ]
 requires-python = ">=3.10"
-dependencies = [
-    "mcp>=1.23.0,<2.0.0",
-    "fastmcp>=2.14.0,<3.0.0",
-    "httpx>=0.27.1,<1.0.0",
-    "pydantic>=2.11.0,<3.0.0",
-    "python-dotenv>=1.1.0",
-]
+# No dependencies - MCP server is now external (nano-banana-mcp on PyPI)
+dependencies = []
 
 [project.urls]
 Homepage = "https://channel47.dev"
 Repository = "https://github.com/channel47/channel47"
 
-[project.scripts]
-channel47-creative-designer = "src.nanobanana_mcp:main"
-
-[tool.hatch.build.targets.wheel]
-packages = ["src"]
+# No entry point - MCP server is external, invoked via uvx nano-banana-mcp

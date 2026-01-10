@@ -5,6 +5,28 @@ All notable changes to the Nano Banana Pro plugin will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-01-09
+
+### Changed
+- **BREAKING: MCP Server Extracted to PyPI Package**
+  - The MCP server is now distributed as a standalone PyPI package: `nano-banana-mcp`
+  - Plugin now uses `uvx nano-banana-mcp` instead of embedded Python script
+  - First activation may take 3-5 seconds to download; subsequent uses are instant
+  - No changes to tool names or functionality - all tools still accessible as `mcp__nano-banana__*`
+
+### Benefits
+- Independent versioning: MCP server can be updated without plugin release
+- Lighter plugin: Skills, agents, and commands only (no server code)
+- Reusable: MCP server can be used by Claude SDK agents and other tools
+- Faster updates: Server bug fixes deploy immediately via PyPI
+
+### Migration
+No action required for users. The plugin automatically uses the new package via uvx.
+
+### Removed
+- Embedded `src/nanobanana_mcp.py` (moved to `nano-banana-mcp` PyPI package)
+- Plugin no longer requires MCP server dependencies in pyproject.toml
+
 ## [1.3.0] - 2026-01-08
 
 ### Changed
