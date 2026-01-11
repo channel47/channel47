@@ -157,18 +157,24 @@ Execute write operations via GoogleAdsService.Mutate. **Requires dry_run validat
 
 ### google-ads-analyst
 
-The analyst subagent handles all Google Ads query operations autonomously. It:
+The analyst subagent handles Google Ads query operations for deep analysis workflows. It:
 
 - Constructs GAQL queries from natural language requests
 - Executes queries via `mcp__google-ads__query` tool
 - Formats results appropriately (inline for small results, file output for large datasets)
 - Handles query errors and provides troubleshooting guidance
 
-**When spawned:**
-- User requests campaign performance data
-- User asks for search terms analysis
-- User needs budget or spend information
-- Any read-only Google Ads data request
+**When spawned (proactively invoked for):**
+- Analyzing campaign performance trends or historical data
+- Running complex multi-metric GAQL queries
+- Deep-diving into search term reports, audience insights, or ad group analysis
+- Any analysis requiring multiple queries or large datasets
+- Comparing performance across segments, dates, or campaigns
+
+**Not spawned for:**
+- Simple account lookups
+- Single-value queries
+- Mutations (handled directly with hook validation)
 
 The subagent operates independently without requiring skill references, generating GAQL queries based on its training knowledge and the Google Ads API schema.
 

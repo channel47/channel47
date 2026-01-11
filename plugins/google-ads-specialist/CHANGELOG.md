@@ -5,6 +5,16 @@ All notable changes to the Google Ads Specialist Plugin will be documented in th
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.1] - 2026-01-10
+
+### Changed
+- Improved `google-ads-analyst` subagent description for better invocation targeting
+  - Added proactive language ("Use proactively when...") to improve automatic delegation
+  - Listed specific deep analysis scenarios (performance trends, multi-metric queries, segment comparisons)
+  - Explicitly excluded simple operations (account lookups, single-value queries)
+- Removed mutation reference from subagent prompt body (subagent only has query tool access)
+- Updated README subagent section to reflect new invocation criteria
+
 ## [4.0.0] - 2026-01-09
 
 ### Breaking Changes

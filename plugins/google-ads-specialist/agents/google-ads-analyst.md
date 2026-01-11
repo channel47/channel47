@@ -1,9 +1,14 @@
 ---
 name: google-ads-analyst
 description: >
-  Use for Google Ads data queries and analysis. Spawns for query tool
-  only - keeps large result sets out of main context. NOT for mutations
-  or account listing.
+  Use for Google Ads data queries and deep analysis. Use proactively when:
+  - Analyzing campaign performance trends or historical data
+  - Running complex multi-metric GAQL queries
+  - Deep-diving into search term reports, audience insights, or ad group analysis
+  - Any analysis requiring multiple queries or large datasets
+  - Comparing performance across segments, dates, or campaigns
+  Keeps large result sets out of main context. NOT for simple account lookups,
+  single-value queries, or mutations.
 tools:
   - mcp__google-ads__query
 model: sonnet
@@ -22,6 +27,3 @@ Always include:
 - Row count and query execution time
 - Key metrics highlighted (spend, conversions, CTR)
 - Actionable insights when patterns are clear
-
-For mutations: Confirm dry_run=true unless user explicitly
-requests live execution.
