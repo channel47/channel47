@@ -27,7 +27,6 @@ interface PluginManifest {
   name: string;
   version: string;
   description: string;
-  site?: PluginSiteData;
   repository?: string;
   mcpServers?: string;
 }
@@ -82,14 +81,19 @@ async function syncPlugins(): Promise<void> {
     }
 
     const manifestPath = join(PLUGINS_DIR, pluginDir, '.claude-plugin/plugin.json');
+    const sitePath = join(PLUGINS_DIR, pluginDir, '.claude-plugin/site.json');
 
     try {
-      const content = await readFile(manifestPath, 'utf-8');
-      const manifest: PluginManifest = JSON.parse(content);
+      const manifestContent = await readFile(manifestPath, 'utf-8');
+      const manifest: PluginManifest = JSON.parse(manifestContent);
 
-      // Skip plugins without site metadata
-      if (!manifest.site) {
-        console.warn(`  [SKIP] ${pluginDir}: No 'site' field in plugin.json`);
+      // Read site metadata from separate file
+      let siteData: PluginSiteData;
+      try {
+        const siteContent = await readFile(sitePath, 'utf-8');
+        siteData = JSON.parse(siteContent);
+      } catch {
+        console.warn(`  [SKIP] ${pluginDir}: No site.json found`);
         skipped++;
         continue;
       }
@@ -97,10 +101,10 @@ async function syncPlugins(): Promise<void> {
       const tool: GeneratedTool = {
         id: manifest.name,
         version: manifest.version,
-        displayName: manifest.site.displayName,
-        tagline: manifest.site.tagline,
-        label: manifest.site.label,
-        features: manifest.site.features,
+        displayName: siteData.displayName,
+        tagline: siteData.tagline,
+        label: siteData.label,
+        features: siteData.features,
         href: `/tools/${getToolSlug(manifest.name)}`,
         github: manifest.repository
           ? `${manifest.repository}/tree/main/plugins/${pluginDir}`

@@ -22,6 +22,15 @@ tools:
 
 Guided image creation using Nano Banana Pro (Gemini 3 Pro Image).
 
+## Style Frameworks
+
+For detailed style guidance, reference:
+- @skills/image-gen/frameworks/styles/photography.md
+- @skills/image-gen/frameworks/styles/illustration.md
+- @skills/image-gen/frameworks/styles/3d-render.md
+- @skills/image-gen/frameworks/styles/painting.md
+- @skills/image-gen/frameworks/styles/sketch.md
+
 ## Workflow
 
 ### 1. Understand the Request
@@ -38,13 +47,14 @@ If missing details, ask:
 - Flash: Quick iterations, concepts, simple subjects
 - Pro: Final assets, complex scenes, 4K quality
 
-**Aspect Ratio:**
-| Use Case | Ratio |
-|----------|-------|
-| Social Media | 1:1 |
-| Instagram Story | 9:16 |
-| YouTube Thumbnail | 16:9 |
-| Website Banner | 2:1 |
+**Aspect Ratio (or use --platform preset):**
+| Use Case | Ratio | Platform Preset |
+|----------|-------|-----------------|
+| Social Media | 1:1 | instagram-post |
+| Stories/Reels | 9:16 | instagram-story, tiktok |
+| YouTube | 16:9 | youtube-thumbnail |
+| Banner | 2:1 | linkedin-post |
+| Cover | 21:9 | facebook-cover |
 
 ### 3. Craft the Prompt
 

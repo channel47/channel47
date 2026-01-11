@@ -21,12 +21,30 @@ args:
     description: File path to save the image
     required: false
     flag: true
+  - name: platform
+    description: "Platform preset: instagram-post, instagram-story, youtube-thumbnail, twitter-post, linkedin-post, tiktok, facebook-cover"
+    required: false
+    flag: true
 ---
 
 # Image Generation Skill
 
 Generate AI-powered images using Nano Banana Pro (Gemini 3 Pro Image) and Nano Banana (Gemini 2.5 Flash Image).
 This skill provides professional-grade image generation with smart model selection, aspect ratio control, and Google Search grounding.
+
+## Style Frameworks
+
+For detailed guidance on specific visual styles, load the appropriate framework:
+
+| Style | Framework | Best For |
+|-------|-----------|----------|
+| Photography | @frameworks/styles/photography.md | Photorealism, product shots, portraits |
+| Illustration | @frameworks/styles/illustration.md | Digital art, clean graphics, icons |
+| 3D Render | @frameworks/styles/3d-render.md | CGI, product viz, dimensional art |
+| Painting | @frameworks/styles/painting.md | Traditional art aesthetics, fine art |
+| Sketch | @frameworks/styles/sketch.md | Concepts, hand-drawn look, ideation |
+
+Load a framework when the user requests a specific style or needs detailed prompt crafting guidance.
 
 ## Capabilities
 
@@ -216,14 +234,26 @@ Enable for:
 - User: "a cat"
 - Enhanced: "A fluffy orange tabby cat sitting on a sunny windowsill, warm afternoon light streaming in, soft focus background, cozy home interior, photorealistic style"
 
-## Platform Aspect Ratios
+## Platform Presets
 
-| Platform | Content | Ratio |
-|----------|---------|-------|
-| Instagram Feed | Square | 1:1 |
-| Instagram Story | Vertical | 9:16 |
-| YouTube Thumbnail | Landscape | 16:9 |
-| TikTok | Vertical | 9:16 |
-| LinkedIn Post | Landscape | 1.91:1 |
-| Website Header | Wide | 2:1 |
-| Print Poster | Portrait | 3:4 |
+Use `--platform [preset]` to auto-configure settings:
+
+| Platform | Aspect | Suggested Style | Model | Notes |
+|----------|--------|-----------------|-------|-------|
+| `instagram-post` | 1:1 | photo, illustration | auto | Square feed |
+| `instagram-story` | 9:16 | photo, illustration | auto | Full-screen vertical |
+| `youtube-thumbnail` | 16:9 | illustration, 3d | pro | High detail, text-friendly |
+| `twitter-post` | 16:9 | photo, illustration | flash | Quick, eye-catching |
+| `linkedin-post` | 2:1 | photo, illustration | pro | Professional context |
+| `tiktok` | 9:16 | photo, illustration | flash | Vertical video cover |
+| `facebook-cover` | 21:9 | photo, illustration | pro | Wide banner |
+
+**Usage:**
+```
+/image-gen --platform instagram-story "sunset beach scene"
+```
+
+Override any preset by specifying explicitly:
+```
+/image-gen --platform instagram-post --style painting "abstract flowers"
+```

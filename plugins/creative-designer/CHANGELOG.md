@@ -5,6 +5,29 @@ All notable changes to the Nano Banana Pro plugin will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-01-10
+
+### Added
+- **Style Frameworks**: On-demand guides for 5 visual styles
+  - Photography: Photorealism, lighting, composition, depth of field
+  - Illustration: Digital art, clean lines, stylization, color palettes
+  - 3D Render: CGI, materials, lighting setups, render quality
+  - Painting: Traditional art, brushwork, color theory, fine art
+  - Sketch: Hand-drawn, concept art, line weight, ideation
+- **Platform Presets**: Auto-configure settings for social platforms via `--platform` flag
+  - `instagram-post` (1:1)
+  - `instagram-story` (9:16)
+  - `youtube-thumbnail` (16:9)
+  - `twitter-post` (16:9)
+  - `linkedin-post` (2:1)
+  - `tiktok` (9:16)
+  - `facebook-cover` (21:9)
+
+### Changed
+- SKILL.md now references frameworks via `@frameworks/styles/[style].md`
+- Platform aspect ratios section replaced with interactive presets
+- agent.md updated with framework references and platform preset table
+
 ## [2.1.0] - 2026-01-10
 
 ### Changed

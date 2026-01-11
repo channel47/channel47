@@ -22,7 +22,7 @@
       "name": "creative-designer",
       "source": "./plugins/creative-designer",
       "description": "AI image generation with Gemini",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "category": "creative",
       "tags": ["image-generation", "ai-art", "gemini", "mcp"]
     },
