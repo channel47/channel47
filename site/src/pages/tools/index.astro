@@ -4,6 +4,9 @@
  *
  * Catalog of open-source MCP servers and Claude Code plugins.
  * All tools are MIT licensed.
+ *
+ * Tool data is synced from plugin.json files via `npm run sync-plugins`.
+ * See: site/scripts/sync-plugins.ts
  */
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -12,37 +15,21 @@ import Footer from '../../components/Footer.astro';
 import EmailSignup from '../../components/EmailSignup.astro';
 import ToolCard from '../../components/ToolCard.astro';
 
-// Tool data - all open-source plugins
-const tools = [
-  {
-    name: 'Google Ads MCP',
-    description: 'Query accounts, pull metrics, run GAQL. Connect in five minutes.',
-    href: '/tools/google-ads',
-    available: true,
-    label: 'MCP Server',
-  },
-  {
-    name: 'Creative Designer',
-    description: 'AI image generation with platform specs baked in. Powered by Gemini.',
-    href: '/tools/creative-designer',
-    available: true,
-    label: 'MCP Server + Plugin',
-  },
-  {
-    name: 'Copywriting Expert',
-    description: 'Master copywriting frameworks. Direct response, headlines, hooks.',
-    href: '/tools/copywriting',
-    available: true,
-    label: 'Claude Code Plugin',
-  },
-  {
-    name: 'Prompt Enhancer',
-    description: 'Optimize prompts for Claude using Anthropic best practices.',
-    href: '/tools/prompt-enhancer',
-    available: true,
-    label: 'Claude Code Plugin',
-  },
-];
+// Import generated tool data from plugin manifests
+import toolsData from '../../data/tools.generated.json';
+import type { GeneratedToolsData } from '../../data/tools.types';
+
+// Cast to typed data
+const data = toolsData as GeneratedToolsData;
+
+// Map generated data to the format expected by ToolCard
+const tools = data.tools.map((tool) => ({
+  name: tool.displayName,
+  description: tool.tagline,
+  href: tool.href,
+  available: true,
+  label: tool.label,
+}));
 ---
 
 <BaseLayout

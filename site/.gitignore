@@ -1,1 +1,4 @@
 .vercel
+
+# Generated files (regenerated on build)
+src/data/tools.generated.json

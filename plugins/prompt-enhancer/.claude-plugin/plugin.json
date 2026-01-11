@@ -9,5 +9,19 @@
   "homepage": "https://channel47.dev/plugins/prompt-enhancer",
   "repository": "https://github.com/channel47/channel47",
   "license": "MIT",
-  "keywords": ["prompts", "optimization", "anthropic", "best-practices", "claude-4x", "prompt-engineering"]
+  "keywords": ["prompts", "optimization", "anthropic", "best-practices", "claude-4x", "prompt-engineering"],
+  "site": {
+    "displayName": "Prompt Enhancer",
+    "tagline": "Optimize prompts for Claude 4.x using Anthropic best practices.",
+    "label": "Claude Code Plugin",
+    "features": [
+      "8-phase interactive wizard via /build-prompt command",
+      "Auto-detection of task types (code, legal, creative, data-analysis, medical, etc.)",
+      "Core techniques: XML tags, chain of thought, few-shot examples, role assignment",
+      "Claude 4.x specific optimizations for literal interpretation handling",
+      "Model-specific tips for Sonnet 4.5 vs Haiku 4.5",
+      "2025 techniques: prefilling for response steering, extended thinking for complex reasoning",
+      "Technique selection matrix — right techniques for each task type"
+    ]
+  }
 }

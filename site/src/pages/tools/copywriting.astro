@@ -85,14 +85,29 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
       <!-- What's Included -->
       <section class="tool-section section--features">
         <h2>What's included</h2>
+
+        <h3>13 Commands</h3>
         <ul class="feature-list">
-          <li>Classic direct response frameworks (AIDA, PAS, etc.)</li>
-          <li>Headline formulas and templates</li>
-          <li>Hook and opening line patterns</li>
-          <li>Email subject line optimization</li>
-          <li>Landing page copy structures</li>
-          <li>Ad copy best practices</li>
+          <li><strong>Write:</strong> email, headline, lead, landing-page</li>
+          <li><strong>Analyze:</strong> weakness, swipe</li>
+          <li><strong>Modes:</strong> fusion, hemingway, schwartz, halbert</li>
+          <li><strong>Transform:</strong> compress, add-proof, raise-stakes</li>
         </ul>
+
+        <h3>3 Specialized Agents</h3>
+        <ul class="feature-list">
+          <li><strong>headline-generator</strong> — 20+ variations using proven formulas</li>
+          <li><strong>email-sequencer</strong> — Plans and writes multi-email campaigns</li>
+          <li><strong>copy-doctor</strong> — Reviews copy, diagnoses weaknesses, prescribes fixes</li>
+        </ul>
+
+        <h3>11+ Master Frameworks</h3>
+        <ul class="feature-list">
+          <li><strong>Storytellers:</strong> Homer, Hemingway, Dickens, Chekhov, Campbell</li>
+          <li><strong>Direct Response:</strong> Schwartz, Halbert, Ogilvy, Carlton, Sugarman, Bencivenga</li>
+          <li><strong>Fusion modes</strong> — Combine storytelling + direct response</li>
+        </ul>
+
         <p class="feature-note">
           All features are open-source and MIT licensed. <a href="https://github.com/channel47/channel47/tree/main/plugins/copywriting-expert">View on GitHub</a>
         </p>
@@ -224,6 +239,24 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
   .tool-section p {
     margin-bottom: var(--space-4);
     font-size: var(--text-base);
+  }
+
+  .tool-section h3 {
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-3);
+    color: var(--color-fg);
+  }
+
+  @media (min-width: 768px) {
+    .tool-section h3 {
+      font-size: var(--text-lg);
+    }
+  }
+
+  .tool-section h3:first-of-type {
+    margin-top: 0;
   }
 
   /* Requirements List */

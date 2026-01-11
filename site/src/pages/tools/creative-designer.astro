@@ -22,7 +22,7 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
     name="Creative Designer"
     description="AI image generation with platform specs baked in. Powered by Gemini."
     url="https://channel47.dev/tools/creative-designer"
-    version="1.2.0"
+    version="2.0.0"
   />
   <Header />
 
@@ -99,11 +99,13 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
       <section class="tool-section section--features">
         <h2>What's included</h2>
         <ul class="feature-list">
-          <li>Platform-aware image generation (Facebook, Instagram, Google Ads, etc.)</li>
-          <li>Automatic dimension handling for each ad format</li>
-          <li>Best practices for ad creative composition</li>
-          <li>Batch generation for A/B testing</li>
-          <li>Image variation and iteration tools</li>
+          <li>Dual model tiers: Flash (fast, 2-3s, up to 1024px) and Pro (4K quality)</li>
+          <li>Smart model selection based on prompt analysis</li>
+          <li>7 aspect ratios: 1:1, 16:9, 9:16, 21:9, 4:3, 3:4, 2:1</li>
+          <li>Google Search grounding for factually accurate images (Pro only)</li>
+          <li>Reference image support via file upload</li>
+          <li>Seed-based reproducible generation</li>
+          <li>Configurable safety levels</li>
         </ul>
         <p class="feature-note">
           All features are open-source and MIT licensed. <a href="https://github.com/channel47/channel47/tree/main/plugins/creative-designer">View on GitHub</a>
