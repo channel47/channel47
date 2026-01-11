@@ -525,22 +525,6 @@ After optimizing a prompt, verify:
 
 ---
 
-## Progressive Disclosure
-
-To keep this skill efficient, detailed reference materials are loaded on-demand:
-
-**Load when needed:**
-- `technique-loader.md` - Deep dive on specific technique
-- `model-specific-tips.md` - Detailed Claude 4.x model comparison
-- `assets/reference/quick-reference.md` - One-page cheat sheet
-- `assets/examples/before-after-gallery.md` - 8-10 real-world examples
-- `assets/examples/task-type-templates.md` - Ready-to-use templates
-- `assets/reference/xml-tag-library.md` - Comprehensive tag catalog
-- `assets/reference/new-techniques.md` - Prefilling, extended thinking details
-- `assets/reference/claude-4x-tips.md` - Complete model-specific guide
-
----
-
 ## Real-World Impact
 
 Baseline tests showed that without systematic prompt engineering, agents:
@@ -557,15 +541,3 @@ With this skill, prompts systematically apply proven Anthropic techniques, resul
 - Reduced hallucinations and errors
 - Better performance with Claude 4.x literal interpretation
 
----
-
-## Sources
-
-This skill synthesizes best practices from:
-- Anthropic's Prompt Engineering Interactive Tutorial (9 chapters)
-- Anthropic's Real World Prompting Course (5 lessons)
-- Anthropic's Prompt Evaluations Course
-- Anthropic's official documentation on XML tags and prompt engineering
-- Claude 4.x model documentation and best practices
-- Testing with baseline pressure scenarios revealing common failure patterns
-- 2025 updates: Prefilling, Extended Thinking, Prompt Chaining guides

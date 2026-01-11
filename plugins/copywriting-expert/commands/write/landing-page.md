@@ -111,15 +111,15 @@ COMMON QUESTIONS
 
 ## Framework Selection
 
-Based on the product and audience, I'll apply:
+Based on awareness level, I'll apply:
 
 | Awareness Level | Framework Approach |
 |----------------|-------------------|
-| Most Aware | Ogilvy (proof-heavy, offer-first) |
-| Product Aware | Carlton (differentiation, voice) |
-| Solution Aware | Schwartz (mechanism focus) |
-| Problem Aware | Dickens (vivid problem/solution) |
-| Unaware | Homer (story-driven) |
+| Most Aware (5) | Schwartz (offer-first, proof-heavy) |
+| Product Aware (4) | Schwartz + Hemingway (differentiation, economy) |
+| Solution Aware (3) | Schwartz (mechanism focus) |
+| Problem Aware (2) | Halbert (vivid problem agitation) |
+| Unaware (1) | Halbert (story-driven, personal) |
 
 ## Output Format
 

@@ -90,7 +90,7 @@ I will examine the copy for:
 
 ---
 
-### THE COPY DOCTOR'S PRESCRIPTION
+### PRESCRIPTION
 
 **Primary diagnosis:** [Core problem]
 

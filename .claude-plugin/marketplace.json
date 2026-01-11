@@ -22,7 +22,7 @@
       "name": "creative-designer",
       "source": "./plugins/creative-designer",
       "description": "AI image generation with Gemini",
-      "version": "1.3.0",
+      "version": "2.1.0",
       "category": "creative",
       "tags": ["image-generation", "ai-art", "gemini", "mcp"]
     },
@@ -30,7 +30,7 @@
       "name": "copywriting-expert",
       "source": "./plugins/copywriting-expert",
       "description": "Master copywriting frameworks",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "category": "writing",
       "tags": ["copywriting", "sales-copy", "direct-response"]
     },
@@ -38,7 +38,7 @@
       "name": "prompt-enhancer",
       "source": "./plugins/prompt-enhancer",
       "description": "Optimize prompts for Claude",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "category": "development",
       "tags": ["prompts", "optimization", "prompt-engineering"]
     }

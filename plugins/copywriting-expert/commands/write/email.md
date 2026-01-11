@@ -68,20 +68,15 @@ Structure:
 
 ## Framework Application
 
-### Halbert Style
+### Halbert Style (Recommended)
 - Ultra-personal, like a letter to a friend
 - Story-driven
 - Strong P.S.
 
-### Sugarman Style
-- Slippery slide (can't stop reading)
-- Bucket brigades
-- Psychological triggers
-
-### Bencivenga Style
-- Emotional logic
-- Hidden benefit focus
-- Reason-why approach
+### Hemingway Style
+- Cut ruthlessly - every word earns its place
+- Short sentences create urgency
+- Subtext carries meaning
 
 ## Output Format
 

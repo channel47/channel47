@@ -2,6 +2,24 @@
 
 All notable changes to the Prompt Enhancer plugin will be documented in this file.
 
+## [2.0.0] - 2026-01-10
+
+### Changed
+- BREAKING: Removed build-prompt wizard command
+- Consolidated Claude 4.x tips into main SKILL.md
+- Reduced XML tag library to 10 essential tags (from 50+)
+- Reduced task templates from 7 to 3 (Document Analysis, Code Review, Data Analysis)
+
+### Removed
+- `commands/build-prompt.md` - wizard command
+- `skills/prompt-enhancer/technique-loader.md` - redundant
+- `skills/prompt-enhancer/model-specific-tips.md` - merged into SKILL.md
+- `GETTING_STARTED.md` - redundant with README
+- `assets/examples/common-patterns.md` - redundant
+- `assets/examples/before-after-gallery.md` - examples in SKILL.md sufficient
+- `assets/reference/new-techniques.md` - merged into SKILL.md
+- `assets/reference/claude-4x-tips.md` - merged into SKILL.md
+
 ## [1.0.0] - 2025-12-27
 
 ### Added

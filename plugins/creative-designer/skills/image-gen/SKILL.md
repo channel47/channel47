@@ -46,11 +46,6 @@ If the user hasn't specified details, clarify:
 3. **Aspect**: Square (1:1), landscape (16:9), portrait (9:16)?
 4. **Quality**: Fast iteration or final quality?
 
-Load prompt tips if crafting complex prompts:
-```
-@prompt-tips.md
-```
-
 ### Step 2: Select Model and Settings
 
 **Model Selection Logic:**
@@ -202,14 +197,33 @@ Enable for:
 - Helpful for iterating on a specific generation
 - Example: `seed=42` produces the same image each time
 
-## Tips for Complex Generations
+## Prompt Engineering Tips
 
-Load the prompt tips reference for detailed guidance:
-```
-@prompt-tips.md
-```
+**Structure your prompt:**
+1. Main subject
+2. Action or pose
+3. Setting/environment
+4. Lighting conditions
+5. Style/medium
+6. Mood/atmosphere
 
-Load aspect ratio guide for platform-specific recommendations:
-```
-@aspect-ratio-guide.md
-```
+**Powerful modifiers:**
+- Quality: "highly detailed", "sharp focus", "8K resolution", "professional quality"
+- Lighting: "golden hour", "soft diffused light", "dramatic lighting", "backlit"
+- Style: "photorealistic", "cinematic", "digital art", "oil painting"
+
+**Example enhancement:**
+- User: "a cat"
+- Enhanced: "A fluffy orange tabby cat sitting on a sunny windowsill, warm afternoon light streaming in, soft focus background, cozy home interior, photorealistic style"
+
+## Platform Aspect Ratios
+
+| Platform | Content | Ratio |
+|----------|---------|-------|
+| Instagram Feed | Square | 1:1 |
+| Instagram Story | Vertical | 9:16 |
+| YouTube Thumbnail | Landscape | 16:9 |
+| TikTok | Vertical | 9:16 |
+| LinkedIn Post | Landscape | 1.91:1 |
+| Website Header | Wide | 2:1 |
+| Print Poster | Portrait | 3:4 |

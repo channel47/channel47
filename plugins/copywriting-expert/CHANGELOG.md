@@ -2,6 +2,22 @@
 
 All notable changes to The Copywriter's Arsenal will be documented in this file.
 
+## [2.0.0] - 2026-01-10
+
+### Changed
+- BREAKING: Simplified to 3 core frameworks (Schwartz, Hemingway, Halbert)
+- Consolidated commands to 5 essentials (headline, email, landing-page, swipe, weakness)
+
+### Removed
+- All agents (headline-generator, email-sequencer, copy-doctor)
+- Mode commands (fusion, hemingway, schwartz, halbert)
+- Transform commands (compress, add-proof, raise-stakes)
+- 8 frameworks: Homer, Dickens, Chekhov, Campbell, Ogilvy, Carlton, Sugarman, Bencivenga
+- All fusion templates (origin-story-sales, metaphor-first-landing, character-email-sequence)
+- Reference library (headline-formulas, emotional-triggers, proof-hierarchy, swipe-file-anatomy)
+- lead.md command (merged into landing-page)
+- GETTING_STARTED.md
+
 ## [1.0.0] - 2024-12-29
 
 ### Added

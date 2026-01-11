@@ -5,6 +5,18 @@ All notable changes to the Nano Banana Pro plugin will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-01-10
+
+### Changed
+- Consolidated prompt tips and aspect ratio guide into SKILL.md
+- Condensed agent documentation (210 -> 88 lines)
+
+### Removed
+- `tests/test_utils.py` (tests for removed MCP server code)
+- `skills/image-gen/prompt-tips.md` (merged into SKILL.md)
+- `skills/image-gen/aspect-ratio-guide.md` (merged into SKILL.md)
+- `GETTING_STARTED.md` (essentials already in README)
+
 ## [2.0.0] - 2026-01-09
 
 ### Changed

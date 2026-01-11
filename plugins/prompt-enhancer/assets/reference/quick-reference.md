@@ -167,9 +167,3 @@ Questions:
 └─────────────────────────────────────┘
 ```
 
-## Further Reading
-
-- Full guide: `assets/reference/xml-tag-library.md`
-- 2025 techniques: `assets/reference/new-techniques.md`
-- Model tips: `assets/reference/claude-4x-tips.md`
-- Examples: `assets/examples/before-after-gallery.md`
