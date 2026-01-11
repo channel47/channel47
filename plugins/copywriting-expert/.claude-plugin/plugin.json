@@ -20,18 +20,5 @@
     "email-sequences",
     "landing-pages",
     "persuasion"
-  ],
-  "site": {
-    "displayName": "Copywriting Expert",
-    "tagline": "11+ master frameworks. Direct response, headlines, hooks.",
-    "label": "Claude Code Plugin",
-    "features": [
-      "13 commands: write (email, headline, lead, landing-page), analyze (weakness, swipe), modes (fusion, hemingway, schwartz, halbert), transform (compress, add-proof, raise-stakes)",
-      "headline-generator agent — 20+ variations using proven formulas",
-      "email-sequencer agent — Plans and writes multi-email campaigns",
-      "copy-doctor agent — Reviews copy, diagnoses weaknesses, prescribes fixes",
-      "11+ master frameworks from storytellers (Homer, Hemingway, Dickens, Chekhov, Campbell) and direct response legends (Schwartz, Halbert, Ogilvy, Carlton, Sugarman, Bencivenga)",
-      "Fusion modes — Combine storytelling + direct response"
-    ]
-  }
+  ]
 }

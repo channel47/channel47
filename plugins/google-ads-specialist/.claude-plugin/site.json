@@ -1,0 +1,13 @@
+{
+  "displayName": "Google Ads MCP",
+  "tagline": "GAQL queries plus an analyst subagent that writes them for you.",
+  "label": "MCP Server + Plugin",
+  "features": [
+    "Analyst subagent that writes GAQL queries for you",
+    "Query isolation — large result sets stay out of main context",
+    "Mutation validation hook — prevents accidental live changes",
+    "Interactive setup wizard for OAuth credential configuration",
+    "Account listing and management",
+    "Troubleshooting skill for common auth and format issues"
+  ]
+}

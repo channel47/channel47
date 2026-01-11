@@ -1,0 +1,14 @@
+{
+  "displayName": "Creative Designer",
+  "tagline": "Flash for speed, Pro for 4K. Gemini image generation with model tiers.",
+  "label": "MCP Server + Plugin",
+  "features": [
+    "Dual model tiers: Flash (fast, 2-3s, up to 1024px) and Pro (4K quality)",
+    "Smart model selection based on prompt analysis",
+    "7 aspect ratios: 1:1, 16:9, 9:16, 21:9, 4:3, 3:4, 2:1",
+    "Google Search grounding for factually accurate images (Pro only)",
+    "Reference image support via file upload",
+    "Seed-based reproducible generation",
+    "Configurable safety levels"
+  ]
+}
