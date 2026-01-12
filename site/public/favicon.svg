@@ -1,15 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 24">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 24">
+  <!--
+    Channel47 Logo - "47" in block pixel style
+    Continuous shapes matching the Logo.astro component
+  -->
   <style>
-    text {
-      fill: #0a0a0a;
-      font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
-      font-size: 10px;
-      white-space: pre;
-    }
+    rect { fill: #1a1816; }
     @media (prefers-color-scheme: dark) {
-      text { fill: #fafafa; }
+      rect { fill: #f5f0e8; }
     }
   </style>
-  <text x="2" y="10">█ █ ▀▀█</text>
-  <text x="2" y="20">▀▀█  █</text>
+
+  <!-- "4" -->
+  <!-- Left arm (3 rows continuous) -->
+  <rect x="0" y="0" width="7" height="18"/>
+  <!-- Horizontal connector -->
+  <rect x="7" y="12" width="7" height="6"/>
+  <!-- Right vertical (full height) -->
+  <rect x="14" y="0" width="7" height="24"/>
+
+  <!-- "7" -->
+  <!-- Top bar left portion -->
+  <rect x="25" y="0" width="14" height="6"/>
+  <!-- Top bar right + descender -->
+  <rect x="39" y="0" width="7" height="12"/>
+  <!-- Stem -->
+  <rect x="32" y="12" width="7" height="12"/>
 </svg>
