@@ -6,6 +6,8 @@
  * Provides the HTML structure, head metadata, and global styles.
  */
 
+import Analytics from '../components/Analytics/Analytics.astro';
+
 interface Props {
   title: string;
   description?: string;
@@ -112,6 +114,9 @@ const canonicalURL = Astro.site
         font-display: swap;
       }
     </style>
+
+    <!-- Analytics & Tracking -->
+    <Analytics />
   </head>
   <body>
     <slot />
