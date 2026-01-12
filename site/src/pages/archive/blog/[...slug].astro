@@ -1,0 +1,513 @@
+---
+/**
+ * Archive Post Page
+ *
+ * Renders individual archived posts from the content collection.
+ * Uses a modified layout with archive banner.
+ */
+
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import BlogCTA from '../../../components/BlogCTA.astro';
+import EmailSignup from '../../../components/EmailSignup.astro';
+import ArticleSchema from '../../../components/SEO/ArticleSchema.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const { title, description, date, author, tags, image } = post.data;
+
+const formattedDate = date
+  ? new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(date)
+  : null;
+
+// Get related archived posts based on tags
+const allPosts = await getCollection('posts');
+const currentSlug = post.slug;
+
+let relatedPosts = allPosts
+  .filter(p => !p.data.draft && p.slug !== currentSlug)
+  .filter(p => {
+    if (!tags || tags.length === 0) return false;
+    const postTags = p.data.tags || [];
+    return tags.some((tag: string) => postTags.includes(tag));
+  })
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
+
+// Fallback to most recent posts if no tag matches
+if (relatedPosts.length === 0) {
+  relatedPosts = allPosts
+    .filter(p => !p.data.draft && p.slug !== currentSlug)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+    .slice(0, 2);
+}
+
+const formatRelatedDate = (d: Date) =>
+  new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(d);
+---
+
+<BaseLayout title={title} description={description}>
+  {date && (
+    <ArticleSchema
+      title={title}
+      description={description}
+      datePublished={date}
+      url={Astro.url.href}
+    />
+  )}
+  <Header />
+
+  <main class="prose-layout">
+    <article class="article">
+      <!-- Archive Notice Banner -->
+      <div class="archive-banner">
+        <p>
+          This is archived content from before our newsletter.
+          <a href="/blog">Read our latest posts &rarr;</a>
+        </p>
+      </div>
+
+      <header class="article__header">
+        {tags && tags.length > 0 && (
+          <div class="article__tags">
+            {tags.map((tag: string) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        )}
+        <h1 class="article__title">{title}</h1>
+        <p class="article__description">{description}</p>
+        <div class="article__meta">
+          {author && <span class="article__author">By {author}</span>}
+          {formattedDate && <time datetime={date?.toISOString()}>{formattedDate}</time>}
+        </div>
+      </header>
+
+      {image && (
+        <figure class="article__hero">
+          <img src={image.src} alt={image.alt} />
+        </figure>
+      )}
+
+      <div class="article__content prose">
+        <Content />
+      </div>
+
+      <!-- Contextual CTA -->
+      <BlogCTA tags={tags} />
+
+      <!-- Email Signup -->
+      <div class="article__email">
+        <EmailSignup
+          title="Get the newsletter"
+          description="Subscribe for new posts on AI tools, Google Ads automation, and MCP skills."
+          buttonText="Subscribe"
+          variant="card"
+          tag="archive-reader"
+        />
+      </div>
+
+      <!-- Related Archived Posts -->
+      {relatedPosts.length > 0 && (
+        <section class="related-posts">
+          <h2 class="related-posts__title">More from the archive</h2>
+          <div class="related-posts__grid">
+            {relatedPosts.map((p) => (
+              <a href={`/archive/blog/${p.slug}`} class="related-post">
+                <time class="related-post__date" datetime={p.data.date.toISOString()}>
+                  {formatRelatedDate(p.data.date)}
+                </time>
+                <h3 class="related-post__title">{p.data.title}</h3>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <nav class="post-nav">
+        <a href="/archive/blog" class="post-nav__link">
+          <span class="post-nav__arrow">&larr;</span>
+          Back to archive
+        </a>
+        <span class="post-nav__divider">|</span>
+        <a href="/blog" class="post-nav__link">
+          View latest posts
+          <span class="post-nav__arrow">&rarr;</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .prose-layout {
+    flex: 1;
+    padding: var(--space-6) var(--space-4);
+    padding-top: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .prose-layout {
+      padding: var(--space-12) var(--space-8);
+    }
+  }
+
+  .article {
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+
+  .archive-banner {
+    margin-bottom: var(--space-6);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-accent);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+
+  .archive-banner p {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    margin: 0;
+  }
+
+  .archive-banner a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: var(--font-medium);
+  }
+
+  .archive-banner a:hover {
+    text-decoration: underline;
+  }
+
+  .article__header {
+    margin-bottom: var(--space-8);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .article__header {
+      margin-bottom: var(--space-10);
+    }
+  }
+
+  .article__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    justify-content: center;
+    margin-bottom: var(--space-4);
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-3);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .article__title {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-black);
+    letter-spacing: var(--tracking-tighter);
+    margin-bottom: var(--space-4);
+    line-height: var(--leading-tight);
+    color: var(--color-fg);
+  }
+
+  @media (min-width: 640px) {
+    .article__title {
+      font-size: var(--text-4xl);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .article__title {
+      font-size: var(--text-5xl);
+      letter-spacing: var(--tracking-tightest);
+    }
+  }
+
+  .article__description {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    margin-bottom: var(--space-4);
+    line-height: var(--leading-relaxed);
+  }
+
+  @media (min-width: 768px) {
+    .article__description {
+      font-size: var(--text-lg);
+    }
+  }
+
+  .article__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    justify-content: center;
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+  }
+
+  .article__meta > *:not(:last-child)::after {
+    content: '\00B7';
+    margin-left: var(--space-3);
+    opacity: 0.5;
+  }
+
+  .article__hero {
+    margin: var(--space-6) calc(-1 * var(--space-4));
+    border-radius: var(--radius-none);
+    overflow: hidden;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 640px) {
+    .article__hero {
+      margin: var(--space-8) 0;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--color-border);
+    }
+  }
+
+  .article__hero img {
+    width: 100%;
+    height: auto;
+  }
+
+  .article__content {
+    line-height: var(--leading-relaxed);
+    font-size: var(--text-base);
+  }
+
+  @media (min-width: 768px) {
+    .article__content {
+      font-size: var(--text-lg);
+    }
+  }
+
+  .article__content :global(h2) {
+    font-size: var(--text-xl);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .article__content :global(h2) {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .article__content :global(h3) {
+    font-size: var(--text-lg);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .article__content :global(h3) {
+      font-size: var(--text-xl);
+    }
+  }
+
+  .article__content :global(p) {
+    margin-bottom: var(--space-5);
+  }
+
+  .article__content :global(ul),
+  .article__content :global(ol) {
+    margin-bottom: var(--space-5);
+    padding-left: var(--space-5);
+  }
+
+  .article__content :global(li) {
+    margin-bottom: var(--space-2);
+  }
+
+  .article__content :global(pre) {
+    margin: var(--space-6) calc(-1 * var(--space-4));
+    padding: var(--space-4);
+    border-radius: var(--radius-none);
+    font-size: var(--text-sm);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (min-width: 640px) {
+    .article__content :global(pre) {
+      margin: var(--space-6) 0;
+      border-radius: var(--radius-lg);
+    }
+  }
+
+  .article__content :global(blockquote) {
+    margin: var(--space-6) 0;
+    padding-left: var(--space-4);
+    border-left-width: 3px;
+  }
+
+  .article__content :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+  }
+
+  .post-nav {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .post-nav {
+      margin-top: var(--space-10);
+    }
+  }
+
+  .post-nav__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    text-decoration: none;
+    padding: var(--space-2);
+    margin: calc(-1 * var(--space-2));
+    border-radius: var(--radius-md);
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      color var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .post-nav__link:hover {
+    color: var(--color-accent);
+    background-color: var(--color-bg-hover);
+  }
+
+  .post-nav__link:active {
+    background-color: var(--color-bg-elevated);
+  }
+
+  .post-nav__divider {
+    color: var(--color-border);
+  }
+
+  .post-nav__arrow {
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  .post-nav__link:hover .post-nav__arrow {
+    transform: translateX(-4px);
+  }
+
+  .post-nav__link:last-child:hover .post-nav__arrow {
+    transform: translateX(4px);
+  }
+
+  /* Article Email */
+  .article__email {
+    margin: var(--space-8) 0;
+  }
+
+  @media (min-width: 768px) {
+    .article__email {
+      margin: var(--space-10) 0;
+    }
+  }
+
+  /* Related Posts */
+  .related-posts {
+    margin: var(--space-8) 0;
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 768px) {
+    .related-posts {
+      margin: var(--space-10) 0;
+      padding-top: var(--space-8);
+    }
+  }
+
+  .related-posts__title {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    margin-bottom: var(--space-4);
+    color: var(--color-fg-muted);
+  }
+
+  .related-posts__grid {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 640px) {
+    .related-posts__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+    }
+  }
+
+  .related-post {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-4);
+    background-color: transparent;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .related-post:hover {
+    border-color: var(--color-border);
+  }
+
+  .related-post__date {
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-2);
+  }
+
+  .related-post__title {
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+    line-height: var(--leading-snug);
+  }
+</style>

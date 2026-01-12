@@ -1,0 +1,185 @@
+---
+/**
+ * Archive Blog Listing Page
+ *
+ * Displays archived static blog posts from the content collection.
+ * These are the original markdown posts before beehiiv integration.
+ */
+
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import Card from '../../../components/Card.astro';
+
+const posts = (await getCollection('posts'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(date);
+---
+
+<BaseLayout title="Blog Archive" description="Archived blog posts from Channel47.">
+  <Header />
+
+  <main class="blog-page">
+    <div class="blog-page__header">
+      <h1 class="blog-page__title">Blog Archive</h1>
+      <p class="blog-page__description">
+        These posts were published before we moved to our newsletter.
+        Check out our <a href="/blog">latest newsletter posts</a> for new content.
+      </p>
+    </div>
+
+    <div class="archive-notice">
+      <p>
+        This is archived content.
+        <a href="/blog">View the latest from our newsletter &rarr;</a>
+      </p>
+    </div>
+
+    <div class="blog-grid">
+      {posts.map((post) => (
+        <Card href={`/archive/blog/${post.slug}`} variant="ghost">
+          <time class="card__date" datetime={post.data.date.toISOString()}>
+            {formatDate(post.data.date)}
+          </time>
+          <h2 class="card__title">{post.data.title}</h2>
+          <p class="card__description">{post.data.description}</p>
+        </Card>
+      ))}
+    </div>
+
+    {posts.length === 0 && (
+      <p class="blog-page__empty">No archived posts.</p>
+    )}
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .blog-page {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-page__header {
+    padding: var(--space-10) var(--space-4) var(--space-6);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .blog-page__header {
+      padding: var(--space-16) var(--space-8) var(--space-8);
+    }
+  }
+
+  .blog-page__title {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-black);
+    letter-spacing: var(--tracking-tighter);
+    margin-bottom: var(--space-4);
+    color: var(--color-fg);
+    line-height: var(--leading-tight);
+  }
+
+  @media (min-width: 480px) {
+    .blog-page__title {
+      font-size: var(--text-4xl);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .blog-page__title {
+      font-size: var(--text-5xl);
+      letter-spacing: var(--tracking-tightest);
+    }
+  }
+
+  .blog-page__description {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+    max-width: 45ch;
+    margin: 0 auto;
+  }
+
+  .blog-page__description a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    .blog-page__description {
+      font-size: var(--text-lg);
+    }
+  }
+
+  .archive-notice {
+    max-width: var(--container-lg);
+    margin: 0 auto var(--space-6);
+    padding: var(--space-4);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-accent);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+
+  .archive-notice p {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    margin: 0;
+  }
+
+  .archive-notice a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: var(--font-medium);
+  }
+
+  .archive-notice a:hover {
+    text-decoration: underline;
+  }
+
+  .blog-grid {
+    display: grid;
+    gap: var(--space-4);
+    padding: 0 var(--space-4) var(--space-10);
+    max-width: var(--container-lg);
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .blog-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-5);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .blog-grid {
+      padding: 0 var(--space-8) var(--space-16);
+    }
+  }
+
+  .blog-page__empty {
+    text-align: center;
+    color: var(--color-fg-muted);
+    padding: var(--space-16) var(--space-4);
+  }
+
+  .card__date {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-2);
+  }
+</style>

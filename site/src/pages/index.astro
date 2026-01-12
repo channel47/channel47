@@ -17,6 +17,7 @@ import Footer from '../components/Footer.astro';
 import Button from '../components/Button.astro';
 import EmailSignup from '../components/EmailSignup.astro';
 import ToolCard from '../components/ToolCard.astro';
+import NewsletterPosts from '../components/NewsletterPosts.astro';
 
 // Featured tools for homepage
 const featuredTools = [
@@ -70,6 +71,9 @@ const featuredTools = [
         ))}
       </div>
     </section>
+
+    <!-- Latest from Newsletter -->
+    <NewsletterPosts count={3} />
 
     <!-- Email Signup -->
     <section class="signup-section">

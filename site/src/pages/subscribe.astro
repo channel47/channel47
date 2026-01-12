@@ -1,0 +1,187 @@
+---
+/**
+ * Subscribe Page
+ *
+ * Dedicated landing page for newsletter subscriptions.
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import EmailSignup from '../components/EmailSignup.astro';
+---
+
+<BaseLayout
+  title="Subscribe to the Newsletter"
+  description="Get weekly insights on AI tools, Google Ads automation, and MCP skills."
+>
+  <Header />
+
+  <main class="subscribe-page">
+    <div class="subscribe-page__container">
+      <h1 class="subscribe-page__title" data-animate="fade-up">Stay in the loop</h1>
+      <p class="subscribe-page__description" data-animate="fade-up">
+        Weekly insights on AI tools, Google Ads automation, and building with MCP.
+        No spam. Unsubscribe anytime.
+      </p>
+
+      <div class="subscribe-page__form" data-animate="fade-up">
+        <EmailSignup
+          variant="inline"
+          buttonText="Subscribe"
+          tag="subscribe-page"
+        />
+      </div>
+
+      <div class="subscribe-page__benefits" data-animate="fade-up">
+        <h2 class="subscribe-page__benefits-title">What you'll get</h2>
+        <ul class="subscribe-page__benefits-list">
+          <li>New tool announcements and updates</li>
+          <li>MCP tutorials and workflows</li>
+          <li>Google Ads optimization tips</li>
+          <li>Behind-the-scenes on what we're building</li>
+        </ul>
+      </div>
+
+      <div class="subscribe-page__cta" data-animate="fade-up">
+        <a href="/blog" class="subscribe-page__link">
+          Browse past issues &rarr;
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .subscribe-page {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-10) var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .subscribe-page {
+      padding: var(--space-16) var(--space-8);
+    }
+  }
+
+  .subscribe-page__container {
+    max-width: var(--container-sm);
+    width: 100%;
+    text-align: center;
+  }
+
+  .subscribe-page__title {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-black);
+    letter-spacing: var(--tracking-tighter);
+    margin-bottom: var(--space-4);
+    color: var(--color-fg);
+    line-height: var(--leading-tight);
+  }
+
+  @media (min-width: 480px) {
+    .subscribe-page__title {
+      font-size: var(--text-4xl);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .subscribe-page__title {
+      font-size: var(--text-5xl);
+      letter-spacing: var(--tracking-tightest);
+    }
+  }
+
+  .subscribe-page__description {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .subscribe-page__description {
+      font-size: var(--text-lg);
+      margin-bottom: var(--space-10);
+    }
+  }
+
+  .subscribe-page__form {
+    margin-bottom: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .subscribe-page__form {
+      margin-bottom: var(--space-12);
+    }
+  }
+
+  .subscribe-page__benefits {
+    text-align: left;
+    padding: var(--space-6);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-8);
+  }
+
+  .subscribe-page__benefits-title {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+    margin-bottom: var(--space-4);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .subscribe-page__benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .subscribe-page__benefits-list li {
+    position: relative;
+    padding-left: var(--space-5);
+    margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+  }
+
+  .subscribe-page__benefits-list li:last-child {
+    margin-bottom: 0;
+  }
+
+  .subscribe-page__benefits-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-accent);
+    border-radius: 50%;
+  }
+
+  .subscribe-page__cta {
+    text-align: center;
+  }
+
+  .subscribe-page__link {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    text-decoration: none;
+  }
+
+  .subscribe-page__link:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+</style>

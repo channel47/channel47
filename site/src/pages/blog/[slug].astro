@@ -1,0 +1,44 @@
+---
+/**
+ * Dynamic Newsletter Post Page
+ *
+ * Renders individual newsletter posts from beehiiv.
+ */
+
+import { getAllPosts, timestampToDate } from '../../lib/beehiiv';
+import NewsletterPostLayout from '../../layouts/NewsletterPostLayout.astro';
+
+export async function getStaticPaths() {
+  try {
+    const { posts } = await getAllPosts({ limit: 100 });
+    return posts.map((post) => ({
+      params: { slug: post.slug },
+      props: { post },
+    }));
+  } catch (e) {
+    console.error('Failed to fetch posts for static paths:', e);
+    return [];
+  }
+}
+
+const { post } = Astro.props;
+
+// Get content HTML
+const contentHtml = post.content?.free?.web || '';
+
+// Build description from subtitle or meta description
+const description = post.subtitle || post.meta_default_description || '';
+---
+
+<NewsletterPostLayout
+  title={post.title}
+  description={description}
+  date={timestampToDate(post.displayed_date)}
+  canonicalUrl={post.web_url}
+  thumbnailUrl={post.thumbnail_url}
+  tags={post.content_tags}
+  authors={post.authors}
+  currentSlug={post.slug}
+>
+  <Fragment set:html={contentHtml} />
+</NewsletterPostLayout>
