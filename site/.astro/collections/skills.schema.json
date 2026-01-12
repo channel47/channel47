@@ -1,0 +1,112 @@
+{
+  "$ref": "#/definitions/skills",
+  "definitions": {
+    "skills": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "default": "1.0.0"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "google-ads",
+            "analytics",
+            "automation",
+            "reporting",
+            "optimization",
+            "other"
+          ],
+          "default": "other"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tier": {
+          "type": "string",
+          "enum": [
+            "free",
+            "premium"
+          ],
+          "default": "free"
+        },
+        "price": {
+          "type": "number"
+        },
+        "stripeProductId": {
+          "type": "string"
+        },
+        "stripePriceId": {
+          "type": "string"
+        },
+        "skillFile": {
+          "type": "string"
+        },
+        "draft": {
+          "type": "boolean",
+          "default": false
+        },
+        "featured": {
+          "type": "boolean",
+          "default": false
+        },
+        "publishedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "updatedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "downloads": {
+          "type": "number",
+          "default": 0
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "publishedAt"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
