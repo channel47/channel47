@@ -1,14 +1,11 @@
 ---
 name: google-ads-analyst
 description: >
-  Data isolation agent for Google Ads queries. Spawn this agent when:
-  - Fetching campaign, ad group, or keyword performance data
-  - Running search term reports or audience analysis
-  - Any query expected to return 10+ rows of data
-  - Multi-query analysis (comparing periods, segments, campaigns)
-  - Raw data extraction for synthesis or reporting
-  Keeps large result sets OUT of main context. Returns summaries only.
-  NOT for: account listing, single metrics, mutations, or quick lookups.
+  Use proactively for Google Ads data queries. Automatically spawn this agent when
+  fetching campaign, ad group, or keyword performance data, running search term
+  reports, executing queries expected to return 10+ rows, or any multi-query
+  analysis (comparing periods, segments, campaigns). Keeps large result sets OUT
+  of main context. NOT for: account listing, single metrics, mutations, or quick lookups.
 model: haiku
 ---
 
