@@ -1,12 +1,12 @@
 ---
 /**
- * NewsletterPosts Component
+ * RecentPosts Component
  *
- * Displays recent newsletter posts from beehiiv.
+ * Displays recent blog posts from the content collection.
  * Used on the homepage to showcase latest content.
  */
 
-import { getRecentPosts, timestampToDate, formatDate } from '../lib/beehiiv';
+import { getCollection } from 'astro:content';
 import Card from './Card.astro';
 
 interface Props {
@@ -15,34 +15,36 @@ interface Props {
 
 const { count = 3 } = Astro.props;
 
-// Fetch recent posts
-let posts: Awaited<ReturnType<typeof getRecentPosts>> = [];
-let hasError = false;
+// Fetch recent posts from content collection
+const posts = (await getCollection('posts'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, count);
 
-try {
-  posts = await getRecentPosts(count);
-} catch (e) {
-  console.error('Failed to fetch recent newsletter posts:', e);
-  hasError = true;
-}
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(date);
 ---
 
-{!hasError && posts.length > 0 && (
-  <section class="newsletter-posts" data-animate="fade-up">
-    <div class="newsletter-posts__header">
-      <h2 class="newsletter-posts__title">Latest from the newsletter</h2>
-      <a href="/blog" class="newsletter-posts__link">View all &rarr;</a>
+{posts.length > 0 && (
+  <section class="recent-posts" data-animate="fade-up">
+    <div class="recent-posts__header">
+      <h2 class="recent-posts__title">Latest from the blog</h2>
+      <a href="/blog" class="recent-posts__link">View all &rarr;</a>
     </div>
 
-    <div class="newsletter-posts__grid">
+    <div class="recent-posts__grid">
       {posts.map((post) => (
         <Card href={`/blog/${post.slug}`} variant="ghost">
-          <time class="card__date" datetime={timestampToDate(post.displayed_date).toISOString()}>
-            {formatDate(timestampToDate(post.displayed_date))}
+          <time class="card__date" datetime={post.data.date.toISOString()}>
+            {formatDate(post.data.date)}
           </time>
-          <h3 class="card__title">{post.title}</h3>
-          {post.subtitle && (
-            <p class="card__description">{post.subtitle}</p>
+          <h3 class="card__title">{post.data.title}</h3>
+          {post.data.description && (
+            <p class="card__description">{post.data.description}</p>
           )}
         </Card>
       ))}
@@ -51,7 +53,7 @@ try {
 )}
 
 <style>
-  .newsletter-posts {
+  .recent-posts {
     padding: 0 var(--space-4);
     max-width: var(--container-lg);
     margin: 0 auto var(--space-10);
@@ -59,13 +61,13 @@ try {
   }
 
   @media (min-width: 768px) {
-    .newsletter-posts {
+    .recent-posts {
       padding: 0 var(--space-8);
       margin-bottom: var(--space-16);
     }
   }
 
-  .newsletter-posts__header {
+  .recent-posts__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -73,7 +75,7 @@ try {
     gap: var(--space-4);
   }
 
-  .newsletter-posts__title {
+  .recent-posts__title {
     font-size: var(--text-lg);
     font-weight: var(--font-semibold);
     color: var(--color-fg);
@@ -81,12 +83,12 @@ try {
   }
 
   @media (min-width: 768px) {
-    .newsletter-posts__title {
+    .recent-posts__title {
       font-size: var(--text-xl);
     }
   }
 
-  .newsletter-posts__link {
+  .recent-posts__link {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
     color: var(--color-fg-secondary);
@@ -94,25 +96,25 @@ try {
     white-space: nowrap;
   }
 
-  .newsletter-posts__link:hover {
+  .recent-posts__link:hover {
     color: var(--color-accent);
     text-decoration: underline;
   }
 
-  .newsletter-posts__grid {
+  .recent-posts__grid {
     display: grid;
     gap: var(--space-4);
   }
 
   @media (min-width: 640px) {
-    .newsletter-posts__grid {
+    .recent-posts__grid {
       grid-template-columns: repeat(2, 1fr);
       gap: var(--space-5);
     }
   }
 
   @media (min-width: 1024px) {
-    .newsletter-posts__grid {
+    .recent-posts__grid {
       grid-template-columns: repeat(3, 1fr);
     }
   }

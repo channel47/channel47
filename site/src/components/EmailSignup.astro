@@ -280,7 +280,9 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
 
   .email-signup__input:focus {
     border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px var(--color-accent-subtle);
+    box-shadow:
+      0 0 0 3px var(--color-accent-subtle),
+      0 0 12px oklch(70% 0.15 30 / 0.1);
   }
 
   .email-signup__button {

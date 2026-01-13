@@ -2,85 +2,96 @@
 /**
  * Homepage
  *
- * Route qualified traffic. Capture unqualified traffic.
- * Direct, confident tone. Peer to peer.
- *
- * Structure per strategy:
- * 1. Hero with dual CTAs
- * 2. Tools showcase
- * 3. Email Capture
+ * Problem-first design with equal-weight solutions.
+ * Lead with the pain point, present Slack App + Free Tools.
  */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Button from '../components/Button.astro';
+import SolutionCard from '../components/SolutionCard.astro';
+import RecentPosts from '../components/RecentPosts.astro';
 import EmailSignup from '../components/EmailSignup.astro';
-import ToolCard from '../components/ToolCard.astro';
-import NewsletterPosts from '../components/NewsletterPosts.astro';
-
-// Featured tools for homepage
-const featuredTools = [
-  {
-    name: 'Google Ads MCP',
-    description: 'Query accounts, pull metrics, run GAQL. Connect in five minutes.',
-    href: '/tools/google-ads',
-    label: 'MCP Server',
-  },
-  {
-    name: 'Creative Designer',
-    description: 'AI image generation with platform specs baked in. Powered by Gemini.',
-    href: '/tools/creative-designer',
-    label: 'MCP Server + Plugin',
-  },
-];
 ---
 
 <BaseLayout
-  title="Channel47 — Open-source AI tools for media buyers"
-  description="Free Claude Code plugins and MCP servers for Google Ads, creative generation, and more."
+  title="Channel47 — Stop context-switching between Slack and Google Ads"
+  description="Manage Google Ads from Slack or use free Claude Code plugins. AI-powered automation for media buyers."
 >
   <Header />
 
   <main class="main">
-    <!-- Hero Section with Dual CTAs -->
+    <!-- Hero: Problem Statement -->
     <section class="hero">
       <div class="hero__content">
-        <h1 class="hero__title" data-animate="fade-up">Open-source AI tools for media buyers</h1>
+        <h1 class="hero__title" data-animate="fade-up">
+          Stop context-switching between Slack and Google Ads
+        </h1>
         <p class="hero__subtitle" data-animate="fade-up">
-          Claude Code plugins and MCP servers. Free forever.
+          Pull reports, adjust budgets, and catch issues before they cost you —
+          all without opening another tab. Two ways to get started.
         </p>
-        <div class="hero__ctas" data-animate="fade-up">
-          <Button href="/tools" variant="primary" size="lg">Browse Tools</Button>
-          <Button href="https://github.com/channel47/channel47" variant="outline" size="lg">Star on GitHub</Button>
-        </div>
       </div>
     </section>
 
-    <!-- Featured Tools -->
-    <section class="featured-tools">
-      <div class="featured-tools__grid" data-animate="fade-up">
-        {featuredTools.map((tool) => (
-          <ToolCard
-            name={tool.name}
-            description={tool.description}
-            href={tool.href}
-            label={tool.label}
-            available={true}
-          />
-        ))}
+    <!-- Solutions: Two Equal-Weight Options -->
+    <section class="solutions">
+      <div class="solutions__grid" data-animate="fade-up">
+        <SolutionCard
+          title="Slack App"
+          description="Ask questions. Get answers. No spreadsheets."
+          badge="Coming Soon"
+          badgeVariant="accent"
+          features={[
+            "\"How's my ROAS today?\" — Ask like you'd message a teammate",
+            "Budget pacing alerts before you overspend",
+            "Pause campaigns or adjust bids with approval controls",
+            "Connects to the workspace you already use"
+          ]}
+          ctaText="Join Waitlist"
+          ctaTag="slack-waitlist"
+          variant="primary"
+        />
+
+        <SolutionCard
+          title="Claude Code Plugins"
+          description="Power user tools. Full control."
+          badge="Free"
+          badgeVariant="default"
+          features={[
+            "Query any account data with GAQL",
+            "AI-powered analysis and recommendations",
+            "Open source, self-hosted",
+            "Works with Claude Code and MCP"
+          ]}
+          ctaText="Browse Tools"
+          ctaHref="/tools"
+          variant="secondary"
+        />
       </div>
     </section>
 
-    <!-- Latest from Newsletter -->
-    <NewsletterPosts count={3} />
+    <!-- How It Works (Brief) -->
+    <section class="how-it-works">
+      <div class="how-it-works__content" data-animate="fade-up">
+        <h2 class="how-it-works__title">Built on open source</h2>
+        <p class="how-it-works__description">
+          The Slack app is powered by the same plugins available for free.
+          We use Claude's agent SDK to bring natural language control
+          to your Google Ads accounts.
+        </p>
+      </div>
+    </section>
 
-    <!-- Email Signup -->
+    <!-- Recent Blog Posts -->
+    <RecentPosts count={3} />
+
+    <!-- General Email Signup -->
     <section class="signup-section">
       <div class="signup-wrapper" data-animate="fade-up">
         <EmailSignup
-          title="New tools in development."
-          description="Get notified when we release new plugins and servers."
+          title="More tools on the way."
+          description="First access to new plugins. No spam, just releases."
           buttonText="Notify me"
           variant="card"
           tag="general"
@@ -143,56 +154,82 @@ const featuredTools = [
     color: var(--color-fg-secondary);
     line-height: var(--leading-relaxed);
     max-width: 50ch;
-    margin: 0 auto var(--space-6);
+    margin: 0 auto;
   }
 
   @media (min-width: 768px) {
     .hero__subtitle {
       font-size: var(--text-lg);
       max-width: 55ch;
-      margin-bottom: var(--space-8);
     }
   }
 
-  .hero__ctas {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    max-width: 320px;
-    margin: 0 auto;
-  }
-
-  @media (min-width: 480px) {
-    .hero__ctas {
-      flex-direction: row;
-      justify-content: center;
-      max-width: none;
-      gap: var(--space-4);
-    }
-  }
-
-  /* Featured Tools Section */
-  .featured-tools {
+  /* Solutions Section */
+  .solutions {
     padding: var(--space-6) var(--space-4);
   }
 
   @media (min-width: 768px) {
-    .featured-tools {
+    .solutions {
       padding: var(--space-8) var(--space-8);
     }
   }
 
-  .featured-tools__grid {
+  .solutions__grid {
     display: grid;
     gap: var(--space-4);
     max-width: var(--container-lg);
     margin: 0 auto;
   }
 
-  @media (min-width: 640px) {
-    .featured-tools__grid {
+  @media (min-width: 768px) {
+    .solutions__grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-5);
+      gap: var(--space-6);
+    }
+  }
+
+  /* How It Works Section */
+  .how-it-works {
+    padding: var(--space-10) var(--space-4);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .how-it-works {
+      padding: var(--space-16) var(--space-8);
+    }
+  }
+
+  .how-it-works__content {
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+
+  .how-it-works__title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+    margin-bottom: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .how-it-works__title {
+      font-size: var(--text-xl);
+      margin-bottom: var(--space-4);
+    }
+  }
+
+  .how-it-works__description {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .how-it-works__description {
+      font-size: var(--text-base);
     }
   }
 

@@ -1,0 +1,512 @@
+---
+/**
+ * SolutionCard Component
+ *
+ * Displays a solution option with badge, features list, and CTA.
+ * Supports either a link CTA or an embedded email signup form.
+ */
+
+interface Props {
+  title: string;
+  description: string;
+  features: string[];
+  badge: string;
+  badgeVariant?: 'default' | 'accent';
+  ctaText: string;
+  ctaHref?: string;
+  ctaTag?: string;  // If provided, renders email signup instead of link
+  variant?: 'primary' | 'secondary';
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  features,
+  badge,
+  badgeVariant = 'default',
+  ctaText,
+  ctaHref,
+  ctaTag,
+  variant = 'primary',
+  class: className = ''
+} = Astro.props;
+
+// Generate unique ID for form if using email signup
+const formId = ctaTag ? `solution-signup-${Math.random().toString(36).substr(2, 9)}` : undefined;
+---
+
+<div class:list={['solution-card', `solution-card--${variant}`, className]}>
+  <div class="solution-card__header">
+    <span class:list={['solution-card__badge', `solution-card__badge--${badgeVariant}`]}>
+      {badge}
+    </span>
+    <h3 class="solution-card__title">{title}</h3>
+    <p class="solution-card__description">{description}</p>
+  </div>
+
+  <ul class="solution-card__features">
+    {features.map((feature) => (
+      <li class="solution-card__feature">
+        <span class="solution-card__feature-icon" aria-hidden="true">&#10003;</span>
+        {feature}
+      </li>
+    ))}
+  </ul>
+
+  <div class="solution-card__cta">
+    {ctaHref && (
+      <a href={ctaHref} class:list={['solution-card__button', `solution-card__button--${variant}`]}>
+        {ctaText}
+      </a>
+    )}
+
+    {ctaTag && formId && (
+      <form
+        id={formId}
+        class="solution-card__form"
+        data-signup-form
+        data-tag={ctaTag}
+      >
+        <div class="solution-card__form-group">
+          <label for={`${formId}-email`} class="visually-hidden">Email address</label>
+          <input
+            type="email"
+            id={`${formId}-email`}
+            name="email"
+            placeholder="you@example.com"
+            required
+            class="solution-card__input"
+          />
+          <button type="submit" class:list={['solution-card__submit', `solution-card__submit--${variant}`]}>
+            <span class="solution-card__submit-text">{ctaText}</span>
+            <span class="solution-card__submit-loading" style="display: none;">...</span>
+          </button>
+        </div>
+        <div class="solution-card__message" role="status" aria-live="polite"></div>
+      </form>
+    )}
+  </div>
+</div>
+
+{ctaTag && (
+  <script>
+    document.addEventListener('astro:page-load', () => {
+      const forms = document.querySelectorAll('.solution-card__form[data-signup-form]');
+
+      const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      function validateEmail(email: string): boolean {
+        if (!email || email.length > 254) return false;
+        return EMAIL_REGEX.test(email.trim());
+      }
+
+      forms.forEach((form) => {
+        if (form.hasAttribute('data-initialized')) return;
+        form.setAttribute('data-initialized', 'true');
+
+        const formElement = form as HTMLFormElement;
+        const emailInput = formElement.querySelector('input[name="email"]') as HTMLInputElement;
+
+        emailInput.addEventListener('blur', () => {
+          const email = emailInput.value.trim();
+          if (email && !validateEmail(email)) {
+            emailInput.setCustomValidity('Please enter a valid email address');
+            emailInput.reportValidity();
+          } else {
+            emailInput.setCustomValidity('');
+          }
+        });
+
+        emailInput.addEventListener('input', () => {
+          emailInput.setCustomValidity('');
+        });
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const submitButton = formElement.querySelector('button[type="submit"]') as HTMLButtonElement;
+          const buttonText = submitButton.querySelector('.solution-card__submit-text') as HTMLElement;
+          const buttonLoading = submitButton.querySelector('.solution-card__submit-loading') as HTMLElement;
+          const messageDiv = formElement.querySelector('.solution-card__message') as HTMLElement;
+          const tag = formElement.dataset.tag;
+
+          messageDiv.textContent = '';
+          messageDiv.className = 'solution-card__message';
+
+          const email = emailInput.value.trim();
+          if (!validateEmail(email)) {
+            messageDiv.textContent = 'Please enter a valid email address';
+            messageDiv.classList.add('solution-card__message--error');
+            emailInput.focus();
+            return;
+          }
+
+          submitButton.disabled = true;
+          buttonText.style.display = 'none';
+          buttonLoading.style.display = 'inline';
+
+          try {
+            const response = await fetch('/api/subscribe', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                email: email,
+                tag: tag || 'general'
+              }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              messageDiv.textContent = "You're on the list!";
+              messageDiv.classList.add('solution-card__message--success');
+              emailInput.value = '';
+            } else {
+              messageDiv.textContent = data.message || 'Something went wrong. Please try again.';
+              messageDiv.classList.add('solution-card__message--error');
+            }
+          } catch (error) {
+            messageDiv.textContent = 'An error occurred. Please try again later.';
+            messageDiv.classList.add('solution-card__message--error');
+          } finally {
+            submitButton.disabled = false;
+            buttonText.style.display = 'inline';
+            buttonLoading.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+)}
+
+<style>
+  .solution-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    height: 100%;
+    box-shadow: 0 1px 3px oklch(0% 0 0 / 0.08);
+    transition:
+      transform var(--duration-normal) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out),
+      border-color var(--duration-normal) var(--ease-out);
+  }
+
+  .solution-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 20px oklch(0% 0 0 / 0.12),
+      0 4px 8px oklch(0% 0 0 / 0.08);
+  }
+
+  @media (min-width: 640px) {
+    .solution-card {
+      padding: var(--space-8);
+    }
+  }
+
+  .solution-card--primary {
+    border-color: var(--color-accent);
+    border-width: 2px;
+  }
+
+  .solution-card--primary:hover {
+    box-shadow:
+      0 8px 20px oklch(0% 0 0 / 0.12),
+      0 0 15px oklch(70% 0.15 30 / 0.15);
+  }
+
+  .solution-card__header {
+    margin-bottom: var(--space-6);
+  }
+
+  .solution-card__badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    margin-bottom: var(--space-4);
+  }
+
+  .solution-card__badge--default {
+    background-color: var(--color-bg-hover);
+    color: var(--color-fg-secondary);
+    border: 1px solid var(--color-border);
+  }
+
+  .solution-card__badge--accent {
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent-muted);
+  }
+
+  .solution-card__title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--color-fg);
+    margin-bottom: var(--space-2);
+    line-height: var(--leading-tight);
+  }
+
+  @media (min-width: 640px) {
+    .solution-card__title {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .solution-card__description {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  @media (min-width: 640px) {
+    .solution-card__description {
+      font-size: var(--text-base);
+    }
+  }
+
+  .solution-card__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-6);
+    flex: 1;
+  }
+
+  .solution-card__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-relaxed);
+  }
+
+  .solution-card__feature:last-child {
+    margin-bottom: 0;
+  }
+
+  .solution-card__feature-icon {
+    color: var(--color-accent);
+    font-weight: var(--font-bold);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .solution-card__cta {
+    margin-top: auto;
+  }
+
+  /* Link-based CTA button */
+  .solution-card__button {
+    display: block;
+    width: 100%;
+    padding: var(--space-4);
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    text-align: center;
+    text-decoration: none;
+    border-radius: var(--radius-lg);
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .solution-card__button--primary {
+    color: var(--color-fg-inverse);
+    background-color: var(--color-accent);
+  }
+
+  .solution-card__button--primary:hover {
+    background-color: var(--color-accent-hover);
+    box-shadow: 0 4px 12px oklch(70% 0.15 30 / 0.25);
+  }
+
+  .solution-card__button--secondary {
+    color: var(--color-fg);
+    background-color: transparent;
+    border: 2px solid var(--color-border);
+  }
+
+  .solution-card__button--secondary:hover {
+    border-color: var(--color-fg-secondary);
+    background-color: var(--color-bg-hover);
+  }
+
+  .solution-card__button:active {
+    transform: scale(0.97);
+  }
+
+  .solution-card__button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* Form-based CTA */
+  .solution-card__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .solution-card__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  @media (min-width: 480px) {
+    .solution-card__form-group {
+      flex-direction: row;
+    }
+  }
+
+  .solution-card__input {
+    flex: 1;
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-fg);
+    background-color: var(--color-void);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    outline: none;
+    min-height: 48px;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .solution-card__input::placeholder {
+    color: var(--color-fg-muted);
+  }
+
+  .solution-card__input:focus {
+    border-color: var(--color-accent);
+    box-shadow:
+      0 0 0 3px var(--color-accent-subtle),
+      0 0 12px oklch(70% 0.15 30 / 0.1);
+  }
+
+  .solution-card__submit {
+    padding: var(--space-3) var(--space-5);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    white-space: nowrap;
+    min-height: 48px;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .solution-card__submit--primary {
+    color: var(--color-fg-inverse);
+    background-color: var(--color-accent);
+  }
+
+  .solution-card__submit--primary:hover {
+    background-color: var(--color-accent-hover);
+    box-shadow: 0 4px 12px oklch(70% 0.15 30 / 0.25);
+  }
+
+  .solution-card__submit--secondary {
+    color: var(--color-fg);
+    background-color: var(--color-fg-muted);
+  }
+
+  .solution-card__submit:active {
+    transform: scale(0.97);
+  }
+
+  .solution-card__submit:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .solution-card__submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .solution-card__submit-loading {
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .solution-card__message {
+    font-size: var(--text-xs);
+    text-align: center;
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    min-height: 1.5em;
+  }
+
+  .solution-card__message--success {
+    color: var(--color-success, #16a34a);
+    background-color: var(--color-success-bg, oklch(95% 0.05 145));
+  }
+
+  .solution-card__message--error {
+    color: var(--color-error, #dc2626);
+    background-color: var(--color-error-bg, oklch(95% 0.05 25));
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .solution-card,
+    .solution-card__button,
+    .solution-card__submit {
+      transition: none;
+    }
+
+    .solution-card:hover {
+      transform: none;
+    }
+
+    .solution-card__button:active,
+    .solution-card__submit:active {
+      transform: none;
+    }
+  }
+</style>

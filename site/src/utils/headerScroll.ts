@@ -49,6 +49,9 @@ export function initHeaderScroll(
     const currentScrollY = window.scrollY;
     const isMenuOpen = header.classList.contains(menuOpenClass);
 
+    // Toggle scrolled state for glassmorphism effect
+    header.classList.toggle('header--scrolled', currentScrollY > 20);
+
     // Don't hide if menu is open or near top of page
     if (isMenuOpen || currentScrollY < hideOffset) {
       header.classList.remove(hiddenClass);

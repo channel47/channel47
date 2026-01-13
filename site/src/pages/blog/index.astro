@@ -2,87 +2,63 @@
 /**
  * Blog Listing Page
  *
- * Displays newsletter posts from beehiiv API.
+ * Displays blog posts from the content collection.
  */
 
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import Card from '../../components/Card.astro';
-import EmailSignup from '../../components/EmailSignup.astro';
-import { getAllPosts, timestampToDate, formatDate } from '../../lib/beehiiv';
 
-// Fetch posts from beehiiv at build time
-let posts: Awaited<ReturnType<typeof getAllPosts>>['posts'] = [];
-let hasError = false;
+// Fetch posts from content collection
+const posts = (await getCollection('posts'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-try {
-  const result = await getAllPosts({ limit: 50 });
-  posts = result.posts;
-} catch (e) {
-  console.error('Failed to fetch posts from beehiiv:', e);
-  hasError = true;
-}
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(date);
 ---
 
-<BaseLayout title="Blog" description="Insights on AI tools, Google Ads automation, and MCP skills.">
+<BaseLayout title="Blog" description="Insights on AI tools, Google Ads automation, and Claude Code plugins.">
   <Header />
 
   <main class="blog-page">
     <div class="blog-page__header">
-      <h1 class="blog-page__title">Newsletter</h1>
+      <h1 class="blog-page__title">Blog</h1>
       <p class="blog-page__description">
-        Insights on AI tools, Google Ads automation, and MCP skills.
+        Insights on AI tools, Google Ads automation, and Claude Code plugins.
       </p>
     </div>
 
-    <!-- Subscribe CTA -->
-    <div class="blog-page__subscribe">
-      <EmailSignup
-        title="Get posts in your inbox"
-        description="Subscribe to the newsletter for weekly updates."
-        buttonText="Subscribe"
-        variant="inline"
-        tag="blog-visitor"
-      />
+    <!-- Newsletter Link -->
+    <div class="blog-page__newsletter">
+      <p>
+        Want updates in your inbox?
+        <a href="https://newsletter.channel47.dev" target="_blank" rel="noopener">Subscribe to the newsletter &rarr;</a>
+      </p>
     </div>
-
-    {hasError && (
-      <div class="blog-page__error">
-        <p>Unable to load posts. Please try again later.</p>
-        <p class="blog-page__error-hint">
-          Check out our <a href="/archive/blog">archived posts</a> in the meantime.
-        </p>
-      </div>
-    )}
 
     <div class="blog-grid">
       {posts.map((post) => (
         <Card href={`/blog/${post.slug}`} variant="ghost">
-          <time class="card__date" datetime={timestampToDate(post.displayed_date).toISOString()}>
-            {formatDate(timestampToDate(post.displayed_date))}
+          <time class="card__date" datetime={post.data.date.toISOString()}>
+            {formatDate(post.data.date)}
           </time>
-          <h2 class="card__title">{post.title}</h2>
-          {post.subtitle && (
-            <p class="card__description">{post.subtitle}</p>
-          )}
-          {!post.subtitle && post.meta_default_description && (
-            <p class="card__description">{post.meta_default_description}</p>
+          <h2 class="card__title">{post.data.title}</h2>
+          {post.data.description && (
+            <p class="card__description">{post.data.description}</p>
           )}
         </Card>
       ))}
     </div>
 
-    {!hasError && posts.length === 0 && (
-      <p class="blog-page__empty">
-        No posts yet. Check out our <a href="/archive/blog">archived posts</a> in the meantime.
-      </p>
-    )}
-
-    {posts.length > 0 && (
-      <div class="blog-page__archive-link">
-        <a href="/archive/blog">View archived posts &rarr;</a>
-      </div>
+    {posts.length === 0 && (
+      <p class="blog-page__empty">No posts yet. Check back soon.</p>
     )}
   </main>
 
@@ -142,41 +118,30 @@ try {
     }
   }
 
-  .blog-page__subscribe {
-    max-width: var(--container-sm);
-    margin: 0 auto var(--space-8);
-    padding: 0 var(--space-4);
-  }
-
-  @media (min-width: 768px) {
-    .blog-page__subscribe {
-      margin-bottom: var(--space-10);
-      padding: 0 var(--space-8);
-    }
-  }
-
-  .blog-page__error {
+  .blog-page__newsletter {
     max-width: var(--container-lg);
-    margin: 0 auto var(--space-8);
-    padding: var(--space-6) var(--space-4);
+    margin: 0 auto var(--space-6);
+    padding: var(--space-4);
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-accent);
     border-radius: var(--radius-lg);
     text-align: center;
   }
 
-  .blog-page__error p {
+  .blog-page__newsletter p {
+    font-size: var(--text-sm);
     color: var(--color-fg-secondary);
     margin: 0;
   }
 
-  .blog-page__error-hint {
-    margin-top: var(--space-2) !important;
-    font-size: var(--text-sm);
+  .blog-page__newsletter a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: var(--font-medium);
   }
 
-  .blog-page__error a {
-    color: var(--color-accent);
+  .blog-page__newsletter a:hover {
     text-decoration: underline;
   }
 
@@ -206,28 +171,6 @@ try {
     text-align: center;
     color: var(--color-fg-muted);
     padding: var(--space-16) var(--space-4);
-  }
-
-  .blog-page__empty a {
-    color: var(--color-accent);
-    text-decoration: underline;
-  }
-
-  .blog-page__archive-link {
-    text-align: center;
-    padding: 0 var(--space-4) var(--space-16);
-  }
-
-  .blog-page__archive-link a {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    color: var(--color-fg-secondary);
-    text-decoration: none;
-  }
-
-  .blog-page__archive-link a:hover {
-    color: var(--color-accent);
-    text-decoration: underline;
   }
 
   .card__date {
