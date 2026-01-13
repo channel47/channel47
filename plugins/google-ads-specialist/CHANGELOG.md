@@ -8,10 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [4.0.2] - 2026-01-12
 
 ### Fixed
-- `google-ads-analyst` subagent now supports custom MCP server names via wildcard pattern
-  - Changed tool restriction from `mcp__google-ads__query` to `mcp__*google-ads*__query`
-  - Fixes hallucination bug when users configure multiple MCC accounts with custom server names (e.g., `google-ads-4am`, `google-ads-xall`)
-  - Maintains least-privilege by restricting to query tools only
+- `google-ads-analyst` subagent now supports any MCP server name configuration
+  - Removed hardcoded `tools: [mcp__google-ads__query]` restriction
+  - Agent now inherits all available tools from parent context
+  - Fixes hallucination bug when users configure custom server names (e.g., `google-ads-4am`, `google-ads-xall`)
+  - System prompt still constrains agent to query-only behavior
   - Resolves GitHub issue #33
 
 ## [4.0.1] - 2026-01-10

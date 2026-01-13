@@ -9,8 +9,6 @@ description: >
   - Comparing performance across segments, dates, or campaigns
   Keeps large result sets out of main context. NOT for simple account lookups,
   single-value queries, or mutations.
-tools:
-  - mcp__*google-ads*__query
 model: sonnet
 ---
 
