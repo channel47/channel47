@@ -126,8 +126,14 @@
   --container-lg: 1024px;
   --container-xl: 1280px;
 
-  --padding-mobile: var(--space-4);
+  --padding-mobile: var(--space-5);
   --padding-desktop: var(--space-8);
+
+  /* Section spacing - consistent across pages */
+  --section-gap-mobile: var(--space-12);
+  --section-gap-desktop: var(--space-16);
+  --section-padding-mobile: var(--space-10);
+  --section-padding-desktop: var(--space-16);
 
   /* Safe areas for notched devices */
   --safe-area-inset-top: env(safe-area-inset-top, 0px);

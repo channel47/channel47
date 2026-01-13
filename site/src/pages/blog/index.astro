@@ -72,13 +72,13 @@ const formatDate = (date: Date) =>
   }
 
   .blog-page__header {
-    padding: var(--space-10) var(--space-4) var(--space-6);
+    padding: var(--space-12) var(--padding-mobile) var(--space-8);
     text-align: center;
   }
 
   @media (min-width: 768px) {
     .blog-page__header {
-      padding: var(--space-16) var(--space-8) var(--space-8);
+      padding: var(--section-padding-desktop) var(--padding-desktop) var(--space-10);
     }
   }
 
@@ -120,13 +120,20 @@ const formatDate = (date: Date) =>
 
   .blog-page__newsletter {
     max-width: var(--container-lg);
-    margin: 0 auto var(--space-6);
+    margin: 0 auto var(--space-8);
+    margin-inline: var(--padding-mobile);
     padding: var(--space-4);
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-left: 3px solid var(--color-accent);
     border-radius: var(--radius-lg);
     text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .blog-page__newsletter {
+      margin-inline: auto;
+    }
   }
 
   .blog-page__newsletter p {
@@ -148,7 +155,7 @@ const formatDate = (date: Date) =>
   .blog-grid {
     display: grid;
     gap: var(--space-4);
-    padding: 0 var(--space-4) var(--space-10);
+    padding: 0 var(--padding-mobile) var(--space-12);
     max-width: var(--container-lg);
     margin: 0 auto;
     width: 100%;
@@ -163,7 +170,7 @@ const formatDate = (date: Date) =>
 
   @media (min-width: 768px) {
     .blog-grid {
-      padding: 0 var(--space-8) var(--space-16);
+      padding: 0 var(--padding-desktop) var(--section-padding-desktop);
     }
   }
 

@@ -111,13 +111,13 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   /* Hero Section */
   .hero {
-    padding: var(--space-10) var(--space-4) var(--space-8);
+    padding: var(--space-12) var(--padding-mobile) var(--space-10);
     text-align: center;
   }
 
   @media (min-width: 768px) {
     .hero {
-      padding: var(--space-16) var(--space-8) var(--space-12);
+      padding: var(--section-padding-desktop) var(--padding-desktop) var(--space-12);
     }
   }
 
@@ -166,12 +166,12 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   /* Solutions Section */
   .solutions {
-    padding: var(--space-6) var(--space-4);
+    padding: var(--space-8) var(--padding-mobile);
   }
 
   @media (min-width: 768px) {
     .solutions {
-      padding: var(--space-8) var(--space-8);
+      padding: var(--space-10) var(--padding-desktop);
     }
   }
 
@@ -191,13 +191,13 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   /* How It Works Section */
   .how-it-works {
-    padding: var(--space-10) var(--space-4);
+    padding: var(--section-padding-mobile) var(--padding-mobile);
     text-align: center;
   }
 
   @media (min-width: 768px) {
     .how-it-works {
-      padding: var(--space-16) var(--space-8);
+      padding: var(--section-padding-desktop) var(--padding-desktop);
     }
   }
 
@@ -235,17 +235,17 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   /* Signup Section */
   .signup-section {
-    padding: var(--space-8) var(--space-4);
-    padding-bottom: calc(var(--space-10) + var(--safe-area-inset-bottom));
+    padding: var(--section-padding-mobile) var(--padding-mobile);
+    padding-bottom: calc(var(--space-12) + var(--safe-area-inset-bottom));
     border-top: 1px solid var(--color-border-subtle);
-    margin-top: var(--space-4);
+    margin-top: var(--space-6);
   }
 
   @media (min-width: 768px) {
     .signup-section {
-      padding: var(--space-10) var(--space-8);
-      padding-bottom: var(--space-12);
-      margin-top: var(--space-6);
+      padding: var(--section-padding-desktop) var(--padding-desktop);
+      padding-bottom: var(--space-16);
+      margin-top: var(--space-8);
     }
   }
 

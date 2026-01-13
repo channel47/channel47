@@ -278,14 +278,12 @@ th {
   max-width: var(--content-width);
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--padding-mobile);
-  padding-right: var(--padding-mobile);
+  padding-inline: var(--padding-mobile);
 }
 
 @media (min-width: 768px) {
   .container {
-    padding-left: var(--padding-desktop);
-    padding-right: var(--padding-desktop);
+    padding-inline: var(--padding-desktop);
   }
 }
 
