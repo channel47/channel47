@@ -5,6 +5,23 @@ All notable changes to the Nano Banana Pro plugin will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-01-13
+
+### Added
+- **HTML5 Ad Generation Skill**: New skill for creating platform-compliant HTML5 display ads
+  - Supports all common ad sizes (300x250, 728x90, 160x600, 300x600, 320x50, 970x250, etc.)
+  - Generates IAB/Google Ads/DV360 compliant HTML5 structure
+  - Proper ClickTag implementation for click tracking
+  - Auto-generates backup image for fallback scenarios
+  - Packages as .zip ready for direct platform upload
+  - File size optimization to meet 150KB platform limits
+  - Static display template with proper DOCTYPE and meta tags
+
+### Technical
+- New skill at `skills/html5-ad-gen/SKILL.md`
+- HTML5 template at `skills/html5-ad-gen/templates/static-display.html`
+- Leverages existing `generate_image` MCP tool for asset creation
+
 ## [2.2.0] - 2026-01-10
 
 ### Added
