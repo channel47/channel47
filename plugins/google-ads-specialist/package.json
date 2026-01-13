@@ -1,6 +1,6 @@
 {
   "name": "google-ads-specialist",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "Google Ads Specialist Claude Code Plugin - Subagent-based architecture for Google Ads campaign management",
   "type": "module",
   "scripts": {

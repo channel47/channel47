@@ -5,6 +5,14 @@ All notable changes to the Google Ads Specialist Plugin will be documented in th
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.3] - 2026-01-13
+
+### Changed
+- **Subagent model:** Switched from Sonnet to Haiku for 85-90% cost reduction
+- **Description:** Rewritten to emphasize "data isolation" purpose for clearer invocation triggers
+- **System prompt:** Expanded with GAQL reference, query patterns, and structured workflow
+- **Output threshold:** Lowered from 20 to 15 rows for more aggressive context protection
+
 ## [4.0.2] - 2026-01-12
 
 ### Fixed
