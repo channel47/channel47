@@ -14,7 +14,7 @@
       "name": "google-ads-specialist",
       "source": "./plugins/google-ads-specialist",
       "description": "Google Ads management with subagent-based architecture",
-      "version": "4.0.1",
+      "version": "4.0.2",
       "category": "marketing",
       "tags": ["google-ads", "gaql", "marketing", "analytics", "ppc", "subagent"]
     },

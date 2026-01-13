@@ -1,6 +1,6 @@
 {
   "name": "google-ads-specialist",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Google Ads management with subagent-based architecture. Query isolation via analyst subagent, autonomous GAQL generation, mutation oversight via hooks.",
   "author": {
     "name": "Jackson",

@@ -5,6 +5,15 @@ All notable changes to the Google Ads Specialist Plugin will be documented in th
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.2] - 2026-01-12
+
+### Fixed
+- `google-ads-analyst` subagent now supports custom MCP server names via wildcard pattern
+  - Changed tool restriction from `mcp__google-ads__query` to `mcp__*google-ads*__query`
+  - Fixes hallucination bug when users configure multiple MCC accounts with custom server names (e.g., `google-ads-4am`, `google-ads-xall`)
+  - Maintains least-privilege by restricting to query tools only
+  - Resolves GitHub issue #33
+
 ## [4.0.1] - 2026-01-10
 
 ### Changed
