@@ -1,0 +1,40 @@
+---
+/**
+ * Prose - Centered content container
+ *
+ * A wrapper that constrains content to a narrow, readable width
+ * with consistent padding. Inspired by interfacecraft.dev's
+ * focused, single-column layout.
+ */
+interface Props {
+  width?: 'narrow' | 'default' | 'wide';
+  class?: string;
+}
+
+const { width = 'narrow', class: className } = Astro.props;
+
+const widthVar = {
+  narrow: 'var(--content-narrow)',
+  default: 'var(--content-width)',
+  wide: 'var(--container-md)',
+}[width];
+---
+
+<div class:list={['prose', className]} style={`--prose-width: ${widthVar}`}>
+  <slot />
+</div>
+
+<style>
+  .prose {
+    width: 100%;
+    max-width: var(--prose-width);
+    margin-inline: auto;
+    padding-inline: var(--padding-mobile);
+  }
+
+  @media (min-width: 768px) {
+    .prose {
+      padding-inline: var(--padding-desktop);
+    }
+  }
+</style>
