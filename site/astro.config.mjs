@@ -14,13 +14,10 @@ export default defineConfig({
   }),
   integrations: [sitemap()],
   redirects: {
+    '/tools': '/',
     '/setup': '/tools/google-ads',
-    '/skills': '/tools',
+    '/skills': '/',
     '/skills/google-ads': '/tools/google-ads',
-    '/skills/ad-creative': '/tools/creative-designer',
-    // Redirect old blog posts to archive
-    '/blog/mcp-servers-marketers': '/archive/blog/mcp-servers-marketers',
-    '/blog/gaql-queries-guide': '/archive/blog/gaql-queries-guide',
-    '/blog/claude-google-ads-audits': '/archive/blog/claude-google-ads-audits'
+    '/skills/ad-creative': '/tools/creative-designer'
   }
 });
