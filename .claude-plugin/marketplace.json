@@ -41,6 +41,14 @@
       "version": "2.0.0",
       "category": "development",
       "tags": ["prompts", "optimization", "prompt-engineering"]
+    },
+    {
+      "name": "frontend-design",
+      "source": "./plugins/frontend-design",
+      "description": "Production-grade frontend interfaces with built-in design sensibility. Canvas animations, typography, color systems.",
+      "version": "1.0.0",
+      "category": "frontend",
+      "tags": ["frontend", "design", "canvas", "animation", "ui", "typography", "motion"]
     }
   ]
 }
