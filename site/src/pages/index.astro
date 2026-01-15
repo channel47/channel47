@@ -3,77 +3,164 @@
  * Homepage - Manifesto Landing Page
  *
  * A single, focused page to capture email signups.
- * Typography is the hero. No navigation, no distractions.
+ * Typography is the hero. Editorial elegance meets quiet confidence.
  *
  * Visual flow:
- * 1. Headline lands alone, dominant
- * 2. Manifesto builds: hook → insight → resolution
- * 3. CTA emerges naturally from the narrative
+ * 1. Headline arrives with presence, blur revealing to sharp
+ * 2. Diverging paths animation — lines separating (the gap widening)
+ * 3. Manifesto builds: hook → insight → resolution
+ * 4. Email signup — natural next step
+ * 5. Logo scrambles in as closing period mark / signature
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Prose from '../components/Prose.astro';
 import EmailSignup from '../components/EmailSignup.astro';
+import LogoAnimated from '../components/LogoAnimated.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import DivergingPaths from '../components/DivergingPaths.astro';
 ---
 
 <BaseLayout
-  title="Channel47 — Tools are free. Leverage is learned."
+  title="Channel47 — Same tools. Different outcomes."
   description="Open source AI tools and the knowledge to use them."
 >
   <main class="page">
-    <Prose>
-      <!-- Hero: The headline stands alone -->
-      <header class="hero" data-animate="fade-up">
-        <h1 class="hero__headline">
-          Tools are free.<br />Leverage is learned.
+    <!-- Atmospheric orb - subtle warmth behind content -->
+    <div class="atmosphere" aria-hidden="true">
+      <div class="atmosphere__orb"></div>
+    </div>
+
+    <Prose width="default">
+      <!-- Hero: The headline arrives with presence -->
+      <header class="hero">
+        <h1 class="hero__headline" data-animate="blur-in" data-stagger="1">
+          <span class="hero__line">Same tools.</span>
+          <span class="hero__line"><span class="nowrap">Different outcomes.</span></span>
         </h1>
       </header>
 
-      <!-- Manifesto: Hook → Insight → Resolution -->
+      <!-- Visual: Diverging paths - lines that separate -->
+      <div class="visual" data-animate="fade-up" data-stagger="2">
+        <DivergingPaths />
+      </div>
+
+      <!-- Manifesto: Three beats with visual hierarchy -->
       <section class="manifesto">
-        <p class="manifesto__lede" data-animate="fade-up">
-          Everyone has access to the same tools. Few know how to make them work.
+        <p class="manifesto__lede" data-animate="fade-up" data-stagger="3">
+          Everyone got access to AI.
+          <span class="manifesto__accent">A few learned how to make it work.</span>
         </p>
-        <p class="manifesto__insight" data-animate="fade-up">
-          The gap isn't technology. It's technique. Knowing which lever to pull, when to pull it, and why it matters.
+
+        <p class="manifesto__insight" data-animate="fade-up" data-stagger="4">
+          The gap is widening faster than it looks.
         </p>
-        <p class="manifesto__resolution" data-animate="fade-up">
-          Channel47 is open source tools built for real work. And the knowledge to make them yours.
+
+        <p class="manifesto__resolution" data-animate="fade-up" data-stagger="5">
+          We're sharing what we know. Open source tools, real techniques.
+          Get in early.
         </p>
       </section>
 
       <!-- CTA: The natural next step -->
-      <section class="cta" data-animate="fade-up">
-        <p class="cta__context">Open source AI tools and the knowledge to use them.</p>
-        <EmailSignup
-          buttonText="Join"
-          placeholder="you@example.com"
-          tag="manifesto"
-          helperText="No spam. Unsubscribe anytime."
-        />
+      <section class="cta" data-animate="fade-up" data-stagger="6">
+        <EmailSignup tag="manifesto" />
       </section>
+
+      <!-- Logo: The period mark / signature -->
+      <footer class="signature" data-animate="fade-up" data-stagger="7">
+        <LogoAnimated delay={200} />
+      </footer>
+
+      <!-- Social: Quiet closing note -->
+      <aside class="social" data-animate="fade-up" data-stagger="8">
+        <SocialLinks />
+      </aside>
     </Prose>
   </main>
 </BaseLayout>
 
 <style>
+  /* =========================================
+   * PAGE LAYOUT
+   * Full viewport, left-aligned content
+   * ========================================= */
   .page {
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-height: 100vh;
-    padding-block: var(--space-16);
+    min-height: 100dvh;
+    padding-block-start: var(--space-16);
+    padding-block-end: var(--space-24);
+    position: relative;
+    isolation: isolate;
+  }
+
+  @media (min-height: 800px) {
+    .page {
+      /* On taller screens, bias content toward upper portion */
+      justify-content: flex-start;
+      padding-block-start: 15vh;
+    }
+  }
+
+  /* =========================================
+   * ATMOSPHERE
+   * Subtle orb effect for depth
+   * ========================================= */
+  .atmosphere {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  .atmosphere__orb {
+    position: absolute;
+    top: 5%;
+    left: 20%;
+    transform: translateX(-50%);
+    width: min(900px, 120vw);
+    height: min(700px, 90vh);
+    background: radial-gradient(
+      ellipse 100% 100% at 50% 30%,
+      oklch(25% 0.04 35 / 0.35) 0%,
+      oklch(20% 0.02 35 / 0.15) 40%,
+      transparent 70%
+    );
+    filter: blur(80px);
+    animation: orb-pulse 10s ease-in-out infinite;
+  }
+
+  @keyframes orb-pulse {
+    0%, 100% {
+      opacity: 0.5;
+      transform: translateX(-50%) scale(1);
+    }
+    50% {
+      opacity: 0.7;
+      transform: translateX(-50%) scale(1.08);
+    }
   }
 
   /* =========================================
    * HERO
-   * The headline stands alone, dominant
+   * The headline dominates with presence
+   * Left-aligned for editorial feel
    * ========================================= */
   .hero {
-    text-align: center;
-    margin-bottom: var(--space-16);
+    text-align: left;
+    margin-bottom: var(--space-12);
   }
 
   @media (min-width: 768px) {
+    .hero {
+      margin-bottom: var(--space-16);
+    }
+  }
+
+  @media (min-width: 1024px) {
     .hero {
       margin-bottom: var(--space-20);
     }
@@ -81,7 +168,7 @@ import EmailSignup from '../components/EmailSignup.astro';
 
   .hero__headline {
     font-family: var(--font-serif);
-    font-size: var(--text-4xl);
+    font-size: clamp(var(--text-4xl), 9vw, var(--text-6xl));
     font-weight: var(--font-semibold);
     letter-spacing: var(--tracking-tight);
     line-height: var(--leading-tight);
@@ -89,9 +176,49 @@ import EmailSignup from '../components/EmailSignup.astro';
     margin: 0;
   }
 
+  .hero__line {
+    display: block;
+  }
+
+  /* =========================================
+   * VISUAL
+   * The diverging paths animation
+   * Breaks out wider than content on desktop
+   * ========================================= */
+  .visual {
+    margin-left: calc(-1 * var(--padding-mobile));
+    margin-right: calc(-1 * var(--padding-mobile));
+    width: calc(100% + 2 * var(--padding-mobile));
+    margin-bottom: var(--space-12);
+  }
+
   @media (min-width: 768px) {
-    .hero__headline {
-      font-size: var(--text-5xl);
+    .visual {
+      margin-left: calc(-1 * var(--padding-tablet));
+      margin-right: calc(-1 * var(--padding-tablet));
+      width: calc(100% + 2 * var(--padding-tablet));
+      margin-bottom: var(--space-16);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .visual {
+      /* Break out significantly wider than content */
+      --visual-extra-width: var(--space-40);
+      margin-left: calc(-1 * var(--padding-desktop) - var(--visual-extra-width));
+      margin-right: calc(-1 * var(--padding-desktop) - var(--visual-extra-width));
+      width: calc(100% + 2 * var(--padding-desktop) + 2 * var(--visual-extra-width));
+      margin-bottom: var(--space-20);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .visual {
+      /* Even wider on large screens */
+      --visual-extra-width: 12vw;
+      margin-left: calc(-1 * var(--padding-desktop) - var(--visual-extra-width));
+      margin-right: calc(-1 * var(--padding-desktop) - var(--visual-extra-width));
+      width: calc(100% + 2 * var(--padding-desktop) + 2 * var(--visual-extra-width));
     }
   }
 
@@ -100,108 +227,119 @@ import EmailSignup from '../components/EmailSignup.astro';
    * Three beats: hook, insight, resolution
    * ========================================= */
   .manifesto {
-    text-align: center;
-    margin-bottom: var(--space-16);
+    text-align: left;
+    margin-bottom: var(--space-10);
+    max-width: 520px;
   }
 
   @media (min-width: 768px) {
     .manifesto {
-      margin-bottom: var(--space-20);
+      margin-bottom: var(--space-14);
     }
   }
 
-  /* The hook: slightly larger, draws you in */
-  .manifesto__lede {
-    font-family: var(--font-serif);
-    font-size: var(--text-xl);
-    font-weight: var(--font-medium);
-    color: var(--color-fg);
-    line-height: var(--leading-relaxed);
-    margin: 0 0 var(--space-6) 0;
+  @media (min-width: 1024px) {
+    .manifesto {
+      margin-bottom: var(--space-16);
+    }
   }
 
-  /* The insight: the "aha" moment */
-  .manifesto__insight {
+  /* Manifesto paragraphs - consistent, readable */
+  .manifesto__lede,
+  .manifesto__insight,
+  .manifesto__resolution {
     font-family: var(--font-serif);
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     color: var(--color-fg-secondary);
     line-height: var(--leading-relaxed);
     margin: 0 0 var(--space-6) 0;
   }
 
-  /* The resolution: who we are, what we offer */
   .manifesto__resolution {
-    font-family: var(--font-serif);
-    font-size: var(--text-lg);
-    color: var(--color-fg);
-    line-height: var(--leading-relaxed);
-    margin: 0;
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 768px) {
+    .manifesto__lede,
+    .manifesto__insight,
+    .manifesto__resolution {
+      font-size: var(--text-lg);
+      margin-bottom: var(--space-7);
+    }
+
+    .manifesto__resolution {
+      margin-bottom: 0;
+    }
+  }
+
+  .manifesto__accent {
+    color: var(--color-fg-muted);
   }
 
   /* =========================================
    * CTA
-   * The natural next step
+   * The natural next step - left aligned
    * ========================================= */
   .cta {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-5);
-    text-align: center;
+    text-align: left;
+    margin-bottom: var(--space-14);
   }
 
-  .cta__context {
-    font-family: var(--font-serif);
-    font-size: var(--text-sm);
-    color: var(--color-fg-muted);
-    letter-spacing: var(--tracking-wide);
-    margin: 0;
+  @media (min-width: 768px) {
+    .cta {
+      margin-bottom: var(--space-16);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .cta {
+      margin-bottom: var(--space-20);
+    }
   }
 
   /* =========================================
-   * ANIMATIONS
-   * Subtle fade-up as elements enter
+   * SIGNATURE
+   * The logo as closing period mark
    * ========================================= */
-  [data-animate="fade-up"] {
-    opacity: 0;
-    transform: translateY(16px);
-    transition:
-      opacity var(--duration-slow) var(--ease-out),
-      transform var(--duration-slow) var(--ease-out);
+  .signature {
+    text-align: left;
   }
 
-  [data-animate="fade-up"].is-visible {
-    opacity: 1;
-    transform: translateY(0);
+  /* =========================================
+   * SOCIAL
+   * Quiet closing note - barely there
+   * ========================================= */
+  .social {
+    text-align: left;
+    margin-top: var(--space-12);
   }
 
-  /* Stagger the animations */
-  .hero[data-animate] {
-    transition-delay: var(--stagger-1);
+  @media (min-width: 768px) {
+    .social {
+      margin-top: var(--space-16);
+    }
   }
 
-  .manifesto__lede[data-animate] {
-    transition-delay: var(--stagger-2);
+  @media (min-width: 1024px) {
+    .social {
+      margin-top: var(--space-20);
+    }
   }
 
-  .manifesto__insight[data-animate] {
-    transition-delay: var(--stagger-3);
+  /* =========================================
+   * UTILITIES
+   * ========================================= */
+  .nowrap {
+    white-space: nowrap;
   }
 
-  .manifesto__resolution[data-animate] {
-    transition-delay: var(--stagger-4);
-  }
-
-  .cta[data-animate] {
-    transition-delay: var(--stagger-5);
-  }
-
-  /* Respect reduced motion */
+  /* =========================================
+   * REDUCED MOTION
+   * ========================================= */
   @media (prefers-reduced-motion: reduce) {
-    [data-animate="fade-up"] {
-      opacity: 1;
-      transform: none;
-      transition: none;
+    .atmosphere__orb {
+      animation: none;
+      opacity: 0.5;
     }
   }
 </style>
