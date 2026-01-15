@@ -1,0 +1,77 @@
+---
+/**
+ * Badge Component
+ *
+ * Unified badge for labels, status indicators, and tags.
+ * Consolidates badge styles from ToolCard, SolutionCard, and page headers.
+ */
+
+interface Props {
+  variant?: 'accent' | 'success' | 'default';
+  position?: 'inline' | 'corner';
+  class?: string;
+}
+
+const {
+  variant = 'default',
+  position = 'inline',
+  class: className
+} = Astro.props;
+---
+
+<span class:list={['badge', `badge--${variant}`, `badge--${position}`, className]}>
+  <slot />
+</span>
+
+<style>
+  .badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    white-space: nowrap;
+  }
+
+  /* ========================================
+   * Color Variants
+   * ======================================== */
+
+  .badge--accent {
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent-muted);
+  }
+
+  .badge--success {
+    background: oklch(from var(--color-success) l c h / 0.15);
+    color: var(--color-success);
+  }
+
+  .badge--default {
+    background-color: var(--color-bg-hover);
+    color: var(--color-fg-secondary);
+    border: 1px solid var(--color-border);
+  }
+
+  /* ========================================
+   * Position Variants
+   * ======================================== */
+
+  .badge--inline {
+    /* Default flow - no special positioning */
+  }
+
+  .badge--corner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: var(--space-2) var(--space-3);
+    border-radius: 0;
+    border-bottom-left-radius: var(--radius-lg);
+    border-top-right-radius: var(--card-radius);
+  }
+</style>

@@ -1,0 +1,82 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  label?: string;
+  id?: string;
+  class?: string;
+}
+
+import Badge from './Badge.astro';
+
+const { title, description, label, id, class: className } = Astro.props;
+---
+
+<header class:list={['page-header', className]} id={id}>
+  <div class="page-header__content">
+    {label && <Badge variant="accent" class="page-header__badge">{label}</Badge>}
+    <h1 class="page-header__title">{title}</h1>
+    {description && <p class="page-header__description">{description}</p>}
+  </div>
+</header>
+
+<style>
+  .page-header {
+    padding: var(--space-12) var(--padding-mobile) var(--space-8);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .page-header {
+      padding: var(--section-padding-desktop) var(--padding-desktop) var(--space-12);
+    }
+  }
+
+  .page-header__content {
+    max-width: var(--container-md);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .page-header__badge {
+    margin-bottom: var(--space-4);
+  }
+
+  .page-header__title {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-black);
+    letter-spacing: var(--tracking-tighter);
+    margin-bottom: var(--space-4);
+    color: var(--color-fg);
+    line-height: var(--leading-tight);
+  }
+
+  @media (min-width: 480px) {
+    .page-header__title {
+      font-size: var(--text-4xl);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .page-header__title {
+      font-size: var(--text-5xl);
+      letter-spacing: var(--tracking-tightest);
+    }
+  }
+
+  .page-header__description {
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+    max-width: 50ch;
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .page-header__description {
+      font-size: var(--text-lg);
+    }
+  }
+</style>

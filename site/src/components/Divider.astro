@@ -1,0 +1,42 @@
+---
+/**
+ * Divider - Section separator
+ *
+ * A thin horizontal rule that creates visual separation
+ * between content sections. Intentionally minimal.
+ */
+interface Props {
+  spacing?: 'sm' | 'default' | 'lg';
+  class?: string;
+}
+
+const { spacing = 'default', class: className } = Astro.props;
+
+const spacingClass = {
+  sm: 'divider--sm',
+  default: 'divider--default',
+  lg: 'divider--lg',
+}[spacing];
+---
+
+<hr class:list={['divider', spacingClass, className]} />
+
+<style>
+  .divider {
+    border: none;
+    border-top: var(--divider-weight) solid var(--divider-color);
+    margin: 0;
+  }
+
+  .divider--sm {
+    margin-block: var(--space-6);
+  }
+
+  .divider--default {
+    margin-block: var(--space-10);
+  }
+
+  .divider--lg {
+    margin-block: var(--space-16);
+  }
+</style>

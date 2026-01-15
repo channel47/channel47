@@ -1,0 +1,109 @@
+---
+/**
+ * ToolLink - Plugin list item
+ *
+ * A clean, editorial-style list item for displaying plugins.
+ * Used in both the main site directory and landing page tool sections.
+ */
+import type { GeneratedTool } from '../data/tools.types';
+
+interface Props {
+  tool: GeneratedTool;
+  showBadge?: boolean;
+  class?: string;
+}
+
+const { tool, showBadge = true, class: className } = Astro.props;
+---
+
+<a href={tool.href} class:list={['tool-link', className]}>
+  <div class="tool-link__header">
+    <span class="tool-link__label">{tool.label}</span>
+    {showBadge && <span class="tool-link__badge">Free</span>}
+  </div>
+  <h3 class="tool-link__title">{tool.displayName}</h3>
+  <p class="tool-link__tagline">{tool.tagline}</p>
+  <span class="tool-link__cta">View setup guide &rarr;</span>
+</a>
+
+<style>
+  .tool-link {
+    display: block;
+    padding: var(--space-6) 0;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid var(--color-border-subtle);
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .tool-link:last-child {
+    border-bottom: none;
+  }
+
+  .tool-link:hover {
+    opacity: 0.85;
+  }
+
+  .tool-link:hover .tool-link__cta {
+    color: var(--color-accent-hover);
+  }
+
+  .tool-link__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+
+  .tool-link__label {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .tool-link__badge {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: var(--font-semibold);
+    color: var(--color-success);
+    padding: 2px var(--space-2);
+    background: oklch(from var(--color-success) l c h / 0.15);
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .tool-link__title {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+    margin: 0 0 var(--space-2) 0;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .tool-link__tagline {
+    font-family: var(--font-serif);
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    margin: 0 0 var(--space-3) 0;
+    line-height: var(--leading-relaxed);
+  }
+
+  .tool-link__cta {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .tool-link,
+    .tool-link__cta {
+      transition: none;
+    }
+  }
+</style>
