@@ -120,6 +120,7 @@
    * LAYOUT
    * ======================================== */
 
+  --content-narrow: 540px;
   --content-width: 672px;
   --container-sm: 640px;
   --container-md: 768px;
@@ -218,5 +219,150 @@
   --z-modal: 500;
   --z-popover: 600;
   --z-tooltip: 700;
+
+  /* ========================================
+   * BACKGROUND PATTERNS
+   * Subtle textures for depth and tactility
+   * ======================================== */
+
+  /* Noise texture - ultra-subtle grain */
+  --pattern-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  --pattern-noise-opacity: 0.025;
+
+  /* Fine grain texture */
+  --pattern-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+  --pattern-grain-opacity: 0.03;
+
+  /* Dot grid pattern */
+  --pattern-dots: radial-gradient(circle at center, var(--color-fg-muted) 0.5px, transparent 0.5px);
+  --pattern-dots-size: 16px;
+  --pattern-dots-opacity: 0.15;
+
+  /* ========================================
+   * GRADIENTS
+   * Reusable gradient definitions
+   * ======================================== */
+
+  /* Fade gradients for content overflow */
+  --gradient-fade-down: linear-gradient(to bottom, transparent 0%, var(--color-bg) 100%);
+  --gradient-fade-up: linear-gradient(to top, transparent 0%, var(--color-bg) 100%);
+  --gradient-fade-left: linear-gradient(to left, transparent 0%, var(--color-bg) 100%);
+  --gradient-fade-right: linear-gradient(to right, transparent 0%, var(--color-bg) 100%);
+
+  /* Accent glow - radial burst */
+  --gradient-glow-accent: radial-gradient(ellipse at center, var(--color-accent-subtle), transparent 70%);
+  --gradient-glow-accent-soft: radial-gradient(ellipse at center, oklch(70% 0.15 30 / 0.08), transparent 60%);
+
+  /* Spotlight effect - top-down illumination */
+  --gradient-spotlight: radial-gradient(ellipse 120% 50% at 50% -10%, var(--color-bg-hover), transparent);
+  --gradient-spotlight-accent: radial-gradient(ellipse 100% 40% at 50% 0%, oklch(70% 0.15 30 / 0.06), transparent);
+
+  /* Shimmer for loading states */
+  --gradient-shimmer: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(100% 0 0 / 0.04) 50%,
+    transparent 100%
+  );
+
+  /* ========================================
+   * CARD TOKENS
+   * Standardized card styling
+   * ======================================== */
+
+  /* Base card styling */
+  --card-padding: var(--space-5);
+  --card-padding-lg: var(--space-6);
+  --card-padding-xl: var(--space-8);
+  --card-radius: var(--radius-xl);
+  --card-bg: var(--color-bg-elevated);
+  --card-border: 1px solid var(--color-border);
+  --card-border-subtle: 1px solid var(--color-border-subtle);
+  --card-shadow: 0 1px 3px oklch(0% 0 0 / 0.08);
+
+  /* Card hover state */
+  --card-hover-lift: -3px;
+  --card-hover-shadow:
+    0 12px 28px oklch(0% 0 0 / 0.12),
+    0 4px 10px oklch(0% 0 0 / 0.08);
+  --card-hover-glow: 0 0 24px var(--color-accent-subtle);
+  --card-hover-border: var(--color-fg-muted);
+
+  /* Card active/press state */
+  --card-active-scale: 0.98;
+
+  /* Featured card */
+  --card-featured-border: 2px solid var(--color-accent);
+  --card-featured-glow: 0 0 32px oklch(70% 0.15 30 / 0.18);
+  --card-featured-glow-hover: 0 0 40px oklch(70% 0.15 30 / 0.25);
+
+  /* ========================================
+   * ENHANCED ANIMATION
+   * Additional easing and timing
+   * ======================================== */
+
+  /* Spring-like bounce for playful interactions */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Smooth deceleration - refined feel */
+  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  /* Snappy response */
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Card transition shorthand */
+  --card-transition-duration: 200ms;
+  --card-transition:
+    transform var(--card-transition-duration) var(--ease-smooth),
+    box-shadow var(--card-transition-duration) var(--ease-smooth),
+    border-color var(--card-transition-duration) var(--ease-smooth);
+
+  /* Micro-interaction timing */
+  --micro-duration: 120ms;
+  --micro-transition: var(--micro-duration) var(--ease-snappy);
+
+  /* Extended stagger delays for larger grids */
+  --stagger-6: 250ms;
+  --stagger-7: 300ms;
+  --stagger-8: 350ms;
+
+  /* ========================================
+   * FORM INPUTS
+   * Systematized form element styling
+   * ======================================== */
+
+  /* Input sizing */
+  --input-height: 44px;
+  --input-height-lg: 48px;
+  --input-padding-x: var(--space-4);
+  --input-padding-y: var(--space-3);
+
+  /* Input styling */
+  --input-bg: var(--color-bg);
+  --input-border: 1px solid var(--color-border);
+  --input-radius: var(--radius-md);
+  --input-font-size: var(--text-sm);
+
+  /* Input focus states */
+  --input-focus-border: var(--color-accent);
+  --input-focus-ring: 0 0 0 2px var(--color-accent-subtle);
+
+  /* Button sizing (form buttons) */
+  --button-height: var(--input-height);
+  --button-padding-x: var(--space-5);
+
+  /* ========================================
+   * SECTION FLOW
+   * Spacing and dividers for page sections
+   * ======================================== */
+
+  /* Section dividers - subtle lines, not background changes */
+  --divider-color: var(--color-border-subtle);
+  --divider-width: 1px;
+  --divider-weight: 1.5px;
+
+  /* Section spacing - generous for visual breathing room */
+  --section-spacing: var(--space-16);
+  --section-spacing-sm: var(--space-12);
 
 }
