@@ -22,6 +22,7 @@
 
   /* Foreground Scale - Rich cream tones */
   --color-fg: oklch(94% 0.015 85);
+  --color-fg-soft: oklch(82% 0.012 70);    /* Body text - readable but not glaring */
   --color-fg-secondary: oklch(75% 0.01 60);
   --color-fg-muted: oklch(55% 0.008 60);
   --color-fg-subtle: oklch(40% 0.006 60);
