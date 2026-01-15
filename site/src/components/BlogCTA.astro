@@ -38,7 +38,7 @@ const products = {
   },
   'default': {
     title: 'Explore Channel47 Tools',
-    description: 'Open-source MCP servers and Claude Code plugins for marketers.',
+    description: 'Open-source MCP servers and skills for marketers.',
     href: '/tools',
     cta: 'Browse Tools',
     price: null,
@@ -84,8 +84,13 @@ const product = getProduct(tags);
     padding: var(--space-6);
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
-    border-left: 3px solid var(--color-accent);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
+    transition: var(--card-transition);
+  }
+
+  .blog-cta:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--glow-sm);
   }
 
   @media (min-width: 768px) {
@@ -119,6 +124,7 @@ const product = getProduct(tags);
   }
 
   .blog-cta__description {
+    font-family: var(--font-serif);
     font-size: var(--text-sm);
     color: var(--color-fg-secondary);
     margin: 0;
@@ -149,11 +155,14 @@ const product = getProduct(tags);
     text-decoration: none;
     white-space: nowrap;
     min-height: 48px;
-    transition: background-color var(--duration-fast) var(--ease-out);
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
   }
 
   .blog-cta__link:hover {
     background-color: var(--color-accent-hover);
+    transform: translateY(-1px);
   }
 
   .blog-cta__price {
@@ -164,10 +173,10 @@ const product = getProduct(tags);
   }
 
   .blog-cta__arrow {
-    transition: transform var(--duration-fast) var(--ease-out);
+    transition: transform var(--duration-fast) var(--ease-spring);
   }
 
   .blog-cta__link:hover .blog-cta__arrow {
-    transform: translateX(2px);
+    transform: translateX(3px);
   }
 </style>
