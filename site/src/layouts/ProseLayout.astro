@@ -111,13 +111,9 @@ const formatRelatedDate = (date: Date) =>
 
       <!-- Email Signup -->
       <div class="article__email">
-        <EmailSignup
-          title="More like this?"
-          description="Subscribe for new posts on AI tools, Google Ads automation, and MCP skills."
-          buttonText="Subscribe"
-          variant="card"
-          tag="content-reader"
-        />
+        <h3 class="article__email-title">More like this?</h3>
+        <p class="article__email-description">Subscribe for new posts on AI tools, Google Ads automation, and MCP skills.</p>
+        <EmailSignup buttonText="Subscribe" tag="content-reader" />
       </div>
 
       <!-- Related Posts -->
@@ -400,6 +396,19 @@ const formatRelatedDate = (date: Date) =>
     .article__email {
       margin: var(--space-10) 0;
     }
+  }
+
+  .article__email-title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+    margin-bottom: var(--space-2);
+  }
+
+  .article__email-description {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    margin-bottom: var(--space-4);
   }
 
   /* Related Posts */

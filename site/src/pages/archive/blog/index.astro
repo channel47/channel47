@@ -2,15 +2,13 @@
 /**
  * Archive Blog Listing Page
  *
- * Displays archived static blog posts from the content collection.
- * These are the original markdown posts before beehiiv integration.
+ * Displays older blog posts from the content collection.
  */
 
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
-import Card from '../../../components/Card.astro';
 
 const posts = (await getCollection('posts'))
   .filter((post) => !post.data.draft)
@@ -19,7 +17,7 @@ const posts = (await getCollection('posts'))
 const formatDate = (date: Date) =>
   new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
-    month: 'short',
+    month: 'long',
     day: 'numeric',
   }).format(date);
 ---
@@ -27,60 +25,91 @@ const formatDate = (date: Date) =>
 <BaseLayout title="Blog Archive" description="Archived blog posts from Channel47.">
   <Header />
 
-  <main class="blog-page">
-    <div class="blog-page__header">
-      <h1 class="blog-page__title">Blog Archive</h1>
-      <p class="blog-page__description">
-        These posts were published before we moved to our newsletter.
-        Check out our <a href="/blog">latest newsletter posts</a> for new content.
+  <main class="archive-page">
+    <!-- Header -->
+    <header class="archive-header">
+      <span class="archive-header__label">Archive</span>
+      <h1 class="archive-header__title">Older Posts</h1>
+      <p class="archive-header__description">
+        Writing from our earlier days. <a href="/blog">See our latest posts &rarr;</a>
       </p>
-    </div>
+    </header>
 
-    <div class="archive-notice">
-      <p>
-        This is archived content.
-        <a href="/blog">View the latest from our newsletter &rarr;</a>
-      </p>
-    </div>
-
-    <div class="blog-grid">
-      {posts.map((post) => (
-        <Card href={`/archive/blog/${post.slug}`} variant="ghost">
-          <time class="card__date" datetime={post.data.date.toISOString()}>
-            {formatDate(post.data.date)}
-          </time>
-          <h2 class="card__title">{post.data.title}</h2>
-          <p class="card__description">{post.data.description}</p>
-        </Card>
-      ))}
-    </div>
-
-    {posts.length === 0 && (
-      <p class="blog-page__empty">No archived posts.</p>
+    <!-- Post List -->
+    {posts.length > 0 ? (
+      <section class="posts-section">
+        <div class="posts-list">
+          {posts.map((post) => (
+            <a href={`/archive/blog/${post.slug}`} class="post-item">
+              <div class="post-item__date">
+                <time datetime={post.data.date.toISOString()}>
+                  {formatDate(post.data.date)}
+                </time>
+              </div>
+              <div class="post-item__content">
+                <h2 class="post-item__title">{post.data.title}</h2>
+                {post.data.description && (
+                  <p class="post-item__description">{post.data.description}</p>
+                )}
+              </div>
+              <span class="post-item__arrow">&rarr;</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    ) : (
+      <div class="archive-empty">
+        <p>No archived posts.</p>
+      </div>
     )}
+
+    <!-- Back Link -->
+    <nav class="archive-nav">
+      <a href="/blog" class="archive-nav__link">
+        <span class="archive-nav__arrow">&larr;</span>
+        <span>Back to blog</span>
+      </a>
+    </nav>
   </main>
 
   <Footer />
 </BaseLayout>
 
 <style>
-  .blog-page {
+  .archive-page {
     display: flex;
     flex-direction: column;
   }
 
-  .blog-page__header {
-    padding: var(--space-10) var(--space-4) var(--space-6);
-    text-align: center;
+  /* ========================================
+   * Header
+   * ======================================== */
+
+  .archive-header {
+    padding: var(--space-16) var(--padding-mobile) var(--space-10);
+    max-width: var(--content-width);
+    margin: 0 auto;
+    width: 100%;
   }
 
   @media (min-width: 768px) {
-    .blog-page__header {
-      padding: var(--space-16) var(--space-8) var(--space-8);
+    .archive-header {
+      padding: var(--space-24) var(--padding-desktop) var(--space-12);
     }
   }
 
-  .blog-page__title {
+  .archive-header__label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    margin-bottom: var(--space-4);
+  }
+
+  .archive-header__title {
+    font-family: var(--font-sans);
     font-size: var(--text-3xl);
     font-weight: var(--font-black);
     letter-spacing: var(--tracking-tighter);
@@ -90,96 +119,253 @@ const formatDate = (date: Date) =>
   }
 
   @media (min-width: 480px) {
-    .blog-page__title {
+    .archive-header__title {
       font-size: var(--text-4xl);
     }
   }
 
   @media (min-width: 768px) {
-    .blog-page__title {
+    .archive-header__title {
       font-size: var(--text-5xl);
       letter-spacing: var(--tracking-tightest);
     }
   }
 
-  .blog-page__description {
+  .archive-header__description {
+    font-family: var(--font-serif);
     font-size: var(--text-base);
     color: var(--color-fg-secondary);
     line-height: var(--leading-relaxed);
-    max-width: 45ch;
-    margin: 0 auto;
-  }
-
-  .blog-page__description a {
-    color: var(--color-accent);
-    text-decoration: underline;
   }
 
   @media (min-width: 768px) {
-    .blog-page__description {
+    .archive-header__description {
       font-size: var(--text-lg);
     }
   }
 
-  .archive-notice {
-    max-width: var(--container-lg);
-    margin: 0 auto var(--space-6);
-    padding: var(--space-4);
-    background-color: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-left: 3px solid var(--color-accent);
-    border-radius: var(--radius-lg);
-    text-align: center;
-  }
-
-  .archive-notice p {
-    font-size: var(--text-sm);
-    color: var(--color-fg-secondary);
-    margin: 0;
-  }
-
-  .archive-notice a {
+  .archive-header__description a {
     color: var(--color-accent);
     text-decoration: none;
-    font-weight: var(--font-medium);
+    transition: color var(--duration-fast) var(--ease-out);
   }
 
-  .archive-notice a:hover {
+  .archive-header__description a:hover {
     text-decoration: underline;
   }
 
-  .blog-grid {
+  /* ========================================
+   * Post List
+   * ======================================== */
+
+  .posts-section {
+    padding: 0 var(--padding-mobile);
+    max-width: var(--container-lg);
+    margin: 0 auto var(--space-12);
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .posts-section {
+      padding: 0 var(--padding-desktop);
+      margin-bottom: var(--space-16);
+    }
+  }
+
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .post-item {
     display: grid;
+    grid-template-columns: 1fr auto;
     gap: var(--space-4);
-    padding: 0 var(--space-4) var(--space-10);
+    padding: var(--space-5) 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      padding var(--duration-fast) var(--ease-out);
+  }
+
+  @media (min-width: 640px) {
+    .post-item {
+      grid-template-columns: 140px 1fr auto;
+      align-items: flex-start;
+      gap: var(--space-6);
+      padding: var(--space-6) var(--space-4);
+      margin: 0 calc(-1 * var(--space-4));
+      border-radius: var(--radius-lg);
+      border-bottom: none;
+    }
+
+    .post-item + .post-item {
+      border-top: 1px solid var(--color-border-subtle);
+      border-radius: 0;
+    }
+
+    .post-item:first-child {
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    .post-item:last-child {
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    }
+
+    .post-item:only-child {
+      border-radius: var(--radius-lg);
+    }
+  }
+
+  .post-item:hover {
+    background-color: var(--color-bg-elevated);
+  }
+
+  @media (min-width: 640px) {
+    .post-item:hover {
+      padding-left: var(--space-5);
+      padding-right: var(--space-5);
+    }
+  }
+
+  .post-item__date {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    padding-top: var(--space-1);
+    order: 2;
+  }
+
+  @media (min-width: 640px) {
+    .post-item__date {
+      order: 0;
+      text-align: right;
+    }
+  }
+
+  .post-item__content {
+    order: 1;
+  }
+
+  @media (min-width: 640px) {
+    .post-item__content {
+      order: 0;
+    }
+  }
+
+  .post-item__title {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--color-fg);
+    margin-bottom: var(--space-1);
+    line-height: var(--leading-snug);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  @media (min-width: 768px) {
+    .post-item__title {
+      font-size: var(--text-lg);
+    }
+  }
+
+  .post-item:hover .post-item__title {
+    color: var(--color-accent);
+  }
+
+  .post-item__description {
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .post-item__description {
+      font-size: var(--text-base);
+    }
+  }
+
+  .post-item__arrow {
+    display: none;
+    font-family: var(--font-mono);
+    color: var(--color-fg-muted);
+    transition: transform var(--duration-fast) var(--ease-spring);
+    align-self: center;
+  }
+
+  @media (min-width: 640px) {
+    .post-item__arrow {
+      display: block;
+    }
+  }
+
+  .post-item:hover .post-item__arrow {
+    transform: translateX(4px);
+    color: var(--color-accent);
+  }
+
+  /* ========================================
+   * Empty State
+   * ======================================== */
+
+  .archive-empty {
+    text-align: center;
+    color: var(--color-fg-muted);
+    padding: var(--space-20) var(--padding-mobile);
+    font-family: var(--font-serif);
+    font-style: italic;
+  }
+
+  /* ========================================
+   * Navigation
+   * ======================================== */
+
+  .archive-nav {
+    padding: var(--space-6) var(--padding-mobile) var(--space-16);
     max-width: var(--container-lg);
     margin: 0 auto;
     width: 100%;
   }
 
-  @media (min-width: 640px) {
-    .blog-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-5);
-    }
-  }
-
   @media (min-width: 768px) {
-    .blog-grid {
-      padding: 0 var(--space-8) var(--space-16);
+    .archive-nav {
+      padding: var(--space-6) var(--padding-desktop) var(--space-20);
     }
   }
 
-  .blog-page__empty {
-    text-align: center;
+  .archive-nav__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
     color: var(--color-fg-muted);
-    padding: var(--space-16) var(--space-4);
+    text-decoration: none;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    transition:
+      color var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out);
   }
 
-  .card__date {
-    display: block;
-    font-size: var(--text-xs);
-    color: var(--color-fg-muted);
-    margin-bottom: var(--space-2);
+  .archive-nav__link:hover {
+    color: var(--color-fg-secondary);
+    background-color: var(--color-bg-elevated);
+  }
+
+  .archive-nav__arrow {
+    transition: transform var(--duration-fast) var(--ease-spring);
+  }
+
+  .archive-nav__link:hover .archive-nav__arrow {
+    transform: translateX(-3px);
   }
 </style>
