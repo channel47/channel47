@@ -1,0 +1,23 @@
+{
+  "name": "frontend-design",
+  "version": "1.0.0",
+  "description": "Production-grade frontend interfaces with built-in design sensibility. Canvas animations, component patterns, and distinctive aesthetics.",
+  "author": {
+    "name": "Jackson",
+    "url": "https://channel47.dev"
+  },
+  "homepage": "https://channel47.dev/plugins/frontend-design",
+  "repository": "https://github.com/channel47/channel47",
+  "license": "MIT",
+  "keywords": [
+    "frontend",
+    "design",
+    "canvas",
+    "animation",
+    "ui",
+    "components",
+    "aesthetics",
+    "typography",
+    "motion"
+  ]
+}
