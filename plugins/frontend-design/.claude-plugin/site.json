@@ -1,0 +1,13 @@
+{
+  "displayName": "Frontend Design",
+  "tagline": "Production-grade interfaces with built-in taste. Canvas animations, typography, color systems.",
+  "label": "Claude Code Plugin",
+  "features": [
+    "Canvas animations skill — Particles, grids, lines, matrix rain, wireframes",
+    "Technique-first approach — Learn primitives + composition, not fixed patterns",
+    "Shared design system — Typography, color, motion frameworks",
+    "Anti-AI-slop guardrails — Explicit guidance on what to avoid",
+    "TypeScript output — Production-ready ES modules with cleanup functions",
+    "Performance by default — 60fps, retina-aware, ResizeObserver"
+  ]
+}
