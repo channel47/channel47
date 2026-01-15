@@ -12,6 +12,7 @@ import Footer from '../../components/Footer.astro';
 import EmailSignup from '../../components/EmailSignup.astro';
 import InstallTabs from '../../components/InstallTabs.astro';
 import ToolSchema from '../../components/SEO/ToolSchema.astro';
+import Badge from '../../components/Badge.astro';
 ---
 
 <BaseLayout
@@ -29,13 +30,13 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
   <main class="tool-page">
     <!-- Breadcrumb -->
     <nav class="breadcrumb">
-      <a href="/tools" class="breadcrumb__link">&larr; Back to Tools</a>
+      <a href="/" class="breadcrumb__link">&larr; Back to Tools</a>
     </nav>
 
     <article class="tool-content">
       <!-- Hero -->
       <header class="tool-header">
-        <div class="tool-header__badge">Free</div>
+        <Badge variant="success" class="tool-header__badge">Free</Badge>
         <h1>Creative Designer</h1>
         <p class="tool-header__intro">
           AI image generation with platform specs baked in. Powered by Google Gemini.
@@ -114,13 +115,9 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
 
       <!-- Email Signup -->
       <section class="tool-section section--email">
-        <EmailSignup
-          title="Get updates on this tool."
-          description="New features, fixes, and tips. No spam."
-          buttonText="Subscribe"
-          variant="card"
-          tag="creative-designer-tool-user"
-        />
+        <h3 class="email-title">Get updates on this tool.</h3>
+        <p class="email-description">New features, fixes, and tips. No spam.</p>
+        <EmailSignup buttonText="Subscribe" tag="creative-designer-tool-user" />
       </section>
     </article>
   </main>
@@ -175,15 +172,6 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
   }
 
   .tool-header__badge {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--space-1) var(--space-3);
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    color: var(--color-success);
-    background-color: oklch(from var(--color-success) l c h / 0.1);
-    border-radius: var(--radius-full);
     margin-bottom: var(--space-4);
   }
 
@@ -346,5 +334,18 @@ import ToolSchema from '../../components/SEO/ToolSchema.astro';
     .section--email {
       padding-bottom: var(--space-12);
     }
+  }
+
+  .email-title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+    margin-bottom: var(--space-2);
+  }
+
+  .email-description {
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    margin-bottom: var(--space-4);
   }
 </style>
