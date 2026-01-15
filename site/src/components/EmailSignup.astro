@@ -2,27 +2,22 @@
 /**
  * EmailSignup Component
  *
- * Minimal inline email capture form. No card styling, no containers.
- * Just input + button that blends into page content.
+ * Minimal inline email capture with embedded submit icon.
+ * Arrow transforms to checkmark on success — quiet until earned.
  */
 
 interface Props {
-  buttonText?: string;
   placeholder?: string;
   tag?: string;
-  helperText?: string;
   class?: string;
 }
 
 const {
-  buttonText = 'Subscribe',
   placeholder = 'you@example.com',
   tag = 'general',
-  helperText = 'No spam. Unsubscribe anytime.',
   class: className = ''
 } = Astro.props;
 
-// Generate unique ID for this form instance
 const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
@@ -32,7 +27,7 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
   data-signup-form
   data-tag={tag}
 >
-  <div class="email-signup__row">
+  <div class="email-signup__field">
     <label for={`${formId}-email`} class="visually-hidden">Email address</label>
     <input
       type="email"
@@ -41,22 +36,29 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
       placeholder={placeholder}
       required
       class="email-signup__input"
+      autocomplete="email"
     />
-    <button type="submit" class="email-signup__button">
-      <span class="email-signup__button-text">{buttonText}</span>
-      <span class="email-signup__button-loading" aria-hidden="true">...</span>
+    <button type="submit" class="email-signup__submit" aria-label="Subscribe">
+      <!-- Arrow icon (default state) -->
+      <svg class="email-signup__icon email-signup__icon--arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+      <!-- Checkmark icon (success state) -->
+      <svg class="email-signup__icon email-signup__icon--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12l5 5L20 7"/>
+      </svg>
+      <!-- Loading spinner -->
+      <svg class="email-signup__icon email-signup__icon--loading" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" opacity="0.25"/>
+        <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
     </button>
-  </div>
-  <div class="email-signup__feedback">
-    <div class="email-signup__message" role="status" aria-live="polite"></div>
-    {helperText && <p class="email-signup__helper">{helperText}</p>}
   </div>
 </form>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  function initEmailSignup() {
     const forms = document.querySelectorAll('[data-signup-form]');
-
     const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     function validateEmail(email: string): boolean {
@@ -70,46 +72,46 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
 
       const formElement = form as HTMLFormElement;
       const emailInput = formElement.querySelector('input[name="email"]') as HTMLInputElement;
+      const originalPlaceholder = emailInput.placeholder;
 
+      // Validation on blur
       emailInput.addEventListener('blur', () => {
         const email = emailInput.value.trim();
         if (email && !validateEmail(email)) {
-          emailInput.setCustomValidity('Please enter a valid email address');
-          emailInput.reportValidity();
+          formElement.classList.add('is-error');
         } else {
-          emailInput.setCustomValidity('');
+          formElement.classList.remove('is-error');
         }
       });
 
+      // Clear error on input
       emailInput.addEventListener('input', () => {
-        emailInput.setCustomValidity('');
+        formElement.classList.remove('is-error');
+        // Reset placeholder if it was changed to error message
+        if (emailInput.placeholder !== originalPlaceholder) {
+          emailInput.placeholder = originalPlaceholder;
+        }
       });
 
+      // Form submission
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const submitButton = formElement.querySelector('button[type="submit"]') as HTMLButtonElement;
-        const buttonText = submitButton.querySelector('.email-signup__button-text') as HTMLElement;
-        const buttonLoading = submitButton.querySelector('.email-signup__button-loading') as HTMLElement;
-        const messageDiv = formElement.querySelector('.email-signup__message') as HTMLElement;
-        const helperText = formElement.querySelector('.email-signup__helper') as HTMLElement;
+        const submitButton = formElement.querySelector('.email-signup__submit') as HTMLButtonElement;
         const tag = formElement.dataset.tag;
-
-        messageDiv.textContent = '';
-        messageDiv.className = 'email-signup__message';
-
         const email = emailInput.value.trim();
+
+        // Client-side validation
         if (!validateEmail(email)) {
-          messageDiv.textContent = 'Please enter a valid email address';
-          messageDiv.classList.add('email-signup__message--error');
+          formElement.classList.add('is-error');
           emailInput.focus();
           return;
         }
 
+        // Start loading state
         submitButton.disabled = true;
-        buttonText.style.display = 'none';
-        buttonLoading.style.display = 'inline';
-        if (helperText) helperText.style.display = 'none';
+        formElement.classList.remove('is-error', 'is-success');
+        formElement.classList.add('is-loading');
 
         try {
           const response = await fetch('/api/subscribe', {
@@ -121,157 +123,228 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
           const data = await response.json();
 
           if (response.ok) {
-            messageDiv.textContent = data.message || 'Successfully subscribed!';
-            messageDiv.classList.add('email-signup__message--success');
+            // Success: show checkmark, clear input
+            formElement.classList.remove('is-loading');
+            formElement.classList.add('is-success');
             emailInput.value = '';
+
+            // Revert to arrow after 2.5 seconds
+            setTimeout(() => {
+              formElement.classList.remove('is-success');
+            }, 2500);
           } else {
-            messageDiv.textContent = data.message || 'Subscription failed. Please try again.';
-            messageDiv.classList.add('email-signup__message--error');
-            if (helperText) helperText.style.display = '';
+            // Error: flash border, update placeholder
+            formElement.classList.remove('is-loading');
+            formElement.classList.add('is-error');
+            emailInput.placeholder = data.message || 'Something went wrong. Try again.';
+
+            // Reset error state after animation
+            setTimeout(() => {
+              formElement.classList.remove('is-error');
+            }, 2000);
           }
         } catch (error) {
-          messageDiv.textContent = 'An error occurred. Please try again later.';
-          messageDiv.classList.add('email-signup__message--error');
-          if (helperText) helperText.style.display = '';
+          formElement.classList.remove('is-loading');
+          formElement.classList.add('is-error');
+          emailInput.placeholder = 'Something went wrong. Try again.';
+
+          setTimeout(() => {
+            formElement.classList.remove('is-error');
+          }, 2000);
         } finally {
           submitButton.disabled = false;
-          buttonText.style.display = '';
-          buttonLoading.style.display = 'none';
         }
       });
     });
-  });
+  }
+
+  // Run on initial load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initEmailSignup);
+  } else {
+    initEmailSignup();
+  }
+
+  // Also run on Astro view transitions
+  document.addEventListener('astro:page-load', initEmailSignup);
 </script>
 
 <style>
   .email-signup {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
     width: 100%;
-    max-width: 400px;
+    max-width: 520px;
   }
 
-  /* Input + Button row */
-  .email-signup__row {
+  /* Field container - input with embedded button */
+  .email-signup__field {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
+    align-items: center;
   }
 
-  @media (min-width: 480px) {
-    .email-signup__row {
-      flex-direction: row;
-    }
-  }
-
-  /* Input - compact and clean */
+  /* Input - takes full width, padding-right for button */
   .email-signup__input {
-    flex: 1;
+    width: 100%;
     height: var(--input-height);
-    padding: 0 var(--input-padding-x);
+    padding: 0 var(--space-12) 0 var(--input-padding-x);
     font-family: var(--font-sans);
-    font-size: var(--input-font-size);
+    font-size: var(--text-sm);
     color: var(--color-fg);
-    background: var(--input-bg);
-    border: var(--input-border);
-    border-radius: var(--input-radius);
+    background: var(--color-bg-elevated);
+    border: var(--border-thin) solid var(--color-border);
+    border-radius: var(--radius-lg);
     outline: none;
-    min-width: 0;
     -webkit-tap-highlight-color: transparent;
     transition:
       border-color var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out);
+      box-shadow var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out);
   }
 
   .email-signup__input::placeholder {
     color: var(--color-fg-muted);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .email-signup__input:hover {
+    border-color: var(--color-border-hover);
+    background-color: var(--color-bg-surface);
   }
 
   .email-signup__input:focus {
-    border-color: var(--input-focus-border);
-    box-shadow: var(--input-focus-ring);
+    border-color: var(--color-fg-muted);
+    background-color: var(--color-bg-elevated);
   }
 
-  /* Button - compact and accent */
-  .email-signup__button {
-    height: var(--button-height);
-    padding: 0 var(--button-padding-x);
-    font-family: var(--font-sans);
-    font-size: var(--input-font-size);
-    font-weight: var(--font-semibold);
-    color: var(--color-fg-inverse);
-    background-color: var(--color-accent);
+  /* Submit button - positioned inside input */
+  .email-signup__submit {
+    position: absolute;
+    right: var(--space-1);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
     border: none;
-    border-radius: var(--input-radius);
+    border-radius: var(--radius-md);
     cursor: pointer;
-    white-space: nowrap;
+    color: var(--color-fg-muted);
     -webkit-tap-highlight-color: transparent;
     transition:
-      background-color var(--duration-fast) var(--ease-out),
-      transform var(--duration-fast) var(--ease-out);
+      color var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out);
   }
 
-  .email-signup__button:hover {
-    background-color: var(--color-accent-hover);
+  .email-signup__submit:hover {
+    color: var(--color-fg-secondary);
+    background-color: var(--color-bg-surface);
   }
 
-  .email-signup__button:active {
-    transform: scale(0.97);
+  .email-signup__submit:focus-visible {
+    outline: 2px solid var(--color-fg-muted);
+    outline-offset: -2px;
   }
 
-  .email-signup__button:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
+  .email-signup__submit:disabled {
+    cursor: default;
   }
 
-  .email-signup__button:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
+  /* Icons */
+  .email-signup__icon {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    transition:
+      opacity 0.3s var(--ease-out),
+      transform 0.3s var(--ease-out);
   }
 
-  .email-signup__button-loading {
-    display: none;
-    animation: pulse 1.5s ease-in-out infinite;
+  .email-signup__icon--arrow {
+    opacity: 1;
+    transform: scale(1);
   }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+  .email-signup__icon--check {
+    opacity: 0;
+    transform: scale(0.8);
   }
 
-  /* Feedback area */
-  .email-signup__feedback {
-    min-height: 1.25rem;
+  .email-signup__icon--loading {
+    opacity: 0;
+    transform: scale(0.8);
   }
 
-  .email-signup__message {
-    font-size: var(--text-xs);
-    margin: 0;
+  /* Loading state */
+  .email-signup.is-loading .email-signup__icon--arrow {
+    opacity: 0;
+    transform: scale(0.8);
   }
 
-  .email-signup__message:empty {
-    display: none;
+  .email-signup.is-loading .email-signup__icon--loading {
+    opacity: 1;
+    transform: scale(1);
+    animation: spin 1s linear infinite;
   }
 
-  .email-signup__message--success {
-    color: var(--color-success);
+  @keyframes spin {
+    to { transform: scale(1) rotate(360deg); }
   }
 
-  .email-signup__message--error {
+  /* Success state - checkmark earns the color */
+  .email-signup.is-success .email-signup__icon--arrow {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  .email-signup.is-success .email-signup__icon--check {
+    opacity: 1;
+    transform: scale(1);
+    color: var(--color-accent);
+  }
+
+  .email-signup.is-success .email-signup__submit {
+    color: var(--color-accent);
+  }
+
+  .email-signup.is-success .email-signup__input {
+    box-shadow: 0 0 0 1px var(--color-accent-subtle), 0 0 12px var(--color-accent-subtle);
+    animation: success-glow 0.6s var(--ease-out);
+  }
+
+  @keyframes success-glow {
+    0% {
+      box-shadow: 0 0 0 1px var(--color-accent-subtle), 0 0 0px var(--color-accent-subtle);
+    }
+    50% {
+      box-shadow: 0 0 0 1px var(--color-accent-subtle), 0 0 20px var(--color-accent-subtle);
+    }
+    100% {
+      box-shadow: 0 0 0 1px var(--color-accent-subtle), 0 0 12px var(--color-accent-subtle);
+    }
+  }
+
+  /* Error state */
+  .email-signup.is-error .email-signup__input {
+    border-color: var(--color-error);
+    animation: error-shake 0.4s var(--ease-out);
+  }
+
+  .email-signup.is-error .email-signup__input::placeholder {
     color: var(--color-error);
   }
 
-  .email-signup__helper {
-    font-size: var(--text-xs);
-    color: var(--color-fg-muted);
-    margin: 0;
+  @keyframes error-shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-2px); }
+    80% { transform: translateX(2px); }
   }
 
-  .email-signup__message:not(:empty) + .email-signup__helper {
-    display: none;
-  }
-
+  /* Accessibility */
   .visually-hidden {
     position: absolute;
     width: 1px;
@@ -287,12 +360,21 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .email-signup__input,
-    .email-signup__button {
+    .email-signup__submit,
+    .email-signup__icon {
       transition: none;
     }
 
-    .email-signup__button:active {
-      transform: none;
+    .email-signup__icon--loading {
+      animation: none;
+    }
+
+    .email-signup.is-success .email-signup__input {
+      animation: none;
+    }
+
+    .email-signup.is-error .email-signup__input {
+      animation: none;
     }
   }
 </style>

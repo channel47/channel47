@@ -103,7 +103,9 @@
       "mcp__plugin_playwright_playwright__browser_press_key",
       "WebFetch(domain:www.interfacecraft.dev)",
       "Bash(git -C /Users/jackson/Documents/Access/1/a_projects/channel47 log --oneline -15)",
-      "mcp__plugin_playwright_playwright__browser_wait_for"
+      "mcp__plugin_playwright_playwright__browser_wait_for",
+      "Bash(xargs:*)",
+      "Skill(frontend-design:frontend-design)"
     ]
   }
 }

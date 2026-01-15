@@ -1,95 +1,118 @@
 /**
- * Channel47 Design System
- * Design Tokens - CSS Custom Properties
+ * Channel47 Design Tokens
+ * A comprehensive, transferrable design system.
  *
- * Single source of truth for all design values.
- * Colors use OKLCH for perceptually uniform color space.
+ * Philosophy: Refined editorial aesthetic with quiet confidence.
+ * Typography-forward, warm dark palette, elegant motion.
  */
 
 :root {
   /* ========================================
-   * COLORS
-   * Warm dark mode palette
+   * COLORS - Warm Dark Palette
+   * Using OKLCH for perceptual uniformity
+   * Base: warm charcoal with subtle warmth
    * ======================================== */
 
-  /* Backgrounds */
-  --color-bg: oklch(15% 0.01 60);
-  --color-bg-elevated: oklch(18% 0.01 60);
-  --color-bg-hover: oklch(22% 0.01 60);
+  /* Background Scale - Deep to elevated */
+  --color-bg-deep: oklch(10% 0.012 50);
+  --color-bg: oklch(14% 0.012 50);
+  --color-bg-elevated: oklch(18% 0.012 50);
+  --color-bg-surface: oklch(22% 0.012 50);
+  --color-bg-overlay: oklch(26% 0.015 50);
 
-  /* Foregrounds */
-  --color-fg: oklch(93% 0.02 90);
-  --color-fg-secondary: oklch(70% 0.01 60);
-  --color-fg-muted: oklch(55% 0.01 60);
-  --color-fg-inverse: oklch(15% 0.01 60);
+  /* Foreground Scale - Rich cream tones */
+  --color-fg: oklch(94% 0.015 85);
+  --color-fg-secondary: oklch(75% 0.01 60);
+  --color-fg-muted: oklch(55% 0.008 60);
+  --color-fg-subtle: oklch(40% 0.006 60);
+  --color-fg-inverse: oklch(12% 0.01 50);
 
-  /* Accent - Muted coral */
-  --color-accent: oklch(70% 0.15 30);
-  --color-accent-hover: oklch(75% 0.18 30);
-  --color-accent-muted: oklch(60% 0.12 30);
-  --color-accent-subtle: oklch(70% 0.15 30 / 0.15);
+  /* Accent - Warm terracotta/rust (signature color) */
+  --color-accent: oklch(68% 0.14 35);
+  --color-accent-hover: oklch(73% 0.16 35);
+  --color-accent-active: oklch(63% 0.12 35);
+  --color-accent-subtle: oklch(68% 0.14 35 / 0.12);
+  --color-accent-glow: oklch(68% 0.14 35 / 0.25);
 
-  /* Borders */
-  --color-border: oklch(25% 0.01 60);
-  --color-border-subtle: oklch(20% 0.01 60);
+  /* Secondary Accent - Warm gold for highlights */
+  --color-gold: oklch(78% 0.12 85);
+  --color-gold-subtle: oklch(78% 0.12 85 / 0.15);
 
-  /* Semantic Colors */
-  --color-success: oklch(70% 0.15 145);
-  --color-warning: oklch(75% 0.15 85);
-  --color-error: oklch(65% 0.2 25);
-  --color-info: oklch(65% 0.15 250);
+  /* Borders & Lines */
+  --color-border: oklch(28% 0.01 50);
+  --color-border-subtle: oklch(22% 0.008 50);
+  --color-border-hover: oklch(35% 0.015 50);
 
-  /* Semantic Aliases - for component clarity */
-  --color-surface: var(--color-bg-elevated);
-  --color-surface-elevated: oklch(20% 0.01 60);
-  --color-void: var(--color-bg);
-  --color-text-primary: var(--color-fg);
-  --color-text-secondary: var(--color-fg-secondary);
-  --color-text-muted: var(--color-fg-muted);
+  /* Semantic */
+  --color-success: oklch(72% 0.14 145);
+  --color-error: oklch(65% 0.18 25);
+  --color-warning: oklch(75% 0.15 70);
+
+  /* Gradients - Atmospheric */
+  --gradient-radial-warm: radial-gradient(
+    ellipse 80% 50% at 50% -20%,
+    oklch(25% 0.04 35 / 0.4) 0%,
+    transparent 70%
+  );
+  --gradient-radial-accent: radial-gradient(
+    circle at 50% 50%,
+    var(--color-accent-glow) 0%,
+    transparent 50%
+  );
+  --gradient-vignette: radial-gradient(
+    ellipse 100% 100% at 50% 50%,
+    transparent 40%,
+    oklch(8% 0.01 50 / 0.6) 100%
+  );
+  --gradient-text-shimmer: linear-gradient(
+    90deg,
+    var(--color-fg) 0%,
+    var(--color-gold) 50%,
+    var(--color-fg) 100%
+  );
 
   /* ========================================
-   * TYPOGRAPHY
+   * TYPOGRAPHY - Editorial Character
+   * Lora: Elegant serif with personality
+   * Geist: Clean geometric sans for UI
    * ======================================== */
 
-  /* Font Stacks */
   --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
   --font-mono: 'Geist Mono', 'SF Mono', Consolas, monospace;
-  --font-display: var(--font-sans);
-  --font-body: var(--font-serif);
 
-  /* Font Sizes */
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 1.875rem;
-  --text-4xl: 2.25rem;
-  --text-5xl: 3rem;
-  --text-6xl: 3.75rem;
-  --text-7xl: 4.5rem;
+  /* Type Scale - Refined ratios */
+  --text-2xs: 0.6875rem;   /* 11px */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-md: 1.0625rem;    /* 17px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 1.875rem;    /* 30px */
+  --text-4xl: 2.25rem;     /* 36px */
+  --text-5xl: 3rem;        /* 48px */
+  --text-6xl: 3.75rem;     /* 60px */
+  --text-7xl: 4.5rem;      /* 72px */
+  --text-8xl: 6rem;        /* 96px */
 
   /* Line Heights */
   --leading-none: 1;
   --leading-tight: 1.1;
   --leading-snug: 1.25;
   --leading-normal: 1.5;
-  --leading-relaxed: 1.7;
-  --leading-loose: 2;
+  --leading-relaxed: 1.65;
+  --leading-loose: 1.8;
 
   /* Font Weights */
   --font-normal: 400;
   --font-medium: 500;
   --font-semibold: 600;
   --font-bold: 700;
-  --font-extrabold: 800;
-  --font-black: 900;
 
   /* Letter Spacing */
-  --tracking-tightest: -0.075em;
-  --tracking-tighter: -0.05em;
+  --tracking-tighter: -0.04em;
   --tracking-tight: -0.025em;
   --tracking-normal: 0;
   --tracking-wide: 0.025em;
@@ -97,272 +120,174 @@
   --tracking-widest: 0.1em;
 
   /* ========================================
-   * SPACING
-   * 4px base unit
+   * SPACING - Generous & Confident
+   * 4px base unit, fluid at larger sizes
    * ======================================== */
 
+  --space-px: 1px;
   --space-0: 0;
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.25rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-10: 2.5rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-20: 5rem;
-  --space-24: 6rem;
-  --space-32: 8rem;
+  --space-0-5: 0.125rem;   /* 2px */
+  --space-1: 0.25rem;      /* 4px */
+  --space-1-5: 0.375rem;   /* 6px */
+  --space-2: 0.5rem;       /* 8px */
+  --space-2-5: 0.625rem;   /* 10px */
+  --space-3: 0.75rem;      /* 12px */
+  --space-3-5: 0.875rem;   /* 14px */
+  --space-4: 1rem;         /* 16px */
+  --space-5: 1.25rem;      /* 20px */
+  --space-6: 1.5rem;       /* 24px */
+  --space-7: 1.75rem;      /* 28px */
+  --space-8: 2rem;         /* 32px */
+  --space-9: 2.25rem;      /* 36px */
+  --space-10: 2.5rem;      /* 40px */
+  --space-11: 2.75rem;     /* 44px */
+  --space-12: 3rem;        /* 48px */
+  --space-14: 3.5rem;      /* 56px */
+  --space-16: 4rem;        /* 64px */
+  --space-20: 5rem;        /* 80px */
+  --space-24: 6rem;        /* 96px */
+  --space-28: 7rem;        /* 112px */
+  --space-32: 8rem;        /* 128px */
+  --space-36: 9rem;        /* 144px */
+  --space-40: 10rem;       /* 160px */
 
   /* ========================================
-   * LAYOUT
+   * LAYOUT - Content Widths
    * ======================================== */
 
   --content-narrow: 540px;
   --content-width: 672px;
+  --content-wide: 800px;
   --container-sm: 640px;
   --container-md: 768px;
   --container-lg: 1024px;
   --container-xl: 1280px;
 
   --padding-mobile: var(--space-5);
-  --padding-desktop: var(--space-8);
-
-  /* Section spacing - consistent across pages */
-  --section-gap-mobile: var(--space-12);
-  --section-gap-desktop: var(--space-16);
-  --section-padding-mobile: var(--space-10);
-  --section-padding-desktop: var(--space-16);
-
-  /* Safe areas for notched devices */
-  --safe-area-inset-top: env(safe-area-inset-top, 0px);
-  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
-  --safe-area-inset-left: env(safe-area-inset-left, 0px);
-  --safe-area-inset-right: env(safe-area-inset-right, 0px);
+  --padding-tablet: var(--space-8);
+  --padding-desktop: var(--space-10);
 
   /* ========================================
-   * BORDERS & RADIUS
+   * BORDERS & SHAPES
    * ======================================== */
 
-  --radius-none: 0;
-  --radius-sm: 0.125rem;
-  --radius-default: 0.25rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
-  --radius-2xl: 1rem;
+  --radius-sm: 0.25rem;    /* 4px */
+  --radius-md: 0.375rem;   /* 6px */
+  --radius-lg: 0.5rem;     /* 8px */
+  --radius-xl: 0.75rem;    /* 12px */
+  --radius-2xl: 1rem;      /* 16px */
   --radius-full: 9999px;
 
-  /* ========================================
-   * SHADOWS & EFFECTS
-   * ======================================== */
-
-  --shadow-sm: 0 1px 2px 0 oklch(0% 0 0 / 0.1);
-  --shadow-default: 0 1px 3px 0 oklch(0% 0 0 / 0.15);
-  --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 0.15);
-  --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 0.15);
-  --shadow-xl: 0 20px 25px -5px oklch(0% 0 0 / 0.2);
-
-  /* Accent Glows */
-  --glow-sm: 0 0 10px var(--color-accent-subtle);
-  --glow-md: 0 0 20px oklch(70% 0.15 30 / 0.4);
-  --glow-lg: 0 0 30px oklch(70% 0.15 30 / 0.5);
+  --border-thin: 1px;
+  --border-medium: 2px;
+  --border-thick: 3px;
 
   /* ========================================
-   * ANIMATION
+   * SHADOWS & DEPTH
+   * Warm-tinted for cohesion
    * ======================================== */
 
-  --duration-instant: 0ms;
+  --shadow-xs: 0 1px 2px oklch(0% 0 0 / 0.15);
+  --shadow-sm: 0 1px 3px oklch(0% 0 0 / 0.2), 0 1px 2px oklch(0% 0 0 / 0.15);
+  --shadow-md: 0 4px 6px oklch(0% 0 0 / 0.2), 0 2px 4px oklch(0% 0 0 / 0.15);
+  --shadow-lg: 0 10px 15px oklch(0% 0 0 / 0.25), 0 4px 6px oklch(0% 0 0 / 0.15);
+  --shadow-xl: 0 20px 25px oklch(0% 0 0 / 0.3), 0 8px 10px oklch(0% 0 0 / 0.15);
+  --shadow-2xl: 0 25px 50px oklch(0% 0 0 / 0.4);
+
+  /* Glow shadows for accent elements */
+  --shadow-glow-sm: 0 0 10px var(--color-accent-subtle);
+  --shadow-glow-md: 0 0 20px var(--color-accent-subtle), 0 0 40px var(--color-accent-subtle);
+  --shadow-glow-lg: 0 0 30px var(--color-accent-glow), 0 0 60px var(--color-accent-subtle);
+
+  /* ========================================
+   * ANIMATION - Elegant Timing
+   * ======================================== */
+
+  /* Durations */
+  --duration-instant: 50ms;
   --duration-fast: 150ms;
-  --duration-normal: 300ms;
-  --duration-slow: 500ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-slower: 600ms;
+  --duration-slowest: 800ms;
 
+  /* Easing Functions */
   --ease-linear: linear;
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Stagger delays for scroll animations */
-  --stagger-1: 0ms;
-  --stagger-2: 50ms;
-  --stagger-3: 100ms;
-  --stagger-4: 150ms;
-  --stagger-5: 200ms;
-
-  /* ========================================
-   * INTERACTIVE
-   * ======================================== */
-
-  --touch-target-min: 48px;
-  --scale-press: 0.98;
-  --scale-hover: 1.02;
-
-  /* ========================================
-   * DECORATIVE
-   * ======================================== */
-
-  --decorative-opacity: 0.15;
-  --image-bg-opacity: 0.5;
-  --image-corner-opacity: 0.15;
-
-  /* ========================================
-   * Z-INDEX
-   * ======================================== */
-
-  --z-base: 0;
-  --z-dropdown: 100;
-  --z-sticky: 200;
-  --z-header: 300;
-  --z-modal-backdrop: 400;
-  --z-modal: 500;
-  --z-popover: 600;
-  --z-tooltip: 700;
-
-  /* ========================================
-   * BACKGROUND PATTERNS
-   * Subtle textures for depth and tactility
-   * ======================================== */
-
-  /* Noise texture - ultra-subtle grain */
-  --pattern-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  --pattern-noise-opacity: 0.025;
-
-  /* Fine grain texture */
-  --pattern-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
-  --pattern-grain-opacity: 0.03;
-
-  /* Dot grid pattern */
-  --pattern-dots: radial-gradient(circle at center, var(--color-fg-muted) 0.5px, transparent 0.5px);
-  --pattern-dots-size: 16px;
-  --pattern-dots-opacity: 0.15;
-
-  /* ========================================
-   * GRADIENTS
-   * Reusable gradient definitions
-   * ======================================== */
-
-  /* Fade gradients for content overflow */
-  --gradient-fade-down: linear-gradient(to bottom, transparent 0%, var(--color-bg) 100%);
-  --gradient-fade-up: linear-gradient(to top, transparent 0%, var(--color-bg) 100%);
-  --gradient-fade-left: linear-gradient(to left, transparent 0%, var(--color-bg) 100%);
-  --gradient-fade-right: linear-gradient(to right, transparent 0%, var(--color-bg) 100%);
-
-  /* Accent glow - radial burst */
-  --gradient-glow-accent: radial-gradient(ellipse at center, var(--color-accent-subtle), transparent 70%);
-  --gradient-glow-accent-soft: radial-gradient(ellipse at center, oklch(70% 0.15 30 / 0.08), transparent 60%);
-
-  /* Spotlight effect - top-down illumination */
-  --gradient-spotlight: radial-gradient(ellipse 120% 50% at 50% -10%, var(--color-bg-hover), transparent);
-  --gradient-spotlight-accent: radial-gradient(ellipse 100% 40% at 50% 0%, oklch(70% 0.15 30 / 0.06), transparent);
-
-  /* Shimmer for loading states */
-  --gradient-shimmer: linear-gradient(
-    90deg,
-    transparent 0%,
-    oklch(100% 0 0 / 0.04) 50%,
-    transparent 100%
-  );
-
-  /* ========================================
-   * CARD TOKENS
-   * Standardized card styling
-   * ======================================== */
-
-  /* Base card styling */
-  --card-padding: var(--space-5);
-  --card-padding-lg: var(--space-6);
-  --card-padding-xl: var(--space-8);
-  --card-radius: var(--radius-xl);
-  --card-bg: var(--color-bg-elevated);
-  --card-border: 1px solid var(--color-border);
-  --card-border-subtle: 1px solid var(--color-border-subtle);
-  --card-shadow: 0 1px 3px oklch(0% 0 0 / 0.08);
-
-  /* Card hover state */
-  --card-hover-lift: -3px;
-  --card-hover-shadow:
-    0 12px 28px oklch(0% 0 0 / 0.12),
-    0 4px 10px oklch(0% 0 0 / 0.08);
-  --card-hover-glow: 0 0 24px var(--color-accent-subtle);
-  --card-hover-border: var(--color-fg-muted);
-
-  /* Card active/press state */
-  --card-active-scale: 0.98;
-
-  /* Featured card */
-  --card-featured-border: 2px solid var(--color-accent);
-  --card-featured-glow: 0 0 32px oklch(70% 0.15 30 / 0.18);
-  --card-featured-glow-hover: 0 0 40px oklch(70% 0.15 30 / 0.25);
-
-  /* ========================================
-   * ENHANCED ANIMATION
-   * Additional easing and timing
-   * ======================================== */
-
-  /* Spring-like bounce for playful interactions */
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-
-  /* Smooth deceleration - refined feel */
+  --ease-bounce: cubic-bezier(0.34, 1.4, 0.64, 1);
   --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
 
-  /* Snappy response */
-  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
-
-  /* Card transition shorthand */
-  --card-transition-duration: 200ms;
-  --card-transition:
-    transform var(--card-transition-duration) var(--ease-smooth),
-    box-shadow var(--card-transition-duration) var(--ease-smooth),
-    border-color var(--card-transition-duration) var(--ease-smooth);
-
-  /* Micro-interaction timing */
-  --micro-duration: 120ms;
-  --micro-transition: var(--micro-duration) var(--ease-snappy);
-
-  /* Extended stagger delays for larger grids */
-  --stagger-6: 250ms;
-  --stagger-7: 300ms;
-  --stagger-8: 350ms;
+  /* Stagger delays for orchestrated animations */
+  --stagger-1: 0ms;
+  --stagger-2: 60ms;
+  --stagger-3: 120ms;
+  --stagger-4: 180ms;
+  --stagger-5: 240ms;
+  --stagger-6: 300ms;
+  --stagger-7: 360ms;
+  --stagger-8: 420ms;
 
   /* ========================================
    * FORM INPUTS
-   * Systematized form element styling
    * ======================================== */
 
-  /* Input sizing */
-  --input-height: 44px;
-  --input-height-lg: 48px;
-  --input-padding-x: var(--space-4);
-  --input-padding-y: var(--space-3);
-
-  /* Input styling */
+  --input-height: 48px;
+  --input-height-sm: 40px;
+  --input-height-lg: 56px;
+  --input-padding-x: 1rem;
+  --input-padding-x-lg: 1.25rem;
   --input-bg: var(--color-bg);
-  --input-border: 1px solid var(--color-border);
+  --input-bg-hover: var(--color-bg-elevated);
+  --input-border: var(--border-thin) solid var(--color-border);
+  --input-border-hover: var(--border-thin) solid var(--color-border-hover);
   --input-radius: var(--radius-md);
   --input-font-size: var(--text-sm);
-
-  /* Input focus states */
   --input-focus-border: var(--color-accent);
-  --input-focus-ring: 0 0 0 2px var(--color-accent-subtle);
+  --input-focus-ring: 0 0 0 3px var(--color-accent-subtle);
 
-  /* Button sizing (form buttons) */
   --button-height: var(--input-height);
-  --button-padding-x: var(--space-5);
+  --button-padding-x: var(--space-6);
 
   /* ========================================
-   * SECTION FLOW
-   * Spacing and dividers for page sections
+   * Z-INDEX SCALE
    * ======================================== */
 
-  /* Section dividers - subtle lines, not background changes */
-  --divider-color: var(--color-border-subtle);
-  --divider-width: 1px;
-  --divider-weight: 1.5px;
+  --z-base: 0;
+  --z-above: 1;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-modal-backdrop: 40;
+  --z-modal: 50;
+  --z-popover: 60;
+  --z-tooltip: 70;
+  --z-max: 9999;
 
-  /* Section spacing - generous for visual breathing room */
-  --section-spacing: var(--space-16);
-  --section-spacing-sm: var(--space-12);
+  /* ========================================
+   * EFFECTS & TEXTURES
+   * ======================================== */
 
+  /* Noise texture (base64 for performance) */
+  --noise-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  --noise-opacity: 0.03;
+
+  /* Blur values */
+  --blur-sm: 4px;
+  --blur-md: 8px;
+  --blur-lg: 16px;
+  --blur-xl: 24px;
+  --blur-2xl: 40px;
+
+  /* ========================================
+   * BREAKPOINTS (for reference in JS)
+   * ======================================== */
+
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
 }

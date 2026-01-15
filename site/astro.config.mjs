@@ -12,12 +12,5 @@ export default defineConfig({
     functionPerRoute: false,
     runtime: 'nodejs20.x'
   }),
-  integrations: [sitemap()],
-  redirects: {
-    '/tools': '/',
-    '/setup': '/tools/google-ads',
-    '/skills': '/',
-    '/skills/google-ads': '/tools/google-ads',
-    '/skills/ad-creative': '/tools/creative-designer'
-  }
+  integrations: [sitemap()]
 });

@@ -1,0 +1,282 @@
+---
+/**
+ * LogoAnimated Component
+ *
+ * The "47" logo with a character scramble → lock-in animation.
+ * Characters cycle through random Unicode blocks before settling
+ * into their final form, creating a "tuning into a signal" effect.
+ */
+
+interface Props {
+  class?: string;
+  delay?: number; // Animation start delay in ms
+}
+
+const { class: className, delay = 0 } = Astro.props;
+const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<span
+  id={formId}
+  class={`logo-animated ${className || ''}`.trim()}
+  role="img"
+  aria-label="Channel47 Logo"
+  data-logo-animated
+  data-delay={delay}
+>
+  <span class="logo-animated__glyph" aria-hidden="true">
+    <span class="logo-animated__line" data-target="█ █ ▀▀█">
+      <span class="logo-animated__char" data-char="█"></span>
+      <span class="logo-animated__char" data-char=" "></span>
+      <span class="logo-animated__char" data-char="█"></span>
+      <span class="logo-animated__char" data-char=" "></span>
+      <span class="logo-animated__char" data-char="▀"></span>
+      <span class="logo-animated__char" data-char="▀"></span>
+      <span class="logo-animated__char" data-char="█"></span>
+    </span>
+    <span class="logo-animated__line" data-target="▀▀█  █">
+      <span class="logo-animated__char" data-char="▀"></span>
+      <span class="logo-animated__char" data-char="▀"></span>
+      <span class="logo-animated__char" data-char="█"></span>
+      <span class="logo-animated__char" data-char=" "></span>
+      <span class="logo-animated__char" data-char=" "></span>
+      <span class="logo-animated__char" data-char="█"></span>
+    </span>
+  </span>
+  <!-- Glow ring that pulses on completion -->
+  <span class="logo-animated__glow" aria-hidden="true"></span>
+</span>
+
+<script>
+  // Run immediately and also on page load for Astro view transitions
+  function initLogoAnimations() {
+    const logos = document.querySelectorAll('[data-logo-animated]');
+
+    // Unicode block characters for scrambling
+    const GLYPHS = ['█', '▓', '▒', '░', '▀', '▄', '▌', '▐', '■', '□', '▪', '▫', '◼', '◻', '▰', '▱'];
+
+    logos.forEach((logo) => {
+      if (logo.hasAttribute('data-initialized')) return;
+      logo.setAttribute('data-initialized', 'true');
+
+      const delay = parseInt(logo.getAttribute('data-delay') || '0', 10);
+      const chars = logo.querySelectorAll('.logo-animated__char') as NodeListOf<HTMLElement>;
+      const glow = logo.querySelector('.logo-animated__glow') as HTMLElement;
+
+      // Store final characters and set initial random state
+      const targets: string[] = [];
+      chars.forEach((char) => {
+        targets.push(char.dataset.char || ' ');
+        // Start with random character (or space stays space)
+        if (char.dataset.char !== ' ') {
+          char.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+        } else {
+          char.textContent = ' ';
+        }
+      });
+
+      // Animation state
+      const locked: boolean[] = new Array(chars.length).fill(false);
+      let scrambleInterval: number;
+      let hasAnimated = false;
+
+      // Scramble non-locked, non-space characters
+      function scramble() {
+        chars.forEach((char, i) => {
+          if (!locked[i] && targets[i] !== ' ') {
+            char.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+          }
+        });
+      }
+
+      // Lock in a single character with effect
+      function lockChar(index: number) {
+        locked[index] = true;
+        const char = chars[index];
+        char.textContent = targets[index];
+        char.classList.add('is-locked');
+
+        // Brief flash effect
+        char.classList.add('is-flashing');
+        setTimeout(() => char.classList.remove('is-flashing'), 100);
+      }
+
+      // Complete animation
+      function complete() {
+        clearInterval(scrambleInterval);
+        logo.classList.add('is-complete');
+
+        // Trigger glow pulse
+        if (glow) {
+          glow.classList.add('is-active');
+        }
+      }
+
+      // Start the scramble animation
+      function startAnimation() {
+        if (hasAnimated) return;
+        hasAnimated = true;
+
+        setTimeout(() => {
+          logo.classList.add('is-animating');
+
+          // Start scrambling at 60fps feel
+          scrambleInterval = window.setInterval(scramble, 50);
+
+          // Schedule lock-ins with staggered timing
+          const nonSpaceIndices = targets
+            .map((t, i) => (t !== ' ' ? i : -1))
+            .filter((i) => i !== -1);
+
+          // Shuffle for more organic feel
+          const shuffled = [...nonSpaceIndices].sort(() => Math.random() - 0.5);
+
+          // Lock chars over ~800ms with varying gaps
+          const lockDuration = 800;
+          const baseDelay = 300;
+
+          shuffled.forEach((charIndex, i) => {
+            const progress = i / shuffled.length;
+            const easeOut = 1 - Math.pow(1 - progress, 2);
+            const lockTime = baseDelay + easeOut * lockDuration;
+
+            window.setTimeout(() => {
+              lockChar(charIndex);
+              if (i === shuffled.length - 1) {
+                setTimeout(complete, 150);
+              }
+            }, lockTime);
+          });
+        }, delay);
+      }
+
+      // Use Intersection Observer to trigger animation when visible
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              startAnimation();
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      observer.observe(logo);
+    });
+  }
+
+  // Run on initial load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLogoAnimations);
+  } else {
+    initLogoAnimations();
+  }
+
+  // Also run on Astro view transitions
+  document.addEventListener('astro:page-load', initLogoAnimations);
+</script>
+
+<style>
+  .logo-animated {
+    --logo-glow: color-mix(in srgb, var(--color-fg) 25%, transparent);
+
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    font-family: var(--font-mono);
+    font-size: var(--text-lg);
+    line-height: 1;
+    font-weight: normal;
+    color: var(--color-fg);
+    white-space: pre;
+    user-select: none;
+    letter-spacing: -0.05em;
+
+    /* Fade-up entry to match page animations */
+    opacity: 0;
+    transform: translateY(8px);
+    animation: logo-enter 0.5s var(--ease-out) forwards;
+    animation-delay: 0.6s;
+  }
+
+  @keyframes logo-enter {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .logo-animated {
+      font-size: var(--text-xl);
+    }
+  }
+
+  .logo-animated__glyph {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+  }
+
+  .logo-animated__line {
+    display: flex;
+    height: 1.1em;
+  }
+
+  .logo-animated__char {
+    display: inline-block;
+    min-width: 0.55em;
+    text-align: center;
+    opacity: 0.3;
+    transition: opacity 0.1s ease-out;
+  }
+
+  /* During animation - scrambling characters visible */
+  .logo-animated.is-animating .logo-animated__char:not(.is-locked) {
+    opacity: 0.5;
+  }
+
+  /* Locked characters are solid */
+  .logo-animated__char.is-locked {
+    opacity: 1;
+  }
+
+  /* Subtle flash on lock-in */
+  .logo-animated__char.is-flashing {
+    text-shadow: 0 0 8px var(--logo-glow);
+  }
+
+  /* Completed state - subtle glow */
+  .logo-animated.is-complete .logo-animated__glyph {
+    text-shadow:
+      0 0 1px var(--logo-glow),
+      0 0 6px var(--logo-glow);
+  }
+
+  /* Glow ring - minimal */
+  .logo-animated__glow {
+    display: none;
+  }
+
+  /* Reduced motion - skip scramble, just fade in */
+  @media (prefers-reduced-motion: reduce) {
+    .logo-animated__char {
+      opacity: 1 !important;
+      transition: none;
+    }
+
+    .logo-animated__char.is-flashing {
+      color: inherit;
+      text-shadow: none;
+    }
+
+    .logo-animated__glow {
+      animation: none !important;
+      opacity: 0.3;
+      transform: scale(1);
+    }
+  }
+</style>
