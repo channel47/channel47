@@ -1,0 +1,163 @@
+---
+/**
+ * Dynamic Landing Page
+ *
+ * Standalone sales pages for specific workflows/professions.
+ * No header navigation - designed for direct traffic from ads or organic links.
+ *
+ * Structure:
+ * - Hero (headline + description)
+ * - Product section (primary CTA - waitlist)
+ * - Tools section (secondary - links to main site)
+ */
+import LandingLayout from '../../layouts/LandingLayout.astro';
+import Prose from '../../components/Prose.astro';
+import Divider from '../../components/Divider.astro';
+import Waitlist from '../../components/Waitlist.astro';
+import ToolLink from '../../components/ToolLink.astro';
+
+import { landingPages, type LandingPage } from '../../data/landing-pages';
+import toolsData from '../../data/tools.generated.json';
+import type { GeneratedToolsData, GeneratedTool } from '../../data/tools.types';
+
+// Generate static paths for all landing pages
+export function getStaticPaths() {
+  return landingPages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+interface Props {
+  page: LandingPage;
+}
+
+const { page } = Astro.props;
+const data = toolsData as GeneratedToolsData;
+
+// Filter tools to only those in this landing page's config
+const pagePlugins: GeneratedTool[] = page.plugins
+  .map((id) => data.tools.find((t) => t.id === id))
+  .filter((t): t is GeneratedTool => t !== undefined);
+---
+
+<LandingLayout
+  title={`${page.title} | Channel47`}
+  description={page.description}
+>
+  <Prose>
+    <!-- Hero -->
+    <header class="hero">
+      <h1 class="hero__title">{page.headline}</h1>
+      <p class="hero__description">{page.description}</p>
+    </header>
+
+    <Divider />
+
+    <!-- Product Section (Primary CTA) -->
+    <section class="product">
+      <span class="section-label">Knowledge</span>
+      <h2 class="product__title">{page.productHeadline}</h2>
+      <p class="product__description">{page.productDescription}</p>
+      <Waitlist
+        title=""
+        description=""
+        tag={page.waitlistTag}
+        buttonText="Join waitlist"
+        align="left"
+        class="product__waitlist"
+      />
+    </section>
+
+    <Divider />
+
+    <!-- Tools Section (Secondary) -->
+    <section class="tools">
+      <span class="section-label">{page.toolsHeadline || 'Tools'}</span>
+      <div class="tools__list">
+        {pagePlugins.map((tool) => (
+          <ToolLink tool={tool} />
+        ))}
+      </div>
+    </section>
+  </Prose>
+</LandingLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    margin-bottom: var(--space-2);
+  }
+
+  .hero__title {
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    font-weight: var(--font-semibold);
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
+    color: var(--color-fg);
+    margin: 0 0 var(--space-4) 0;
+  }
+
+  @media (min-width: 768px) {
+    .hero__title {
+      font-size: var(--text-4xl);
+    }
+  }
+
+  .hero__description {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  /* Section Labels */
+  .section-label {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Product Section */
+  .product {
+    margin-bottom: var(--space-2);
+  }
+
+  .product__title {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+    margin: 0 0 var(--space-3) 0;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .product__description {
+    font-family: var(--font-serif);
+    font-size: var(--text-base);
+    color: var(--color-fg-secondary);
+    line-height: var(--leading-relaxed);
+    margin: 0 0 var(--space-6) 0;
+  }
+
+  .product__waitlist {
+    padding-block: 0;
+  }
+
+  /* Tools Section */
+  .tools {
+    margin-bottom: var(--space-2);
+  }
+
+  .tools__list {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
