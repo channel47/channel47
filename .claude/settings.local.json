@@ -87,7 +87,23 @@
       "mcp__plugin_playwright_playwright__browser_snapshot",
       "Bash(vercel ls:*)",
       "Bash(vercel inspect:*)",
-      "Bash(vercel logs:*)"
+      "Bash(vercel logs:*)",
+      "Skill(superpowers:brainstorming)",
+      "Bash(rsync:*)",
+      "Bash(xargs cat:*)",
+      "Bash(for plugin in /Users/jackson/Documents/Access/1/a_projects/channel47/plugins/*/)",
+      "Bash(npm run sync-plugins:*)",
+      "mcp__plugin_google-ads-specialist_google-ads__list_accounts",
+      "mcp__plugin_google-ads-specialist_google-ads__query",
+      "WebFetch(domain:carrd.co)",
+      "WebFetch(domain:developers.beehiiv.com)",
+      "Bash(npx vercel:*)",
+      "Bash(gh issue list:*)",
+      "Bash(pip show:*)",
+      "mcp__plugin_playwright_playwright__browser_press_key",
+      "WebFetch(domain:www.interfacecraft.dev)",
+      "Bash(git -C /Users/jackson/Documents/Access/1/a_projects/channel47 log --oneline -15)",
+      "mcp__plugin_playwright_playwright__browser_wait_for"
     ]
   }
 }
