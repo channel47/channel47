@@ -69,7 +69,7 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
       const config = {
         lineCount: 12,
         divergentCount: 3,         // How many lines diverge upward
-        maxDivergence: 0.15,       // Maximum angle of divergence (as ratio of height)
+        maxDivergence: 0.22,       // Maximum angle of divergence (as ratio of height)
         baseSpeed: 0.3,            // Base horizontal speed
         lineSpacing: 8,            // Vertical spacing between lines at origin
         trailLength: 0.7,          // How much of canvas width the trail covers
@@ -132,8 +132,14 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
         const rect = canvas.getBoundingClientRect();
         const dpr = window.devicePixelRatio || 1;
 
+        // Get the overflow top value from CSS
+        const containerStyles = getComputedStyle(container);
+        const overflowTop = parseFloat(containerStyles.getPropertyValue('--overflow-top')) || 60;
+
         state.width = rect.width;
         state.height = rect.height;
+        // Store overflow so we know where "visual center" should be
+        (state as AnimationState & { overflowTop: number }).overflowTop = overflowTop;
 
         canvas.width = rect.width * dpr;
         canvas.height = rect.height * dpr;
@@ -149,10 +155,28 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
         return 1 - Math.pow(1 - t, 3);
       }
 
+      // Interpolate color based on divergence progress
+      // As lines rise, shift from warm orange toward brighter gold/yellow
+      function getColorForDivergence(divergenceRatio: number): { l: number; c: number; h: number } {
+        // divergenceRatio: 0 = no divergence, 1 = maximum divergence
+        // Base color: oklch(68% 0.14 35) - warm orange
+        // Target color: oklch(78% 0.16 65) - brighter gold/yellow
+        const baseL = 68, baseC = 0.14, baseH = 35;
+        const targetL = 78, targetC = 0.16, targetH = 65;
+
+        return {
+          l: baseL + (targetL - baseL) * divergenceRatio,
+          c: baseC + (targetC - baseC) * divergenceRatio,
+          h: baseH + (targetH - baseH) * divergenceRatio,
+        };
+      }
+
       // Draw a single line with gradient trail that flows continuously
       function drawLine(line: Line, entranceProgress: number) {
         const { width, height } = state;
-        const centerY = height / 2;
+        const overflowTop = (state as AnimationState & { overflowTop: number }).overflowTop || 60;
+        // Visual center is offset down to account for the overflow area at top
+        const centerY = overflowTop + (height - overflowTop) / 2;
 
         // Flow speed - lines move continuously from left to right
         const cycleDuration = 8000; // 8 seconds to complete one cycle
@@ -172,8 +196,11 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
 
         // Calculate Y position at each point along the line
         // Y diverges based on X position (normalized to canvas width)
-        const points: { x: number; y: number }[] = [];
+        const points: { x: number; y: number; divergeRatio: number }[] = [];
         const segments = 60;
+
+        // Calculate max possible divergence for color interpolation
+        const maxPossibleDivergence = Math.abs(line.divergence) * height * 1.5;
 
         for (let i = 0; i <= segments; i++) {
           const t = i / segments;
@@ -184,48 +211,86 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
 
           // Divergence is based on how far across the canvas we are (0 to 1)
           // This means divergence accelerates as lines move right
+          // Use a steeper curve (cubic) and larger multiplier for more dramatic rise
           const canvasProgress = Math.max(0, x / width);
-          const divergenceAmount = line.divergence * canvasProgress * canvasProgress * height;
+          const divergenceAmount = line.divergence * Math.pow(canvasProgress, 2.2) * height * 1.5;
           const y = centerY + line.baseY + divergenceAmount;
 
-          points.push({ x, y });
+          // Track divergence ratio for color interpolation
+          const divergeRatio = maxPossibleDivergence > 0
+            ? Math.abs(divergenceAmount) / maxPossibleDivergence
+            : 0;
+
+          points.push({ x, y, divergeRatio });
         }
 
         if (points.length < 2) return;
 
-        // Draw the line
-        ctx.beginPath();
-        ctx.moveTo(points[0].x, points[0].y);
+        // For divergent lines, draw segments with color gradient based on rise
+        if (line.divergence !== 0) {
+          const baseOpacity = line.opacity * entranceProgress;
 
-        for (let i = 1; i < points.length; i++) {
-          ctx.lineTo(points[i].x, points[i].y);
-        }
+          for (let i = 1; i < points.length; i++) {
+            const prevPoint = points[i - 1];
+            const point = points[i];
 
-        // Create gradient for the line (tail fades, head is solid)
-        const gradientStartX = Math.max(0, tailX);
-        const gradientEndX = Math.min(width, headX);
-        const gradient = ctx.createLinearGradient(gradientStartX, 0, gradientEndX, 0);
-        const baseOpacity = line.opacity * entranceProgress;
+            // Interpolate color based on average divergence of segment
+            const segmentDiverge = (prevPoint.divergeRatio + point.divergeRatio) / 2;
+            const color = getColorForDivergence(segmentDiverge);
 
-        gradient.addColorStop(0, `oklch(68% 0.14 35 / 0)`);
-        gradient.addColorStop(0.4, `oklch(68% 0.14 35 / ${baseOpacity * 0.4})`);
-        gradient.addColorStop(0.8, `oklch(68% 0.14 35 / ${baseOpacity * 0.85})`);
-        gradient.addColorStop(1, `oklch(68% 0.14 35 / ${baseOpacity})`);
+            // Calculate opacity based on position along line (fade at tail)
+            const segmentProgress = i / points.length;
+            let segmentOpacity = baseOpacity;
+            if (segmentProgress < 0.4) {
+              segmentOpacity = baseOpacity * (segmentProgress / 0.4);
+            } else if (segmentProgress < 0.8) {
+              segmentOpacity = baseOpacity * (0.4 + (segmentProgress - 0.4) * 1.125);
+            }
 
-        ctx.strokeStyle = gradient;
-        ctx.lineWidth = line.thickness;
-        ctx.lineCap = 'round';
-        ctx.stroke();
-
-        // Draw a brighter head point for divergent lines
-        if (line.divergence !== 0 && headX > 0 && headX < width) {
-          const head = points[points.length - 1];
-          if (head) {
             ctx.beginPath();
-            ctx.arc(head.x, head.y, 2.5, 0, Math.PI * 2);
-            ctx.fillStyle = `oklch(80% 0.14 45 / ${baseOpacity})`;
-            ctx.fill();
+            ctx.moveTo(prevPoint.x, prevPoint.y);
+            ctx.lineTo(point.x, point.y);
+            ctx.strokeStyle = `oklch(${color.l}% ${color.c} ${color.h} / ${segmentOpacity})`;
+            ctx.lineWidth = line.thickness;
+            ctx.lineCap = 'round';
+            ctx.stroke();
           }
+
+          // Draw a brighter head point for divergent lines
+          if (headX > 0 && headX < width) {
+            const head = points[points.length - 1];
+            if (head) {
+              const headColor = getColorForDivergence(head.divergeRatio);
+              ctx.beginPath();
+              ctx.arc(head.x, head.y, 2.5, 0, Math.PI * 2);
+              ctx.fillStyle = `oklch(${headColor.l + 10}% ${headColor.c} ${headColor.h + 10} / ${baseOpacity})`;
+              ctx.fill();
+            }
+          }
+        } else {
+          // Non-divergent lines: use simple gradient as before
+          ctx.beginPath();
+          ctx.moveTo(points[0].x, points[0].y);
+
+          for (let i = 1; i < points.length; i++) {
+            ctx.lineTo(points[i].x, points[i].y);
+          }
+
+          // Create gradient for the line (tail fades, head is solid)
+          const gradientStartX = Math.max(0, tailX);
+          const gradientEndX = Math.min(width, headX);
+          const gradient = ctx.createLinearGradient(gradientStartX, 0, gradientEndX, 0);
+          const baseOpacity = line.opacity * entranceProgress;
+
+          gradient.addColorStop(0, `oklch(68% 0.14 35 / 0)`);
+          gradient.addColorStop(0.4, `oklch(68% 0.14 35 / ${baseOpacity * 0.4})`);
+          gradient.addColorStop(0.8, `oklch(68% 0.14 35 / ${baseOpacity * 0.85})`);
+          gradient.addColorStop(1, `oklch(68% 0.14 35 / ${baseOpacity})`);
+
+          ctx.strokeStyle = gradient;
+          ctx.lineWidth = line.thickness;
+          ctx.lineCap = 'round';
+          ctx.stroke();
         }
       }
 
@@ -328,12 +393,13 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
 
 <style>
   .diverging-paths {
+    --overflow-top: 60px;
     position: relative;
     width: 100%;
     height: 80px;
-    overflow: hidden;
+    overflow: visible;
 
-    /* Subtle mask for left/right fade */
+    /* Subtle mask for left/right fade only (horizontal) */
     mask-image: linear-gradient(
       to right,
       transparent 0%,
@@ -352,26 +418,33 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
 
   @media (min-width: 768px) {
     .diverging-paths {
+      --overflow-top: 80px;
       height: 110px;
     }
   }
 
   @media (min-width: 1024px) {
     .diverging-paths {
+      --overflow-top: 100px;
       height: 130px;
     }
   }
 
   @media (min-width: 1280px) {
     .diverging-paths {
+      --overflow-top: 120px;
       height: 150px;
     }
   }
 
   .diverging-paths__canvas {
     display: block;
+    position: absolute;
+    left: 0;
     width: 100%;
-    height: 100%;
+    /* Canvas extends above container */
+    top: calc(-1 * var(--overflow-top));
+    height: calc(100% + var(--overflow-top));
   }
 
   /* Reduced motion: show static state */
