@@ -1,14 +1,10 @@
 ---
 /**
- * DivergingPaths Component
+ * DivergingPaths Component — ASCII Edition
  *
- * A canvas animation that visualizes "Same tools. Different outcomes."
- * Lines begin together on the left, traveling horizontally.
- * Most continue flat — a few gradually rise, separating from the pack.
- *
- * Metaphor: Everyone starts with the same tools/access.
- * Those who understand deeply take a different trajectory.
- * The gap widens over time.
+ * Reimagined as flowing ASCII character streams.
+ * Lines of dashes flow horizontally; some curve upward using angled characters.
+ * Evokes terminal aesthetics while maintaining the "gap widening" metaphor.
  */
 
 interface Props {
@@ -27,17 +23,18 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
 </div>
 
 <script>
-  interface Line {
-    baseY: number;       // Starting Y offset from center
-    divergence: number;  // How much this line diverges (negative = rises)
-    speed: number;       // Horizontal travel speed multiplier
-    opacity: number;     // Line opacity
-    phase: number;       // Animation phase offset (0-1)
-    thickness: number;   // Line width
+  interface Stream {
+    baseY: number;           // Starting Y position
+    divergence: number;      // 0 = flat, negative = rises
+    speed: number;           // Flow speed
+    phase: number;           // Animation offset
+    opacity: number;
+    charSet: string[];       // Characters to use
+    charWidth: number;       // Width of each character cell
   }
 
   interface AnimationState {
-    lines: Line[];
+    streams: Stream[];
     width: number;
     height: number;
     containerHeight: number;
@@ -48,6 +45,7 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
     hasStarted: boolean;
     startTime: number;
     dpr: number;
+    fontSize: number;
   }
 
   function initDivergingPaths() {
@@ -63,22 +61,31 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
 
+      // ASCII character sets
+      const CHARS = {
+        flat: ['─', '─', '─', '─', '━', '─', '─', '—'],
+        rising: ['/', '╱', '/', '⟋', '/'],
+        head: ['█', '▌', '▐', '●'],
+        fade: ['·', '∙', ':', '.'],
+      };
+
       // Configuration
       const config = {
-        lineCount: 12,
+        streamCount: 10,
         divergentCount: 3,
-        maxDivergence: 0.18,
-        lineSpacing: 8,
-        trailLength: 0.65,
-        cycleDuration: 8000,
-        baseSpeed: 0.3,            // Original slow speed
-        entranceDuration: 1500,
-        edgeFade: 0.08,
+        maxDivergence: 0.35,
+        streamSpacing: 14,
+        trailLength: 24,          // Number of characters in trail
+        cycleDuration: 10000,
+        baseSpeed: 0.25,
+        entranceDuration: 1200,
+        fontSize: 14,
+        edgeFade: 0.1,
       };
 
       // Animation state
       const state: AnimationState = {
-        lines: [],
+        streams: [],
         width: 0,
         height: 0,
         containerHeight: 0,
@@ -89,51 +96,60 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
         hasStarted: false,
         startTime: 0,
         dpr: 1,
+        fontSize: config.fontSize,
       };
 
-      // Create lines
-      function createLines() {
-        state.lines = [];
+      // Create streams
+      function createStreams() {
+        state.streams = [];
 
-        const totalHeight = (config.lineCount - 1) * config.lineSpacing;
+        const totalHeight = (config.streamCount - 1) * config.streamSpacing;
         const startY = -totalHeight / 2;
 
-        // Pick which lines diverge (bias toward upper lines)
+        // Pick which streams diverge
         const divergentIndices = new Set<number>();
         while (divergentIndices.size < config.divergentCount) {
-          const index = Math.floor(Math.random() * (config.lineCount * 0.6));
+          const index = Math.floor(Math.random() * (config.streamCount * 0.5));
           divergentIndices.add(index);
         }
 
-        for (let i = 0; i < config.lineCount; i++) {
-          const baseY = startY + i * config.lineSpacing;
+        // Measure character width
+        ctx.font = `${state.fontSize}px 'Geist Mono', 'SF Mono', Consolas, monospace`;
+        const charWidth = ctx.measureText('─').width || state.fontSize * 0.6;
+
+        for (let i = 0; i < config.streamCount; i++) {
+          const baseY = startY + i * config.streamSpacing;
           const isDivergent = divergentIndices.has(i);
 
-          state.lines.push({
+          state.streams.push({
             baseY,
             divergence: isDivergent
-              ? -(0.06 + Math.random() * config.maxDivergence)
+              ? -(0.1 + Math.random() * config.maxDivergence)
               : 0,
-            speed: config.baseSpeed * (0.9 + Math.random() * 0.2),
-            opacity: isDivergent ? 0.85 : 0.3 + Math.random() * 0.25,
-            phase: Math.random() * Math.PI * 2,
-            thickness: isDivergent ? 1.5 : 1,
+            speed: config.baseSpeed * (0.85 + Math.random() * 0.3),
+            phase: Math.random(),
+            opacity: isDivergent ? 0.95 : 0.25 + Math.random() * 0.2,
+            charSet: isDivergent ? CHARS.rising : CHARS.flat,
+            charWidth,
           });
         }
 
-        // Sort so divergent lines draw on top
-        state.lines.sort((a, b) => Math.abs(a.divergence) - Math.abs(b.divergence));
+        // Sort so divergent streams draw on top
+        state.streams.sort((a, b) => Math.abs(a.divergence) - Math.abs(b.divergence));
       }
 
-      // Handle DPI scaling and canvas setup
+      // Setup canvas with DPI scaling
       function setupCanvas() {
         const containerRect = (container as HTMLElement).getBoundingClientRect();
         const containerStyles = getComputedStyle(container as Element);
-        const overflowTop = parseFloat(containerStyles.getPropertyValue('--overflow-top')) || 60;
+        const overflowTop = parseFloat(containerStyles.getPropertyValue('--overflow-top')) || 80;
         const dpr = window.devicePixelRatio || 1;
 
         const width = containerRect.width;
         const height = containerRect.height + overflowTop;
+
+        // Scale font size based on container width
+        state.fontSize = Math.max(12, Math.min(16, containerRect.width / 60));
 
         state.width = width;
         state.height = height;
@@ -149,98 +165,115 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.scale(dpr, dpr);
 
-        createLines();
+        createStreams();
       }
 
       function easeOutCubic(t: number): number {
         return 1 - Math.pow(1 - t, 3);
       }
 
-      // Edge fade for left/right sides
+      // Edge fade
       function getEdgeFade(x: number): number {
         const fadeWidth = state.width * config.edgeFade;
-        if (x < fadeWidth) return x / fadeWidth;
-        if (x > state.width - fadeWidth) return (state.width - x) / fadeWidth;
+        if (x < fadeWidth) return Math.max(0, x / fadeWidth);
+        if (x > state.width - fadeWidth) return Math.max(0, (state.width - x) / fadeWidth);
         return 1;
       }
 
-      // Draw a single line
-      function drawLine(line: Line, entranceProgress: number) {
-        const { width, height, overflowTop, containerHeight } = state;
+      // Get color based on divergence progress
+      function getColor(divergeRatio: number, alpha: number): string {
+        // Base: warm orange, shifts toward gold as it rises
+        const l = 68 + 14 * divergeRatio;
+        const c = 0.14 + 0.03 * divergeRatio;
+        const h = 35 + 25 * divergeRatio;
+        return `oklch(${l}% ${c} ${h} / ${alpha})`;
+      }
+
+      // Draw a single stream of ASCII characters
+      function drawStream(stream: Stream, entranceProgress: number) {
+        const { width, height, overflowTop, containerHeight, fontSize } = state;
         const centerY = overflowTop + containerHeight / 2;
 
-        // Calculate flow progress (original formula)
-        const flowProgress = ((state.time * line.speed + line.phase * 1000) % config.cycleDuration) / config.cycleDuration;
+        // Calculate flow progress
+        const adjustedTime = state.time * stream.speed;
+        const flowProgress = ((adjustedTime / config.cycleDuration) + stream.phase) % 1;
 
-        const lineLength = width * config.trailLength;
-        const totalTravel = width + lineLength;
-        const headX = -lineLength * 0.2 + flowProgress * totalTravel;
-        const tailX = headX - lineLength;
+        // Calculate the position of the head character
+        const totalTravel = width + config.trailLength * stream.charWidth;
+        const headX = -config.trailLength * stream.charWidth * 0.3 + flowProgress * totalTravel;
 
-        if (headX < 0 || tailX > width) return;
+        // Don't draw if completely off screen
+        if (headX < -stream.charWidth * 2 || headX - config.trailLength * stream.charWidth > width) return;
 
-        // Build the path
-        const segments = 50;
-        const points: { x: number; y: number }[] = [];
+        const isDivergent = stream.divergence !== 0;
 
-        for (let i = 0; i <= segments; i++) {
-          const t = i / segments;
-          const x = tailX + t * lineLength;
-          if (x < -20 || x > width + 20) continue;
+        // Set up font
+        ctx.font = `${fontSize}px 'Geist Mono', 'SF Mono', Consolas, monospace`;
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'center';
 
-          const canvasProgress = Math.max(0, Math.min(1, x / width));
-          const divergenceAmount = line.divergence * Math.pow(canvasProgress, 2.5) * height;
-          const y = centerY + line.baseY + divergenceAmount;
+        // Draw each character in the trail
+        for (let i = 0; i < config.trailLength; i++) {
+          const charX = headX - i * stream.charWidth;
 
-          points.push({ x, y });
-        }
+          // Skip if off screen
+          if (charX < -stream.charWidth || charX > width + stream.charWidth) continue;
 
-        if (points.length < 2) return;
+          // Calculate Y position with divergence
+          const canvasProgress = Math.max(0, Math.min(1, charX / width));
+          const divergeAmount = stream.divergence * Math.pow(canvasProgress, 2.2) * height;
+          const charY = centerY + stream.baseY + divergeAmount;
 
-        // Draw as single path
-        ctx.beginPath();
-        ctx.moveTo(points[0].x, points[0].y);
-        for (let i = 1; i < points.length; i++) {
-          ctx.lineTo(points[i].x, points[i].y);
-        }
+          // Calculate opacity: fade at tail, solid at head
+          const trailProgress = i / config.trailLength;
+          let charOpacity = stream.opacity * entranceProgress;
 
-        // Create gradient
-        const gradientStartX = Math.max(0, tailX);
-        const gradientEndX = Math.min(width, headX);
-        const gradient = ctx.createLinearGradient(gradientStartX, 0, gradientEndX, 0);
-
-        const baseOpacity = line.opacity * entranceProgress;
-        const isDivergent = line.divergence !== 0;
-
-        if (isDivergent) {
-          // Divergent: color shifts from orange to gold along the line
-          gradient.addColorStop(0, `oklch(68% 0.14 35 / 0)`);
-          gradient.addColorStop(0.3, `oklch(70% 0.14 38 / ${baseOpacity * 0.5 * getEdgeFade(gradientStartX + 0.3 * (gradientEndX - gradientStartX))})`);
-          gradient.addColorStop(0.6, `oklch(74% 0.15 45 / ${baseOpacity * 0.8})`);
-          gradient.addColorStop(1, `oklch(78% 0.16 52 / ${baseOpacity * getEdgeFade(gradientEndX)})`);
-        } else {
-          // Flat lines: simple fade
-          gradient.addColorStop(0, `oklch(68% 0.14 35 / 0)`);
-          gradient.addColorStop(0.3, `oklch(68% 0.14 35 / ${baseOpacity * 0.3 * getEdgeFade(gradientStartX)})`);
-          gradient.addColorStop(0.7, `oklch(68% 0.14 35 / ${baseOpacity * 0.7})`);
-          gradient.addColorStop(1, `oklch(68% 0.14 35 / ${baseOpacity * getEdgeFade(gradientEndX)})`);
-        }
-
-        ctx.strokeStyle = gradient;
-        ctx.lineWidth = line.thickness;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.stroke();
-
-        // Small head dot for divergent lines
-        if (isDivergent && headX > 0 && headX < width) {
-          const head = points[points.length - 1];
-          if (head) {
-            ctx.beginPath();
-            ctx.arc(head.x, head.y, 1.5, 0, Math.PI * 2);
-            ctx.fillStyle = `oklch(80% 0.16 55 / ${baseOpacity * 0.8 * getEdgeFade(head.x)})`;
-            ctx.fill();
+          // Tail fade - exponential falloff
+          if (trailProgress > 0.3) {
+            charOpacity *= Math.pow(1 - (trailProgress - 0.3) / 0.7, 1.5);
           }
+
+          // Edge fade
+          charOpacity *= getEdgeFade(charX);
+
+          if (charOpacity < 0.02) continue;
+
+          // Select character
+          let char: string;
+          if (i === 0 && isDivergent) {
+            // Head character for divergent streams
+            char = CHARS.head[Math.floor(state.time / 150) % CHARS.head.length];
+          } else if (isDivergent && canvasProgress > 0.3) {
+            // Rising characters when diverging
+            char = stream.charSet[Math.floor((charX + state.time * 0.02) / 30) % stream.charSet.length];
+          } else if (trailProgress > 0.85) {
+            // Fade characters at tail
+            char = CHARS.fade[Math.floor(trailProgress * CHARS.fade.length) % CHARS.fade.length];
+          } else {
+            // Regular flat characters
+            char = CHARS.flat[Math.floor((charX + i * 7) / 20) % CHARS.flat.length];
+          }
+
+          // Color: divergent lines shift color as they rise
+          const divergeRatio = isDivergent ? canvasProgress : 0;
+          ctx.fillStyle = getColor(divergeRatio, charOpacity);
+
+          // Draw character
+          ctx.fillText(char, charX, charY);
+        }
+
+        // Draw a subtle glow behind the head for divergent streams
+        if (isDivergent && headX > 0 && headX < width) {
+          const headCanvasProgress = Math.max(0, Math.min(1, headX / width));
+          const headDiverge = stream.divergence * Math.pow(headCanvasProgress, 2.2) * height;
+          const headY = centerY + stream.baseY + headDiverge;
+          const headOpacity = stream.opacity * entranceProgress * getEdgeFade(headX);
+
+          // Glow
+          ctx.beginPath();
+          ctx.arc(headX, headY, fontSize * 0.8, 0, Math.PI * 2);
+          ctx.fillStyle = getColor(1, headOpacity * 0.15);
+          ctx.fill();
         }
       }
 
@@ -255,10 +288,13 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
         state.time = timestamp - state.startTime;
         const entranceProgress = Math.min(1, easeOutCubic(state.time / config.entranceDuration));
 
-        ctx.clearRect(0, 0, state.width, state.height);
+        // Clear with slight trail effect for subtle motion blur
+        ctx.fillStyle = 'oklch(14% 0.012 50)'; // Match background
+        ctx.fillRect(0, 0, state.width, state.height);
 
-        state.lines.forEach((line) => {
-          drawLine(line, entranceProgress);
+        // Draw all streams
+        state.streams.forEach((stream) => {
+          drawStream(stream, entranceProgress);
         });
 
         state.animationId = requestAnimationFrame(animate);
@@ -332,30 +368,30 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
 
 <style>
   .diverging-paths {
-    --overflow-top: 80px;
+    --overflow-top: 90px;
     position: relative;
     width: 100%;
-    height: 80px;
+    height: 90px;
     overflow: visible;
   }
 
   @media (min-width: 768px) {
     .diverging-paths {
-      --overflow-top: 100px;
+      --overflow-top: 120px;
       height: 110px;
     }
   }
 
   @media (min-width: 1024px) {
     .diverging-paths {
-      --overflow-top: 130px;
+      --overflow-top: 150px;
       height: 130px;
     }
   }
 
   @media (min-width: 1280px) {
     .diverging-paths {
-      --overflow-top: 160px;
+      --overflow-top: 180px;
       height: 150px;
     }
   }
@@ -372,7 +408,7 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
 
   @media (prefers-reduced-motion: reduce) {
     .diverging-paths__canvas {
-      opacity: 0.5;
+      opacity: 0.6;
     }
   }
 </style>
