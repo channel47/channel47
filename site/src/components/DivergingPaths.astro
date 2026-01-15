@@ -92,12 +92,12 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
         divergentCount: 3,
         maxDivergence: 0.5,
         streamSpacing: 16,
-        particleLifetime: 4000,
-        spawnRate: 60,           // ms between spawns
-        baseSpeed: 0.08,
+        particleLifetime: 12000,   // Longer lifetime for slower movement
+        spawnRate: 150,            // Slower spawn rate
+        baseSpeed: 0.018,          // Much slower base speed
         fontSize: 15,
-        entranceDuration: 800,
-        dustCount: 30,
+        entranceDuration: 1200,
+        dustCount: 20,
       };
 
       const state: AnimationState = {
@@ -163,8 +163,8 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
             x: Math.random() * state.width,
             y: Math.random() * state.height,
             char: CHARS.dust[Math.floor(Math.random() * CHARS.dust.length)],
-            drift: (Math.random() - 0.5) * 0.3,
-            opacity: 0.1 + Math.random() * 0.15,
+            drift: (Math.random() - 0.5) * 0.05,  // Much slower drift
+            opacity: 0.08 + Math.random() * 0.1,
           });
         }
       }
@@ -380,10 +380,13 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
           state.startTime = timestamp;
           state.hasStarted = true;
           lastTime = timestamp;
+          // Skip first frame to avoid huge deltaTime
+          state.animationId = requestAnimationFrame(animate);
+          return;
         }
 
         state.time = timestamp - state.startTime;
-        const deltaTime = timestamp - lastTime;
+        const deltaTime = Math.min(timestamp - lastTime, 50); // Cap deltaTime to avoid jumps
         lastTime = timestamp;
 
         const entranceProgress = Math.min(1, state.time / config.entranceDuration);
