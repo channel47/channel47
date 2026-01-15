@@ -33,8 +33,9 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
     divergence: number;  // How much this line diverges (0 = flat, positive = rises)
     speed: number;       // Horizontal travel speed
     opacity: number;     // Line opacity
-    phase: number;       // Animation phase offset
+    phase: number;       // Animation phase offset (0-1, portion of cycle)
     thickness: number;   // Line width
+    cycleDuration: number; // How long one full cycle takes (ms)
   }
 
   interface AnimationState {
@@ -107,21 +108,45 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
           divergentIndices.add(index);
         }
 
+        // Convert to array for intentional phase assignment
+        const divergentIndexArray = Array.from(divergentIndices).sort((a, b) => a - b);
+        let divergentCounter = 0;
+
         for (let i = 0; i < config.lineCount; i++) {
           const baseY = startY + i * config.lineSpacing;
           const isDivergent = divergentIndices.has(i);
 
-          state.lines.push({
-            y: baseY,
-            baseY,
-            divergence: isDivergent
-              ? -(0.08 + Math.random() * config.maxDivergence) // Negative = rises (y decreases)
-              : 0,
-            speed: config.baseSpeed * (0.9 + Math.random() * 0.2),
-            opacity: isDivergent ? 0.9 : 0.35 + Math.random() * 0.25,
-            phase: Math.random() * Math.PI * 2,
-            thickness: isDivergent ? 1.5 : 1,
-          });
+          if (isDivergent) {
+            // Divergent lines: intentional, spread-out timing
+            // Each divergent line gets an evenly-spaced phase offset
+            // Plus slight variation in cycle duration for organic feel
+            const phaseOffset = divergentCounter / config.divergentCount;
+            const cycleDuration = 12000 + divergentCounter * 2000; // 12s, 14s, 16s - staggered
+
+            state.lines.push({
+              y: baseY,
+              baseY,
+              divergence: -(0.12 + divergentCounter * 0.06), // Predictable divergence amounts
+              speed: config.baseSpeed * (0.85 + divergentCounter * 0.08), // Slightly increasing speeds
+              opacity: 0.85,
+              phase: phaseOffset,
+              thickness: 1.5,
+              cycleDuration,
+            });
+            divergentCounter++;
+          } else {
+            // Flat lines: random timing, shorter cycles
+            state.lines.push({
+              y: baseY,
+              baseY,
+              divergence: 0,
+              speed: config.baseSpeed * (0.9 + Math.random() * 0.2),
+              opacity: 0.35 + Math.random() * 0.25,
+              phase: Math.random(),
+              thickness: 1,
+              cycleDuration: 7000 + Math.random() * 2000, // 7-9s cycles
+            });
+          }
         }
 
         // Sort by divergence so divergent lines draw on top
@@ -194,12 +219,11 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
         const { width, height, overflowTop, containerHeight } = state;
 
         // Visual center is in the middle of the visible container area
-        // (accounting for overflow space at top)
         const centerY = overflowTop + containerHeight / 2;
 
-        // Flow speed - lines move continuously from left to right
-        const cycleDuration = 8000; // 8 seconds to complete one cycle
-        const flowProgress = ((state.time * line.speed + line.phase * 1000) % cycleDuration) / cycleDuration;
+        // Flow progress based on line's own cycle duration and phase
+        const cycleProgress = (state.time % line.cycleDuration) / line.cycleDuration;
+        const flowProgress = (cycleProgress + line.phase) % 1;
 
         // Line length as portion of canvas width
         const lineLength = width * config.trailLength;
@@ -213,7 +237,7 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
         if (headX < 0 || tailX > width) return;
 
         // Calculate points along the line
-        const segments = 50;
+        const segments = 60;
         const points: { x: number; y: number; t: number }[] = [];
 
         for (let i = 0; i <= segments; i++) {
@@ -236,112 +260,67 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
         const baseOpacity = line.opacity * entranceProgress;
         const isDivergent = line.divergence !== 0;
 
-        // Draw the line as connected segments with varying opacity
-        // This batches into fewer draw calls while still achieving the gradient effect
+        // Draw line as a single continuous path
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+
+        for (let i = 1; i < points.length; i++) {
+          ctx.lineTo(points[i].x, points[i].y);
+        }
+
+        // Create gradient for the line
+        const gradientStartX = Math.max(0, tailX);
+        const gradientEndX = Math.min(width, headX);
+        const gradient = ctx.createLinearGradient(gradientStartX, 0, gradientEndX, 0);
+
         if (isDivergent) {
-          // For divergent lines: draw in color bands for performance
-          // Group segments by similar divergence ratios
-          const bandCount = 5;
+          // Divergent lines: multi-stop gradient with color shift and opacity
+          // Color shifts from warm orange to brighter gold as line progresses
+          const stops = 8;
+          for (let i = 0; i <= stops; i++) {
+            const t = i / stops;
 
-          for (let band = 0; band < bandCount; band++) {
-            const bandStart = band / bandCount;
-            const bandEnd = (band + 1) / bandCount;
-            const bandMid = (bandStart + bandEnd) / 2;
-
-            // Calculate diverge ratio at band midpoint
-            const divergeRatio = Math.pow(bandMid, 1.5);
-            const bandColor = getColorString(divergeRatio, 1);
-
-            ctx.beginPath();
-            let hasStarted = false;
-
-            for (let i = 0; i < points.length; i++) {
-              const point = points[i];
-              const pointT = point.t;
-
-              // Check if point falls in this band
-              if (pointT >= bandStart && pointT <= bandEnd) {
-                // Calculate opacity based on position along line (fade at tail)
-                let segmentOpacity = baseOpacity;
-                if (pointT < 0.35) {
-                  segmentOpacity = baseOpacity * (pointT / 0.35);
-                } else if (pointT > 0.85) {
-                  segmentOpacity = baseOpacity * (1 - (pointT - 0.85) / 0.15) * 0.5 + baseOpacity * 0.5;
-                }
-
-                // Apply edge fade
-                const edgeFade = getEdgeFade(point.x);
-                segmentOpacity *= edgeFade;
-
-                if (!hasStarted) {
-                  ctx.moveTo(point.x, point.y);
-                  hasStarted = true;
-                } else {
-                  ctx.lineTo(point.x, point.y);
-                }
-              }
+            // Calculate opacity: fade in from tail, solid toward head
+            let opacity = baseOpacity;
+            if (t < 0.3) {
+              opacity = baseOpacity * (t / 0.3);
             }
 
-            if (hasStarted) {
-              // Use the band's color with a gradient for opacity
-              const gradient = ctx.createLinearGradient(
-                Math.max(0, tailX + bandStart * lineLength), 0,
-                Math.min(width, tailX + bandEnd * lineLength), 0
-              );
+            // Apply edge fade based on actual x position at this stop
+            const xAtStop = gradientStartX + t * (gradientEndX - gradientStartX);
+            opacity *= getEdgeFade(xAtStop);
 
-              const startOpacity = baseOpacity * (bandStart < 0.35 ? bandStart / 0.35 : 1) * getEdgeFade(tailX + bandStart * lineLength);
-              const endOpacity = baseOpacity * (bandEnd < 0.35 ? bandEnd / 0.35 : 1) * getEdgeFade(tailX + bandEnd * lineLength);
-
-              gradient.addColorStop(0, getColorString(Math.pow(bandStart, 1.5), startOpacity));
-              gradient.addColorStop(1, getColorString(Math.pow(bandEnd, 1.5), endOpacity));
-
-              ctx.strokeStyle = gradient;
-              ctx.lineWidth = line.thickness;
-              ctx.lineCap = 'round';
-              ctx.lineJoin = 'round';
-              ctx.stroke();
-            }
-          }
-
-          // Draw head point for divergent lines
-          if (headX > 0 && headX < width) {
-            const head = points[points.length - 1];
-            if (head) {
-              const headOpacity = baseOpacity * getEdgeFade(head.x);
-              ctx.beginPath();
-              ctx.arc(head.x, head.y, 2.5, 0, Math.PI * 2);
-              ctx.fillStyle = getColorString(1, headOpacity);
-              ctx.fill();
-            }
+            // Color shifts with progress (t correlates with canvasProgress)
+            const colorShift = Math.pow(t, 1.2);
+            gradient.addColorStop(t, getColorString(colorShift, opacity));
           }
         } else {
-          // Non-divergent lines: draw as single path with horizontal gradient
-          ctx.beginPath();
-          ctx.moveTo(points[0].x, points[0].y);
-
-          for (let i = 1; i < points.length; i++) {
-            ctx.lineTo(points[i].x, points[i].y);
-          }
-
-          // Create gradient for the line (tail fades, head is solid)
-          const gradientStartX = Math.max(0, tailX);
-          const gradientEndX = Math.min(width, headX);
-          const gradient = ctx.createLinearGradient(gradientStartX, 0, gradientEndX, 0);
-
-          // Calculate edge fade at start and end
+          // Flat lines: simple opacity gradient, constant color
           const startEdgeFade = getEdgeFade(gradientStartX);
           const endEdgeFade = getEdgeFade(gradientEndX);
 
           gradient.addColorStop(0, `oklch(68% 0.14 35 / 0)`);
-          gradient.addColorStop(0.3, `oklch(68% 0.14 35 / ${baseOpacity * 0.3 * startEdgeFade})`);
-          gradient.addColorStop(0.7, `oklch(68% 0.14 35 / ${baseOpacity * 0.8})`);
+          gradient.addColorStop(0.25, `oklch(68% 0.14 35 / ${baseOpacity * 0.25 * startEdgeFade})`);
+          gradient.addColorStop(0.6, `oklch(68% 0.14 35 / ${baseOpacity * 0.7})`);
           gradient.addColorStop(1, `oklch(68% 0.14 35 / ${baseOpacity * endEdgeFade})`);
+        }
 
-          ctx.strokeStyle = gradient;
-          ctx.lineWidth = line.thickness;
-          ctx.lineCap = 'round';
-          ctx.lineJoin = 'round';
-          ctx.stroke();
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = line.thickness;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+
+        // Draw subtle head glow for divergent lines
+        if (isDivergent && headX > 0 && headX < width) {
+          const head = points[points.length - 1];
+          if (head) {
+            const headOpacity = baseOpacity * 0.9 * getEdgeFade(head.x);
+            ctx.beginPath();
+            ctx.arc(head.x, head.y, 2, 0, Math.PI * 2);
+            ctx.fillStyle = getColorString(1, headOpacity);
+            ctx.fill();
+          }
         }
       }
 
