@@ -3,12 +3,13 @@
  * AsciiBlocks Component
  *
  * A dense field of ASCII block characters with visible wave interference.
- * Waves directly control character density and brightness.
- * Emergence waves sweep through, temporarily revealing signal from noise —
- * like insight surfacing, or tuning into a frequency.
+ * Gravitational attractors periodically form, pulling characters inward
+ * to create density wells — like watching a thought crystallize or
+ * knowledge accumulating. Characters visibly shift toward the attractor,
+ * cluster at peak intensity, then release outward.
  *
- * The effect: flowing patterns of density that shift and morph,
- * with periodic waves of clarity sweeping through.
+ * The effect: flowing ambient patterns punctuated by moments of
+ * coalescence and release.
  */
 
 interface Props {
@@ -39,18 +40,17 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
     hue: number;
   }
 
-  // Emergence wave: sweeps across the field, temporarily revealing signal
-  // Like insight surfacing or tuning into a frequency
-  interface EmergenceWave {
+  // Gravitational attractor: pulls characters toward it
+  interface Attractor {
+    x: number;
+    y: number;
     startTime: number;
-    // Direction the wave travels (angle in radians, 0 = right)
-    angle: number;
-    // Starting offset (where the wave front begins)
-    offset: number;
-    // Wave characteristics
-    speed: number;
-    width: number;        // How wide the "revelation" band is
     strength: number;
+    radius: number;
+    // Lifecycle phases
+    gatherDuration: number;   // Time to reach peak pull
+    holdDuration: number;     // Time at peak
+    releaseDuration: number;  // Time to release
   }
 
   function initAsciiBlocks() {
@@ -68,7 +68,7 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
 
       // State
       let cells: Cell[] = [];
-      let waves: EmergenceWave[] = [];
+      let attractors: Attractor[] = [];
       let width = 0;
       let height = 0;
       let cols = 0;
@@ -77,114 +77,157 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
       let animationId = 0;
       let isRunning = false;
       let startTime = 0;
-      let lastWaveTime = 0;
+      let lastAttractorTime = 0;
 
       const config = {
         entranceDuration: 1600,
-        waveInterval: 4500,       // Time between wave spawns
-        waveSpeed: 0.12,          // How fast waves travel
-        waveWidth: 180,           // Width of the revelation band
-        waveLifetime: 5000,       // How long before cleanup
+        attractorInterval: 6000,      // Time between attractor spawns
+        attractorRadius: 220,         // Influence radius
+        maxPullStrength: 0.7,         // How much characters shift (0-1)
+        gatherDuration: 1800,         // Gather phase
+        holdDuration: 800,            // Hold at peak
+        releaseDuration: 2000,        // Release phase
         baseOpacity: 0.25,
         peakOpacity: 0.95,
       };
 
-      // Two dominant waves that create clear interference bands
+      // Ambient wave interference for base movement
       function getWaveValue(x: number, y: number, time: number): number {
-        // Wave 1: Horizontal sweep (primary)
         const wave1 = Math.sin(x * 0.012 + time * 0.0008);
-
-        // Wave 2: Diagonal sweep (creates interference)
         const wave2 = Math.sin((x * 0.8 + y * 0.6) * 0.01 + time * 0.0006);
-
-        // Wave 3: Slow vertical undulation
         const wave3 = Math.sin(y * 0.015 + time * 0.0003) * 0.4;
-
-        // Combine with interference (waves can reinforce or cancel)
         const combined = (wave1 + wave2 + wave3) / 2.4;
-
-        // Map from [-1, 1] to [0, 1]
         return (combined + 1) / 2;
       }
 
-      // Emergence wave: a plane of revelation sweeping through
-      // Returns intensity (0-1) of the wave effect at this point
-      function getEmergenceValue(x: number, y: number, time: number): number {
-        let total = 0;
-
-        for (const wave of waves) {
-          const elapsed = time - wave.startTime;
-
-          // Project point onto wave direction to get distance along wave travel
-          // Wave travels in direction of angle, so we measure perpendicular distance
-          const cosA = Math.cos(wave.angle);
-          const sinA = Math.sin(wave.angle);
-
-          // Distance along the wave's travel direction
-          const travelDist = x * cosA + y * sinA;
-
-          // Current position of wave front
-          const waveFront = wave.offset + elapsed * wave.speed;
-
-          // Distance from wave front (negative = wave hasn't reached yet)
-          const distFromFront = travelDist - waveFront;
-
-          // Wave has a leading edge, peak, and trailing fade
-          // Shape: ramps up quickly, holds briefly, fades slowly
-          const waveWidth = wave.width;
-
-          if (distFromFront > waveWidth * 0.3 || distFromFront < -waveWidth) {
-            continue; // Outside wave influence
-          }
-
-          let intensity: number;
-
-          if (distFromFront > 0) {
-            // Leading edge: sharp rise (wave approaching)
-            intensity = 1 - (distFromFront / (waveWidth * 0.3));
-          } else if (distFromFront > -waveWidth * 0.2) {
-            // Peak zone: full intensity
-            intensity = 1;
-          } else {
-            // Trailing fade: gradual falloff
-            const fadeProgress = (-distFromFront - waveWidth * 0.2) / (waveWidth * 0.8);
-            intensity = 1 - Math.pow(fadeProgress, 0.7);
-          }
-
-          // Overall fade over lifetime
-          const lifetimeFade = 1 - Math.pow(elapsed / config.waveLifetime, 2);
-
-          total = Math.max(total, intensity * lifetimeFade * wave.strength);
-        }
-
-        return Math.min(1, total);
+      // Easing functions for smooth animation
+      function easeOutCubic(t: number): number {
+        return 1 - Math.pow(1 - t, 3);
       }
 
-      function spawnWave(time: number) {
-        // Diagonal angle for interesting sweep patterns
-        // Vary between roughly left-to-right and top-left-to-bottom-right
-        const angleOptions = [
-          0.15 + Math.random() * 0.25,   // Slight diagonal down-right
-          -0.15 - Math.random() * 0.2,   // Slight diagonal up-right
-          0.4 + Math.random() * 0.3,     // Steeper diagonal
+      function easeInOutQuad(t: number): number {
+        return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      }
+
+      function easeOutExpo(t: number): number {
+        return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+      }
+
+      // Calculate attractor influence on a point
+      // Returns: { pull: 0-1 strength, dx: x offset, dy: y offset, phase: 'gather'|'hold'|'release'|'afterglow' }
+      function getAttractorInfluence(
+        x: number,
+        y: number,
+        time: number
+      ): { pull: number; dx: number; dy: number; phase: string; glowIntensity: number } {
+        let totalPull = 0;
+        let totalDx = 0;
+        let totalDy = 0;
+        let maxGlow = 0;
+        let dominantPhase = 'none';
+
+        for (const attractor of attractors) {
+          const elapsed = time - attractor.startTime;
+          const totalDuration = attractor.gatherDuration + attractor.holdDuration + attractor.releaseDuration;
+
+          // Distance from attractor center
+          const dx = attractor.x - x;
+          const dy = attractor.y - y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          // Skip if outside influence radius
+          if (dist > attractor.radius * 1.5) continue;
+
+          // Normalized distance (0 at center, 1 at edge)
+          const normDist = Math.min(1, dist / attractor.radius);
+
+          // Distance falloff - stronger pull near center
+          const distanceFalloff = Math.pow(1 - normDist, 1.5);
+
+          // Phase-based animation
+          let phaseMultiplier = 0;
+          let phase = 'none';
+          let glowIntensity = 0;
+
+          if (elapsed < attractor.gatherDuration) {
+            // GATHER: Pull increases
+            phase = 'gather';
+            const progress = elapsed / attractor.gatherDuration;
+            phaseMultiplier = easeOutCubic(progress);
+            glowIntensity = progress * 0.3;
+          } else if (elapsed < attractor.gatherDuration + attractor.holdDuration) {
+            // HOLD: Maximum pull
+            phase = 'hold';
+            phaseMultiplier = 1;
+            glowIntensity = 0.5;
+          } else if (elapsed < totalDuration) {
+            // RELEASE: Pull decreases, expansion
+            phase = 'release';
+            const releaseProgress = (elapsed - attractor.gatherDuration - attractor.holdDuration) / attractor.releaseDuration;
+            phaseMultiplier = 1 - easeInOutQuad(releaseProgress);
+            // During release, create subtle outward push
+            glowIntensity = 0.8 * (1 - releaseProgress);
+          } else if (elapsed < totalDuration + 800) {
+            // AFTERGLOW: Subtle lingering energy
+            phase = 'afterglow';
+            const afterglowProgress = (elapsed - totalDuration) / 800;
+            phaseMultiplier = 0;
+            glowIntensity = 0.3 * (1 - afterglowProgress);
+          }
+
+          if (phaseMultiplier > 0 || glowIntensity > 0) {
+            const pullStrength = attractor.strength * distanceFalloff * phaseMultiplier;
+
+            // Calculate pull direction (toward attractor)
+            if (dist > 0.1) {
+              const pullDx = (dx / dist) * pullStrength * config.maxPullStrength * cellSize * 2;
+              const pullDy = (dy / dist) * pullStrength * config.maxPullStrength * cellSize * 2;
+              totalDx += pullDx;
+              totalDy += pullDy;
+            }
+
+            totalPull = Math.max(totalPull, pullStrength);
+            maxGlow = Math.max(maxGlow, glowIntensity * distanceFalloff);
+            if (pullStrength > 0.1 || glowIntensity > 0.1) {
+              dominantPhase = phase;
+            }
+          }
+        }
+
+        return {
+          pull: Math.min(1, totalPull),
+          dx: totalDx,
+          dy: totalDy,
+          phase: dominantPhase,
+          glowIntensity: maxGlow
+        };
+      }
+
+      function spawnAttractor(time: number) {
+        // Rule of thirds positioning for visual interest
+        const posOptions = [
+          { x: width * 0.33, y: height * 0.4 },
+          { x: width * 0.67, y: height * 0.35 },
+          { x: width * 0.5, y: height * 0.5 },
+          { x: width * 0.4, y: height * 0.6 },
+          { x: width * 0.6, y: height * 0.45 },
         ];
-        const angle = angleOptions[Math.floor(Math.random() * angleOptions.length)];
+        const pos = posOptions[Math.floor(Math.random() * posOptions.length)];
 
-        // Start from off-screen left
-        const maxDim = Math.max(width, height);
-        const offset = -maxDim * 0.3 - Math.random() * 100;
-
-        waves.push({
+        attractors.push({
+          x: pos.x + (Math.random() - 0.5) * 60,
+          y: pos.y + (Math.random() - 0.5) * 40,
           startTime: time,
-          angle,
-          offset,
-          speed: config.waveSpeed * (0.85 + Math.random() * 0.3),
-          width: config.waveWidth * (0.8 + Math.random() * 0.4),
-          strength: 0.7 + Math.random() * 0.3,
+          strength: 0.8 + Math.random() * 0.2,
+          radius: config.attractorRadius * (0.85 + Math.random() * 0.3),
+          gatherDuration: config.gatherDuration * (0.9 + Math.random() * 0.2),
+          holdDuration: config.holdDuration * (0.8 + Math.random() * 0.4),
+          releaseDuration: config.releaseDuration * (0.9 + Math.random() * 0.2),
         });
 
-        // Clean old waves
-        waves = waves.filter(w => time - w.startTime < config.waveLifetime);
+        // Clean old attractors
+        const maxLifetime = config.gatherDuration + config.holdDuration + config.releaseDuration + 1000;
+        attractors = attractors.filter(a => time - a.startTime < maxLifetime);
       }
 
       function setupCanvas() {
@@ -230,11 +273,7 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
           }
         }
 
-        waves = [];
-      }
-
-      function easeOutExpo(t: number): number {
-        return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+        attractors = [];
       }
 
       function animate(timestamp: number) {
@@ -242,16 +281,16 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
 
         if (startTime === 0) {
           startTime = timestamp;
-          lastWaveTime = timestamp;
+          lastAttractorTime = timestamp;
         }
 
         const time = timestamp - startTime;
         const entranceProgress = Math.min(1, easeOutExpo(time / config.entranceDuration));
 
-        // Spawn emergence waves periodically
-        if (time - lastWaveTime > config.waveInterval && time > 800) {
-          spawnWave(time);
-          lastWaveTime = time;
+        // Spawn attractors periodically
+        if (time - lastAttractorTime > config.attractorInterval && time > 1000) {
+          spawnAttractor(time);
+          lastAttractorTime = time;
         }
 
         ctx.clearRect(0, 0, width, height);
@@ -263,17 +302,22 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
           const cx = cell.x + cellSize / 2;
           const cy = cell.y + cellSize / 2;
 
-          // Get ambient wave value (0-1) - base pattern
-          const ambientValue = getWaveValue(cx, cy, time);
+          // Get attractor influence
+          const influence = getAttractorInfluence(cx, cy, time);
 
-          // Get emergence wave value (0-1) - revelation sweeping through
-          const emergenceValue = getEmergenceValue(cx, cy, time);
+          // Calculate render position (original + pull offset)
+          const renderX = cell.x + influence.dx;
+          const renderY = cell.y + influence.dy;
+
+          // Get ambient wave value
+          const waveValue = getWaveValue(cx, cy, time);
 
           // Small per-cell shimmer
           const shimmer = Math.sin(time * 0.002 + cell.noisePhase) * 0.08;
 
-          // Combined intensity: emergence wave boosts and clarifies
-          const intensity = Math.min(1, ambientValue + shimmer + emergenceValue * 0.6);
+          // Combined intensity: pull creates density increase
+          const pullBoost = influence.pull * 0.5;
+          const intensity = Math.min(1, waveValue + shimmer + pullBoost);
 
           // Entrance animation (sweep from left)
           const entranceDelay = (cell.x / width) * 0.4;
@@ -283,27 +327,28 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
 
           if (cellEntrance <= 0) continue;
 
-          // Character based on intensity
+          // Character based on intensity (denser when pulled)
           const charIndex = Math.min(BLOCKS.length - 1, Math.floor(intensity * BLOCKS.length));
           const char = BLOCKS[charIndex];
 
-          // Opacity: emergence wave reveals and clarifies
-          const baseOpacity = config.baseOpacity + (config.peakOpacity - config.baseOpacity) * (ambientValue * 0.6);
-          const finalOpacity = Math.min(1, baseOpacity + emergenceValue * 0.55) * cellEntrance;
+          // Opacity: increases when being pulled
+          const baseOpacity = config.baseOpacity + (config.peakOpacity - config.baseOpacity) * (waveValue * 0.6);
+          const pullOpacityBoost = influence.pull * 0.4 + influence.glowIntensity * 0.3;
+          const finalOpacity = Math.min(1, baseOpacity + pullOpacityBoost) * cellEntrance;
 
-          // Color: emergence wave brings warmth and brightness
-          const saturation = 0.02 + intensity * 0.14 + emergenceValue * 0.06;
-          const lightness = 30 + intensity * 50 + emergenceValue * 15;
-          const hue = cell.hue + emergenceValue * 10;
+          // Color: warmer and brighter when pulled
+          const saturation = 0.02 + intensity * 0.14 + influence.pull * 0.1;
+          const lightness = 30 + intensity * 50 + influence.pull * 20 + influence.glowIntensity * 15;
+          const hue = cell.hue + influence.pull * 8;
 
           ctx.fillStyle = `oklch(${lightness}% ${saturation} ${hue} / ${finalOpacity})`;
-          ctx.fillText(char, cell.x, cell.y);
+          ctx.fillText(char, renderX, renderY);
 
-          // Subtle glow layer for strong emergence zones
-          if (emergenceValue > 0.6) {
-            const glowOpacity = (emergenceValue - 0.6) * 0.4 * cellEntrance;
-            ctx.fillStyle = `oklch(82% 0.14 36 / ${glowOpacity})`;
-            ctx.fillText(char, cell.x, cell.y);
+          // Glow layer for peak moments
+          if (influence.glowIntensity > 0.3) {
+            const glowOpacity = (influence.glowIntensity - 0.3) * 0.5 * cellEntrance;
+            ctx.fillStyle = `oklch(85% 0.18 38 / ${glowOpacity})`;
+            ctx.fillText(char, renderX, renderY);
           }
         }
 
