@@ -207,26 +207,34 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
 
   .hero__headline {
     font-family: var(--font-display);
-    /* Fluid type: smooth scaling without breakpoint jumps */
-    font-size: var(--fluid-5xl);
+    /* Mobile-first: conservative sizing that scales up */
+    font-size: clamp(1.75rem, 6vw + 0.5rem, 2.5rem);
     font-weight: var(--font-bold);
-    letter-spacing: var(--optical-display);
-    line-height: var(--leading-none);
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
     color: var(--color-fg);
     margin: 0;
     text-wrap: balance;
   }
 
+  @media (min-width: 480px) {
+    .hero__headline {
+      font-size: clamp(2rem, 5vw + 0.75rem, 3rem);
+      letter-spacing: var(--optical-2xl);
+    }
+  }
+
   @media (min-width: 768px) {
     .hero__headline {
-      font-size: var(--fluid-6xl);
-      letter-spacing: var(--optical-hero);
+      font-size: var(--fluid-5xl);
+      letter-spacing: var(--optical-display);
     }
   }
 
   @media (min-width: 1024px) {
     .hero__headline {
-      font-size: var(--fluid-7xl);
+      font-size: var(--fluid-6xl);
+      letter-spacing: var(--optical-hero);
     }
   }
 
