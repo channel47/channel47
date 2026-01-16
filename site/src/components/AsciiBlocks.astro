@@ -74,9 +74,9 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
 
       const config = {
         entranceDuration: 1600,
-        pulseInterval: 2800,
-        pulseSpeed: 0.12,
-        pulseRadius: 400,
+        pulseInterval: 6000,
+        pulseSpeed: 0.055,
+        pulseRadius: 450,
         baseOpacity: 0.25,
         peakOpacity: 0.95,
       };
@@ -309,7 +309,17 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
       );
       intersectionObserver.observe(container);
 
-      setupCanvas();
+      // Wait for font to load before starting to avoid visual artifacts
+      async function waitForFont() {
+        try {
+          await document.fonts.load('16px "Geist Mono"');
+        } catch {
+          // Font API not supported or font not found, proceed anyway
+        }
+        setupCanvas();
+      }
+
+      waitForFont();
 
       (container as HTMLElement & { destroy?: () => void }).destroy = () => {
         pause();
@@ -333,40 +343,55 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
   .ascii-blocks {
     position: relative;
     width: 100%;
-    height: 130px;
+    /* Generous height on mobile for visual impact */
+    height: 180px;
     overflow: hidden;
 
+    /* Softer fade on mobile for more breathing room */
     mask-image:
-      linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%),
-      linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+      linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%),
+      linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
     mask-composite: intersect;
     -webkit-mask-image:
-      linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%),
-      linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+      linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%),
+      linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
     -webkit-mask-composite: source-in;
+  }
+
+  @media (min-width: 375px) {
+    .ascii-blocks {
+      height: 200px;
+    }
   }
 
   @media (min-width: 480px) {
     .ascii-blocks {
-      height: 150px;
+      height: 240px;
+      /* Tighter fade on larger screens */
+      mask-image:
+        linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%),
+        linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+      -webkit-mask-image:
+        linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%),
+        linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
     }
   }
 
   @media (min-width: 768px) {
     .ascii-blocks {
-      height: 180px;
+      height: 300px;
     }
   }
 
   @media (min-width: 1024px) {
     .ascii-blocks {
-      height: 210px;
+      height: 360px;
     }
   }
 
   @media (min-width: 1280px) {
     .ascii-blocks {
-      height: 240px;
+      height: 420px;
     }
   }
 

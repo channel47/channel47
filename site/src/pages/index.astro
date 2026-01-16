@@ -66,15 +66,15 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
         <EmailSignup tag="manifesto" />
       </section>
 
-      <!-- Logo: The period mark / signature -->
-      <footer class="signature" data-animate="fade-up" data-stagger="7">
-        <LogoAnimated delay={200} />
+      <!-- Footer: Logo + Social as unified closing -->
+      <footer class="page-footer" data-animate="fade-up" data-stagger="7">
+        <div class="page-footer__logo">
+          <LogoAnimated delay={200} />
+        </div>
+        <div class="page-footer__social">
+          <SocialLinks />
+        </div>
       </footer>
-
-      <!-- Social: Quiet closing note -->
-      <aside class="social" data-animate="fade-up" data-stagger="8">
-        <SocialLinks />
-      </aside>
     </Prose>
   </main>
 </BaseLayout>
@@ -83,24 +83,57 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
   /* =========================================
    * PAGE LAYOUT
    * Full viewport, left-aligned content
+   * Mobile-first with safe-area support
    * ========================================= */
   .page {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 100vh;
     min-height: 100dvh;
-    padding-block-start: var(--space-16);
-    padding-block-end: var(--space-24);
+    /* Generous top padding for breathing room */
+    padding-block-start: max(var(--space-14), env(safe-area-inset-top, 0px) + var(--space-8));
+    padding-block-end: max(var(--space-16), env(safe-area-inset-bottom, 0px) + var(--space-10));
     position: relative;
     isolation: isolate;
   }
 
+  @media (min-width: 480px) {
+    .page {
+      padding-block-start: var(--space-16);
+      padding-block-end: var(--space-20);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .page {
+      padding-block-start: var(--space-20);
+      padding-block-end: var(--space-24);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .page {
+      padding-block-start: var(--space-24);
+    }
+  }
+
+  /* On taller viewports, use percentage-based top padding */
   @media (min-height: 800px) {
     .page {
-      /* On taller screens, bias content toward upper portion */
-      justify-content: flex-start;
-      padding-block-start: 15vh;
+      padding-block-start: 10vh;
+    }
+  }
+
+  @media (min-height: 900px) {
+    .page {
+      padding-block-start: 12vh;
+    }
+  }
+
+  @media (min-height: 1000px) {
+    .page {
+      padding-block-start: 14vh;
     }
   }
 
@@ -130,7 +163,7 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
       transparent 70%
     );
     filter: blur(80px);
-    animation: orb-pulse 10s ease-in-out infinite;
+    animation: orb-pulse 20s ease-in-out infinite;
   }
 
   @keyframes orb-pulse {
@@ -147,11 +180,17 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
   /* =========================================
    * HERO
    * The headline dominates with presence
-   * Left-aligned for editorial feel
+   * Left-aligned throughout for editorial consistency
    * ========================================= */
   .hero {
     text-align: left;
     margin-bottom: var(--space-12);
+  }
+
+  @media (min-width: 480px) {
+    .hero {
+      margin-bottom: var(--space-14);
+    }
   }
 
   @media (min-width: 768px) {
@@ -168,28 +207,67 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
 
   .hero__headline {
     font-family: var(--font-serif);
-    font-size: clamp(var(--text-4xl), 9vw, var(--text-6xl));
+    /* Mobile-optimized: starts smaller, scales smoothly */
+    font-size: clamp(var(--text-2xl), 7vw, var(--text-3xl));
     font-weight: var(--font-semibold);
     letter-spacing: var(--tracking-tight);
-    line-height: var(--leading-tight);
+    line-height: 1.15;
     color: var(--color-fg);
     margin: 0;
+  }
+
+  @media (min-width: 480px) {
+    .hero__headline {
+      font-size: clamp(var(--text-3xl), 6vw, var(--text-4xl));
+      line-height: var(--leading-tight);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero__headline {
+      font-size: clamp(var(--text-4xl), 5.5vw, var(--text-5xl));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero__headline {
+      font-size: var(--text-5xl);
+    }
   }
 
   .hero__line {
     display: block;
   }
 
+  /* Allow wrapping on very narrow screens */
+  @media (max-width: 359px) {
+    .hero__line .nowrap {
+      white-space: normal;
+    }
+  }
+
   /* =========================================
    * VISUAL
-   * The diverging paths animation
-   * Breaks out wider than content on desktop
+   * The ASCII blocks animation
+   * Full-bleed on mobile, breaks out on desktop
    * ========================================= */
   .visual {
-    margin-left: calc(-1 * var(--padding-mobile));
-    margin-right: calc(-1 * var(--padding-mobile));
-    width: calc(100% + 2 * var(--padding-mobile));
-    margin-bottom: var(--space-12);
+    /* Slightly reduced breakout on small mobile for visual balance */
+    --visual-inset: calc(var(--padding-mobile) * 0.6);
+    margin-left: calc(-1 * var(--visual-inset));
+    margin-right: calc(-1 * var(--visual-inset));
+    width: calc(100% + 2 * var(--visual-inset));
+    margin-bottom: var(--space-14);
+  }
+
+  @media (min-width: 480px) {
+    .visual {
+      /* Full bleed at larger mobile sizes */
+      margin-left: calc(-1 * var(--padding-mobile));
+      margin-right: calc(-1 * var(--padding-mobile));
+      width: calc(100% + 2 * var(--padding-mobile));
+      margin-bottom: var(--space-16);
+    }
   }
 
   @media (min-width: 768px) {
@@ -197,28 +275,29 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
       margin-left: calc(-1 * var(--padding-tablet));
       margin-right: calc(-1 * var(--padding-tablet));
       width: calc(100% + 2 * var(--padding-tablet));
-      margin-bottom: var(--space-16);
+      margin-bottom: var(--space-20);
     }
   }
 
   @media (min-width: 1024px) {
     .visual {
       /* Break out significantly wider than content */
-      --visual-extra-width: var(--space-40);
+      --visual-extra-width: var(--space-32);
       margin-left: calc(-1 * var(--padding-desktop) - var(--visual-extra-width));
       margin-right: calc(-1 * var(--padding-desktop) - var(--visual-extra-width));
       width: calc(100% + 2 * var(--padding-desktop) + 2 * var(--visual-extra-width));
-      margin-bottom: var(--space-20);
+      margin-bottom: var(--space-24);
     }
   }
 
   @media (min-width: 1280px) {
     .visual {
       /* Even wider on large screens */
-      --visual-extra-width: 12vw;
+      --visual-extra-width: 10vw;
       margin-left: calc(-1 * var(--padding-desktop) - var(--visual-extra-width));
       margin-right: calc(-1 * var(--padding-desktop) - var(--visual-extra-width));
       width: calc(100% + 2 * var(--padding-desktop) + 2 * var(--visual-extra-width));
+      margin-bottom: var(--space-28);
     }
   }
 
@@ -228,23 +307,31 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
    * ========================================= */
   .manifesto {
     text-align: left;
-    margin-bottom: var(--space-10);
-    max-width: 520px;
+    margin-bottom: var(--space-6);
+    max-width: 100%;
+  }
+
+  @media (min-width: 480px) {
+    .manifesto {
+      margin-bottom: var(--space-7);
+      max-width: 480px;
+    }
   }
 
   @media (min-width: 768px) {
     .manifesto {
-      margin-bottom: var(--space-14);
+      margin-bottom: var(--space-8);
+      max-width: 540px;
     }
   }
 
   @media (min-width: 1024px) {
     .manifesto {
-      margin-bottom: var(--space-16);
+      margin-bottom: var(--space-10);
     }
   }
 
-  /* Manifesto paragraphs - consistent, readable */
+  /* Manifesto paragraphs - readable body copy */
   .manifesto__lede,
   .manifesto__insight,
   .manifesto__resolution {
@@ -252,11 +339,24 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
     font-size: var(--text-base);
     color: var(--color-fg-secondary);
     line-height: var(--leading-relaxed);
-    margin: 0 0 var(--space-6) 0;
+    margin: 0 0 var(--space-5) 0;
   }
 
   .manifesto__resolution {
     margin-bottom: 0;
+  }
+
+  @media (min-width: 480px) {
+    .manifesto__lede,
+    .manifesto__insight,
+    .manifesto__resolution {
+      font-size: var(--text-md);
+      margin-bottom: var(--space-6);
+    }
+
+    .manifesto__resolution {
+      margin-bottom: 0;
+    }
   }
 
   @media (min-width: 768px) {
@@ -279,51 +379,77 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
   /* =========================================
    * CTA
    * The natural next step - left aligned
+   * No bottom margin - footer handles separation
    * ========================================= */
   .cta {
     text-align: left;
-    margin-bottom: var(--space-14);
+  }
+
+  /* =========================================
+   * FOOTER
+   * Logo + social as unified closing zone
+   * Generous top margin ensures it's below fold
+   * ========================================= */
+  .page-footer {
+    margin-top: var(--space-32);
+    padding-top: var(--space-10);
+    border-top: 1px solid oklch(50% 0 0 / 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-5);
+  }
+
+  @media (min-width: 480px) {
+    .page-footer {
+      margin-top: var(--space-36);
+      padding-top: var(--space-12);
+      gap: var(--space-6);
+    }
   }
 
   @media (min-width: 768px) {
-    .cta {
-      margin-bottom: var(--space-16);
+    .page-footer {
+      margin-top: var(--space-40);
+      padding-top: var(--space-14);
+      flex-direction: row;
+      align-items: center;
+      /* Keep grouped left, matching content alignment */
+      gap: var(--space-10);
     }
   }
 
   @media (min-width: 1024px) {
-    .cta {
-      margin-bottom: var(--space-20);
+    .page-footer {
+      margin-top: 12rem;
+      padding-top: var(--space-16);
     }
   }
 
-  /* =========================================
-   * SIGNATURE
-   * The logo as closing period mark
-   * ========================================= */
-  .signature {
-    text-align: left;
+  .page-footer__logo {
+    opacity: 0.7;
+    transition: opacity var(--duration-fast) var(--ease-out);
   }
 
-  /* =========================================
-   * SOCIAL
-   * Quiet closing note - barely there
-   * ========================================= */
-  .social {
-    text-align: left;
-    margin-top: var(--space-12);
+  .page-footer__logo:hover {
+    opacity: 1;
   }
 
-  @media (min-width: 768px) {
-    .social {
-      margin-top: var(--space-16);
+  /* Larger tap target for logo on touch devices */
+  @media (pointer: coarse) {
+    .page-footer__logo {
+      padding: var(--space-2);
+      margin: calc(-1 * var(--space-2));
     }
   }
 
-  @media (min-width: 1024px) {
-    .social {
-      margin-top: var(--space-20);
-    }
+  .page-footer__social {
+    opacity: 0.5;
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .page-footer__social:hover {
+    opacity: 0.8;
   }
 
   /* =========================================
