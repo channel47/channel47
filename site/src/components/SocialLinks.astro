@@ -68,12 +68,12 @@ const links = [
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-fg-subtle);
+    color: var(--color-fg-muted);
     transition: color var(--duration-normal) var(--ease-out);
   }
 
   .social-links__link:hover {
-    color: var(--color-fg-muted);
+    color: var(--color-fg-secondary);
   }
 
   .social-links__link:focus-visible {
@@ -81,11 +81,19 @@ const links = [
   }
 
   .social-links__link svg {
-    width: 14px;
-    height: 14px;
+    width: 20px;
+    height: 20px;
   }
 
   @media (min-width: 768px) {
+    .social-links__link {
+      color: var(--color-fg-subtle);
+    }
+
+    .social-links__link:hover {
+      color: var(--color-fg-muted);
+    }
+
     .social-links__link svg {
       width: 16px;
       height: 16px;
