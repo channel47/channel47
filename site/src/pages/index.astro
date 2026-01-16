@@ -206,32 +206,27 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
   }
 
   .hero__headline {
-    font-family: var(--font-serif);
-    /* Mobile-optimized: starts smaller, scales smoothly */
-    font-size: clamp(var(--text-2xl), 7vw, var(--text-3xl));
-    font-weight: var(--font-semibold);
-    letter-spacing: var(--tracking-tight);
-    line-height: 1.15;
+    font-family: var(--font-display);
+    /* Fluid type: smooth scaling without breakpoint jumps */
+    font-size: var(--fluid-5xl);
+    font-weight: var(--font-bold);
+    letter-spacing: var(--optical-display);
+    line-height: var(--leading-none);
     color: var(--color-fg);
     margin: 0;
-  }
-
-  @media (min-width: 480px) {
-    .hero__headline {
-      font-size: clamp(var(--text-3xl), 6vw, var(--text-4xl));
-      line-height: var(--leading-tight);
-    }
+    text-wrap: balance;
   }
 
   @media (min-width: 768px) {
     .hero__headline {
-      font-size: clamp(var(--text-4xl), 5.5vw, var(--text-5xl));
+      font-size: var(--fluid-6xl);
+      letter-spacing: var(--optical-hero);
     }
   }
 
   @media (min-width: 1024px) {
     .hero__headline {
-      font-size: var(--text-5xl);
+      font-size: var(--fluid-7xl);
     }
   }
 
@@ -331,48 +326,48 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
     }
   }
 
-  /* Manifesto paragraphs - readable body copy */
+  /* Manifesto paragraphs - fluid, readable body copy */
   .manifesto__lede,
   .manifesto__insight,
   .manifesto__resolution {
     font-family: var(--font-serif);
-    font-size: var(--text-base);
+    font-size: var(--fluid-md);
+    font-weight: var(--font-normal);
     color: var(--color-fg-secondary);
-    line-height: var(--leading-relaxed);
-    margin: 0 0 var(--space-5) 0;
+    line-height: var(--leading-prose);
+    letter-spacing: var(--tracking-normal);
+    margin: 0 0 var(--paragraph-spacing) 0;
+    max-width: var(--measure-prose);
   }
 
   .manifesto__resolution {
     margin-bottom: 0;
   }
 
-  @media (min-width: 480px) {
-    .manifesto__lede,
-    .manifesto__insight,
-    .manifesto__resolution {
-      font-size: var(--text-md);
-      margin-bottom: var(--space-6);
-    }
-
-    .manifesto__resolution {
-      margin-bottom: 0;
-    }
-  }
-
   @media (min-width: 768px) {
     .manifesto__lede,
     .manifesto__insight,
     .manifesto__resolution {
-      font-size: var(--text-lg);
-      margin-bottom: var(--space-7);
-    }
-
-    .manifesto__resolution {
-      margin-bottom: 0;
+      font-size: var(--fluid-lg);
     }
   }
 
+  /* Accent text with gradient effect */
   .manifesto__accent {
+    background: var(--text-gradient-subtle);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Insight gets subtle emphasis */
+  .manifesto__insight {
+    font-weight: var(--font-medium);
+    color: var(--color-fg);
+  }
+
+  /* Resolution slightly muted but hopeful */
+  .manifesto__resolution {
     color: var(--color-fg-muted);
   }
 

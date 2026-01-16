@@ -72,16 +72,21 @@
   );
 
   /* ========================================
-   * TYPOGRAPHY - Editorial Character
+   * TYPOGRAPHY - Expressive Type System
+   * A fluid, optically-adjusted typography system
+   * with contextual presets and modern features.
+   *
    * Lora: Elegant serif with personality
    * Geist: Clean geometric sans for UI
    * ======================================== */
 
+  /* --- Font Families --- */
   --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
   --font-mono: 'Geist Mono', 'SF Mono', Consolas, monospace;
+  --font-display: var(--font-serif);  /* For hero text, can be swapped */
 
-  /* Type Scale - Refined ratios */
+  /* --- Static Type Scale (fallback) --- */
   --text-2xs: 0.6875rem;   /* 11px */
   --text-xs: 0.75rem;      /* 12px */
   --text-sm: 0.875rem;     /* 14px */
@@ -97,27 +102,219 @@
   --text-7xl: 4.5rem;      /* 72px */
   --text-8xl: 6rem;        /* 96px */
 
-  /* Line Heights */
+  /* --- Fluid Type Scale ---
+   * Smooth scaling between 320px and 1200px viewports
+   * Formula: clamp(min, preferred, max)
+   * Preferred uses viewport width for smooth interpolation
+   */
+  --fluid-2xs: clamp(0.625rem, 0.6rem + 0.125vw, 0.6875rem);
+  --fluid-xs: clamp(0.6875rem, 0.65rem + 0.19vw, 0.75rem);
+  --fluid-sm: clamp(0.8125rem, 0.775rem + 0.19vw, 0.875rem);
+  --fluid-base: clamp(0.9375rem, 0.875rem + 0.31vw, 1rem);
+  --fluid-md: clamp(1rem, 0.925rem + 0.38vw, 1.125rem);
+  --fluid-lg: clamp(1.0625rem, 0.975rem + 0.44vw, 1.25rem);
+  --fluid-xl: clamp(1.1875rem, 1.05rem + 0.69vw, 1.5rem);
+  --fluid-2xl: clamp(1.375rem, 1.15rem + 1.13vw, 1.875rem);
+  --fluid-3xl: clamp(1.625rem, 1.3rem + 1.63vw, 2.375rem);
+  --fluid-4xl: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+  --fluid-5xl: clamp(2.5rem, 1.75rem + 3.75vw, 4rem);
+  --fluid-6xl: clamp(3rem, 2rem + 5vw, 5rem);
+  --fluid-7xl: clamp(3.5rem, 2.25rem + 6.25vw, 6rem);
+  --fluid-8xl: clamp(4rem, 2.5rem + 7.5vw, 7.5rem);
+
+  /* --- Line Heights --- */
   --leading-none: 1;
+  --leading-tighter: 1.05;
   --leading-tight: 1.1;
   --leading-snug: 1.25;
   --leading-normal: 1.5;
   --leading-relaxed: 1.65;
   --leading-loose: 1.8;
+  --leading-prose: 1.75;   /* Optimized for long-form reading */
 
-  /* Font Weights */
+  /* --- Font Weights --- */
+  --font-thin: 100;
+  --font-extralight: 200;
+  --font-light: 300;
   --font-normal: 400;
   --font-medium: 500;
   --font-semibold: 600;
   --font-bold: 700;
+  --font-extrabold: 800;
+  --font-black: 900;
 
-  /* Letter Spacing */
+  /* --- Letter Spacing ---
+   * Optical adjustments for different contexts
+   */
+  --tracking-tightest: -0.05em;
   --tracking-tighter: -0.04em;
   --tracking-tight: -0.025em;
   --tracking-normal: 0;
   --tracking-wide: 0.025em;
   --tracking-wider: 0.05em;
   --tracking-widest: 0.1em;
+  --tracking-mega: 0.2em;   /* For dramatic all-caps */
+
+  /* --- Optical Sizing Presets ---
+   * Pre-calculated letter-spacing for different sizes
+   * Large text needs tighter spacing, small text needs looser
+   */
+  --optical-xs: 0.02em;     /* Small text: open up */
+  --optical-sm: 0.01em;
+  --optical-base: 0;
+  --optical-lg: -0.01em;
+  --optical-xl: -0.015em;
+  --optical-2xl: -0.02em;
+  --optical-display: -0.03em;  /* Display text: tighten */
+  --optical-hero: -0.04em;     /* Hero text: very tight */
+
+  /* ========================================
+   * EXPRESSIVE TYPE PRESETS
+   * Complete typographic treatments for common patterns
+   * Each preset includes size, weight, leading, and tracking
+   * ======================================== */
+
+  /* --- Display Presets (Headlines, Heroes) --- */
+
+  /* Hero: Massive, commanding presence */
+  --type-hero-size: var(--fluid-7xl);
+  --type-hero-weight: var(--font-bold);
+  --type-hero-leading: var(--leading-none);
+  --type-hero-tracking: var(--optical-hero);
+
+  /* Display: Large headlines */
+  --type-display-size: var(--fluid-5xl);
+  --type-display-weight: var(--font-semibold);
+  --type-display-leading: var(--leading-tighter);
+  --type-display-tracking: var(--optical-display);
+
+  /* Title: Section headers */
+  --type-title-size: var(--fluid-3xl);
+  --type-title-weight: var(--font-semibold);
+  --type-title-leading: var(--leading-tight);
+  --type-title-tracking: var(--optical-2xl);
+
+  /* Subtitle: Supporting headlines */
+  --type-subtitle-size: var(--fluid-xl);
+  --type-subtitle-weight: var(--font-medium);
+  --type-subtitle-leading: var(--leading-snug);
+  --type-subtitle-tracking: var(--optical-lg);
+
+  /* --- Body Presets (Reading Text) --- */
+
+  /* Prose: Long-form reading, optimized for comfort */
+  --type-prose-size: var(--fluid-md);
+  --type-prose-weight: var(--font-normal);
+  --type-prose-leading: var(--leading-prose);
+  --type-prose-tracking: var(--tracking-normal);
+
+  /* Body: Standard paragraph text */
+  --type-body-size: var(--fluid-base);
+  --type-body-weight: var(--font-normal);
+  --type-body-leading: var(--leading-relaxed);
+  --type-body-tracking: var(--tracking-normal);
+
+  /* Body Small: Secondary content */
+  --type-body-sm-size: var(--fluid-sm);
+  --type-body-sm-weight: var(--font-normal);
+  --type-body-sm-leading: var(--leading-normal);
+  --type-body-sm-tracking: var(--optical-sm);
+
+  /* --- UI Presets (Interface Elements) --- */
+
+  /* Label: Form labels, navigation */
+  --type-label-size: var(--text-sm);
+  --type-label-weight: var(--font-medium);
+  --type-label-leading: var(--leading-normal);
+  --type-label-tracking: var(--tracking-wide);
+
+  /* Caption: Image captions, metadata */
+  --type-caption-size: var(--text-xs);
+  --type-caption-weight: var(--font-normal);
+  --type-caption-leading: var(--leading-normal);
+  --type-caption-tracking: var(--optical-xs);
+
+  /* Overline: Category labels, section markers */
+  --type-overline-size: var(--text-xs);
+  --type-overline-weight: var(--font-semibold);
+  --type-overline-leading: var(--leading-none);
+  --type-overline-tracking: var(--tracking-widest);
+
+  /* Button: Button text */
+  --type-button-size: var(--text-sm);
+  --type-button-weight: var(--font-semibold);
+  --type-button-leading: var(--leading-none);
+  --type-button-tracking: var(--tracking-wide);
+
+  /* --- Code Presets --- */
+
+  /* Code Inline: Inline code snippets */
+  --type-code-size: 0.9em;
+  --type-code-weight: var(--font-normal);
+  --type-code-leading: inherit;
+  --type-code-tracking: -0.01em;
+
+  /* Code Block: Code blocks */
+  --type-code-block-size: var(--text-sm);
+  --type-code-block-weight: var(--font-normal);
+  --type-code-block-leading: var(--leading-relaxed);
+  --type-code-block-tracking: 0;
+
+  /* ========================================
+   * TEXT DECORATION TOKENS
+   * For expressive text treatments
+   * ======================================== */
+
+  /* Underline styles */
+  --underline-thickness-thin: 1px;
+  --underline-thickness-medium: 2px;
+  --underline-thickness-thick: 3px;
+  --underline-offset-sm: 2px;
+  --underline-offset-md: 4px;
+  --underline-offset-lg: 6px;
+
+  /* Text shadows for depth */
+  --text-shadow-sm: 0 1px 2px oklch(0% 0 0 / 0.2);
+  --text-shadow-md: 0 2px 4px oklch(0% 0 0 / 0.25);
+  --text-shadow-lg: 0 4px 8px oklch(0% 0 0 / 0.3);
+  --text-shadow-glow: 0 0 20px var(--color-accent-glow);
+  --text-shadow-crisp: 1px 1px 0 oklch(0% 0 0 / 0.3);
+
+  /* Gradient text */
+  --text-gradient-warm: linear-gradient(135deg, var(--color-fg) 0%, var(--color-gold) 100%);
+  --text-gradient-accent: linear-gradient(135deg, var(--color-accent) 0%, var(--color-gold) 100%);
+  --text-gradient-subtle: linear-gradient(180deg, var(--color-fg) 0%, var(--color-fg-secondary) 100%);
+
+  /* Highlight backgrounds */
+  --highlight-accent: var(--color-accent-subtle);
+  --highlight-gold: var(--color-gold-subtle);
+  --highlight-mark: oklch(85% 0.15 85 / 0.3);
+
+  /* ========================================
+   * MEASURE (Line Length)
+   * Optimal character counts per line
+   * ======================================== */
+
+  --measure-narrow: 45ch;   /* Tight columns, sidebars */
+  --measure-base: 65ch;     /* Ideal for body text */
+  --measure-wide: 80ch;     /* Code, wide layouts */
+  --measure-prose: 70ch;    /* Long-form reading sweet spot */
+
+  /* ========================================
+   * VERTICAL RHYTHM
+   * Consistent spacing based on line height
+   * ======================================== */
+
+  --rhythm-unit: calc(var(--text-base) * var(--leading-normal));
+  --rhythm-half: calc(var(--rhythm-unit) / 2);
+  --rhythm-quarter: calc(var(--rhythm-unit) / 4);
+  --rhythm-double: calc(var(--rhythm-unit) * 2);
+  --rhythm-triple: calc(var(--rhythm-unit) * 3);
+
+  /* Paragraph spacing */
+  --paragraph-spacing: var(--rhythm-unit);
+  --heading-spacing-above: var(--rhythm-double);
+  --heading-spacing-below: var(--rhythm-half);
 
   /* ========================================
    * SPACING - Generous & Confident
