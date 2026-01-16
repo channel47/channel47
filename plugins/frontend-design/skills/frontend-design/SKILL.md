@@ -64,57 +64,80 @@ You are NOT limited to these — adapt to context. These are defaults when tone 
 | **Editorial** | Generous whitespace, serif headlines | Medium, Substack |
 | **Dashboard/Data** | Dense information, subtle hierarchy | Bloomberg Terminal, Datadog |
 
-## Design System Reference
+## Reference Architecture
 
-Apply shared design principles — load these before generating:
-
-- @frameworks/typography.md — Font selection, scale, hierarchy
-- @frameworks/color.md — Palette generation, CSS variables, dark mode
-- @frameworks/motion.md — Timing, easing, staggered reveals
+### Always Consult
 - @frameworks/anti-patterns.md — The "AI slop" avoidance checklist
 
-## Technical Reference
+### Load By Task
+| Building... | Consult... |
+|-------------|------------|
+| Buttons | @reference/buttons.md |
+| Forms, inputs | @reference/forms.md |
+| Cards | @reference/cards.md |
+| Navigation | @reference/navigation.md |
+| Modals, dialogs | @reference/modals.md |
+| Page structure, grids, heroes | @reference/layouts.md |
+| CSS custom properties, naming | @reference/css-architecture.md |
+| Dark mode, theme switching | @reference/theming.md |
+| Breakpoints, fluid typography | @reference/responsive.md |
+| Focus states, semantic HTML | @reference/accessibility.md |
 
-For implementation patterns, load:
-
-- @reference/components.md — Button, form, card, navigation patterns
-- @reference/layouts.md — Grid systems, asymmetric compositions, spatial rhythm
-- @reference/implementation.md — CSS architecture, theming, responsive patterns
+### Design System Deep Dives
+| For... | Consult... |
+|--------|------------|
+| Font selection, scale, hierarchy | @frameworks/typography.md |
+| Palette generation, dark mode | @frameworks/color.md |
+| Timing, easing, staggered reveals | @frameworks/motion.md |
 
 ## Mandatory Pre-Flight Check
 
-Before finalizing ANY output, verify against the anti-pattern checklist:
+Before finalizing ANY output, verify each choice is INTENTIONAL:
 
 ### Typography
-- [ ] NOT using Inter, Roboto, Open Sans, or system fonts as primary
+- [ ] Typography choice is INTENTIONAL (if using Inter/Roboto/system fonts, there's a specific reason)
 - [ ] Clear size hierarchy (3x+ jumps between levels)
 - [ ] Weight contrast uses extremes (300 vs 800, not 400 vs 600)
-- [ ] Font choice matches the tone (technical → Space Grotesk, editorial → Playfair)
+- [ ] Font choice matches the tone (or intentionally contrasts it)
 
 ### Color
-- [ ] NOT purple/violet gradient on white background
-- [ ] Single dominant hero color, derived palette
+- [ ] Color palette is INTENTIONAL (if using purple/violet gradients, it serves the brand)
+- [ ] Hero color choice is deliberate, with derived palette
 - [ ] CSS custom properties for all colors (no hardcoded values in components)
 - [ ] Dark mode is intentional palette, not inverted colors
-- [ ] Not pure black (#000) on pure white (#fff)
+- [ ] Contrast choices are INTENTIONAL (if using pure black/white, it's a stylistic decision)
 
 ### Layout
-- [ ] NOT three-column card grid with equal spacing (unless explicitly required)
-- [ ] Asymmetry or visual tension present
-- [ ] NOT hero with centered text and gradient background
-- [ ] Unpredictable element placement (not logo top-left, CTA top-right pattern)
+- [ ] Layout choice is INTENTIONAL (if using three-column equal grid, it fits the content)
+- [ ] Symmetry/asymmetry choice is deliberate for the context
+- [ ] Hero treatment is INTENTIONAL (if centered text + gradient, it serves the message)
+- [ ] Component placement serves UX (conventional placement is fine when it aids usability)
 
 ### Components
-- [ ] NOT cards with drop shadow AND rounded corners AND borders simultaneously
-- [ ] Button variants are restrained (not gradient + shadow + border + icon)
+- [ ] Card styling is INTENTIONAL (multiple effects are fine if cohesive with design language)
+- [ ] Button styling is restrained OR maximalist by design choice
 - [ ] Form labels are real labels, not placeholder text
-- [ ] States (hover, active, focus) are distinctive, not just color shifts
+- [ ] States (hover, active, focus) are distinctive and purposeful
 
 ### Motion
-- [ ] NOT micro-interactions on everything
-- [ ] NOT bouncing/pulsing CTAs
-- [ ] Staggered reveals prioritized over scattered micro-interactions
+- [ ] Motion density is INTENTIONAL (micro-interactions everywhere is fine if that's the brand)
+- [ ] CTA animation serves attention hierarchy (pulsing is fine if it's the ONE focus)
+- [ ] Staggered reveals vs micro-interactions — choice fits the content
 - [ ] Reduced motion preference respected
+
+## When to Override These Guidelines
+
+These guidelines assume greenfield design. Override when:
+
+- **Matching existing design system** — Follow their patterns, even if they use Inter or purple gradients
+- **Brand guidelines exist** — Corporate style guides take precedence
+- **User explicitly requests** — "Make it look like Stripe" or "Use our brand colors" trumps defaults
+- **Technical constraints require it** — System fonts for performance, specific layouts for content
+
+When overriding:
+1. **State the override explicitly** — "Using Inter to match existing design system"
+2. **Document in README.md** — Explain why default guidance was overridden
+3. **Maintain quality in other areas** — One override doesn't mean abandon all principles
 
 ## When User Provides Vague Requirements
 

@@ -46,7 +46,7 @@
       "name": "frontend-design",
       "source": "./plugins/frontend-design",
       "description": "Production-grade frontend interfaces with built-in design sensibility. Canvas animations, typography, color systems.",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "category": "frontend",
       "tags": ["frontend", "design", "canvas", "animation", "ui", "typography", "motion", "components", "layouts"]
     }
