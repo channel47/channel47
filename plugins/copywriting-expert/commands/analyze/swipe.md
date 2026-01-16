@@ -4,118 +4,74 @@ description: Deconstruct and analyze any piece of copy
 
 # Swipe File Analyzer
 
-You are now in **Copy Analysis Mode**. Paste any copy and receive a full deconstruction.
+You are now in **Copy Analysis Mode**. Paste any copy and receive a deconstruction focused on what matters most.
 
-## Analysis Framework
+## Analysis Layers
 
-I will analyze the provided copy across 7 layers:
+Consider these dimensions when analyzing copy—focus on what's most relevant:
 
-### Layer 1: The Hook
-- What grabs attention?
-- What pattern does it interrupt?
-- What promise (explicit or implicit)?
+### The Hook
+- What grabs attention and interrupts patterns?
+- What promise is made (explicit or implicit)?
 - Emotional trigger used
 
-### Layer 2: The Lead
+### The Lead
 - Awareness level targeted
 - Lead type (offer, story, problem, etc.)
-- Length before product mention
-- Empathy establishment method
+- Empathy establishment
 
-### Layer 3: The Mechanism
-- Unique mechanism claimed
-- How it's explained
+### The Mechanism
+- Unique mechanism claimed and how it's explained
 - Naming/branding of method
 - Credibility approach
 
-### Layer 4: The Proof Stack
-- Types of proof used
-- Specificity level
+### The Proof Stack
+- Types of proof used and specificity level
 - Proof-to-claim ratio
-- Strongest proof point
+- Strongest proof points
 
-### Layer 5: Objection Handling
-- Objections addressed
-- Handling technique
-- Timing in copy
+### Objection Handling
+- Which objections are addressed and how
+- Timing and technique
 - Explicit vs. implicit handling
 
-### Layer 6: The Offer Architecture
-- Offer structure
-- Value stack elements
-- Guarantee type
+### The Offer Architecture
+- Offer structure and value stack
+- Guarantee and risk reversal
 - Urgency/scarcity elements
 
-### Layer 7: The Close & CTA
-- CTA clarity
-- Urgency mechanism
-- P.S. content/effectiveness
+### The Close & CTA
+- CTA clarity and urgency mechanism
 - Final objection handling
+- P.S. effectiveness (if present)
 
-## Output Format
+## When to Adapt
 
-### QUICK SUMMARY
-**Copy Type:** [Email/Landing Page/Ad/etc.]
-**Awareness Level:** [1-5]
-**Primary Framework:** [Schwartz/Halbert/etc.]
-**Strength Score:** [X/10]
+**Short copy (ads, emails, headlines):**
+- Streamline to 2-3 most relevant layers
+- Skip sections that don't apply
+- Focus on hook, core message, and CTA
 
----
+**Specific focus requested:**
+- Prioritize the requested area
+- Go deeper on that dimension
+- Connect findings back to the specific question
 
-### LAYER-BY-LAYER ANALYSIS
+**Quick review vs. deep dive:**
+- Quick: Key insight + top 2-3 observations + one steal-worthy element
+- Deep: Full layer analysis with examples and improvement suggestions
 
-**1. HOOK** (Score: X/10)
-- Type: [Hook type]
-- First line: "[Quote first line]"
-- What works: [Analysis]
-- What could improve: [Suggestion]
+## Output Guidance
 
-**2. LEAD** (Score: X/10)
-- Type: [Lead type]
-- Awareness match: [Yes/No]
-- What works: [Analysis]
-- What could improve: [Suggestion]
+Shape your analysis around:
 
-**3. MECHANISM** (Score: X/10)
-- Unique mechanism: [Description]
-- Named?: [Yes/No]
-- What works: [Analysis]
-- What could improve: [Suggestion]
+1. **Quick orientation** - Copy type, awareness level, and overall impression
+2. **What's working** - The strongest elements worth studying or stealing
+3. **What could improve** - Prioritized by impact, not exhaustive
+4. **Key insight** - The ONE thing that makes this piece work (or fail)
+5. **Steal this** - Specific technique to adapt for other copy
 
-**4. PROOF** (Score: X/10)
-- Types used: [List]
-- Strongest point: [Quote/description]
-- What works: [Analysis]
-- What could improve: [Suggestion]
-
-**5. OBJECTION HANDLING** (Score: X/10)
-- Objections addressed: [List]
-- Technique: [Description]
-- What works: [Analysis]
-- What could improve: [Suggestion]
-
-**6. OFFER** (Score: X/10)
-- Structure: [Description]
-- Risk reversal: [Yes/No - type]
-- What works: [Analysis]
-- What could improve: [Suggestion]
-
-**7. CLOSE/CTA** (Score: X/10)
-- CTA text: "[Quote]"
-- Urgency: [Type used]
-- What works: [Analysis]
-- What could improve: [Suggestion]
-
----
-
-### KEY INSIGHT
-[The ONE thing that makes this piece work—or fail]
-
-### STEAL THIS
-[Specific technique or element to adapt for your own copy]
-
-### IMPROVE THIS
-[Top 3 specific improvements to make this copy stronger]
+Prioritize depth over completeness. A thorough analysis of 3 critical layers beats a shallow pass through all 7.
 
 ---
 

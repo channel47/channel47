@@ -2,6 +2,20 @@
 
 All notable changes to The Copywriter's Arsenal will be documented in this file.
 
+## [2.1.0] - 2026-01-16
+
+### Changed
+- Revised email command to be less prescriptive with flexible guidance
+- Revised headline command to use flexible output guidance instead of rigid templates
+- Revised landing-page command to replace rigid section templates with adaptable components
+- Revised swipe and weakness analyze commands with flexible output guidance
+- Added product type variations (SaaS, physical products, services) to landing-page
+- Added audience sophistication guidance (expert, general, mixed) to landing-page
+- Added "Variations by Context" sections (premium/mass market, audience awareness levels)
+- Added "When to Adapt" sections for deviating from standard patterns (short copy, specific focus, quick vs deep)
+- Converted rigid templates to adaptable approaches across commands
+- Formula categories repositioned as inspiration examples rather than requirements
+
 ## [2.0.0] - 2026-01-10
 
 ### Changed

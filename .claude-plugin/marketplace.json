@@ -30,7 +30,7 @@
       "name": "copywriting-expert",
       "source": "./plugins/copywriting-expert",
       "description": "Master copywriting frameworks",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "category": "writing",
       "tags": ["copywriting", "sales-copy", "direct-response"]
     },

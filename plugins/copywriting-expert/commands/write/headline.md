@@ -16,13 +16,15 @@ To generate headlines, you need:
 
 ## Generation Process
 
-1. Generate 20+ headline variations
-2. Use multiple formula categories
-3. Apply framework principles
+1. Generate 15-25 headline variations depending on scope
+2. Lead with your 3-5 strongest recommendations with reasoning
+3. Include variety across: questions, how-to, curiosity, numbers, commands
 4. Vary length and structure
-5. Include at least 3 "unusual" options
+5. Push beyond safe choices with some unexpected angles
 
-## Headline Formula Categories to Use
+## Headline Formula Categories (Examples for Inspiration)
+
+Draw from these patterns as appropriate—not all will fit every context:
 
 ### How-To Headlines
 - "How to [Achieve Outcome] Without [Pain]"
@@ -48,46 +50,39 @@ To generate headlines, you need:
 - "Don't [Do Thing] Until [Read This]"
 - "The [X] Mistakes Killing Your [Goal]"
 
-## Output Format
+### Other Patterns to Consider
+- Story-based openings
+- Ultra-short/Hemingway-style
+- Counterintuitive statements
+- Specificity-driven (precise numbers, names, details)
 
-Provide headlines in categories:
+## Output Guidance
 
-### Power Headlines (Strong performers)
-1. [Headline]
-2. [Headline]
-3. [Headline]
+**Lead with your strongest work**: Open with 3-5 top recommendations and explain why each fits the context. Then provide the remaining variations grouped however makes sense for this particular request.
 
-### Question Headlines
-4. [Headline]
-5. [Headline]
+**Aim for variety**: Mix different headline types naturally rather than forcing equal representation from every category.
 
-### How-To Headlines
-6. [Headline]
-7. [Headline]
+**Include some risks**: At least a few options should push beyond conventional approaches—something unexpected that might outperform the "safe" choices.
 
-### Curiosity Headlines
-8. [Headline]
-9. [Headline]
+## Variations by Context
 
-### Number Headlines
-10. [Headline]
-11. [Headline]
+Adjust your approach based on the product and audience:
 
-### Unusual/Creative Headlines
-12. [Headline]
-13. [Headline]
-14. [Headline]
+**Premium/Luxury products**: Favor understated, sophisticated language. Avoid urgency tactics and hype. Let quality speak through specificity.
 
-### Hemingway-Style (Ultra-short)
-15. [Headline]
-16. [Headline]
+**Mass market products**: Include more urgent, benefit-driven options. Directness often wins. Numbers and how-to formats tend to perform well.
 
-### Story-Based Headlines
-17. [Headline]
-18. [Headline]
+**Unaware audiences**: Lead with curiosity and story-based headlines. They don't know they have a problem yet—intrigue them first.
 
-### Top 3 Recommendations
-Based on the product and audience, highlight the 3 strongest options with brief reasoning.
+**Aware audiences**: Get specific about results. They're comparing options—speak to exactly what differentiates this offer.
+
+## When to Adapt
+
+- Skip formula categories that don't fit the product or audience
+- Generate fewer headlines if scope is narrow or request is specific
+- Follow user's explicit style requests over these defaults
+- Adjust tone to match the brand voice provided
+- If user shares examples they like, lean toward that direction
 
 ## Quality Checks
 
