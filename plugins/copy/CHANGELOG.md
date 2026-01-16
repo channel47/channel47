@@ -1,6 +1,11 @@
 # Changelog
 
-All notable changes to The Copywriter's Arsenal will be documented in this file.
+All notable changes to the Copy Plugin will be documented in this file.
+
+## [2.1.0] - 2026-01-16
+
+### Changed
+- **Renamed plugin:** `copywriting-expert` → `copy` for simpler, more direct naming
 
 ## [2.1.0] - 2026-01-16
 

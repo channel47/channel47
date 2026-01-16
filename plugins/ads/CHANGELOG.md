@@ -1,9 +1,14 @@
 # Changelog
 
-All notable changes to the Google Ads Specialist Plugin will be documented in this file.
+All notable changes to the Ads Plugin will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [4.1.0] - 2026-01-16
+
+### Changed
+- **Renamed plugin:** `google-ads-specialist` → `ads` for simpler, more direct naming
 
 ## [4.0.4] - 2026-01-13
 
