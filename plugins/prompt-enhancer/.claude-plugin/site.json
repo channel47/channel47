@@ -3,7 +3,7 @@
   "tagline": "Optimize prompts for Claude 4.x using Anthropic best practices.",
   "label": "Claude Code Plugin",
   "features": [
-    "8-phase interactive wizard via /build-prompt command",
+    "Systematic optimization workflow with before/after comparison via /prompt-enhancer",
     "Auto-detection of task types (code, legal, creative, data-analysis, medical, etc.)",
     "Core techniques: XML tags, chain of thought, few-shot examples, role assignment",
     "Claude 4.x specific optimizations for literal interpretation handling",

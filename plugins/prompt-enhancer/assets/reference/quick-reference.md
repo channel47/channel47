@@ -111,9 +111,9 @@ Provide your response in this format:
 
 ## Model Selection Guide
 
-- **Claude 3.5 Sonnet**: Best balance - fast, intelligent, cost-effective
-- **Claude Opus 4.5**: Most capable - complex reasoning, creative tasks
-- **Claude 3.5 Haiku**: Fastest - simple tasks, high-volume processing
+- **Claude Sonnet 4.5**: Best balance - fast, intelligent, cost-effective
+- **Claude Opus 4.5**: Most capable - complex reasoning, extended thinking
+- **Claude Haiku 4.5**: Fastest - simple tasks, high-volume processing
 
 ## Power Features
 
