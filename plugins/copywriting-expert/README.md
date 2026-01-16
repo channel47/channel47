@@ -1,147 +1,136 @@
-# The Copywriter's Arsenal
+# Copywriting Expert
 
-Master copywriting by combining the emotional power of history's greatest storytellers with the conversion science of legendary direct response masters.
+A focused copywriting skill built on three proven frameworks from history's greatest direct response masters.
 
-## The Philosophy
+## The Three Frameworks
 
-**Storytellers** teach us *how to make people feel*:
-- Homer, Hemingway, Dickens, Chekhov, Campbell
+### Eugene Schwartz — Awareness Levels
+The foundation of all effective copy. Schwartz identified five levels of prospect awareness, each requiring a different approach:
 
-**Direct Response Masters** teach us *how to make people act*:
-- Schwartz, Halbert, Ogilvy, Carlton, Sugarman, Bencivenga
+1. **Most Aware** — Knows your product, just needs the deal
+2. **Product Aware** — Knows what you sell, not convinced it works
+3. **Solution Aware** — Knows solutions exist, not yours specifically
+4. **Problem Aware** — Feels the pain, doesn't know solutions exist
+5. **Unaware** — Doesn't recognize the problem yet
 
-This plugin gives you access to both lineages—and the power to fuse them.
+Match your copy's sophistication to your prospect's awareness level.
 
-## Features
+### Ernest Hemingway — Economy of Language
+Every word earns its place. The iceberg theory: show 10%, imply 90%. Strip away:
+- Unnecessary adjectives
+- Weasel words
+- Passive constructions
+- Anything that doesn't advance the sale
 
-### Storyteller Frameworks
-- **Homer Mode** — Epic narrative, transformation arcs
-- **Hemingway Mode** — Economy, iceberg theory, less is more
-- **Dickens Mode** — Vivid detail, social proof through scene
-- **Chekhov Mode** — Subtext, show don't tell
-- **Campbell Mode** — Hero's journey structure
+What remains is copy that hits like a punch.
 
-### Direct Response Frameworks
-- **Schwartz** — Awareness levels, market sophistication
-- **Halbert** — Conversational urgency, the A-pile
-- **Ogilvy** — Research-backed, elegant proof
-- **Carlton** — Voice, sales detective methodology
-- **Sugarman** — Psychological triggers, slippery slide
-- **Bencivenga** — Emotional logic, hidden benefits
+### Gary Halbert — Conversational Urgency
+Write like you're talking to one person across a kitchen table. The A-pile principle: make your copy feel personal enough to open first. Build urgency through:
+- Specificity over generality
+- Stories over claims
+- Deadlines that matter
+- Reasons why
 
-### Fusion Modes
-Combine any storyteller with any direct response master:
-- Origin Story + Sales
-- Metaphor-First Landing Pages
-- Character-Driven Email Sequences
+## Commands
 
-### Reference Library
-- Swipe file anatomy — How to deconstruct great copy
-- Headline formulas — 100+ proven structures
-- Emotional triggers — Core psychological drivers
-- Proof hierarchy — Building unshakeable credibility
-
-### Agents
-- **Copy Doctor** — Reviews and diagnoses copy weaknesses
-- **Headline Generator** — 20+ headlines for any concept
-- **Email Sequencer** — Complete multi-email campaigns
-
-### Analysis Tools
-- Swipe file analyzer script
-- Awareness level checker
+| Command | Purpose |
+|---------|---------|
+| `/headline` | Generate compelling headlines for any product or angle |
+| `/email` | Write conversion-focused email copy |
+| `/landing-page` | Create complete landing page copy |
+| `/swipe` | Analyze and deconstruct existing copy |
+| `/weakness` | Diagnose copy problems and suggest fixes |
 
 ## Quick Start
 
-### Write Copy
+### Generate Headlines
 ```
-"Write a landing page for [product] targeting [audience]"
+/headline [product] [angle]
 ```
-The skill auto-activates and applies the appropriate frameworks.
+Creates multiple headline variations applying Schwartz's awareness targeting and Halbert's specificity principles.
 
-### Activate a Mode
+### Write Email Copy
 ```
-/hemingway — Sparse, powerful copy
-/halbert — Conversational, urgent
-/schwartz 4 — Problem-aware copy
-/fusion hemingway halbert — Combine frameworks
+/email [product] [context]
+```
+Produces email copy using Halbert's conversational style with Hemingway's economy.
+
+### Build Landing Pages
+```
+/landing-page [product] [audience]
+```
+Generates full landing page copy structured around awareness levels.
+
+### Analyze Existing Copy
+```
+/swipe [paste copy here]
+```
+Deconstructs copy to identify techniques, strengths, and what makes it work.
+
+### Find Weaknesses
+```
+/weakness [paste copy here]
+```
+Diagnoses problems in copy and provides actionable fixes.
+
+## Utility Scripts
+
+### analyze_swipe.py
+Automated swipe file analysis for pattern recognition.
+
+```bash
+python scripts/analyze_swipe.py path/to/swipe.txt
 ```
 
-### Generate Assets
-```
-/headline [product] [angle] — Generate 20+ headlines
-/lead [awareness-level] — Craft compelling opens
-/email [sequence-position] — Write sequence emails
-/landing-page [product] — Full page copy
+Outputs structural analysis, technique identification, and framework alignment.
+
+### awareness_check.py
+Validates copy against Schwartz's awareness levels.
+
+```bash
+python scripts/awareness_check.py path/to/copy.txt --level 3
 ```
 
-### Analyze Copy
-```
-/swipe [paste copy] — Deconstruct any copy
-/weakness [paste copy] — Find holes and fix them
-```
-
-### Transform Copy
-```
-/raise-stakes — Amplify emotional tension
-/add-proof — Layer in credibility
-/compress — Hemingway reduction
-```
+Checks whether your copy appropriately targets the specified awareness level.
 
 ## When It Activates
 
-The skill automatically engages when Claude detects:
+The skill engages automatically when Claude detects:
 - Sales copy requests
-- Email writing
+- Email marketing tasks
 - Landing page creation
 - Headline generation
-- Copy analysis or improvement
-- Persuasive writing tasks
+- Copy analysis or review
 
-## Framework Selection Guide
+## Best Practices
 
-| Audience State | Primary Framework | Storyteller Blend |
-|----------------|-------------------|-------------------|
-| Ready to buy | Schwartz L1 | Hemingway (economy) |
-| Comparing options | Ogilvy | Dickens (vivid proof) |
-| Knows solutions exist | Schwartz L3 | Campbell (journey) |
-| Feels the pain | Halbert | Homer (transformation) |
-| Unaware of problem | Carlton | Chekhov (subtext) |
+1. **Identify awareness level first** — Everything flows from this
+2. **Cut ruthlessly** — If a word doesn't sell, delete it
+3. **Write to one person** — Specificity beats generality
+4. **Analyze before creating** — Use `/swipe` to study what works
+5. **Diagnose before rewriting** — Use `/weakness` to find real problems
 
 ## File Structure
 
 ```
 copywriting-expert/
 ├── skills/copywriting/
-│   ├── SKILL.md                    # Main skill definition
-│   ├── frameworks/
-│   │   ├── storytellers/           # Homer, Hemingway, Dickens, Chekhov, Campbell
-│   │   ├── direct-response/        # Schwartz, Halbert, Ogilvy, Carlton, Sugarman, Bencivenga
-│   │   └── fusion/                 # Combined approaches
-│   ├── reference/                  # Headline formulas, emotional triggers, etc.
-│   └── scripts/                    # Analysis utilities
+│   ├── SKILL.md
+│   └── frameworks/
+│       ├── schwartz.md
+│       ├── hemingway.md
+│       └── halbert.md
 ├── commands/
-│   ├── modes/                      # /hemingway, /halbert, /schwartz, /fusion
-│   ├── write/                      # /headline, /lead, /email, /landing-page
-│   ├── analyze/                    # /swipe, /weakness
-│   └── transform/                  # /raise-stakes, /add-proof, /compress
-└── agents/                         # copy-doctor, headline-generator, email-sequencer
+│   ├── headline.md
+│   ├── email.md
+│   ├── landing-page.md
+│   ├── swipe.md
+│   └── weakness.md
+└── scripts/
+    ├── analyze_swipe.py
+    └── awareness_check.py
 ```
 
-## Best Practices
+---
 
-1. **Identify awareness level first** — This determines everything
-2. **Lead with the right framework** — Match copy to prospect mindset
-3. **Stack proof appropriately** — More for skeptics, less for believers
-4. **Fuse for power** — Combine storyteller emotion with DR structure
-5. **Test your assumptions** — Use analysis tools to verify
-
-## Learn More
-
-Each framework file contains:
-- Core principles
-- Step-by-step application
-- Before/after examples
-- Common mistakes
-- Combination recommendations
-
-Explore the `/frameworks/` directory to dive deep into any approach.
+**v2.0.0** — Streamlined to three essential frameworks and five core commands.

@@ -87,6 +87,26 @@ When producing copy:
 | Landing Pages | Schwartz | Journey + Proof |
 | Email Sequences | Halbert | Story + Connection |
 
+## Utility Scripts
+
+Determine awareness level interactively:
+```bash
+python skills/copywriting/scripts/awareness_check.py --interactive
+```
+
+Quick awareness assessment:
+```bash
+python skills/copywriting/scripts/awareness_check.py "Description of target audience"
+```
+
+Analyze copy structure and patterns:
+```bash
+python skills/copywriting/scripts/analyze_swipe.py "Your copy here"
+python skills/copywriting/scripts/analyze_swipe.py --file /path/to/copy.txt --json
+```
+
+These scripts run without loading into context—only their output is used.
+
 ## Error Handling
 
 If the user's request is unclear:
