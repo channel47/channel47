@@ -4,10 +4,10 @@
  *
  * A dense field of ASCII block characters with visible wave interference.
  * Waves directly control character density and brightness.
- * Pulses add dramatic bursts of energy.
+ * Cursors sweep across like typing/editing text.
  *
  * The effect: flowing patterns of density that shift and morph,
- * with periodic bright pulses rippling through.
+ * with cursor sweeps evoking the act of writing and editing copy.
  */
 
 interface Props {
@@ -38,12 +38,12 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
     hue: number;
   }
 
-  interface Pulse {
-    x: number;
-    y: number;
+  interface Cursor {
+    startX: number;
     startTime: number;
-    strength: number;
     speed: number;
+    direction: 1 | -1; // 1 = left-to-right, -1 = right-to-left
+    trailLength: number;
   }
 
   function initAsciiBlocks() {
@@ -61,7 +61,7 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
 
       // State
       let cells: Cell[] = [];
-      let pulses: Pulse[] = [];
+      let cursors: Cursor[] = [];
       let width = 0;
       let height = 0;
       let cols = 0;
@@ -70,13 +70,13 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
       let animationId = 0;
       let isRunning = false;
       let startTime = 0;
-      let lastPulseTime = 0;
+      let lastCursorTime = 0;
 
       const config = {
         entranceDuration: 1600,
-        pulseInterval: 6000,
-        pulseSpeed: 0.055,
-        pulseRadius: 450,
+        cursorInterval: 3500, // Spawn cursors more frequently
+        cursorSpeed: 0.12, // Pixels per ms
+        trailLength: 80, // Width of the highlight trail
         baseOpacity: 0.25,
         peakOpacity: 0.95,
       };
@@ -99,47 +99,50 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
         return (combined + 1) / 2;
       }
 
-      // Pulse creates expanding ring of energy
-      function getPulseValue(x: number, y: number, time: number): number {
+      // Cursor creates a vertical sweep with trailing highlight
+      function getCursorValue(x: number, time: number): number {
         let total = 0;
 
-        for (const pulse of pulses) {
-          const dx = x - pulse.x;
-          const dy = y - pulse.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const elapsed = time - pulse.startTime;
-          const ringRadius = elapsed * pulse.speed;
-          const ringWidth = 60;
+        for (const cursor of cursors) {
+          const elapsed = time - cursor.startTime;
+          const cursorX = cursor.startX + elapsed * cursor.speed * cursor.direction;
 
-          // Distance from the ring edge
-          const distFromRing = Math.abs(dist - ringRadius);
+          // Distance from cursor position
+          const distFromCursor = (x - cursorX) * cursor.direction;
 
-          if (distFromRing < ringWidth && dist < config.pulseRadius) {
-            // Sharp ring falloff
-            const ringIntensity = 1 - distFromRing / ringWidth;
-            // Fade over time
-            const timeFade = Math.max(0, 1 - elapsed / 3500);
-            // Fade at edges
-            const distFade = 1 - dist / config.pulseRadius;
+          // Cursor head (bright leading edge)
+          if (distFromCursor >= -8 && distFromCursor <= 0) {
+            const headIntensity = 1 - Math.abs(distFromCursor) / 8;
+            total += headIntensity * 0.9;
+          }
 
-            total += ringIntensity * ringIntensity * timeFade * distFade * pulse.strength;
+          // Trail behind cursor (fading highlight like selected text)
+          if (distFromCursor > 0 && distFromCursor < cursor.trailLength) {
+            const trailIntensity = 1 - distFromCursor / cursor.trailLength;
+            // Ease out for smoother fade
+            total += trailIntensity * trailIntensity * 0.5;
           }
         }
 
         return Math.min(1, total);
       }
 
-      function spawnPulse(time: number) {
-        pulses.push({
-          x: width * (0.15 + Math.random() * 0.7),
-          y: height * (0.2 + Math.random() * 0.6),
+      function spawnCursor(time: number) {
+        const direction = Math.random() > 0.5 ? 1 : -1 as 1 | -1;
+        cursors.push({
+          startX: direction === 1 ? -20 : width + 20,
           startTime: time,
-          strength: 0.8 + Math.random() * 0.2,
-          speed: config.pulseSpeed * (0.9 + Math.random() * 0.2),
+          speed: config.cursorSpeed * (0.8 + Math.random() * 0.4),
+          direction,
+          trailLength: config.trailLength * (0.7 + Math.random() * 0.6),
         });
 
-        // Clean old pulses
-        pulses = pulses.filter(p => time - p.startTime < 4000);
+        // Clean old cursors that have moved off screen
+        cursors = cursors.filter(c => {
+          const elapsed = time - c.startTime;
+          const cursorX = c.startX + elapsed * c.speed * c.direction;
+          return c.direction === 1 ? cursorX < width + 200 : cursorX > -200;
+        });
       }
 
       function setupCanvas() {
@@ -185,7 +188,7 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
           }
         }
 
-        pulses = [];
+        cursors = [];
       }
 
       function easeOutExpo(t: number): number {
@@ -197,16 +200,16 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
 
         if (startTime === 0) {
           startTime = timestamp;
-          lastPulseTime = timestamp;
+          lastCursorTime = timestamp;
         }
 
         const time = timestamp - startTime;
         const entranceProgress = Math.min(1, easeOutExpo(time / config.entranceDuration));
 
-        // Spawn pulses periodically
-        if (time - lastPulseTime > config.pulseInterval && time > 600) {
-          spawnPulse(time);
-          lastPulseTime = time;
+        // Spawn cursors periodically
+        if (time - lastCursorTime > config.cursorInterval && time > 600) {
+          spawnCursor(time);
+          lastCursorTime = time;
         }
 
         ctx.clearRect(0, 0, width, height);
@@ -221,14 +224,14 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
           // Get wave value (0-1) - this drives the base pattern
           const waveValue = getWaveValue(cx, cy, time);
 
-          // Get pulse value (0-1) - adds bright bursts
-          const pulseValue = getPulseValue(cx, cy, time);
+          // Get cursor value (0-1) - adds typing/editing highlight
+          const cursorValue = getCursorValue(cx, time);
 
           // Small per-cell shimmer
           const shimmer = Math.sin(time * 0.002 + cell.noisePhase) * 0.08;
 
           // Combined intensity
-          const intensity = Math.min(1, waveValue + shimmer + pulseValue * 1.2);
+          const intensity = Math.min(1, waveValue + shimmer + cursorValue * 0.8);
 
           // Entrance animation (sweep from left)
           const entranceDelay = (cell.x / width) * 0.4;
@@ -243,22 +246,22 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
           const charIndex = Math.min(BLOCKS.length - 1, Math.floor(intensity * BLOCKS.length));
           const char = BLOCKS[charIndex];
 
-          // Opacity: wave creates visible variation, pulse boosts dramatically
+          // Opacity: wave creates visible variation, cursor boosts for highlight effect
           const baseOpacity = config.baseOpacity + (config.peakOpacity - config.baseOpacity) * (waveValue * 0.6);
-          const finalOpacity = Math.min(1, baseOpacity + pulseValue * 0.7) * cellEntrance;
+          const finalOpacity = Math.min(1, baseOpacity + cursorValue * 0.6) * cellEntrance;
 
-          // Color: warmer and brighter at higher intensity
+          // Color: warmer and brighter at higher intensity, cursor adds highlight tint
           const saturation = 0.02 + intensity * 0.14;
           const lightness = 30 + intensity * 50;
-          const hue = cell.hue + pulseValue * 15;
+          const hue = cell.hue + cursorValue * 10;
 
           ctx.fillStyle = `oklch(${lightness}% ${saturation} ${hue} / ${finalOpacity})`;
           ctx.fillText(char, cell.x, cell.y);
 
-          // Extra glow layer for pulse peaks
-          if (pulseValue > 0.4) {
-            const glowOpacity = (pulseValue - 0.4) * 0.5 * cellEntrance;
-            ctx.fillStyle = `oklch(80% 0.18 40 / ${glowOpacity})`;
+          // Extra highlight glow for cursor peaks (like text selection)
+          if (cursorValue > 0.5) {
+            const glowOpacity = (cursorValue - 0.5) * 0.4 * cellEntrance;
+            ctx.fillStyle = `oklch(75% 0.15 45 / ${glowOpacity})`;
             ctx.fillText(char, cell.x, cell.y);
           }
         }
