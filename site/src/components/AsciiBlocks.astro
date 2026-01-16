@@ -4,10 +4,11 @@
  *
  * A dense field of ASCII block characters with visible wave interference.
  * Waves directly control character density and brightness.
- * Pulses add dramatic bursts of energy.
+ * Emergence waves sweep through, temporarily revealing signal from noise —
+ * like insight surfacing, or tuning into a frequency.
  *
  * The effect: flowing patterns of density that shift and morph,
- * with periodic bright pulses rippling through.
+ * with periodic waves of clarity sweeping through.
  */
 
 interface Props {
@@ -38,12 +39,18 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
     hue: number;
   }
 
-  interface Pulse {
-    x: number;
-    y: number;
+  // Emergence wave: sweeps across the field, temporarily revealing signal
+  // Like insight surfacing or tuning into a frequency
+  interface EmergenceWave {
     startTime: number;
-    strength: number;
+    // Direction the wave travels (angle in radians, 0 = right)
+    angle: number;
+    // Starting offset (where the wave front begins)
+    offset: number;
+    // Wave characteristics
     speed: number;
+    width: number;        // How wide the "revelation" band is
+    strength: number;
   }
 
   function initAsciiBlocks() {
@@ -61,7 +68,7 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
 
       // State
       let cells: Cell[] = [];
-      let pulses: Pulse[] = [];
+      let waves: EmergenceWave[] = [];
       let width = 0;
       let height = 0;
       let cols = 0;
@@ -70,13 +77,14 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
       let animationId = 0;
       let isRunning = false;
       let startTime = 0;
-      let lastPulseTime = 0;
+      let lastWaveTime = 0;
 
       const config = {
         entranceDuration: 1600,
-        pulseInterval: 6000,
-        pulseSpeed: 0.055,
-        pulseRadius: 450,
+        waveInterval: 4500,       // Time between wave spawns
+        waveSpeed: 0.12,          // How fast waves travel
+        waveWidth: 180,           // Width of the revelation band
+        waveLifetime: 5000,       // How long before cleanup
         baseOpacity: 0.25,
         peakOpacity: 0.95,
       };
@@ -99,47 +107,84 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
         return (combined + 1) / 2;
       }
 
-      // Pulse creates expanding ring of energy
-      function getPulseValue(x: number, y: number, time: number): number {
+      // Emergence wave: a plane of revelation sweeping through
+      // Returns intensity (0-1) of the wave effect at this point
+      function getEmergenceValue(x: number, y: number, time: number): number {
         let total = 0;
 
-        for (const pulse of pulses) {
-          const dx = x - pulse.x;
-          const dy = y - pulse.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const elapsed = time - pulse.startTime;
-          const ringRadius = elapsed * pulse.speed;
-          const ringWidth = 60;
+        for (const wave of waves) {
+          const elapsed = time - wave.startTime;
 
-          // Distance from the ring edge
-          const distFromRing = Math.abs(dist - ringRadius);
+          // Project point onto wave direction to get distance along wave travel
+          // Wave travels in direction of angle, so we measure perpendicular distance
+          const cosA = Math.cos(wave.angle);
+          const sinA = Math.sin(wave.angle);
 
-          if (distFromRing < ringWidth && dist < config.pulseRadius) {
-            // Sharp ring falloff
-            const ringIntensity = 1 - distFromRing / ringWidth;
-            // Fade over time
-            const timeFade = Math.max(0, 1 - elapsed / 3500);
-            // Fade at edges
-            const distFade = 1 - dist / config.pulseRadius;
+          // Distance along the wave's travel direction
+          const travelDist = x * cosA + y * sinA;
 
-            total += ringIntensity * ringIntensity * timeFade * distFade * pulse.strength;
+          // Current position of wave front
+          const waveFront = wave.offset + elapsed * wave.speed;
+
+          // Distance from wave front (negative = wave hasn't reached yet)
+          const distFromFront = travelDist - waveFront;
+
+          // Wave has a leading edge, peak, and trailing fade
+          // Shape: ramps up quickly, holds briefly, fades slowly
+          const waveWidth = wave.width;
+
+          if (distFromFront > waveWidth * 0.3 || distFromFront < -waveWidth) {
+            continue; // Outside wave influence
           }
+
+          let intensity: number;
+
+          if (distFromFront > 0) {
+            // Leading edge: sharp rise (wave approaching)
+            intensity = 1 - (distFromFront / (waveWidth * 0.3));
+          } else if (distFromFront > -waveWidth * 0.2) {
+            // Peak zone: full intensity
+            intensity = 1;
+          } else {
+            // Trailing fade: gradual falloff
+            const fadeProgress = (-distFromFront - waveWidth * 0.2) / (waveWidth * 0.8);
+            intensity = 1 - Math.pow(fadeProgress, 0.7);
+          }
+
+          // Overall fade over lifetime
+          const lifetimeFade = 1 - Math.pow(elapsed / config.waveLifetime, 2);
+
+          total = Math.max(total, intensity * lifetimeFade * wave.strength);
         }
 
         return Math.min(1, total);
       }
 
-      function spawnPulse(time: number) {
-        pulses.push({
-          x: width * (0.15 + Math.random() * 0.7),
-          y: height * (0.2 + Math.random() * 0.6),
+      function spawnWave(time: number) {
+        // Diagonal angle for interesting sweep patterns
+        // Vary between roughly left-to-right and top-left-to-bottom-right
+        const angleOptions = [
+          0.15 + Math.random() * 0.25,   // Slight diagonal down-right
+          -0.15 - Math.random() * 0.2,   // Slight diagonal up-right
+          0.4 + Math.random() * 0.3,     // Steeper diagonal
+        ];
+        const angle = angleOptions[Math.floor(Math.random() * angleOptions.length)];
+
+        // Start from off-screen left
+        const maxDim = Math.max(width, height);
+        const offset = -maxDim * 0.3 - Math.random() * 100;
+
+        waves.push({
           startTime: time,
-          strength: 0.8 + Math.random() * 0.2,
-          speed: config.pulseSpeed * (0.9 + Math.random() * 0.2),
+          angle,
+          offset,
+          speed: config.waveSpeed * (0.85 + Math.random() * 0.3),
+          width: config.waveWidth * (0.8 + Math.random() * 0.4),
+          strength: 0.7 + Math.random() * 0.3,
         });
 
-        // Clean old pulses
-        pulses = pulses.filter(p => time - p.startTime < 4000);
+        // Clean old waves
+        waves = waves.filter(w => time - w.startTime < config.waveLifetime);
       }
 
       function setupCanvas() {
@@ -185,7 +230,7 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
           }
         }
 
-        pulses = [];
+        waves = [];
       }
 
       function easeOutExpo(t: number): number {
@@ -197,16 +242,16 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
 
         if (startTime === 0) {
           startTime = timestamp;
-          lastPulseTime = timestamp;
+          lastWaveTime = timestamp;
         }
 
         const time = timestamp - startTime;
         const entranceProgress = Math.min(1, easeOutExpo(time / config.entranceDuration));
 
-        // Spawn pulses periodically
-        if (time - lastPulseTime > config.pulseInterval && time > 600) {
-          spawnPulse(time);
-          lastPulseTime = time;
+        // Spawn emergence waves periodically
+        if (time - lastWaveTime > config.waveInterval && time > 800) {
+          spawnWave(time);
+          lastWaveTime = time;
         }
 
         ctx.clearRect(0, 0, width, height);
@@ -218,17 +263,17 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
           const cx = cell.x + cellSize / 2;
           const cy = cell.y + cellSize / 2;
 
-          // Get wave value (0-1) - this drives the base pattern
-          const waveValue = getWaveValue(cx, cy, time);
+          // Get ambient wave value (0-1) - base pattern
+          const ambientValue = getWaveValue(cx, cy, time);
 
-          // Get pulse value (0-1) - adds bright bursts
-          const pulseValue = getPulseValue(cx, cy, time);
+          // Get emergence wave value (0-1) - revelation sweeping through
+          const emergenceValue = getEmergenceValue(cx, cy, time);
 
           // Small per-cell shimmer
           const shimmer = Math.sin(time * 0.002 + cell.noisePhase) * 0.08;
 
-          // Combined intensity
-          const intensity = Math.min(1, waveValue + shimmer + pulseValue * 1.2);
+          // Combined intensity: emergence wave boosts and clarifies
+          const intensity = Math.min(1, ambientValue + shimmer + emergenceValue * 0.6);
 
           // Entrance animation (sweep from left)
           const entranceDelay = (cell.x / width) * 0.4;
@@ -239,26 +284,25 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
           if (cellEntrance <= 0) continue;
 
           // Character based on intensity
-          // Map intensity 0-1 to character index
           const charIndex = Math.min(BLOCKS.length - 1, Math.floor(intensity * BLOCKS.length));
           const char = BLOCKS[charIndex];
 
-          // Opacity: wave creates visible variation, pulse boosts dramatically
-          const baseOpacity = config.baseOpacity + (config.peakOpacity - config.baseOpacity) * (waveValue * 0.6);
-          const finalOpacity = Math.min(1, baseOpacity + pulseValue * 0.7) * cellEntrance;
+          // Opacity: emergence wave reveals and clarifies
+          const baseOpacity = config.baseOpacity + (config.peakOpacity - config.baseOpacity) * (ambientValue * 0.6);
+          const finalOpacity = Math.min(1, baseOpacity + emergenceValue * 0.55) * cellEntrance;
 
-          // Color: warmer and brighter at higher intensity
-          const saturation = 0.02 + intensity * 0.14;
-          const lightness = 30 + intensity * 50;
-          const hue = cell.hue + pulseValue * 15;
+          // Color: emergence wave brings warmth and brightness
+          const saturation = 0.02 + intensity * 0.14 + emergenceValue * 0.06;
+          const lightness = 30 + intensity * 50 + emergenceValue * 15;
+          const hue = cell.hue + emergenceValue * 10;
 
           ctx.fillStyle = `oklch(${lightness}% ${saturation} ${hue} / ${finalOpacity})`;
           ctx.fillText(char, cell.x, cell.y);
 
-          // Extra glow layer for pulse peaks
-          if (pulseValue > 0.4) {
-            const glowOpacity = (pulseValue - 0.4) * 0.5 * cellEntrance;
-            ctx.fillStyle = `oklch(80% 0.18 40 / ${glowOpacity})`;
+          // Subtle glow layer for strong emergence zones
+          if (emergenceValue > 0.6) {
+            const glowOpacity = (emergenceValue - 0.6) * 0.4 * cellEntrance;
+            ctx.fillStyle = `oklch(82% 0.14 36 / ${glowOpacity})`;
             ctx.fillText(char, cell.x, cell.y);
           }
         }
