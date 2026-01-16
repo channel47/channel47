@@ -1,12 +1,12 @@
 {
-  "name": "copywriting-expert",
+  "name": "copy",
   "version": "2.1.0",
   "description": "Master copywriting with Schwartz awareness levels, Hemingway economy, and Halbert conversational urgency.",
   "author": {
     "name": "Jackson",
     "url": "https://channel47.dev"
   },
-  "homepage": "https://channel47.dev/plugins/copywriting-expert",
+  "homepage": "https://channel47.dev/plugins/copy",
   "repository": "https://github.com/channel47/channel47",
   "license": "MIT",
   "keywords": [

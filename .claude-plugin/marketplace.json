@@ -11,42 +11,42 @@
   },
   "plugins": [
     {
-      "name": "google-ads-specialist",
-      "source": "./plugins/google-ads-specialist",
+      "name": "ads",
+      "source": "./plugins/ads",
       "description": "Google Ads management with subagent-based architecture",
-      "version": "4.0.4",
+      "version": "4.1.0",
       "category": "marketing",
       "tags": ["google-ads", "gaql", "marketing", "analytics", "ppc", "subagent"]
     },
     {
-      "name": "creative-designer",
-      "source": "./plugins/creative-designer",
+      "name": "gen",
+      "source": "./plugins/gen",
       "description": "AI image generation with Gemini",
-      "version": "2.3.0",
+      "version": "2.4.0",
       "category": "creative",
       "tags": ["image-generation", "ai-art", "gemini", "mcp"]
     },
     {
-      "name": "copywriting-expert",
-      "source": "./plugins/copywriting-expert",
+      "name": "copy",
+      "source": "./plugins/copy",
       "description": "Master copywriting frameworks",
       "version": "2.1.0",
       "category": "writing",
       "tags": ["copywriting", "sales-copy", "direct-response"]
     },
     {
-      "name": "prompt-enhancer",
-      "source": "./plugins/prompt-enhancer",
+      "name": "prompt",
+      "source": "./plugins/prompt",
       "description": "Optimize prompts for Claude",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "category": "development",
       "tags": ["prompts", "optimization", "prompt-engineering"]
     },
     {
-      "name": "frontend-design",
-      "source": "./plugins/frontend-design",
+      "name": "ui",
+      "source": "./plugins/ui",
       "description": "Production-grade frontend interfaces with built-in design sensibility. Canvas animations, typography, color systems.",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "category": "frontend",
       "tags": ["frontend", "design", "canvas", "animation", "ui", "typography", "motion", "components", "layouts"]
     }

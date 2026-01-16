@@ -1,6 +1,11 @@
 # Changelog
 
-All notable changes to the frontend-design plugin.
+All notable changes to the UI Plugin.
+
+## [1.3.0] - 2026-01-16
+
+### Changed
+- **Renamed plugin:** `frontend-design` → `ui` for simpler, more direct naming
 
 ## [1.2.0] - 2026-01-16
 

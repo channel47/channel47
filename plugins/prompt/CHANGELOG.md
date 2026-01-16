@@ -1,6 +1,11 @@
 # Changelog
 
-All notable changes to the Prompt Enhancer plugin will be documented in this file.
+All notable changes to the Prompt Plugin will be documented in this file.
+
+## [2.1.0] - 2026-01-16
+
+### Changed
+- **Renamed plugin:** `prompt-enhancer` → `prompt` for simpler, more direct naming
 
 ## [2.0.0] - 2026-01-10
 
