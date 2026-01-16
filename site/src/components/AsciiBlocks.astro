@@ -4,11 +4,10 @@
  *
  * A dense field of ASCII block characters with visible wave interference.
  * Waves directly control character density and brightness.
- * Diverging paths visualize "same tools, different outcomes" —
- * channel pairs spawn together then split: one rises as signal, one fades as noise.
+ * Pulses add dramatic bursts of energy.
  *
  * The effect: flowing patterns of density that shift and morph,
- * with periodic divergences showing paths separating.
+ * with periodic bright pulses rippling through.
  */
 
 interface Props {
@@ -39,19 +38,12 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
     hue: number;
   }
 
-  // Diverging paths: two channels spawn together, then split
-  // One becomes signal (brightens), one becomes noise (fades)
-  interface Divergence {
-    originX: number;
-    originY: number;
+  interface Pulse {
+    x: number;
+    y: number;
     startTime: number;
-    // Direction angles for each path (radians)
-    signalAngle: number;
-    noiseAngle: number;
-    // How fast the paths travel
+    strength: number;
     speed: number;
-    // Path width
-    width: number;
   }
 
   function initAsciiBlocks() {
@@ -69,7 +61,7 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
 
       // State
       let cells: Cell[] = [];
-      let divergences: Divergence[] = [];
+      let pulses: Pulse[] = [];
       let width = 0;
       let height = 0;
       let cols = 0;
@@ -78,15 +70,13 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
       let animationId = 0;
       let isRunning = false;
       let startTime = 0;
-      let lastDivergenceTime = 0;
+      let lastPulseTime = 0;
 
       const config = {
         entranceDuration: 1600,
-        divergenceInterval: 5000,    // Time between divergence spawns
-        divergenceSpeed: 0.08,       // How fast paths travel
-        divergenceLifetime: 4500,    // How long before cleanup
-        pathWidth: 80,               // Width of each path channel
-        divergenceAngle: 0.35,       // How much paths diverge (radians)
+        pulseInterval: 6000,
+        pulseSpeed: 0.055,
+        pulseRadius: 450,
         baseOpacity: 0.25,
         peakOpacity: 0.95,
       };
@@ -109,138 +99,47 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
         return (combined + 1) / 2;
       }
 
-      // Divergence: returns { signal, noise } values for a point
-      // Signal path brightens, noise path dims
-      function getDivergenceValue(x: number, y: number, time: number): { signal: number; noise: number } {
-        let signal = 0;
-        let noise = 0;
+      // Pulse creates expanding ring of energy
+      function getPulseValue(x: number, y: number, time: number): number {
+        let total = 0;
 
-        for (const div of divergences) {
-          const elapsed = time - div.startTime;
-          const travelDist = elapsed * div.speed;
+        for (const pulse of pulses) {
+          const dx = x - pulse.x;
+          const dy = y - pulse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const elapsed = time - pulse.startTime;
+          const ringRadius = elapsed * pulse.speed;
+          const ringWidth = 60;
 
-          // Calculate position along each path
-          // Signal path
-          const signalHeadX = div.originX + Math.cos(div.signalAngle) * travelDist;
-          const signalHeadY = div.originY + Math.sin(div.signalAngle) * travelDist;
+          // Distance from the ring edge
+          const distFromRing = Math.abs(dist - ringRadius);
 
-          // Noise path
-          const noiseHeadX = div.originX + Math.cos(div.noiseAngle) * travelDist;
-          const noiseHeadY = div.originY + Math.sin(div.noiseAngle) * travelDist;
+          if (distFromRing < ringWidth && dist < config.pulseRadius) {
+            // Sharp ring falloff
+            const ringIntensity = 1 - distFromRing / ringWidth;
+            // Fade over time
+            const timeFade = Math.max(0, 1 - elapsed / 3500);
+            // Fade at edges
+            const distFade = 1 - dist / config.pulseRadius;
 
-          // For each path, calculate influence based on:
-          // 1. Distance from the path line (perpendicular distance)
-          // 2. Position along the path (should be behind the "head")
-
-          // Signal path influence
-          const signalInfluence = getPathInfluence(
-            x, y,
-            div.originX, div.originY,
-            signalHeadX, signalHeadY,
-            div.width,
-            elapsed,
-            config.divergenceLifetime
-          );
-
-          // Noise path influence
-          const noiseInfluence = getPathInfluence(
-            x, y,
-            div.originX, div.originY,
-            noiseHeadX, noiseHeadY,
-            div.width,
-            elapsed,
-            config.divergenceLifetime
-          );
-
-          signal = Math.max(signal, signalInfluence);
-          noise = Math.max(noise, noiseInfluence);
+            total += ringIntensity * ringIntensity * timeFade * distFade * pulse.strength;
+          }
         }
 
-        return { signal, noise };
+        return Math.min(1, total);
       }
 
-      // Calculate how much a point is influenced by a path
-      function getPathInfluence(
-        px: number, py: number,           // Point to test
-        originX: number, originY: number, // Path origin
-        headX: number, headY: number,     // Current path head position
-        pathWidth: number,
-        elapsed: number,
-        lifetime: number
-      ): number {
-        // Vector from origin to head
-        const pathDx = headX - originX;
-        const pathDy = headY - originY;
-        const pathLength = Math.sqrt(pathDx * pathDx + pathDy * pathDy);
-
-        if (pathLength < 1) return 0;
-
-        // Vector from origin to point
-        const pointDx = px - originX;
-        const pointDy = py - originY;
-
-        // Project point onto path line (dot product)
-        const projection = (pointDx * pathDx + pointDy * pathDy) / pathLength;
-
-        // Point must be between origin and head (with some trail behind head)
-        const trailLength = pathLength * 0.7; // Trail extends 70% back from head
-        const headPosition = pathLength;
-        const trailStart = Math.max(0, headPosition - trailLength);
-
-        if (projection < trailStart || projection > headPosition + 20) return 0;
-
-        // Perpendicular distance from path line
-        const perpDist = Math.abs((-pathDy * pointDx + pathDx * pointDy) / pathLength);
-
-        if (perpDist > pathWidth) return 0;
-
-        // Intensity based on distance from path center
-        const widthFalloff = 1 - (perpDist / pathWidth);
-
-        // Intensity based on position along path (brighter at head)
-        const positionInTrail = (projection - trailStart) / trailLength;
-        const headProximity = Math.pow(positionInTrail, 0.6);
-
-        // Overall fade over lifetime
-        const lifetimeFade = 1 - Math.pow(elapsed / lifetime, 1.5);
-
-        // Combine factors
-        return widthFalloff * widthFalloff * headProximity * lifetimeFade;
-      }
-
-      function spawnDivergence(time: number) {
-        // Spawn from edges or center area
-        const spawnFromLeft = Math.random() > 0.5;
-        let originX: number, originY: number, baseAngle: number;
-
-        if (spawnFromLeft) {
-          // Spawn from left side, moving right-ish
-          originX = width * (0.05 + Math.random() * 0.15);
-          originY = height * (0.2 + Math.random() * 0.6);
-          baseAngle = -0.3 + Math.random() * 0.6; // Roughly rightward
-        } else {
-          // Spawn from center-left area
-          originX = width * (0.2 + Math.random() * 0.3);
-          originY = height * (0.15 + Math.random() * 0.7);
-          baseAngle = -0.5 + Math.random() * 1.0;
-        }
-
-        // Two paths diverge from the same origin
-        // One goes slightly up, one slightly down (or variations)
-        const divergeAmount = config.divergenceAngle * (0.8 + Math.random() * 0.4);
-
-        divergences.push({
-          originX,
-          originY,
+      function spawnPulse(time: number) {
+        pulses.push({
+          x: width * (0.15 + Math.random() * 0.7),
+          y: height * (0.2 + Math.random() * 0.6),
           startTime: time,
-          signalAngle: baseAngle - divergeAmount,
-          noiseAngle: baseAngle + divergeAmount,
-          speed: config.divergenceSpeed * (0.85 + Math.random() * 0.3),
-          width: config.pathWidth * (0.8 + Math.random() * 0.4),
+          strength: 0.8 + Math.random() * 0.2,
+          speed: config.pulseSpeed * (0.9 + Math.random() * 0.2),
         });
 
-        // Clean old divergences
-        divergences = divergences.filter(d => time - d.startTime < config.divergenceLifetime);
+        // Clean old pulses
+        pulses = pulses.filter(p => time - p.startTime < 4000);
       }
 
       function setupCanvas() {
@@ -286,7 +185,7 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
           }
         }
 
-        divergences = [];
+        pulses = [];
       }
 
       function easeOutExpo(t: number): number {
@@ -298,16 +197,16 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
 
         if (startTime === 0) {
           startTime = timestamp;
-          lastDivergenceTime = timestamp;
+          lastPulseTime = timestamp;
         }
 
         const time = timestamp - startTime;
         const entranceProgress = Math.min(1, easeOutExpo(time / config.entranceDuration));
 
-        // Spawn divergences periodically
-        if (time - lastDivergenceTime > config.divergenceInterval && time > 800) {
-          spawnDivergence(time);
-          lastDivergenceTime = time;
+        // Spawn pulses periodically
+        if (time - lastPulseTime > config.pulseInterval && time > 600) {
+          spawnPulse(time);
+          lastPulseTime = time;
         }
 
         ctx.clearRect(0, 0, width, height);
@@ -322,18 +221,14 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
           // Get wave value (0-1) - this drives the base pattern
           const waveValue = getWaveValue(cx, cy, time);
 
-          // Get divergence values - signal brightens, noise dims
-          const { signal, noise } = getDivergenceValue(cx, cy, time);
+          // Get pulse value (0-1) - adds bright bursts
+          const pulseValue = getPulseValue(cx, cy, time);
 
           // Small per-cell shimmer
           const shimmer = Math.sin(time * 0.002 + cell.noisePhase) * 0.08;
 
-          // Combined intensity:
-          // - Base wave pattern
-          // - Signal path boosts brightness (the winning path)
-          // - Noise path reduces brightness (the fading path)
-          const divergenceEffect = signal * 0.8 - noise * 0.4;
-          const intensity = Math.max(0, Math.min(1, waveValue + shimmer + divergenceEffect));
+          // Combined intensity
+          const intensity = Math.min(1, waveValue + shimmer + pulseValue * 1.2);
 
           // Entrance animation (sweep from left)
           const entranceDelay = (cell.x / width) * 0.4;
@@ -348,24 +243,22 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
           const charIndex = Math.min(BLOCKS.length - 1, Math.floor(intensity * BLOCKS.length));
           const char = BLOCKS[charIndex];
 
-          // Opacity: wave creates visible variation
-          // Signal path increases opacity, noise path decreases
+          // Opacity: wave creates visible variation, pulse boosts dramatically
           const baseOpacity = config.baseOpacity + (config.peakOpacity - config.baseOpacity) * (waveValue * 0.6);
-          const opacityMod = signal * 0.5 - noise * 0.15;
-          const finalOpacity = Math.max(0.08, Math.min(1, baseOpacity + opacityMod)) * cellEntrance;
+          const finalOpacity = Math.min(1, baseOpacity + pulseValue * 0.7) * cellEntrance;
 
-          // Color: signal path gets warmer/brighter, noise path cooler/dimmer
-          const saturation = 0.02 + intensity * 0.14 + signal * 0.08;
-          const lightness = 30 + intensity * 50 + signal * 20 - noise * 15;
-          const hue = cell.hue + signal * 12 - noise * 8;
+          // Color: warmer and brighter at higher intensity
+          const saturation = 0.02 + intensity * 0.14;
+          const lightness = 30 + intensity * 50;
+          const hue = cell.hue + pulseValue * 15;
 
           ctx.fillStyle = `oklch(${lightness}% ${saturation} ${hue} / ${finalOpacity})`;
           ctx.fillText(char, cell.x, cell.y);
 
-          // Extra glow layer for strong signal paths
-          if (signal > 0.5) {
-            const glowOpacity = (signal - 0.5) * 0.6 * cellEntrance;
-            ctx.fillStyle = `oklch(85% 0.16 38 / ${glowOpacity})`;
+          // Extra glow layer for pulse peaks
+          if (pulseValue > 0.4) {
+            const glowOpacity = (pulseValue - 0.4) * 0.5 * cellEntrance;
+            ctx.fillStyle = `oklch(80% 0.18 40 / ${glowOpacity})`;
             ctx.fillText(char, cell.x, cell.y);
           }
         }
