@@ -2,6 +2,31 @@
 
 All notable changes to the frontend-design plugin.
 
+## [1.2.0] - 2026-01-16
+
+### Changed
+
+- **Progressive disclosure improvements**
+  - Restructured reference loading in SKILL.md files to be situational, not blanket
+  - Added "Always Consult" / "Load By Task" / "Deep Dives" tiers for reference architecture
+  - Moved mandatory boilerplate code from SKILL.md to `@reference/performance.md`
+  - Added "Core Requirements" section with principles instead of code templates
+
+- **Softened prescriptive rules**
+  - Transformed "NOT using X" checkboxes to "X choice is INTENTIONAL" checks
+  - Added "The Exception Rule" to anti-patterns.md for legitimate overrides
+  - Updated Meta-Rule to question defaults rather than ban common patterns
+
+- **Added context-override guidance**
+  - New "When to Override These Guidelines" sections in both SKILL.md files
+  - Covers matching existing design systems, brand guidelines, user requests, constraints
+
+- **Split large reference files for finer-grained loading**
+  - `components.md` (481 lines) → `buttons.md`, `forms.md`, `cards.md`, `navigation.md`, `modals.md` + index
+  - `implementation.md` (488 lines) → `css-architecture.md`, `theming.md`, `responsive.md`, `accessibility.md` + index
+  - `examples.md` (428 lines) → `example-lines.md`, `example-grid.md`, `example-matrix.md`, `example-wireframe.md`, `example-combining.md` + index
+  - Updated SKILL.md reference tables to point to specific files
+
 ## [1.1.0] - 2026-01-15
 
 ### Added

@@ -55,6 +55,14 @@ Before shipping, verify NONE of these apply:
 - [ ] Forms with placeholder text as labels
 - [ ] Modals for everything
 
+### The Exception Rule
+
+These patterns aren't universally bad — they're bad when used thoughtlessly. If you use one:
+
+1. **Have a reason** — "It matches the existing design system" is valid
+2. **State it explicitly** — Document WHY in the output README
+3. **Don't stack them** — One intentional "default" choice is fine; five signals laziness
+
 ---
 
 ## Why These Fail
@@ -91,6 +99,8 @@ For each anti-pattern, ask: **"What would a human designer with taste do differe
 
 ## The Meta-Rule
 
-**If you've seen it in 10 other AI-generated sites, don't use it.**
+**If you've seen it in 10 other AI-generated sites, question whether you're using it intentionally or by default.**
 
-Distinctive design requires going against the distribution, not with it.
+Common patterns aren't inherently wrong — unexamined choices are.
+
+Distinctive design requires going against the distribution, not with it. But sometimes the conventional choice IS the right choice — as long as you've considered the alternatives.

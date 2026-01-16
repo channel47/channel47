@@ -4,6 +4,47 @@ Production-grade performance optimizations for canvas animations.
 
 ---
 
+## Standard Initialization Pattern
+
+Most canvas animations should include these foundational elements. Adapt as needed for your specific use case:
+
+```typescript
+// DPI scaling
+const dpr = window.devicePixelRatio || 1;
+canvas.width = width * dpr;
+canvas.height = height * dpr;
+canvas.style.width = `${width}px`;
+canvas.style.height = `${height}px`;
+ctx.scale(dpr, dpr);
+
+// Visibility API
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) pause();
+  else resume();
+});
+
+// ResizeObserver
+const ro = new ResizeObserver(entries => {
+  const { width, height } = entries[0].contentRect;
+  resize(width, height);
+});
+ro.observe(container);
+
+// Cleanup
+export function destroy() {
+  ro.disconnect();
+  cancelAnimationFrame(animationId);
+}
+```
+
+**Key elements:**
+- DPI scaling for retina displays
+- Visibility API to pause when tab is hidden
+- ResizeObserver for responsive sizing
+- Cleanup function for proper teardown
+
+---
+
 ## The Basics
 
 ### Always Use requestAnimationFrame

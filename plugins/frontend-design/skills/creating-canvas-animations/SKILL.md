@@ -51,57 +51,45 @@ If `--standalone` flag is passed, output instead:
 5. **Self-contained** — Zero dependencies, vanilla TS only
 6. **Cleanup provided** — Always export a `destroy()` function
 
-## Required Boilerplate
+## Core Requirements
 
-Every animation MUST include:
+Every animation MUST handle:
 
-```typescript
-// DPI scaling
-const dpr = window.devicePixelRatio || 1;
-canvas.width = width * dpr;
-canvas.height = height * dpr;
-canvas.style.width = `${width}px`;
-canvas.style.height = `${height}px`;
-ctx.scale(dpr, dpr);
+1. **DPI scaling** — Account for `devicePixelRatio`
+2. **Visibility** — Pause when tab is hidden (Visibility API)
+3. **Responsiveness** — Use `ResizeObserver`, not window resize
+4. **Cleanup** — Export a `destroy()` function
 
-// Visibility API
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) pause();
-  else resume();
-});
+See @reference/performance.md for the standard initialization pattern.
 
-// ResizeObserver
-const ro = new ResizeObserver(entries => {
-  const { width, height } = entries[0].contentRect;
-  resize(width, height);
-});
-ro.observe(container);
+## Reference Architecture
 
-// Cleanup
-export function destroy() {
-  ro.disconnect();
-  cancelAnimationFrame(animationId);
-}
-```
+### Always Consult
+- @frameworks/anti-patterns.md — Verify no "AI slop" violations
 
-## Technique Reference
+### Load By Task
+| Building... | Consult... |
+|-------------|------------|
+| Basic shapes, lines, particles | @reference/primitives.md |
+| Layering multiple effects | @reference/composition.md |
+| Custom motion curves | @reference/easing.md |
+| Production optimization | @reference/performance.md |
 
-Before generating, load relevant technique docs:
+### Deep Dives
+| For... | Consult... |
+|--------|------------|
+| Font selection, scale | @frameworks/typography.md |
+| Palette generation, CSS vars | @frameworks/color.md |
+| Timing, easing principles | @frameworks/motion.md |
 
-- @reference/primitives.md — Lines, shapes, text, particles, grids, noise
-- @reference/composition.md — Layering, color relationships, density, choreography
-- @reference/easing.md — Easing function library
-- @reference/performance.md — Optimization patterns
-- @reference/examples.md — Worked examples (Interface Craft style)
-
-## Design System Reference
-
-Apply shared design principles:
-
-- @frameworks/typography.md — Font selection (avoid Inter, Roboto)
-- @frameworks/color.md — Palette generation, CSS variables
-- @frameworks/motion.md — Timing, easing principles
-- @frameworks/anti-patterns.md — What to avoid ("AI slop" list)
+### For Inspiration
+| Pattern | Reference |
+|---------|-----------|
+| Diagonal line patterns | @reference/example-lines.md |
+| Grid/mosaic tiles | @reference/example-grid.md |
+| Matrix/code rain | @reference/example-matrix.md |
+| Wireframe UI mockups | @reference/example-wireframe.md |
+| Combining techniques | @reference/example-combining.md |
 
 ## Aesthetic Direction
 
@@ -112,6 +100,17 @@ Default to **Minimal/Swiss** aesthetic:
 - Think: Linear, Stripe, Vercel
 
 When user specifies a different direction, adapt while maintaining production quality.
+
+## When to Override These Guidelines
+
+These guidelines assume creative freedom. Override when:
+
+- **Matching existing brand** — If the site uses specific colors/motion patterns, match them
+- **Performance constraints** — Simpler animations for low-power devices or older browsers
+- **Accessibility requirements** — Some users need reduced motion; provide static fallbacks
+- **User explicitly requests** — "Make it flashy" or "Keep it subtle" trumps defaults
+
+When overriding, document the reason in the output README.md.
 
 ## Animation Types
 
