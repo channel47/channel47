@@ -1,0 +1,507 @@
+---
+/**
+ * AsciiBlocks Component
+ *
+ * A dense field of ASCII block characters that creates a living, breathing texture.
+ * Multiple waves travel through the field, creating interference patterns.
+ * Periodic pulses ripple outward. Resonance cascades to neighbors.
+ * Where forces align, "signal" emerges from "noise" — blocks brighten and stabilize.
+ *
+ * Metaphor: Same characters, same tools, available to everyone.
+ * But patterns emerge for those who learn to see them.
+ * The signal is there. Most just see noise.
+ */
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div
+  class={`ascii-blocks ${className || ''}`.trim()}
+  data-ascii-blocks
+>
+  <canvas id={canvasId} class="ascii-blocks__canvas" aria-hidden="true"></canvas>
+</div>
+
+<script>
+  // Block characters from light to dense
+  const BLOCKS = [' ', '░', '▒', '▓', '█'];
+
+  interface Cell {
+    x: number;
+    y: number;
+    col: number;
+    row: number;
+    phase: number;
+    resonance: number;
+    pulseEnergy: number;
+    char: string;
+    opacity: number;
+    hue: number;
+  }
+
+  interface Wave {
+    angle: number;
+    frequency: number;
+    speed: number;
+    phase: number;
+    amplitude: number;
+  }
+
+  interface Pulse {
+    x: number;
+    y: number;
+    time: number;
+    strength: number;
+    speed: number;
+  }
+
+  interface AnimationState {
+    cells: Cell[];
+    cellGrid: (Cell | null)[][];
+    waves: Wave[];
+    pulses: Pulse[];
+    width: number;
+    height: number;
+    cols: number;
+    rows: number;
+    cellSize: number;
+    time: number;
+    lastPulseTime: number;
+    animationId: number;
+    isRunning: boolean;
+    hasStarted: boolean;
+    startTime: number;
+  }
+
+  function initAsciiBlocks() {
+    const containers = document.querySelectorAll('[data-ascii-blocks]');
+
+    containers.forEach((container) => {
+      if (container.hasAttribute('data-initialized')) return;
+      container.setAttribute('data-initialized', 'true');
+
+      const canvas = container.querySelector('canvas') as HTMLCanvasElement;
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      // Configuration
+      const config = {
+        baseCellSize: 16,
+        waveCount: 5,
+        noiseOpacity: 0.08,
+        signalOpacity: 0.95,
+        resonanceThreshold: 0.55,
+        entranceDuration: 1800,
+        resonanceDecay: 0.015,
+        resonanceBuild: 0.12,
+        cascadeStrength: 0.4,
+        pulseInterval: 3000,
+        pulseDecay: 0.0008,
+        pulseRadius: 300,
+      };
+
+      // Animation state
+      const state: AnimationState = {
+        cells: [],
+        cellGrid: [],
+        waves: [],
+        pulses: [],
+        width: 0,
+        height: 0,
+        cols: 0,
+        rows: 0,
+        cellSize: config.baseCellSize,
+        time: 0,
+        lastPulseTime: 0,
+        animationId: 0,
+        isRunning: false,
+        hasStarted: false,
+        startTime: 0,
+      };
+
+      // Create waves
+      function createWaves() {
+        state.waves = [
+          // Primary horizontal sweep (dominant)
+          { angle: 0, frequency: 0.06, speed: 0.0015, phase: 0, amplitude: 0.45 },
+          // Diagonal cross-wave
+          { angle: Math.PI * 0.2, frequency: 0.045, speed: 0.001, phase: Math.PI * 0.3, amplitude: 0.3 },
+          // Counter diagonal
+          { angle: -Math.PI * 0.15, frequency: 0.055, speed: 0.0012, phase: Math.PI * 0.7, amplitude: 0.25 },
+          // Slow vertical drift
+          { angle: Math.PI * 0.5, frequency: 0.025, speed: 0.0004, phase: Math.PI, amplitude: 0.2 },
+          // Fast shimmer (high frequency, low amplitude)
+          { angle: Math.PI * 0.1, frequency: 0.12, speed: 0.003, phase: 0, amplitude: 0.15 },
+        ];
+      }
+
+      // Create grid of cells
+      function createCells() {
+        state.cells = [];
+        state.cellGrid = [];
+
+        for (let row = 0; row < state.rows; row++) {
+          state.cellGrid[row] = [];
+          for (let col = 0; col < state.cols; col++) {
+            const cell: Cell = {
+              x: col * state.cellSize,
+              y: row * state.cellSize,
+              col,
+              row,
+              phase: Math.random() * Math.PI * 2,
+              resonance: 0,
+              pulseEnergy: 0,
+              char: BLOCKS[1 + Math.floor(Math.random() * 2)],
+              opacity: 0,
+              hue: 30 + Math.random() * 15, // Warm variation
+            };
+            state.cells.push(cell);
+            state.cellGrid[row][col] = cell;
+          }
+        }
+      }
+
+      // Get neighbor cells
+      function getNeighbors(cell: Cell): Cell[] {
+        const neighbors: Cell[] = [];
+        const dirs = [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [1, 1], [-1, 1], [1, -1]];
+
+        for (const [dr, dc] of dirs) {
+          const nr = cell.row + dr;
+          const nc = cell.col + dc;
+          if (nr >= 0 && nr < state.rows && nc >= 0 && nc < state.cols) {
+            const neighbor = state.cellGrid[nr]?.[nc];
+            if (neighbor) neighbors.push(neighbor);
+          }
+        }
+        return neighbors;
+      }
+
+      // Calculate wave influence at a point
+      function getWaveValue(x: number, y: number, time: number): number {
+        let total = 0;
+        let maxPossible = 0;
+
+        for (const wave of state.waves) {
+          const projected = x * Math.cos(wave.angle) + y * Math.sin(wave.angle);
+          const wavePos = projected * wave.frequency + time * wave.speed + wave.phase;
+          const value = (Math.sin(wavePos) + 1) / 2;
+          total += value * wave.amplitude;
+          maxPossible += wave.amplitude;
+        }
+
+        return total / maxPossible;
+      }
+
+      // Calculate pulse influence
+      function getPulseValue(x: number, y: number, time: number): number {
+        let total = 0;
+
+        for (const pulse of state.pulses) {
+          const dx = x - pulse.x;
+          const dy = y - pulse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const elapsed = time - pulse.time;
+          const wavePos = dist - elapsed * pulse.speed;
+
+          // Ring shape with falloff
+          if (wavePos > -50 && wavePos < 30 && dist < config.pulseRadius) {
+            const ringStrength = Math.exp(-Math.abs(wavePos) * 0.05);
+            const distFalloff = 1 - dist / config.pulseRadius;
+            const timeFalloff = Math.exp(-elapsed * config.pulseDecay);
+            total += ringStrength * distFalloff * timeFalloff * pulse.strength;
+          }
+        }
+
+        return Math.min(1, total);
+      }
+
+      // Spawn a new pulse
+      function spawnPulse() {
+        // Random position weighted toward center
+        const x = state.width * (0.2 + Math.random() * 0.6);
+        const y = state.height * (0.3 + Math.random() * 0.4);
+
+        state.pulses.push({
+          x,
+          y,
+          time: state.time,
+          strength: 0.7 + Math.random() * 0.3,
+          speed: 0.08 + Math.random() * 0.04,
+        });
+
+        // Clean up old pulses
+        state.pulses = state.pulses.filter(p =>
+          state.time - p.time < 5000
+        );
+      }
+
+      // Setup canvas
+      function setupCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        state.width = rect.width;
+        state.height = rect.height;
+
+        // Responsive cell size
+        if (rect.width < 480) {
+          state.cellSize = 11;
+        } else if (rect.width < 768) {
+          state.cellSize = 13;
+        } else if (rect.width < 1024) {
+          state.cellSize = 15;
+        } else {
+          state.cellSize = 17;
+        }
+
+        state.cols = Math.ceil(rect.width / state.cellSize) + 2;
+        state.rows = Math.ceil(rect.height / state.cellSize) + 2;
+
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        canvas.style.width = `${rect.width}px`;
+        canvas.style.height = `${rect.height}px`;
+
+        ctx.scale(dpr, dpr);
+
+        createWaves();
+        createCells();
+        state.pulses = [];
+      }
+
+      // Easing
+      function easeOutExpo(t: number): number {
+        return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+      }
+
+      // Main animation loop
+      function animate(timestamp: number) {
+        if (!state.isRunning) return;
+
+        if (!state.hasStarted) {
+          state.startTime = timestamp;
+          state.hasStarted = true;
+          state.lastPulseTime = timestamp;
+        }
+
+        state.time = timestamp - state.startTime;
+
+        // Spawn periodic pulses
+        if (state.time - state.lastPulseTime > config.pulseInterval && state.time > 800) {
+          spawnPulse();
+          state.lastPulseTime = state.time;
+        }
+
+        const entranceProgress = Math.min(1, easeOutExpo(state.time / config.entranceDuration));
+
+        ctx.clearRect(0, 0, state.width, state.height);
+
+        // Font setup
+        ctx.font = `${state.cellSize * 0.95}px "Geist Mono", ui-monospace, monospace`;
+        ctx.textBaseline = 'top';
+        ctx.textAlign = 'left';
+
+        // First pass: calculate wave values and initial resonance
+        for (const cell of state.cells) {
+          const cx = cell.x + state.cellSize / 2;
+          const cy = cell.y + state.cellSize / 2;
+
+          const waveValue = getWaveValue(cx, cy, state.time);
+          const pulseValue = getPulseValue(cx, cy, state.time);
+          const localNoise = Math.sin(state.time * 0.0015 + cell.phase) * 0.5 + 0.5;
+
+          const combined = waveValue * 0.7 + localNoise * 0.15 + pulseValue * 0.4;
+          cell.pulseEnergy = pulseValue;
+
+          const isResonant = combined > config.resonanceThreshold;
+
+          if (isResonant || pulseValue > 0.3) {
+            cell.resonance = Math.min(1, cell.resonance + config.resonanceBuild);
+          } else {
+            cell.resonance = Math.max(0, cell.resonance - config.resonanceDecay);
+          }
+        }
+
+        // Second pass: cascade resonance to neighbors
+        for (const cell of state.cells) {
+          if (cell.resonance > 0.6) {
+            const neighbors = getNeighbors(cell);
+            for (const neighbor of neighbors) {
+              const transfer = (cell.resonance - 0.5) * config.cascadeStrength * 0.5;
+              neighbor.resonance = Math.min(1, neighbor.resonance + transfer * 0.3);
+            }
+          }
+        }
+
+        // Third pass: draw cells
+        for (const cell of state.cells) {
+          // Entrance animation (diagonal sweep)
+          const diagProgress = (cell.x + cell.y * 0.5) / (state.width + state.height * 0.5);
+          const entranceDelay = diagProgress * 0.5;
+          const cellEntrance = Math.max(0, Math.min(1,
+            (entranceProgress - entranceDelay) / (1 - entranceDelay * 0.5)
+          ));
+
+          if (cellEntrance <= 0) continue;
+
+          // Calculate opacity
+          const baseOpacity = config.noiseOpacity +
+            (config.signalOpacity - config.noiseOpacity) * cell.resonance;
+          const pulseBoost = cell.pulseEnergy * 0.3;
+          cell.opacity = (baseOpacity + pulseBoost) * cellEntrance;
+
+          // Choose character
+          const intensity = cell.resonance + cell.pulseEnergy * 0.5;
+          let charIndex = Math.floor(intensity * (BLOCKS.length - 1));
+          charIndex = Math.max(1, Math.min(BLOCKS.length - 1, charIndex));
+
+          // High resonance = denser
+          if (cell.resonance > 0.7) {
+            charIndex = Math.min(BLOCKS.length - 1, charIndex + 1);
+          }
+          cell.char = BLOCKS[charIndex];
+
+          // Color
+          const saturation = 0.04 + 0.12 * cell.resonance + 0.05 * cell.pulseEnergy;
+          const lightness = 35 + 40 * cell.resonance + 15 * cell.pulseEnergy;
+          const hue = cell.hue + cell.pulseEnergy * 10;
+
+          ctx.fillStyle = `oklch(${lightness}% ${saturation} ${hue} / ${cell.opacity})`;
+          ctx.fillText(cell.char, cell.x, cell.y);
+
+          // Glow layer for bright cells
+          if (cell.resonance > 0.75 || cell.pulseEnergy > 0.5) {
+            const glowStrength = Math.max(cell.resonance - 0.6, cell.pulseEnergy * 0.5);
+            ctx.fillStyle = `oklch(75% 0.18 40 / ${glowStrength * 0.25 * cellEntrance})`;
+            ctx.fillText(cell.char, cell.x, cell.y);
+          }
+        }
+
+        state.animationId = requestAnimationFrame(animate);
+      }
+
+      function start() {
+        if (state.isRunning) return;
+        state.isRunning = true;
+        state.hasStarted = false;
+        state.animationId = requestAnimationFrame(animate);
+      }
+
+      function pause() {
+        state.isRunning = false;
+        cancelAnimationFrame(state.animationId);
+      }
+
+      function handleVisibility() {
+        if (document.hidden) {
+          pause();
+        } else if (container.hasAttribute('data-visible')) {
+          start();
+        }
+      }
+
+      document.addEventListener('visibilitychange', handleVisibility);
+
+      const resizeObserver = new ResizeObserver(() => {
+        setupCanvas();
+      });
+      resizeObserver.observe(container);
+
+      const intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              container.setAttribute('data-visible', 'true');
+              start();
+            } else {
+              container.removeAttribute('data-visible');
+              pause();
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+      intersectionObserver.observe(container);
+
+      setupCanvas();
+
+      (container as HTMLElement & { destroy?: () => void }).destroy = () => {
+        pause();
+        resizeObserver.disconnect();
+        intersectionObserver.disconnect();
+        document.removeEventListener('visibilitychange', handleVisibility);
+      };
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAsciiBlocks);
+  } else {
+    initAsciiBlocks();
+  }
+
+  document.addEventListener('astro:page-load', initAsciiBlocks);
+</script>
+
+<style>
+  .ascii-blocks {
+    position: relative;
+    width: 100%;
+    height: 130px;
+    overflow: hidden;
+
+    /* Smooth edge fade */
+    mask-image:
+      linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%),
+      linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    mask-composite: intersect;
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%),
+      linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    -webkit-mask-composite: source-in;
+  }
+
+  @media (min-width: 480px) {
+    .ascii-blocks {
+      height: 150px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .ascii-blocks {
+      height: 180px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .ascii-blocks {
+      height: 210px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .ascii-blocks {
+      height: 240px;
+    }
+  }
+
+  .ascii-blocks__canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ascii-blocks__canvas {
+      opacity: 0.35;
+    }
+  }
+</style>
