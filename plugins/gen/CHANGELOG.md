@@ -5,6 +5,18 @@ All notable changes to the Gen Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.1] - 2026-01-19
+
+### Changed
+- **Agent best practices:** Updated `image-creator` agent to follow Claude Code standards
+  - Removed non-standard `triggerWords` and `color` fields
+  - Added explicit `model: sonnet` specification
+  - Updated description with "use proactively" trigger phrase
+- **Package renamed:** `channel47-creative-designer` → `channel47-gen` in pyproject.toml
+
+### Removed
+- Outdated test files (`tests/`, `pytest.ini`, `requirements.txt`) that referenced old internal MCP module
+
 ## [2.4.0] - 2026-01-16
 
 ### Changed

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "channel47-gen"
-version = "2.4.0"
+version = "2.4.1"
 description = "Creative Designer Claude Code Plugin - AI-powered image generation"
 readme = "README.md"
 license = "MIT"
