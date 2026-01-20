@@ -3,8 +3,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "channel47-creative-designer"
-version = "2.2.0"
+name = "channel47-gen"
+version = "2.4.0"
 description = "Creative Designer Claude Code Plugin - AI-powered image generation"
 readme = "README.md"
 license = "MIT"
