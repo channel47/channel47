@@ -14,7 +14,7 @@
       "name": "ads",
       "source": "./plugins/ads",
       "description": "Google Ads management with subagent-based architecture",
-      "version": "4.1.0",
+      "version": "4.1.1",
       "category": "marketing",
       "tags": ["google-ads", "gaql", "marketing", "analytics", "ppc", "subagent"]
     },
@@ -30,7 +30,7 @@
       "name": "copy",
       "source": "./plugins/copy",
       "description": "Master copywriting frameworks",
-      "version": "2.1.0",
+      "version": "2.1.1",
       "category": "writing",
       "tags": ["copywriting", "sales-copy", "direct-response"]
     },
@@ -38,7 +38,7 @@
       "name": "prompt",
       "source": "./plugins/prompt",
       "description": "Optimize prompts for Claude",
-      "version": "2.1.0",
+      "version": "2.1.1",
       "category": "development",
       "tags": ["prompts", "optimization", "prompt-engineering"]
     },

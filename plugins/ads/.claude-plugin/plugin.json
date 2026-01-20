@@ -1,6 +1,6 @@
 {
   "name": "ads",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Google Ads management with subagent-based architecture. Query isolation via analyst subagent, autonomous GAQL generation, mutation oversight via hooks.",
   "author": {
     "name": "Jackson",

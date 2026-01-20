@@ -1,6 +1,6 @@
 {
   "name": "prompt",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Optimize prompts using Anthropic's 2025 best practices for Claude 4.x models",
   "author": {
     "name": "Jackson",

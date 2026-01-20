@@ -2,6 +2,11 @@
 
 All notable changes to the Prompt Plugin will be documented in this file.
 
+## [2.1.1] - 2026-01-19
+
+### Changed
+- **Prompt-enhancer skill:** Added `allowed-tools` restriction (Read, Grep, Glob) for improved security
+
 ## [2.1.0] - 2026-01-16
 
 ### Changed
