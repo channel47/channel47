@@ -1,6 +1,7 @@
 ---
 name: troubleshooting
 description: Plugin-specific Google Ads errors. Use when hitting auth, format, or hook issues.
+allowed-tools: []
 ---
 
 # Google Ads Plugin Troubleshooting

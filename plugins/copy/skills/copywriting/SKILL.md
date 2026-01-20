@@ -3,6 +3,11 @@ name: copywriting
 description: |
   Master copywriting with Schwartz awareness levels, Hemingway economy, and Halbert conversational urgency.
   Use when writing sales copy, emails, landing pages, headlines, or analyzing/improving existing copy.
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+  - Bash
 args:
   - name: awareness
     description: Prospect awareness level (1-5) for Schwartz framework

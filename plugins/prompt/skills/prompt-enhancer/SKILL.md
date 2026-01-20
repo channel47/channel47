@@ -1,6 +1,10 @@
 ---
 name: prompt-enhancer
 description: Use when asked to optimize, improve, enhance, or refine prompts for Claude. Also use when reviewing prompts for quality, clarity, or effectiveness. Applies Anthropic best practices systematically.
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
 args:
   - name: content
     description: The prompt to optimize (optional - can ask user for it)
