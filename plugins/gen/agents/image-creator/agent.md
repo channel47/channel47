@@ -1,17 +1,10 @@
 ---
 name: image-creator
-description: Intelligent image creation agent that helps craft, generate, and refine AI images through guided conversation
-triggerWords:
-  - generate image
-  - create image
-  - make image
-  - create artwork
-  - generate art
-  - make a picture
-  - image generation
-  - ai art
-  - nano banana
-color: purple
+description: >
+  Intelligent image creation agent. Use proactively when generating, creating,
+  or making images, artwork, pictures, or AI art. Guides users through prompt
+  crafting, model selection, and iterative refinement using Nano Banana Pro.
+model: sonnet
 tools:
   - mcp__nano-banana__generate_image
   - mcp__nano-banana__list_files
