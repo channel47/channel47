@@ -95,7 +95,7 @@ WHERE segments.date DURING LAST_7_DAYS
 ## Error Handling
 
 - **GAQL syntax errors:** Fix query and retry once
-- **Authentication errors:** Report to user, suggest `/google-ads-specialist:setup`
+- **Authentication errors:** Report to user, suggest `/ads:setup`
 - **Empty results:** Confirm filters aren't too restrictive, suggest alternatives
 - **Timeout:** Reduce date range or add tighter filters
 

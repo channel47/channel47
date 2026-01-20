@@ -23,7 +23,7 @@ Updated for Claude 4.x literal interpretation and improved instruction following
 
 **Optimize an existing prompt:**
 ```bash
-/prompt-enhancer "Your prompt here"
+/prompt:prompt-enhancer "Your prompt here"
 ```
 
 ## What You Get
@@ -36,7 +36,7 @@ Updated for Claude 4.x literal interpretation and improved instruction following
 
 ## Features
 
-### Main Skill: `/prompt-enhancer`
+### Main Skill: `/prompt:prompt-enhancer`
 
 Systematically optimizes prompts using:
 - Mandatory techniques (XML tags, role, output format, data separation)

@@ -365,7 +365,7 @@ Common issues:
 - Missing permissions: Ensure the Google Ads API is enabled
 - Wrong account: Verify LOGIN_CUSTOMER_ID matches your MCC account
 
-Run /google-ads-specialist:setup again to reconfigure.
+Run /ads:setup again to reconfigure.
 ```
 
 ## Phase 10: Quick Reference

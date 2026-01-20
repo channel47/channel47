@@ -56,7 +56,7 @@ The plugin will automatically install the required MCP server (`@channel47/googl
 **Manual Installation:**
 
 1. Clone this repository
-2. Copy to your Claude Code plugins directory: `~/.claude/plugins/google-ads-specialist`
+2. Copy to your Claude Code plugins directory: `~/.claude/plugins/ads`
 3. Configure OAuth credentials (see GETTING_STARTED.md)
 
 The MCP server is distributed as an npm package and installed automatically. No manual server setup required.
@@ -81,7 +81,7 @@ Optional:
 | `GOOGLE_ADS_LOGIN_CUSTOMER_ID` | MCC Account ID (10 digits, no dashes) |
 | `GOOGLE_ADS_DEFAULT_CUSTOMER_ID` | Default account ID for queries |
 
-**Quick Setup:** Run `/google-ads-specialist:setup` for an interactive setup wizard.
+**Quick Setup:** Run `/ads:setup` for an interactive setup wizard.
 
 See `GETTING_STARTED.md` for detailed OAuth setup instructions.
 
@@ -273,7 +273,7 @@ To modify the subagent, skill, or documentation:
 1. Clone this repository
 2. Edit files in `agents/`, `skills/`, or `.claude/hooks/`
 3. Update documentation as needed
-4. Test locally by copying to `~/.claude/plugins/google-ads-specialist`
+4. Test locally by copying to `~/.claude/plugins/ads`
 
 ### MCP Server Development
 

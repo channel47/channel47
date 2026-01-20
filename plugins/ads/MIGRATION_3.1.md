@@ -163,7 +163,7 @@ Server and plugin can now be updated independently:
 
 **Option 2: Manual**
 ```bash
-cd ~/.claude/plugins/google-ads-specialist
+cd ~/.claude/plugins/ads
 git checkout v3.0.0
 ```
 

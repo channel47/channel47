@@ -11,7 +11,7 @@ description: Plugin-specific Google Ads errors. Use when hitting auth, format, o
 - Set default: `GOOGLE_ADS_DEFAULT_CUSTOMER_ID` env var
 
 ## Authentication Errors
-- "AUTHENTICATION_ERROR": Refresh token expired - re-run `/google-ads-specialist:setup`
+- "AUTHENTICATION_ERROR": Refresh token expired - re-run `/ads:setup`
 - "PERMISSION_DENIED": Account not accessible under current MCC
 - "DEVELOPER_TOKEN_NOT_APPROVED": Token still pending Google approval
 

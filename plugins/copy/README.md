@@ -113,7 +113,7 @@ The skill engages automatically when Claude detects:
 ## File Structure
 
 ```
-copywriting-expert/
+copy/
 ├── skills/copywriting/
 │   ├── SKILL.md
 │   └── frameworks/

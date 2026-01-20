@@ -25,7 +25,7 @@ The first time you activate the plugin, npx will download and cache the MCP serv
 **If this is your first time:** Run the interactive setup wizard:
 
 ```
-/google-ads-specialist:setup
+/ads:setup
 ```
 
 Or follow the complete manual setup guide below.

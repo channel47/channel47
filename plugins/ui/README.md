@@ -66,7 +66,7 @@ Shared frameworks apply to all skills:
 ## Installation
 
 ```bash
-claude plugin install channel47/frontend-design
+claude plugin install channel47/ui
 ```
 
 ## Version
