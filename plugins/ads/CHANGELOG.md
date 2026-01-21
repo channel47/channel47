@@ -5,6 +5,15 @@ All notable changes to the Ads Plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.2] - 2026-01-20
+
+### Fixed
+- **Documentation cleanup:** Removed outdated v3 skill references from GETTING_STARTED.md
+  - Updated test commands to reflect subagent-based architecture
+  - Removed references to removed skills (campaign-performance, wasted-spend-analysis, etc.)
+  - Updated "Next Steps" section with current v4 workflow examples
+- **README accuracy:** Fixed incorrect hooks path (was `.claude/hooks/`, now `hooks/`)
+
 ## [4.1.1] - 2026-01-19
 
 ### Changed

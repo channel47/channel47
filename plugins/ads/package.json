@@ -1,6 +1,6 @@
 {
   "name": "ads",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "Google Ads Claude Code Plugin - Subagent-based architecture for Google Ads campaign management",
   "type": "module",
   "scripts": {

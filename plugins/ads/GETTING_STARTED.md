@@ -207,12 +207,12 @@ The MCP server is automatically managed by Claude Code. No manual server command
 
 ### Test with Claude Code
 
-Try commands that reference skills:
+Try these commands:
 - "List my Google Ads accounts"
-- "Use the campaign-performance skill to show my top campaigns for the last 30 days"
-- "Reference the wasted-spend-analysis skill and find opportunities to save money"
+- "Show my top campaigns for the last 30 days"
+- "Analyze my search terms and find wasted spend"
 
-**Note:** The `mcp__google-ads__query` and `mcp__google-ads__mutate` tools require skill references. Claude will automatically reference the appropriate skill file before executing operations.
+The `google-ads-analyst` subagent handles query construction autonomously—no skill references needed.
 
 ## Troubleshooting
 
@@ -269,21 +269,21 @@ Common GAQL issues:
 
 ## Next Steps
 
-1. **Explore Skills**: Browse the `skills/` directory to see available GAQL patterns:
-   - `atomic-campaign-performance` - Campaign metrics and analysis
-   - `atomic-search-terms-report` - Search query analysis
-   - `atomic-wasted-spend-analysis` - Find budget waste
-   - `playbook-account-health-audit` - Comprehensive account audit
+1. **Learn GAQL**: Review the [GAQL reference](https://developers.google.com/google-ads/api/docs/query/overview) for query syntax
 
-2. **Learn GAQL**: Review the [GAQL reference](https://developers.google.com/google-ads/api/docs/query/overview)
+2. **Understand the Architecture**: Read the [README](./README.md) to learn about:
+   - 3-tool architecture via `google-ads` MCP server
+   - Subagent-based query handling
+   - Hook validation for mutations
 
-3. **Understand the Architecture**: Read the [README](./README.md) to learn about:
-   - 3-tool architecture via `google-ads` MCP server (`mcp__google-ads__list_accounts`, `mcp__google-ads__query`, `mcp__google-ads__mutate`)
-   - Hook validation workflow
-   - Skill-based progressive disclosure
+3. **Try Analysis Queries**: The `google-ads-analyst` subagent handles queries autonomously:
+   - "Analyze campaign performance trends over the last 90 days"
+   - "Find my worst performing keywords by cost per conversion"
+   - "Show search terms with high spend but no conversions"
 
-4. **Run an Audit**: Try the account health audit playbook:
-   - "Use the playbook-account-health-audit skill to audit my account"
+4. **Run Mutations Safely**: Mutations default to `dry_run: true`:
+   - "Add 'free' as a negative keyword to my brand campaign"
+   - Review the dry-run preview before confirming live execution
 
 ## Support
 

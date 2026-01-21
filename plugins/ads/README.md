@@ -240,17 +240,9 @@ agents/
 skills/
 └── troubleshooting/
     └── SKILL.md            # Plugin-specific errors only
-.claude/hooks/
+hooks/
+├── hooks.json              # Hook registration
 └── validate-mutations.py   # Gates live mutations only
-```
-
-### Hook Configuration
-
-```
-.claude/
-├── hooks/
-│   └── validate-mutations.py   # Mutation validation script
-└── settings.json               # Hook registration
 ```
 
 ## Security

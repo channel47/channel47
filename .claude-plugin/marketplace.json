@@ -14,7 +14,7 @@
       "name": "ads",
       "source": "./plugins/ads",
       "description": "Google Ads management with subagent-based architecture",
-      "version": "4.1.1",
+      "version": "4.1.2",
       "category": "marketing",
       "tags": ["google-ads", "gaql", "marketing", "analytics", "ppc", "subagent"]
     },
