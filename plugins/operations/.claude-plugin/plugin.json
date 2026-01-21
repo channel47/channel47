@@ -1,0 +1,26 @@
+{
+  "name": "operations",
+  "version": "1.0.0",
+  "description": "AI operations suite replacing Financial Analyst roles. Financial modeling, reporting, and data analysis.",
+  "author": {
+    "name": "Jackson",
+    "url": "https://channel47.dev"
+  },
+  "homepage": "https://channel47.dev/plugins/operations",
+  "repository": "https://github.com/channel47/channel47",
+  "license": "MIT",
+  "keywords": [
+    "operations",
+    "financial-analysis",
+    "reporting",
+    "data-analysis",
+    "spreadsheets",
+    "forecasting"
+  ],
+  "domain": {
+    "name": "Operations",
+    "professionsReplaced": ["Financial Analyst"],
+    "tools": []
+  },
+  "status": "coming-soon"
+}

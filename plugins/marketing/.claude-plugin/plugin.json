@@ -1,0 +1,28 @@
+{
+  "name": "marketing",
+  "version": "1.0.0",
+  "description": "Complete AI marketing suite replacing Media Buyer and Copywriter roles. Includes Google Ads management, AI image generation, and copywriting frameworks.",
+  "author": {
+    "name": "Jackson",
+    "url": "https://channel47.dev"
+  },
+  "homepage": "https://channel47.dev/plugins/marketing",
+  "repository": "https://github.com/channel47/channel47",
+  "license": "MIT",
+  "keywords": [
+    "marketing",
+    "google-ads",
+    "image-generation",
+    "copywriting",
+    "media-buyer",
+    "ppc",
+    "advertising",
+    "ai-marketing"
+  ],
+  "domain": {
+    "name": "Marketing",
+    "professionsReplaced": ["Media Buyer", "Copywriter"],
+    "tools": ["ads", "gen", "copy"]
+  },
+  "mcpServers": "./.mcp.json"
+}

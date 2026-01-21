@@ -1,0 +1,27 @@
+{
+  "name": "content",
+  "version": "1.0.0",
+  "description": "AI content suite replacing Writer and Editor roles. Long-form writing, editing, and content management.",
+  "author": {
+    "name": "Jackson",
+    "url": "https://channel47.dev"
+  },
+  "homepage": "https://channel47.dev/plugins/content",
+  "repository": "https://github.com/channel47/channel47",
+  "license": "MIT",
+  "keywords": [
+    "content",
+    "writing",
+    "editing",
+    "long-form",
+    "blog",
+    "documentation",
+    "technical-writing"
+  ],
+  "domain": {
+    "name": "Content",
+    "professionsReplaced": ["Writer", "Editor"],
+    "tools": []
+  },
+  "status": "coming-soon"
+}

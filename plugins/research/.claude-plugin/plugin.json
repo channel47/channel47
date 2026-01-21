@@ -1,0 +1,26 @@
+{
+  "name": "research",
+  "version": "1.0.0",
+  "description": "AI research suite replacing Research Analyst roles. Deep research, pattern analysis, and knowledge synthesis.",
+  "author": {
+    "name": "Jackson",
+    "url": "https://channel47.dev"
+  },
+  "homepage": "https://channel47.dev/plugins/research",
+  "repository": "https://github.com/channel47/channel47",
+  "license": "MIT",
+  "keywords": [
+    "research",
+    "analysis",
+    "deep-research",
+    "knowledge-synthesis",
+    "pattern-recognition",
+    "intelligence"
+  ],
+  "domain": {
+    "name": "Research",
+    "professionsReplaced": ["Research Analyst"],
+    "tools": []
+  },
+  "status": "coming-soon"
+}

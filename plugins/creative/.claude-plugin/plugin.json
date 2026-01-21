@@ -1,0 +1,27 @@
+{
+  "name": "creative",
+  "version": "1.0.0",
+  "description": "AI creative suite replacing Graphic Designer roles. Includes AI image generation and photo editing capabilities.",
+  "author": {
+    "name": "Jackson",
+    "url": "https://channel47.dev"
+  },
+  "homepage": "https://channel47.dev/plugins/creative",
+  "repository": "https://github.com/channel47/channel47",
+  "license": "MIT",
+  "keywords": [
+    "creative",
+    "image-generation",
+    "graphic-design",
+    "ai-art",
+    "photo-editing",
+    "visual-design",
+    "gemini"
+  ],
+  "domain": {
+    "name": "Creative",
+    "professionsReplaced": ["Graphic Designer"],
+    "tools": ["gen"]
+  },
+  "mcpServers": "./.mcp.json"
+}

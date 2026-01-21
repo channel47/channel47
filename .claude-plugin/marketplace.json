@@ -6,33 +6,93 @@
   },
   "metadata": {
     "pluginRoot": "./plugins",
-    "description": "Open-source AI tools for media buyers and marketers",
-    "version": "1.0.0"
+    "description": "Open-source plugins that replace professions",
+    "version": "2.0.0",
+    "tagline": "AI tools organized by professional domain"
   },
-  "plugins": [
+  "domains": [
+    {
+      "name": "marketing",
+      "source": "./plugins/marketing",
+      "description": "Complete AI marketing suite replacing Media Buyer and Copywriter roles",
+      "version": "1.0.0",
+      "professionsReplaced": ["Media Buyer", "Copywriter"],
+      "tools": ["ads", "gen", "copy"],
+      "status": "available"
+    },
+    {
+      "name": "creative",
+      "source": "./plugins/creative",
+      "description": "AI creative suite replacing Graphic Designer roles",
+      "version": "1.0.0",
+      "professionsReplaced": ["Graphic Designer"],
+      "tools": ["gen"],
+      "status": "available"
+    },
+    {
+      "name": "operations",
+      "source": "./plugins/operations",
+      "description": "AI operations suite replacing Financial Analyst roles",
+      "version": "1.0.0",
+      "professionsReplaced": ["Financial Analyst"],
+      "tools": [],
+      "status": "coming-soon"
+    },
+    {
+      "name": "research",
+      "source": "./plugins/research",
+      "description": "AI research suite replacing Research Analyst roles",
+      "version": "1.0.0",
+      "professionsReplaced": ["Research Analyst"],
+      "tools": [],
+      "status": "coming-soon"
+    },
+    {
+      "name": "content",
+      "source": "./plugins/content",
+      "description": "AI content suite replacing Writer and Editor roles",
+      "version": "1.0.0",
+      "professionsReplaced": ["Writer", "Editor"],
+      "tools": [],
+      "status": "coming-soon"
+    }
+  ],
+  "tools": [
     {
       "name": "ads",
-      "source": "./plugins/ads",
+      "source": "./plugins/tools/ads",
       "description": "Google Ads management with subagent-based architecture",
       "version": "4.1.2",
-      "category": "marketing",
-      "tags": ["google-ads", "gaql", "marketing", "analytics", "ppc", "subagent"]
+      "usedBy": ["marketing"]
     },
     {
       "name": "gen",
-      "source": "./plugins/gen",
-      "description": "AI image generation with Gemini",
+      "source": "./plugins/tools/gen",
+      "description": "AI image generation with Gemini (Nano Banana)",
       "version": "2.4.1",
-      "category": "creative",
-      "tags": ["image-generation", "ai-art", "gemini", "mcp"]
+      "usedBy": ["marketing", "creative"]
     },
     {
       "name": "copy",
-      "source": "./plugins/copy",
+      "source": "./plugins/tools/copy",
       "description": "Master copywriting frameworks",
       "version": "2.1.1",
-      "category": "writing",
-      "tags": ["copywriting", "sales-copy", "direct-response"]
+      "usedBy": ["marketing"]
     }
-  ]
+  ],
+  "sharedResources": {
+    "mcpServers": {
+      "google-ads": {
+        "usedBy": ["marketing"],
+        "command": "npx",
+        "args": ["-y", "@channel47/google-ads-mcp@latest"]
+      },
+      "nano-banana": {
+        "usedBy": ["marketing", "creative"],
+        "command": "uvx",
+        "args": ["gemini-image-mcp"]
+      }
+    },
+    "deduplication": "MCP servers with the same name are automatically deduplicated by Claude. Installing both Marketing and Creative plugins will only load nano-banana once."
+  }
 }

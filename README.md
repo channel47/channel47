@@ -1,28 +1,68 @@
 # Channel 47
 
-Open-source AI tools for media buyers and marketers.
+Open-source plugins that replace professions.
 
-## Plugins
+## Domain Plugins
 
-| Plugin | Description | Install |
-|--------|-------------|---------|
-| [Google Ads Specialist](./plugins/google-ads-specialist) | GAQL queries and campaign management | `npx -y @channel47/google-ads-mcp` |
-| [Creative Designer](./plugins/creative-designer) | AI image generation with Gemini | `uvx channel47-creative-designer` |
-| [Copywriting Expert](./plugins/copywriting-expert) | Master copywriting frameworks | Claude Code only |
-| [Prompt Enhancer](./plugins/prompt-enhancer) | Optimize prompts for Claude | Claude Code only |
+Install by professional domain. Each plugin bundles everything needed to replace specific roles.
 
-## Installation
+| Domain | Replaces | Tools | Status |
+|--------|----------|-------|--------|
+| [Marketing](./plugins/marketing) | Media Buyer, Copywriter | Ads, Gen, Copy | Available |
+| [Creative](./plugins/creative) | Graphic Designer | Gen | Available |
+| [Operations](./plugins/operations) | Financial Analyst | — | Coming Soon |
+| [Research](./plugins/research) | Research Analyst | — | Coming Soon |
+| [Content](./plugins/content) | Writer, Editor | — | Coming Soon |
+
+## Quick Start
 
 ### Claude Code
 
 ```bash
+# Add the marketplace
 /plugin marketplace add github:channel47/channel47
-/plugin install google-ads-specialist@channel47
+
+# Install a domain plugin
+/plugin install marketing
 ```
 
 ### Claude Desktop
 
-See individual plugin READMEs for `claude_desktop_config.json` snippets.
+See individual domain READMEs for `claude_desktop_config.json` configuration.
+
+## Tools
+
+Individual tools are bundled within domain plugins. For direct tool access:
+
+| Tool | Function | Domain(s) |
+|------|----------|-----------|
+| [Ads](./plugins/tools/ads) | Google Ads management | Marketing |
+| [Gen](./plugins/tools/gen) | AI image generation | Marketing, Creative |
+| [Copy](./plugins/tools/copy) | Copywriting frameworks | Marketing |
+
+## Project-Level Installation
+
+For best results, install plugins at the **project level**:
+
+```bash
+cd my-project
+/plugin install marketing@channel47
+```
+
+This keeps context focused and manages token usage naturally. Different projects can have different plugins installed.
+
+## Shared Resources
+
+Some tools exist across multiple domains. The Gen tool (AI image generation) serves both Marketing and Creative. When you install both domains, Claude automatically deduplicates—the MCP server loads once, not twice.
+
+## Architecture
+
+See [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) for technical details on:
+
+- Domain plugin structure
+- Shared resource handling
+- Token management
+- Versioning strategy
 
 ## Development
 
@@ -36,6 +76,10 @@ npm run dev
 # Build site
 npm run build
 ```
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ## License
 
