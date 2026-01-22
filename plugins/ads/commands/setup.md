@@ -1,64 +1,97 @@
 ---
-description: Interactive wizard to configure Google Ads and DataForSEO API credentials for the MCP servers
+description: Interactive wizard to configure Google Ads, DataForSEO, and Reddit MCP servers
 ---
 
 # Ads Plugin Setup Wizard
 
-Guide users through configuring the Google Ads and DataForSEO MCP servers.
+Guide users through configuring MCP servers with a menu-driven interface.
 
-## Phase 1: Welcome and Prerequisites Check
+## Phase 1: Status Dashboard
 
-Display welcome message and verify prerequisites:
+First, check which servers are configured by testing for their environment variables:
+
+**Google Ads:**
+- `GOOGLE_ADS_DEVELOPER_TOKEN`
+- `GOOGLE_ADS_CLIENT_ID`
+- `GOOGLE_ADS_CLIENT_SECRET`
+- `GOOGLE_ADS_REFRESH_TOKEN`
+
+Status: CONFIGURED if all 4 are set, NOT CONFIGURED otherwise.
+
+**DataForSEO:**
+- `DATAFORSEO_LOGIN`
+- `DATAFORSEO_PASSWORD`
+
+Status: CONFIGURED if both are set, NOT CONFIGURED otherwise.
+
+**Reddit:**
+- `REDDIT_CLIENT_ID`
+- `REDDIT_CLIENT_SECRET`
+- `REDDIT_USERNAME`
+- `REDDIT_PASSWORD`
+
+Status: CONFIGURED if all 4 are set, ANONYMOUS if none are set (still works), PARTIAL if some are set.
+
+Display the dashboard:
 
 ```
 =================================================================
               Ads Plugin Setup Wizard
 =================================================================
 
-This wizard will help you configure:
-- Google Ads MCP server (campaign management, GAQL queries)
-- DataForSEO MCP server (keyword research data)
+SERVER STATUS
+-------------
+[1] Google Ads MCP    [STATUS]
+    Features: Campaign management, GAQL queries
+    Agent: google-ads-analyst
+    Complexity: HIGH (15-20 min first time)
+    Priority: HIGH - Core functionality
 
-Prerequisites:
-- A Google Ads account with API access
-- A Google Cloud project (we'll help you create one)
-- About 10-15 minutes to complete setup
+[2] DataForSEO MCP    [STATUS]
+    Features: Keyword volume, CPC, trends
+    Agents: keyword-researcher, competitor-researcher
+    Complexity: LOW (2 min)
+    Priority: MEDIUM - Research agents
 
-Let's get started!
+[3] Reddit MCP        [STATUS]
+    Features: Search Reddit, browse posts/comments
+    Agent: competitor-researcher (enhanced)
+    Complexity: NONE (anonymous) or LOW (5 min)
+    Priority: LOW - Nice-to-have
+
+=================================================================
 ```
 
-Check if environment variables are already configured. Report which are set and which are missing.
+Replace [STATUS] with actual status for each server.
 
-**Google Ads (Required):**
-| Variable | Status |
-|----------|--------|
-| `GOOGLE_ADS_DEVELOPER_TOKEN` | Check if set |
-| `GOOGLE_ADS_CLIENT_ID` | Check if set |
-| `GOOGLE_ADS_CLIENT_SECRET` | Check if set |
-| `GOOGLE_ADS_REFRESH_TOKEN` | Check if set |
+## Phase 2: Menu Selection
 
-**Google Ads (Optional):**
-| Variable | Status |
-|----------|--------|
-| `GOOGLE_ADS_LOGIN_CUSTOMER_ID` | Check if set (required for MCC accounts) |
-| `GOOGLE_ADS_DEFAULT_CUSTOMER_ID` | Check if set |
-
-**DataForSEO (Optional - for keyword research):**
-| Variable | Status |
-|----------|--------|
-| `DATAFORSEO_LOGIN` | Check if set |
-| `DATAFORSEO_PASSWORD` | Check if set |
-
-If all Google Ads variables are set, offer to skip to Phase 7 (DataForSEO setup).
-If all variables are set, offer to skip to verification (Phase 9).
-
-## Phase 2: Google Cloud Project Setup
-
-Guide user through Google Cloud Console setup:
+Present the action menu using AskUserQuestion:
 
 ```
-STEP 1: Create a Google Cloud Project
---------------------------------------
+What would you like to do?
+
+[A] Set up Google Ads MCP
+[B] Set up DataForSEO MCP
+[C] Set up Reddit MCP
+[D] Set up all servers
+[E] Skip to verification
+[F] Show troubleshooting help
+```
+
+Accept the user's choice. If they select multiple (e.g., "A, B"), process them in order.
+
+---
+
+## MODULE: Google Ads MCP Setup
+
+This module walks through Google Ads API configuration.
+
+### Step 1: Google Cloud Project
+
+```
+GOOGLE ADS SETUP - Step 1 of 6: Create Google Cloud Project
+-----------------------------------------------------------
 
 1. Open: https://console.cloud.google.com/
 
@@ -69,15 +102,15 @@ STEP 1: Create a Google Cloud Project
    - Click "Create"
 
 3. Note your Project ID for later reference.
-
-Have you created/selected a Google Cloud project?
 ```
 
-After confirmation, continue:
+Ask user to confirm they've created/selected a project.
+
+### Step 2: Enable Google Ads API
 
 ```
-STEP 2: Enable the Google Ads API
----------------------------------
+GOOGLE ADS SETUP - Step 2 of 6: Enable Google Ads API
+-----------------------------------------------------
 
 1. Go to: https://console.cloud.google.com/apis/library
 
@@ -86,17 +119,15 @@ STEP 2: Enable the Google Ads API
 3. Click on "Google Ads API" in the results
 
 4. Click "Enable"
-
-Have you enabled the Google Ads API?
 ```
 
-## Phase 3: OAuth Consent Screen
+Ask user to confirm the API is enabled.
 
-Guide user through OAuth consent screen configuration:
+### Step 3: OAuth Consent Screen
 
 ```
-STEP 3: Configure OAuth Consent Screen
---------------------------------------
+GOOGLE ADS SETUP - Step 3 of 6: OAuth Consent Screen
+----------------------------------------------------
 
 1. Go to: https://console.cloud.google.com/apis/credentials/consent
 
@@ -104,10 +135,10 @@ STEP 3: Configure OAuth Consent Screen
    - Choose "External" (unless you have Google Workspace)
    - Click "Create"
 
-3. Fill in the required fields:
+3. Fill in required fields:
    - App name: "Google Ads MCP"
-   - User support email: Your email address
-   - Developer contact: Your email address
+   - User support email: Your email
+   - Developer contact: Your email
 
 4. Click "Save and Continue"
 
@@ -125,88 +156,69 @@ STEP 3: Configure OAuth Consent Screen
    - Click "Save and Continue"
 
 7. Review and click "Back to Dashboard"
-
-Have you configured the OAuth consent screen?
 ```
 
-## Phase 4: Create OAuth Credentials
+Ask user to confirm consent screen is configured.
 
-Guide user through creating OAuth 2.0 credentials:
+### Step 4: OAuth Credentials
 
 ```
-STEP 4: Create OAuth 2.0 Credentials
-------------------------------------
+GOOGLE ADS SETUP - Step 4 of 6: Create OAuth Credentials
+--------------------------------------------------------
 
 1. Go to: https://console.cloud.google.com/apis/credentials
 
-2. Click "Create Credentials" at the top
+2. Click "Create Credentials" > "OAuth client ID"
 
-3. Select "OAuth client ID"
+3. Application type: "Desktop app"
 
-4. Application type: Select "Desktop app"
+4. Name: "Google Ads MCP Client"
 
-5. Name: "Google Ads MCP Client"
+5. Click "Create"
 
-6. Click "Create"
-
-7. A popup will show your credentials:
-   - Copy the "Client ID" (ends with .apps.googleusercontent.com)
-   - Copy the "Client Secret" (starts with GOCSPX-)
-
-Save these values - you'll need them in the next steps!
-
-Client ID: ________________________________
-Client Secret: ____________________________
+6. Copy from the popup:
+   - Client ID (ends with .apps.googleusercontent.com)
+   - Client Secret (starts with GOCSPX-)
 ```
 
-Ask user to provide their Client ID and Client Secret for validation (format check only).
+Ask user to provide:
+- Client ID
+- Client Secret
 
-## Phase 5: Get Developer Token
+Store these values for configuration generation.
 
-Guide user to obtain their Google Ads Developer Token:
+### Step 5: Developer Token
 
 ```
-STEP 5: Get Your Developer Token
---------------------------------
+GOOGLE ADS SETUP - Step 5 of 6: Get Developer Token
+---------------------------------------------------
 
 1. Sign in to Google Ads: https://ads.google.com/
 
-2. Click the Tools icon (wrench) in the top menu
+2. Click Tools icon (wrench) > "API Center" under Setup
 
-3. Under "Setup", click "API Center"
+3. If you don't have a token:
+   - Apply for API access (Basic access is usually auto-approved)
 
-4. If you don't have a Developer Token:
-   - You'll see an option to apply for API access
-   - Basic access is sufficient for most use cases
-   - Approval is usually automatic for basic access
+4. Copy your Developer Token
 
-5. Copy your Developer Token
-
-Developer Token: ____________________________
-
-Note: If you manage multiple accounts, you'll also need your
-Manager Account (MCC) ID - a 10-digit number without dashes.
-
-MCC Account ID (optional): ____________________________
+Note: If you manage multiple accounts via MCC, you'll also need
+your Manager Account ID (10 digits, no dashes).
 ```
 
-## Phase 6: Generate Refresh Token
+Ask user to provide:
+- Developer Token
+- MCC Account ID (optional)
 
-This is the most complex step. Provide a helper script:
+### Step 6: Refresh Token
 
 ```
-STEP 6: Generate OAuth Refresh Token
-------------------------------------
-
-This step exchanges your OAuth credentials for a refresh token
-that allows the MCP server to authenticate automatically.
-
-Option A: Use our helper script (Recommended)
----------------------------------------------
+GOOGLE ADS SETUP - Step 6 of 6: Generate Refresh Token
+------------------------------------------------------
 
 Run this command in your terminal:
 
-npx @channel47/google-ads-auth
+  npx @channel47/google-ads-auth
 
 The script will:
 1. Open a browser for Google sign-in
@@ -216,14 +228,10 @@ The script will:
 Copy the refresh token when it appears.
 
 
-Option B: Manual OAuth Flow
----------------------------
+MANUAL ALTERNATIVE
+------------------
+If the helper script doesn't work, create get-token.js:
 
-If the helper script doesn't work, you can generate the token manually:
-
-1. Create a file called get-token.js with the following content:
-
----
 const http = require('http');
 const https = require('https');
 const url = require('url');
@@ -239,7 +247,6 @@ const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?` +
 
 console.log('Open this URL in your browser:\n');
 console.log(authUrl);
-console.log('\nWaiting for authorization...');
 
 const server = http.createServer((req, res) => {
   const query = url.parse(req.url, true).query;
@@ -262,8 +269,7 @@ const server = http.createServer((req, res) => {
         const tokens = JSON.parse(data);
         console.log('\n--- Your Refresh Token ---');
         console.log(tokens.refresh_token);
-        console.log('--------------------------\n');
-        res.end('Success! Check your terminal for the refresh token.');
+        res.end('Success! Check terminal.');
         server.close();
         process.exit(0);
       });
@@ -272,220 +278,270 @@ const server = http.createServer((req, res) => {
     tokenReq.end();
   }
 });
-
 server.listen(8080);
+
+Replace YOUR_CLIENT_ID and YOUR_CLIENT_SECRET, then run: node get-token.js
+```
+
+Ask user to provide:
+- Refresh Token
+
+**Google Ads module complete.** Return to menu or continue to next selected server.
+
 ---
 
-2. Replace YOUR_CLIENT_ID and YOUR_CLIENT_SECRET with your values
+## MODULE: DataForSEO MCP Setup
 
-3. Run: node get-token.js
-
-4. Open the URL in your browser and sign in
-
-5. Copy the refresh token from the terminal output
-
-
-Refresh Token: ____________________________
-```
-
-## Phase 7: DataForSEO Setup (Optional)
-
-DataForSEO provides keyword search volume and CPC data for the keyword-researcher agent.
-Skip this section if you don't need keyword research capabilities.
+This module configures DataForSEO API access.
 
 ```
-STEP 7: Get DataForSEO API Credentials
---------------------------------------
+DATAFORSEO SETUP
+----------------
 
-DataForSEO uses simple API login/password authentication.
+DataForSEO provides keyword search volume, CPC, and competition data.
 
 1. Sign up at: https://dataforseo.com/
    - Free trial includes API credits
-   - No credit card required for trial
+   - No credit card required
 
-2. Go to your dashboard: https://app.dataforseo.com/
+2. Go to dashboard: https://app.dataforseo.com/
 
-3. Find your API credentials in the dashboard:
+3. Find your API credentials:
    - Login: Your email address
-   - Password: Your API password (not your account password)
+   - Password: Your API password (NOT your account password)
 
-   Note: The API password is shown in your dashboard settings,
-   separate from your account login password.
-
-DataForSEO Login: ____________________________
-DataForSEO Password: ____________________________
-
-Skip this step? You can always run /ads:setup later to add DataForSEO.
+   The API password is shown in your dashboard settings.
 ```
 
-Ask user if they want to set up DataForSEO or skip. If skipping, note that keyword research features won't be available.
+Ask user to provide:
+- DataForSEO Login (email)
+- DataForSEO Password (API password)
 
-## Phase 8: Configure Environment Variables
+**DataForSEO module complete.** Return to menu or continue to next selected server.
 
-Provide the complete configuration:
+---
+
+## MODULE: Reddit MCP Setup
+
+This module configures Reddit MCP access.
+
+### Authentication Choice
 
 ```
-STEP 8: Configure Claude Code
------------------------------
+REDDIT MCP SETUP
+----------------
 
-Add your credentials to ~/.claude/settings.json:
+Reddit MCP can run in two modes:
+
+ANONYMOUS MODE (Recommended for most users)
+- No credentials needed
+- Works immediately
+- Read-only access to public content
+- Sufficient for competitor research
+
+AUTHENTICATED MODE
+- Higher rate limits
+- Access to more content
+- Required for some advanced features
+```
+
+Ask user: "Which mode would you like to use?"
+- Anonymous (no setup needed)
+- Authenticated (continue to credential setup)
+
+### Anonymous Mode
+
+If user chooses anonymous:
+
+```
+Reddit MCP: Anonymous Mode Selected
+-----------------------------------
+
+No configuration needed! Reddit MCP will work automatically
+in anonymous mode with read-only access to public content.
+```
+
+**Reddit module complete (anonymous).**
+
+### Authenticated Mode
+
+If user chooses authenticated:
+
+```
+REDDIT AUTHENTICATED SETUP
+--------------------------
+
+1. Go to: https://www.reddit.com/prefs/apps
+
+2. Click "create another app..." at the bottom
+
+3. Fill in:
+   - Name: "Ads Plugin Research"
+   - Type: Select "script"
+   - Description: (optional)
+   - About URL: (leave blank)
+   - Redirect URI: http://localhost:8080
+
+4. Click "create app"
+
+5. Copy your credentials:
+   - Client ID: The string under your app name
+   - Client Secret: The "secret" value
+```
+
+Ask user to provide:
+- Reddit Client ID
+- Reddit Client Secret
+- Reddit Username
+- Reddit Password
+
+**Reddit module complete (authenticated).**
+
+---
+
+## Phase 3: Configuration Generation
+
+Generate the JSON configuration based on which servers were set up:
+
+```
+CONFIGURATION
+-------------
+
+Add these credentials to ~/.claude/settings.json:
 
 {
   "env": {
-    "GOOGLE_ADS_DEVELOPER_TOKEN": "YOUR_DEVELOPER_TOKEN",
-    "GOOGLE_ADS_CLIENT_ID": "YOUR_CLIENT_ID.apps.googleusercontent.com",
-    "GOOGLE_ADS_CLIENT_SECRET": "GOCSPX-YOUR_CLIENT_SECRET",
-    "GOOGLE_ADS_REFRESH_TOKEN": "1//YOUR_REFRESH_TOKEN",
-    "GOOGLE_ADS_LOGIN_CUSTOMER_ID": "1234567890",
-    "DATAFORSEO_LOGIN": "your-email@example.com",
-    "DATAFORSEO_PASSWORD": "your-api-password"
+    [ONLY INCLUDE VARIABLES FOR CONFIGURED SERVERS]
   }
 }
-
-Notes:
-- GOOGLE_ADS_LOGIN_CUSTOMER_ID is your MCC account ID (10 digits, no dashes)
-- Only include LOGIN_CUSTOMER_ID if you have an MCC account
-- Omit DATAFORSEO_* variables if you skipped Phase 7
-- If you already have an "env" section, merge these values into it
-
-Would you like me to show you the exact JSON to add?
 ```
 
-Generate the exact JSON configuration using the values collected.
+**Google Ads variables (if configured):**
+```
+"GOOGLE_ADS_DEVELOPER_TOKEN": "...",
+"GOOGLE_ADS_CLIENT_ID": "...",
+"GOOGLE_ADS_CLIENT_SECRET": "...",
+"GOOGLE_ADS_REFRESH_TOKEN": "...",
+"GOOGLE_ADS_LOGIN_CUSTOMER_ID": "..."  // Only if MCC provided
+```
 
-## Phase 9: Restart Instructions
+**DataForSEO variables (if configured):**
+```
+"DATAFORSEO_LOGIN": "...",
+"DATAFORSEO_PASSWORD": "..."
+```
+
+**Reddit variables (if authenticated mode):**
+```
+"REDDIT_CLIENT_ID": "...",
+"REDDIT_CLIENT_SECRET": "...",
+"REDDIT_USERNAME": "...",
+"REDDIT_PASSWORD": "..."
+```
+
+Note: Reddit in anonymous mode needs no environment variables.
+
+## Phase 4: Restart Instructions
 
 ```
-STEP 9: Restart Claude Code
----------------------------
+RESTART REQUIRED
+----------------
 
 For changes to take effect:
 
 1. Exit Claude Code (Ctrl+C or Cmd+Q)
-
 2. Start Claude Code again: claude
-
 3. Resume your session if needed: /resume
 
 The MCP servers will start automatically!
 ```
 
-## Phase 10: Verification
+## Phase 5: Verification
 
-After restart, verify the setup:
+After restart, verify configured servers:
 
+**Google Ads Verification:**
 ```
-STEP 10: Verify Setup
----------------------
-
-Let's test your configuration.
-
-1. Testing Google Ads connection...
-   Running: mcp__google-ads__list_accounts
-
-2. Testing DataForSEO connection (if configured)...
-   Running: mcp__dataforseo__keywords_google_ads_search_volume
-   with test keyword "test"
+Testing Google Ads connection...
+Running: mcp__google-ads__list_accounts
 ```
 
-**Google Ads - On Success:**
+On success: Show account list
+On failure: Show error and troubleshooting tips
+
+**DataForSEO Verification:**
 ```
-Google Ads: Connected
-
-Your accounts:
-- Account Name (ID: 1234567890)
-- Account Name (ID: 0987654321)
-```
-
-**Google Ads - On Failure:**
-```
-Google Ads: Connection Failed
-
-Error: [specific error message]
-
-Common issues:
-- Invalid credentials: Double-check your Client ID, Secret, and Refresh Token
-- Expired refresh token: Generate a new one using Step 6
-- Missing permissions: Ensure the Google Ads API is enabled
-- Wrong account: Verify LOGIN_CUSTOMER_ID matches your MCC account
+Testing DataForSEO connection...
+Running: mcp__dataforseo__keywords_google_ads_search_volume
+with test keyword "test"
 ```
 
-**DataForSEO - On Success:**
+On success: "DataForSEO: Connected"
+On failure: Show error and troubleshooting tips
+
+**Reddit Verification:**
 ```
-DataForSEO: Connected
-
-Keyword research is available via the keyword-researcher agent.
-```
-
-**DataForSEO - On Failure:**
-```
-DataForSEO: Connection Failed
-
-Error: [specific error message]
-
-Common issues:
-- Invalid credentials: Check login email and API password
-- Wrong password: Use API password from dashboard, not account password
-- Account issue: Verify account is active at https://app.dataforseo.com/
+Testing Reddit connection...
+Running: mcp__reddit-mcp-buddy__search_reddit
+with test query "marketing"
 ```
 
-## Phase 11: Quick Reference
+On success: "Reddit MCP: Connected ([mode])"
+On failure: Show error and troubleshooting tips
+
+## Phase 6: Completion Summary
 
 ```
 =================================================================
                     Setup Complete!
 =================================================================
 
+Configured Servers:
+------------------
+[X] Google Ads MCP     - Campaign management ready
+[X] DataForSEO MCP     - Keyword research ready
+[X] Reddit MCP         - Reddit search ready (anonymous)
+
+Available Agents:
+-----------------
+- google-ads-analyst    Analyze campaigns, run GAQL queries
+- keyword-researcher    Research keywords for Search campaigns
+- competitor-researcher Research competitors and markets
+
 Quick Commands:
---------------
+---------------
 - "List my Google Ads accounts"
 - "Show campaign performance for the last 30 days"
-- "What keywords are converting best?"
 - "Research keywords for [product URL or description]"
+- "Search Reddit for discussions about [topic]"
 
-MCP Tools:
----------
-Google Ads:
-- mcp__google-ads__list_accounts  List accessible accounts
-- mcp__google-ads__query          Execute GAQL queries
-- mcp__google-ads__mutate         Execute write operations
-
-DataForSEO:
-- mcp__dataforseo__keywords_google_ads_search_volume  Get keyword metrics
-
-Agents:
--------
-- keyword-researcher  Research keywords for Search campaigns
-
-Happy optimizing!
 =================================================================
 ```
 
-## Error Recovery
+Only show checkmarks for actually configured servers.
 
-If user encounters issues at any step:
+---
 
-1. Identify the specific error
-2. Provide targeted solution from common issues:
+## Troubleshooting Reference
 
-   **Google Ads:**
-   - "invalid_grant" → Refresh token expired, regenerate
-   - "DEVELOPER_TOKEN_NOT_APPROVED" → Apply for API access
-   - "CUSTOMER_NOT_FOUND" → Check customer ID format (10 digits, no dashes)
-   - "PERMISSION_DENIED" → Check OAuth consent screen and scopes
+**Google Ads Common Issues:**
+- "invalid_grant" - Refresh token expired, regenerate with Step 6
+- "DEVELOPER_TOKEN_NOT_APPROVED" - Apply for API access at ads.google.com
+- "CUSTOMER_NOT_FOUND" - Check customer ID format (10 digits, no dashes)
+- "PERMISSION_DENIED" - Check OAuth consent screen scopes
 
-   **DataForSEO:**
-   - "401 Unauthorized" → Check login/password credentials
-   - "402 Payment Required" → Account out of credits
-   - "Invalid credentials" → Using account password instead of API password
+**DataForSEO Common Issues:**
+- "401 Unauthorized" - Check login/password credentials
+- "402 Payment Required" - Account out of credits
+- "Invalid credentials" - Using account password instead of API password
 
-3. Offer to retry the failed step
+**Reddit Common Issues:**
+- "401 Unauthorized" - Check client ID and secret
+- "Invalid credentials" - Verify username and password
+- Rate limiting - Switch to authenticated mode for higher limits
 
-## Credential Security Reminders
-
-Throughout the wizard, remind users:
-
-- Never share credentials in chat or commit them to git
-- Store credentials only in ~/.claude/settings.json (gitignored by default)
+**Security Reminders:**
+- Never share credentials in chat or commit to git
+- Store credentials only in ~/.claude/settings.json
 - Refresh tokens can be revoked at https://myaccount.google.com/permissions
-- Rotate credentials periodically for security
+- Rotate credentials periodically

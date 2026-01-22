@@ -7,6 +7,10 @@
     "dataforseo": {
       "command": "npx",
       "args": ["-y", "@channel47/dataforseo-mcp-server@latest"]
+    },
+    "reddit-mcp-buddy": {
+      "command": "npx",
+      "args": ["-y", "reddit-mcp-buddy"]
     }
   }
 }
