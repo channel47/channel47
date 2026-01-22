@@ -1,14 +1,14 @@
 {
   "name": "ads",
-  "version": "4.1.2",
-  "description": "Google Ads management with subagent-based architecture. Query isolation via analyst subagent, autonomous GAQL generation, mutation oversight via hooks.",
+  "version": "1.0.0",
+  "description": "Google Ads MCP server with setup wizard and mutation validation hooks",
   "author": {
     "name": "Jackson",
     "url": "https://channel47.dev"
   },
   "homepage": "https://channel47.dev/plugins/ads",
   "repository": "https://github.com/channel47/channel47",
-  "keywords": ["google-ads", "advertising", "gaql", "ppc", "marketing", "analytics", "subagent"],
+  "keywords": ["google-ads", "mcp", "gaql"],
   "license": "MIT",
   "mcpServers": "./.mcp.json"
 }

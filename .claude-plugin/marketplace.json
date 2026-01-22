@@ -6,33 +6,25 @@
   },
   "metadata": {
     "pluginRoot": "./plugins",
-    "description": "Open-source AI tools for media buyers and marketers",
-    "version": "1.0.0"
+    "description": "Minimal plugin skeletons for Google Ads and image generation",
+    "version": "2.0.0"
   },
   "plugins": [
     {
       "name": "ads",
       "source": "./plugins/ads",
-      "description": "Google Ads management with subagent-based architecture",
-      "version": "4.1.2",
+      "description": "Google Ads MCP server with setup wizard and mutation hooks",
+      "version": "1.0.0",
       "category": "marketing",
-      "tags": ["google-ads", "gaql", "marketing", "analytics", "ppc", "subagent"]
+      "tags": ["google-ads", "mcp", "gaql"]
     },
     {
       "name": "gen",
       "source": "./plugins/gen",
-      "description": "AI image generation with Gemini",
-      "version": "2.4.1",
+      "description": "AI image generation via Nano Banana MCP server",
+      "version": "1.0.0",
       "category": "creative",
-      "tags": ["image-generation", "ai-art", "gemini", "mcp"]
-    },
-    {
-      "name": "copy",
-      "source": "./plugins/copy",
-      "description": "Master copywriting frameworks",
-      "version": "2.1.1",
-      "category": "writing",
-      "tags": ["copywriting", "sales-copy", "direct-response"]
+      "tags": ["image-generation", "mcp", "gemini"]
     }
   ]
 }
