@@ -1,28 +1,27 @@
 ---
 /**
- * Homepage - Manifesto Landing Page
+ * Homepage - Founder Journey Landing Page
  *
- * A single, focused page to capture email signups.
- * Typography is the hero. Editorial elegance meets quiet confidence.
+ * A narrative-driven page for media buyers discovering terminal workflows.
+ * The story is the hero. Numbers do the work.
  *
- * Visual flow:
- * 1. Headline arrives with presence, blur revealing to sharp
- * 2. ASCII blocks field — signal emerging from noise
- * 3. Manifesto builds: hook → insight → resolution
- * 4. Email signup — natural next step
- * 5. Logo scrambles in as closing period mark / signature
+ * Structure:
+ * 1. Hero - proof-first headline that earns attention
+ * 2. Origin - compressed journey from UI to terminal
+ * 3. The Shift - what changed, in terms they feel
+ * 4. The Build - what you're creating, the trade
+ * 5. Invitation - clear, single ask
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Prose from '../components/Prose.astro';
 import EmailSignup from '../components/EmailSignup.astro';
 import LogoAnimated from '../components/LogoAnimated.astro';
 import SocialLinks from '../components/SocialLinks.astro';
-import AsciiBlocks from '../components/AsciiBlocks.astro';
 ---
 
 <BaseLayout
-  title="Channel47 — Same tools. Different outcomes."
-  description="Open source AI tools and the knowledge to use them."
+  title="Channel47 — Claude Code plugins for media buyers"
+  description="Free, open-source Claude Code plugins for Google Ads. Audit accounts, build campaigns, and automate the grind. From someone who can't code."
 >
   <main class="page">
     <!-- Atmospheric orb - subtle warmth behind content -->
@@ -31,43 +30,167 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
     </div>
 
     <Prose width="default">
-      <!-- Hero: The headline arrives with presence -->
+      <!-- Hero: Proof-first, earns attention -->
       <header class="hero">
-        <h1 class="hero__headline" data-animate="blur-in" data-stagger="1">
-          <span class="hero__line">Same tools.</span>
-          <span class="hero__line"><span class="nowrap">Different outcomes.</span></span>
+        <p class="hero__overline" data-animate="fade-up" data-stagger="1">Claude Code Plugins for Media Buyers</p>
+        <h1 class="hero__headline" data-animate="blur-in" data-stagger="2">
+          I audited 8 Google Ads accounts in 10 minutes.
         </h1>
+        <div class="hero__terminal" data-animate="fade-up" data-stagger="3">
+          <span class="hero__prompt" aria-hidden="true">~</span>
+          <span class="hero__command">From my terminal.</span>
+          <span class="hero__cursor" aria-hidden="true"></span>
+        </div>
+        <p class="hero__proof" data-animate="fade-up" data-stagger="4">
+          25 campaigns. 30+ ads. RSA best practices, sitelinks, callouts, structured snippets.
+          Claude found the gaps, suggested fixes, and made the changes itself.
+        </p>
+        <p class="hero__kicker" data-animate="fade-up" data-stagger="5">
+          I don't know how to code.
+        </p>
       </header>
 
-      <!-- Visual: ASCII blocks field - signal in noise -->
-      <div class="visual" data-animate="fade-up" data-stagger="2">
-        <AsciiBlocks />
+      <!-- CTA: Early placement for those ready to act -->
+      <div class="cta cta--early" data-animate="fade-up" data-stagger="6">
+        <EmailSignup placeholder="your@email.com" tag="hero" />
+        <p class="cta__hint">Free plugins. Just need Claude Pro (~$20/mo).</p>
       </div>
 
-      <!-- Manifesto: Three beats with visual hierarchy -->
-      <section class="manifesto">
-        <p class="manifesto__lede" data-animate="fade-up" data-stagger="3">
-          Everyone got access to AI.
-          <span class="manifesto__accent">A few learned how to make it work.</span>
-        </p>
+      <hr class="divider divider--spaced" data-animate="fade-in" data-stagger="6" />
 
-        <p class="manifesto__insight" data-animate="fade-up" data-stagger="4">
-          The gap is widening faster than it looks.
-        </p>
+      <!-- Origin: Their starting point → your current state -->
+      <section class="story">
+        <div class="story__block" data-animate="fade-up" data-stagger="5">
+          <p>
+            A year ago I was clicking through the Google Ads UI like everyone else.
+            Slow. Tedious. Managing 25+ accounts meant living inside dashboards I hated.
+          </p>
+          <p>
+            Then I started experimenting with Claude.
+          </p>
+          <p>
+            Not as a chatbot. <span class="story__emphasis">As a coworker.</span>
+          </p>
+        </div>
 
-        <p class="manifesto__resolution" data-animate="fade-up" data-stagger="5">
-          We're sharing what we know. Open source tools, real techniques.
-          Get in early.
+        <div class="story__block" data-animate="fade-up" data-stagger="6">
+          <p>
+            First Claude 3.5 Haiku. Then Sonnet. Now I run Claude Opus 4.5 in my terminal every day.
+            Somewhere along the way, "experimenting with AI" became "I produce 10,000 lines of code daily
+            and I still couldn't write a for-loop from scratch."
+          </p>
+          <p>
+            I built an MCP server. Claude built most of it, honestly. Now my media buying happens
+            in the terminal. It's faster. It's more fun. I actually enjoy the work again.
+          </p>
+        </div>
+      </section>
+
+      <hr class="divider" data-animate="fade-in" data-stagger="6" />
+
+      <!-- The Build: What you're creating -->
+      <section class="story">
+        <div class="story__block" data-animate="fade-up" data-stagger="7">
+          <p class="story__lead">
+            I'm building an open source marketplace for Claude Code plugins.
+            Specifically for media buyers like me.
+          </p>
+          <p>
+            Everything is free. You just need a Claude Pro subscription (around $20/month).
+          </p>
+        </div>
+
+        <div class="story__block" data-animate="fade-up" data-stagger="8">
+          <p>
+            Why free? Two reasons.
+          </p>
+          <p>
+            First, I want your feedback. These tools get better when people actually use them
+            and tell me what's broken, what's missing, what would make their work easier.
+          </p>
+          <p>
+            Second, I think open source is how this should work. Intelligence is becoming a commodity.
+            The value is in knowing how to use it. <span class="story__emphasis">That's what I'm sharing.</span>
+          </p>
+        </div>
+      </section>
+
+      <hr class="divider" data-animate="fade-in" data-stagger="8" />
+
+      <!-- Proof: The 10-minute audit story -->
+      <section class="proof" data-animate="fade-up" data-stagger="9">
+        <div class="proof__header">
+          <p class="proof__overline">What 10 minutes looks like now</p>
+          <div class="proof__stats">
+            <div class="proof__stat">
+              <span class="proof__stat-value">8</span>
+              <span class="proof__stat-label">accounts</span>
+            </div>
+            <div class="proof__stat">
+              <span class="proof__stat-value">25</span>
+              <span class="proof__stat-label">campaigns</span>
+            </div>
+            <div class="proof__stat">
+              <span class="proof__stat-value">30+</span>
+              <span class="proof__stat-label">ads checked</span>
+            </div>
+          </div>
+        </div>
+        <div class="proof__body">
+          <p>
+            RSA best practices. Sitelinks, callouts, structured snippets.
+            Claude found the gaps, suggested specific fixes, then made the changes itself.
+          </p>
+          <p class="proof__closer">
+            All from the terminal. While I had coffee.
+          </p>
+        </div>
+        <p class="proof__coda">
+          This is where media buying is going. I'm just getting there early.
         </p>
       </section>
 
-      <!-- CTA: The natural next step -->
-      <section class="cta" data-animate="fade-up" data-stagger="6">
-        <EmailSignup tag="manifesto" />
+      <hr class="divider" data-animate="fade-in" data-stagger="9" />
+
+      <!-- The Belief -->
+      <section class="story" data-animate="fade-up" data-stagger="10">
+        <div class="story__block">
+          <p>
+            Right now, the focus is media buying. That's where I live every day.
+          </p>
+          <p>
+            Later, maybe this expands. Design. Analytics. Creative. I'm not sure yet.
+          </p>
+          <p>
+            I'm not an expert on these tools. But I am a daily practitioner. Someone who optimizes
+            systems because I can't help myself. Someone who'd rather spend an hour automating
+            a task than do it manually twice.
+          </p>
+          <p class="story__emphasis">
+            If that sounds like you, we should probably be in touch.
+          </p>
+        </div>
+      </section>
+
+      <!-- Final CTA: The invitation -->
+      <section class="invitation" data-animate="fade-up" data-stagger="11">
+        <div class="invitation__container">
+          <h2 class="invitation__headline">Join the list.</h2>
+          <p class="invitation__pitch">
+            First access to plugins as I release them. Updates on what's working (and what isn't).
+            No pitch decks. No courses to sell. Just tools and honest notes from someone figuring this out in public.
+          </p>
+          <div class="invitation__form">
+            <EmailSignup placeholder="your@email.com" tag="manifesto" />
+          </div>
+          <p class="invitation__cadence">
+            1–2 emails per month, when I have something worth sharing.
+          </p>
+        </div>
       </section>
 
       <!-- Footer: Logo + Social as unified closing -->
-      <footer class="page-footer" data-animate="fade-up" data-stagger="7">
+      <footer class="page-footer" data-animate="fade-up" data-stagger="12">
         <div class="page-footer__logo">
           <LogoAnimated delay={200} />
         </div>
@@ -82,8 +205,7 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
 <style>
   /* =========================================
    * PAGE LAYOUT
-   * Full viewport, left-aligned content
-   * Mobile-first with safe-area support
+   * Full viewport, generous whitespace
    * ========================================= */
   .page {
     display: flex;
@@ -91,7 +213,6 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
     justify-content: flex-start;
     min-height: 100vh;
     min-height: 100dvh;
-    /* Generous top padding for breathing room */
     padding-block-start: max(var(--space-14), env(safe-area-inset-top, 0px) + var(--space-8));
     padding-block-end: max(var(--space-16), env(safe-area-inset-bottom, 0px) + var(--space-10));
     position: relative;
@@ -118,22 +239,9 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
     }
   }
 
-  /* On taller viewports, use percentage-based top padding */
   @media (min-height: 800px) {
     .page {
       padding-block-start: 10vh;
-    }
-  }
-
-  @media (min-height: 900px) {
-    .page {
-      padding-block-start: 12vh;
-    }
-  }
-
-  @media (min-height: 1000px) {
-    .page {
-      padding-block-start: 14vh;
     }
   }
 
@@ -151,310 +259,536 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
 
   .atmosphere__orb {
     position: absolute;
-    top: 5%;
+    top: -10%;
     left: 20%;
     transform: translateX(-50%);
-    width: min(900px, 120vw);
+    width: min(900px, 130vw);
     height: min(700px, 90vh);
     background: radial-gradient(
-      ellipse 100% 100% at 50% 30%,
-      oklch(25% 0.04 35 / 0.35) 0%,
-      oklch(20% 0.02 35 / 0.15) 40%,
+      ellipse 100% 100% at 50% 40%,
+      var(--color-accent-glow) 0%,
+      oklch(20% 0.025 35 / 0.15) 40%,
       transparent 70%
     );
-    filter: blur(80px);
-    animation: orb-pulse 20s ease-in-out infinite;
+    filter: blur(120px);
+    animation: orb-pulse 30s var(--ease-in-out) infinite;
   }
 
   @keyframes orb-pulse {
     0%, 100% {
-      opacity: 0.5;
+      opacity: 0.4;
       transform: translateX(-50%) scale(1);
     }
     50% {
-      opacity: 0.7;
-      transform: translateX(-50%) scale(1.08);
+      opacity: 0.6;
+      transform: translateX(-50%) scale(1.05);
     }
   }
 
   /* =========================================
    * HERO
-   * The headline dominates with presence
-   * Left-aligned throughout for editorial consistency
+   * Proof-first headline with strong hierarchy
    * ========================================= */
   .hero {
     text-align: left;
-    margin-bottom: var(--space-12);
+    margin-bottom: var(--space-10);
   }
 
-  @media (min-width: 480px) {
-    .hero {
-      margin-bottom: var(--space-14);
-    }
+  .hero__overline {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-4) 0;
   }
 
   @media (min-width: 768px) {
-    .hero {
-      margin-bottom: var(--space-16);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .hero {
-      margin-bottom: var(--space-20);
+    .hero__overline {
+      font-size: var(--text-sm);
+      margin-bottom: var(--space-5);
     }
   }
 
   .hero__headline {
-    font-family: var(--font-display);
-    /* Mobile-first: conservative sizing that scales up */
-    font-size: clamp(1.75rem, 6vw + 0.5rem, 2.5rem);
+    font-family: var(--font-serif);
+    font-size: var(--fluid-4xl);
     font-weight: var(--font-bold);
-    letter-spacing: var(--tracking-tight);
-    line-height: var(--leading-tight);
+    letter-spacing: var(--optical-display);
+    line-height: var(--leading-none);
     color: var(--color-fg);
-    margin: 0;
-    text-wrap: balance;
+    margin: 0 0 var(--space-3) 0;
+    max-width: 16ch;
   }
 
   @media (min-width: 480px) {
     .hero__headline {
-      font-size: clamp(2rem, 5vw + 0.75rem, 3rem);
-      letter-spacing: var(--optical-2xl);
+      font-size: var(--fluid-5xl);
     }
   }
 
   @media (min-width: 768px) {
-    .hero__headline {
-      font-size: var(--fluid-5xl);
-      letter-spacing: var(--optical-display);
-    }
-  }
-
-  @media (min-width: 1024px) {
     .hero__headline {
       font-size: var(--fluid-6xl);
       letter-spacing: var(--optical-hero);
+      margin-bottom: var(--space-4);
     }
-  }
-
-  .hero__line {
-    display: block;
-  }
-
-  /* Allow wrapping on very narrow screens */
-  @media (max-width: 359px) {
-    .hero__line .nowrap {
-      white-space: normal;
-    }
-  }
-
-  /* =========================================
-   * VISUAL
-   * The ASCII blocks animation
-   * Full-bleed on mobile, breaks out on desktop
-   * ========================================= */
-  .visual {
-    /* Slightly reduced breakout on small mobile for visual balance */
-    --visual-inset: calc(var(--padding-mobile) * 0.6);
-    margin-left: calc(-1 * var(--visual-inset));
-    margin-right: calc(-1 * var(--visual-inset));
-    width: calc(100% + 2 * var(--visual-inset));
-    margin-bottom: var(--space-14);
-  }
-
-  @media (min-width: 480px) {
-    .visual {
-      /* Full bleed at larger mobile sizes */
-      margin-left: calc(-1 * var(--padding-mobile));
-      margin-right: calc(-1 * var(--padding-mobile));
-      width: calc(100% + 2 * var(--padding-mobile));
-      margin-bottom: var(--space-16);
-    }
-  }
-
-  @media (min-width: 768px) {
-    .visual {
-      margin-left: calc(-1 * var(--padding-tablet));
-      margin-right: calc(-1 * var(--padding-tablet));
-      width: calc(100% + 2 * var(--padding-tablet));
-      margin-bottom: var(--space-20);
+    .hero {
+      margin-bottom: var(--space-12);
     }
   }
 
   @media (min-width: 1024px) {
-    .visual {
-      /* Break out significantly wider than content */
-      --visual-extra-width: var(--space-32);
-      margin-left: calc(-1 * var(--padding-desktop) - var(--visual-extra-width));
-      margin-right: calc(-1 * var(--padding-desktop) - var(--visual-extra-width));
-      width: calc(100% + 2 * var(--padding-desktop) + 2 * var(--visual-extra-width));
-      margin-bottom: var(--space-24);
+    .hero__headline {
+      font-size: var(--fluid-7xl);
     }
   }
 
-  @media (min-width: 1280px) {
-    .visual {
-      /* Even wider on large screens */
-      --visual-extra-width: 10vw;
-      margin-left: calc(-1 * var(--padding-desktop) - var(--visual-extra-width));
-      margin-right: calc(-1 * var(--padding-desktop) - var(--visual-extra-width));
-      width: calc(100% + 2 * var(--padding-desktop) + 2 * var(--visual-extra-width));
-      margin-bottom: var(--space-28);
-    }
+  .hero__terminal {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--fluid-base);
+    background: var(--color-bg-deep);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-subtle);
+    margin: 0 0 var(--space-8) 0;
   }
 
-  /* =========================================
-   * MANIFESTO
-   * Three beats: hook, insight, resolution
-   * ========================================= */
-  .manifesto {
-    text-align: left;
-    margin-bottom: var(--space-6);
-    max-width: 100%;
+  .hero__prompt {
+    color: var(--color-accent);
+    font-weight: var(--font-medium);
+    user-select: none;
   }
 
-  @media (min-width: 480px) {
-    .manifesto {
-      margin-bottom: var(--space-7);
-      max-width: 480px;
-    }
+  .hero__command {
+    color: var(--color-fg);
+  }
+
+  .hero__cursor {
+    width: 2px;
+    height: 1.2em;
+    background: var(--color-fg-muted);
+    animation: cursor-blink 1s step-end infinite;
+    margin-left: var(--space-1);
+  }
+
+  @keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
   }
 
   @media (min-width: 768px) {
-    .manifesto {
-      margin-bottom: var(--space-8);
-      max-width: 540px;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .manifesto {
+    .hero__terminal {
+      font-size: var(--fluid-lg);
+      padding: var(--space-3) var(--space-5);
+      gap: var(--space-3);
       margin-bottom: var(--space-10);
     }
   }
 
-  /* Manifesto paragraphs - fluid, readable body copy */
-  .manifesto__lede,
-  .manifesto__insight,
-  .manifesto__resolution {
+  @media (prefers-reduced-motion: reduce) {
+    .hero__cursor {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  .hero__proof {
     font-family: var(--font-serif);
-    font-size: var(--fluid-md);
-    font-weight: var(--font-normal);
+    font-size: var(--type-prose-size);
+    line-height: var(--type-prose-leading);
     color: var(--color-fg-secondary);
-    line-height: var(--leading-prose);
-    letter-spacing: var(--tracking-normal);
-    margin: 0 0 var(--paragraph-spacing) 0;
+    margin: 0 0 var(--space-4) 0;
     max-width: var(--measure-prose);
   }
 
-  .manifesto__resolution {
-    margin-bottom: 0;
-  }
-
   @media (min-width: 768px) {
-    .manifesto__lede,
-    .manifesto__insight,
-    .manifesto__resolution {
+    .hero__proof {
       font-size: var(--fluid-lg);
     }
   }
 
-  /* Accent text with gradient effect */
-  .manifesto__accent {
-    background: var(--text-gradient-subtle);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Insight gets subtle emphasis */
-  .manifesto__insight {
+  .hero__kicker {
+    font-family: var(--font-serif);
+    font-size: var(--type-prose-size);
     font-weight: var(--font-medium);
+    font-style: italic;
     color: var(--color-fg);
+    margin: 0;
   }
 
-  /* Resolution slightly muted but hopeful */
-  .manifesto__resolution {
-    color: var(--color-fg-muted);
+  @media (min-width: 768px) {
+    .hero__kicker {
+      font-size: var(--fluid-lg);
+    }
   }
 
   /* =========================================
    * CTA
-   * The natural next step - left aligned
-   * No bottom margin - footer handles separation
+   * Email signup placements
    * ========================================= */
-  .cta {
-    text-align: left;
+  .cta--early {
+    margin-bottom: var(--space-12);
+  }
+
+  .cta__hint {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    color: var(--color-fg-subtle);
+    margin: var(--space-3) 0 0 0;
+  }
+
+  @media (min-width: 768px) {
+    .cta--early {
+      margin-bottom: var(--space-14);
+    }
+    .cta__hint {
+      font-size: var(--text-sm);
+    }
+  }
+
+  /* =========================================
+   * DIVIDER
+   * Subtle section breaks
+   * ========================================= */
+  .divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--color-border-subtle) 20%,
+      var(--color-border-subtle) 80%,
+      transparent 100%
+    );
+    border: none;
+    margin-block: var(--space-10);
+  }
+
+  .divider--spaced {
+    margin-block: var(--space-14);
+  }
+
+  @media (min-width: 768px) {
+    .divider {
+      margin-block: var(--space-14);
+    }
+    .divider--spaced {
+      margin-block: var(--space-20);
+    }
+  }
+
+  /* =========================================
+   * STORY
+   * Narrative sections
+   * ========================================= */
+  .story {
+    max-width: var(--measure-prose);
+  }
+
+  .story__block {
+    margin-bottom: var(--space-8);
+  }
+
+  .story__block:last-child {
+    margin-bottom: 0;
+  }
+
+  .story__block p {
+    font-family: var(--font-serif);
+    font-size: var(--type-prose-size);
+    line-height: var(--type-prose-leading);
+    color: var(--color-fg-secondary);
+    margin: 0 0 var(--paragraph-spacing) 0;
+  }
+
+  .story__block p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 768px) {
+    .story__block p {
+      font-size: var(--fluid-lg);
+    }
+  }
+
+  .story__lead {
+    font-weight: var(--font-medium);
+    color: var(--color-fg) !important;
+  }
+
+  .story__emphasis {
+    color: var(--color-fg);
+    font-weight: var(--font-medium);
+  }
+
+  /* =========================================
+   * PROOF
+   * The 10-minute audit highlight - metrics-forward
+   * ========================================= */
+  .proof {
+    max-width: var(--measure-wide);
+    padding: var(--space-6);
+    background: var(--color-bg-elevated);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  @media (min-width: 768px) {
+    .proof {
+      padding: var(--space-8);
+    }
+  }
+
+  .proof__header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  @media (min-width: 768px) {
+    .proof__header {
+      margin-bottom: var(--space-8);
+      padding-bottom: var(--space-8);
+    }
+  }
+
+  .proof__overline {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-5) 0;
+  }
+
+  @media (min-width: 768px) {
+    .proof__overline {
+      font-size: var(--text-sm);
+      margin-bottom: var(--space-6);
+    }
+  }
+
+  .proof__stats {
+    display: flex;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .proof__stats {
+      gap: var(--space-10);
+    }
+  }
+
+  .proof__stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .proof__stat-value {
+    font-family: var(--font-serif);
+    font-size: var(--fluid-4xl);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-none);
+    letter-spacing: var(--optical-display);
+    color: var(--color-fg);
+  }
+
+  @media (min-width: 768px) {
+    .proof__stat-value {
+      font-size: var(--fluid-5xl);
+    }
+  }
+
+  .proof__stat-label {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-fg-muted);
+    text-transform: lowercase;
+  }
+
+  @media (min-width: 768px) {
+    .proof__stat-label {
+      font-size: var(--text-sm);
+    }
+  }
+
+  .proof__body {
+    margin-bottom: var(--space-6);
+  }
+
+  .proof__body p {
+    font-family: var(--font-serif);
+    font-size: var(--type-prose-size);
+    line-height: var(--type-prose-leading);
+    color: var(--color-fg-secondary);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .proof__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 768px) {
+    .proof__body p {
+      font-size: var(--fluid-md);
+    }
+  }
+
+  .proof__closer {
+    font-weight: var(--font-medium);
+    color: var(--color-fg) !important;
+  }
+
+  .proof__coda {
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--color-fg-muted);
+    margin: 0;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  @media (min-width: 768px) {
+    .proof__coda {
+      font-size: var(--type-prose-size);
+      padding-top: var(--space-6);
+    }
+  }
+
+  /* =========================================
+   * INVITATION
+   * Final CTA section - the crescendo
+   * ========================================= */
+  .invitation {
+    margin-top: var(--space-16);
+    padding-top: var(--space-12);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .invitation__container {
+    max-width: var(--measure-prose);
+    padding: var(--space-8);
+    background: linear-gradient(
+      135deg,
+      var(--color-bg-elevated) 0%,
+      var(--color-bg-surface) 100%
+    );
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  @media (min-width: 768px) {
+    .invitation {
+      margin-top: var(--space-24);
+      padding-top: var(--space-16);
+    }
+    .invitation__container {
+      padding: var(--space-12);
+    }
+  }
+
+  .invitation__headline {
+    font-family: var(--font-serif);
+    font-size: var(--fluid-3xl);
+    font-weight: var(--font-bold);
+    letter-spacing: var(--optical-display);
+    color: var(--color-fg);
+    margin: 0 0 var(--space-4) 0;
+  }
+
+  @media (min-width: 768px) {
+    .invitation__headline {
+      font-size: var(--fluid-4xl);
+    }
+  }
+
+  .invitation__pitch {
+    font-family: var(--font-serif);
+    font-size: var(--type-prose-size);
+    line-height: var(--type-prose-leading);
+    color: var(--color-fg-secondary);
+    margin: 0 0 var(--space-8) 0;
+  }
+
+  @media (min-width: 768px) {
+    .invitation__pitch {
+      font-size: var(--fluid-lg);
+      margin-bottom: var(--space-10);
+    }
+  }
+
+  .invitation__form {
+    margin-bottom: var(--space-4);
+  }
+
+  .invitation__cadence {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    color: var(--color-fg-subtle);
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .invitation__cadence {
+      font-size: var(--text-sm);
+    }
   }
 
   /* =========================================
    * FOOTER
-   * Logo + social as unified closing zone
-   * Generous top margin ensures it's below fold
+   * Logo + social closing
    * ========================================= */
   .page-footer {
     margin-top: var(--space-32);
-    padding-top: var(--space-10);
-    border-top: 1px solid oklch(50% 0 0 / 0.08);
+    padding-top: var(--space-12);
+    border-top: 1px solid var(--color-border-subtle);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--space-5);
-  }
-
-  @media (min-width: 480px) {
-    .page-footer {
-      margin-top: var(--space-36);
-      padding-top: var(--space-12);
-      gap: var(--space-6);
-    }
+    gap: var(--space-6);
   }
 
   @media (min-width: 768px) {
     .page-footer {
-      margin-top: var(--space-40);
-      padding-top: var(--space-14);
       flex-direction: row;
       align-items: center;
-      /* Keep grouped left, matching content alignment */
-      gap: var(--space-10);
+      justify-content: space-between;
+      gap: var(--space-8);
     }
   }
 
   @media (min-width: 1024px) {
     .page-footer {
       margin-top: 12rem;
-      padding-top: var(--space-16);
+      padding-top: var(--space-14);
     }
   }
 
   .page-footer__logo {
-    /* Let the logo shine at full brightness */
+    opacity: 0.7;
+    transition: opacity var(--duration-normal) var(--ease-out);
   }
 
-  /* Larger tap target for logo on touch devices */
-  @media (pointer: coarse) {
-    .page-footer__logo {
-      padding: var(--space-2);
-      margin: calc(-1 * var(--space-2));
-    }
+  .page-footer__logo:hover {
+    opacity: 1;
   }
 
   .page-footer__social {
-    opacity: 0.5;
-    transition: opacity var(--duration-fast) var(--ease-out);
+    opacity: 0.4;
+    transition: opacity var(--duration-normal) var(--ease-out);
   }
 
   .page-footer__social:hover {
-    opacity: 0.8;
-  }
-
-  /* =========================================
-   * UTILITIES
-   * ========================================= */
-  .nowrap {
-    white-space: nowrap;
+    opacity: 0.7;
   }
 
   /* =========================================
@@ -463,7 +797,7 @@ import AsciiBlocks from '../components/AsciiBlocks.astro';
   @media (prefers-reduced-motion: reduce) {
     .atmosphere__orb {
       animation: none;
-      opacity: 0.5;
+      opacity: 0.4;
     }
   }
 </style>

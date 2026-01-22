@@ -426,6 +426,10 @@
   --stagger-6: 300ms;
   --stagger-7: 360ms;
   --stagger-8: 420ms;
+  --stagger-9: 480ms;
+  --stagger-10: 540ms;
+  --stagger-11: 600ms;
+  --stagger-12: 660ms;
 
   /* ========================================
    * FORM INPUTS

@@ -775,6 +775,10 @@ button {
 [data-stagger="6"] { transition-delay: var(--stagger-6); }
 [data-stagger="7"] { transition-delay: var(--stagger-7); }
 [data-stagger="8"] { transition-delay: var(--stagger-8); }
+[data-stagger="9"] { transition-delay: var(--stagger-9); }
+[data-stagger="10"] { transition-delay: var(--stagger-10); }
+[data-stagger="11"] { transition-delay: var(--stagger-11); }
+[data-stagger="12"] { transition-delay: var(--stagger-12); }
 
 /* ========================================
  * DECORATIVE ELEMENTS
