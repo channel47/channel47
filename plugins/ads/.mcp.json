@@ -3,6 +3,10 @@
     "google-ads": {
       "command": "npx",
       "args": ["-y", "@channel47/google-ads-mcp@latest"]
+    },
+    "dataforseo": {
+      "command": "npx",
+      "args": ["-y", "@channel47/dataforseo-mcp-server@latest"]
     }
   }
 }

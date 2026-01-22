@@ -1,10 +1,10 @@
 ---
-description: Interactive wizard to configure Google Ads API credentials for the MCP server
+description: Interactive wizard to configure Google Ads and DataForSEO API credentials for the MCP servers
 ---
 
-# Google Ads Specialist Setup Wizard
+# Ads Plugin Setup Wizard
 
-Guide users through configuring the Google Ads MCP server with OAuth 2.0 credentials.
+Guide users through configuring the Google Ads and DataForSEO MCP servers.
 
 ## Phase 1: Welcome and Prerequisites Check
 
@@ -12,11 +12,12 @@ Display welcome message and verify prerequisites:
 
 ```
 =================================================================
-         Google Ads Specialist Setup Wizard
+              Ads Plugin Setup Wizard
 =================================================================
 
-This wizard will help you configure the Google Ads MCP server
-for campaign management and GAQL queries.
+This wizard will help you configure:
+- Google Ads MCP server (campaign management, GAQL queries)
+- DataForSEO MCP server (keyword research data)
 
 Prerequisites:
 - A Google Ads account with API access
@@ -26,9 +27,9 @@ Prerequisites:
 Let's get started!
 ```
 
-Check if any Google Ads environment variables are already configured by examining the environment. Report which are set and which are missing.
+Check if environment variables are already configured. Report which are set and which are missing.
 
-**Required Environment Variables:**
+**Google Ads (Required):**
 | Variable | Status |
 |----------|--------|
 | `GOOGLE_ADS_DEVELOPER_TOKEN` | Check if set |
@@ -36,13 +37,20 @@ Check if any Google Ads environment variables are already configured by examinin
 | `GOOGLE_ADS_CLIENT_SECRET` | Check if set |
 | `GOOGLE_ADS_REFRESH_TOKEN` | Check if set |
 
-**Optional Environment Variables:**
+**Google Ads (Optional):**
 | Variable | Status |
 |----------|--------|
 | `GOOGLE_ADS_LOGIN_CUSTOMER_ID` | Check if set (required for MCC accounts) |
 | `GOOGLE_ADS_DEFAULT_CUSTOMER_ID` | Check if set |
 
-If all required variables are set, offer to skip to verification (Phase 6).
+**DataForSEO (Optional - for keyword research):**
+| Variable | Status |
+|----------|--------|
+| `DATAFORSEO_LOGIN` | Check if set |
+| `DATAFORSEO_PASSWORD` | Check if set |
+
+If all Google Ads variables are set, offer to skip to Phase 7 (DataForSEO setup).
+If all variables are set, offer to skip to verification (Phase 9).
 
 ## Phase 2: Google Cloud Project Setup
 
@@ -280,12 +288,44 @@ server.listen(8080);
 Refresh Token: ____________________________
 ```
 
-## Phase 7: Configure Environment Variables
+## Phase 7: DataForSEO Setup (Optional)
+
+DataForSEO provides keyword search volume and CPC data for the keyword-researcher agent.
+Skip this section if you don't need keyword research capabilities.
+
+```
+STEP 7: Get DataForSEO API Credentials
+--------------------------------------
+
+DataForSEO uses simple API login/password authentication.
+
+1. Sign up at: https://dataforseo.com/
+   - Free trial includes API credits
+   - No credit card required for trial
+
+2. Go to your dashboard: https://app.dataforseo.com/
+
+3. Find your API credentials in the dashboard:
+   - Login: Your email address
+   - Password: Your API password (not your account password)
+
+   Note: The API password is shown in your dashboard settings,
+   separate from your account login password.
+
+DataForSEO Login: ____________________________
+DataForSEO Password: ____________________________
+
+Skip this step? You can always run /ads:setup later to add DataForSEO.
+```
+
+Ask user if they want to set up DataForSEO or skip. If skipping, note that keyword research features won't be available.
+
+## Phase 8: Configure Environment Variables
 
 Provide the complete configuration:
 
 ```
-STEP 7: Configure Claude Code
+STEP 8: Configure Claude Code
 -----------------------------
 
 Add your credentials to ~/.claude/settings.json:
@@ -296,13 +336,16 @@ Add your credentials to ~/.claude/settings.json:
     "GOOGLE_ADS_CLIENT_ID": "YOUR_CLIENT_ID.apps.googleusercontent.com",
     "GOOGLE_ADS_CLIENT_SECRET": "GOCSPX-YOUR_CLIENT_SECRET",
     "GOOGLE_ADS_REFRESH_TOKEN": "1//YOUR_REFRESH_TOKEN",
-    "GOOGLE_ADS_LOGIN_CUSTOMER_ID": "1234567890"
+    "GOOGLE_ADS_LOGIN_CUSTOMER_ID": "1234567890",
+    "DATAFORSEO_LOGIN": "your-email@example.com",
+    "DATAFORSEO_PASSWORD": "your-api-password"
   }
 }
 
 Notes:
 - GOOGLE_ADS_LOGIN_CUSTOMER_ID is your MCC account ID (10 digits, no dashes)
 - Only include LOGIN_CUSTOMER_ID if you have an MCC account
+- Omit DATAFORSEO_* variables if you skipped Phase 7
 - If you already have an "env" section, merge these values into it
 
 Would you like me to show you the exact JSON to add?
@@ -310,10 +353,10 @@ Would you like me to show you the exact JSON to add?
 
 Generate the exact JSON configuration using the values collected.
 
-## Phase 8: Restart Instructions
+## Phase 9: Restart Instructions
 
 ```
-STEP 8: Restart Claude Code
+STEP 9: Restart Claude Code
 ---------------------------
 
 For changes to take effect:
@@ -324,38 +367,39 @@ For changes to take effect:
 
 3. Resume your session if needed: /resume
 
-The Google Ads MCP server will start automatically!
+The MCP servers will start automatically!
 ```
 
-## Phase 9: Verification
+## Phase 10: Verification
 
 After restart, verify the setup:
 
 ```
-STEP 9: Verify Setup
---------------------
+STEP 10: Verify Setup
+---------------------
 
-Let's test your configuration by listing your Google Ads accounts.
+Let's test your configuration.
 
-Running: mcp__google-ads__list_accounts
+1. Testing Google Ads connection...
+   Running: mcp__google-ads__list_accounts
+
+2. Testing DataForSEO connection (if configured)...
+   Running: mcp__dataforseo__keywords_google_ads_search_volume
+   with test keyword "test"
 ```
 
-Execute `mcp__google-ads__list_accounts` to verify the connection.
-
-**On Success:**
+**Google Ads - On Success:**
 ```
-Setup Complete!
+Google Ads: Connected
 
-Your Google Ads accounts:
+Your accounts:
 - Account Name (ID: 1234567890)
 - Account Name (ID: 0987654321)
-
-You're ready to use the Google Ads Specialist plugin!
 ```
 
-**On Failure:**
+**Google Ads - On Failure:**
 ```
-Connection Failed
+Google Ads: Connection Failed
 
 Error: [specific error message]
 
@@ -364,11 +408,28 @@ Common issues:
 - Expired refresh token: Generate a new one using Step 6
 - Missing permissions: Ensure the Google Ads API is enabled
 - Wrong account: Verify LOGIN_CUSTOMER_ID matches your MCC account
-
-Run /ads:setup again to reconfigure.
 ```
 
-## Phase 10: Quick Reference
+**DataForSEO - On Success:**
+```
+DataForSEO: Connected
+
+Keyword research is available via the keyword-researcher agent.
+```
+
+**DataForSEO - On Failure:**
+```
+DataForSEO: Connection Failed
+
+Error: [specific error message]
+
+Common issues:
+- Invalid credentials: Check login email and API password
+- Wrong password: Use API password from dashboard, not account password
+- Account issue: Verify account is active at https://app.dataforseo.com/
+```
+
+## Phase 11: Quick Reference
 
 ```
 =================================================================
@@ -380,12 +441,21 @@ Quick Commands:
 - "List my Google Ads accounts"
 - "Show campaign performance for the last 30 days"
 - "What keywords are converting best?"
+- "Research keywords for [product URL or description]"
 
 MCP Tools:
 ---------
+Google Ads:
 - mcp__google-ads__list_accounts  List accessible accounts
 - mcp__google-ads__query          Execute GAQL queries
-- mcp__google-ads__mutate         Execute write operations (dry_run validated)
+- mcp__google-ads__mutate         Execute write operations
+
+DataForSEO:
+- mcp__dataforseo__keywords_google_ads_search_volume  Get keyword metrics
+
+Agents:
+-------
+- keyword-researcher  Research keywords for Search campaigns
 
 Happy optimizing!
 =================================================================
@@ -397,10 +467,18 @@ If user encounters issues at any step:
 
 1. Identify the specific error
 2. Provide targeted solution from common issues:
+
+   **Google Ads:**
    - "invalid_grant" → Refresh token expired, regenerate
    - "DEVELOPER_TOKEN_NOT_APPROVED" → Apply for API access
    - "CUSTOMER_NOT_FOUND" → Check customer ID format (10 digits, no dashes)
    - "PERMISSION_DENIED" → Check OAuth consent screen and scopes
+
+   **DataForSEO:**
+   - "401 Unauthorized" → Check login/password credentials
+   - "402 Payment Required" → Account out of credits
+   - "Invalid credentials" → Using account password instead of API password
+
 3. Offer to retry the failed step
 
 ## Credential Security Reminders
