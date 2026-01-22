@@ -1,6 +1,6 @@
 # Channel 47
 
-Claude Code plugin marketplace for Google Ads marketers. Plugins live in `plugins/`, marketing site in `site/`.
+Claude Code plugin marketplace. Plugins live in `plugins/`, marketing site in `site/`.
 
 ## Commands
 
@@ -14,10 +14,8 @@ npm run build          # Build site
 
 When modifying plugins, update version in:
 1. `plugins/{plugin}/.claude-plugin/plugin.json`
-2. `plugins/{plugin}/package.json`
+2. `plugins/{plugin}/package.json` or `pyproject.toml`
 3. `.claude-plugin/marketplace.json`
-
-Add changelog entry for non-trivial changes.
 
 ## Environment
 

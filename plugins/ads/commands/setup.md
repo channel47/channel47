@@ -379,29 +379,13 @@ Quick Commands:
 --------------
 - "List my Google Ads accounts"
 - "Show campaign performance for the last 30 days"
-- "Find wasted spend opportunities"
-- "Run an account health audit"
-
-Available Skills:
-----------------
-- atomic-campaign-performance    Campaign metrics
-- atomic-search-terms-report     Search query analysis
-- atomic-wasted-spend-analysis   Find budget waste
-- atomic-quality-score-audit     Quality Score analysis
-- atomic-budget-pacing           Budget utilization
-- atomic-add-negative-keywords   Add negative keywords
-- atomic-adjust-bids             Bid adjustments
-- playbook-account-health-audit  Full account audit
-- troubleshooting-gaql-errors    GAQL troubleshooting
+- "What keywords are converting best?"
 
 MCP Tools:
 ---------
 - mcp__google-ads__list_accounts  List accessible accounts
 - mcp__google-ads__query          Execute GAQL queries
-- mcp__google-ads__mutate         Execute write operations
-
-Need help? Check GETTING_STARTED.md or ask:
-  "How do I use Google Ads Specialist?"
+- mcp__google-ads__mutate         Execute write operations (dry_run validated)
 
 Happy optimizing!
 =================================================================
@@ -418,7 +402,6 @@ If user encounters issues at any step:
    - "CUSTOMER_NOT_FOUND" → Check customer ID format (10 digits, no dashes)
    - "PERMISSION_DENIED" → Check OAuth consent screen and scopes
 3. Offer to retry the failed step
-4. Link to full troubleshooting in GETTING_STARTED.md
 
 ## Credential Security Reminders
 
