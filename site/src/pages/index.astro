@@ -33,8 +33,8 @@ import SocialLinks from '../components/SocialLinks.astro';
       <header class="hero">
         <p class="hero__overline" data-animate="fade-up" data-stagger="1">A Claude Code Plugin for Media Buyers</p>
         <h1 class="hero__headline" data-animate="blur-in" data-stagger="2">
-          I audited 8 Google Ads accounts in 10 minutes.
-          <span class="hero__headline-break">From my terminal.</span>
+          Stop clicking through the Google Ads UI.
+          <span class="hero__headline-break">Start prompting.</span>
         </h1>
 
         <!-- Claude Code terminal - condensed with cliffhanger fade -->
@@ -49,7 +49,7 @@ import SocialLinks from '../components/SocialLinks.astro';
             <!-- User message -->
             <div class="claude-terminal__message claude-terminal__message--user">
               <span class="claude-terminal__prompt">›</span>
-              <span class="claude-terminal__text">Audit all my Google Ads accounts and fix any RSA compliance issues</span>
+              <span class="claude-terminal__text">Audit my campaigns for RSA best practices and find any missing extensions</span>
             </div>
 
             <!-- Claude working - with tool call -->
@@ -59,19 +59,19 @@ import SocialLinks from '../components/SocialLinks.astro';
                 <span class="claude-terminal__claude-name">Claude</span>
               </div>
               <div class="claude-terminal__response">
-                <p class="claude-terminal__response-text">I'll audit your accounts for RSA compliance. Let me connect to the Google Ads API and scan your campaigns.</p>
+                <p class="claude-terminal__response-text">I'll check your campaigns for RSA best practices and scan for missing extensions. Connecting to the API now.</p>
                 <div class="claude-terminal__tool">
                   <span class="claude-terminal__tool-label">Read</span>
-                  <span class="claude-terminal__tool-target">8 accounts · 47 campaigns · 156 RSAs</span>
+                  <span class="claude-terminal__tool-target">23 campaigns · 89 ad groups · 156 RSAs</span>
                 </div>
-                <p class="claude-terminal__response-text">Found 12 ads missing required headlines...</p>
+                <p class="claude-terminal__response-text">Found 4 missing sitelinks, 3 callout gaps, structured snippets needed on 2 campaigns...</p>
               </div>
             </div>
           </div>
           <!-- Fade overlay for cliffhanger effect -->
           <div class="claude-terminal__fade" aria-hidden="true"></div>
         </div>
-        <p class="hero__terminal-caption" data-animate="fade-up" data-stagger="2">8 accounts. 47 campaigns. 156 RSAs. 12 issues found and fixed.<br>While I drank my coffee.</p>
+        <p class="hero__terminal-caption" data-animate="fade-up" data-stagger="2">Sitelinks. Callouts. Structured snippets. Images. RSAs.<br>All identified and fixed—while you focused on strategy.</p>
       </header>
 
       <!-- CTA: Inline, reserved -->
@@ -140,15 +140,15 @@ import SocialLinks from '../components/SocialLinks.astro';
       <!-- Final CTA: Value exchange -->
       <section class="invitation" data-animate="fade-up" data-stagger="5">
         <div class="invitation__content">
-          <h2 class="invitation__headline">Get past the setup</h2>
+          <h2 class="invitation__headline">Start prompting in 15 minutes</h2>
           <p class="invitation__description">
-            The plugin is easy. Google's OAuth flow is the annoying part. I'll send you the 15-minute walkthrough that gets you connected.
+            Works with your existing Google Ads MCC and developer token. One walkthrough to connect—then let Claude handle the rest.
           </p>
           <div class="invitation__form">
             <EmailSignup placeholder="your@email.com" tag="setup-guide" />
           </div>
           <p class="invitation__cadence">
-            Then: new features and field notes as I build. No courses. No pitch decks.
+            Plus: new features and workflow ideas as I build. No courses. No pitch decks.
           </p>
         </div>
       </section>
