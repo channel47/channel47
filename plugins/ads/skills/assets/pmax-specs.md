@@ -26,31 +26,37 @@ Dimension requirements for Performance Max campaigns and mapping to Nano Banana 
 
 ## Nano Banana Aspect Ratio Mapping
 
-Nano Banana supports these ratios: `1:1`, `16:9`, `9:16`, `21:9`, `4:3`, `3:4`, `2:1`
+Nano Banana supports: `1:1`, `16:9`, `9:16`, `4:3`, `3:4`, `2:3`, `3:2`
+
+**Note:** Gemini API does NOT support `21:9` or `2:1` ratios.
 
 ### Mapping Strategy
 
 | PMax Asset | Google Ratio | Nano Banana | Match Quality | Notes |
 |------------|--------------|-------------|---------------|-------|
-| Landscape | 1.91:1 | `2:1` | Close | Slight crop needed on sides |
+| Landscape | 1.91:1 | `16:9` | Close | ~10% crop on height needed |
 | Square | 1:1 | `1:1` | Exact | Perfect match |
 | Portrait | 4:5 (0.8:1) | `3:4` (0.75:1) | Close | Slight crop on height |
 | Logo Square | 1:1 | `1:1` | Exact | Perfect match |
-| Logo Landscape | 4:1 | `21:9` | Approximate | Significant difference |
+| Logo Landscape | 4:1 | Not supported | N/A | Use existing logo file |
 
 ### Post-Processing Requirements
 
-**Landscape (2:1 → 1.91:1):**
-- Generated: 2:1 ratio (e.g., 2400 x 1200)
+**Landscape (16:9 → 1.91:1):**
+- Generated: 16:9 ratio (e.g., 1920 x 1080)
 - Target: 1.91:1 ratio (1200 x 628)
-- Action: Crop ~4.5% from sides, or let Google auto-crop
-- Recommendation: Generate with important content centered
+- Action: Crop ~10% from height, or let Google auto-crop
+- Recommendation: Generate with important content centered vertically
 
 **Portrait (3:4 → 4:5):**
 - Generated: 3:4 ratio (e.g., 900 x 1200)
 - Target: 4:5 ratio (960 x 1200)
 - Action: Crop ~6% from top/bottom, or let Google auto-crop
 - Recommendation: Keep subject in center 80% of frame
+
+**Logo Landscape (4:1):**
+- Cannot generate via Nano Banana (no 4:1 support)
+- Use existing brand logo file instead
 
 ---
 

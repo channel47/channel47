@@ -14,6 +14,9 @@ This skill uses these reference documents:
 - [Campaign Structure](./campaign-structure.md) - Asset groups, URL expansion, budget allocation
 - [Audience Signals](./audience-signals.md) - Custom segments, first-party data, Google audiences
 - [Asset Requirements](./asset-requirements.md) - Google's official specs for all asset types
+- [Copywriting Principles](./copywriting-principles.md) - Patterns for effective ad copy
+- [Asset Benchmarks](./asset-benchmarks.md) - Quantity recommendations by budget tier
+- [Google Ads API Schemas](./google-ads-api-schemas.md) - Correct payload structures for API execution
 
 ---
 
@@ -203,6 +206,53 @@ If user selects option 1:
 
 ---
 
+## Phase 4.5: Fact Verification
+
+**MANDATORY** before campaign creation.
+
+### Verification Process
+
+Use Playwright to verify claims from Phase 4 against the actual website:
+
+1. **Price Verification**
+   - Navigate to checkout page
+   - Confirm actual prices match copy
+   - Verify any discount percentages
+
+2. **Claims Verification**
+   - Shipping claims (free shipping thresholds, delivery times)
+   - Any numeric claims in copy (e.g., "100,000+ sold")
+   - Guarantees or warranties mentioned
+
+3. **Feature Verification**
+   - Product features mentioned in headlines
+   - Benefits stated in descriptions
+
+### Verification Report
+
+Present findings before proceeding:
+
+```
+FACT VERIFICATION REPORT
+------------------------
+| Claim | Source | Verified | Status |
+|-------|--------|----------|--------|
+| Price $X | Headline 3 | $X on checkout | PASS |
+| Free shipping | Description 1 | $50 minimum | FAIL - needs edit |
+| 30-day guarantee | Description 2 | Confirmed in footer | PASS |
+
+ACTION REQUIRED: [n] claims need correction
+```
+
+### Blocking Rule
+
+If critical facts are wrong (prices, guarantees, shipping):
+- DO NOT proceed to campaign creation
+- Fix copy with correct facts
+- Re-verify before continuing
+
+---
+
 ## Phase 5: Campaign Settings
 
 ### Budget & Bidding
@@ -319,6 +369,114 @@ Before delivering:
 
 ---
 
+## Phase 7: Campaign Creation via API
+
+**API-first approach.** Only offer manual UI creation as a fallback if API execution fails completely.
+
+Reference: [Google Ads API Schemas](./google-ads-api-schemas.md)
+
+### Step 1: Dry Run Validation
+
+**SAFETY GATE - MANDATORY**
+
+ALWAYS execute with `dry_run: true` first:
+
+```
+mcp__google-ads__mutate_resources({
+  "customer_id": "[customer_id]",
+  "operations": [...],
+  "dry_run": true
+})
+```
+
+Build mutation sequence:
+1. Campaign + Budget (linked)
+2. Text assets (headlines, descriptions)
+3. Image assets (upload files first)
+4. Asset group + final URLs + audience signals
+
+### Step 2: Present Dry Run Results
+
+Show the user exactly what will be created:
+
+```
+DRY RUN RESULTS
+---------------
+Campaign: [name]
+  - Budget: $[daily]/day
+  - Bidding: [strategy]
+  - Status: PAUSED (recommended for review)
+
+Asset Group: [name]
+  - Final URL: [url]
+  - Headlines: [count]
+  - Descriptions: [count]
+  - Images: [count]
+
+Audience Signals:
+  - Custom segments: [count]
+  - Google audiences: [count]
+
+VALIDATION: [PASSED/FAILED]
+[If failed, show specific errors]
+
+Ready to create this campaign?
+> Type "yes, create it" to proceed with live execution
+> Type "no" to make changes first
+```
+
+### Step 3: Live Execution
+
+**Only after explicit user confirmation**, execute with `dry_run: false`:
+
+```
+mcp__google-ads__mutate_resources({
+  "customer_id": "[customer_id]",
+  "operations": [...],
+  "dry_run": false
+})
+```
+
+Report created resources:
+
+```
+CAMPAIGN CREATED
+----------------
+Campaign ID: [id]
+Asset Group ID: [id]
+Status: PAUSED
+
+NEXT STEPS:
+1. Review campaign in Google Ads UI
+2. Enable campaign when ready to launch
+3. Allow 2 weeks learning period
+4. Check asset performance after 7 days
+```
+
+### CRITICAL SAFETY RULES
+
+**NEVER execute `dry_run: false` without:**
+1. First executing `dry_run: true` successfully
+2. Showing complete results to user
+3. Getting explicit "yes, create it" confirmation
+
+**Even if user says "just create it":**
+- Still run dry_run first
+- Still show what will be created
+- Still require confirmation
+
+### Fallback: Manual UI Creation
+
+Only offer if API fails completely (auth issues, API errors):
+
+> "API execution failed: [error]
+>
+> Fallback option: I've prepared a complete campaign configuration document above. You can create the campaign manually in Google Ads UI using these specs.
+>
+> Would you like me to troubleshoot the API issue or proceed with manual creation?"
+
+---
+
 ## What You Don't Do
 
 - Start without landing page URL
@@ -326,3 +484,7 @@ Before delivering:
 - Promise specific performance results
 - Skip audience signal configuration
 - Use placeholder text in final output
+- Execute `dry_run: false` without first running `dry_run: true`
+- Execute live mutations without explicit user confirmation
+- Ask user "API or UI?" - always use API first, UI only as fallback
+- Skip fact verification for claims in ad copy

@@ -19,6 +19,63 @@ This skill uses these reference documents:
 
 ---
 
+## Phase 0: Asset Inventory Check
+
+**MANDATORY** before generating new assets.
+
+### Query Existing Assets
+
+Check what assets already exist in the Google Ads account:
+
+```sql
+SELECT
+  asset.id,
+  asset.name,
+  asset.type,
+  asset.image_asset.full_size.width_pixels,
+  asset.image_asset.full_size.height_pixels,
+  asset.image_asset.file_size
+FROM asset
+WHERE asset.type = 'IMAGE'
+```
+
+### Present Inventory
+
+```
+EXISTING IMAGE ASSETS
+---------------------
+| Name | Dimensions | Type | Status |
+|------|------------|------|--------|
+| [name] | 1200x628 | Landscape | Available |
+| [name] | 1200x1200 | Square | Available |
+| [name] | 960x1200 | Portrait | Available |
+
+GAPS IDENTIFIED
+---------------
+| Required | Status |
+|----------|--------|
+| Landscape (1200x628) | [Available/Missing] |
+| Square (1200x1200) | [Available/Missing] |
+| Portrait (960x1200) | [Available/Missing] |
+```
+
+### User Decision
+
+Ask user how to proceed:
+
+> "You have [n] existing image assets. How would you like to proceed?
+>
+> 1. **Reuse existing** - Skip generation, use what you have
+> 2. **Generate new** - Create fresh assets (existing remain available)
+> 3. **Only generate missing** - Fill gaps, keep existing sizes
+>
+> Which approach?"
+
+If user selects option 1, skip to Phase 7 (Output Package) with existing assets.
+If user selects option 2 or 3, continue to Phase 1.
+
+---
+
 ## Required Inputs
 
 Before starting, you MUST collect:
@@ -54,6 +111,61 @@ Confirm all inputs before proceeding:
 | Platform | [platform] | Required (default: PMax) |
 | Brand Colors | [colors] | Optional |
 | Style Notes | [notes] | Optional |
+
+### Asset Quantity Selection
+
+Ask user how many variations to generate:
+
+> "How many images per size would you like?
+>
+> 1. **1-2 images** - Minimum viable (for testing)
+> 2. **3-5 images** - Standard launch (recommended)
+> 3. **5-10 images** - Full optimization (larger budgets)
+>
+> Which quantity level?"
+
+**Budget-based recommendations:**
+- Under $1,500/month: 1-2 per size
+- $1,500-$5,000/month: 3-5 per size
+- Over $5,000/month: 5-10 per size
+
+### Creative Type Selection
+
+Based on product category, suggest appropriate types:
+
+**Beauty/Personal Care:**
+- Product shots (hero, detail)
+- Before/after transformations
+- Lifestyle (product in use)
+
+**Electronics/Tech:**
+- Product shots (hero, angles)
+- Feature highlights
+- Lifestyle (in context)
+
+**Food/Beverage:**
+- Product shots (packaging)
+- Lifestyle (consumption moment)
+- Seasonal/occasion
+
+**Fashion/Apparel:**
+- Product shots (flat lay, on model reference)
+- Lifestyle (styled context)
+- Detail shots (texture, material)
+
+**Home/Furniture:**
+- Product shots (hero)
+- Room context (in situ)
+- Detail shots (materials, features)
+
+Ask user:
+
+> "For [product category], I recommend these creative types:
+> - [type 1]
+> - [type 2]
+> - [type 3]
+>
+> Which types would you like to generate? (Select multiple or all)"
 
 ---
 
@@ -139,12 +251,14 @@ Map platform specs to Nano Banana aspect ratios.
 
 Reference: [PMax Specs](./pmax-specs.md)
 
-| Asset | Google Spec | Nano Banana Ratio |
-|-------|-------------|-------------------|
-| Landscape | 1200x628 | `2:1` |
-| Square | 1200x1200 | `1:1` |
-| Portrait | 960x1200 | `4:3` (portrait) |
-| Logo | 1200x1200 | `1:1` |
+| Asset | Google Spec | Nano Banana Ratio | Notes |
+|-------|-------------|-------------------|-------|
+| Landscape | 1200x628 | `16:9` | ~10% height crop needed |
+| Square | 1200x1200 | `1:1` | Exact match |
+| Portrait | 960x1200 | `3:4` | ~6% crop needed |
+| Logo | 1200x1200 | `1:1` | Use existing file if 4:1 needed |
+
+**Note:** Nano Banana valid ratios: `1:1`, `16:9`, `9:16`, `4:3`, `3:4`, `2:3`, `3:2`
 
 ### Select Prompt Template
 
@@ -167,11 +281,12 @@ Build queue for all required assets:
 ```
 GENERATION QUEUE
 ----------------
-[ ] Landscape (2:1) - [prompt preview]
+[ ] Landscape (16:9) - [prompt preview]
 [ ] Square (1:1) - [prompt preview]
-[ ] Portrait (4:3) - [prompt preview]
+[ ] Portrait (3:4) - [prompt preview]
 
 Reference: [primary reference file]
+Quantity per size: [user selection from Phase 1]
 ```
 
 ---

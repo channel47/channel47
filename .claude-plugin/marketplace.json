@@ -14,7 +14,7 @@
       "name": "ads",
       "source": "./plugins/ads",
       "description": "Google Ads campaign creation and optimization with PMax, Search, Audit, and Assets skills plus research agents",
-      "version": "2.1.1",
+      "version": "2.2.0",
       "category": "marketing",
       "tags": ["google-ads", "dataforseo", "pmax", "search-campaigns", "account-audit", "keyword-research", "competitor-research", "image-generation", "gemini", "mcp", "gaql"]
     },
