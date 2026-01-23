@@ -11,6 +11,14 @@
     "reddit-mcp-buddy": {
       "command": "npx",
       "args": ["-y", "reddit-mcp-buddy"]
+    },
+    "nano-banana": {
+      "command": "uvx",
+      "args": ["gemini-image-mcp"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-playwright"]
     }
   }
 }

@@ -171,6 +171,36 @@ Collect from user or generate suggestions:
 - Landscape, square, or portrait
 - Google will auto-generate if not provided (lower quality)
 
+### Asset Generation Option
+
+After collecting asset information, assess what's provided vs needed:
+
+```
+ASSET STATUS
+------------
+| Type | Required | Status |
+|------|----------|--------|
+| Landscape | 1200x628 | [provided/needed] |
+| Square | 1200x1200 | [provided/needed] |
+| Portrait | 960x1200 | [provided/needed] |
+| Logo | 1200x1200 | [provided/needed] |
+```
+
+If any required images are needed, offer generation:
+
+> "Based on your asset requirements:
+> - [n] required images are missing
+> - [n] optional images would improve performance
+>
+> Would you like me to generate these?
+> 1. Yes, run /ads:assets to generate missing images
+> 2. No, I'll provide them manually
+> 3. Skip optional, continue with required only"
+
+If user selects option 1:
+- Launch `/ads:assets` skill with product URL from Phase 1
+- Return to Phase 5 when assets are generated
+
 ---
 
 ## Phase 5: Campaign Settings

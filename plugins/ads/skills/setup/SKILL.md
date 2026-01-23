@@ -61,6 +61,12 @@ SERVER STATUS
     Complexity: NONE (anonymous) or LOW (5 min)
     Priority: LOW - Nice-to-have
 
+[4] Nano Banana       [STATUS]
+    Features: AI image generation with Gemini
+    Skills: ads:assets
+    Complexity: LOW (2 min)
+    Priority: OPTIONAL - Asset generation
+
 =================================================================
 ```
 
@@ -76,9 +82,10 @@ What would you like to do?
 [A] Set up Google Ads MCP
 [B] Set up DataForSEO MCP
 [C] Set up Reddit MCP
-[D] Set up all servers
-[E] Skip to verification
-[F] Show troubleshooting help
+[D] Set up Nano Banana (Gemini)
+[E] Set up all servers
+[F] Skip to verification
+[G] Show troubleshooting help
 ```
 
 Accept the user's choice. If they select multiple (e.g., "A, B"), process them in order.
@@ -401,6 +408,36 @@ Ask user to provide:
 
 ---
 
+## MODULE: Nano Banana (Gemini) Setup
+
+This module configures Gemini API access for AI image generation.
+
+```
+NANO BANANA (GEMINI) SETUP
+--------------------------
+
+Nano Banana uses Google's Gemini API for AI image generation.
+This enables the /ads:assets skill for creating ad images.
+
+1. Go to: https://aistudio.google.com/apikey
+
+2. Click "Create API Key"
+   - Select a Google Cloud project (or create new)
+   - Click "Create API key in new project" if needed
+
+3. Copy your API key (starts with "AIza...")
+
+Note: Free tier includes generous usage for testing.
+Paid tier required for production volume.
+```
+
+Ask user to provide:
+- Gemini API Key
+
+**Nano Banana module complete.**
+
+---
+
 ## Phase 3: Configuration Generation
 
 Generate the JSON configuration based on which servers were set up:
@@ -442,6 +479,11 @@ Add these credentials to ~/.claude/settings.json:
 ```
 
 Note: Reddit in anonymous mode needs no environment variables.
+
+**Gemini variables (if configured):**
+```
+"GEMINI_API_KEY": "..."
+```
 
 ## Phase 4: Restart Instructions
 
@@ -491,6 +533,15 @@ with test query "marketing"
 On success: "Reddit MCP: Connected ([mode])"
 On failure: Show error and troubleshooting tips
 
+**Nano Banana Verification:**
+```
+Testing Gemini connection...
+Running: mcp__nano-banana__list_files
+```
+
+On success: "Nano Banana: Connected (Gemini API)"
+On failure: Show error and troubleshooting tips
+
 ## Phase 6: Completion Summary
 
 ```
@@ -503,12 +554,17 @@ Configured Servers:
 [X] Google Ads MCP     - Campaign management ready
 [X] DataForSEO MCP     - Keyword research ready
 [X] Reddit MCP         - Reddit search ready (anonymous)
+[X] Nano Banana        - AI image generation ready
 
 Available Agents:
 -----------------
 - google-ads-analyst    Analyze campaigns, run GAQL queries
 - keyword-researcher    Research keywords for Search campaigns
 - competitor-researcher Research competitors and markets
+
+Available Skills:
+-----------------
+- /ads:assets           Generate ad images with AI
 
 Quick Commands:
 ---------------
@@ -541,6 +597,11 @@ Only show checkmarks for actually configured servers.
 - "401 Unauthorized" - Check client ID and secret
 - "Invalid credentials" - Verify username and password
 - Rate limiting - Switch to authenticated mode for higher limits
+
+**Nano Banana (Gemini) Common Issues:**
+- "API key not valid" - Check key starts with "AIza"
+- "Quota exceeded" - Check usage at aistudio.google.com
+- "Model not found" - Gemini access may be region-restricted
 
 **Security Reminders:**
 - Never share credentials in chat or commit to git

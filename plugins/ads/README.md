@@ -1,6 +1,6 @@
 # Google Ads Plugin
 
-Google Ads campaign creation and optimization with PMax, Search, and Audit skills plus keyword and competitor research agents.
+Google Ads campaign creation and optimization with PMax, Search, Audit, and Assets skills plus keyword and competitor research agents.
 
 ## Features
 
@@ -10,6 +10,7 @@ Google Ads campaign creation and optimization with PMax, Search, and Audit skill
 - **`/ads:pmax`** - Create Performance Max campaigns with asset groups and audience signals
 - **`/ads:search`** - Create Search campaigns with keyword structure and ad copy
 - **`/ads:audit`** - Audit account health with benchmark comparisons and recommendations
+- **`/ads:assets`** - Generate ad-ready images using AI with reference-based workflows
 
 ### Agents
 
@@ -22,6 +23,8 @@ Google Ads campaign creation and optimization with PMax, Search, and Audit skill
 - **Google Ads MCP** - Campaign management and GAQL queries
 - **DataForSEO MCP** - Keyword volume, CPC, trends, competitor data
 - **Reddit MCP** - Search Reddit for customer language and competitor sentiment
+- **Nano Banana MCP** - AI image generation with Gemini
+- **Playwright MCP** - Browser automation for reference capture
 
 ### Hooks
 
@@ -39,7 +42,8 @@ Run `/ads:setup` for guided configuration, or manually add to `~/.claude/setting
     "GOOGLE_ADS_CLIENT_SECRET": "your-secret",
     "GOOGLE_ADS_REFRESH_TOKEN": "your-refresh-token",
     "DATAFORSEO_LOGIN": "your-email",
-    "DATAFORSEO_PASSWORD": "your-api-password"
+    "DATAFORSEO_PASSWORD": "your-api-password",
+    "GEMINI_API_KEY": "your-gemini-key"
   }
 }
 ```
@@ -69,6 +73,13 @@ Walks through PMax campaign creation with asset requirements.
 /ads:search
 ```
 Builds Search campaign structure with keyword grouping and ad copy.
+
+### Asset Generation
+
+```
+/ads:assets
+```
+Generate ad images from product pages using AI. Screenshots references, generates brand-consistent imagery across all required sizes.
 
 ### Account Analysis
 
@@ -102,6 +113,16 @@ Uses campaign-strategist agent to bridge research and creation.
 - `mcp__reddit-mcp-buddy__search_reddit` - Search posts
 - `mcp__reddit-mcp-buddy__get_post_details` - Get post and comments
 
+**Nano Banana (Gemini):**
+- `mcp__nano-banana__generate_image` - Generate images with prompts
+- `mcp__nano-banana__upload_file` - Upload reference images
+- `mcp__nano-banana__list_files` - List uploaded files
+
+**Playwright:**
+- `mcp__playwright__browser_navigate` - Navigate to URLs
+- `mcp__playwright__browser_snapshot` - Capture page accessibility tree
+- `mcp__playwright__browser_take_screenshot` - Screenshot page or elements
+
 ## Skill Reference Files
 
 Skills include reference documentation:
@@ -119,8 +140,14 @@ Skills include reference documentation:
 **Audit Skill:**
 - `performance-benchmarks.md` - Industry averages by vertical
 
+**Assets Skill:**
+- `prompt-templates.md` - Generation prompts by asset type
+- `pmax-specs.md` - Dimension requirements for PMax
+- `iteration-patterns.md` - Refinement workflow patterns
+
 ## Version History
 
+- **2.1.0** - Added Assets skill for AI image generation with Nano Banana and Playwright MCP
 - **2.0.0** - Added PMax, Search, Audit skills and campaign-strategist agent
 - **1.2.0** - Added Reddit MCP integration
 - **1.1.0** - Added competitor-researcher agent
