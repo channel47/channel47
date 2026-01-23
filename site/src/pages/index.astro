@@ -19,8 +19,8 @@ import SocialLinks from '../components/SocialLinks.astro';
 ---
 
 <BaseLayout
-  title="Channel47 — Claude Code plugins for media buyers"
-  description="10,000 lines of code a day. I don't know how to code. Free Claude Code plugins for Google Ads, from someone who can't code."
+  title="Channel47 — Claude Code plugin for media buyers"
+  description="A free Claude Code plugin for Google Ads, built by someone who can't code. New features shipping constantly."
 >
   <main class="page">
     <!-- Atmospheric orb - subtle warmth behind content -->
@@ -31,7 +31,7 @@ import SocialLinks from '../components/SocialLinks.astro';
     <Prose width="wide">
       <!-- Hero: Claim → Cliffhanger → Payoff -->
       <header class="hero">
-        <p class="hero__overline" data-animate="fade-up" data-stagger="1">Claude Code Plugins for Media Buyers</p>
+        <p class="hero__overline" data-animate="fade-up" data-stagger="1">A Claude Code Plugin for Media Buyers</p>
         <h1 class="hero__headline" data-animate="blur-in" data-stagger="2">
           I audited 8 Google Ads accounts in 10 minutes.
           <span class="hero__headline-break">From my terminal.</span>
@@ -76,7 +76,7 @@ import SocialLinks from '../components/SocialLinks.astro';
 
       <!-- CTA: Inline, reserved -->
       <div class="cta cta--inline" data-animate="fade-up" data-stagger="3">
-        <p class="cta__text">Get the plugins free.</p>
+        <p class="cta__text">Get the plugin free.</p>
         <EmailSignup placeholder="your@email.com" tag="hero" />
         <p class="cta__hint">You just need Claude Pro (~$20/mo)</p>
       </div>
@@ -99,24 +99,30 @@ import SocialLinks from '../components/SocialLinks.astro';
           Now my workflow lives in the terminal. That probably sounds intimidating. It's not. It's a text window. You type what you want. Claude does the rest.
         </p>
         <p>
-          An open source marketplace for Claude Code plugins. Tools that let Claude work directly with your ad accounts, your data, your workflows.
+          An open source Claude Code plugin for Google Ads. It lets Claude work directly with your ad accounts—audits, edits, reports. I'm shipping new features constantly.
         </p>
         <p>
-          Built for media buyers. Everything free. You just need Claude Pro (~$20/mo).
+          Built for media buyers. Free forever. You just need Claude Pro (~$20/mo).
         </p>
       </section>
 
       <section class="faq" data-animate="fade-up" data-stagger="4">
         <div class="faq__item">
+          <h3 class="faq__question">How does it work?</h3>
+          <p class="faq__answer">
+            Everything runs on your machine. You use your own Claude Pro subscription and connect your own Google Ads API credentials. Nothing passes through my servers—I never see your data or account access.
+          </p>
+        </div>
+        <div class="faq__item">
           <h3 class="faq__question">Why free?</h3>
           <p class="faq__answer">
-            I don't need your money. I need your feedback. Use these tools. Break them. Tell me what's broken. That's the deal.
+            I don't need your money. I need your feedback. Use the plugin. Break it. Tell me what's broken. That's the deal.
           </p>
         </div>
         <div class="faq__item">
           <h3 class="faq__question">What about my accounts?</h3>
           <p class="faq__answer">
-            These plugins can read and modify your data, but only when you ask. Claude shows you what it's about to do and waits for approval. You stay in control.
+            The plugin can read and modify your data, but only when you ask. Claude shows you what it's about to do and waits for approval. You stay in control.
           </p>
         </div>
       </section>
@@ -127,24 +133,22 @@ import SocialLinks from '../components/SocialLinks.astro';
           Intelligence is becoming a commodity. What matters now is the workflows—the patterns that produce results.
         </p>
         <p>
-          If you can describe what you want in a sentence, you can use these tools.
+          If you can describe what you want in a sentence, you can use this.
         </p>
       </section>
 
-      <!-- Final CTA: Simple, clear -->
+      <!-- Final CTA: Value exchange -->
       <section class="invitation" data-animate="fade-up" data-stagger="5">
         <div class="invitation__content">
-          <h2 class="invitation__headline">Join the list</h2>
-          <ul class="invitation__benefits">
-            <li>First access to every plugin I ship</li>
-            <li>Notes on what's working and what isn't</li>
-            <li>No pitch decks. No courses.</li>
-          </ul>
+          <h2 class="invitation__headline">Get past the setup</h2>
+          <p class="invitation__description">
+            The plugin is easy. Google's OAuth flow is the annoying part. I'll send you the 15-minute walkthrough that gets you connected.
+          </p>
           <div class="invitation__form">
-            <EmailSignup placeholder="your@email.com" tag="manifesto" />
+            <EmailSignup placeholder="your@email.com" tag="setup-guide" />
           </div>
           <p class="invitation__cadence">
-            I email when I have something worth saying. Once or twice a month.
+            Then: new features and field notes as I build. No courses. No pitch decks.
           </p>
         </div>
       </section>
@@ -322,7 +326,7 @@ import SocialLinks from '../components/SocialLinks.astro';
    * Authentic conversational interface
    * ========================================= */
   .claude-terminal {
-    max-width: 560px;
+    max-width: 100%;
     background: var(--color-bg-deep);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -339,6 +343,7 @@ import SocialLinks from '../components/SocialLinks.astro';
   @media (min-width: 768px) {
     .claude-terminal {
       font-size: var(--text-sm);
+      max-width: 680px;
     }
   }
 
@@ -703,22 +708,17 @@ import SocialLinks from '../components/SocialLinks.astro';
     }
   }
 
-  .invitation__benefits {
-    list-style: none;
-    padding: 0;
+  .invitation__description {
+    font-family: var(--font-serif);
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-secondary);
     margin: 0 0 var(--space-6) 0;
   }
 
-  .invitation__benefits li {
-    font-family: var(--font-serif);
-    font-size: var(--text-sm);
-    color: var(--color-fg-secondary);
-    padding: var(--space-1-5) 0;
-  }
-
   @media (min-width: 768px) {
-    .invitation__benefits li {
-      font-size: var(--text-base);
+    .invitation__description {
+      font-size: var(--fluid-lg);
     }
   }
 
