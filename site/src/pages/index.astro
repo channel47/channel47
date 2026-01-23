@@ -29,16 +29,16 @@ import SocialLinks from '../components/SocialLinks.astro';
     </div>
 
     <Prose width="wide">
-      <!-- Hero: Massive headline -->
+      <!-- Hero: Claim → Cliffhanger → Payoff -->
       <header class="hero">
         <p class="hero__overline" data-animate="fade-up" data-stagger="1">Claude Code Plugins for Media Buyers</p>
         <h1 class="hero__headline" data-animate="blur-in" data-stagger="2">
-          10,000 lines of code a day.
-          <span class="hero__headline-break">I don't know how to code.</span>
+          I audited 8 Google Ads accounts in 10 minutes.
+          <span class="hero__headline-break">From my terminal.</span>
         </h1>
 
-        <!-- Claude Code terminal - authentic conversational interface -->
-        <div class="claude-terminal" data-animate="fade-up" data-stagger="3">
+        <!-- Claude Code terminal - condensed with cliffhanger fade -->
+        <div class="claude-terminal" data-animate="fade-up" data-stagger="2">
           <div class="claude-terminal__chrome">
             <div class="claude-terminal__dots">
               <span></span><span></span><span></span>
@@ -52,7 +52,7 @@ import SocialLinks from '../components/SocialLinks.astro';
               <span class="claude-terminal__text">Audit all my Google Ads accounts and fix any RSA compliance issues</span>
             </div>
 
-            <!-- Claude thinking/working -->
+            <!-- Claude working - with tool call -->
             <div class="claude-terminal__message claude-terminal__message--claude">
               <div class="claude-terminal__claude-indicator">
                 <span class="claude-terminal__claude-icon">●</span>
@@ -64,51 +64,25 @@ import SocialLinks from '../components/SocialLinks.astro';
                   <span class="claude-terminal__tool-label">Read</span>
                   <span class="claude-terminal__tool-target">8 accounts · 47 campaigns · 156 RSAs</span>
                 </div>
-                <p class="claude-terminal__response-text">Found 12 ads missing required headlines. I can fix these now—want me to proceed?</p>
-              </div>
-            </div>
-
-            <!-- User approval -->
-            <div class="claude-terminal__message claude-terminal__message--user">
-              <span class="claude-terminal__prompt">›</span>
-              <span class="claude-terminal__text">yes</span>
-            </div>
-
-            <!-- Claude completing -->
-            <div class="claude-terminal__message claude-terminal__message--claude">
-              <div class="claude-terminal__claude-indicator">
-                <span class="claude-terminal__claude-icon">●</span>
-                <span class="claude-terminal__claude-name">Claude</span>
-              </div>
-              <div class="claude-terminal__response">
-                <div class="claude-terminal__tool claude-terminal__tool--success">
-                  <span class="claude-terminal__tool-label">Edit</span>
-                  <span class="claude-terminal__tool-target">12 RSAs updated across 4 accounts</span>
-                </div>
-                <p class="claude-terminal__response-text">Done. All accounts now compliant.</p>
+                <p class="claude-terminal__response-text">Found 12 ads missing required headlines...</p>
               </div>
             </div>
           </div>
-          <div class="claude-terminal__status">
-            <span class="claude-terminal__status-model">claude-sonnet</span>
-            <span class="claude-terminal__status-separator">·</span>
-            <span class="claude-terminal__status-branch">main</span>
-          </div>
+          <!-- Fade overlay for cliffhanger effect -->
+          <div class="claude-terminal__fade" aria-hidden="true"></div>
         </div>
-        <p class="hero__terminal-caption">8 accounts. 47 campaigns. 156 RSAs. 12 fixed. While I drank my coffee.</p>
+        <p class="hero__terminal-caption" data-animate="fade-up" data-stagger="2">8 accounts. 47 campaigns. 156 RSAs. 12 issues found and fixed.<br>While I drank my coffee.</p>
       </header>
 
       <!-- CTA: Inline, reserved -->
-      <div class="cta cta--inline" data-animate="fade-up" data-stagger="4">
+      <div class="cta cta--inline" data-animate="fade-up" data-stagger="3">
         <p class="cta__text">Get the plugins free.</p>
         <EmailSignup placeholder="your@email.com" tag="hero" />
         <p class="cta__hint">You just need Claude Pro (~$20/mo)</p>
       </div>
 
-      <div class="section-break" data-animate="fade-in" data-stagger="5" aria-hidden="true"></div>
-
       <!-- Origin: Dense story block -->
-      <section class="story story--origin" data-animate="fade-up" data-stagger="5">
+      <section class="story story--origin" data-animate="fade-up" data-stagger="4">
         <p class="story__lede">
           A year ago I lived inside the Google Ads UI. Twenty-five accounts. Hundreds of campaigns. The same checks, over and over.
         </p>
@@ -124,13 +98,6 @@ import SocialLinks from '../components/SocialLinks.astro';
         <p>
           Now my workflow lives in the terminal. That probably sounds intimidating. It's not. It's a text window. You type what you want. Claude does the rest.
         </p>
-      </section>
-
-      <div class="section-break" aria-hidden="true"></div>
-
-      <!-- The Build: Sparse, breathing section with Q&A -->
-      <section class="story story--build" data-animate="fade-up" data-stagger="6">
-        <h2 class="story__heading">What I'm building</h2>
         <p>
           An open source marketplace for Claude Code plugins. Tools that let Claude work directly with your ad accounts, your data, your workflows.
         </p>
@@ -139,7 +106,7 @@ import SocialLinks from '../components/SocialLinks.astro';
         </p>
       </section>
 
-      <section class="faq" data-animate="fade-up" data-stagger="7">
+      <section class="faq" data-animate="fade-up" data-stagger="4">
         <div class="faq__item">
           <h3 class="faq__question">Why free?</h3>
           <p class="faq__answer">
@@ -154,15 +121,10 @@ import SocialLinks from '../components/SocialLinks.astro';
         </div>
       </section>
 
-      <div class="section-break" aria-hidden="true"></div>
-
-      <!-- The Belief: Sparse, worldview statement -->
-      <section class="story story--belief" data-animate="fade-up" data-stagger="8">
+      <!-- The Belief: Tightened worldview statement -->
+      <section class="story story--belief" data-animate="fade-up" data-stagger="4">
         <p class="story__manifesto">
-          Intelligence is becoming a commodity. Anyone can access Claude for $20 a month. What matters now is the workflows. The prompts. The patterns that produce results.
-        </p>
-        <p class="story__aside">
-          I'm not an expert on these tools. I'm a daily practitioner. Someone who optimizes systems because I can't help myself. Someone who'd rather spend an hour automating a task than do it twice.
+          Intelligence is becoming a commodity. What matters now is the workflows—the patterns that produce results.
         </p>
         <p>
           If you can describe what you want in a sentence, you can use these tools.
@@ -170,7 +132,7 @@ import SocialLinks from '../components/SocialLinks.astro';
       </section>
 
       <!-- Final CTA: Simple, clear -->
-      <section class="invitation" data-animate="fade-up" data-stagger="9">
+      <section class="invitation" data-animate="fade-up" data-stagger="5">
         <div class="invitation__content">
           <h2 class="invitation__headline">Join the list</h2>
           <ul class="invitation__benefits">
@@ -188,7 +150,7 @@ import SocialLinks from '../components/SocialLinks.astro';
       </section>
 
       <!-- Footer: Minimal, breathing -->
-      <footer class="page-footer" data-animate="fade-up" data-stagger="10">
+      <footer class="page-footer" data-animate="fade-up" data-stagger="5">
         <div class="page-footer__logo">
           <LogoAnimated delay={200} />
         </div>
@@ -260,26 +222,26 @@ import SocialLinks from '../components/SocialLinks.astro';
     top: 10%;
     left: 50%;
     transform: translateX(-50%);
-    width: min(900px, 130vw);
-    height: min(700px, 90vh);
+    width: min(750px, 110vw);
+    height: min(550px, 75vh);
     background: radial-gradient(
       ellipse 100% 100% at 50% 30%,
       var(--color-accent-glow) 0%,
-      oklch(18% 0.02 35 / 0.1) 40%,
+      oklch(18% 0.02 35 / 0.08) 40%,
       transparent 70%
     );
-    filter: blur(120px);
+    filter: blur(80px);
     animation: orb-drift 25s var(--ease-in-out) infinite;
   }
 
   @keyframes orb-drift {
     0%, 100% {
-      opacity: 0.4;
+      opacity: 0.2;
       transform: translateX(-50%) translateY(0);
     }
     50% {
-      opacity: 0.6;
-      transform: translateX(-50%) translateY(-20px);
+      opacity: 0.35;
+      transform: translateX(-50%) translateY(-15px);
     }
   }
 
@@ -367,12 +329,32 @@ import SocialLinks from '../components/SocialLinks.astro';
     overflow: hidden;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
+    box-shadow:
+      0 4px 24px oklch(0% 0 0 / 0.4),
+      0 0 0 1px oklch(100% 0 0 / 0.02) inset,
+      0 1px 0 0 oklch(100% 0 0 / 0.04) inset;
+    position: relative;
   }
 
   @media (min-width: 768px) {
     .claude-terminal {
       font-size: var(--text-sm);
     }
+  }
+
+  /* Fade overlay for cliffhanger effect */
+  .claude-terminal__fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--color-bg-deep) 100%
+    );
+    pointer-events: none;
   }
 
   /* Chrome bar */
@@ -518,26 +500,6 @@ import SocialLinks from '../components/SocialLinks.astro';
     color: var(--color-accent);
   }
 
-  /* Status bar */
-  .claude-terminal__status {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: var(--color-bg-elevated);
-    border-top: 1px solid var(--color-border-subtle);
-    font-size: var(--text-2xs);
-    color: var(--color-fg-subtle);
-  }
-
-  .claude-terminal__status-model {
-    color: var(--color-accent);
-  }
-
-  .claude-terminal__status-separator {
-    opacity: 0.5;
-  }
-
   /* =========================================
    * INLINE CTA
    * Reserved, inline with content
@@ -571,27 +533,6 @@ import SocialLinks from '../components/SocialLinks.astro';
     font-size: var(--text-xs);
     color: var(--color-fg-subtle);
     margin: var(--space-3) 0 0 0;
-  }
-
-  /* =========================================
-   * SECTION BREAK
-   * Minimal, breathing space
-   * ========================================= */
-  .section-break {
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      var(--color-border) 0%,
-      var(--color-border-subtle) 100%
-    );
-    margin-block: var(--space-12);
-    max-width: 120px;
-  }
-
-  @media (min-width: 768px) {
-    .section-break {
-      margin-block: var(--space-16);
-    }
   }
 
   /* =========================================
@@ -656,26 +597,6 @@ import SocialLinks from '../components/SocialLinks.astro';
     }
   }
 
-  /* Build section: Sparse, heading-led */
-  .story--build {
-    margin-bottom: var(--space-8);
-  }
-
-  .story__heading {
-    font-family: var(--font-serif);
-    font-size: var(--fluid-lg);
-    font-weight: var(--font-semibold);
-    color: var(--color-fg);
-    margin: 0 0 var(--space-4) 0;
-  }
-
-  @media (min-width: 768px) {
-    .story__heading {
-      font-size: var(--fluid-xl);
-      margin-bottom: var(--space-5);
-    }
-  }
-
   /* Belief section: Manifesto tone */
   .story--belief {
     padding: var(--space-8) 0;
@@ -700,10 +621,6 @@ import SocialLinks from '../components/SocialLinks.astro';
     }
   }
 
-  .story__aside {
-    font-style: italic;
-    color: var(--color-fg-muted) !important;
-  }
 
   /* =========================================
    * FAQ SECTION
@@ -723,8 +640,7 @@ import SocialLinks from '../components/SocialLinks.astro';
   }
 
   .faq__item {
-    padding-left: var(--space-4);
-    border-left: 2px solid var(--color-border-subtle);
+    /* Simplified: no left border, just spacing */
   }
 
   .faq__question {
@@ -873,7 +789,7 @@ import SocialLinks from '../components/SocialLinks.astro';
   @media (prefers-reduced-motion: reduce) {
     .atmosphere__orb {
       animation: none;
-      opacity: 0.4;
+      opacity: 0.2;
     }
   }
 </style>
