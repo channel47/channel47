@@ -1,5 +1,7 @@
 ---
-description: Interactive wizard to configure Google Ads, DataForSEO, and Reddit MCP servers
+name: setup
+description: |
+  Interactive wizard to configure Google Ads and DataForSEO API credentials for the MCP servers.
 ---
 
 # Ads Plugin Setup Wizard
