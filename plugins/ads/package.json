@@ -1,6 +1,6 @@
 {
   "name": "ads",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Google Ads campaign creation and optimization with PMax, Search, Audit, and Assets skills plus research agents",
   "type": "module",
   "keywords": [
