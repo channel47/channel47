@@ -1,7 +1,7 @@
 /**
- * Beehiiv Subscription API Endpoint
+ * Kit (ConvertKit) Subscription API Endpoint
  *
- * Handles email subscriptions by proxying requests to beehiiv API.
+ * Handles email subscriptions by proxying requests to Kit API.
  * This keeps API keys secure on the server side.
  *
  * Security features:
@@ -13,8 +13,7 @@
  * - Security headers on responses
  *
  * Required environment variables:
- * - BEEHIIV_API_KEY: Your beehiiv API key (from Settings → API)
- * - BEEHIIV_PUBLICATION_ID: Your publication ID (from Settings → API)
+ * - KIT_API_KEY: Your Kit API key (from Settings → Developer)
  */
 
 import type { APIRoute } from 'astro';
@@ -84,16 +83,15 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   // Get environment variables
-  const API_KEY = import.meta.env.BEEHIIV_API_KEY;
-  const PUBLICATION_ID = import.meta.env.BEEHIIV_PUBLICATION_ID;
+  const API_KEY = import.meta.env.KIT_API_KEY;
 
   // Validate configuration
-  if (!API_KEY || !PUBLICATION_ID) {
-    console.error('Missing beehiiv configuration');
+  if (!API_KEY) {
+    console.error('Missing Kit configuration');
     return createResponse(
       {
         error: 'Server configuration error',
-        message: 'Beehiiv API is not properly configured'
+        message: 'Kit API is not properly configured'
       },
       500
     );
@@ -153,39 +151,44 @@ export const POST: APIRoute = async ({ request }) => {
   // Sanitize tag
   const sanitizedTag = sanitizeTag(tag);
 
-  // Call beehiiv API with timeout
+  // Call Kit API with timeout
   try {
-    const beehiivEndpoint = `https://api.beehiiv.com/v2/publications/${PUBLICATION_ID}/subscriptions`;
+    const kitEndpoint = 'https://api.kit.com/v4/subscribers';
 
     // Create abort controller for timeout
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
-    const payload: any = {
-      email: trimmedEmail,
-      reactivate_existing: false,
-      send_welcome_email: true,
-      utm_source: 'channel47_website'
+    // Build Kit payload
+    const payload: {
+      email_address: string;
+      state: string;
+      fields?: Record<string, string>;
+    } = {
+      email_address: trimmedEmail,
+      state: 'active'
     };
 
-    // Add tag as custom field if provided
+    // Add custom fields if tag provided
     if (sanitizedTag) {
-      payload.custom_fields = [
-        {
-          name: 'signup_context',
-          value: sanitizedTag
-        }
-      ];
+      payload.fields = {
+        signup_source: 'channel47_website',
+        signup_context: sanitizedTag
+      };
+    } else {
+      payload.fields = {
+        signup_source: 'channel47_website'
+      };
     }
 
     let response: Response;
     let data: any;
 
     try {
-      response = await fetch(beehiivEndpoint, {
+      response = await fetch(kitEndpoint, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${API_KEY}`,
+          'X-Kit-Api-Key': API_KEY,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(payload),
@@ -199,7 +202,7 @@ export const POST: APIRoute = async ({ request }) => {
 
       // Handle timeout
       if (fetchError.name === 'AbortError') {
-        console.error('Beehiiv API timeout');
+        console.error('Kit API timeout');
         return createResponse(
           {
             error: 'Request timeout',
@@ -213,26 +216,18 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     if (!response.ok) {
-      console.error('Beehiiv API error:', data);
+      console.error('Kit API error:', data);
 
       // Handle specific error cases
-      if (response.status === 400 && data.errors) {
-        const errorMessage = data.errors[0]?.message || 'Invalid subscription data';
+      // Kit returns { errors: string[] } for validation errors
+      if (response.status === 400 || response.status === 422) {
+        const errorMessage = Array.isArray(data.errors)
+          ? data.errors[0]
+          : 'Invalid subscription data';
         return createResponse(
           {
             error: 'Subscription failed',
             message: errorMessage
-          },
-          400
-        );
-      }
-
-      // Handle duplicate subscription
-      if (response.status === 409 || (data.message && data.message.includes('already'))) {
-        return createResponse(
-          {
-            error: 'Already subscribed',
-            message: 'This email is already subscribed'
           },
           400
         );
@@ -247,7 +242,7 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Success
+    // Success - Kit handles duplicates idempotently (returns 200 for existing subscribers)
     return createResponse(
       {
         success: true,

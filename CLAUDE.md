@@ -19,4 +19,4 @@ When modifying plugins, update version in:
 
 ## Environment
 
-Copy `.env.example` to `.env`. Site needs `BEEHIIV_*` vars for newsletter.
+Copy `.env.example` to `.env`. Site needs `KIT_API_KEY` for newsletter.

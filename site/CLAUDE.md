@@ -12,8 +12,7 @@ npm run build    # Production build
 ## Environment
 
 ```bash
-BEEHIIV_API_KEY=
-BEEHIIV_PUBLICATION_ID=
+KIT_API_KEY=
 ```
 
 Static output with one serverless endpoint (`api/subscribe.ts`).
