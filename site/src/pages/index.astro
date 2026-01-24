@@ -16,6 +16,7 @@ import Prose from '../components/Prose.astro';
 import EmailSignup from '../components/EmailSignup.astro';
 import LogoAnimated from '../components/LogoAnimated.astro';
 import SocialLinks from '../components/SocialLinks.astro';
+import AnimatedName from '../components/AnimatedName.astro';
 ---
 
 <BaseLayout
@@ -37,8 +38,8 @@ import SocialLinks from '../components/SocialLinks.astro';
           <span class="hero__headline-break">Start prompting.</span>
         </h1>
 
-        <!-- Claude Code terminal - condensed with cliffhanger fade -->
-        <div class="claude-terminal" data-animate="fade-up" data-stagger="2">
+        <!-- Claude Code terminal - animated conversation -->
+        <div class="claude-terminal" data-animate="fade-up" data-stagger="2" data-terminal-animate>
           <div class="claude-terminal__chrome">
             <div class="claude-terminal__dots">
               <span></span><span></span><span></span>
@@ -46,25 +47,71 @@ import SocialLinks from '../components/SocialLinks.astro';
             <div class="claude-terminal__title">claude</div>
           </div>
           <div class="claude-terminal__content">
-            <!-- User message -->
-            <div class="claude-terminal__message claude-terminal__message--user">
+            <!-- Beat 1: The Ask -->
+            <div class="claude-terminal__message claude-terminal__message--user" data-beat="1">
               <span class="claude-terminal__prompt">›</span>
-              <span class="claude-terminal__text">Audit my campaigns for RSA best practices and find any missing extensions</span>
+              <span class="claude-terminal__text" data-typewriter>Audit my campaigns for RSA best practices and find any missing extensions</span>
             </div>
 
-            <!-- Claude working - with tool call -->
-            <div class="claude-terminal__message claude-terminal__message--claude">
-              <div class="claude-terminal__claude-indicator">
+            <!-- Thinking indicator (shown between beats) -->
+            <div class="claude-terminal__thinking" data-thinking="1" aria-live="polite">
+              <span class="claude-terminal__thinking-spinner"></span>
+              <span class="claude-terminal__thinking-text">Thinking</span>
+            </div>
+
+            <!-- Beat 2: The Discovery -->
+            <div class="claude-terminal__message claude-terminal__message--claude" data-beat="2">
+              <div class="claude-terminal__claude-indicator" data-reveal="indicator">
                 <span class="claude-terminal__claude-icon">●</span>
                 <span class="claude-terminal__claude-name">Claude</span>
               </div>
               <div class="claude-terminal__response">
-                <p class="claude-terminal__response-text">I'll check your campaigns for RSA best practices and scan for missing extensions. Connecting to the API now.</p>
-                <div class="claude-terminal__tool">
+                <p class="claude-terminal__response-text" data-reveal="text">I'll check your campaigns for RSA best practices and scan for missing extensions.</p>
+                <div class="claude-terminal__tool" data-reveal="tool">
                   <span class="claude-terminal__tool-label">Read</span>
                   <span class="claude-terminal__tool-target">23 campaigns · 89 ad groups · 156 RSAs</span>
                 </div>
-                <p class="claude-terminal__response-text">Found 4 missing sitelinks, 3 callout gaps, structured snippets needed on 2 campaigns...</p>
+                <p class="claude-terminal__response-text" data-reveal="text">Found 4 campaigns missing sitelinks, 3 callout gaps, and 2 campaigns need structured snippets.</p>
+              </div>
+            </div>
+
+            <!-- Beat 3: The Decision -->
+            <div class="claude-terminal__message claude-terminal__message--user" data-beat="3">
+              <span class="claude-terminal__prompt">›</span>
+              <span class="claude-terminal__text" data-typewriter>Fix them</span>
+            </div>
+
+            <!-- Thinking indicator before action -->
+            <div class="claude-terminal__thinking" data-thinking="2" aria-live="polite">
+              <span class="claude-terminal__thinking-spinner"></span>
+              <span class="claude-terminal__thinking-text">Writing</span>
+            </div>
+
+            <!-- Beat 4: The Action -->
+            <div class="claude-terminal__message claude-terminal__message--claude" data-beat="4">
+              <div class="claude-terminal__claude-indicator" data-reveal="indicator">
+                <span class="claude-terminal__claude-icon">●</span>
+                <span class="claude-terminal__claude-name">Claude</span>
+              </div>
+              <div class="claude-terminal__response">
+                <p class="claude-terminal__response-text" data-reveal="text">Adding the missing extensions now.</p>
+                <div class="claude-terminal__tool claude-terminal__tool--write" data-reveal="tool">
+                  <span class="claude-terminal__tool-label">Write</span>
+                  <span class="claude-terminal__tool-target">4 sitelinks · 3 callouts · 2 structured snippets</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Thinking indicator before consecutive Claude message -->
+            <div class="claude-terminal__thinking" data-thinking="4" aria-live="polite">
+              <span class="claude-terminal__thinking-spinner"></span>
+              <span class="claude-terminal__thinking-text">Thinking</span>
+            </div>
+
+            <!-- Beat 5: The Payoff -->
+            <div class="claude-terminal__message claude-terminal__message--claude claude-terminal__message--final" data-beat="5">
+              <div class="claude-terminal__response">
+                <p class="claude-terminal__response-text claude-terminal__response-text--success" data-reveal="text">Done. All extensions live. Your accounts are compliant.</p>
               </div>
             </div>
           </div>
@@ -155,8 +202,13 @@ import SocialLinks from '../components/SocialLinks.astro';
 
       <!-- Footer: Minimal, breathing -->
       <footer class="page-footer" data-animate="fade-up" data-stagger="5">
-        <div class="page-footer__logo">
-          <LogoAnimated delay={200} />
+        <div class="page-footer__left">
+          <div class="page-footer__logo">
+            <LogoAnimated delay={200} />
+          </div>
+          <p class="page-footer__attribution">
+            Built by <AnimatedName alias="ctrlswing" realName="Jackson" />
+          </p>
         </div>
         <div class="page-footer__social">
           <SocialLinks />
@@ -323,7 +375,7 @@ import SocialLinks from '../components/SocialLinks.astro';
 
   /* =========================================
    * CLAUDE CODE TERMINAL
-   * Authentic conversational interface
+   * Authentic conversational interface with scroll
    * ========================================= */
   .claude-terminal {
     max-width: 100%;
@@ -347,19 +399,32 @@ import SocialLinks from '../components/SocialLinks.astro';
     }
   }
 
-  /* Fade overlay for cliffhanger effect */
+  /* Bottom fade overlay for depth */
   .claude-terminal__fade {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 60px;
+    height: 40px;
     background: linear-gradient(
       to bottom,
       transparent 0%,
       var(--color-bg-deep) 100%
     );
     pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+
+  /* Show fade when content is scrollable */
+  .claude-terminal.has-overflow .claude-terminal__fade {
+    opacity: 1;
+  }
+
+  /* Hide fade when scrolled to bottom */
+  .claude-terminal.at-bottom .claude-terminal__fade {
+    opacity: 0;
   }
 
   /* Chrome bar */
@@ -401,18 +466,45 @@ import SocialLinks from '../components/SocialLinks.astro';
     letter-spacing: 0.02em;
   }
 
-  /* Content area */
+  /* Content area - fixed height with scroll */
   .claude-terminal__content {
     padding: var(--space-4);
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
+    min-height: 200px;  /* Maintain consistent height during animation */
+    max-height: 240px;
+    overflow-y: auto;
+    /* scroll-behavior handled by JS for better control */
+
+    /* Custom scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+  }
+
+  .claude-terminal__content::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .claude-terminal__content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .claude-terminal__content::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 3px;
+  }
+
+  .claude-terminal__content::-webkit-scrollbar-thumb:hover {
+    background: var(--color-border-subtle);
   }
 
   @media (min-width: 768px) {
     .claude-terminal__content {
       padding: var(--space-5);
       gap: var(--space-5);
+      min-height: 220px;
+      max-height: 280px;
     }
   }
 
@@ -503,6 +595,237 @@ import SocialLinks from '../components/SocialLinks.astro';
 
   .claude-terminal__tool--success .claude-terminal__tool-label {
     color: var(--color-accent);
+  }
+
+  /* Write tool variant - subtle differentiation */
+  .claude-terminal__tool--write .claude-terminal__tool-label {
+    color: var(--color-accent);
+  }
+
+  /* Success/final message styling */
+  .claude-terminal__response-text--success {
+    color: var(--color-fg) !important;
+    font-weight: var(--font-medium);
+  }
+
+  /* =========================================
+   * THINKING INDICATOR
+   * Cycles through action words like Claude Code
+   * ========================================= */
+  .claude-terminal__thinking {
+    display: none;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) 0;
+    opacity: 0;
+  }
+
+  .claude-terminal__thinking.is-active {
+    display: flex;
+    animation: thinking-fade-in 0.2s ease-out forwards;
+  }
+
+  @keyframes thinking-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .claude-terminal__thinking-spinner {
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--color-border);
+    border-top-color: var(--color-accent);
+    border-radius: 50%;
+    animation: thinking-spin 0.8s linear infinite;
+  }
+
+  @keyframes thinking-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .claude-terminal__thinking-text {
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    font-style: italic;
+    letter-spacing: 0.01em;
+  }
+
+  /* Ellipsis animation for thinking text */
+  .claude-terminal__thinking-text::after {
+    content: '';
+    animation: thinking-ellipsis 1.5s steps(4, end) infinite;
+  }
+
+  @keyframes thinking-ellipsis {
+    0% { content: ''; }
+    25% { content: '.'; }
+    50% { content: '..'; }
+    75% { content: '...'; }
+    100% { content: ''; }
+  }
+
+  /* Fade out animation for thinking indicator */
+  .claude-terminal__thinking.is-fading {
+    animation: thinking-fade-out 250ms var(--ease-out, cubic-bezier(0, 0, 0.2, 1)) forwards;
+  }
+
+  @keyframes thinking-fade-out {
+    to {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+  }
+
+  /* =========================================
+   * TERMINAL ANIMATION STATES
+   * Progressive reveal system
+   * ========================================= */
+
+  /* Hidden beats - reserve space, just hide visually */
+  .claude-terminal[data-terminal-animate][data-animation-started] [data-beat] {
+    opacity: 0;
+    transform: translateY(12px);
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* Revealed beats - fade up smoothly */
+  .claude-terminal[data-terminal-animate] [data-beat].is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition:
+      opacity var(--duration-slower, 600ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1)),
+      transform var(--duration-slower, 600ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1)),
+      visibility 0s;
+  }
+
+  /* Elements within beats - hidden until parent reveals */
+  .claude-terminal[data-terminal-animate] [data-reveal] {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  .claude-terminal[data-terminal-animate] [data-reveal].is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Tool call - special scale-up entrance */
+  .claude-terminal[data-terminal-animate] [data-reveal="tool"] {
+    transform: translateY(6px) scale(0.95);
+  }
+
+  .claude-terminal[data-terminal-animate] [data-reveal="tool"].is-revealed {
+    transform: translateY(0) scale(1);
+    transition:
+      opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Typewriter text - hide until typing starts */
+  .claude-terminal[data-terminal-animate] [data-typewriter] {
+    opacity: 1; /* Text container visible */
+  }
+
+  /* Typewriter cursor */
+  .claude-terminal__cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background: var(--color-accent);
+    margin-left: 1px;
+    vertical-align: text-bottom;
+    animation: cursor-blink 0.6s ease-in-out infinite;
+  }
+
+  .claude-terminal__cursor--hidden {
+    opacity: 0;
+  }
+
+  @keyframes cursor-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  /* Prompt symbol - pulses when typing completes */
+  .claude-terminal__prompt.is-complete {
+    animation: prompt-pulse 0.3s ease-out;
+  }
+
+  @keyframes prompt-pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+
+  /* Final message - subtle glow on reveal */
+  .claude-terminal__message--final.is-revealed .claude-terminal__response-text--success {
+    animation: success-glow 0.6s ease-out;
+  }
+
+  @keyframes success-glow {
+    0% {
+      text-shadow: 0 0 0 transparent;
+    }
+    50% {
+      text-shadow: 0 0 8px var(--color-accent-glow);
+    }
+    100% {
+      text-shadow: 0 0 0 transparent;
+    }
+  }
+
+  /* When animation hasn't started yet, show static content as fallback
+     Uses !important to override the hidden state until JS takes over */
+  .claude-terminal[data-terminal-animate]:not([data-animation-started]) [data-beat],
+  .claude-terminal[data-terminal-animate]:not([data-animation-started]) [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  /* Hide thinking indicators in static fallback */
+  .claude-terminal[data-terminal-animate]:not([data-animation-started]) .claude-terminal__thinking {
+    display: none !important;
+  }
+
+  /* Reduced motion - show everything immediately */
+  @media (prefers-reduced-motion: reduce) {
+    .claude-terminal[data-terminal-animate] [data-beat],
+    .claude-terminal[data-terminal-animate] [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      transition: none !important;
+    }
+
+    .claude-terminal[data-terminal-animate] .claude-terminal__thinking {
+      display: none !important;
+    }
+
+    .claude-terminal__cursor {
+      animation: none;
+      opacity: 0;
+    }
+
+    .claude-terminal__message--final.is-revealed .claude-terminal__response-text--success {
+      animation: none;
+    }
   }
 
   /* =========================================
@@ -765,12 +1088,39 @@ import SocialLinks from '../components/SocialLinks.astro';
     }
   }
 
+  .page-footer__left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .page-footer__left {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-6);
+    }
+  }
+
   .page-footer__logo {
     opacity: 0.6;
     transition: opacity var(--duration-normal) var(--ease-out);
   }
 
   .page-footer__logo:hover {
+    opacity: 1;
+  }
+
+  .page-footer__attribution {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    color: var(--color-fg-subtle);
+    margin: 0;
+    opacity: 0.7;
+    transition: opacity var(--duration-normal) var(--ease-out);
+  }
+
+  .page-footer__attribution:hover {
     opacity: 1;
   }
 
@@ -793,3 +1143,340 @@ import SocialLinks from '../components/SocialLinks.astro';
     }
   }
 </style>
+
+<script>
+  /**
+   * Terminal Animation Orchestrator
+   *
+   * Creates an authentic Claude Code experience with:
+   * - Realistic human typing speed (~65 WPM)
+   * - "Thinking" indicator with cycling action words
+   * - Proper pauses reflecting real LLM response times
+   * - Auto-scroll as content grows
+   *
+   * Timing grounded in research:
+   * - Human typing: 40-75 WPM avg (WordsRated 2024)
+   * - Claude first token latency: 0.7-2s (AI benchmarks)
+   * - Claude output: ~70 tokens/sec streaming
+   */
+
+  function initTerminalAnimation() {
+    const terminal = document.querySelector('[data-terminal-animate]') as HTMLElement | null;
+    if (!terminal || terminal.hasAttribute('data-animation-initialized')) return;
+
+    terminal.setAttribute('data-animation-initialized', 'true');
+
+    const contentArea = terminal.querySelector('.claude-terminal__content') as HTMLElement | null;
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      terminal.querySelectorAll('[data-beat], [data-reveal]').forEach(el => {
+        el.classList.add('is-revealed');
+      });
+      return;
+    }
+
+    // Timing configuration grounded in real-world data
+    const TIMING = {
+      // User typing: ~65 WPM = ~5.4 chars/sec = ~185ms/char
+      // We use 70ms for skilled-but-human feel (not robotic, not sluggish)
+      typewriterSpeed: 70,
+      typewriterVariance: 30,      // ±30ms randomness
+      typewriterPunctuationPause: 120,
+      typewriterStartDelay: 200,
+      cursorLingerTime: 300,
+
+      // Slower thinking indicator for readability
+      thinkingMinDuration: 1800,   // was 1200 - more time to read
+      thinkingWordInterval: 1200,  // was 400 - MAJOR FIX: slow cycling
+      thinkingFadeOutDuration: 250,// soft exit animation
+
+      // More breathing room for Claude responses
+      claudeResponseDelay: 400,    // was 200
+      revealStagger: 250,          // was 180
+      toolRevealDelay: 400,        // was 300
+      postToolPause: 800,          // was 600
+
+      // Generous beat gaps
+      beatGap: 700,                // was 500
+      finalBeatGap: 500,           // was 300
+      initialBeatDelay: 600,       // NEW: pause before animation starts
+    };
+
+    // Simplified action words - focused and context-appropriate
+    const THINKING_WORDS = ['Thinking', 'Analyzing', 'Reviewing'];
+    const WRITING_WORDS = ['Writing', 'Updating'];
+
+    // Get all beats in order
+    const beats = Array.from(terminal.querySelectorAll('[data-beat]'))
+      .sort((a, b) => {
+        const aNum = parseInt(a.getAttribute('data-beat') || '0', 10);
+        const bNum = parseInt(b.getAttribute('data-beat') || '0', 10);
+        return aNum - bNum;
+      });
+
+    // Debounced scroll - prevents jitter from rapid calls during typewriter
+    let scrollTimeout: number | null = null;
+    let lastScrollTarget = 0;
+
+    function scrollToElement(element: Element, immediate = false) {
+      if (!contentArea) return;
+
+      const elementRect = element.getBoundingClientRect();
+      const contentRect = contentArea.getBoundingClientRect();
+      const elementBottom = elementRect.bottom - contentRect.top + contentArea.scrollTop;
+      const visibleBottom = contentArea.scrollTop + contentArea.clientHeight;
+
+      // Only scroll if element is below visible area
+      if (elementBottom <= visibleBottom - 20) return;
+
+      const targetScroll = elementBottom - contentArea.clientHeight + 40;
+      const scrollDelta = Math.abs(targetScroll - contentArea.scrollTop);
+
+      // Large jumps (>50px) use instant scroll, small use smooth
+      const behavior = scrollDelta > 50 ? 'instant' : 'smooth';
+
+      if (immediate) {
+        contentArea.scrollTo({ top: targetScroll, behavior: behavior as ScrollBehavior });
+        lastScrollTarget = targetScroll;
+        return;
+      }
+
+      // Debounce rapid calls (50ms) - good for typewriter
+      if (scrollTimeout !== null) {
+        clearTimeout(scrollTimeout);
+      }
+
+      lastScrollTarget = targetScroll;
+      scrollTimeout = window.setTimeout(() => {
+        contentArea.scrollTo({ top: lastScrollTarget, behavior: behavior as ScrollBehavior });
+        scrollTimeout = null;
+      }, 50);
+    }
+
+    // Check and update overflow state for fade effect
+    function updateOverflowState() {
+      if (!contentArea) return;
+      const hasOverflow = contentArea.scrollHeight > contentArea.clientHeight;
+      const atBottom = contentArea.scrollTop + contentArea.clientHeight >= contentArea.scrollHeight - 10;
+
+      terminal.classList.toggle('has-overflow', hasOverflow);
+      terminal.classList.toggle('at-bottom', atBottom);
+    }
+
+    // Show thinking indicator with cycling words and fade-out
+    function showThinking(thinkingId: string, words: string[]): { stop: () => Promise<void> } {
+      const thinkingEl = terminal.querySelector(`[data-thinking="${thinkingId}"]`) as HTMLElement | null;
+      if (!thinkingEl) return { stop: () => Promise.resolve() };
+
+      const textEl = thinkingEl.querySelector('.claude-terminal__thinking-text');
+      let wordIndex = 0;
+      let intervalId: number;
+
+      thinkingEl.classList.add('is-active');
+      scrollToElement(thinkingEl, true);
+
+      // Cycle through words at slower pace
+      intervalId = window.setInterval(() => {
+        wordIndex = (wordIndex + 1) % words.length;
+        if (textEl) textEl.textContent = words[wordIndex];
+      }, TIMING.thinkingWordInterval);
+
+      return {
+        stop: () => {
+          clearInterval(intervalId);
+          // Fade out gracefully
+          thinkingEl.classList.add('is-fading');
+          return new Promise<void>((resolve) => {
+            setTimeout(() => {
+              thinkingEl.classList.remove('is-active', 'is-fading');
+              resolve();
+            }, TIMING.thinkingFadeOutDuration);
+          });
+        }
+      };
+    }
+
+    // Typewriter effect with realistic human variance
+    function typewrite(element: Element): Promise<void> {
+      return new Promise((resolve) => {
+        const text = element.textContent || '';
+        const prompt = element.closest('[data-beat]')?.querySelector('.claude-terminal__prompt');
+
+        element.textContent = '';
+        const cursor = document.createElement('span');
+        cursor.className = 'claude-terminal__cursor';
+        element.appendChild(cursor);
+
+        let charIndex = 0;
+
+        function typeNextChar() {
+          if (charIndex < text.length) {
+            const char = document.createTextNode(text[charIndex]);
+            element.insertBefore(char, cursor);
+            charIndex++;
+
+            // Only scroll every 8 characters to reduce jitter
+            if (charIndex % 8 === 0 || charIndex === text.length) {
+              scrollToElement(element);
+            }
+
+            // Realistic timing variance
+            const baseDelay = TIMING.typewriterSpeed;
+            const variance = (Math.random() * TIMING.typewriterVariance * 2) - TIMING.typewriterVariance;
+            const punctuation = [',', '.', '?', '!', ';', ':'];
+            const extraPause = punctuation.includes(text[charIndex - 1]) ? TIMING.typewriterPunctuationPause : 0;
+
+            // Occasional brief hesitation (human thinking)
+            const hesitation = Math.random() < 0.03 ? 150 : 0;
+
+            setTimeout(typeNextChar, baseDelay + variance + extraPause + hesitation);
+          } else {
+            setTimeout(() => {
+              cursor.classList.add('claude-terminal__cursor--hidden');
+              if (prompt) prompt.classList.add('is-complete');
+              setTimeout(() => {
+                cursor.remove();
+                resolve();
+              }, 100);
+            }, TIMING.cursorLingerTime);
+          }
+        }
+
+        typeNextChar();
+      });
+    }
+
+    // Reveal Claude response elements with proper pacing
+    function revealClaudeResponse(beat: Element): Promise<void> {
+      return new Promise((resolve) => {
+        const revealElements = beat.querySelectorAll('[data-reveal]');
+        let delay = 0;
+
+        revealElements.forEach((el) => {
+          const type = el.getAttribute('data-reveal');
+          const isToolCall = type === 'tool';
+
+          if (isToolCall) {
+            delay += TIMING.toolRevealDelay;
+          }
+
+          setTimeout(() => {
+            el.classList.add('is-revealed');
+            scrollToElement(el, true); // immediate scroll for reveals
+            updateOverflowState();
+          }, delay);
+
+          delay += TIMING.revealStagger;
+
+          // Simulate "processing" time after tool calls
+          if (isToolCall) {
+            delay += TIMING.postToolPause;
+          }
+        });
+
+        setTimeout(resolve, delay + 150);
+      });
+    }
+
+    // Main animation sequence
+    async function runAnimation() {
+      terminal.setAttribute('data-animation-started', 'true');
+
+      // Reset scroll to top when animation begins
+      if (contentArea) {
+        contentArea.scrollTop = 0;
+      }
+
+      // Initial pause for users landing on the page
+      await new Promise(r => setTimeout(r, TIMING.initialBeatDelay));
+
+      for (let i = 0; i < beats.length; i++) {
+        const beat = beats[i];
+        const beatNum = beat.getAttribute('data-beat');
+        const isUserBeat = beat.classList.contains('claude-terminal__message--user');
+        const typewriterEl = beat.querySelector('[data-typewriter]');
+        const isLastBeat = i === beats.length - 1;
+
+        // Check if previous beat was also a Claude message (consecutive Claude messages)
+        const prevBeat = i > 0 ? beats[i - 1] : null;
+        const prevWasClaude = prevBeat && prevBeat.classList.contains('claude-terminal__message--claude');
+        const isClaudeBeat = beat.classList.contains('claude-terminal__message--claude');
+
+        if (isUserBeat && typewriterEl) {
+          // User message: typewriter effect
+          beat.classList.add('is-revealed');
+          scrollToElement(beat, true);
+          await new Promise(r => setTimeout(r, TIMING.typewriterStartDelay));
+          await typewrite(typewriterEl);
+
+          // After user types, show thinking indicator for next Claude response
+          const nextThinkingId = beatNum;
+          const thinkingEl = terminal.querySelector(`[data-thinking="${nextThinkingId}"]`);
+          if (thinkingEl) {
+            const words = thinkingEl.querySelector('.claude-terminal__thinking-text')?.textContent === 'Writing'
+              ? WRITING_WORDS
+              : THINKING_WORDS;
+            const thinking = showThinking(nextThinkingId, words);
+            await new Promise(r => setTimeout(r, TIMING.thinkingMinDuration));
+            await thinking.stop(); // await the fade-out
+          }
+        } else {
+          // Check for thinking indicator before consecutive Claude messages
+          if (isClaudeBeat && prevWasClaude && beatNum) {
+            const prevBeatNum = parseInt(beatNum, 10) - 1;
+            const thinkingEl = terminal.querySelector(`[data-thinking="${prevBeatNum}"]`);
+            if (thinkingEl) {
+              const thinking = showThinking(String(prevBeatNum), THINKING_WORDS);
+              await new Promise(r => setTimeout(r, TIMING.thinkingMinDuration));
+              await thinking.stop();
+            }
+          }
+
+          // Claude message: staggered reveal
+          await new Promise(r => setTimeout(r, TIMING.claudeResponseDelay));
+          beat.classList.add('is-revealed');
+          scrollToElement(beat, true);
+          await revealClaudeResponse(beat);
+        }
+
+        // Gap before next beat
+        const gap = isLastBeat ? TIMING.finalBeatGap : TIMING.beatGap;
+        await new Promise(r => setTimeout(r, gap));
+      }
+
+      updateOverflowState();
+    }
+
+    // Set up scroll listener for fade effect
+    if (contentArea) {
+      contentArea.addEventListener('scroll', updateOverflowState);
+    }
+
+    // Trigger animation when terminal enters viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setTimeout(runAnimation, 400);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(terminal);
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTerminalAnimation);
+  } else {
+    initTerminalAnimation();
+  }
+
+  // Re-initialize on Astro page transitions
+  document.addEventListener('astro:page-load', initTerminalAnimation);
+</script>
