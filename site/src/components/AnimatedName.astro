@@ -1,0 +1,156 @@
+---
+/**
+ * AnimatedName
+ * A subtle text element that reveals the real name on interaction.
+ *
+ * Motion design: Soft blur-through crossfade with Y-axis shift.
+ * The blur creates a gentle "focus pull" effect—like adjusting a camera lens.
+ * Refined, editorial. Not flashy.
+ */
+interface Props {
+  alias?: string;
+  realName?: string;
+  class?: string;
+}
+
+const {
+  alias = 'ctrlswing',
+  realName = 'Jackson',
+  class: className
+} = Astro.props;
+---
+
+<span
+  class:list={['animated-name', className]}
+  tabindex="0"
+  role="button"
+  aria-label={`Built by ${alias}, also known as ${realName}`}
+>
+  <span class="animated-name__text animated-name__text--alias">{alias}</span>
+  <span class="animated-name__text animated-name__text--real" aria-hidden="true">{realName}</span>
+</span>
+
+<style>
+  .animated-name {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    /* Ensure container doesn't collapse */
+    min-width: max-content;
+  }
+
+  .animated-name__text {
+    display: inline-block;
+    /*
+     * Motion recipe: opacity + transform + filter
+     * Three properties, one cohesive transition.
+     * Timing: --duration-normal (250ms) with --ease-out for natural deceleration.
+     */
+    transition:
+      opacity var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out),
+      filter var(--duration-normal) var(--ease-out);
+  }
+
+  /* Default state: alias visible */
+  .animated-name__text--alias {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  /* Default state: real name hidden */
+  .animated-name__text--real {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    /* Start slightly below - will rise into place */
+    transform: translateY(3px);
+    /* Blur creates the "focus pull" effect */
+    filter: blur(4px);
+    white-space: nowrap;
+  }
+
+  /*
+   * Reveal state: hover, focus, or touch-activated
+   * Alias fades up and out of focus, real name rises into focus
+   */
+  .animated-name:hover .animated-name__text--alias,
+  .animated-name:focus .animated-name__text--alias,
+  .animated-name.is-revealed .animated-name__text--alias {
+    opacity: 0;
+    transform: translateY(-3px);
+    filter: blur(4px);
+  }
+
+  .animated-name:hover .animated-name__text--real,
+  .animated-name:focus .animated-name__text--real,
+  .animated-name.is-revealed .animated-name__text--real {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  /* Keyboard focus indicator */
+  .animated-name:focus-visible {
+    outline: 1px solid var(--color-border);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  .animated-name:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /*
+   * Reduced motion: instant swap, no blur/transform
+   * Still functional, just faster and simpler
+   */
+  @media (prefers-reduced-motion: reduce) {
+    .animated-name__text {
+      transition: opacity var(--duration-fast) var(--ease-out);
+      transform: none !important;
+      filter: none !important;
+    }
+  }
+</style>
+
+<script>
+  // Touch device handling: toggle on tap for better mobile UX
+  // Hover doesn't work reliably on touch, so we use a toggle state
+  function initAnimatedNames() {
+    document.querySelectorAll('.animated-name').forEach((el) => {
+      let isTouchDevice = false;
+
+      // Detect touch interaction
+      el.addEventListener('touchstart', () => {
+        isTouchDevice = true;
+      }, { once: true, passive: true });
+
+      // Toggle on click (catches both touch and mouse)
+      el.addEventListener('click', (e) => {
+        // Only use toggle behavior for touch devices
+        if (isTouchDevice) {
+          e.preventDefault();
+          el.classList.toggle('is-revealed');
+        }
+      });
+
+      // Handle keyboard activation
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          el.classList.toggle('is-revealed');
+        }
+      });
+    });
+  }
+
+  // Run on initial load
+  initAnimatedNames();
+
+  // Re-run after Astro view transitions
+  document.addEventListener('astro:after-swap', initAnimatedNames);
+</script>
