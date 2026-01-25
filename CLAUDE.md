@@ -20,3 +20,7 @@ When modifying plugins, update version in:
 ## Environment
 
 Copy `.env.example` to `.env`. Site needs `KIT_API_KEY` for newsletter.
+
+## Content Planning
+
+Content strategy and topic ideas live in `docs/content-planning/`. See that folder's README for the system overview.
