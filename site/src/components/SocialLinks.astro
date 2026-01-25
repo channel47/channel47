@@ -59,11 +59,23 @@ const links = [
     align-items: center;
     justify-content: center;
     color: var(--color-fg-muted);
-    transition: color var(--duration-normal) var(--ease-out);
+    /* Touch target padding for mobile */
+    padding: var(--space-2);
+    margin: calc(-1 * var(--space-2));
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
+    transition:
+      color var(--duration-normal) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
   }
 
   .social-links__link:hover {
     color: var(--color-fg-secondary);
+    transform: scale(1.1);
+  }
+
+  .social-links__link:active {
+    transform: scale(0.95);
   }
 
   .social-links__link:focus-visible {
@@ -78,6 +90,11 @@ const links = [
   @media (min-width: 768px) {
     .social-links__link {
       color: var(--color-fg-subtle);
+      /* Smaller touch target on desktop */
+      padding: var(--space-1);
+      margin: calc(-1 * var(--space-1));
+      min-width: auto;
+      min-height: auto;
     }
 
     .social-links__link:hover {
@@ -87,6 +104,17 @@ const links = [
     .social-links__link svg {
       width: 16px;
       height: 16px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .social-links__link {
+      transition: color var(--duration-normal) var(--ease-out);
+    }
+
+    .social-links__link:hover,
+    .social-links__link:active {
+      transform: none;
     }
   }
 </style>

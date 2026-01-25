@@ -121,20 +121,20 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
             }, 2500);
           } else {
             formElement.classList.remove('is-loading');
-            formElement.classList.add('is-error');
+            formElement.classList.add('is-server-error');
             emailInput.placeholder = data.message || 'Try again';
 
             setTimeout(() => {
-              formElement.classList.remove('is-error');
+              formElement.classList.remove('is-server-error');
             }, 2000);
           }
         } catch (error) {
           formElement.classList.remove('is-loading');
-          formElement.classList.add('is-error');
+          formElement.classList.add('is-server-error');
           emailInput.placeholder = 'Try again';
 
           setTimeout(() => {
-            formElement.classList.remove('is-error');
+            formElement.classList.remove('is-server-error');
           }, 2000);
         } finally {
           submitButton.disabled = false;
@@ -165,7 +165,8 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
     min-width: 0;
     padding: var(--space-2) 0;
     font-family: var(--font-sans);
-    font-size: var(--text-base);
+    /* 16px minimum prevents iOS auto-zoom on focus */
+    font-size: max(16px, var(--text-sm));
     color: var(--color-fg);
     background: transparent;
     border: none;
@@ -177,12 +178,6 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
     transition:
       border-color var(--duration-fast) var(--ease-out),
       color var(--duration-fast) var(--ease-out);
-  }
-
-  @media (min-width: 768px) {
-    .email-signup__input {
-      font-size: var(--text-sm);
-    }
   }
 
   .email-signup__input::placeholder {
@@ -267,6 +262,27 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
     to { transform: rotate(360deg); }
   }
 
+  /* Premium arc spinner animation */
+  .email-signup__icon--loading path {
+    stroke-dasharray: 45;
+    stroke-dashoffset: 45;
+    animation: spinner-arc 1s var(--ease-out) infinite;
+  }
+
+  @keyframes spinner-arc {
+    0% {
+      stroke-dashoffset: 45;
+      transform: rotate(0deg);
+    }
+    50% {
+      stroke-dashoffset: 15;
+    }
+    100% {
+      stroke-dashoffset: 45;
+      transform: rotate(360deg);
+    }
+  }
+
   /* Success */
   .email-signup.is-success .email-signup__icon--arrow {
     opacity: 0;
@@ -284,6 +300,19 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
 
   .email-signup.is-success .email-signup__input {
     border-color: var(--color-accent);
+    text-shadow: var(--text-glow-subtle);
+  }
+
+  /* Touch feedback for mobile */
+  @media (hover: none) {
+    .email-signup__submit:active {
+      transform: scale(0.9);
+      color: var(--color-fg-secondary);
+    }
+
+    .email-signup__input:focus {
+      border-color: var(--color-fg-muted);
+    }
   }
 
   /* Error */
@@ -300,6 +329,21 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-3px); }
     75% { transform: translateX(3px); }
+  }
+
+  /* Gentler pulse for server errors (vs shake for validation) */
+  .email-signup.is-server-error .email-signup__input {
+    border-color: var(--color-error);
+    animation: error-pulse 0.4s var(--ease-out);
+  }
+
+  .email-signup.is-server-error .email-signup__input::placeholder {
+    color: var(--color-error);
+  }
+
+  @keyframes error-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
   }
 
   .visually-hidden {
@@ -321,11 +365,13 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
       transition: none;
     }
 
-    .email-signup__icon--loading {
+    .email-signup__icon--loading,
+    .email-signup__icon--loading path {
       animation: none;
     }
 
-    .email-signup.is-error .email-signup__input {
+    .email-signup.is-error .email-signup__input,
+    .email-signup.is-server-error .email-signup__input {
       animation: none;
     }
   }

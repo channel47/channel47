@@ -38,6 +38,41 @@ const {
     -webkit-tap-highlight-color: transparent;
     /* Ensure container doesn't collapse */
     min-width: max-content;
+    /* Touch target padding for mobile */
+    padding: var(--space-1) var(--space-2);
+    margin: calc(-1 * var(--space-1)) calc(-1 * var(--space-2));
+  }
+
+  /* Interactivity hint - subtle underline that signals clickability */
+  .animated-name::after {
+    content: '';
+    position: absolute;
+    left: var(--space-2);
+    right: var(--space-2);
+    bottom: calc(var(--space-1) - 2px);
+    height: 1px;
+    background: var(--color-border-subtle);
+    opacity: 0.6;
+    transition: opacity var(--duration-normal) var(--ease-out);
+  }
+
+  .animated-name:hover::after,
+  .animated-name:focus::after,
+  .animated-name.is-revealed::after {
+    opacity: 0;
+  }
+
+  @media (min-width: 768px) {
+    .animated-name {
+      padding: 0;
+      margin: 0;
+    }
+
+    .animated-name::after {
+      left: 0;
+      right: 0;
+      bottom: -2px;
+    }
   }
 
   .animated-name__text {
@@ -104,6 +139,11 @@ const {
     outline: none;
   }
 
+  /* Active state feedback for touch */
+  .animated-name:active {
+    transform: scale(0.98);
+  }
+
   /*
    * Reduced motion: instant swap, no blur/transform
    * Still functional, just faster and simpler
@@ -113,6 +153,14 @@ const {
       transition: opacity var(--duration-fast) var(--ease-out);
       transform: none !important;
       filter: none !important;
+    }
+
+    .animated-name::after {
+      transition: none;
+    }
+
+    .animated-name:active {
+      transform: none;
     }
   }
 </style>

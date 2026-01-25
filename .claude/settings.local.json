@@ -105,7 +105,16 @@
       "Bash(git -C /Users/jackson/Documents/Access/1/a_projects/channel47 log --oneline -15)",
       "mcp__plugin_playwright_playwright__browser_wait_for",
       "Bash(xargs:*)",
-      "Skill(frontend-design:frontend-design)"
+      "Skill(frontend-design:frontend-design)",
+      "WebFetch(domain:blog.google)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:www.eesel.ai)",
+      "WebFetch(domain:www.builder.io)",
+      "mcp__perplexity-ask__perplexity_ask"
     ]
+  },
+  "enabledPlugins": {
+    "plugin-dev@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true
   }
 }

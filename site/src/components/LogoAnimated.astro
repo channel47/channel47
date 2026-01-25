@@ -249,11 +249,27 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
     text-shadow: 0 0 8px var(--logo-glow);
   }
 
-  /* Completed state - subtle glow */
+  /* Completed state - subtle glow with breathing animation */
   .logo-animated.is-complete .logo-animated__glyph {
     text-shadow:
       0 0 1px var(--logo-glow),
       0 0 6px var(--logo-glow);
+    animation: logo-breathe 4s var(--ease-in-out) infinite;
+    animation-delay: 1s;
+  }
+
+  @keyframes logo-breathe {
+    0%, 100% {
+      text-shadow:
+        0 0 1px var(--logo-glow),
+        0 0 6px var(--logo-glow);
+    }
+    50% {
+      text-shadow:
+        0 0 2px var(--logo-glow),
+        0 0 10px var(--logo-glow),
+        0 0 18px color-mix(in srgb, var(--color-fg) 15%, transparent);
+    }
   }
 
   /* Glow ring - minimal */
@@ -271,6 +287,10 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
     .logo-animated__char.is-flashing {
       color: inherit;
       text-shadow: none;
+    }
+
+    .logo-animated.is-complete .logo-animated__glyph {
+      animation: none;
     }
 
     .logo-animated__glow {
