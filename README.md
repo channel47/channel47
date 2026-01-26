@@ -1,13 +1,12 @@
 # Channel 47
 
-Claude Code plugin marketplace for Google Ads and AI image generation.
+Claude Code plugin marketplace for Google Ads.
 
 ## Plugins
 
 | Plugin | Description | Install |
 |--------|-------------|---------|
-| [ads](./plugins/ads) | Google Ads & DataForSEO MCP servers with keyword research agent | `/plugin install ads@channel47` |
-| [gen](./plugins/gen) | AI image generation via Nano Banana MCP server | `/plugin install gen@channel47` |
+| [ads](./plugins/ads) | Google Ads campaign creation and optimization with PMax, Search, Audit, and Assets skills plus research agents | `/plugin install ads@channel47` |
 
 ## Installation
 
@@ -17,9 +16,8 @@ Claude Code plugin marketplace for Google Ads and AI image generation.
 # Add the marketplace
 /plugin marketplace add github:channel47/channel47
 
-# Install individual plugins
+# Install the ads plugin
 /plugin install ads@channel47
-/plugin install gen@channel47
 ```
 
 ### Claude Desktop (MCP servers only)
@@ -40,19 +38,7 @@ For the `ads` plugin MCP servers:
 }
 ```
 
-For the `gen` plugin MCP server:
-```json
-{
-  "mcpServers": {
-    "nano-banana": {
-      "command": "uvx",
-      "args": ["nano-banana-mcp"]
-    }
-  }
-}
-```
-
-See individual plugin READMEs for environment variable configuration.
+See the [ads plugin README](./plugins/ads/README.md) for environment variable configuration and full MCP server list.
 
 ## Development
 

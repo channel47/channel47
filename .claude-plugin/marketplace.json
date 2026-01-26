@@ -6,8 +6,8 @@
   },
   "metadata": {
     "pluginRoot": "./plugins",
-    "description": "Minimal plugin skeletons for Google Ads and image generation",
-    "version": "2.0.0"
+    "description": "Claude Code plugin marketplace for Google Ads",
+    "version": "2.1.0"
   },
   "plugins": [
     {
@@ -17,14 +17,6 @@
       "version": "2.2.0",
       "category": "marketing",
       "tags": ["google-ads", "dataforseo", "pmax", "search-campaigns", "account-audit", "keyword-research", "competitor-research", "image-generation", "gemini", "mcp", "gaql"]
-    },
-    {
-      "name": "gen",
-      "source": "./plugins/gen",
-      "description": "AI image generation via Nano Banana MCP server",
-      "version": "1.0.0",
-      "category": "creative",
-      "tags": ["image-generation", "mcp", "gemini"]
     }
   ]
 }

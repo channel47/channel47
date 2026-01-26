@@ -110,7 +110,8 @@
       "WebFetch(domain:medium.com)",
       "WebFetch(domain:www.eesel.ai)",
       "WebFetch(domain:www.builder.io)",
-      "mcp__perplexity-ask__perplexity_ask"
+      "mcp__perplexity-ask__perplexity_ask",
+      "Bash(git checkout:*)"
     ]
   },
   "enabledPlugins": {

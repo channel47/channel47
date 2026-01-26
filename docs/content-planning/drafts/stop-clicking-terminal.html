@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #0f0f1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 60px;
+    }
+    .terminal {
+      background: #0a0a0a;
+      border-radius: 16px;
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+    }
+    .terminal-header {
+      background: #1e1e1e;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .terminal-btn {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+    .btn-red { background: #ff5f56; }
+    .btn-yellow { background: #ffbd2e; }
+    .btn-green { background: #27ca3f; }
+    .terminal-title {
+      color: #666;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 13px;
+      margin-left: 10px;
+    }
+    .terminal-body {
+      padding: 50px 60px 60px;
+    }
+    pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.15;
+      color: #00ff88;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <div class="terminal-header">
+      <div class="terminal-btn btn-red"></div>
+      <div class="terminal-btn btn-yellow"></div>
+      <div class="terminal-btn btn-green"></div>
+      <span class="terminal-title">channel47</span>
+    </div>
+    <div class="terminal-body">
+      <pre>
+ #    ####  ####   ###  #   # ####  #####
+##    #   # #   # #   # ## ## #   #   #
+ #    ####  ####  #   # # # # ####    #
+ #    #     #   # #   # #   # #       #
+###   #     #   #  ###  #   # #       #
+
+ ###   ###     #    ####  ####  ###  #   # #   # #####  ####
+#   # #   #   ##   #     #     #   # #   # ##  #   #   #
+ ###  #   #    #   #     #     #   # #   # # # #   #    ###
+    # #   #    #   #     #     #   # #   # #  ##   #       #
+####   ###    ###   ####  ####  ###   ###  #   #   #   ####
+</pre>
+    </div>
+  </div>
+</body>
+</html>
