@@ -36,7 +36,7 @@ import AnimatedName from '../components/AnimatedName.astro';
           <span class="hero__overline-text" data-scramble-target="A Claude Code Plugin for Google Ads" aria-label="A Claude Code Plugin for Google Ads"></span>
         </p>
         <h1 class="hero__headline" data-animate="blur-in" data-stagger="2">
-          25 accounts audited<br class="hero__break" /> before lunch.
+          Stop clicking.<br /><span class="hero__emphasis">Start prompting.</span>
         </h1>
       </header>
 
@@ -388,40 +388,34 @@ import AnimatedName from '../components/AnimatedName.astro';
     }
   }
 
-  /* Headline - impactful sans-serif display */
+  /* Headline - impactful two-line statement */
   .hero__headline {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 9vw, 2.75rem);
+    font-size: clamp(2.25rem, 10vw, 3rem);
     font-weight: var(--font-extrabold);
     letter-spacing: var(--optical-display);
-    line-height: 1.15;
-    color: var(--color-fg);
+    line-height: 1.1;
+    color: var(--color-fg-secondary);
     margin: 0 auto;
-    max-width: 20ch;
   }
 
-  .hero__break {
-    display: none;
+  .hero__emphasis {
+    color: var(--color-fg);
+    display: block;
   }
 
   @media (min-width: 480px) {
     .hero__headline {
-      font-size: clamp(2.5rem, 8vw, 3.75rem);
-      letter-spacing: var(--optical-display);
+      font-size: clamp(3rem, 9vw, 4rem);
       line-height: 1.05;
-    }
-
-    .hero__break {
-      display: block;
     }
   }
 
   @media (min-width: 768px) {
     .hero__headline {
-      font-size: clamp(3.25rem, 6vw, 5.5rem);
+      font-size: clamp(3.5rem, 7vw, 5.5rem);
       letter-spacing: var(--optical-hero);
-      line-height: 1.02;
-      max-width: none;
+      line-height: 1;
     }
   }
 
