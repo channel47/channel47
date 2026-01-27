@@ -1879,6 +1879,11 @@ import AnimatedName from '../components/AnimatedName.astro';
       typewriterPunctuationPause: 60,
       typewriterStartDelay: 250,    // Quick start
       cursorLingerTime: 150,
+      // Minimum typing duration - prevents short messages from feeling instant
+      typewriterMinDuration: 400,
+      // Pause after short decisive commands to let them "land"
+      postShortCommandPause: 250,
+      shortCommandThreshold: 15,    // Characters - commands below this get extra pause
 
       // Thinking duration - shorter pauses
       thinkingComplexDuration: 1000,   // Reduced from 1800
@@ -1892,9 +1897,13 @@ import AnimatedName from '../components/AnimatedName.astro';
       toolRevealDelay: 200,
       postToolPause: 350,
       readingPause: 350,
+      // Minimum display time for final/success messages
+      finalMessageMinDisplay: 500,
 
       // Beat gaps - tight
       beatGap: 200,
+      // Longer gap after Claude before user responds (breathing room)
+      postClaudeBeatGap: 400,
       finalBeatGap: 250,
 
       // Wait for terminal entrance animation to complete
@@ -1996,10 +2005,12 @@ import AnimatedName from '../components/AnimatedName.astro';
     }
 
     // Typewriter effect with realistic human variance
-    function typewrite(element: Element, preStoredText?: string): Promise<void> {
+    // Returns: { textLength: number } for post-processing decisions
+    function typewrite(element: Element, preStoredText?: string): Promise<{ textLength: number }> {
       return new Promise((resolve) => {
         const text = preStoredText || element.textContent || '';
         const prompt = element.closest('[data-beat]')?.querySelector('.claude-terminal__prompt');
+        const startTime = performance.now();
 
         element.textContent = '';
         const cursor = document.createElement('span');
@@ -2030,14 +2041,19 @@ import AnimatedName from '../components/AnimatedName.astro';
 
             setTimeout(typeNextChar, baseDelay + variance + extraPause + hesitation);
           } else {
+            // Calculate how long typing took
+            const elapsed = performance.now() - startTime;
+            const remainingMinDuration = Math.max(0, TIMING.typewriterMinDuration - elapsed);
+
+            // Pad short messages to meet minimum duration
             setTimeout(() => {
               cursor.classList.add('claude-terminal__cursor--hidden');
               if (prompt) prompt.classList.add('is-complete');
               setTimeout(() => {
                 cursor.remove();
-                resolve();
+                resolve({ textLength: text.length });
               }, 100);
-            }, TIMING.cursorLingerTime);
+            }, TIMING.cursorLingerTime + remainingMinDuration);
           }
         }
 
@@ -2049,6 +2065,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     function revealClaudeResponse(beat: Element): Promise<void> {
       return new Promise((resolve) => {
         const revealElements = beat.querySelectorAll('[data-reveal]');
+        const isFinalBeat = beat.classList.contains('claude-terminal__message--final');
         let delay = 0;
         let hasToolCall = false;
 
@@ -2078,6 +2095,11 @@ import AnimatedName from '../components/AnimatedName.astro';
         // Add reading pause after responses with data (tool calls)
         if (hasToolCall) {
           delay += TIMING.readingPause;
+        }
+
+        // Ensure final/success messages have time to be read
+        if (isFinalBeat) {
+          delay = Math.max(delay, TIMING.finalMessageMinDisplay);
         }
 
         setTimeout(resolve, delay + 150);
@@ -2127,7 +2149,12 @@ import AnimatedName from '../components/AnimatedName.astro';
 
           // Remove early cursor before typewrite adds its own
           earlyCursor.remove();
-          await typewrite(typewriterEl, storedText);
+          const { textLength } = await typewrite(typewriterEl, storedText);
+
+          // Add extra pause after short decisive commands to let them "land"
+          if (textLength < TIMING.shortCommandThreshold) {
+            await new Promise(r => setTimeout(r, TIMING.postShortCommandPause));
+          }
 
           // After user types, show thinking indicator for next Claude response
           const nextThinkingId = beatNum;
@@ -2165,7 +2192,14 @@ import AnimatedName from '../components/AnimatedName.astro';
         }
 
         // Gap before next beat
-        const gap = isLastBeat ? TIMING.finalBeatGap : TIMING.beatGap;
+        // Use longer gap after Claude messages before user prompts (breathing room)
+        const nextBeat = i < beats.length - 1 ? beats[i + 1] : null;
+        const nextIsUser = nextBeat && nextBeat.classList.contains('claude-terminal__message--user');
+        const gap = isLastBeat
+          ? TIMING.finalBeatGap
+          : (isClaudeBeat && nextIsUser)
+            ? TIMING.postClaudeBeatGap
+            : TIMING.beatGap;
         await new Promise(r => setTimeout(r, gap));
       }
 
