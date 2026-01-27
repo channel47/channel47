@@ -30,29 +30,18 @@ import AnimatedName from '../components/AnimatedName.astro';
     </div>
 
     <Prose width="wide">
-      <!-- Hero: Value prop + CTA immediately visible -->
+      <!-- Hero: Headline + Demo + CTA in clear hierarchy -->
       <header class="hero">
         <p class="hero__overline" data-animate="fade-up" data-stagger="1" data-scramble-text>
           <span class="hero__overline-text" data-scramble-target="A Claude Code Plugin for Google Ads" aria-label="A Claude Code Plugin for Google Ads"></span>
         </p>
         <h1 class="hero__headline" data-animate="blur-in" data-stagger="2">
-          Audit 25 accounts<br class="hero__break" />before lunch.
+          Stop clicking.<br /><span class="hero__emphasis">Start prompting.</span>
         </h1>
-
-        <!-- Value proposition + CTA -->
-        <div class="hero__value" data-animate="fade-up" data-stagger="3">
-          <p class="hero__proposition">
-            Describe what you need. Claude does the clicking.
-          </p>
-          <div class="hero__cta">
-            <EmailSignup placeholder="Enter your email" tag="hero" variant="prominent" />
-            <p class="hero__hint">Free and open source. You just need Claude Pro (~$20/mo).</p>
-          </div>
-        </div>
       </header>
 
-      <!-- Demo: Terminal animation (supporting visual) -->
-      <section class="demo" aria-label="Workflow demonstration" data-animate="fade-up" data-stagger="4">
+      <!-- Demo: Terminal animation (proof of concept) -->
+      <section class="demo demo--hero" aria-label="Workflow demonstration" data-animate="fade-up" data-stagger="3">
         <div class="claude-terminal" data-terminal-animate>
           <div class="claude-terminal__chrome">
             <div class="claude-terminal__dots">
@@ -132,7 +121,18 @@ import AnimatedName from '../components/AnimatedName.astro';
           <!-- Fade overlay for cliffhanger effect -->
           <div class="claude-terminal__fade" aria-hidden="true"></div>
         </div>
-        <p class="demo__caption">That's the whole workflow. One conversation.</p>
+        <p class="demo__caption">That's it. One conversation.</p>
+      </section>
+
+      <!-- Hero CTA: Capture interest after seeing the demo -->
+      <section class="hero-cta" data-animate="fade-up" data-stagger="4">
+        <p class="hero-cta__proposition">
+          Describe the task. Claude handles the rest.
+        </p>
+        <div class="hero-cta__form">
+          <EmailSignup placeholder="Enter your email" tag="hero" variant="prominent" />
+        </div>
+        <p class="hero-cta__hint">Free plugin. Open source. Runs on Claude Pro (~$20/mo).</p>
       </section>
 
       <!-- Origin: Dense story block -->
@@ -325,16 +325,16 @@ import AnimatedName from '../components/AnimatedName.astro';
 
   /* =========================================
    * HERO
-   * Unified typography: serif headlines, muted second line
+   * Headline section - terminal follows immediately
    * ========================================= */
   .hero {
     text-align: center;
-    margin-bottom: var(--space-12);
+    margin-bottom: var(--space-8);
   }
 
   @media (min-width: 768px) {
     .hero {
-      margin-bottom: var(--space-16);
+      margin-bottom: var(--space-10);
     }
   }
 
@@ -388,53 +388,81 @@ import AnimatedName from '../components/AnimatedName.astro';
     }
   }
 
-  /* Headline - impactful sans-serif display */
+  /* Headline - impactful two-line statement */
   .hero__headline {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 9vw, 2.75rem);
+    font-size: clamp(2.25rem, 10vw, 3rem);
     font-weight: var(--font-extrabold);
     letter-spacing: var(--optical-display);
     line-height: 1.1;
-    color: var(--color-fg);
-    margin: 0 auto var(--space-10) auto;
-    max-width: 16ch;
+    color: var(--color-fg-secondary);
+    margin: 0 auto;
   }
 
-  .hero__break {
-    display: none;
+  .hero__emphasis {
+    color: var(--color-fg);
+    display: block;
   }
 
   @media (min-width: 480px) {
     .hero__headline {
-      font-size: clamp(2.5rem, 8vw, 3.75rem);
-      letter-spacing: var(--optical-display);
-      margin-bottom: var(--space-12);
+      font-size: clamp(3rem, 9vw, 4rem);
       line-height: 1.05;
-    }
-
-    .hero__break {
-      display: block;
     }
   }
 
   @media (min-width: 768px) {
     .hero__headline {
-      font-size: clamp(3.25rem, 6vw, 5.5rem);
+      font-size: clamp(3.5rem, 7vw, 5.5rem);
       letter-spacing: var(--optical-hero);
-      line-height: 1.02;
-      margin-bottom: var(--space-14);
-      max-width: none;
+      line-height: 1;
     }
   }
 
-  /* Hero value block - proposition + CTA */
-  .hero__value {
-    max-width: 400px;
+  /* =========================================
+   * DEMO SECTION
+   * Terminal as visual proof
+   * ========================================= */
+  .demo {
+    max-width: var(--container-lg);
     margin-inline: auto;
+    margin-top: var(--space-16);
     text-align: center;
   }
 
-  .hero__proposition {
+  /* Hero variant - tighter spacing when following headline */
+  .demo--hero {
+    margin-top: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .demo {
+      margin-top: var(--space-20);
+    }
+
+    .demo--hero {
+      margin-top: var(--space-12);
+    }
+  }
+
+  /* =========================================
+   * HERO CTA
+   * Email capture after demo - clear hierarchy
+   * ========================================= */
+  .hero-cta {
+    max-width: 440px;
+    margin-inline: auto;
+    margin-top: var(--space-12);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero-cta {
+      margin-top: var(--space-14);
+    }
+  }
+
+  .hero-cta__proposition {
     font-family: var(--font-serif);
     font-size: var(--fluid-lg);
     font-style: italic;
@@ -444,20 +472,19 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   @media (min-width: 768px) {
-    .hero__proposition {
+    .hero-cta__proposition {
       font-size: var(--fluid-xl);
       margin-bottom: var(--space-10);
     }
   }
 
-  .hero__cta {
+  .hero-cta__form {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-4);
+    justify-content: center;
+    margin-bottom: var(--space-4);
   }
 
-  .hero__hint {
+  .hero-cta__hint {
     font-family: var(--font-sans);
     font-size: var(--text-xs);
     color: var(--color-fg-subtle);
@@ -465,25 +492,8 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   @media (min-width: 768px) {
-    .hero__hint {
+    .hero-cta__hint {
       font-size: var(--text-sm);
-    }
-  }
-
-  /* =========================================
-   * DEMO SECTION
-   * Terminal as supporting visual
-   * ========================================= */
-  .demo {
-    max-width: var(--container-lg);
-    margin-inline: auto;
-    margin-top: var(--space-16);
-    text-align: center;
-  }
-
-  @media (min-width: 768px) {
-    .demo {
-      margin-top: var(--space-20);
     }
   }
 
@@ -540,17 +550,80 @@ import AnimatedName from '../components/AnimatedName.astro';
       0 0 80px -20px var(--color-accent-subtle);
     position: relative;
     text-align: left;
+
+    /* Entrance animation - starts hidden */
+    opacity: 0;
+    transform: scale(0.96) translateY(var(--space-4));
+    filter: blur(var(--blur-sm));
+  }
+
+  /* Terminal entrance animation when demo is visible */
+  .demo.is-visible .claude-terminal {
+    animation: terminal-entrance 0.7s var(--ease-snap) forwards;
+    animation-delay: 0.15s;
+  }
+
+  @keyframes terminal-entrance {
+    0% {
+      opacity: 0;
+      transform: scale(0.96) translateY(var(--space-4));
+      filter: blur(var(--blur-sm));
+      box-shadow:
+        0 8px 32px oklch(0% 0 0 / 0.5),
+        0 0 0 1px oklch(100% 0 0 / 0.03) inset,
+        0 1px 0 0 oklch(100% 0 0 / 0.05) inset,
+        0 0 0 0 var(--color-accent-subtle);
+    }
+    60% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      filter: blur(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      filter: blur(0);
+      box-shadow:
+        0 8px 32px oklch(0% 0 0 / 0.5),
+        0 0 0 1px oklch(100% 0 0 / 0.03) inset,
+        0 1px 0 0 oklch(100% 0 0 / 0.05) inset,
+        0 0 80px -20px var(--color-accent-subtle);
+    }
   }
 
   @media (min-width: 768px) {
     .claude-terminal {
       font-size: var(--text-sm);
       max-width: 680px;
-      box-shadow:
-        0 12px 48px oklch(0% 0 0 / 0.6),
-        0 0 0 1px oklch(100% 0 0 / 0.03) inset,
-        0 1px 0 0 oklch(100% 0 0 / 0.05) inset,
-        0 0 120px -30px var(--color-accent-subtle);
+    }
+
+    /* Enhanced entrance on desktop */
+    @keyframes terminal-entrance {
+      0% {
+        opacity: 0;
+        transform: scale(0.96) translateY(var(--space-6));
+        filter: blur(var(--blur-md));
+        box-shadow:
+          0 12px 48px oklch(0% 0 0 / 0.6),
+          0 0 0 1px oklch(100% 0 0 / 0.03) inset,
+          0 1px 0 0 oklch(100% 0 0 / 0.05) inset,
+          0 0 0 0 var(--color-accent-subtle);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+        box-shadow:
+          0 12px 48px oklch(0% 0 0 / 0.6),
+          0 0 0 1px oklch(100% 0 0 / 0.03) inset,
+          0 1px 0 0 oklch(100% 0 0 / 0.05) inset,
+          0 0 120px -30px var(--color-accent-subtle);
+      }
     }
   }
 
@@ -602,6 +675,41 @@ import AnimatedName from '../components/AnimatedName.astro';
     width: var(--space-2-5);
     height: var(--space-2-5);
     border-radius: var(--radius-full);
+    /* Start dimmed for power-on effect */
+    opacity: 0.3;
+    transform: scale(0.8);
+    transition: none;
+  }
+
+  /* Dots light up sequentially after terminal materializes */
+  .demo.is-visible .claude-terminal__dots span {
+    animation: dot-power-on 0.35s var(--ease-pop) forwards;
+  }
+
+  .demo.is-visible .claude-terminal__dots span:nth-child(1) {
+    animation-delay: 0.55s;
+  }
+
+  .demo.is-visible .claude-terminal__dots span:nth-child(2) {
+    animation-delay: 0.65s;
+  }
+
+  .demo.is-visible .claude-terminal__dots span:nth-child(3) {
+    animation-delay: 0.75s;
+  }
+
+  @keyframes dot-power-on {
+    0% {
+      opacity: 0.3;
+      transform: scale(0.8);
+    }
+    50% {
+      transform: scale(1.15);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   .claude-terminal__dots span:nth-child(1) {
@@ -620,6 +728,25 @@ import AnimatedName from '../components/AnimatedName.astro';
     font-size: var(--text-xs);
     color: var(--color-fg-subtle);
     letter-spacing: 0.02em;
+    /* Start hidden for entrance */
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--space-2)));
+  }
+
+  .demo.is-visible .claude-terminal__title {
+    animation: title-slide-in 0.4s var(--ease-snap) forwards;
+    animation-delay: 0.85s;
+  }
+
+  @keyframes title-slide-in {
+    0% {
+      opacity: 0;
+      transform: translateX(calc(-1 * var(--space-2)));
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   /* Content area - fixed height with scroll */
@@ -1529,18 +1656,27 @@ import AnimatedName from '../components/AnimatedName.astro';
     }
   }
 
-  /* Stagger delays - orchestrated timing using tokens */
-  [data-stagger="1"] { animation-delay: var(--stagger-1); }
-  [data-stagger="2"] { animation-delay: var(--stagger-2); }
-  [data-stagger="3"] { animation-delay: var(--stagger-4); }
-  [data-stagger="4"] { animation-delay: var(--stagger-6); }
-  [data-stagger="5"] { animation-delay: var(--stagger-8); }
+  /* Stagger delays - orchestrated timing for top fold
+   *
+   * Sequence:
+   * 1. Overline (0ms) - context
+   * 2. Headline (100ms) - hook, needs to land
+   * 3. Demo/Terminal (450ms) - proof, after headline settles
+   * 4. Hero CTA (900ms) - capture, as terminal animates
+   * 5. Below fold (1000ms+) - scroll reveals
+   */
+  [data-stagger="1"] { animation-delay: 0ms; }
+  [data-stagger="2"] { animation-delay: 100ms; }
+  [data-stagger="3"] { animation-delay: 450ms; }
+  [data-stagger="4"] { animation-delay: 900ms; }
+  [data-stagger="5"] { animation-delay: 1000ms; }
 
   /* =========================================
    * SCROLL-TRIGGERED REVEALS
    * Elements fade in as they enter viewport
    * ========================================= */
   .demo,
+  .hero-cta,
   .story,
   .faq,
   .belief,
@@ -1553,6 +1689,7 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   .demo.is-visible,
+  .hero-cta.is-visible,
   .story.is-visible,
   .faq.is-visible,
   .belief.is-visible,
@@ -1637,12 +1774,12 @@ import AnimatedName from '../components/AnimatedName.astro';
   /* =========================================
    * CTA FORM MICRO-INTERACTIONS
    * ========================================= */
-  .hero__cta,
+  .hero-cta__form,
   .invitation__form {
     transition: transform var(--duration-normal) var(--ease-out);
   }
 
-  .hero__cta:focus-within,
+  .hero-cta__form:focus-within,
   .invitation__form:focus-within {
     transform: translateY(calc(-1 * var(--space-0-5)));
   }
@@ -1664,6 +1801,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     }
 
     .demo,
+    .hero-cta,
     .story,
     .faq,
     .belief,
@@ -1676,6 +1814,22 @@ import AnimatedName from '../components/AnimatedName.astro';
 
     .claude-terminal {
       transition: none !important;
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+    }
+
+    .claude-terminal__dots span {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+
+    .claude-terminal__title {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
     }
   }
 </style>
@@ -1743,8 +1897,8 @@ import AnimatedName from '../components/AnimatedName.astro';
       beatGap: 200,
       finalBeatGap: 250,
 
-      // Wait for scroll into view
-      pageEntryWait: 300,
+      // Wait for terminal entrance animation to complete
+      pageEntryWait: 650,
     };
 
     // Simplified action words - focused and context-appropriate
@@ -2064,7 +2218,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
       // Show everything immediately
-      document.querySelectorAll('.demo, .story, .faq, .belief, .invitation').forEach(el => {
+      document.querySelectorAll('.demo, .hero-cta, .story, .faq, .belief, .invitation').forEach(el => {
         el.classList.add('is-visible');
       });
       return;
@@ -2086,7 +2240,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     }, observerOptions);
 
     // Observe all reveal targets
-    document.querySelectorAll('.demo, .story, .faq, .belief, .invitation').forEach(el => {
+    document.querySelectorAll('.demo, .hero-cta, .story, .faq, .belief, .invitation').forEach(el => {
       revealObserver.observe(el);
     });
   }
