@@ -550,17 +550,80 @@ import AnimatedName from '../components/AnimatedName.astro';
       0 0 80px -20px var(--color-accent-subtle);
     position: relative;
     text-align: left;
+
+    /* Entrance animation - starts hidden */
+    opacity: 0;
+    transform: scale(0.96) translateY(var(--space-4));
+    filter: blur(var(--blur-sm));
+  }
+
+  /* Terminal entrance animation when demo is visible */
+  .demo.is-visible .claude-terminal {
+    animation: terminal-entrance 0.8s var(--ease-snap) forwards;
+    animation-delay: 0.1s;
+  }
+
+  @keyframes terminal-entrance {
+    0% {
+      opacity: 0;
+      transform: scale(0.96) translateY(var(--space-4));
+      filter: blur(var(--blur-sm));
+      box-shadow:
+        0 8px 32px oklch(0% 0 0 / 0.5),
+        0 0 0 1px oklch(100% 0 0 / 0.03) inset,
+        0 1px 0 0 oklch(100% 0 0 / 0.05) inset,
+        0 0 0 0 var(--color-accent-subtle);
+    }
+    60% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      filter: blur(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      filter: blur(0);
+      box-shadow:
+        0 8px 32px oklch(0% 0 0 / 0.5),
+        0 0 0 1px oklch(100% 0 0 / 0.03) inset,
+        0 1px 0 0 oklch(100% 0 0 / 0.05) inset,
+        0 0 80px -20px var(--color-accent-subtle);
+    }
   }
 
   @media (min-width: 768px) {
     .claude-terminal {
       font-size: var(--text-sm);
       max-width: 680px;
-      box-shadow:
-        0 12px 48px oklch(0% 0 0 / 0.6),
-        0 0 0 1px oklch(100% 0 0 / 0.03) inset,
-        0 1px 0 0 oklch(100% 0 0 / 0.05) inset,
-        0 0 120px -30px var(--color-accent-subtle);
+    }
+
+    /* Enhanced entrance on desktop */
+    @keyframes terminal-entrance {
+      0% {
+        opacity: 0;
+        transform: scale(0.96) translateY(var(--space-6));
+        filter: blur(var(--blur-md));
+        box-shadow:
+          0 12px 48px oklch(0% 0 0 / 0.6),
+          0 0 0 1px oklch(100% 0 0 / 0.03) inset,
+          0 1px 0 0 oklch(100% 0 0 / 0.05) inset,
+          0 0 0 0 var(--color-accent-subtle);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+        box-shadow:
+          0 12px 48px oklch(0% 0 0 / 0.6),
+          0 0 0 1px oklch(100% 0 0 / 0.03) inset,
+          0 1px 0 0 oklch(100% 0 0 / 0.05) inset,
+          0 0 120px -30px var(--color-accent-subtle);
+      }
     }
   }
 
@@ -612,6 +675,41 @@ import AnimatedName from '../components/AnimatedName.astro';
     width: var(--space-2-5);
     height: var(--space-2-5);
     border-radius: var(--radius-full);
+    /* Start dimmed for power-on effect */
+    opacity: 0.3;
+    transform: scale(0.8);
+    transition: none;
+  }
+
+  /* Dots light up sequentially when terminal is visible */
+  .demo.is-visible .claude-terminal__dots span {
+    animation: dot-power-on 0.4s var(--ease-pop) forwards;
+  }
+
+  .demo.is-visible .claude-terminal__dots span:nth-child(1) {
+    animation-delay: 0.3s;
+  }
+
+  .demo.is-visible .claude-terminal__dots span:nth-child(2) {
+    animation-delay: 0.4s;
+  }
+
+  .demo.is-visible .claude-terminal__dots span:nth-child(3) {
+    animation-delay: 0.5s;
+  }
+
+  @keyframes dot-power-on {
+    0% {
+      opacity: 0.3;
+      transform: scale(0.8);
+    }
+    50% {
+      transform: scale(1.15);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   .claude-terminal__dots span:nth-child(1) {
@@ -630,6 +728,25 @@ import AnimatedName from '../components/AnimatedName.astro';
     font-size: var(--text-xs);
     color: var(--color-fg-subtle);
     letter-spacing: 0.02em;
+    /* Start hidden for entrance */
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--space-2)));
+  }
+
+  .demo.is-visible .claude-terminal__title {
+    animation: title-slide-in 0.5s var(--ease-snap) forwards;
+    animation-delay: 0.5s;
+  }
+
+  @keyframes title-slide-in {
+    0% {
+      opacity: 0;
+      transform: translateX(calc(-1 * var(--space-2)));
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   /* Content area - fixed height with scroll */
@@ -1689,6 +1806,22 @@ import AnimatedName from '../components/AnimatedName.astro';
 
     .claude-terminal {
       transition: none !important;
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+    }
+
+    .claude-terminal__dots span {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+
+    .claude-terminal__title {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
     }
   }
 </style>
