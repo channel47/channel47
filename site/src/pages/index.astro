@@ -21,7 +21,7 @@ import AnimatedName from '../components/AnimatedName.astro';
 
 <BaseLayout
   title="Channel47 — Claude Code plugin for media buyers"
-  description="A free Claude Code plugin for Google Ads, built by someone who can't code. New features shipping constantly."
+  description="A free Claude Code plugin for Google Ads. You prompt, it audits and fixes. Built by someone who can't code."
 >
   <main class="page">
     <!-- Atmospheric orb - subtle warmth behind content -->
@@ -35,7 +35,6 @@ import AnimatedName from '../components/AnimatedName.astro';
         <p class="hero__overline" data-animate="fade-up" data-stagger="1">A Claude Code Plugin for Google Ads</p>
         <h1 class="hero__headline" data-animate="blur-in" data-stagger="2">
           Stop clicking. Start prompting.
-          <span class="hero__headline-break">Describe what you want. Claude handles Google Ads.</span>
         </h1>
 
         <!-- Claude Code terminal - animated conversation -->
@@ -156,7 +155,7 @@ import AnimatedName from '../components/AnimatedName.astro';
           Now my workflow lives in the terminal. That probably sounds intimidating. It's not. It's a text window. You type what you want. Claude does the rest.
         </p>
         <p>
-          So I packaged what I built: an open-source Claude Code plugin for Google Ads. Audits, edits, reports—describe what you need. New features shipping constantly.
+          So I packaged what I built: an open-source Claude Code plugin for Google Ads. Audits, edits, reports—describe what you need. Still building.
         </p>
         <p>
           Built for media buyers. Free forever. You just need Claude Pro (~$20/mo).
@@ -187,10 +186,10 @@ import AnimatedName from '../components/AnimatedName.astro';
       <!-- The Belief: Tightened worldview statement -->
       <section class="story story--belief" data-animate="fade-up" data-stagger="4">
         <p class="story__manifesto">
-          Intelligence is becoming a commodity. What matters now is the workflows—the patterns that produce results.
+          The tools are temporary. The understanding compounds.
         </p>
         <p>
-          If you can describe what you want in a sentence, you can use this.
+          AI will handle most of this eventually. That's exactly why now matters—while you can still see the seams, still learn how it works underneath. The ones who do will be ready for whatever comes next.
         </p>
       </section>
 
@@ -296,7 +295,7 @@ import AnimatedName from '../components/AnimatedName.astro';
       oklch(18% 0.02 35 / 0.08) 40%,
       transparent 70%
     );
-    filter: blur(80px);
+    filter: blur(var(--blur-2xl));
     animation: orb-drift 25s var(--ease-in-out) infinite;
   }
 
@@ -307,7 +306,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     }
     50% {
       opacity: 0.35;
-      transform: translateX(-50%) translateY(-15px);
+      transform: translateX(-50%) translateY(calc(-1 * var(--space-4)));
     }
   }
 
@@ -327,7 +326,7 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   .hero__overline {
-    font-family: var(--font-sans);
+    font-family: var(--font-display);
     font-size: var(--text-2xs);
     font-weight: var(--font-semibold);
     letter-spacing: var(--tracking-wider);
@@ -344,27 +343,23 @@ import AnimatedName from '../components/AnimatedName.astro';
     }
   }
 
-  /* Headline - clean serif, reduced color variation */
+  /* Headline - impactful sans-serif display */
   .hero__headline {
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
     font-size: clamp(1.875rem, 8vw, 2.75rem);
-    font-weight: var(--font-bold);
-    letter-spacing: -0.025em;
-    line-height: 1.08;
+    font-weight: var(--font-extrabold);
+    letter-spacing: var(--optical-display);
+    line-height: 1.05;
     color: var(--color-fg);
     margin: 0 0 var(--space-10) 0;
-    max-width: 20ch;
-  }
-
-  .hero__headline-break {
-    display: block;
-    color: var(--color-fg-secondary);
-    margin-top: 0.12em;
+    max-width: 18ch;
+    text-shadow: var(--text-shadow-sm);
   }
 
   @media (min-width: 480px) {
     .hero__headline {
       font-size: clamp(2.25rem, 7vw, 3.5rem);
+      letter-spacing: var(--optical-display);
       margin-bottom: var(--space-12);
     }
   }
@@ -372,8 +367,8 @@ import AnimatedName from '../components/AnimatedName.astro';
   @media (min-width: 768px) {
     .hero__headline {
       font-size: clamp(3rem, 5.5vw, 5rem);
-      letter-spacing: -0.03em;
-      line-height: 1.05;
+      letter-spacing: var(--optical-hero);
+      line-height: 1.02;
       margin-bottom: var(--space-14);
     }
   }
@@ -410,7 +405,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     bottom: 0;
     left: 0;
     right: 0;
-    height: 40px;
+    height: var(--space-10);
     background: linear-gradient(
       to bottom,
       transparent 0%,
@@ -419,8 +414,8 @@ import AnimatedName from '../components/AnimatedName.astro';
     pointer-events: none;
     z-index: 2;
     opacity: 0;
-    transition: opacity 0.3s ease-out;
-    transition-delay: 100ms; /* Smoother appearance */
+    transition: opacity var(--duration-normal) var(--ease-out);
+    transition-delay: var(--stagger-2);
   }
 
   /* Show fade when content is scrollable */
@@ -445,25 +440,25 @@ import AnimatedName from '../components/AnimatedName.astro';
 
   .claude-terminal__dots {
     display: flex;
-    gap: 5px;
+    gap: var(--space-1);
   }
 
   .claude-terminal__dots span {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+    width: var(--space-2-5);
+    height: var(--space-2-5);
+    border-radius: var(--radius-full);
   }
 
   .claude-terminal__dots span:nth-child(1) {
-    background: #ff5f57;
+    background: oklch(65% 0.16 25);  /* Warm red from palette */
   }
 
   .claude-terminal__dots span:nth-child(2) {
-    background: #ffbd2e;
+    background: oklch(78% 0.14 75);  /* Warm amber/gold */
   }
 
   .claude-terminal__dots span:nth-child(3) {
-    background: #28c840;
+    background: oklch(70% 0.14 145); /* Warm green */
   }
 
   .claude-terminal__title {
@@ -579,7 +574,7 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   .claude-terminal__response-text {
-    color: var(--color-fg-secondary);
+    color: oklch(72% 0.015 55);  /* Slightly warmer than fg-secondary */
     line-height: var(--leading-relaxed);
     margin: 0;
     font-size: 0.95em;
@@ -600,12 +595,12 @@ import AnimatedName from '../components/AnimatedName.astro';
   .claude-terminal__tool-label {
     font-size: 0.85em;
     font-weight: var(--font-semibold);
-    color: var(--color-fg-muted);
+    color: var(--color-fg-secondary);
   }
 
   .claude-terminal__tool-target {
     font-size: 0.85em;
-    color: var(--color-fg-subtle);
+    color: var(--color-fg-muted);
   }
 
   .claude-terminal__tool--success .claude-terminal__tool-label {
@@ -619,7 +614,7 @@ import AnimatedName from '../components/AnimatedName.astro';
 
   /* Success/final message styling */
   .claude-terminal__response-text--success {
-    color: var(--color-fg) !important;
+    color: var(--color-fg);
     font-weight: var(--font-medium);
   }
 
@@ -637,13 +632,13 @@ import AnimatedName from '../components/AnimatedName.astro';
 
   .claude-terminal__thinking.is-active {
     display: flex;
-    animation: thinking-fade-in 0.2s ease-out forwards;
+    animation: thinking-fade-in var(--duration-fast) var(--ease-out) forwards;
   }
 
   @keyframes thinking-fade-in {
     from {
       opacity: 0;
-      transform: translateY(4px);
+      transform: translateY(var(--space-1));
     }
     to {
       opacity: 1;
@@ -652,12 +647,12 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   .claude-terminal__thinking-spinner {
-    width: 12px;
-    height: 12px;
-    border: 2px solid var(--color-border);
+    width: var(--space-3);
+    height: var(--space-3);
+    border: var(--border-medium) solid var(--color-border);
     border-top-color: var(--color-accent);
-    border-radius: 50%;
-    animation: thinking-spin 0.8s linear infinite;
+    border-radius: var(--radius-full);
+    animation: thinking-spin var(--duration-slowest) var(--ease-linear) infinite;
   }
 
   @keyframes thinking-spin {
@@ -676,7 +671,7 @@ import AnimatedName from '../components/AnimatedName.astro';
   /* Ellipsis animation for thinking text */
   .claude-terminal__thinking-text::after {
     content: '';
-    animation: thinking-ellipsis 1.5s steps(4, end) infinite;
+    animation: thinking-ellipsis var(--duration-extended) steps(4, end) infinite;
   }
 
   @keyframes thinking-ellipsis {
@@ -689,13 +684,13 @@ import AnimatedName from '../components/AnimatedName.astro';
 
   /* Fade out animation for thinking indicator */
   .claude-terminal__thinking.is-fading {
-    animation: thinking-fade-out 250ms var(--ease-out, cubic-bezier(0, 0, 0.2, 1)) forwards;
+    animation: thinking-fade-out var(--duration-normal) var(--ease-out) forwards;
   }
 
   @keyframes thinking-fade-out {
     to {
       opacity: 0;
-      transform: translateY(-4px);
+      transform: translateY(calc(-1 * var(--space-1)));
     }
   }
 
@@ -712,7 +707,7 @@ import AnimatedName from '../components/AnimatedName.astro';
   /* Hide all beats by default - prevents flash before JS */
   .claude-terminal[data-terminal-animate] [data-beat] {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(var(--space-3));
     visibility: hidden;
     pointer-events: none;
   }
@@ -729,35 +724,35 @@ import AnimatedName from '../components/AnimatedName.astro';
     visibility: visible;
     pointer-events: auto;
     transition:
-      opacity 0.5s var(--ease-snap),
-      transform 0.5s var(--ease-snap),
+      opacity var(--duration-slow) var(--ease-snap),
+      transform var(--duration-slow) var(--ease-snap),
       visibility 0s;
   }
 
   /* Elements within beats - hidden until parent reveals */
   .claude-terminal[data-terminal-animate] [data-reveal] {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(var(--space-1-5));
   }
 
   .claude-terminal[data-terminal-animate] [data-reveal].is-revealed {
     opacity: 1;
     transform: translateY(0);
     transition:
-      opacity 0.3s var(--ease-snap),
-      transform 0.3s var(--ease-snap);
+      opacity var(--duration-normal) var(--ease-snap),
+      transform var(--duration-normal) var(--ease-snap);
   }
 
   /* Tool call - special scale-up entrance */
   .claude-terminal[data-terminal-animate] [data-reveal="tool"] {
-    transform: translateY(6px) scale(0.95);
+    transform: translateY(var(--space-1-5)) scale(0.95);
   }
 
   .claude-terminal[data-terminal-animate] [data-reveal="tool"].is-revealed {
     transform: translateY(0) scale(1);
     transition:
-      opacity 0.35s var(--ease-snap),
-      transform 0.35s var(--ease-pop);
+      opacity var(--duration-slow) var(--ease-snap),
+      transform var(--duration-slow) var(--ease-pop);
   }
 
   /* Typewriter text - container visible, text added by JS */
@@ -768,17 +763,17 @@ import AnimatedName from '../components/AnimatedName.astro';
   /* Typewriter cursor */
   .claude-terminal__cursor {
     display: inline-block;
-    width: 2px;
+    width: var(--border-medium);
     height: 1.1em;
     background: var(--color-accent);
-    margin-left: 1px;
+    margin-left: var(--space-px);
     vertical-align: text-bottom;
-    animation: cursor-blink 0.6s ease-in-out infinite;
+    animation: cursor-blink var(--duration-slower) var(--ease-in-out) infinite;
   }
 
   .claude-terminal__cursor--hidden {
     opacity: 0;
-    transition: opacity 0.15s ease-out;
+    transition: opacity var(--duration-fast) var(--ease-out);
   }
 
   @keyframes cursor-blink {
@@ -788,7 +783,7 @@ import AnimatedName from '../components/AnimatedName.astro';
 
   /* Prompt symbol - pulses when typing completes */
   .claude-terminal__prompt.is-complete {
-    animation: prompt-pulse 0.3s ease-out;
+    animation: prompt-pulse var(--duration-normal) var(--ease-out);
   }
 
   @keyframes prompt-pulse {
@@ -799,7 +794,7 @@ import AnimatedName from '../components/AnimatedName.astro';
 
   /* Final message - subtle glow on reveal */
   .claude-terminal__message--final.is-revealed .claude-terminal__response-text--success {
-    animation: success-glow 0.8s var(--ease-out);
+    animation: success-glow var(--duration-slowest) var(--ease-out);
   }
 
   @keyframes success-glow {
@@ -875,22 +870,22 @@ import AnimatedName from '../components/AnimatedName.astro';
     font-size: var(--text-sm);
     color: var(--color-fg-secondary);
     line-height: var(--leading-relaxed);
-    margin: 0 0 var(--space-5) 0;
-    max-width: 32ch;
+    margin: 0 0 var(--space-4) 0;
+    max-width: 36ch;
   }
 
   @media (min-width: 768px) {
     .cta__context {
       font-size: var(--text-base);
-      margin-bottom: var(--space-6);
+      margin-bottom: var(--space-5);
     }
   }
 
   .cta__hint {
-    font-family: var(--font-sans);
-    font-size: var(--text-xs);
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
     color: var(--color-fg-subtle);
-    margin: var(--space-4) 0 0 0;
+    margin: var(--space-3) 0 0 0;
   }
 
   /* =========================================
@@ -923,50 +918,52 @@ import AnimatedName from '../components/AnimatedName.astro';
 
   /* Origin: Dense, narrative block */
   .story--origin {
-    margin-bottom: var(--space-10);
+    margin-bottom: var(--space-6);
   }
 
   @media (min-width: 768px) {
     .story--origin {
-      margin-bottom: var(--space-14);
+      margin-bottom: var(--space-8);
     }
   }
 
   .story__lede {
-    font-size: var(--fluid-lg) !important;
-    color: var(--color-fg) !important;
+    font-size: var(--fluid-lg);
+    letter-spacing: var(--optical-lg);
+    color: var(--color-fg);
     font-weight: var(--font-medium);
-    margin-bottom: var(--space-8) !important;
+    line-height: var(--leading-snug);
+    margin-bottom: var(--space-10);
+    padding-bottom: var(--space-8);
+    border-bottom: 1px solid var(--color-border-subtle);
   }
 
   @media (min-width: 768px) {
     .story__lede {
-      font-size: var(--fluid-xl) !important;
-      margin-bottom: var(--space-10) !important;
+      font-size: var(--fluid-xl);
+      letter-spacing: var(--optical-xl);
+      margin-bottom: var(--space-12);
+      padding-bottom: var(--space-10);
     }
   }
 
   .story__pull {
-    font-size: var(--fluid-lg) !important;
+    font-size: var(--fluid-lg);
     font-weight: var(--font-semibold);
-    color: var(--color-fg) !important;
-    padding: var(--space-6) 0 var(--space-6) var(--space-5);
-    margin: var(--space-8) 0 var(--space-10) 0 !important;
+    letter-spacing: var(--optical-lg);
+    line-height: var(--leading-snug);
+    color: var(--color-fg);
+    padding: var(--space-4) 0 var(--space-4) var(--space-5);
+    margin: var(--space-10) 0 var(--space-10) 0;
     border-left: 3px solid var(--color-accent);
-    border-top: none;
-    border-bottom: none;
-    background: linear-gradient(
-      90deg,
-      var(--color-accent-subtle) 0%,
-      transparent 100%
-    );
   }
 
   @media (min-width: 768px) {
     .story__pull {
-      font-size: var(--fluid-2xl) !important;
-      padding: var(--space-8) 0 var(--space-8) var(--space-7);
-      margin: var(--space-10) 0 var(--space-12) 0 !important;
+      font-size: var(--fluid-2xl);
+      letter-spacing: var(--optical-2xl);
+      padding: var(--space-5) 0 var(--space-5) var(--space-7);
+      margin: var(--space-12) 0 var(--space-12) 0;
     }
   }
 
@@ -985,17 +982,20 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   .story__manifesto {
-    font-size: var(--fluid-lg) !important;
-    font-weight: var(--font-semibold);
-    color: var(--color-fg) !important;
-    line-height: var(--leading-snug) !important;
-    margin-bottom: var(--space-5) !important;
+    font-family: var(--font-display);
+    font-size: var(--fluid-xl);
+    font-weight: var(--font-bold);
+    letter-spacing: var(--optical-xl);
+    color: var(--color-fg);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-6);
   }
 
   @media (min-width: 768px) {
     .story__manifesto {
-      font-size: var(--fluid-xl) !important;
-      margin-bottom: var(--space-6) !important;
+      font-size: var(--fluid-2xl);
+      letter-spacing: var(--optical-2xl);
+      margin-bottom: var(--space-8);
     }
   }
 
@@ -1041,17 +1041,19 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   .faq__question {
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
     font-size: var(--fluid-md);
-    font-weight: var(--font-semibold);
+    font-weight: var(--font-bold);
+    letter-spacing: var(--optical-lg);
     color: var(--color-fg);
-    margin: 0 0 var(--space-3) 0;
+    margin: 0 0 var(--space-2) 0;
   }
 
   @media (min-width: 768px) {
     .faq__question {
       font-size: var(--fluid-lg);
-      margin-bottom: var(--space-4);
+      letter-spacing: var(--optical-lg);
+      margin-bottom: var(--space-3);
     }
   }
 
@@ -1059,7 +1061,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     font-family: var(--font-serif);
     font-size: var(--type-prose-size);
     line-height: var(--leading-relaxed);
-    color: var(--color-fg-secondary);
+    color: var(--color-fg-muted);
     margin: 0;
   }
 
@@ -1089,17 +1091,20 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   .invitation__headline {
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
     font-size: var(--fluid-2xl);
-    font-weight: var(--font-semibold);
+    font-weight: var(--font-bold);
+    letter-spacing: var(--optical-2xl);
+    line-height: var(--leading-tight);
     color: var(--color-fg);
-    margin: 0 0 var(--space-6) 0;
+    margin: 0 0 var(--space-4) 0;
   }
 
   @media (min-width: 768px) {
     .invitation__headline {
       font-size: var(--fluid-3xl);
-      margin-bottom: var(--space-7);
+      letter-spacing: var(--optical-display);
+      margin-bottom: var(--space-5);
     }
   }
 
@@ -1109,27 +1114,29 @@ import AnimatedName from '../components/AnimatedName.astro';
     line-height: var(--leading-relaxed);
     color: var(--color-fg-secondary);
     margin: 0 0 var(--space-8) 0;
+    max-width: 48ch;
   }
 
   @media (min-width: 768px) {
     .invitation__description {
       font-size: var(--fluid-lg);
-      line-height: var(--leading-prose);
+      line-height: var(--leading-relaxed);
       margin-bottom: var(--space-10);
     }
   }
 
   .invitation__form {
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--space-4);
     max-width: 340px;
   }
 
   .invitation__cadence {
-    font-family: var(--font-sans);
-    font-size: var(--text-xs);
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
     color: var(--color-fg-subtle);
     margin: 0;
     line-height: var(--leading-relaxed);
+    max-width: 44ch;
   }
 
   /* =========================================
@@ -1189,8 +1196,8 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   .page-footer__attribution {
-    font-family: var(--font-sans);
-    font-size: var(--text-xs);
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
     color: var(--color-fg-subtle);
     margin: 0;
     opacity: 0.8;
@@ -1221,18 +1228,18 @@ import AnimatedName from '../components/AnimatedName.astro';
 
   /* Fade up - the workhorse entrance */
   [data-animate="fade-up"] {
-    animation: page-fade-up 0.6s var(--ease-snap) both;
+    animation: page-fade-up var(--duration-slower) var(--ease-snap) both;
   }
 
   /* Blur in - premium hero effect */
   [data-animate="blur-in"] {
-    animation: page-blur-in 0.8s var(--ease-snap) both;
+    animation: page-blur-in var(--duration-slowest) var(--ease-snap) both;
   }
 
   @keyframes page-fade-up {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(var(--space-5));
     }
     to {
       opacity: 1;
@@ -1243,8 +1250,8 @@ import AnimatedName from '../components/AnimatedName.astro';
   @keyframes page-blur-in {
     from {
       opacity: 0;
-      transform: translateY(16px);
-      filter: blur(8px);
+      transform: translateY(var(--space-4));
+      filter: blur(var(--blur-md));
     }
     to {
       opacity: 1;
@@ -1253,12 +1260,12 @@ import AnimatedName from '../components/AnimatedName.astro';
     }
   }
 
-  /* Stagger delays - orchestrated timing */
-  [data-stagger="1"] { animation-delay: 0ms; }
-  [data-stagger="2"] { animation-delay: 100ms; }
-  [data-stagger="3"] { animation-delay: 200ms; }
-  [data-stagger="4"] { animation-delay: 300ms; }
-  [data-stagger="5"] { animation-delay: 400ms; }
+  /* Stagger delays - orchestrated timing using tokens */
+  [data-stagger="1"] { animation-delay: var(--stagger-1); }
+  [data-stagger="2"] { animation-delay: var(--stagger-2); }
+  [data-stagger="3"] { animation-delay: var(--stagger-4); }
+  [data-stagger="4"] { animation-delay: var(--stagger-6); }
+  [data-stagger="5"] { animation-delay: var(--stagger-8); }
 
   /* =========================================
    * SCROLL-TRIGGERED REVEALS
@@ -1268,10 +1275,10 @@ import AnimatedName from '../components/AnimatedName.astro';
   .faq,
   .invitation {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(var(--space-6));
     transition:
-      opacity 0.7s var(--ease-snap),
-      transform 0.7s var(--ease-snap);
+      opacity var(--duration-slowest) var(--ease-snap),
+      transform var(--duration-slowest) var(--ease-snap);
   }
 
   .story.is-visible,
@@ -1284,14 +1291,13 @@ import AnimatedName from '../components/AnimatedName.astro';
   /* FAQ items stagger within section */
   .faq:not(.is-visible) .faq__item {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(var(--space-5));
   }
 
   .faq__item {
     transition:
-      opacity 0.6s var(--ease-snap),
-      transform 0.6s var(--ease-snap),
-      padding-left 0.25s var(--ease-out);
+      opacity var(--duration-slower) var(--ease-snap),
+      transform var(--duration-slower) var(--ease-snap);
   }
 
   .faq.is-visible .faq__item {
@@ -1299,53 +1305,30 @@ import AnimatedName from '../components/AnimatedName.astro';
     transform: translateY(0);
   }
 
-  .faq.is-visible .faq__item:nth-child(1) { transition-delay: 0ms; }
-  .faq.is-visible .faq__item:nth-child(2) { transition-delay: 100ms; }
-  .faq.is-visible .faq__item:nth-child(3) { transition-delay: 200ms; }
+  .faq.is-visible .faq__item:nth-child(1) { transition-delay: var(--stagger-1); }
+  .faq.is-visible .faq__item:nth-child(2) { transition-delay: var(--stagger-3); }
+  .faq.is-visible .faq__item:nth-child(3) { transition-delay: var(--stagger-5); }
 
   /* =========================================
-   * TERMINAL HOVER ENHANCEMENTS
-   * Premium lift + glow on hover
+   * TERMINAL HOVER
+   * Minimal - just subtle shadow change
    * ========================================= */
   .claude-terminal {
-    transition:
-      transform 0.4s var(--ease-snap),
-      box-shadow 0.4s var(--ease-out);
+    transition: box-shadow var(--duration-slow) var(--ease-out);
   }
 
   .claude-terminal:hover {
-    transform: translateY(-2px);
     box-shadow:
-      0 8px 32px oklch(0% 0 0 / 0.5),
+      0 6px 32px oklch(0% 0 0 / 0.5),
       0 0 0 1px oklch(100% 0 0 / 0.03) inset,
-      0 1px 0 0 oklch(100% 0 0 / 0.05) inset,
-      0 0 40px var(--color-accent-glow);
-  }
-
-  /* Terminal dots subtle pulse on hover */
-  .claude-terminal:hover .claude-terminal__dots span {
-    animation: dot-pulse 1.5s ease-in-out infinite;
-  }
-
-  .claude-terminal:hover .claude-terminal__dots span:nth-child(2) {
-    animation-delay: 0.15s;
-  }
-
-  .claude-terminal:hover .claude-terminal__dots span:nth-child(3) {
-    animation-delay: 0.3s;
-  }
-
-  @keyframes dot-pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(0.95); }
+      0 1px 0 0 oklch(100% 0 0 / 0.05) inset;
   }
 
   /* =========================================
    * FAQ HOVER AFFORDANCE
-   * Subtle left border reveal on hover
+   * Single confident signal: color change only
    * ========================================= */
   .faq__item {
-    position: relative;
     padding-left: var(--space-5);
   }
 
@@ -1355,46 +1338,8 @@ import AnimatedName from '../components/AnimatedName.astro';
     }
   }
 
-  .faq__item::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: calc(100% - var(--space-8));
-    width: 2px;
-    background: var(--color-accent);
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 0.3s var(--ease-snap);
-    border-radius: 1px;
-  }
-
-  @media (min-width: 768px) {
-    .faq__item::before {
-      height: calc(100% - var(--space-10));
-    }
-  }
-
-  .faq__item:last-child::before {
-    height: 100%;
-  }
-
-  .faq__item:hover::before {
-    transform: scaleY(1);
-  }
-
-  .faq__item:hover {
-    padding-left: var(--space-6);
-  }
-
-  @media (min-width: 768px) {
-    .faq__item:hover {
-      padding-left: var(--space-7);
-    }
-  }
-
   .faq__question {
-    transition: color 0.2s var(--ease-out);
+    transition: color var(--duration-fast) var(--ease-out);
   }
 
   .faq__item:hover .faq__question {
@@ -1402,39 +1347,11 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   /* =========================================
-   * INVITATION SECTION POLISH
-   * Subtle border animation on scroll reveal
+   * INVITATION SECTION
+   * Clean, undecorated - whitespace establishes hierarchy
    * ========================================= */
   .invitation__content {
-    position: relative;
-  }
-
-  .invitation__headline {
-    position: relative;
-    display: inline-block;
-  }
-
-  /* Underline draw effect on reveal */
-  .invitation__headline::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(
-      90deg,
-      var(--color-accent) 0%,
-      var(--color-gold) 100%
-    );
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.6s var(--ease-snap);
-    transition-delay: 0.3s;
-  }
-
-  .invitation.is-visible .invitation__headline::after {
-    transform: scaleX(1);
+    /* Container for form alignment */
   }
 
   /* =========================================
@@ -1459,12 +1376,12 @@ import AnimatedName from '../components/AnimatedName.astro';
    * ========================================= */
   .cta--inline,
   .invitation__form {
-    transition: transform 0.3s var(--ease-out);
+    transition: transform var(--duration-normal) var(--ease-out);
   }
 
   .cta--inline:focus-within,
   .invitation__form:focus-within {
-    transform: translateY(-2px);
+    transform: translateY(calc(-1 * var(--space-0-5)));
   }
 
   /* =========================================
@@ -1494,20 +1411,6 @@ import AnimatedName from '../components/AnimatedName.astro';
 
     .claude-terminal {
       transition: none !important;
-    }
-
-    .claude-terminal:hover {
-      transform: none;
-    }
-
-    .faq__item::before,
-    .invitation__headline::after {
-      transition: none !important;
-      transform: scaleX(1) !important;
-    }
-
-    .claude-terminal:hover .claude-terminal__dots span {
-      animation: none;
     }
   }
 </style>
@@ -1548,16 +1451,16 @@ import AnimatedName from '../components/AnimatedName.astro';
 
     // Timing configuration grounded in real-world data
     const TIMING = {
-      // User typing: ~65 WPM = ~5.4 chars/sec = ~185ms/char
-      // Slightly faster for snappier feel
-      typewriterSpeed: 55,
-      typewriterVariance: 25,      // ±25ms randomness
+      // User typing: more contemplative pace with human variance
+      typewriterSpeed: 65,         // Slower, more deliberate
+      typewriterVariance: 35,      // More human irregularity
       typewriterPunctuationPause: 100,
       typewriterStartDelay: 400,   // Enough for cursor to blink once
       cursorLingerTime: 200,
 
-      // Thinking indicator - balanced pacing
-      thinkingMinDuration: 1400,
+      // Thinking duration varies by task complexity
+      thinkingComplexDuration: 1800,   // After complex audit request
+      thinkingSimpleDuration: 1000,    // After simple "Fix them" command
       thinkingWordInterval: 1000,
       thinkingFadeOutDuration: 200,
 
@@ -1566,13 +1469,14 @@ import AnimatedName from '../components/AnimatedName.astro';
       revealStagger: 200,
       toolRevealDelay: 350,
       postToolPause: 600,
+      readingPause: 600,           // Pause after responses with data
 
-      // Beat gaps - tighter for better flow
-      beatGap: 500,
+      // Beat gaps - tighter for conversational momentum
+      beatGap: 350,
       finalBeatGap: 400,
 
-      // Wait for terminal's page entry animation (stagger-2 = 100ms + 600ms animation)
-      pageEntryWait: 800,
+      // Wait for terminal's page entry animation - let headline land first
+      pageEntryWait: 1200,
     };
 
     // Simplified action words - focused and context-appropriate
@@ -1724,6 +1628,7 @@ import AnimatedName from '../components/AnimatedName.astro';
       return new Promise((resolve) => {
         const revealElements = beat.querySelectorAll('[data-reveal]');
         let delay = 0;
+        let hasToolCall = false;
 
         revealElements.forEach((el) => {
           const type = el.getAttribute('data-reveal');
@@ -1731,6 +1636,7 @@ import AnimatedName from '../components/AnimatedName.astro';
 
           if (isToolCall) {
             delay += TIMING.toolRevealDelay;
+            hasToolCall = true;
           }
 
           setTimeout(() => {
@@ -1746,6 +1652,11 @@ import AnimatedName from '../components/AnimatedName.astro';
             delay += TIMING.postToolPause;
           }
         });
+
+        // Add reading pause after responses with data (tool calls)
+        if (hasToolCall) {
+          delay += TIMING.readingPause;
+        }
 
         setTimeout(resolve, delay + 150);
       });
@@ -1804,7 +1715,12 @@ import AnimatedName from '../components/AnimatedName.astro';
               ? WRITING_WORDS
               : THINKING_WORDS;
             const thinking = showThinking(nextThinkingId, words);
-            await new Promise(r => setTimeout(r, TIMING.thinkingMinDuration));
+            // Vary thinking duration by task complexity
+            // Beat 1 (audit request) = complex, Beat 3 (fix them) = simple
+            const thinkingDuration = beatNum === '1'
+              ? TIMING.thinkingComplexDuration
+              : TIMING.thinkingSimpleDuration;
+            await new Promise(r => setTimeout(r, thinkingDuration));
             await thinking.stop(); // await the fade-out
           }
         } else {
@@ -1814,7 +1730,7 @@ import AnimatedName from '../components/AnimatedName.astro';
             const thinkingEl = terminal.querySelector(`[data-thinking="${prevBeatNum}"]`);
             if (thinkingEl) {
               const thinking = showThinking(String(prevBeatNum), THINKING_WORDS);
-              await new Promise(r => setTimeout(r, TIMING.thinkingMinDuration));
+              await new Promise(r => setTimeout(r, TIMING.thinkingSimpleDuration));
               await thinking.stop();
             }
           }
