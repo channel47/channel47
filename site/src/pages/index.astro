@@ -30,7 +30,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     </div>
 
     <Prose width="wide">
-      <!-- Hero: Value prop + CTA immediately visible -->
+      <!-- Hero: Headline + Demo + CTA in clear hierarchy -->
       <header class="hero">
         <p class="hero__overline" data-animate="fade-up" data-stagger="1" data-scramble-text>
           <span class="hero__overline-text" data-scramble-target="A Claude Code Plugin for Google Ads" aria-label="A Claude Code Plugin for Google Ads"></span>
@@ -38,21 +38,10 @@ import AnimatedName from '../components/AnimatedName.astro';
         <h1 class="hero__headline" data-animate="blur-in" data-stagger="2">
           Audit 25 accounts<br class="hero__break" />before lunch.
         </h1>
-
-        <!-- Value proposition + CTA -->
-        <div class="hero__value" data-animate="fade-up" data-stagger="3">
-          <p class="hero__proposition">
-            Describe what you need. Claude does the clicking.
-          </p>
-          <div class="hero__cta">
-            <EmailSignup placeholder="Enter your email" tag="hero" variant="prominent" />
-            <p class="hero__hint">Free and open source. You just need Claude Pro (~$20/mo).</p>
-          </div>
-        </div>
       </header>
 
-      <!-- Demo: Terminal animation (supporting visual) -->
-      <section class="demo" aria-label="Workflow demonstration" data-animate="fade-up" data-stagger="4">
+      <!-- Demo: Terminal animation (proof of concept) -->
+      <section class="demo demo--hero" aria-label="Workflow demonstration" data-animate="fade-up" data-stagger="3">
         <div class="claude-terminal" data-terminal-animate>
           <div class="claude-terminal__chrome">
             <div class="claude-terminal__dots">
@@ -133,6 +122,17 @@ import AnimatedName from '../components/AnimatedName.astro';
           <div class="claude-terminal__fade" aria-hidden="true"></div>
         </div>
         <p class="demo__caption">That's the whole workflow. One conversation.</p>
+      </section>
+
+      <!-- Hero CTA: Capture interest after seeing the demo -->
+      <section class="hero-cta" data-animate="fade-up" data-stagger="4">
+        <p class="hero-cta__proposition">
+          Describe what you need. Claude does the clicking.
+        </p>
+        <div class="hero-cta__form">
+          <EmailSignup placeholder="Enter your email" tag="hero" variant="prominent" />
+        </div>
+        <p class="hero-cta__hint">Free and open source. You just need Claude Pro (~$20/mo).</p>
       </section>
 
       <!-- Origin: Dense story block -->
@@ -325,16 +325,16 @@ import AnimatedName from '../components/AnimatedName.astro';
 
   /* =========================================
    * HERO
-   * Unified typography: serif headlines, muted second line
+   * Headline section - terminal follows immediately
    * ========================================= */
   .hero {
     text-align: center;
-    margin-bottom: var(--space-12);
+    margin-bottom: var(--space-8);
   }
 
   @media (min-width: 768px) {
     .hero {
-      margin-bottom: var(--space-16);
+      margin-bottom: var(--space-10);
     }
   }
 
@@ -396,7 +396,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     letter-spacing: var(--optical-display);
     line-height: 1.1;
     color: var(--color-fg);
-    margin: 0 auto var(--space-10) auto;
+    margin: 0 auto;
     max-width: 16ch;
   }
 
@@ -408,7 +408,6 @@ import AnimatedName from '../components/AnimatedName.astro';
     .hero__headline {
       font-size: clamp(2.5rem, 8vw, 3.75rem);
       letter-spacing: var(--optical-display);
-      margin-bottom: var(--space-12);
       line-height: 1.05;
     }
 
@@ -422,19 +421,54 @@ import AnimatedName from '../components/AnimatedName.astro';
       font-size: clamp(3.25rem, 6vw, 5.5rem);
       letter-spacing: var(--optical-hero);
       line-height: 1.02;
-      margin-bottom: var(--space-14);
       max-width: none;
     }
   }
 
-  /* Hero value block - proposition + CTA */
-  .hero__value {
-    max-width: 400px;
+  /* =========================================
+   * DEMO SECTION
+   * Terminal as visual proof
+   * ========================================= */
+  .demo {
+    max-width: var(--container-lg);
     margin-inline: auto;
+    margin-top: var(--space-16);
     text-align: center;
   }
 
-  .hero__proposition {
+  /* Hero variant - tighter spacing when following headline */
+  .demo--hero {
+    margin-top: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .demo {
+      margin-top: var(--space-20);
+    }
+
+    .demo--hero {
+      margin-top: var(--space-12);
+    }
+  }
+
+  /* =========================================
+   * HERO CTA
+   * Email capture after demo - clear hierarchy
+   * ========================================= */
+  .hero-cta {
+    max-width: 440px;
+    margin-inline: auto;
+    margin-top: var(--space-12);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero-cta {
+      margin-top: var(--space-14);
+    }
+  }
+
+  .hero-cta__proposition {
     font-family: var(--font-serif);
     font-size: var(--fluid-lg);
     font-style: italic;
@@ -444,20 +478,19 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   @media (min-width: 768px) {
-    .hero__proposition {
+    .hero-cta__proposition {
       font-size: var(--fluid-xl);
       margin-bottom: var(--space-10);
     }
   }
 
-  .hero__cta {
+  .hero-cta__form {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-4);
+    justify-content: center;
+    margin-bottom: var(--space-4);
   }
 
-  .hero__hint {
+  .hero-cta__hint {
     font-family: var(--font-sans);
     font-size: var(--text-xs);
     color: var(--color-fg-subtle);
@@ -465,25 +498,8 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   @media (min-width: 768px) {
-    .hero__hint {
+    .hero-cta__hint {
       font-size: var(--text-sm);
-    }
-  }
-
-  /* =========================================
-   * DEMO SECTION
-   * Terminal as supporting visual
-   * ========================================= */
-  .demo {
-    max-width: var(--container-lg);
-    margin-inline: auto;
-    margin-top: var(--space-16);
-    text-align: center;
-  }
-
-  @media (min-width: 768px) {
-    .demo {
-      margin-top: var(--space-20);
     }
   }
 
@@ -1541,6 +1557,7 @@ import AnimatedName from '../components/AnimatedName.astro';
    * Elements fade in as they enter viewport
    * ========================================= */
   .demo,
+  .hero-cta,
   .story,
   .faq,
   .belief,
@@ -1553,6 +1570,7 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   .demo.is-visible,
+  .hero-cta.is-visible,
   .story.is-visible,
   .faq.is-visible,
   .belief.is-visible,
@@ -1637,12 +1655,12 @@ import AnimatedName from '../components/AnimatedName.astro';
   /* =========================================
    * CTA FORM MICRO-INTERACTIONS
    * ========================================= */
-  .hero__cta,
+  .hero-cta__form,
   .invitation__form {
     transition: transform var(--duration-normal) var(--ease-out);
   }
 
-  .hero__cta:focus-within,
+  .hero-cta__form:focus-within,
   .invitation__form:focus-within {
     transform: translateY(calc(-1 * var(--space-0-5)));
   }
@@ -1664,6 +1682,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     }
 
     .demo,
+    .hero-cta,
     .story,
     .faq,
     .belief,
@@ -2064,7 +2083,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
       // Show everything immediately
-      document.querySelectorAll('.demo, .story, .faq, .belief, .invitation').forEach(el => {
+      document.querySelectorAll('.demo, .hero-cta, .story, .faq, .belief, .invitation').forEach(el => {
         el.classList.add('is-visible');
       });
       return;
@@ -2086,7 +2105,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     }, observerOptions);
 
     // Observe all reveal targets
-    document.querySelectorAll('.demo, .story, .faq, .belief, .invitation').forEach(el => {
+    document.querySelectorAll('.demo, .hero-cta, .story, .faq, .belief, .invitation').forEach(el => {
       revealObserver.observe(el);
     });
   }
