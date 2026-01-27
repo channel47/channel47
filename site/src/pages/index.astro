@@ -559,8 +559,8 @@ import AnimatedName from '../components/AnimatedName.astro';
 
   /* Terminal entrance animation when demo is visible */
   .demo.is-visible .claude-terminal {
-    animation: terminal-entrance 0.8s var(--ease-snap) forwards;
-    animation-delay: 0.1s;
+    animation: terminal-entrance 0.7s var(--ease-snap) forwards;
+    animation-delay: 0.15s;
   }
 
   @keyframes terminal-entrance {
@@ -681,21 +681,21 @@ import AnimatedName from '../components/AnimatedName.astro';
     transition: none;
   }
 
-  /* Dots light up sequentially when terminal is visible */
+  /* Dots light up sequentially after terminal materializes */
   .demo.is-visible .claude-terminal__dots span {
-    animation: dot-power-on 0.4s var(--ease-pop) forwards;
+    animation: dot-power-on 0.35s var(--ease-pop) forwards;
   }
 
   .demo.is-visible .claude-terminal__dots span:nth-child(1) {
-    animation-delay: 0.3s;
+    animation-delay: 0.55s;
   }
 
   .demo.is-visible .claude-terminal__dots span:nth-child(2) {
-    animation-delay: 0.4s;
+    animation-delay: 0.65s;
   }
 
   .demo.is-visible .claude-terminal__dots span:nth-child(3) {
-    animation-delay: 0.5s;
+    animation-delay: 0.75s;
   }
 
   @keyframes dot-power-on {
@@ -734,8 +734,8 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   .demo.is-visible .claude-terminal__title {
-    animation: title-slide-in 0.5s var(--ease-snap) forwards;
-    animation-delay: 0.5s;
+    animation: title-slide-in 0.4s var(--ease-snap) forwards;
+    animation-delay: 0.85s;
   }
 
   @keyframes title-slide-in {
@@ -1656,12 +1656,20 @@ import AnimatedName from '../components/AnimatedName.astro';
     }
   }
 
-  /* Stagger delays - orchestrated timing using tokens */
-  [data-stagger="1"] { animation-delay: var(--stagger-1); }
-  [data-stagger="2"] { animation-delay: var(--stagger-2); }
-  [data-stagger="3"] { animation-delay: var(--stagger-4); }
-  [data-stagger="4"] { animation-delay: var(--stagger-6); }
-  [data-stagger="5"] { animation-delay: var(--stagger-8); }
+  /* Stagger delays - orchestrated timing for top fold
+   *
+   * Sequence:
+   * 1. Overline (0ms) - context
+   * 2. Headline (100ms) - hook, needs to land
+   * 3. Demo/Terminal (450ms) - proof, after headline settles
+   * 4. Hero CTA (900ms) - capture, as terminal animates
+   * 5. Below fold (1000ms+) - scroll reveals
+   */
+  [data-stagger="1"] { animation-delay: 0ms; }
+  [data-stagger="2"] { animation-delay: 100ms; }
+  [data-stagger="3"] { animation-delay: 450ms; }
+  [data-stagger="4"] { animation-delay: 900ms; }
+  [data-stagger="5"] { animation-delay: 1000ms; }
 
   /* =========================================
    * SCROLL-TRIGGERED REVEALS
@@ -1889,8 +1897,8 @@ import AnimatedName from '../components/AnimatedName.astro';
       beatGap: 200,
       finalBeatGap: 250,
 
-      // Wait for scroll into view
-      pageEntryWait: 300,
+      // Wait for terminal entrance animation to complete
+      pageEntryWait: 650,
     };
 
     // Simplified action words - focused and context-appropriate
