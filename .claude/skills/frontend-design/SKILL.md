@@ -62,6 +62,8 @@ Before finalizing any design, verify you haven't fallen into these traps:
 - ❌ Fade-in-on-scroll for every element
 - ❌ Bouncy spring animations as default
 - ❌ Transitions that delay the user
+- ❌ Pulsing dots/circles to draw attention (cheap, anxious energy)
+- ❌ Infinite ambient animations that don't respond to user action
 - ✅ Motion that communicates state change
 - ✅ Micro-interactions that reward exploration (but don't demand it)
 - ✅ Staggered animations that guide the eye through a sequence

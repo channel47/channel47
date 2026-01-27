@@ -32,9 +32,11 @@ import AnimatedName from '../components/AnimatedName.astro';
     <Prose width="wide">
       <!-- Hero: Claim → Cliffhanger → Payoff -->
       <header class="hero">
-        <p class="hero__overline" data-animate="fade-up" data-stagger="1">A Claude Code Plugin for Google Ads</p>
+        <p class="hero__overline" data-animate="fade-up" data-stagger="1" data-scramble-text>
+          <span class="hero__overline-text" data-scramble-target="A Claude Code Plugin for Google Ads" aria-label="A Claude Code Plugin for Google Ads"></span>
+        </p>
         <h1 class="hero__headline" data-animate="blur-in" data-stagger="2">
-          Stop clicking. Start prompting.
+          Stop clicking.<br class="hero__break" />Start prompting.
         </h1>
 
         <!-- Claude Code terminal - animated conversation -->
@@ -117,6 +119,11 @@ import AnimatedName from '../components/AnimatedName.astro';
           <!-- Fade overlay for cliffhanger effect -->
           <div class="claude-terminal__fade" aria-hidden="true"></div>
         </div>
+
+        <!-- Payoff line - appears after terminal animation -->
+        <p class="hero__payoff" data-terminal-payoff>
+          The whole workflow. One conversation.
+        </p>
       </header>
 
       <!-- CTA: Inline, reserved -->
@@ -131,12 +138,12 @@ import AnimatedName from '../components/AnimatedName.astro';
         <p class="story__lede">
           A year ago I lived inside the Google Ads UI. Twenty-five accounts. Hundreds of campaigns. The same clicks. Over and over.
         </p>
-        <p>
-          Check the search terms. Click. Click. Click.<br />
-          Scan the extensions. Click. Click.<br />
-          Review the RSAs. Click. Click. Click.
-        </p>
-        <p>
+        <div class="story__clicks" aria-label="Repetitive clicking pattern">
+          <p>Check the search terms. Click. Click. Click.</p>
+          <p>Scan the extensions. Click. Click.</p>
+          <p>Review the RSAs. Click. Click. Click.</p>
+        </div>
+        <p class="story__realization">
           I wasn't managing campaigns. I was pushing buttons.
         </p>
         <p>
@@ -148,7 +155,7 @@ import AnimatedName from '../components/AnimatedName.astro';
         <p>
           Somewhere along the way I stopped thinking of Claude as a tool and started thinking of it as the developer I could never afford. One who writes thousands of lines while I describe what I need in plain English.
         </p>
-        <p>
+        <p class="story__emphasis">
           I can't code. But I can describe what I want. Turns out, that's enough now.
         </p>
         <p>
@@ -157,38 +164,45 @@ import AnimatedName from '../components/AnimatedName.astro';
         <p>
           So I packaged what I built: an open-source Claude Code plugin for Google Ads. Audits, edits, reports—describe what you need. Still building.
         </p>
-        <p>
+        <p class="story__coda">
           Built for media buyers. Free forever. You just need Claude Pro (~$20/mo).
         </p>
       </section>
 
       <section class="faq" data-animate="fade-up" data-stagger="4">
-        <div class="faq__item">
-          <h3 class="faq__question">How does it work?</h3>
-          <p class="faq__answer">
-            Everything runs on your machine. You use your own Claude Pro subscription and connect your own Google Ads API credentials. Nothing passes through my servers—I never see your data or account access.
-          </p>
-        </div>
-        <div class="faq__item">
-          <h3 class="faq__question">Why free?</h3>
-          <p class="faq__answer">
-            I don't need your money. I need your feedback. Use the plugin. Break it. Tell me what's broken. That's the deal.
-          </p>
-        </div>
-        <div class="faq__item">
-          <h3 class="faq__question">What about my accounts?</h3>
-          <p class="faq__answer">
-            The plugin can read and modify your data, but only when you ask. Claude shows you what it's about to do and waits for approval. You stay in control.
-          </p>
+        <h2 class="faq__heading">Questions</h2>
+        <div class="faq__grid">
+          <div class="faq__item">
+            <span class="faq__number" aria-hidden="true">01</span>
+            <h3 class="faq__question">How does it work?</h3>
+            <p class="faq__answer">
+              Everything runs on your machine. You use your own Claude Pro subscription and connect your own Google Ads API credentials. Nothing passes through my servers—I never see your data or account access.
+            </p>
+          </div>
+          <div class="faq__item">
+            <span class="faq__number" aria-hidden="true">02</span>
+            <h3 class="faq__question">Why free?</h3>
+            <p class="faq__answer">
+              I don't need your money. I need your feedback. Use the plugin. Break it. Tell me what's broken. That's the deal.
+            </p>
+          </div>
+          <div class="faq__item">
+            <span class="faq__number" aria-hidden="true">03</span>
+            <h3 class="faq__question">What about my accounts?</h3>
+            <p class="faq__answer">
+              The plugin can read and modify your data, but only when you ask. Claude shows you what it's about to do and waits for approval. You stay in control.
+            </p>
+          </div>
         </div>
       </section>
 
       <!-- The Belief: Tightened worldview statement -->
-      <section class="story story--belief" data-animate="fade-up" data-stagger="4">
-        <p class="story__manifesto">
-          The tools are temporary. The understanding compounds.
-        </p>
-        <p>
+      <section class="belief" data-animate="fade-up" data-stagger="4">
+        <blockquote class="belief__quote">
+          <p class="belief__statement">The tools are temporary.</p>
+          <p class="belief__statement belief__statement--emphasis">The understanding compounds.</p>
+        </blockquote>
+        <p class="belief__body">
           AI will handle most of this eventually. That's exactly why now matters—while you can still see the seams, still learn how it works underneath. The ones who do will be ready for whatever comes next.
         </p>
       </section>
@@ -323,50 +337,126 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   .hero__overline {
-    font-family: var(--font-display);
+    font-family: var(--font-mono);
     font-size: var(--text-2xs);
-    font-weight: var(--font-semibold);
-    letter-spacing: var(--tracking-wider);
+    font-weight: var(--font-medium);
+    letter-spacing: var(--tracking-widest);
     text-transform: uppercase;
-    color: var(--color-accent);
-    margin: 0 0 var(--space-4) 0;
-    opacity: 0.85;
+    color: var(--color-fg-subtle);
+    margin: 0 0 var(--space-5) 0;
   }
 
   @media (min-width: 768px) {
     .hero__overline {
       font-size: var(--text-xs);
-      margin-bottom: var(--space-5);
+      margin-bottom: var(--space-6);
+    }
+  }
+
+  /* Scramble text animation */
+  .hero__overline-text {
+    display: inline-block;
+  }
+
+  .hero__overline-char {
+    display: inline-block;
+    opacity: 0.3;
+    transition: opacity 0.1s var(--ease-out);
+  }
+
+  .hero__overline-char.is-locked {
+    opacity: 1;
+    color: var(--color-fg-muted);
+  }
+
+  .hero__overline-char.is-flashing {
+    color: var(--color-accent);
+  }
+
+  /* Space characters need width */
+  .hero__overline-char[data-space="true"] {
+    width: 0.35em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__overline-char {
+      opacity: 1 !important;
+      color: var(--color-fg-muted) !important;
+      transition: none;
     }
   }
 
   /* Headline - impactful sans-serif display */
   .hero__headline {
     font-family: var(--font-display);
-    font-size: clamp(1.875rem, 8vw, 2.75rem);
+    font-size: clamp(2rem, 9vw, 2.75rem);
     font-weight: var(--font-extrabold);
     letter-spacing: var(--optical-display);
-    line-height: 1.05;
+    line-height: 1.1;
     color: var(--color-fg);
     margin: 0 auto var(--space-10) auto;
-    max-width: 18ch;
-    text-shadow: var(--text-shadow-sm);
+    max-width: 16ch;
+  }
+
+  .hero__break {
+    display: none;
   }
 
   @media (min-width: 480px) {
     .hero__headline {
-      font-size: clamp(2.25rem, 7vw, 3.5rem);
+      font-size: clamp(2.5rem, 8vw, 3.75rem);
       letter-spacing: var(--optical-display);
       margin-bottom: var(--space-12);
+      line-height: 1.05;
+    }
+
+    .hero__break {
+      display: block;
     }
   }
 
   @media (min-width: 768px) {
     .hero__headline {
-      font-size: clamp(3rem, 5.5vw, 5rem);
+      font-size: clamp(3.25rem, 6vw, 5.5rem);
       letter-spacing: var(--optical-hero);
       line-height: 1.02;
       margin-bottom: var(--space-14);
+      max-width: none;
+    }
+  }
+
+  /* Payoff line - reveals after terminal animation */
+  .hero__payoff {
+    font-family: var(--font-serif);
+    font-size: var(--fluid-md);
+    font-style: italic;
+    color: var(--color-fg-secondary);
+    margin: var(--space-8) auto 0 auto;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(var(--space-3));
+    transition:
+      opacity var(--duration-slower) var(--ease-snap),
+      transform var(--duration-slower) var(--ease-snap);
+  }
+
+  .hero__payoff.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (min-width: 768px) {
+    .hero__payoff {
+      font-size: var(--fluid-lg);
+      margin-top: var(--space-10);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__payoff {
+      opacity: 1;
+      transform: none;
+      transition: none;
     }
   }
 
@@ -377,24 +467,30 @@ import AnimatedName from '../components/AnimatedName.astro';
   .claude-terminal {
     max-width: 100%;
     margin-inline: auto;
-    background: var(--color-bg-deep);
+    background: oklch(8% 0.01 50);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     overflow: hidden;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     box-shadow:
-      0 4px 24px oklch(0% 0 0 / 0.4),
-      0 0 0 1px oklch(100% 0 0 / 0.02) inset,
-      0 1px 0 0 oklch(100% 0 0 / 0.04) inset;
+      0 8px 32px oklch(0% 0 0 / 0.5),
+      0 0 0 1px oklch(100% 0 0 / 0.03) inset,
+      0 1px 0 0 oklch(100% 0 0 / 0.05) inset,
+      0 0 80px -20px var(--color-accent-subtle);
     position: relative;
-    text-align: left; /* Reset text-align for terminal content */
+    text-align: left;
   }
 
   @media (min-width: 768px) {
     .claude-terminal {
       font-size: var(--text-sm);
       max-width: 680px;
+      box-shadow:
+        0 12px 48px oklch(0% 0 0 / 0.6),
+        0 0 0 1px oklch(100% 0 0 / 0.03) inset,
+        0 1px 0 0 oklch(100% 0 0 / 0.05) inset,
+        0 0 120px -30px var(--color-accent-subtle);
     }
   }
 
@@ -950,99 +1046,235 @@ import AnimatedName from '../components/AnimatedName.astro';
     }
   }
 
-  .story__pull {
-    font-size: var(--fluid-lg);
+  /* Clicks section - visual rhythm */
+  .story__clicks {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    margin: var(--space-8) 0;
+    padding-left: var(--space-4);
+    border-left: 2px solid var(--color-border);
+  }
+
+  .story__clicks p {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    margin: 0 0 var(--space-1) 0;
+    color: var(--color-fg-muted);
+  }
+
+  .story__clicks p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 768px) {
+    .story__clicks {
+      font-size: var(--text-base);
+      padding-left: var(--space-6);
+      margin: var(--space-10) 0;
+    }
+
+    .story__clicks p {
+      font-size: var(--text-base);
+    }
+  }
+
+  /* Realization moment */
+  .story__realization {
+    font-family: var(--font-display);
     font-weight: var(--font-semibold);
+    font-size: var(--fluid-lg);
+    color: var(--color-fg);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .story__realization {
+      font-size: var(--fluid-xl);
+    }
+  }
+
+  .story__pull {
+    font-family: var(--font-serif);
+    font-size: var(--fluid-xl);
+    font-weight: var(--font-medium);
+    font-style: italic;
     letter-spacing: var(--optical-lg);
     line-height: var(--leading-snug);
     color: var(--color-fg);
-    padding: var(--space-4) 0 var(--space-4) var(--space-5);
-    margin: var(--space-10) 0 var(--space-10) 0;
+    padding: var(--space-6) 0 var(--space-6) var(--space-6);
+    margin: var(--space-12) 0 var(--space-12) 0;
     border-left: 3px solid var(--color-accent);
+    background: linear-gradient(90deg, var(--color-accent-subtle) 0%, transparent 100%);
   }
 
   @media (min-width: 768px) {
     .story__pull {
       font-size: var(--fluid-2xl);
       letter-spacing: var(--optical-2xl);
-      padding: var(--space-5) 0 var(--space-5) var(--space-7);
-      margin: var(--space-12) 0 var(--space-12) 0;
+      padding: var(--space-8) 0 var(--space-8) var(--space-8);
+      margin: var(--space-14) 0 var(--space-14) 0;
     }
   }
 
-  /* Belief section: Manifesto tone */
-  .story--belief {
-    padding: var(--space-12) 0;
-    margin-top: var(--space-10);
+  /* Emphasis statement */
+  .story__emphasis {
+    font-weight: var(--font-medium);
+    color: var(--color-fg);
+  }
+
+  /* Closing statement */
+  .story__coda {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-fg-secondary);
+    padding-top: var(--space-8);
+    margin-top: var(--space-8);
     border-top: 1px solid var(--color-border-subtle);
   }
 
   @media (min-width: 768px) {
-    .story--belief {
-      padding: var(--space-16) 0;
+    .story__coda {
+      font-size: var(--text-base);
+    }
+  }
+
+  /* =========================================
+   * BELIEF SECTION
+   * Manifesto-style worldview statement
+   * ========================================= */
+  .belief {
+    max-width: var(--measure-prose);
+    margin-inline: auto;
+    padding: var(--space-16) 0;
+    margin-top: var(--space-10);
+    text-align: left;
+  }
+
+  @media (min-width: 768px) {
+    .belief {
+      padding: var(--space-20) 0;
       margin-top: var(--space-14);
     }
   }
 
-  .story__manifesto {
+  .belief__quote {
+    margin: 0 0 var(--space-8) 0;
+    padding: 0;
+    border: none;
+  }
+
+  .belief__statement {
     font-family: var(--font-display);
-    font-size: var(--fluid-xl);
+    font-size: var(--fluid-2xl);
     font-weight: var(--font-bold);
-    letter-spacing: var(--optical-xl);
-    color: var(--color-fg);
+    letter-spacing: var(--optical-2xl);
+    color: var(--color-fg-secondary);
     line-height: var(--leading-tight);
-    margin-bottom: var(--space-6);
+    margin: 0;
+  }
+
+  .belief__statement--emphasis {
+    color: var(--color-fg);
+    position: relative;
   }
 
   @media (min-width: 768px) {
-    .story__manifesto {
-      font-size: var(--fluid-2xl);
-      letter-spacing: var(--optical-2xl);
-      margin-bottom: var(--space-8);
+    .belief__statement {
+      font-size: var(--fluid-3xl);
+      letter-spacing: var(--optical-display);
+    }
+
+    .belief__quote {
+      margin-bottom: var(--space-10);
+    }
+  }
+
+  .belief__body {
+    font-family: var(--font-serif);
+    font-size: var(--type-prose-size);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-secondary);
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .belief__body {
+      font-size: var(--fluid-lg);
+      line-height: var(--leading-prose);
     }
   }
 
 
   /* =========================================
    * FAQ SECTION
-   * Compact Q&A pairs with clear grouping
+   * Numbered Q&A pairs with visual structure
    * ========================================= */
   .faq {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-10);
     max-width: var(--measure-prose);
     margin-inline: auto;
-    padding-top: var(--space-8);
+    padding-top: var(--space-12);
     text-align: left;
   }
 
   @media (min-width: 768px) {
     .faq {
+      padding-top: var(--space-16);
+    }
+  }
+
+  .faq__heading {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-fg-subtle);
+    margin: 0 0 var(--space-8) 0;
+  }
+
+  @media (min-width: 768px) {
+    .faq__heading {
+      margin-bottom: var(--space-10);
+    }
+  }
+
+  .faq__grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .faq__grid {
       gap: var(--space-12);
-      padding-top: var(--space-10);
     }
   }
 
   .faq__item {
-    /* Consistent border treatment across breakpoints */
-    padding-bottom: var(--space-8);
-    border-bottom: 1px solid var(--color-border-subtle);
-  }
-
-  .faq__item:last-child {
-    padding-bottom: 0;
-    border-bottom: none;
+    position: relative;
+    padding-left: var(--space-10);
   }
 
   @media (min-width: 768px) {
     .faq__item {
-      padding-bottom: var(--space-10);
+      padding-left: var(--space-14);
     }
+  }
 
-    .faq__item:last-child {
-      padding-bottom: 0;
-    }
+  .faq__number {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    color: var(--color-accent);
+    opacity: 0.7;
   }
 
   .faq__question {
@@ -1051,14 +1283,14 @@ import AnimatedName from '../components/AnimatedName.astro';
     font-weight: var(--font-bold);
     letter-spacing: var(--optical-lg);
     color: var(--color-fg);
-    margin: 0 0 var(--space-2) 0;
+    margin: 0 0 var(--space-3) 0;
   }
 
   @media (min-width: 768px) {
     .faq__question {
       font-size: var(--fluid-lg);
       letter-spacing: var(--optical-lg);
-      margin-bottom: var(--space-3);
+      margin-bottom: var(--space-4);
     }
   }
 
@@ -1066,7 +1298,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     font-family: var(--font-serif);
     font-size: var(--type-prose-size);
     line-height: var(--leading-relaxed);
-    color: var(--color-fg-muted);
+    color: var(--color-fg-secondary);
     margin: 0;
   }
 
@@ -1283,6 +1515,7 @@ import AnimatedName from '../components/AnimatedName.astro';
    * ========================================= */
   .story,
   .faq,
+  .belief,
   .invitation {
     opacity: 0;
     transform: translateY(var(--space-6));
@@ -1293,31 +1526,32 @@ import AnimatedName from '../components/AnimatedName.astro';
 
   .story.is-visible,
   .faq.is-visible,
+  .belief.is-visible,
   .invitation.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
 
   /* FAQ items stagger within section */
-  .faq:not(.is-visible) .faq__item {
+  .faq:not(.is-visible) .faq__grid .faq__item {
     opacity: 0;
     transform: translateY(var(--space-5));
   }
 
-  .faq__item {
+  .faq__grid .faq__item {
     transition:
       opacity var(--duration-slower) var(--ease-snap),
       transform var(--duration-slower) var(--ease-snap);
   }
 
-  .faq.is-visible .faq__item {
+  .faq.is-visible .faq__grid .faq__item {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .faq.is-visible .faq__item:nth-child(1) { transition-delay: var(--stagger-1); }
-  .faq.is-visible .faq__item:nth-child(2) { transition-delay: var(--stagger-3); }
-  .faq.is-visible .faq__item:nth-child(3) { transition-delay: var(--stagger-5); }
+  .faq.is-visible .faq__grid .faq__item:nth-child(1) { transition-delay: var(--stagger-1); }
+  .faq.is-visible .faq__grid .faq__item:nth-child(2) { transition-delay: var(--stagger-3); }
+  .faq.is-visible .faq__grid .faq__item:nth-child(3) { transition-delay: var(--stagger-5); }
 
   /* =========================================
    * TERMINAL HOVER
@@ -1336,15 +1570,23 @@ import AnimatedName from '../components/AnimatedName.astro';
 
   /* =========================================
    * FAQ HOVER AFFORDANCE
-   * Single confident signal: color change only
+   * Number highlight + question color shift
    * ========================================= */
 
   .faq__question {
     transition: color var(--duration-fast) var(--ease-out);
   }
 
+  .faq__number {
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
   .faq__item:hover .faq__question {
     color: var(--color-accent);
+  }
+
+  .faq__item:hover .faq__number {
+    opacity: 1;
   }
 
   /* =========================================
@@ -1403,6 +1645,7 @@ import AnimatedName from '../components/AnimatedName.astro';
 
     .story,
     .faq,
+    .belief,
     .invitation,
     .faq__item {
       opacity: 1 !important;
@@ -1447,6 +1690,9 @@ import AnimatedName from '../components/AnimatedName.astro';
       terminal.querySelectorAll('[data-beat], [data-reveal]').forEach(el => {
         el.classList.add('is-revealed');
       });
+      // Also reveal payoff line immediately
+      const payoffEl = document.querySelector('[data-terminal-payoff]');
+      if (payoffEl) payoffEl.classList.add('is-revealed');
       return;
     }
 
@@ -1749,6 +1995,13 @@ import AnimatedName from '../components/AnimatedName.astro';
       }
 
       updateOverflowState();
+
+      // Reveal payoff line after animation completes
+      const payoffEl = document.querySelector('[data-terminal-payoff]');
+      if (payoffEl) {
+        await new Promise(r => setTimeout(r, 400)); // Brief pause after terminal
+        payoffEl.classList.add('is-revealed');
+      }
     }
 
     // Set up scroll listener for fade effect
@@ -1790,7 +2043,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
       // Show everything immediately
-      document.querySelectorAll('.story, .faq, .invitation').forEach(el => {
+      document.querySelectorAll('.story, .faq, .belief, .invitation').forEach(el => {
         el.classList.add('is-visible');
       });
       return;
@@ -1812,7 +2065,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     }, observerOptions);
 
     // Observe all reveal targets
-    document.querySelectorAll('.story, .faq, .invitation').forEach(el => {
+    document.querySelectorAll('.story, .faq, .belief, .invitation').forEach(el => {
       revealObserver.observe(el);
     });
   }
@@ -1861,5 +2114,134 @@ import AnimatedName from '../components/AnimatedName.astro';
   document.addEventListener('astro:page-load', () => {
     initScrollReveal();
     initAtmosphereParallax();
+    initScrambleText();
   });
+
+  /**
+   * Scramble Text Animation
+   * Characters cycle through random glyphs before locking into place.
+   * Same effect as the logo animation - "tuning into a signal"
+   */
+  function initScrambleText() {
+    const elements = document.querySelectorAll('[data-scramble-text]');
+    const GLYPHS = '▀▄█▌▐░▒▓■□▪▫◼◻▰▱'.split('');
+
+    elements.forEach((container) => {
+      if (container.hasAttribute('data-scramble-initialized')) return;
+      container.setAttribute('data-scramble-initialized', 'true');
+
+      const textEl = container.querySelector('[data-scramble-target]') as HTMLElement;
+      if (!textEl) return;
+
+      const targetText = textEl.dataset.scrambleTarget || '';
+      const chars: HTMLSpanElement[] = [];
+      const targets: string[] = [];
+
+      // Create individual character spans
+      targetText.split('').forEach((char) => {
+        const span = document.createElement('span');
+        span.className = 'hero__overline-char';
+
+        if (char === ' ') {
+          span.textContent = ' ';
+          span.dataset.space = 'true';
+        } else {
+          span.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+        }
+
+        chars.push(span);
+        targets.push(char);
+        textEl.appendChild(span);
+      });
+
+      // Check reduced motion
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) {
+        chars.forEach((char, i) => {
+          char.textContent = targets[i];
+          char.classList.add('is-locked');
+        });
+        return;
+      }
+
+      // Animation state
+      const locked: boolean[] = new Array(chars.length).fill(false);
+      let scrambleInterval: number;
+      let hasAnimated = false;
+
+      function scramble() {
+        chars.forEach((char, i) => {
+          if (!locked[i] && targets[i] !== ' ') {
+            char.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+          }
+        });
+      }
+
+      function lockChar(index: number) {
+        locked[index] = true;
+        const char = chars[index];
+        char.textContent = targets[index];
+        char.classList.add('is-locked');
+        char.classList.add('is-flashing');
+        setTimeout(() => char.classList.remove('is-flashing'), 100);
+      }
+
+      function complete() {
+        clearInterval(scrambleInterval);
+      }
+
+      function startAnimation() {
+        if (hasAnimated) return;
+        hasAnimated = true;
+
+        // Start after page entry animation completes
+        setTimeout(() => {
+          scrambleInterval = window.setInterval(scramble, 50);
+
+          // Get indices of non-space characters
+          const nonSpaceIndices = targets
+            .map((t, i) => (t !== ' ' ? i : -1))
+            .filter((i) => i !== -1);
+
+          // Lock chars left-to-right for overline (more readable than random)
+          const lockDuration = 600;
+          const baseDelay = 200;
+
+          nonSpaceIndices.forEach((charIndex, i) => {
+            const progress = i / nonSpaceIndices.length;
+            const lockTime = baseDelay + progress * lockDuration;
+
+            setTimeout(() => {
+              lockChar(charIndex);
+              if (i === nonSpaceIndices.length - 1) {
+                setTimeout(complete, 100);
+              }
+            }, lockTime);
+          });
+        }, 400); // Delay after fade-up animation
+      }
+
+      // Trigger when visible
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              startAnimation();
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      observer.observe(container);
+    });
+  }
+
+  // Initialize scramble text
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrambleText);
+  } else {
+    initScrambleText();
+  }
 </script>
