@@ -9,6 +9,7 @@ Google Ads campaign creation and optimization with PMax, Search, Audit, and Asse
 - **`/ads:setup`** - Interactive wizard to configure MCP server credentials
 - **`/ads:pmax`** - Create Performance Max campaigns with asset groups and audience signals
 - **`/ads:search`** - Create Search campaigns with keyword structure and ad copy
+- **`/ads:copy`** - Polish ad copy with landing page message match and direct response frameworks
 - **`/ads:audit`** - Audit account health with benchmark comparisons and recommendations
 - **`/ads:assets`** - Generate ad-ready images using AI with reference-based workflows
 
@@ -136,6 +137,12 @@ Skills include reference documentation:
 - `campaign-structure.md` - Ad group organization
 - `keyword-match-types.md` - Exact/phrase/broad strategies
 - `audience-signals.md` - Observation vs targeting
+
+**Copy Skill:**
+- `frameworks.md` - Direct response frameworks (AIDA, PAS, FAB, 4Ps, Offer-First)
+- `headline-formulas.md` - Fill-in-the-blank patterns, psychological triggers, DKI
+- `character-limits.md` - Platform specifications by campaign type
+- `quality-patterns.md` - Good vs bad copy patterns, headline categories
 
 **Audit Skill:**
 - `performance-benchmarks.md` - Industry averages by vertical

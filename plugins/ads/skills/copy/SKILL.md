@@ -14,6 +14,7 @@ Create message-matched ad copy by extracting landing page language and applying 
 
 This skill uses these reference documents:
 - [Frameworks](./frameworks.md) - Direct response frameworks (AIDA, PAS, FAB, 4Ps, Offer-First)
+- [Headline Formulas](./headline-formulas.md) - Fill-in-the-blank patterns, psychological triggers, DKI
 - [Character Limits](./character-limits.md) - Platform specifications by campaign type
 - [Quality Patterns](./quality-patterns.md) - Good vs bad copy patterns, headline categories
 
@@ -181,40 +182,79 @@ Confirm with user:
 
 ## Phase 5: Copy Generation
 
-Generate headlines and descriptions using LP language + selected framework.
+Generate headlines and descriptions using LP language + selected framework + headline formulas.
+
+Reference: [Headline Formulas](./headline-formulas.md)
 
 ### Headlines
 
-Generate based on campaign type requirements:
+Generate based on campaign type requirements.
+
+**Formula Selection:**
+
+For each headline angle, select formulas that:
+1. Fit the LP language extracted
+2. Match the selected framework
+3. Apply relevant psychological triggers
+
+| Angle | Recommended Formulas | Psych Triggers |
+|-------|---------------------|----------------|
+| Problem | Question ("Still [X]?"), Negative ("Stop [X]") | Loss aversion |
+| Benefit | Transformation ("From [A] to [B]"), How-To | Commitment |
+| Proof | Authority ("[#]+ Customers"), Numbers | Social proof |
+| Value | Number ("[%] Off"), Negative ("No [Fees]") | Reciprocity |
+| Objection | Negative ("No [Risk]"), Authority | Trust |
 
 **PMax/Search (generate 10-15):**
 
 ```markdown
 ## Headlines (30 char max)
 
-### Problem/Pain (2-3)
-1. [headline from LP problem language]
-2. [headline from LP problem language]
+### Problem/Pain (2-3) - Use Question or Negative formulas
+1. [formula + LP problem language] [XX chars]
+2. [formula + LP problem language] [XX chars]
 
-### Benefit/Outcome (3-4)
-1. [headline from LP benefit language]
-2. [headline from LP benefit language]
+### Benefit/Outcome (3-4) - Use Transformation or Number formulas
+1. [formula + LP benefit language] [XX chars]
+2. [formula + LP benefit language] [XX chars]
+3. [formula + LP benefit language] [XX chars]
 
-### Social Proof (2-3)
-1. [headline using LP proof numbers]
-2. [headline using LP testimonial snippet]
+### Social Proof (2-3) - Use Authority or Number formulas
+1. [formula + LP proof numbers] [XX chars]
+2. [formula + LP testimonial snippet] [XX chars]
 
-### Offer/Value (2-3)
-1. [headline with LP price/discount]
-2. [headline with LP value proposition]
+### Offer/Value (2-3) - Use Number or Urgency formulas
+1. [formula + LP price/discount] [XX chars]
+2. [formula + LP value proposition] [XX chars]
 
-### Brand/Trust (1-2)
-1. [Brand Name] - [short trust phrase]
+### Objection/Trust (1-2) - Use Negative or Authority formulas
+1. [formula + LP guarantee language] [XX chars]
+2. [formula + LP trust element] [XX chars]
 ```
 
 **Character Count Validation:**
 After each headline, show: `[XX chars]`
 Flag any exceeding 30 chars with: `[XX chars - OVER LIMIT]`
+
+### Dynamic Keyword Insertion (Search RSA only)
+
+If creating Search RSA copy, consider DKI for 2-3 headlines:
+
+```markdown
+### DKI Headlines (Search RSA only)
+
+Before using DKI, verify:
+- [ ] Ad group has similar, grammatically compatible keywords
+- [ ] No keywords with typos in the ad group
+- [ ] Keywords are not emotional/problem-focused
+
+If DKI appropriate:
+1. Shop {KeyWord:[LP Category]} [XX chars w/ default]
+2. Best {KeyWord:[LP Product]} [XX chars w/ default]
+3. {KeyWord:[LP Default]} - [LP Offer] [XX chars w/ default]
+```
+
+If DKI not appropriate, note why and skip.
 
 ### Long Headlines (PMax only)
 
@@ -363,6 +403,33 @@ Check headline categories covered:
 
 No duplicate angles: Each headline should cover unique angle.
 
+### Quality Gate 6: Formula Variety
+
+Reference: [Headline Formulas](./headline-formulas.md)
+
+Check formula types used:
+
+| Formula Type | Count | Minimum |
+|--------------|-------|---------|
+| Number headlines | [N] | 2 |
+| Question headlines | [N] | 1 |
+| Negative/Contrast | [N] | 1 |
+| Transformation | [N] | 1 |
+| Authority/Proof | [N] | 1 |
+
+Check psychological triggers applied:
+- [ ] Loss aversion (at least 1 headline)
+- [ ] Social proof (at least 1 headline)
+- [ ] Urgency/scarcity (at least 1 headline, if legitimate)
+
+### Quality Gate 7: DKI Validation (Search RSA only)
+
+If DKI headlines included:
+- [ ] Default text makes grammatical sense alone
+- [ ] Verified keywords are compatible (no typos, similar structure)
+- [ ] Character limit math is correct
+- [ ] Not used for brand terms or emotional keywords
+
 ---
 
 ## Phase 8: Output Delivery
@@ -461,16 +528,33 @@ Description,[description],89,
 
 Before delivering, verify:
 
+**Character & Compliance:**
 - [ ] All character limits validated (no violations)
 - [ ] No trailing punctuation on headlines
+- [ ] No prohibited patterns (ALL CAPS, emojis, phone numbers)
+
+**Message Match:**
 - [ ] >60% LP language reused
 - [ ] >3 exact LP quotes used
-- [ ] 70%+ benefit-focused copy
-- [ ] Framework structure followed
-- [ ] No duplicate headline angles
 - [ ] Offer matches LP exactly
 - [ ] Social proof numbers match LP
+
+**Copy Quality:**
+- [ ] 70%+ benefit-focused copy
+- [ ] Framework structure followed
 - [ ] No generic claims without specifics
+
+**Headline Diversity:**
+- [ ] No duplicate headline angles
+- [ ] All 5 required angles covered (problem, benefit, proof, value, objection)
+- [ ] At least 2 number headlines
+- [ ] At least 1 question headline
+- [ ] At least 1 psychological trigger applied (loss aversion, social proof, scarcity)
+
+**DKI (Search RSA only):**
+- [ ] Default text grammatically standalone
+- [ ] Keywords verified compatible
+- [ ] Character math correct
 
 ---
 
