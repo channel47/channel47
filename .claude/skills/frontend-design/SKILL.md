@@ -78,6 +78,15 @@ Before finalizing any design, verify you haven't fallen into these traps:
 - ✅ Bespoke containers for different content types
 - ✅ Consistent icon style (stroke weight, corner radius, optical size)
 
+### Pull Quotes & Blockquotes
+
+- ❌ Left vertical border (border-left) — the #1 AI tell for "important text"
+- ❌ Left border + gradient background fade
+- ❌ Decorative quotation mark icons
+- ✅ Typography alone: larger size, different weight, more vertical spacing
+- ✅ Indentation or narrower measure to set apart
+- ✅ Let the words do the work — if it needs decoration to feel important, the words aren't strong enough
+
 ## Design Process
 
 ### 1. Establish Constraints First
@@ -125,19 +134,23 @@ If animation serves none of these, delete it.
 ### Tailwind Usage
 
 ```jsx
-{
-  /* ❌ Generic AI output */
-}
+{/* ❌ Generic AI output */}
 <div className="bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl shadow-lg p-6">
   <h2 className="text-2xl font-bold text-white mb-4">Features</h2>
-</div>;
+</div>
 
-{
-  /* ✅ Intentional design */
-}
-<div className="border-l-2 border-black pl-6 py-4">
-  <h2 className="font-serif text-4xl tracking-tight text-black">Features</h2>
-</div>;
+{/* ❌ Also generic — left borders are an AI tell */}
+<blockquote className="border-l-4 border-blue-500 pl-4 italic">
+  Important quote here
+</blockquote>
+
+{/* ✅ Intentional design — typography does the work */}
+<h2 className="font-serif text-5xl tracking-tight text-black">Features</h2>
+
+{/* ✅ Pull quote through size and spacing, no decoration */}
+<p className="text-2xl md:text-3xl font-serif italic my-12">
+  Important quote here
+</p>
 ```
 
 ### Animation Patterns

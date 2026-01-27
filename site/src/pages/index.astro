@@ -30,17 +30,30 @@ import AnimatedName from '../components/AnimatedName.astro';
     </div>
 
     <Prose width="wide">
-      <!-- Hero: Claim → Cliffhanger → Payoff -->
+      <!-- Hero: Value prop + CTA immediately visible -->
       <header class="hero">
         <p class="hero__overline" data-animate="fade-up" data-stagger="1" data-scramble-text>
           <span class="hero__overline-text" data-scramble-target="A Claude Code Plugin for Google Ads" aria-label="A Claude Code Plugin for Google Ads"></span>
         </p>
         <h1 class="hero__headline" data-animate="blur-in" data-stagger="2">
-          Stop clicking.<br class="hero__break" />Start prompting.
+          Audit 25 accounts<br class="hero__break" />before lunch.
         </h1>
 
-        <!-- Claude Code terminal - animated conversation -->
-        <div class="claude-terminal" data-animate="fade-up" data-stagger="2" data-terminal-animate>
+        <!-- Value proposition + CTA -->
+        <div class="hero__value" data-animate="fade-up" data-stagger="3">
+          <p class="hero__proposition">
+            Describe what you need. Claude does the clicking.
+          </p>
+          <div class="hero__cta">
+            <EmailSignup placeholder="Enter your email" tag="hero" variant="prominent" />
+            <p class="hero__hint">Free and open source. You just need Claude Pro (~$20/mo).</p>
+          </div>
+        </div>
+      </header>
+
+      <!-- Demo: Terminal animation (supporting visual) -->
+      <section class="demo" aria-label="Workflow demonstration" data-animate="fade-up" data-stagger="4">
+        <div class="claude-terminal" data-terminal-animate>
           <div class="claude-terminal__chrome">
             <div class="claude-terminal__dots">
               <span></span><span></span><span></span>
@@ -119,19 +132,8 @@ import AnimatedName from '../components/AnimatedName.astro';
           <!-- Fade overlay for cliffhanger effect -->
           <div class="claude-terminal__fade" aria-hidden="true"></div>
         </div>
-
-        <!-- Payoff line - appears after terminal animation -->
-        <p class="hero__payoff" data-terminal-payoff>
-          The whole workflow. One conversation.
-        </p>
-      </header>
-
-      <!-- CTA: Inline, reserved -->
-      <div class="cta cta--inline" data-animate="fade-up" data-stagger="3">
-        <p class="cta__context">I'll send you the setup walkthrough, plus updates as I ship new features.</p>
-        <EmailSignup placeholder="your@email.com" tag="hero" />
-        <p class="cta__hint">Free and open source. Requires Claude Pro (~$20/mo).</p>
-      </div>
+        <p class="demo__caption">That's the whole workflow. One conversation.</p>
+      </section>
 
       <!-- Origin: Dense story block -->
       <section class="story story--origin" data-animate="fade-up" data-stagger="4">
@@ -210,15 +212,15 @@ import AnimatedName from '../components/AnimatedName.astro';
       <!-- Final CTA: Value exchange -->
       <section class="invitation" data-animate="fade-up" data-stagger="5">
         <div class="invitation__content">
-          <h2 class="invitation__headline">Start prompting in 15 minutes</h2>
+          <h2 class="invitation__headline">Get the setup guide</h2>
           <p class="invitation__description">
-            Connect your MCC. Follow one walkthrough. Then describe what you need.
+            One email. Everything you need to connect your MCC and start prompting.
           </p>
           <div class="invitation__form">
-            <EmailSignup placeholder="your@email.com" tag="setup-guide" />
+            <EmailSignup placeholder="Enter your email" tag="setup-guide" />
           </div>
           <p class="invitation__cadence">
-            I'll send the setup guide and new features as I ship them. No courses. No pitch decks. Just the plugin getting better.
+            I'll send updates as I ship them. No courses. No pitch decks. Just the plugin getting better.
           </p>
         </div>
       </section>
@@ -425,35 +427,93 @@ import AnimatedName from '../components/AnimatedName.astro';
     }
   }
 
-  /* Payoff line - reveals after terminal animation */
-  .hero__payoff {
-    font-family: var(--font-serif);
-    font-size: var(--fluid-md);
-    font-style: italic;
-    color: var(--color-fg-secondary);
-    margin: var(--space-8) auto 0 auto;
+  /* Hero value block - proposition + CTA */
+  .hero__value {
+    max-width: 400px;
+    margin-inline: auto;
     text-align: center;
-    opacity: 0;
-    transform: translateY(var(--space-3));
-    transition:
-      opacity var(--duration-slower) var(--ease-snap),
-      transform var(--duration-slower) var(--ease-snap);
   }
 
-  .hero__payoff.is-revealed {
+  .hero__proposition {
+    font-family: var(--font-serif);
+    font-size: var(--fluid-lg);
+    font-style: italic;
+    line-height: var(--leading-snug);
+    color: var(--color-fg-secondary);
+    margin: 0 0 var(--space-8) 0;
+  }
+
+  @media (min-width: 768px) {
+    .hero__proposition {
+      font-size: var(--fluid-xl);
+      margin-bottom: var(--space-10);
+    }
+  }
+
+  .hero__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .hero__hint {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    color: var(--color-fg-subtle);
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .hero__hint {
+      font-size: var(--text-sm);
+    }
+  }
+
+  /* =========================================
+   * DEMO SECTION
+   * Terminal as supporting visual
+   * ========================================= */
+  .demo {
+    max-width: var(--container-lg);
+    margin-inline: auto;
+    margin-top: var(--space-16);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .demo {
+      margin-top: var(--space-20);
+    }
+  }
+
+  .demo__caption {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-fg-subtle);
+    margin: var(--space-6) 0 0 0;
+    opacity: 0;
+    transform: translateY(var(--space-2));
+    transition:
+      opacity var(--duration-slow) var(--ease-snap),
+      transform var(--duration-slow) var(--ease-snap);
+  }
+
+  .demo__caption.is-revealed {
     opacity: 1;
     transform: translateY(0);
   }
 
   @media (min-width: 768px) {
-    .hero__payoff {
-      font-size: var(--fluid-lg);
-      margin-top: var(--space-10);
+    .demo__caption {
+      font-size: var(--text-sm);
+      margin-top: var(--space-8);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero__payoff {
+    .demo__caption {
       opacity: 1;
       transform: none;
       transition: none;
@@ -945,44 +1005,13 @@ import AnimatedName from '../components/AnimatedName.astro';
     }
   }
 
+
   /* =========================================
-   * INLINE CTA
-   * Reserved, inline with content
+   * CONTENT WIDTH
+   * Match terminal width for visual alignment
    * ========================================= */
-  .cta--inline {
-    margin-inline: auto;
-    margin-bottom: var(--space-16);
-    max-width: 360px;
-    text-align: center;
-  }
-
-  @media (min-width: 768px) {
-    .cta--inline {
-      margin-bottom: var(--space-20);
-    }
-  }
-
-  .cta__context {
-    font-family: var(--font-serif);
-    font-size: var(--text-sm);
-    color: var(--color-fg-secondary);
-    line-height: var(--leading-relaxed);
-    margin: 0 auto var(--space-4) auto;
-    max-width: 36ch;
-  }
-
-  @media (min-width: 768px) {
-    .cta__context {
-      font-size: var(--text-base);
-      margin-bottom: var(--space-5);
-    }
-  }
-
-  .cta__hint {
-    font-family: var(--font-serif);
-    font-size: var(--text-sm);
-    color: var(--color-fg-subtle);
-    margin: var(--space-3) 0 0 0;
+  :root {
+    --content-match-terminal: 680px;
   }
 
   /* =========================================
@@ -990,7 +1019,7 @@ import AnimatedName from '../components/AnimatedName.astro';
    * Unified serif typography
    * ========================================= */
   .story {
-    max-width: var(--measure-prose);
+    max-width: var(--content-match-terminal);
     margin-inline: auto;
     text-align: left; /* Keep prose left-aligned for readability */
   }
@@ -1096,26 +1125,24 @@ import AnimatedName from '../components/AnimatedName.astro';
     }
   }
 
+  /* Pull quote - typography only, no decorative borders */
   .story__pull {
     font-family: var(--font-serif);
-    font-size: var(--fluid-xl);
-    font-weight: var(--font-medium);
+    font-size: var(--fluid-2xl);
+    font-weight: var(--font-normal);
     font-style: italic;
-    letter-spacing: var(--optical-lg);
+    letter-spacing: var(--optical-xl);
     line-height: var(--leading-snug);
     color: var(--color-fg);
-    padding: var(--space-6) 0 var(--space-6) var(--space-6);
-    margin: var(--space-12) 0 var(--space-12) 0;
-    border-left: 3px solid var(--color-accent);
-    background: linear-gradient(90deg, var(--color-accent-subtle) 0%, transparent 100%);
+    margin: var(--space-14) 0;
+    /* Let the size and spacing do the work */
   }
 
   @media (min-width: 768px) {
     .story__pull {
-      font-size: var(--fluid-2xl);
+      font-size: var(--fluid-3xl);
       letter-spacing: var(--optical-2xl);
-      padding: var(--space-8) 0 var(--space-8) var(--space-8);
-      margin: var(--space-14) 0 var(--space-14) 0;
+      margin: var(--space-16) 0;
     }
   }
 
@@ -1148,7 +1175,7 @@ import AnimatedName from '../components/AnimatedName.astro';
    * Manifesto-style worldview statement
    * ========================================= */
   .belief {
-    max-width: var(--measure-prose);
+    max-width: var(--content-match-terminal);
     margin-inline: auto;
     padding: var(--space-16) 0;
     margin-top: var(--space-10);
@@ -1215,7 +1242,7 @@ import AnimatedName from '../components/AnimatedName.astro';
    * Numbered Q&A pairs with visual structure
    * ========================================= */
   .faq {
-    max-width: var(--measure-prose);
+    max-width: var(--content-match-terminal);
     margin-inline: auto;
     padding-top: var(--space-12);
     text-align: left;
@@ -1324,7 +1351,7 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   .invitation__content {
-    max-width: var(--measure-prose);
+    max-width: var(--content-match-terminal);
     margin-inline: auto;
     text-align: center;
   }
@@ -1365,9 +1392,9 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   .invitation__form {
-    margin-inline: auto;
-    margin-bottom: var(--space-4);
-    max-width: 340px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--space-5);
   }
 
   .invitation__cadence {
@@ -1513,6 +1540,7 @@ import AnimatedName from '../components/AnimatedName.astro';
    * SCROLL-TRIGGERED REVEALS
    * Elements fade in as they enter viewport
    * ========================================= */
+  .demo,
   .story,
   .faq,
   .belief,
@@ -1524,6 +1552,7 @@ import AnimatedName from '../components/AnimatedName.astro';
       transform var(--duration-slowest) var(--ease-snap);
   }
 
+  .demo.is-visible,
   .story.is-visible,
   .faq.is-visible,
   .belief.is-visible,
@@ -1598,15 +1627,6 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   /* =========================================
-   * STORY PULL QUOTE ENHANCEMENT
-   * Left border accent with gradient
-   * ========================================= */
-  .story__pull {
-    position: relative;
-    border-radius: var(--radius-sm);
-  }
-
-  /* =========================================
    * ATMOSPHERE PARALLAX
    * Subtle parallax on scroll
    * ========================================= */
@@ -1617,12 +1637,12 @@ import AnimatedName from '../components/AnimatedName.astro';
   /* =========================================
    * CTA FORM MICRO-INTERACTIONS
    * ========================================= */
-  .cta--inline,
+  .hero__cta,
   .invitation__form {
     transition: transform var(--duration-normal) var(--ease-out);
   }
 
-  .cta--inline:focus-within,
+  .hero__cta:focus-within,
   .invitation__form:focus-within {
     transform: translateY(calc(-1 * var(--space-0-5)));
   }
@@ -1643,6 +1663,7 @@ import AnimatedName from '../components/AnimatedName.astro';
       filter: none !important;
     }
 
+    .demo,
     .story,
     .faq,
     .belief,
@@ -1690,40 +1711,40 @@ import AnimatedName from '../components/AnimatedName.astro';
       terminal.querySelectorAll('[data-beat], [data-reveal]').forEach(el => {
         el.classList.add('is-revealed');
       });
-      // Also reveal payoff line immediately
-      const payoffEl = document.querySelector('[data-terminal-payoff]');
-      if (payoffEl) payoffEl.classList.add('is-revealed');
+      // Also reveal demo caption immediately
+      const captionEl = terminal.closest('.demo')?.querySelector('.demo__caption');
+      if (captionEl) captionEl.classList.add('is-revealed');
       return;
     }
 
-    // Timing configuration grounded in real-world data
+    // Timing configuration - compressed for punchier demo
     const TIMING = {
-      // User typing: more contemplative pace with human variance
-      typewriterSpeed: 65,         // Slower, more deliberate
-      typewriterVariance: 35,      // More human irregularity
-      typewriterPunctuationPause: 100,
-      typewriterStartDelay: 400,   // Enough for cursor to blink once
-      cursorLingerTime: 200,
+      // User typing: faster, still human
+      typewriterSpeed: 35,          // Faster typing
+      typewriterVariance: 20,       // Less variance
+      typewriterPunctuationPause: 60,
+      typewriterStartDelay: 250,    // Quick start
+      cursorLingerTime: 150,
 
-      // Thinking duration varies by task complexity
-      thinkingComplexDuration: 1800,   // After complex audit request
-      thinkingSimpleDuration: 1000,    // After simple "Fix them" command
-      thinkingWordInterval: 1000,
-      thinkingFadeOutDuration: 200,
+      // Thinking duration - shorter pauses
+      thinkingComplexDuration: 1000,   // Reduced from 1800
+      thinkingSimpleDuration: 600,     // Reduced from 1000
+      thinkingWordInterval: 800,
+      thinkingFadeOutDuration: 150,
 
-      // Claude responses - snappy but readable
-      claudeResponseDelay: 300,
-      revealStagger: 200,
-      toolRevealDelay: 350,
-      postToolPause: 600,
-      readingPause: 600,           // Pause after responses with data
+      // Claude responses - snappy
+      claudeResponseDelay: 200,
+      revealStagger: 120,
+      toolRevealDelay: 200,
+      postToolPause: 350,
+      readingPause: 350,
 
-      // Beat gaps - tighter for conversational momentum
-      beatGap: 350,
-      finalBeatGap: 400,
+      // Beat gaps - tight
+      beatGap: 200,
+      finalBeatGap: 250,
 
-      // Wait for terminal's page entry animation - let headline land first
-      pageEntryWait: 1200,
+      // Wait for scroll into view
+      pageEntryWait: 300,
     };
 
     // Simplified action words - focused and context-appropriate
@@ -1996,11 +2017,11 @@ import AnimatedName from '../components/AnimatedName.astro';
 
       updateOverflowState();
 
-      // Reveal payoff line after animation completes
-      const payoffEl = document.querySelector('[data-terminal-payoff]');
-      if (payoffEl) {
-        await new Promise(r => setTimeout(r, 400)); // Brief pause after terminal
-        payoffEl.classList.add('is-revealed');
+      // Reveal demo caption after animation completes
+      const captionEl = terminal.closest('.demo')?.querySelector('.demo__caption');
+      if (captionEl) {
+        await new Promise(r => setTimeout(r, 300));
+        captionEl.classList.add('is-revealed');
       }
     }
 
@@ -2043,7 +2064,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
       // Show everything immediately
-      document.querySelectorAll('.story, .faq, .belief, .invitation').forEach(el => {
+      document.querySelectorAll('.demo, .story, .faq, .belief, .invitation').forEach(el => {
         el.classList.add('is-visible');
       });
       return;
@@ -2065,7 +2086,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     }, observerOptions);
 
     // Observe all reveal targets
-    document.querySelectorAll('.story, .faq, .belief, .invitation').forEach(el => {
+    document.querySelectorAll('.demo, .story, .faq, .belief, .invitation').forEach(el => {
       revealObserver.observe(el);
     });
   }
