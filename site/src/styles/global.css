@@ -75,8 +75,8 @@ body::after {
  * ======================================== */
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
-  font-weight: var(--font-semibold);
+  font-family: var(--font-display);
+  font-weight: var(--font-bold);
   line-height: var(--leading-tight);
   color: var(--color-fg);
   text-wrap: balance;
@@ -219,21 +219,21 @@ button {
 
 /* Title - section headers */
 .type-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: var(--type-title-size);
-  font-weight: var(--type-title-weight);
+  font-weight: var(--font-bold);
   line-height: var(--type-title-leading);
-  letter-spacing: var(--type-title-tracking);
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
 /* Subtitle - supporting headlines */
 .type-subtitle {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: var(--type-subtitle-size);
-  font-weight: var(--type-subtitle-weight);
+  font-weight: var(--font-semibold);
   line-height: var(--type-subtitle-leading);
-  letter-spacing: var(--type-subtitle-tracking);
+  letter-spacing: -0.01em;
 }
 
 /* Prose - optimized for long-form reading */
@@ -514,30 +514,31 @@ button {
 .prose h2,
 .prose h3,
 .prose h4 {
+  font-family: var(--font-display);
   margin-top: var(--heading-spacing-above);
   margin-bottom: var(--heading-spacing-below);
-  font-weight: var(--font-semibold);
+  font-weight: var(--font-bold);
   line-height: var(--leading-tight);
 }
 
 .prose h1 {
   font-size: var(--fluid-4xl);
-  letter-spacing: var(--optical-display);
+  letter-spacing: -0.03em;
 }
 
 .prose h2 {
   font-size: var(--fluid-3xl);
-  letter-spacing: var(--optical-2xl);
+  letter-spacing: -0.025em;
 }
 
 .prose h3 {
   font-size: var(--fluid-2xl);
-  letter-spacing: var(--optical-xl);
+  letter-spacing: -0.02em;
 }
 
 .prose h4 {
   font-size: var(--fluid-xl);
-  letter-spacing: var(--optical-lg);
+  letter-spacing: -0.015em;
 }
 
 .prose a {
@@ -611,7 +612,7 @@ button {
   float: left;
   font-family: var(--font-display);
   font-size: 3.5em;
-  font-weight: var(--font-bold);
+  font-weight: var(--font-extrabold);
   line-height: 0.8;
   padding-right: 0.1em;
   margin-top: 0.05em;

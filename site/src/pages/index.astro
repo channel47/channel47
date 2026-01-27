@@ -233,9 +233,6 @@ import AnimatedName from '../components/AnimatedName.astro';
    * Full viewport, generous whitespace
    * ========================================= */
   .page {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
     min-height: 100vh;
     min-height: 100dvh;
     padding-block-start: max(var(--space-12), env(safe-area-inset-top, 0px) + var(--space-6));
@@ -315,7 +312,7 @@ import AnimatedName from '../components/AnimatedName.astro';
    * Unified typography: serif headlines, muted second line
    * ========================================= */
   .hero {
-    text-align: left;
+    text-align: center;
     margin-bottom: var(--space-12);
   }
 
@@ -351,7 +348,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     letter-spacing: var(--optical-display);
     line-height: 1.05;
     color: var(--color-fg);
-    margin: 0 0 var(--space-10) 0;
+    margin: 0 auto var(--space-10) auto;
     max-width: 18ch;
     text-shadow: var(--text-shadow-sm);
   }
@@ -379,6 +376,7 @@ import AnimatedName from '../components/AnimatedName.astro';
    * ========================================= */
   .claude-terminal {
     max-width: 100%;
+    margin-inline: auto;
     background: var(--color-bg-deep);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -390,6 +388,7 @@ import AnimatedName from '../components/AnimatedName.astro';
       0 0 0 1px oklch(100% 0 0 / 0.02) inset,
       0 1px 0 0 oklch(100% 0 0 / 0.04) inset;
     position: relative;
+    text-align: left; /* Reset text-align for terminal content */
   }
 
   @media (min-width: 768px) {
@@ -855,8 +854,10 @@ import AnimatedName from '../components/AnimatedName.astro';
    * Reserved, inline with content
    * ========================================= */
   .cta--inline {
+    margin-inline: auto;
     margin-bottom: var(--space-16);
     max-width: 360px;
+    text-align: center;
   }
 
   @media (min-width: 768px) {
@@ -870,7 +871,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     font-size: var(--text-sm);
     color: var(--color-fg-secondary);
     line-height: var(--leading-relaxed);
-    margin: 0 0 var(--space-4) 0;
+    margin: 0 auto var(--space-4) auto;
     max-width: 36ch;
   }
 
@@ -894,6 +895,8 @@ import AnimatedName from '../components/AnimatedName.astro';
    * ========================================= */
   .story {
     max-width: var(--measure-prose);
+    margin-inline: auto;
+    text-align: left; /* Keep prose left-aligned for readability */
   }
 
   .story p {
@@ -1009,7 +1012,9 @@ import AnimatedName from '../components/AnimatedName.astro';
     flex-direction: column;
     gap: var(--space-10);
     max-width: var(--measure-prose);
+    margin-inline: auto;
     padding-top: var(--space-8);
+    text-align: left;
   }
 
   @media (min-width: 768px) {
@@ -1088,6 +1093,8 @@ import AnimatedName from '../components/AnimatedName.astro';
 
   .invitation__content {
     max-width: var(--measure-prose);
+    margin-inline: auto;
+    text-align: center;
   }
 
   .invitation__headline {
@@ -1097,7 +1104,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     letter-spacing: var(--optical-2xl);
     line-height: var(--leading-tight);
     color: var(--color-fg);
-    margin: 0 0 var(--space-4) 0;
+    margin: 0 auto var(--space-4) auto;
   }
 
   @media (min-width: 768px) {
@@ -1113,7 +1120,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     font-size: var(--fluid-md);
     line-height: var(--leading-relaxed);
     color: var(--color-fg-secondary);
-    margin: 0 0 var(--space-8) 0;
+    margin: 0 auto var(--space-8) auto;
     max-width: 48ch;
   }
 
@@ -1126,6 +1133,7 @@ import AnimatedName from '../components/AnimatedName.astro';
   }
 
   .invitation__form {
+    margin-inline: auto;
     margin-bottom: var(--space-4);
     max-width: 340px;
   }
@@ -1134,7 +1142,7 @@ import AnimatedName from '../components/AnimatedName.astro';
     font-family: var(--font-serif);
     font-size: var(--text-sm);
     color: var(--color-fg-subtle);
-    margin: 0;
+    margin: 0 auto;
     line-height: var(--leading-relaxed);
     max-width: 44ch;
   }
@@ -1149,8 +1157,9 @@ import AnimatedName from '../components/AnimatedName.astro';
     border-top: 1px solid var(--color-border-subtle);
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--space-8);
+    text-align: center;
   }
 
   @media (min-width: 768px) {
@@ -1159,7 +1168,7 @@ import AnimatedName from '../components/AnimatedName.astro';
       padding-top: var(--space-14);
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       gap: var(--space-10);
     }
   }
@@ -1174,6 +1183,7 @@ import AnimatedName from '../components/AnimatedName.astro';
   .page-footer__left {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: var(--space-5);
   }
 
@@ -1328,15 +1338,6 @@ import AnimatedName from '../components/AnimatedName.astro';
    * FAQ HOVER AFFORDANCE
    * Single confident signal: color change only
    * ========================================= */
-  .faq__item {
-    padding-left: var(--space-5);
-  }
-
-  @media (min-width: 768px) {
-    .faq__item {
-      padding-left: var(--space-6);
-    }
-  }
 
   .faq__question {
     transition: color var(--duration-fast) var(--ease-out);
