@@ -12,6 +12,7 @@ Google Ads campaign creation and optimization with PMax, Search, Audit, and Asse
 - **`/ads:copy`** - Polish ad copy with landing page message match and direct response frameworks
 - **`/ads:audit`** - Audit account health with benchmark comparisons and recommendations
 - **`/ads:assets`** - Generate ad-ready images using AI with reference-based workflows
+- **`/ads:creative-variations`** - Generate 3-5 strategic variants from a winning ad creative with psychological analysis
 
 ### Agents
 
@@ -81,6 +82,13 @@ Builds Search campaign structure with keyword grouping and ad copy.
 /ads:assets
 ```
 Generate ad images from product pages using AI. Screenshots references, generates brand-consistent imagery across all required sizes.
+
+### Creative Testing
+
+```
+/ads:creative-variations
+```
+Generate 3-5 strategic variants from a winning ad creative. Analyzes why the image works using direct response psychology, then creates test variations that change only 1-2 elements for clean A/B testing.
 
 ### Account Analysis
 
@@ -152,8 +160,14 @@ Skills include reference documentation:
 - `pmax-specs.md` - Dimension requirements for PMax
 - `iteration-patterns.md` - Refinement workflow patterns
 
+**Creative Variations Skill:**
+- `psychological-triggers.md` - Complete trigger library with implementation examples
+- `variation-dimensions.md` - Exhaustive list of testable elements by impact tier
+- `prompt-patterns.md` - Proven Gemini prompts for each variation type
+
 ## Version History
 
+- **2.2.0** - Added Creative Variations skill for systematic ad creative A/B testing
 - **2.1.0** - Added Assets skill for AI image generation with Nano Banana and Playwright MCP
 - **2.0.0** - Added PMax, Search, Audit skills and campaign-strategist agent
 - **1.2.0** - Added Reddit MCP integration
