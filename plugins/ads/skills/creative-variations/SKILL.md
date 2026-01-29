@@ -156,7 +156,7 @@ mcp__plugin_ads_nano-banana__upload_file
   display_name: "control-creative"
 ```
 
-Save the returned `file_uri` (format: `files/...`) — you'll need it for every variant.
+Save the returned `file_uri` (full URL format: `https://generativelanguage.googleapis.com/v1beta/files/...`) — you'll need it for every variant.
 
 #### Step 2: Generate Each Variant Using the Reference
 
@@ -165,7 +165,7 @@ Use `generate_image` with the `reference_file_uri` parameter pointing to your up
 ```
 mcp__plugin_ads_nano-banana__generate_image
   prompt: "[Variation prompt - see examples below]"
-  reference_file_uri: "files/abc123..."  # From upload step
+  reference_file_uri: "https://generativelanguage.googleapis.com/v1beta/files/abc123"  # Full URL from upload
   reference_file_mime_type: "image/png"  # REQUIRED: Must match actual file type
   aspect_ratio: "[same as reference]"
   output_path: "variant-1-[description].png"
@@ -380,13 +380,13 @@ mcp__plugin_ads_nano-banana__upload_file
   file_path: "/absolute/path/to/image.png"
   display_name: "control-creative"  # Optional descriptive name
 ```
-Returns: `file_uri` (e.g., `files/abc123...`) — save this for generation calls.
+Returns: `file_uri` as full URL (e.g., `https://generativelanguage.googleapis.com/v1beta/files/abc123`) — save this for generation calls.
 
 **Generate with Reference (Primary workflow):**
 ```
 mcp__plugin_ads_nano-banana__generate_image
   prompt: "Modification instructions..."
-  reference_file_uri: "files/abc123..."    # CRITICAL: Links to uploaded control
+  reference_file_uri: "https://generativelanguage.googleapis.com/v1beta/files/abc123"  # Full URL required
   reference_file_mime_type: "image/png"    # REQUIRED: Match actual file format
   aspect_ratio: "1:1"                      # Match reference aspect ratio
   output_path: "variant-1-description.png"
