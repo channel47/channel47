@@ -4,30 +4,49 @@ Proven prompt structures for generating ad creative variants with Nano Banana (G
 
 ---
 
-## Core Prompt Structure
+## Critical: Using the Reference Image
 
-Every variant prompt follows this structure:
+**ALWAYS upload and reference the control image.** Without the `reference_file_uri` parameter, Gemini generates from scratch rather than modifying your control.
+
+### Required Workflow
 
 ```
-[REFERENCE CONTEXT]
-Reference image attached. This is a winning ad creative.
+# Step 1: Upload the control image
+mcp__plugin_ads_nano-banana__upload_file
+  file_path: "/path/to/control.png"
 
-[SPECIFIC CHANGE]
-Create a variation where [PRECISE CHANGE DESCRIPTION].
-
-[PRESERVATION INSTRUCTIONS]
-Preserve these elements exactly:
-- [Element 1]
-- [Element 2]
-- [Element 3]
-
-[QUALITY REQUIREMENTS]
-Style requirements:
-- Maintain the same overall aesthetic and brand feel
-- Keep the same aspect ratio
-- Match the visual quality and polish of the reference
-- [Additional constraints]
+# Step 2: Use the returned file_uri in EVERY generation call
+mcp__plugin_ads_nano-banana__generate_image
+  prompt: "[modification prompt]"
+  reference_file_uri: "files/abc123..."  # <-- CRITICAL
+  output_path: "variant-1.png"
 ```
+
+**The `reference_file_uri` parameter is what makes these VARIATIONS rather than completely new images.**
+
+---
+
+## Core Prompt Structure (Reference-Based)
+
+When using a reference image, prompts should be **modification instructions**, not full creative descriptions:
+
+```
+Modify this ad creative with the following change:
+[PRECISE CHANGE DESCRIPTION - be specific]
+
+Keep everything else exactly the same:
+- [Element to preserve]
+- [Element to preserve]
+- [Element to preserve]
+
+The output should look like a minor edit to the original, not a new design.
+```
+
+### Key Principles
+
+1. **Be specific about the change** - "Change the CTA button to green" not "make it more vibrant"
+2. **Explicitly list what to preserve** - Don't assume Gemini will keep anything unchanged
+3. **Reinforce it's a modification** - "minor edit to the original, not a new design"
 
 ---
 
@@ -439,9 +458,20 @@ Brand requirements:
 
 ## Troubleshooting Prompts
 
+### When Output Is Completely Different (Not a Variation)
+
+**First check: Did you include `reference_file_uri` in the generate_image call?**
+
+If you forgot to include the `reference_file_uri` parameter, Gemini generates from scratch based on the prompt alone—it has no knowledge of your control image. This is the most common cause of "variations" that look nothing like the original.
+
+**Fix:** Ensure every `generate_image` call includes:
+```
+reference_file_uri: "files/[your-uploaded-file-id]"
+```
+
 ### When Output Is Too Different
 
-If variants drift too far from the reference:
+If variants drift too far from the reference (even with `reference_file_uri`):
 
 ```
 Critical: This variant must look like a minor edit to the reference image, not a completely new design.

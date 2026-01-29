@@ -1,11 +1,11 @@
 ---
 name: creative-variations
-description: This skill should be used when the user asks to "create ad variations", "iterate on a winning creative", "test creative variants", "A/B test images", "spin off ad creatives", "analyze why an ad works", "create split test images", or wants to generate 3-5 slight variations of an existing ad image. Produces psychologically-grounded creative variants from a reference image.
+description: This skill should be used when the user asks to "create ad variations", "iterate on a winning creative", "test creative variants", "A/B test images", "spin off ad creatives", "analyze why an ad works", "create split test images", or wants to generate 3-5 slight variations of an existing ad image. Uploads the reference image to Gemini and generates variants USING that image as a control—not from scratch. Produces psychologically-grounded creative variants that visually match the original.
 ---
 
 # Creative Variations
 
-Generate 3-5 strategic ad creative variants from a winning reference image. Each variant tweaks 1-2 elements based on direct response psychology, enabling rigorous split testing without reinventing the wheel.
+Generate 3-5 strategic ad creative variants from a winning reference image. **Uploads the control image to Gemini and uses it as a visual reference** for each variant—ensuring outputs match the original's composition, style, and elements while changing only 1-2 specific things. Enables rigorous split testing without reinventing the wheel.
 
 ## When to Use
 
@@ -107,54 +107,198 @@ Test in order of likely impact:
 
 ### Phase 3: Generate Variants with Nano Banana
 
-Use the `mcp__nano-banana__*` tools to generate variants.
+Use the `mcp__plugin_ads_nano-banana__*` tools to generate variants.
 
-#### Prompt Structure for Variations
+**CRITICAL: Two Generation Modes**
 
-When prompting Gemini for variants, use this structure:
+This skill supports two distinct modes. **Reference-Based Variations** is the default and primary mode.
+
+#### Mode A: Reference-Based Variations (Default)
+
+Use the uploaded reference image as a visual control. Gemini will generate variations that preserve the reference's composition, style, and elements while making specific changes.
+
+**This is the primary feature.** Always use this mode unless the user explicitly asks for principle-based generation.
+
+#### Mode B: Principle-Based Generation (Alternative)
+
+Generate images from scratch based on analyzed principles from the winning creative. Use this ONLY when:
+- The user explicitly says they want "new creatives inspired by" the reference
+- The user asks to "apply the winning principles" to a fresh design
+- The reference image cannot be uploaded or used effectively
+
+**Always confirm with the user before switching to Mode B:**
+
+```markdown
+I've analyzed the reference image. I can generate variations two ways:
+
+1. **Reference-based** (recommended): Generate variants directly from your image,
+   changing 1-2 specific elements while keeping everything else visually identical.
+
+2. **Principle-based**: Generate entirely new images that apply the psychological
+   principles I identified, but won't visually match your reference.
+
+Which approach would you prefer?
+```
+
+---
+
+### Phase 3a: Reference-Based Variant Generation (Primary)
+
+**This is the default workflow. Use this unless the user explicitly requests principle-based generation.**
+
+#### Step 1: Upload the Reference Image
+
+**MANDATORY FIRST STEP.** Before generating ANY variants, upload the reference image to Gemini:
 
 ```
-Reference image attached.
+mcp__plugin_ads_nano-banana__upload_file
+  file_path: "/path/to/control-image.png"
+  display_name: "control-creative"
+```
 
-Create a variation of this ad creative with the following change:
+Save the returned `file_uri` (format: `files/...`) — you'll need it for every variant.
+
+#### Step 2: Generate Each Variant Using the Reference
+
+Use `generate_image` with the `reference_file_uri` parameter pointing to your uploaded control:
+
+```
+mcp__plugin_ads_nano-banana__generate_image
+  prompt: "[Variation prompt - see examples below]"
+  reference_file_uri: "files/abc123..."  # From upload step
+  aspect_ratio: "[same as reference]"
+  output_path: "variant-1-[description].png"
+```
+
+**The `reference_file_uri` parameter is CRITICAL.** Without it, Gemini generates from scratch rather than modifying your control image.
+
+#### Step 3: Repeat for Each Variant
+
+Generate 3-5 variants, each with a different prompt but ALL using the same `reference_file_uri`.
+
+#### Prompt Structure for Reference-Based Variations
+
+When using a reference image, prompts should be modification instructions:
+
+```
+Modify this ad creative with the following change:
 [SPECIFIC CHANGE - be precise]
 
-Preserve these elements exactly:
-- [List preserved elements from analysis]
+Keep everything else exactly the same:
+- Same composition and layout
+- Same colors except where specified
+- Same text styling and positioning
+- Same overall aesthetic
 
-Style requirements:
-- Maintain the same overall aesthetic and brand feel
-- Keep the same aspect ratio ([ratio])
-- Match the visual quality and polish of the reference
+The output should look like a minor edit to the original, not a new design.
 ```
 
-#### Variant Generation Workflow
-
-1. **Upload reference image** using `mcp__nano-banana__upload_file`
-2. **Generate each variant** using `mcp__nano-banana__generate_image` with the reference
-3. **Name files descriptively**: `variant-1-headline-urgency.png`, `variant-2-cta-green.png`
-
-#### Example Prompts by Test Type
+#### Example Prompts (Reference-Based)
 
 **Headline Variation:**
 ```
-Reference image attached.
-Create a variation where the headline reads "[NEW HEADLINE]" instead of the current text.
-Preserve: background color, product placement, overall layout, brand elements.
+Modify this ad creative. Change ONLY the headline text to read:
+"[NEW HEADLINE]"
+
+Keep identical:
+- Headline position, size, font, and color
+- All other text
+- Background, product, layout, brand elements
+- Overall composition
+
+This should look like the same ad with different headline text.
 ```
 
-**Color Variation:**
+**CTA Color Variation:**
 ```
-Reference image attached.
-Create a variation where the CTA button is [COLOR] instead of [CURRENT COLOR].
-Preserve: all text, layout, imagery, other colors.
+Modify this ad creative. Change ONLY the CTA button color to [COLOR].
+
+Keep identical:
+- Button shape, size, position, and text
+- All other colors
+- Layout and composition
+- All other elements
+
+The only visible difference should be the button color.
+```
+
+**Background Color Variation:**
+```
+Modify this ad creative. Change ONLY the background color to [COLOR/HEX].
+
+Keep identical:
+- All text, logos, and graphics
+- Product placement
+- Overall composition
+- All foreground elements
+
+The only change should be the background color.
 ```
 
 **Human Element Variation:**
 ```
-Reference image attached.
-Create a variation featuring a [DEMOGRAPHIC] person with [EXPRESSION] instead of the current subject.
-Preserve: background, text placement, overall composition, brand elements.
+Modify this ad creative. Replace the person with a [DEMOGRAPHIC] individual
+showing a [EXPRESSION] expression.
+
+Keep identical:
+- Person's position in the frame
+- Pose and body language
+- Background, text, and all design elements
+- Overall composition and lighting style
+```
+
+---
+
+### Phase 3b: Principle-Based Generation (Alternative)
+
+**Only use this mode if the user explicitly requests it.**
+
+When generating from principles rather than a reference image, you generate entirely new creatives that embody the analyzed psychological triggers and design patterns—but won't visually match the original.
+
+#### When to Offer This Mode
+
+- User says "create new ads inspired by this"
+- User wants to test completely different visual approaches
+- User wants to apply learnings to a different product/brand
+- Technical issues prevent using the reference image
+
+#### Generation Workflow (No Reference)
+
+Generate without the `reference_file_uri` parameter:
+
+```
+mcp__plugin_ads_nano-banana__generate_image
+  prompt: "[Detailed creative prompt based on analysis]"
+  aspect_ratio: "[target aspect ratio]"
+  output_path: "inspired-variant-1-[description].png"
+```
+
+#### Prompt Structure for Principle-Based Generation
+
+When generating from scratch, prompts must be comprehensive:
+
+```
+Create an ad creative for [PRODUCT/SERVICE] that applies these principles:
+
+PSYCHOLOGICAL TRIGGERS:
+- [Trigger 1]: [How to implement]
+- [Trigger 2]: [How to implement]
+
+VISUAL STYLE:
+- Overall aesthetic: [description from analysis]
+- Color palette: [colors]
+- Typography style: [description]
+- Composition: [layout pattern]
+
+REQUIRED ELEMENTS:
+- Headline: "[TEXT]"
+- CTA: "[TEXT]" in [POSITION]
+- [Other required elements]
+
+MOOD/FEELING:
+[Description of the emotional response to evoke]
+
+This should feel like a professional ad creative, not AI-generated.
 ```
 
 ---
@@ -227,14 +371,41 @@ Save all generated images with descriptive names:
 
 ### Nano Banana (Gemini Image)
 
-- `mcp__nano-banana__upload_file` - Upload reference images
-- `mcp__nano-banana__generate_image` - Generate new images with prompts
-- `mcp__nano-banana__list_files` - List uploaded files
+**Upload Reference (REQUIRED for reference-based variations):**
+```
+mcp__plugin_ads_nano-banana__upload_file
+  file_path: "/absolute/path/to/image.png"
+  display_name: "control-creative"  # Optional descriptive name
+```
+Returns: `file_uri` (e.g., `files/abc123...`) — save this for generation calls.
+
+**Generate with Reference (Primary workflow):**
+```
+mcp__plugin_ads_nano-banana__generate_image
+  prompt: "Modification instructions..."
+  reference_file_uri: "files/abc123..."  # CRITICAL: Links to uploaded control
+  aspect_ratio: "1:1"                    # Match reference aspect ratio
+  output_path: "variant-1-description.png"
+```
+
+**Generate without Reference (Principle-based only):**
+```
+mcp__plugin_ads_nano-banana__generate_image
+  prompt: "Full creative description..."
+  aspect_ratio: "1:1"
+  output_path: "inspired-variant-1.png"
+```
+
+**List Uploaded Files:**
+```
+mcp__plugin_ads_nano-banana__list_files
+```
+Use to verify uploads or find existing file URIs.
 
 ### Playwright (Optional - for URL screenshots)
 
-- `mcp__playwright__browser_navigate` - Navigate to URLs
-- `mcp__playwright__browser_take_screenshot` - Capture reference images
+- `mcp__plugin_ads_playwright__browser_navigate` - Navigate to URLs
+- `mcp__plugin_ads_playwright__browser_take_screenshot` - Capture reference images
 
 ---
 
@@ -242,13 +413,22 @@ Save all generated images with descriptive names:
 
 Before delivering variants:
 
+**Reference-Based Mode (Default):**
+- [ ] Reference image uploaded to Gemini via `upload_file`
+- [ ] `reference_file_uri` used in ALL `generate_image` calls
 - [ ] Each variant changes only 1-2 elements
-- [ ] Control elements are preserved in all variants
+- [ ] Variants visually match the control (same composition, style, layout)
 - [ ] Hypothesis documented for each variant
 - [ ] Psychological basis explained
 - [ ] Files named descriptively
 - [ ] Summary document complete
-- [ ] Testing recommendations included
+
+**Principle-Based Mode (Alternative):**
+- [ ] User explicitly confirmed they want principle-based generation
+- [ ] Analysis completed and principles documented
+- [ ] Prompts include comprehensive style/element descriptions
+- [ ] Generated images embody the identified psychological triggers
+- [ ] Clear documentation that these are "inspired by" not "variations of"
 
 ---
 
