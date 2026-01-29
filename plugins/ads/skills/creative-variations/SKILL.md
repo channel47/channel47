@@ -166,11 +166,14 @@ Use `generate_image` with the `reference_file_uri` parameter pointing to your up
 mcp__plugin_ads_nano-banana__generate_image
   prompt: "[Variation prompt - see examples below]"
   reference_file_uri: "files/abc123..."  # From upload step
+  reference_file_mime_type: "image/png"  # REQUIRED: Must match actual file type
   aspect_ratio: "[same as reference]"
   output_path: "variant-1-[description].png"
 ```
 
-**The `reference_file_uri` parameter is CRITICAL.** Without it, Gemini generates from scratch rather than modifying your control image.
+**CRITICAL Parameters:**
+- `reference_file_uri` — Without it, Gemini generates from scratch rather than modifying your control image.
+- `reference_file_mime_type` — **Must match the actual file format** (e.g., `"image/png"`, `"image/jpeg"`). Omitting this or using the wrong type causes API errors.
 
 #### Step 3: Repeat for Each Variant
 
@@ -383,10 +386,13 @@ Returns: `file_uri` (e.g., `files/abc123...`) — save this for generation calls
 ```
 mcp__plugin_ads_nano-banana__generate_image
   prompt: "Modification instructions..."
-  reference_file_uri: "files/abc123..."  # CRITICAL: Links to uploaded control
-  aspect_ratio: "1:1"                    # Match reference aspect ratio
+  reference_file_uri: "files/abc123..."    # CRITICAL: Links to uploaded control
+  reference_file_mime_type: "image/png"    # REQUIRED: Match actual file format
+  aspect_ratio: "1:1"                      # Match reference aspect ratio
   output_path: "variant-1-description.png"
 ```
+
+> ⚠️ **MIME Type Required:** Always provide `reference_file_mime_type` matching your uploaded file (`"image/png"`, `"image/jpeg"`, etc.). The API returns a 400 error if this is missing or mismatched.
 
 **Generate without Reference (Principle-based only):**
 ```
@@ -416,6 +422,7 @@ Before delivering variants:
 **Reference-Based Mode (Default):**
 - [ ] Reference image uploaded to Gemini via `upload_file`
 - [ ] `reference_file_uri` used in ALL `generate_image` calls
+- [ ] `reference_file_mime_type` matches actual file format (png/jpeg)
 - [ ] Each variant changes only 1-2 elements
 - [ ] Variants visually match the control (same composition, style, layout)
 - [ ] Hypothesis documented for each variant
