@@ -30,3 +30,9 @@ build/
 # Temporary files
 *.tmp
 .cache/
+
+# Plugin local settings (user-specific)
+.claude/*.local.md
+
+# Generated output
+ads-output/

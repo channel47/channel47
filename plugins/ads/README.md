@@ -51,6 +51,27 @@ Run `/ads:setup` for guided configuration, or manually add to `~/.claude/setting
 }
 ```
 
+### Project-Level Settings
+
+For project-specific defaults, copy the template to your project:
+
+```bash
+cp plugins/ads/.claude/ads.local.md.template .claude/ads.local.md
+```
+
+Then customize settings like default customer ID, target geography, and budget limits:
+
+```yaml
+---
+default_customer_id: "123-456-7890"
+default_geo: "United States"
+budget_ceiling_daily: 500
+output_directory: "./ads-output"
+---
+```
+
+This file is gitignored by default to keep local preferences out of version control.
+
 ## Quick Start
 
 ### Don't Know Where to Start?
