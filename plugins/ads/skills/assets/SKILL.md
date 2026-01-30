@@ -16,6 +16,7 @@ This skill uses these reference documents:
 - [Prompt Templates](./prompt-templates.md) - Generation prompts by asset type
 - [PMax Specs](./pmax-specs.md) - Dimension requirements for Performance Max
 - [Iteration Patterns](./iteration-patterns.md) - Refinement workflow patterns
+- [Output Convention](../references/output-convention.md) - File naming and directory structure
 
 ---
 
@@ -373,6 +374,20 @@ Goal: [desired outcome]"
 ---
 
 ## Phase 7: Output Package
+
+Reference: [Output Convention](../references/output-convention.md)
+
+### Setup Output Directory
+
+> "Where should I save the generated assets?
+>
+> 1. **Default** - `./ads-output/[date]-[project]/assets/` (recommended)
+> 2. **Current directory** - Save files here
+> 3. **Custom path** - Specify a location"
+
+If default selected:
+1. Derive project name from product/brand
+2. Create directory: `mkdir -p ./ads-output/YYYY-MM-DD-[project]/assets`
 
 Deliver final assets with documentation.
 

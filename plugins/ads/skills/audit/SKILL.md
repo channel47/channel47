@@ -12,6 +12,7 @@ Comprehensive account health check with actionable optimization recommendations.
 
 This skill uses:
 - [Performance Benchmarks](./performance-benchmarks.md) - Industry averages by vertical for comparison
+- [Output Convention](../references/output-convention.md) - File naming and directory structure
 
 ---
 
@@ -317,9 +318,21 @@ WHERE campaign.status = 'ENABLED'
 
 ## Phase 8: Recommendations Report
 
+Reference: [Output Convention](../references/output-convention.md)
+
+### Setup Output Directory
+
+> "Where should I save the audit report?
+>
+> 1. **Default** - `./ads-output/[date]-[account-name]/audit/` (recommended)
+> 2. **Current directory** - Save file here
+> 3. **Just display** - Don't save to file"
+
+If saving to default, create: `mkdir -p ./ads-output/YYYY-MM-DD-[account]/audit`
+
 ### Output Format
 
-Generate comprehensive report:
+Generate comprehensive report (`audit-report.md`):
 
 ```markdown
 # Google Ads Account Audit

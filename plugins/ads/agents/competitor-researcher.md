@@ -166,9 +166,19 @@ Compile all findings into a structured report.
 
 ## Output
 
-Ask user for save location, or default to current directory.
+### Setup Output Directory
 
-### File: Competitor Research Report (`competitor-research-[product]-[YYYY-MM-DD].md`)
+> "Where should I save the competitor research?
+>
+> 1. **Default** - `./ads-output/[date]-[project]/research/` (recommended)
+> 2. **Current directory** - Save file here
+> 3. **Custom path** - Specify a location"
+
+If default selected:
+1. Derive project name from product/brand
+2. Create directory: `mkdir -p ./ads-output/YYYY-MM-DD-[project]/research`
+
+### File: Competitor Research Report (`competitor-research.md`)
 
 ```markdown
 # [Product] Competitor Research

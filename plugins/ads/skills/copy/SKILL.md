@@ -17,6 +17,7 @@ This skill uses these reference documents:
 - [Headline Formulas](./headline-formulas.md) - Fill-in-the-blank patterns, psychological triggers, DKI
 - [Character Limits](./character-limits.md) - Platform specifications by campaign type
 - [Quality Patterns](./quality-patterns.md) - Good vs bad copy patterns, headline categories
+- [Output Convention](../references/output-convention.md) - File naming and directory structure
 
 ---
 
@@ -433,6 +434,20 @@ If DKI headlines included:
 ---
 
 ## Phase 8: Output Delivery
+
+Reference: [Output Convention](../references/output-convention.md)
+
+### Setup Output Directory
+
+If user wants files saved (not just displayed):
+
+> "Where should I save the ad copy files?
+>
+> 1. **Default** - `./ads-output/[date]-[project]/copy/` (recommended)
+> 2. **Current directory** - Save files here
+> 3. **Just display** - Don't save to files"
+
+If saving to default, create: `mkdir -p ./ads-output/YYYY-MM-DD-[project]/copy`
 
 ### Output 1: Markdown Document
 

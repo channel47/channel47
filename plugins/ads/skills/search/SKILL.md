@@ -22,6 +22,7 @@ This skill uses these reference documents:
 - [Ad Copy Formulas](./references/ad-copy-formulas.md) - Headline/description patterns, psychological triggers, anti-patterns
 - [Negative Keywords](./references/negative-keywords.md) - Comprehensive lists by industry, match type strategies
 - [Worked Example](./references/worked-example.md) - Full Notion campaign build showing the complete process
+- [Output Convention](../../references/output-convention.md) - File naming and directory structure
 
 ---
 
@@ -402,7 +403,25 @@ Reference: [Audience Signals](./references/audience-signals.md)
 
 ## Phase 10: Output Generation
 
-Generate THREE output files:
+Reference: [Output Convention](../../references/output-convention.md)
+
+### Setup Output Directory
+
+Before generating files, establish the output location:
+
+> "Where should I save the campaign files?
+>
+> 1. **Default** - `./ads-output/[date]-[project]/campaigns/` (recommended)
+> 2. **Current directory** - Save files here
+> 3. **Custom path** - Specify a location"
+
+If default selected:
+1. Derive project name from brand/product on landing page
+2. Create directory: `mkdir -p ./ads-output/YYYY-MM-DD-[project]/campaigns`
+
+### Generate Files
+
+Generate FOUR output files in the campaigns/ subdirectory:
 
 ### File 1: Campaign Strategy (`search-campaign-[name].md`)
 

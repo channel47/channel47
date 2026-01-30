@@ -124,9 +124,19 @@ Build three lists:
 
 ## Output
 
-Ask user for save location, or default to current directory.
+### Setup Output Directory
 
-### File 1: Research Report (`keyword-research-[product]-[YYYY-MM-DD].md`)
+> "Where should I save the keyword research files?
+>
+> 1. **Default** - `./ads-output/[date]-[project]/research/` (recommended)
+> 2. **Current directory** - Save files here
+> 3. **Custom path** - Specify a location"
+
+If default selected:
+1. Derive project name from product/brand
+2. Create directory: `mkdir -p ./ads-output/YYYY-MM-DD-[project]/research`
+
+### File 1: Research Report (`keyword-research.md`)
 
 ```markdown
 # [Product] Keyword Research
@@ -162,19 +172,19 @@ Ask user for save location, or default to current directory.
 - Watch: [any declining trends flagged]
 ```
 
-### File 2: Keywords CSV (`keywords-[product].csv`)
+### File 2: Keywords CSV (`keywords.csv`)
 ```csv
 Keyword,Ad Group,Campaign,Match Type,Volume,CPC,Competition
 ```
 Ready for Google Ads Editor bulk upload.
 
-### File 3: Negatives CSV (`negatives-[product].csv`)
+### File 3: Negatives CSV (`negatives.csv`)
 ```csv
 Keyword,Match Type
 ```
 Ready for shared negative list.
 
-### File 4: Copy-Paste Ready (`keywords-[product]-copypaste.txt`)
+### File 4: Copy-Paste Ready (`keywords-copypaste.txt`)
 
 One keyword per line with match type modifier already applied. Grouped by ad group with blank line separators.
 
