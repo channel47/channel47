@@ -2,8 +2,7 @@
 name: keyword-researcher
 description: Research keywords for Google Ads Search campaigns. Requires a sales page URL or product description.
 model: sonnet
-color: cyan
-tools: ["Read", "Write", "WebFetch", "mcp__dataforseo__keywords_google_ads_search_volume", "mcp__dataforseo__keywords_google_ads_keywords_for_keyword", "mcp__dataforseo__keywords_google_ads_keywords_for_site", "mcp__dataforseo__keywords_google_trends_explore", "TodoWrite"]
+tools: Read, Write, WebFetch, mcp__dataforseo__keywords_google_ads_search_volume, mcp__dataforseo__keywords_google_ads_keywords_for_keyword, mcp__dataforseo__keywords_google_ads_keywords_for_site, mcp__dataforseo__keywords_google_trends_explore, TodoWrite
 ---
 
 # Keyword Researcher

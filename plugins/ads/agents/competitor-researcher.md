@@ -2,8 +2,7 @@
 name: competitor-researcher
 description: Research competitors for Google Ads campaigns. Requires a product URL or description to start.
 model: sonnet
-color: orange
-tools: ["Read", "Write", "Bash", "WebFetch", "TodoWrite", "mcp__dataforseo__keywords_google_ads_search_volume", "mcp__dataforseo__keywords_google_trends_explore", "mcp__dataforseo__dataforseo_labs_google_competitors_domain", "mcp__reddit-mcp-buddy__search_reddit", "mcp__reddit-mcp-buddy__get_post_details"]
+tools: Read, Write, Bash, WebFetch, TodoWrite, mcp__dataforseo__keywords_google_ads_search_volume, mcp__dataforseo__keywords_google_trends_explore, mcp__dataforseo__dataforseo_labs_google_competitors_domain, mcp__reddit-mcp-buddy__search_reddit, mcp__reddit-mcp-buddy__get_post_details
 ---
 
 # Competitor Researcher

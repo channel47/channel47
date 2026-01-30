@@ -2,8 +2,7 @@
 name: campaign-strategist
 description: Analyze Google Ads accounts, recommend campaign structure, and bridge research to creation.
 model: sonnet
-color: green
-tools: ["Read", "Write", "WebFetch", "mcp__google-ads__list_accounts", "mcp__google-ads__query", "mcp__dataforseo__keywords_google_ads_search_volume"]
+tools: Read, Write, WebFetch, mcp__google-ads__list_accounts, mcp__google-ads__query, mcp__dataforseo__keywords_google_ads_search_volume
 ---
 
 # Campaign Strategist
