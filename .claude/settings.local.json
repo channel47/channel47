@@ -111,11 +111,15 @@
       "WebFetch(domain:www.eesel.ai)",
       "WebFetch(domain:www.builder.io)",
       "mcp__perplexity-ask__perplexity_ask",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "WebFetch(domain:ai.google.dev)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:docs.cloud.google.com)"
     ]
   },
   "enabledPlugins": {
     "plugin-dev@claude-plugins-official": true,
     "claude-md-management@claude-plugins-official": true
-  }
+  },
+  "extraKnownMarketplaces": {}
 }
