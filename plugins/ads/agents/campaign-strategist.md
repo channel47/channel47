@@ -1,6 +1,13 @@
 ---
 name: campaign-strategist
-description: Analyze Google Ads accounts, recommend campaign structure, and bridge research to creation.
+description: |
+  Analyze Google Ads accounts and recommend campaign structure. Use when user asks to:
+  - "analyze my Google Ads account" or "review my account structure"
+  - "recommend campaign structure" or "how should I structure my campaigns"
+  - "should I use PMax or Search" or "what campaign type should I use"
+  - "plan my Google Ads strategy" or "create a campaign plan"
+  - "review my research and recommend next steps"
+  Bridges research to execution. Analyzes account data and research files, then recommends PMax vs Search, budget allocation, and campaign architecture.
 model: sonnet
 tools: Read, Write, WebFetch, mcp__google-ads__list_accounts, mcp__google-ads__query, mcp__dataforseo__keywords_google_ads_search_volume
 ---

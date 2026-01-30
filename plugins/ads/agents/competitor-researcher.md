@@ -1,6 +1,13 @@
 ---
 name: competitor-researcher
-description: Research competitors for Google Ads campaigns. Requires a product URL or description to start.
+description: |
+  Research competitors and market positioning for Google Ads campaigns. Use when user asks to:
+  - "research competitors for [URL/product]" or "competitor analysis for [business]"
+  - "who are my competitors" or "what are competitors doing"
+  - "analyze the competitive landscape" or "find competitor ads"
+  - "what are people saying about [product/category]" (mines Reddit for customer language)
+  - "market research for [product]" or "positioning research"
+  Requires a product URL or description. Returns competitor list, messaging gaps, customer language insights, and ad copy recommendations.
 model: sonnet
 tools: Read, Write, Bash, WebFetch, TodoWrite, mcp__dataforseo__keywords_google_ads_search_volume, mcp__dataforseo__keywords_google_trends_explore, mcp__dataforseo__dataforseo_labs_google_competitors_domain, mcp__reddit-mcp-buddy__search_reddit, mcp__reddit-mcp-buddy__get_post_details
 ---

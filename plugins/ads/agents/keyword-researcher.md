@@ -1,6 +1,13 @@
 ---
 name: keyword-researcher
-description: Research keywords for Google Ads Search campaigns. Requires a sales page URL or product description.
+description: |
+  Research keywords for Google Ads Search campaigns. Use when user asks to:
+  - "research keywords for [URL]" or "find keywords for [product]"
+  - "keyword ideas for [topic]" or "what keywords should I target"
+  - "keyword research for [business/product]"
+  - "find search terms for Google Ads"
+  - "build a keyword list for [URL]"
+  Requires a sales page URL or product description. Returns keyword clusters with volume, CPC, and campaign structure recommendations.
 model: sonnet
 tools: Read, Write, WebFetch, mcp__dataforseo__keywords_google_ads_search_volume, mcp__dataforseo__keywords_google_ads_keywords_for_keyword, mcp__dataforseo__keywords_google_ads_keywords_for_site, mcp__dataforseo__keywords_google_trends_explore, TodoWrite
 ---
