@@ -6,9 +6,10 @@ Google Ads campaign creation and optimization with PMax, Search, Audit, and Asse
 
 ### Skills
 
+- **`/ads:start`** - Entry point that detects your state and routes to the right workflow
 - **`/ads:setup`** - Interactive wizard to configure MCP server credentials
 - **`/ads:pmax`** - Create Performance Max campaigns with asset groups and audience signals
-- **`/ads:search`** - Create Search campaigns with keyword structure and ad copy
+- **`/ads:search`** - Analyze landing page and build complete Search campaigns with intent-based structure
 - **`/ads:copy`** - Polish ad copy with landing page message match and direct response frameworks
 - **`/ads:audit`** - Audit account health with benchmark comparisons and recommendations
 - **`/ads:assets`** - Generate ad-ready images using AI with reference-based workflows
@@ -52,6 +53,13 @@ Run `/ads:setup` for guided configuration, or manually add to `~/.claude/setting
 
 ## Quick Start
 
+### Don't Know Where to Start?
+
+```
+/ads:start
+```
+Detects your current state (existing account, new account, creative testing) and routes you to the right workflow.
+
 ### Research First
 
 ```
@@ -74,7 +82,7 @@ Walks through PMax campaign creation with asset requirements.
 ```
 /ads:search
 ```
-Builds Search campaign structure with keyword grouping and ad copy.
+Analyzes your landing page and builds Search campaigns with intent-based ad groups, 15-headline RSAs, and CSV output for bulk upload.
 
 ### Asset Generation
 
@@ -142,9 +150,12 @@ Skills include reference documentation:
 - `asset-requirements.md` - Google's specs for all asset types
 
 **Search Skill:**
-- `campaign-structure.md` - Ad group organization
-- `keyword-match-types.md` - Exact/phrase/broad strategies
-- `audience-signals.md` - Observation vs targeting
+- `references/campaign-structure.md` - Ad group organization
+- `references/keyword-match-types.md` - Exact/phrase/broad strategies
+- `references/audience-signals.md` - Observation vs targeting
+- `references/ad-copy-formulas.md` - Headline/description patterns, psychological triggers
+- `references/negative-keywords.md` - Comprehensive lists by industry
+- `references/worked-example.md` - Full Notion campaign build
 
 **Copy Skill:**
 - `frameworks.md` - Direct response frameworks (AIDA, PAS, FAB, 4Ps, Offer-First)
@@ -167,6 +178,7 @@ Skills include reference documentation:
 
 ## Version History
 
+- **2.5.0** - Added /ads:start orchestrator; consolidated search skills with landing-page-first methodology
 - **2.2.0** - Added Creative Variations skill for systematic ad creative A/B testing
 - **2.1.0** - Added Assets skill for AI image generation with Nano Banana and Playwright MCP
 - **2.0.0** - Added PMax, Search, Audit skills and campaign-strategist agent
