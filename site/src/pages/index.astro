@@ -11,7 +11,7 @@ import Logo from '../components/Logo.astro';
 
 <BaseLayout
   title="Channel47 — building an autonomous Google Ads agent"
-  description="I oversee 25+ Google Ads accounts across multiple MCCs. I’m building an autonomous agent that can manage Google Ads like a senior media buyer, then open-sourcing it so any media buyer can run it."
+  description="Media buyer building an open-source AI agent that manages Google Ads like a senior buyer — audits, fixes, pacing, queries — and sharing the build in public."
 >
   <main class="home">
     <div class="home__container">
@@ -19,49 +19,112 @@ import Logo from '../components/Logo.astro';
         <p class="home__overline">BUILDING IN PUBLIC</p>
         <h1 class="home__headline">Stop clicking. Start supervising.</h1>
         <p class="home__subhead">
-          I’m building an autonomous AI agent that can manage Google Ads like a senior media buyer—then I’ll open‑source it so any media buyer can run it themselves.
+          I’m a media buyer building an open-source AI agent that manages Google Ads the way a senior buyer would — audits, fixes, pacing, queries, the whole loop. So you can stop doing the same 50 tasks every Monday and start running your book like an operator.
         </p>
+        <div class="home__hero-cta">
+          <a class="home__cta" href="#signup">Get the build notes</a>
+          <p class="home__cta-note">
+            Working automations, prompt templates, and real results as I ship them. No fluff.
+          </p>
+        </div>
       </header>
 
       <hr class="divider" aria-hidden="true" />
 
       <section class="home__section" data-section="mission" data-animate="fade-up" data-stagger="2">
-        <p class="home__kicker">MISSION</p>
+        <p class="home__kicker">WHY THIS EXISTS</p>
         <div class="home__prose">
           <p>
-            I’m Jackson. I oversee 25+ accounts across multiple MCCs.
+            I manage 25+ accounts across multiple MCCs. The job isn’t strategy most days — it’s the same checklist on repeat.
           </p>
+          <ul class="home__list">
+            <li>Check pacing.</li>
+            <li>Pull search terms.</li>
+            <li>Pause the obvious waste.</li>
+            <li>Fix extensions.</li>
+            <li>Flag the budget that’s about to blow.</li>
+            <li>Write the same audit you wrote last Tuesday.</li>
+          </ul>
           <p>
-            Most of the job isn’t “strategy.” It’s repetition: audits, fixes, pacing, extensions, queries, copy… and the same mistakes showing up again next week.
+            I started automating pieces of it with a Claude Code plugin.
           </p>
+          <div class="home__callout">
+            <p>
+              One script caught a negative keyword gap that was burning ~$3K/month across two accounts.
+            </p>
+            <p>
+              Another flagged a pacing issue 4 days before the client would’ve noticed.
+            </p>
+          </div>
           <p>
-            I started with a Claude Code plugin to automate pieces of that. It worked—but it was too narrow. The real goal is the agent.
+            That’s when it clicked: these aren’t one-off scripts. This is an agent.
           </p>
         </div>
       </section>
 
       <section class="home__section" data-section="build" data-animate="fade-up" data-stagger="3">
-        <p class="home__kicker">WHAT I’M BUILDING</p>
+        <p class="home__kicker">WHAT IT ACTUALLY DOES</p>
         <div class="home__prose">
           <p class="home__loop">
             <span class="home__loop-label">Loop:</span>
             <span class="home__loop-value">audit → decide → execute → report</span>
           </p>
           <p>
-            It should catch the boring misses (and the expensive ones), explain what it’s doing in plain English, and operate with guardrails—so you can approve changes instead of living in the UI.
+            The agent runs a loop — audit, decide, execute, report — with guardrails so you approve changes instead of living in the UI.
           </p>
           <p>
-            I’m building it on top of the skills and connectors I’ve already made, and pushing toward real autonomy step by step.
+            In practice, that means:
+          </p>
+          <ul class="home__feature-list">
+            <li>
+              <strong>It catches the expensive miss you’re too busy to find.</strong>
+              The broad match keyword quietly spending $180/day on garbage queries. The campaign that paced out Tuesday but nobody noticed until Friday.
+            </li>
+            <li>
+              <strong>It does the Monday morning work before Monday morning.</strong>
+              Search term reports. Negative keyword builds. Extension gaps. RSA performance flags. The stuff you know matters but never gets prioritized because a client Slack just came in.
+            </li>
+            <li>
+              <strong>It explains itself in plain English.</strong>
+              Not a black box. Every change comes with reasoning you can read, approve, or override. You stay in control — you just stop doing the grunt work.
+            </li>
+          </ul>
+          <p>
+            I’m building it on top of skills and connectors I’ve already battle-tested on real accounts, pushing toward real autonomy one step at a time.
           </p>
         </div>
       </section>
 
-      <section class="home__section home__signup" data-section="signup" data-animate="fade-up" data-stagger="4">
+      <section class="home__section" data-section="status" data-animate="fade-up" data-stagger="4">
+        <p class="home__kicker">WHERE IT STANDS</p>
+        <div class="home__prose">
+          <p>
+            This isn’t vaporware. The plugin that became the foundation already runs in production on my accounts.
+          </p>
+          <p>
+            I’m building the full agent in public — code on GitHub, progress on Substack, decisions and dead ends included.
+          </p>
+          <p>
+            When it’s ready, it ships open-source. Any media buyer can run it on their own accounts, their own infrastructure, no vendor lock-in.
+          </p>
+        </div>
+      </section>
+
+      <section class="home__section home__signup" id="signup" data-section="signup" data-animate="fade-up" data-stagger="5">
         <p class="home__kicker">GET BUILD NOTES</p>
         <p class="home__signup-title">Get build notes.</p>
         <p class="home__signup-body">
-          Short emails when something real ships: progress, failures, releases, and runnable steps.
+          Short emails when something real ships. You’ll get the working pieces as I build them — prompt templates, automation scripts, and the architecture decisions behind an agent that actually touches live ad accounts.
         </p>
+        <p class="home__signup-body">
+          If you manage Google Ads and you’ve ever thought “I shouldn’t be the one doing this” — this is the build to follow.
+        </p>
+        <ul class="home__list home__signup-list">
+          <li>Working automations and scripts.</li>
+          <li>Prompt templates and playbooks.</li>
+          <li>Architecture decisions (and dead ends).</li>
+        </ul>
+        <p class="home__microcopy">No spam. Unsubscribe anytime.</p>
         <EmailSignup
           placeholder="you@domain.com"
           tag="home"
@@ -69,12 +132,12 @@ import Logo from '../components/Logo.astro';
         />
       </section>
 
-      <section class="home__section home__links" data-section="links" data-animate="fade-up" data-stagger="5">
+      <section class="home__section home__links" data-section="links" data-animate="fade-up" data-stagger="6">
         <p class="home__kicker">LINKS</p>
         <SocialLinks />
       </section>
 
-      <footer class="home__footer" data-section="footer" data-animate="fade-up" data-stagger="6">
+      <footer class="home__footer" data-section="footer" data-animate="fade-up" data-stagger="7">
         <p class="home__footer-text">
           <span class="home__footer-mark" data-logo="ch47">
             <Logo />
@@ -140,6 +203,59 @@ import Logo from '../components/Logo.astro';
     max-width: 50ch;
   }
 
+  .home__hero-cta {
+    margin-top: var(--space-6);
+    display: grid;
+    gap: var(--space-3);
+    max-width: 52ch;
+  }
+
+  .home__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    padding: 0 var(--space-6);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-fg-inverse);
+    background: var(--color-accent);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    width: fit-content;
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .home__cta:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 30px color-mix(in oklch, var(--color-accent) 20%, transparent);
+  }
+
+  .home__cta:active {
+    transform: translateY(0);
+    background: var(--color-accent-active);
+    box-shadow: none;
+  }
+
+  .home__cta:focus-visible {
+    outline: 2px solid var(--color-fg);
+    outline-offset: 2px;
+  }
+
+  .home__cta-note {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--fluid-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-secondary);
+  }
+
   .home__section {
     padding-block: var(--space-12);
   }
@@ -164,6 +280,61 @@ import Logo from '../components/Logo.astro';
     font-size: var(--fluid-md);
     line-height: var(--leading-prose);
     color: var(--color-fg);
+    margin: 0;
+  }
+
+  .home__list {
+    margin: 0;
+    padding-left: var(--space-6);
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .home__list li {
+    font-family: var(--font-serif);
+    font-size: var(--fluid-md);
+    line-height: var(--leading-prose);
+    color: var(--color-fg);
+  }
+
+  .home__list li::marker {
+    color: var(--color-fg-muted);
+  }
+
+  .home__feature-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .home__feature-list li {
+    position: relative;
+    padding-left: var(--space-6);
+    font-family: var(--font-serif);
+    font-size: var(--fluid-md);
+    line-height: var(--leading-prose);
+    color: var(--color-fg);
+  }
+
+  .home__feature-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--color-fg-muted);
+  }
+
+  .home__callout {
+    display: grid;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    border: 1px solid var(--color-border-subtle);
+    background: color-mix(in oklch, var(--color-bg-elevated) 75%, transparent);
+    border-radius: var(--radius-md);
+  }
+
+  .home__callout p {
     margin: 0;
   }
 
@@ -213,6 +384,18 @@ import Logo from '../components/Logo.astro';
     color: var(--color-fg-secondary);
     margin: 0 0 var(--space-8) 0;
     max-width: 60ch;
+  }
+
+  .home__signup-list {
+    margin: 0 0 var(--space-6) 0;
+  }
+
+  .home__microcopy {
+    margin: 0 0 var(--space-6) 0;
+    font-family: var(--font-mono);
+    font-size: var(--fluid-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-fg-subtle);
   }
 
   .home__links {

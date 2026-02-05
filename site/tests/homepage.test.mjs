@@ -9,9 +9,11 @@ test('homepage has tight-funnel sections', async () => {
   const indexPath = resolve(__dirname, '../src/pages/index.astro');
   const source = await readFile(indexPath, 'utf8');
 
-  for (const section of ['hero', 'mission', 'build', 'signup', 'links', 'footer']) {
+  for (const section of ['hero', 'mission', 'build', 'status', 'signup', 'links', 'footer']) {
     assert.match(source, new RegExp(`data-section="${section}"`));
   }
 
+  assert.match(source, /href="#signup"/);
+  assert.match(source, /id="signup"/);
   assert.match(source, /data-logo="ch47"/);
 });
