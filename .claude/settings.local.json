@@ -114,7 +114,12 @@
       "Bash(git checkout:*)",
       "WebFetch(domain:ai.google.dev)",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:docs.cloud.google.com)"
+      "WebFetch(domain:docs.cloud.google.com)",
+      "WebFetch(domain:www.notion.com)",
+      "mcp__plugin_ads_reddit-mcp-buddy__search_reddit",
+      "WebFetch(domain:cxl.com)",
+      "WebFetch(domain:unbounce.com)",
+      "mcp__plugin_ads_reddit-mcp-buddy__get_post_details"
     ]
   },
   "enabledPlugins": {
