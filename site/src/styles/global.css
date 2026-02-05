@@ -52,7 +52,9 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: var(--gradient-radial-warm);
+  background:
+    var(--gradient-radial-warm),
+    var(--gradient-vignette);
   pointer-events: none;
   z-index: -2;
 }
@@ -75,8 +77,8 @@ body::after {
  * ======================================== */
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-  font-weight: var(--font-bold);
+  font-family: var(--font-mono);
+  font-weight: var(--font-semibold);
   line-height: var(--leading-tight);
   color: var(--color-fg);
   text-wrap: balance;
@@ -89,11 +91,16 @@ p {
 a {
   color: var(--color-accent);
   text-decoration: none;
-  transition: color var(--duration-fast) var(--ease-out);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    text-decoration-color var(--duration-fast) var(--ease-out);
 }
 
 a:hover {
   color: var(--color-accent-hover);
+  text-decoration: underline;
 }
 
 strong, b {

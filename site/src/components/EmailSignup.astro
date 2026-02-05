@@ -12,6 +12,7 @@
 interface Props {
   placeholder?: string;
   tag?: string;
+  submitText?: string;
   class?: string;
   /** Visual variant: 'default' or 'prominent' for hero placement */
   variant?: 'default' | 'prominent';
@@ -20,6 +21,7 @@ interface Props {
 const {
   placeholder = 'your@email.com',
   tag = 'general',
+  submitText = 'Get access',
   class: className = '',
   variant = 'default'
 } = Astro.props;
@@ -46,7 +48,7 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
     />
   </div>
   <button type="submit" class="email-signup__submit" aria-label="Subscribe">
-    <span class="email-signup__submit-text">Get access</span>
+    <span class="email-signup__submit-text">{submitText}</span>
     <span class="email-signup__submit-icons">
       <svg class="email-signup__icon email-signup__icon--arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -176,7 +178,7 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
     flex-direction: column;
     gap: var(--space-3);
     width: 100%;
-    max-width: 320px;
+    max-width: 520px;
   }
 
   /* Input field container */
@@ -186,21 +188,22 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
 
   .email-signup__input {
     width: 100%;
-    height: 44px;
+    height: 48px;
     padding: 0 var(--space-4);
-    font-family: var(--font-sans);
+    font-family: var(--font-mono);
     /* 16px minimum prevents iOS auto-zoom on focus */
     font-size: max(16px, var(--text-sm));
     color: var(--color-fg);
-    background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
+    background: color-mix(in oklch, var(--color-bg-elevated) 80%, transparent);
+    border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-md);
     outline: none;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     transition:
       border-color var(--duration-fast) var(--ease-out),
-      background-color var(--duration-fast) var(--ease-out);
+      background-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
   }
 
   .email-signup__input::placeholder {
@@ -214,18 +217,19 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
   .email-signup__input:focus {
     border-color: var(--color-accent);
     background: var(--color-bg-surface);
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--color-accent) 20%, transparent);
   }
 
-  /* Submit button - full width to match input */
+  /* Submit button */
   .email-signup__submit {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
     width: 100%;
-    height: 44px;
+    height: 48px;
     padding: 0 var(--space-5);
-    font-family: var(--font-sans);
+    font-family: var(--font-mono);
     font-size: var(--text-sm);
     font-weight: var(--font-medium);
     letter-spacing: var(--tracking-wide);
@@ -239,16 +243,20 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
     touch-action: manipulation;
     transition:
       background-color var(--duration-fast) var(--ease-out),
-      transform var(--duration-fast) var(--ease-out);
+      transform var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
   }
 
   .email-signup__submit:hover {
     background: var(--color-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 30px color-mix(in oklch, var(--color-accent) 20%, transparent);
   }
 
   .email-signup__submit:active {
-    transform: scale(0.98);
+    transform: translateY(0);
     background: var(--color-accent-active);
+    box-shadow: none;
   }
 
   .email-signup__submit:focus-visible {
@@ -259,6 +267,18 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
   .email-signup__submit:disabled {
     cursor: default;
     opacity: 0.7;
+  }
+
+  @media (min-width: 560px) {
+    .email-signup {
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .email-signup__submit {
+      width: auto;
+      flex-shrink: 0;
+    }
   }
 
   /* Button text and icons container */
@@ -397,12 +417,12 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
    * Slightly larger for hero - same stacked layout
    * ========================================= */
   .email-signup--prominent {
-    max-width: 340px;
+    max-width: 560px;
   }
 
   .email-signup--prominent .email-signup__input,
   .email-signup--prominent .email-signup__submit {
-    height: 48px;
+    height: 52px;
   }
 
   .email-signup--prominent .email-signup__input {
