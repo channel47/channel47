@@ -16,3 +16,5 @@ public/images/blog-heroes/**/style-d.png
 style/
 
 .playwright-mcp/
+
+.codex/environments/
