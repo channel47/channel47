@@ -1,0 +1,69 @@
+---
+/**
+ * Nav — shared site navigation.
+ * Mono text, pipe divider, Signal hover. Two pages, no hamburger.
+ */
+import Logo from './Logo.astro';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath } = Astro.props;
+---
+
+<nav class="nav">
+  <a href="/" class="nav__logo"><Logo /></a>
+  <div class="nav__links">
+    <a href="/" class:list={[currentPath === '/' && 'nav__active']}>Home</a>
+    <span class="nav__pipe" aria-hidden="true"></span>
+    <a href="/plugins" class:list={[currentPath === '/plugins' && 'nav__active']}>Plugins</a>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    opacity: 0;
+    transition: opacity 300ms var(--ease-out);
+  }
+
+  :global([data-section="hero"].is-visible) .nav {
+    opacity: 1;
+    transition-delay: 100ms;
+  }
+
+  .nav__logo {
+    display: inline-flex;
+    text-decoration: none;
+    transition: opacity var(--duration-fast);
+  }
+
+  .nav__logo:hover { opacity: 0.7; }
+
+  .nav__links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--color-fg-muted);
+  }
+
+  .nav__links a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--duration-fast);
+  }
+
+  .nav__links a:hover { color: var(--color-accent); }
+  .nav__active { color: var(--color-fg) !important; }
+
+  .nav__pipe {
+    width: 1px;
+    height: 12px;
+    background: var(--color-border);
+  }
+</style>

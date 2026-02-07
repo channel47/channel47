@@ -1,0 +1,36 @@
+---
+/**
+ * Footer — shared site footer.
+ * Minimal. Border-top, flex row, muted text.
+ */
+const { class: className, ...props } = Astro.props;
+---
+
+<footer class:list={["footer", className]} {...props}>
+  <div class="footer__content">
+    <span class="footer__mark">CH47</span>
+    <span class="footer__text">Built by Jackson. 2026.</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--color-border);
+    padding: 24px clamp(24px, 5vw, 64px);
+  }
+
+  .footer__content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-fg-muted);
+  }
+
+  .footer__mark {
+    font-weight: 600;
+    color: var(--color-fg-subtle);
+    letter-spacing: 0.1em;
+  }
+</style>

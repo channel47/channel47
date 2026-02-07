@@ -1,179 +1,196 @@
 ---
 /**
- * Homepage
- * ch47 compositional narrative: density map, signature moves, rupture.
+ * Plugins Directory
+ * ch47 design system — now using shared BaseLayout and design tokens.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import EmailSignup from '../components/EmailSignup.astro';
-import SocialLinks from '../components/SocialLinks.astro';
 ---
 
 <BaseLayout
-  title="Channel47 — building an autonomous Google Ads agent"
-  description="Media buyer building an open-source AI agent that manages Google Ads like a senior buyer — audits, fixes, pacing, queries — and sharing the build in public."
+  title="Plugins — channel47"
+  description="Claude Code plugins built by a media buyer, not a prompt engineer. Tools that do real work on real accounts."
 >
   <main class="pg">
-
     <!-- =======================================
          ACT 1: HERO (LOW density)
-         Sparse. Commanding. 90vh.
+         Sparse. Commanding. One thought.
          ======================================= -->
     <section class="hero" data-section="hero">
-      <Nav currentPath="/" />
+      <Nav currentPath="/plugins" />
+
       <div class="hero__content">
         <div class="hero__bar" aria-hidden="true"></div>
-        <p class="label">BUILDING IN PUBLIC</p>
+        <p class="label">PLUGINS / DIRECTORY</p>
         <h1 class="hero__headline" id="hero-headline">
-          Stop clicking.<br />Start supervising.
+          Tools that do<br />the work.
         </h1>
         <p class="hero__sub">
-          I'm a media buyer building an open-source AI agent that manages
-          Google Ads the way a senior buyer would — audits, fixes, pacing,
-          queries, the whole loop.
+          Claude Code plugins built from managing real ad spend on real accounts. Not demos. Not proofs of concept. Production tools that caught a $3K/month keyword gap and flagged pacing issues before clients noticed.
         </p>
-        <a class="hero__cta" href="#signup">Get the build notes</a>
       </div>
     </section>
 
     <!-- =======================================
-         ACT 2: PROOF STRIP (HIGH density)
-         Dense, quiet credibility.
+         ACT 2: STATS BAR (HIGH density)
+         Dense, quiet credibility strip.
          ======================================= -->
     <section class="stats" data-section="stats">
+      <div class="stats__item">
+        <span class="stats__value">1</span>
+        <span class="stats__label">PLUGIN SHIPPED</span>
+      </div>
+      <div class="stats__pipe" aria-hidden="true"></div>
       <div class="stats__item">
         <span class="stats__value">25+</span>
         <span class="stats__label">ACCOUNTS MANAGED</span>
       </div>
       <div class="stats__pipe" aria-hidden="true"></div>
       <div class="stats__item">
-        <span class="stats__value">$3K</span>
-        <span class="stats__label">WASTE CAUGHT / MONTH</span>
+        <span class="stats__value">v2.5</span>
+        <span class="stats__label">CURRENT VERSION</span>
       </div>
       <div class="stats__pipe" aria-hidden="true"></div>
       <div class="stats__item">
-        <span class="stats__value">1</span>
-        <span class="stats__label">AGENT IN PROGRESS</span>
+        <span class="stats__value">MIT</span>
+        <span class="stats__label">LICENSE</span>
       </div>
     </section>
 
     <!-- =======================================
-         ACT 3: WHY THIS EXISTS (MEDIUM density)
-         Narrative. Contained prose.
+         ACT 3: PLUGIN CARD (MEDIUM density)
+         The main event. Asymmetric two-panel.
          ======================================= -->
-    <section class="why" data-section="why">
-      <div class="why__content">
-        <div class="hero__bar" aria-hidden="true"></div>
-        <p class="label">WHY THIS EXISTS</p>
-        <div class="why__prose">
-          <p>I manage 25+ accounts across multiple MCCs. The job isn't strategy
-             most days — it's the same checklist on repeat.</p>
-          <ul class="why__list">
-            <li>Check pacing.</li>
-            <li>Pull search terms.</li>
-            <li>Pause the obvious waste.</li>
-            <li>Fix extensions.</li>
-            <li>Flag the budget that's about to blow.</li>
-          </ul>
-          <p>I started automating pieces of it with a Claude Code plugin.</p>
-          <div class="why__callout">
-            <p>One script caught a negative keyword gap burning ~$3K/month across two accounts.</p>
-            <p>Another flagged a pacing issue 4 days before the client noticed.</p>
-          </div>
-          <p>That's when it clicked: these aren't one-off scripts. This is an agent.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- =======================================
-         ACT 4: WHAT IT DOES (MEDIUM density)
-         Asymmetric two-panel grid.
-         ======================================= -->
-    <section class="features" data-section="features">
-      <div class="features__grid">
-        <div class="features__panel features__panel--primary">
-          <div class="features__bar" aria-hidden="true"></div>
-          <span class="label">047.LOOP</span>
-          <h2 class="features__title">audit &rarr; decide &rarr;<br />execute &rarr; report</h2>
-          <p class="features__body">
-            The agent runs a loop with guardrails so you approve changes
-            instead of living in the UI. Every change comes with reasoning
-            you can read, approve, or override.
+    <section class="plugins" data-section="plugins">
+      <div class="plugins__grid">
+        <div class="plugins__card plugins__card--primary">
+          <div class="plugins__card-bar" aria-hidden="true"></div>
+          <span class="label">047.ADS</span>
+          <h2 class="plugins__title">Google Ads</h2>
+          <p class="plugins__version">v2.5.0</p>
+          <p class="plugins__desc">
+            Campaign creation and optimization with PMax, Search, and Audit skills plus research agents. Connects to the Google Ads API via MCP, runs GAQL queries, and does the Monday morning checklist before Monday morning.
           </p>
+          <div class="plugins__tags">
+            <span class="tag">google-ads</span>
+            <span class="tag">mcp</span>
+            <span class="tag">gaql</span>
+          </div>
+          <div class="plugins__meta">
+            <span>Jackson</span>
+            <span class="meta__pipe" aria-hidden="true"></span>
+            <span>MIT License</span>
+            <span class="meta__pipe" aria-hidden="true"></span>
+            <a href="https://github.com/channel47/channel47" class="plugins__link">GitHub →</a>
+          </div>
         </div>
-        <div class="features__panel features__panel--secondary">
-          <span class="label">WHAT THAT MEANS</span>
-          <div class="features__list">
-            <div class="features__item">
-              <span class="features__idx">001</span>
-              <span>Catches the expensive miss you're too busy to find</span>
+
+        <div class="plugins__card plugins__card--secondary">
+          <span class="label">STATUS</span>
+          <div class="plugins__status">
+            <div class="status__row">
+              <span class="status__dot status__dot--active"></span>
+              <span class="status__text">MCP Server</span>
+              <span class="status__val">Connected</span>
             </div>
-            <div class="features__item">
-              <span class="features__idx">002</span>
-              <span>Does Monday morning work before Monday morning</span>
+            <div class="status__row">
+              <span class="status__dot status__dot--active"></span>
+              <span class="status__text">Search Skills</span>
+              <span class="status__val">Shipped</span>
             </div>
-            <div class="features__item">
-              <span class="features__idx">003</span>
-              <span>Explains itself in plain English</span>
+            <div class="status__row">
+              <span class="status__dot status__dot--active"></span>
+              <span class="status__text">PMax Skills</span>
+              <span class="status__val">Shipped</span>
             </div>
+            <div class="status__row">
+              <span class="status__dot status__dot--active"></span>
+              <span class="status__text">Audit Skills</span>
+              <span class="status__val">Shipped</span>
+            </div>
+            <div class="status__row">
+              <span class="status__dot status__dot--building"></span>
+              <span class="status__text">Agent Loop</span>
+              <span class="status__val status__val--building">Building</span>
+            </div>
+          </div>
+          <div class="plugins__install">
+            <span class="label" style="margin-bottom: 8px;">INSTALL</span>
+            <code class="plugins__cmd">git clone channel47/channel47</code>
           </div>
         </div>
       </div>
     </section>
 
     <!-- =======================================
-         ACT 5: RUPTURE (Light inversion)
-         Density + surface shift.
+         ACT 4: RUPTURE (Light inversion)
+         Density shift + surface flip.
+         The manifesto moment.
          ======================================= -->
     <section class="rupture" data-section="rupture">
       <div class="rupture__bar" aria-hidden="true"></div>
       <div class="rupture__content">
-        <span class="label rupture__label">047 / STATUS</span>
+        <span class="label rupture__label">047 / BUILDING IN PUBLIC</span>
         <h2 class="rupture__headline">
-          This isn't vaporware.
+          Most plugins are built by developers who've never run an ad account.
         </h2>
         <p class="rupture__body">
-          The plugin that became the foundation already runs in production
-          on my accounts. I'm building the full agent in public — code on
-          GitHub, progress on Substack, decisions and dead ends included.
+          I've managed Google Ads across 25+ accounts. The tools I needed didn't exist, so I built them. Every skill in this plugin comes from a real workflow on a real account with real money at stake. The agent loop I'm building next will handle the audit-decide-execute-report cycle that eats most of a media buyer's week.
         </p>
         <p class="rupture__body">
-          When it's ready, it ships open-source. Any media buyer can run
-          it on their own accounts, their own infrastructure, no vendor lock-in.
+          This is open source because the best tools should be. Follow the build on Substack. Everything ships in public.
         </p>
       </div>
     </section>
 
     <!-- =======================================
-         ACT 6: SIGNUP (MEDIUM density)
+         ACT 5: COMING NEXT (MEDIUM density)
+         Terminal-style sequential reveal.
          ======================================= -->
-    <section class="signup" id="signup" data-section="signup">
-      <div class="signup__content">
+    <section class="roadmap" data-section="roadmap">
+      <div class="roadmap__header">
         <div class="hero__bar" aria-hidden="true"></div>
-        <p class="label">GET BUILD NOTES</p>
-        <h2 class="signup__title">Get build notes.</h2>
-        <p class="signup__body">
-          Short emails when something real ships. Prompt templates,
-          automation scripts, and the architecture decisions behind an
-          agent that actually touches live ad accounts.
-        </p>
-        <ul class="signup__list">
-          <li>Working automations and scripts.</li>
-          <li>Prompt templates and playbooks.</li>
-          <li>Architecture decisions (and dead ends).</li>
-        </ul>
-        <p class="signup__micro">No spam. Unsubscribe anytime.</p>
-        <EmailSignup placeholder="you@domain.com" tag="home" submitText="Get notes" />
+        <span class="label">ROADMAP</span>
+        <h2 class="roadmap__title">What's next</h2>
+      </div>
+      <div class="roadmap__list" id="roadmap-list">
+        <div class="roadmap__item">
+          <span class="roadmap__idx">001</span>
+          <span class="roadmap__text">Full agent loop (audit → decide → execute → report)</span>
+          <span class="roadmap__status roadmap__status--active">IN PROGRESS</span>
+        </div>
+        <div class="roadmap__item">
+          <span class="roadmap__idx">002</span>
+          <span class="roadmap__text">Multi-account MCC scanning</span>
+          <span class="roadmap__status">PLANNED</span>
+        </div>
+        <div class="roadmap__item">
+          <span class="roadmap__idx">003</span>
+          <span class="roadmap__text">Automated search term reports + negative keyword builds</span>
+          <span class="roadmap__status">PLANNED</span>
+        </div>
+        <div class="roadmap__item">
+          <span class="roadmap__idx">004</span>
+          <span class="roadmap__text">Pacing alerts and budget guardrails</span>
+          <span class="roadmap__status">PLANNED</span>
+        </div>
+        <div class="roadmap__item">
+          <span class="roadmap__idx">005</span>
+          <span class="roadmap__text">More plugins. Different domains. Same approach.</span>
+          <span class="roadmap__status">SOMEDAY</span>
+        </div>
       </div>
     </section>
 
     <!-- =======================================
-         ACT 7: LINKS + CTA (LOW density, The Void)
+         ACT 6: CTA (LOW density, The Void)
+         One element. Maximum space.
          ======================================= -->
     <section class="cta" data-section="cta">
-      <p class="label">LINKS</p>
-      <SocialLinks />
+      <p class="label">TRANSMITTING</p>
+      <a href="/#signup" class="cta__link">Get the build notes</a>
+      <p class="cta__sub">Short emails when something real ships.</p>
     </section>
 
     <!-- Footer -->
@@ -181,10 +198,10 @@ import SocialLinks from '../components/SocialLinks.astro';
   </main>
 
   <!-- =======================================
-       MOTION: Hero sequence + Scroll reveals + Glitch
-       Same system as plugins page.
+       MOTION: Scroll reveals + Hero sequence + Glitch
        ======================================= -->
   <script>
+    // Respect reduced motion
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReduced) {
@@ -196,6 +213,7 @@ import SocialLinks from '../components/SocialLinks.astro';
         if (!hero) return;
         hero.classList.add('is-visible');
 
+        // Auto-glitch the headline after it fades in
         const headline = document.getElementById('hero-headline');
         if (!headline) return;
 
@@ -204,7 +222,7 @@ import SocialLinks from '../components/SocialLinks.astro';
           if (glitched) return;
           glitched = true;
           triggerGlitch(headline);
-        }, 1100);
+        }, 1100); // 400ms delay + 700ms fade
       })();
 
       // Scroll reveal for other sections
@@ -260,13 +278,38 @@ import SocialLinks from '../components/SocialLinks.astro';
         setTimeout(() => { glitchCooldown = false; }, 500);
       });
     }
+
+    // Sequential reveal for roadmap items
+    if (!prefersReduced) {
+      const roadmapSection = document.querySelector('[data-section="roadmap"]');
+      const roadmapItems = document.querySelectorAll('.roadmap__item');
+
+      if (roadmapSection && roadmapItems.length) {
+        const roadmapObs = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              roadmapObs.disconnect();
+              let i = 0;
+              function revealNext() {
+                if (i >= roadmapItems.length) return;
+                roadmapItems[i].classList.add('is-visible');
+                i++;
+                setTimeout(revealNext, 120 + Math.random() * 80);
+              }
+              setTimeout(revealNext, 400);
+            }
+          },
+          { threshold: 0.3 }
+        );
+        roadmapObs.observe(roadmapSection);
+      }
+    }
   </script>
 </BaseLayout>
 
 <style>
   /* ========================================
-   * Homepage — scoped styles using shared tokens
-   * ch47 compositional narrative
+   * Plugins page — scoped styles using shared tokens
    * ======================================== */
 
   a { color: inherit; text-decoration: none; }
@@ -281,7 +324,18 @@ import SocialLinks from '../components/SocialLinks.astro';
     display: block;
   }
 
-  /* ---- Hero (LOW density, 90vh) ---- */
+  /* ---- Tags ---- */
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--color-fg-secondary);
+    padding: 4px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+  }
+
+  /* ---- Hero ---- */
   .hero {
     min-height: 90vh;
     min-height: 90dvh;
@@ -357,47 +411,6 @@ import SocialLinks from '../components/SocialLinks.astro';
     animation: fadeUp 400ms var(--ease-out) 700ms forwards;
   }
 
-  /* Hero CTA button */
-  .hero__cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 44px;
-    padding: 0 24px;
-    font-family: var(--font-mono);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.025em;
-    color: var(--color-fg-inverse);
-    background: var(--color-accent);
-    border-radius: 2px;
-    width: fit-content;
-    margin-top: 32px;
-    opacity: 0;
-    transition:
-      background-color var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out);
-  }
-
-  [data-section="hero"].is-visible .hero__cta {
-    animation: fadeUp 400ms var(--ease-out) 900ms forwards;
-  }
-
-  .hero__cta:hover {
-    background: var(--color-accent-hover);
-    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);
-  }
-
-  .hero__cta:active {
-    background: var(--color-accent-active);
-    box-shadow: none;
-  }
-
-  .hero__cta:focus-visible {
-    outline: 2px solid var(--color-fg);
-    outline-offset: 2px;
-  }
-
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -457,82 +470,8 @@ import SocialLinks from '../components/SocialLinks.astro';
     background: var(--color-border);
   }
 
-  /* ---- Why Section (MEDIUM density) ---- */
-  .why {
-    padding: clamp(60px, 10vh, 100px) clamp(24px, 5vw, 64px);
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 400ms var(--ease-out),
-                transform 400ms var(--ease-out);
-  }
-
-  .why.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .why__content .hero__bar {
-    width: 0;
-  }
-
-  .why.is-visible .hero__bar {
-    animation: drawH 400ms var(--ease-out) 200ms forwards;
-  }
-
-  .why__content .label {
-    margin-top: 20px;
-    margin-bottom: 24px;
-  }
-
-  .why__prose {
-    display: grid;
-    gap: 20px;
-    max-width: 600px;
-  }
-
-  .why__prose p {
-    font-family: var(--font-mono);
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--color-fg-secondary);
-    margin: 0;
-    letter-spacing: 0.02em;
-  }
-
-  .why__list {
-    margin: 0;
-    padding-left: 24px;
-    display: grid;
-    gap: 6px;
-  }
-
-  .why__list li {
-    font-family: var(--font-mono);
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--color-fg);
-    letter-spacing: 0.02em;
-  }
-
-  .why__list li::marker {
-    color: var(--color-fg-muted);
-  }
-
-  .why__callout {
-    display: grid;
-    gap: 12px;
-    padding: 16px 20px;
-    border: 1px solid var(--color-border);
-    background: var(--color-bg-elevated);
-    border-radius: 2px;
-  }
-
-  .why__callout p {
-    color: var(--color-fg);
-  }
-
-  /* ---- Features (MEDIUM density, asymmetric) ---- */
-  .features {
+  /* ---- Plugin Cards (MEDIUM density) ---- */
+  .plugins {
     padding: 0;
     opacity: 0;
     transform: translateY(12px);
@@ -540,12 +479,12 @@ import SocialLinks from '../components/SocialLinks.astro';
                 transform 400ms var(--ease-out);
   }
 
-  .features.is-visible {
+  .plugins.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .features__grid {
+  .plugins__grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1px;
@@ -553,40 +492,41 @@ import SocialLinks from '../components/SocialLinks.astro';
   }
 
   @media (min-width: 768px) {
-    .features__grid {
+    .plugins__grid {
       grid-template-columns: 3fr 2fr;
     }
   }
 
-  .features__panel {
+  .plugins__card {
     padding: clamp(32px, 5vh, 56px) clamp(24px, 4vw, 48px);
   }
 
-  .features__panel--primary {
+  .plugins__card--primary {
     background-color: var(--color-bg-elevated);
+    min-height: 380px;
     display: flex;
     flex-direction: column;
   }
 
-  .features__panel--secondary {
+  .plugins__card--secondary {
     background-color: var(--color-bg-surface);
     display: flex;
     flex-direction: column;
     gap: 32px;
   }
 
-  .features__bar {
+  .plugins__card-bar {
     width: 0;
     height: 2px;
     background-color: var(--color-accent);
     margin-bottom: 24px;
   }
 
-  .features.is-visible .features__bar {
+  .plugins.is-visible .plugins__card-bar {
     animation: drawH 400ms var(--ease-out) 200ms forwards;
   }
 
-  .features__title {
+  .plugins__title {
     font-family: var(--font-display);
     font-size: clamp(1.75rem, 3vw, 2.5rem);
     font-weight: 600;
@@ -596,43 +536,107 @@ import SocialLinks from '../components/SocialLinks.astro';
     margin-top: 12px;
   }
 
-  .features__body {
+  .plugins__version {
+    font-size: 13px;
+    color: var(--color-fg-muted);
+    margin-top: 4px;
+  }
+
+  .plugins__desc {
     font-size: 14px;
     line-height: 1.7;
     color: var(--color-fg-secondary);
     margin-top: 20px;
     max-width: 480px;
-    letter-spacing: 0.02em;
+    flex: 1;
   }
 
-  .features__list {
+  .plugins__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .plugins__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--color-fg-muted);
+  }
+
+  .meta__pipe {
+    width: 1px;
+    height: 12px;
+    background: var(--color-border);
+  }
+
+  .plugins__link {
+    color: var(--color-accent);
+    transition: color var(--duration-fast);
+  }
+
+  .plugins__link:hover {
+    color: #F5F0EB;
+  }
+
+  /* Status panel */
+  .plugins__status {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 12px;
   }
 
-  .features__item {
+  .status__row {
     display: flex;
-    align-items: baseline;
-    gap: 16px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--color-border);
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--color-fg);
-    letter-spacing: 0.02em;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
   }
 
-  .features__item:first-child {
-    padding-top: 0;
-  }
-
-  .features__idx {
-    font-size: 11px;
-    color: var(--color-border);
-    letter-spacing: 0.1em;
+  .status__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
     flex-shrink: 0;
-    width: 32px;
+  }
+
+  .status__dot--active { background-color: #22C55E; }
+  .status__dot--building { background-color: var(--color-accent); }
+
+  .status__text {
+    color: var(--color-fg-secondary);
+    flex: 1;
+  }
+
+  .status__val {
+    color: var(--color-fg-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .status__val--building { color: var(--color-accent); }
+
+  /* Install block */
+  .plugins__install {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .plugins__cmd {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-fg);
+    background: var(--color-bg-elevated);
+    padding: 10px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    user-select: all;
   }
 
   /* ---- Rupture (Light inversion) ---- */
@@ -697,8 +701,8 @@ import SocialLinks from '../components/SocialLinks.astro';
     letter-spacing: 0.02em;
   }
 
-  /* ---- Signup (MEDIUM density) ---- */
-  .signup {
+  /* ---- Roadmap ---- */
+  .roadmap {
     padding: clamp(60px, 10vh, 100px) clamp(24px, 5vw, 64px);
     opacity: 0;
     transform: translateY(12px);
@@ -706,71 +710,84 @@ import SocialLinks from '../components/SocialLinks.astro';
                 transform 400ms var(--ease-out);
   }
 
-  .signup.is-visible {
+  .roadmap.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .signup__content .hero__bar {
+  .roadmap__header {
+    margin-bottom: 40px;
+  }
+
+  .roadmap__header .hero__bar {
     width: 0;
   }
 
-  .signup.is-visible .hero__bar {
+  .roadmap.is-visible .roadmap__header .hero__bar {
     animation: drawH 400ms var(--ease-out) 200ms forwards;
   }
 
-  .signup__content .label {
+  .roadmap__header .label {
     margin-top: 20px;
-    margin-bottom: 8px;
   }
 
-  .signup__title {
+  .roadmap__title {
     font-family: var(--font-display);
     font-size: clamp(1.75rem, 4vw, 2.5rem);
     font-weight: 600;
     letter-spacing: -0.03em;
     line-height: 1.1;
     color: #F5F0EB;
-    margin-bottom: 20px;
+    margin-top: 12px;
   }
 
-  .signup__body {
-    font-family: var(--font-mono);
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--color-fg-secondary);
-    max-width: 520px;
-    margin-bottom: 24px;
-    letter-spacing: 0.02em;
+  .roadmap__list {
+    display: flex;
+    flex-direction: column;
   }
 
-  .signup__list {
-    margin: 0 0 20px 0;
-    padding-left: 24px;
-    display: grid;
-    gap: 6px;
+  .roadmap__item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--color-border);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 300ms var(--ease-out),
+                transform 300ms var(--ease-out);
   }
 
-  .signup__list li {
-    font-family: var(--font-mono);
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--color-fg);
-    letter-spacing: 0.02em;
+  .roadmap__item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  .signup__list li::marker {
-    color: var(--color-fg-muted);
-  }
-
-  .signup__micro {
-    font-family: var(--font-mono);
+  .roadmap__idx {
     font-size: 11px;
+    color: var(--color-border);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    width: 32px;
+  }
+
+  .roadmap__text {
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    color: var(--color-fg);
+    flex: 1;
+    min-width: 0;
+  }
+
+  .roadmap__status {
+    font-size: 11px;
+    text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--color-fg-muted);
-    margin-bottom: 16px;
-    text-transform: uppercase;
+    flex-shrink: 0;
+    text-align: right;
   }
+
+  .roadmap__status--active { color: var(--color-accent); }
 
   /* ---- CTA (LOW density, The Void) ---- */
   .cta {
@@ -794,22 +811,42 @@ import SocialLinks from '../components/SocialLinks.astro';
     margin-bottom: 24px;
   }
 
+  .cta__link {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 500;
+    color: #F5F0EB;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 2px;
+    transition: color var(--duration-fast);
+  }
+
+  .cta__link:hover { color: var(--color-accent); }
+
+  .cta__sub {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--color-fg-muted);
+  }
+
   /* ---- Reduced Motion ---- */
   @media (prefers-reduced-motion: reduce) {
-    [data-section] {
+    [data-section],
+    .roadmap__item {
       opacity: 1 !important;
       transform: none !important;
     }
 
     .hero__bar,
-    .features__bar {
+    .plugins__card-bar,
+    .rupture__bar {
       width: 40px !important;
+      height: auto !important;
     }
 
-    .rupture__bar {
-      height: 40px !important;
-      width: 2px !important;
-    }
+    .rupture__bar { height: 40px !important; width: 2px !important; }
   }
 
   /* ---- Responsive ---- */
@@ -820,5 +857,13 @@ import SocialLinks from '../components/SocialLinks.astro';
     }
 
     .stats__pipe { display: none; }
+
+    .roadmap__status {
+      display: none;
+    }
+
+    .roadmap__text {
+      font-size: 14px;
+    }
   }
 </style>

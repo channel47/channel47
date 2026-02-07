@@ -11,7 +11,6 @@ const { class: className } = Astro.props;
 
 const links = [
   { name: 'X', href: 'https://x.com/ctrlswing' },
-  { name: 'Substack', href: 'https://substack.com/@ctrlswing' },
   { name: 'GitHub', href: 'https://github.com/ctrlswing' },
   { name: 'LinkedIn', href: 'https://www.linkedin.com/in/jackson-d-9979a7a0/' },
 ];
@@ -55,18 +54,12 @@ const links = [
     border-bottom: 1px solid transparent;
     transition:
       color var(--duration-normal) var(--ease-out),
-      border-color var(--duration-normal) var(--ease-out),
-      transform var(--duration-fast) var(--ease-out);
+      border-color var(--duration-normal) var(--ease-out);
   }
 
   .social-links__link:hover {
     color: var(--color-fg);
     border-color: color-mix(in oklch, var(--color-accent) 70%, transparent);
-    transform: translateY(-1px);
-  }
-
-  .social-links__link:active {
-    transform: translateY(0);
   }
 
   .social-links__link:focus-visible {
@@ -77,14 +70,7 @@ const links = [
 
   @media (prefers-reduced-motion: reduce) {
     .social-links__link {
-      transition:
-        color var(--duration-normal) var(--ease-out),
-        border-color var(--duration-normal) var(--ease-out);
-    }
-
-    .social-links__link:hover,
-    .social-links__link:active {
-      transform: none;
+      transition: none;
     }
   }
 </style>

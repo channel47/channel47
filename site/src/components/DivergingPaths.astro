@@ -63,7 +63,7 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
 
       // Get CSS custom properties
       const styles = getComputedStyle(document.documentElement);
-      const accentColor = styles.getPropertyValue('--color-accent').trim() || 'oklch(68% 0.14 35)';
+      const accentColor = styles.getPropertyValue('--color-accent').trim() || '#F59E0B';
 
       // Configuration
       const config = {
@@ -207,10 +207,10 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
         const gradient = ctx.createLinearGradient(gradientStartX, 0, gradientEndX, 0);
         const baseOpacity = line.opacity * entranceProgress;
 
-        gradient.addColorStop(0, `oklch(68% 0.14 35 / 0)`);
-        gradient.addColorStop(0.4, `oklch(68% 0.14 35 / ${baseOpacity * 0.4})`);
-        gradient.addColorStop(0.8, `oklch(68% 0.14 35 / ${baseOpacity * 0.85})`);
-        gradient.addColorStop(1, `oklch(68% 0.14 35 / ${baseOpacity})`);
+        gradient.addColorStop(0, `rgba(245, 158, 11, 0)`);
+        gradient.addColorStop(0.4, `rgba(245, 158, 11, ${baseOpacity * 0.4})`);
+        gradient.addColorStop(0.8, `rgba(245, 158, 11, ${baseOpacity * 0.85})`);
+        gradient.addColorStop(1, `rgba(245, 158, 11, ${baseOpacity})`);
 
         ctx.strokeStyle = gradient;
         ctx.lineWidth = line.thickness;
@@ -223,7 +223,7 @@ const canvasId = `diverging-paths-${Math.random().toString(36).substr(2, 9)}`;
           if (head) {
             ctx.beginPath();
             ctx.arc(head.x, head.y, 2.5, 0, Math.PI * 2);
-            ctx.fillStyle = `oklch(80% 0.14 45 / ${baseOpacity})`;
+            ctx.fillStyle = `rgba(245, 178, 51, ${baseOpacity})`;
             ctx.fill();
           }
         }

@@ -210,7 +210,7 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
         }
 
         ctx.clearRect(0, 0, width, height);
-        ctx.font = `${cellSize}px "Geist Mono", ui-monospace, monospace`;
+        ctx.font = `${cellSize}px "JetBrains Mono", ui-monospace, monospace`;
         ctx.textBaseline = 'top';
         ctx.textAlign = 'left';
 
@@ -312,7 +312,7 @@ const canvasId = `ascii-blocks-${Math.random().toString(36).substr(2, 9)}`;
       // Wait for font to load before starting to avoid visual artifacts
       async function waitForFont() {
         try {
-          await document.fonts.load('16px "Geist Mono"');
+          await document.fonts.load('16px "JetBrains Mono"');
         } catch {
           // Font API not supported or font not found, proceed anyway
         }
