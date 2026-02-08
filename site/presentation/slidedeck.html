@@ -1048,8 +1048,17 @@
           </div>
         </div>
       </div>
-      <div class="code-block" style="max-width: 300px">my-skill/
-└── SKILL.md</div>
+      <div class="code-block" style="max-width: 540px">my-skill/
+├── SKILL.md              <span class="comment"># Required</span>
+├── scripts/              <span class="comment"># Optional — runnable code</span>
+├── references/           <span class="comment"># Optional — docs, guides</span>
+└── assets/               <span class="comment"># Optional — templates</span></div>
+      <p
+        class="body-text"
+        style="margin-top: 16px; font-size: 12px; color: var(--stone)"
+      >
+        Start with just SKILL.md. Add the rest as you grow.
+      </p>
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
@@ -1059,97 +1068,81 @@
       <div class="label" style="margin-bottom: 24px">
         010 <span class="pipe"></span> HOW IT WORKS
       </div>
-      <h2 class="section-title" style="margin-bottom: 40px">
+      <h2 class="section-title" style="margin-bottom: 16px">
         How Skills Actually Work
       </h2>
-
-      <div class="vs-split" style="max-width: 700px; margin-bottom: 48px">
-        <div class="card" style="border: 1px solid #5c2020">
-          <div class="label" style="color: #ef4444; margin-bottom: 12px">
-            WITHOUT A SKILL
-          </div>
-          <div class="card-body">
-            Re-explain every time. Inconsistent output. Context lost between
-            sessions.
-          </div>
-        </div>
-        <div class="vs-divider"><span>vs</span></div>
-        <div class="card card-signal">
-          <div class="label label-signal" style="margin-bottom: 12px">
-            WITH A SKILL
-          </div>
-          <div class="card-body">
-            One command. Same quality every time. Context is the skill.
-          </div>
-        </div>
-      </div>
-
-      <div class="label" style="margin-bottom: 16px">UNDER THE HOOD</div>
+      <p class="body-text body-large" style="margin-bottom: 48px">
+        Skills load in three levels. Not everything at once.
+      </p>
       <div class="step-flow" style="max-width: 700px">
-        <div class="step-item">
-          <div class="step-num">01</div>
-          <div class="card-body">You ask</div>
+        <div class="step-item" style="border-left: 2px solid var(--signal)">
+          <div class="step-num" style="color: var(--signal-dim)">01</div>
+          <div class="card-title" style="font-size: 0.95rem">YAML Frontmatter</div>
+          <div class="card-body">Name + description. Always loaded.</div>
         </div>
         <div class="step-item">
           <div class="step-num">02</div>
-          <div class="card-body">AI reads skill descriptions</div>
+          <div class="card-title" style="font-size: 0.95rem">SKILL.md Body</div>
+          <div class="card-body">Full instructions. Loaded on match.</div>
         </div>
         <div class="step-item">
           <div class="step-num">03</div>
-          <div class="card-body">Loads the matching skill</div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">04</div>
-          <div class="card-body">Follows instructions with your context</div>
+          <div class="card-title" style="font-size: 0.95rem">Linked Files</div>
+          <div class="card-body">Scripts, references. Loaded on demand.</div>
         </div>
       </div>
       <div class="callout" style="margin-top: 32px">
-        Skills load on demand. They don't clutter context until you need them.
+        You can have 20+ skills enabled. Claude only loads what it needs, when it needs it.
       </div>
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 11 · ANATOMY OF A SKILL.MD           -->
+    <!-- SLIDE 11 · THE DESCRIPTION                 -->
     <!-- ═══════════════════════════════════════════ -->
     <section class="slide" id="s11">
       <div class="label" style="margin-bottom: 24px">
-        011 <span class="pipe"></span> ANATOMY
+        011 <span class="pipe"></span> THE KEY
       </div>
-      <h2 class="section-title" style="margin-bottom: 32px">
-        Anatomy of a SKILL.md
+      <h2 class="section-title" style="margin-bottom: 16px">
+        The Description Makes or Breaks It
       </h2>
+      <p class="body-text body-large" style="margin-bottom: 48px; max-width: 580px">
+        The description is what Claude reads to decide whether to load your
+        skill. Get this right and it auto-triggers. Get it wrong and
+        it sits there unused.
+      </p>
+
       <div
-        class="code-block"
-        style="max-width: 640px; font-size: 12px; line-height: 1.8"
+        style="
+          font-family: var(--font-display);
+          font-weight: 600;
+          font-size: clamp(1.1rem, 2vw, 1.4rem);
+          color: var(--signal);
+          letter-spacing: -0.01em;
+          margin-bottom: 48px;
+        "
       >
-        <span class="comment">---</span>
-        <span class="keyword">name:</span>
-        <span class="string">campaign-builder</span>
-        <span class="keyword">description:</span>
-        <span class="string">"Generates a full Google Ads</span>
-        <span class="string"> search campaign from a landing page URL"</span>
-        <span class="comment">---</span>
-
-        <span class="keyword"># Context</span>
-        You are a performance marketer. The user will give you a URL. Analyze
-        the page and build a search campaign.
-
-        <span class="keyword"># Steps</span>
-        1. Extract the page's value proposition 2. Identify target keywords (3
-        ad groups) 3. Write 3 responsive search ads per group 4. Suggest
-        negative keywords 5. Set recommended daily budget
-
-        <span class="keyword"># What to Avoid</span>
-        - Generic headlines ("Best Solution") - More than 30 characters per
-        headline - Broad match without negatives
-
-        <span class="keyword"># Example Output</span>
-        [structured campaign output...]
+        [What it does] + [When to use it] + [Key capabilities]
       </div>
-      <div class="callout" style="margin-top: 24px">
-        That's it. Plain language at the core. Skills can also include reference
-        files, templates, and scripts alongside the SKILL.md.
+
+      <div class="grid-2" style="max-width: 680px; margin-bottom: 40px">
+        <div class="card" style="border-top: 2px solid #ef4444">
+          <div class="label" style="color: #ef4444; margin-bottom: 8px">BAD</div>
+          <div class="card-body">
+            "Generates Google Ads campaigns."
+          </div>
+        </div>
+        <div class="card" style="border-top: 2px solid #86efac">
+          <div class="label" style="color: #86efac; margin-bottom: 8px">GOOD</div>
+          <div class="card-body">
+            "Generates a full Google Ads search campaign from a landing page URL.
+            Use when user says 'build a campaign' or 'Google Ads'."
+          </div>
+        </div>
       </div>
+      <p class="body-text" style="font-size: 12px; color: var(--stone)">
+        Keep the SKILL.md body concise. Under 5,000 words. Move detailed docs to references/.
+      </p>
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
@@ -1262,88 +1255,34 @@
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
-    <section
-      class="slide slide-compact"
-      id="s13"
-      style="background: var(--soot)"
-    >
-      <div class="label" style="margin-bottom: 24px">
-        013 <span class="pipe"></span> WATCH FOR
-      </div>
-      <h2 class="section-title" style="margin-bottom: 32px">
-        Common Skill Mistakes
-      </h2>
-      <div class="grid-2" style="max-width: 680px; margin-bottom: 32px">
-        <div class="card" style="border-top: 2px solid #ef4444">
-          <div class="card-title" style="font-size: 0.95rem">
-            Vague descriptions
-          </div>
-          <div class="card-body">
-            The skill never triggers. AI doesn't know when to load it.
-          </div>
-        </div>
-        <div class="card" style="border-top: 2px solid #ef4444">
-          <div class="card-title" style="font-size: 0.95rem">
-            Overlong instructions
-          </div>
-          <div class="card-body">
-            AI loses focus. Competing directives. Muddled output.
-          </div>
-        </div>
-      </div>
-      <div class="callout">
-        Be specific in the description, concise in the instructions.
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 14 · WHAT SKILLS ARE NOT             -->
+    <!-- SLIDE 13 · WHAT SKILLS ARE NOT             -->
     <!-- ═══════════════════════════════════════════ -->
     <section class="slide" id="s14">
       <div class="label" style="margin-bottom: 24px">
-        014 <span class="pipe"></span> CLARITY
+        013 <span class="pipe"></span> CLARITY
       </div>
-      <h2 class="section-title" style="margin-bottom: 32px">
+      <h2 class="section-title" style="margin-bottom: 40px">
         What Skills Are NOT
       </h2>
-      <div class="grid-2" style="max-width: 680px">
-        <div class="card">
-          <div class="card-title" style="font-size: 0.95rem">
-            Not integrations
-          </div>
-          <div class="card-body">
-            Connecting AI to tools is a different layer. Skills are pure
-            instructions — no wiring required.
-          </div>
+      <div style="max-width: 560px; margin-bottom: 40px">
+        <div class="stack-row">
+          <div style="color: var(--chalk); font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; min-width: 200px">Not integrations</div>
+          <div class="card-body">That's MCP. Skills are pure instructions.</div>
         </div>
-        <div class="card">
-          <div class="card-title" style="font-size: 0.95rem">
-            Not AI managing other AI
-          </div>
-          <div class="card-body">
-            That's sub-agents. Skills are instructions, not orchestration.
-          </div>
+        <div class="stack-row">
+          <div style="color: var(--chalk); font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; min-width: 200px">Not AI managing AI</div>
+          <div class="card-body">That's sub-agents. Skills are the playbook, not the org chart.</div>
         </div>
-        <div class="card">
-          <div class="card-title" style="font-size: 0.95rem">
-            Not saved prompts
-          </div>
-          <div class="card-body">
-            A prompt disappears after one chat. A skill persists, improves,
-            and works across conversations.
-          </div>
+        <div class="stack-row">
+          <div style="color: var(--chalk); font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; min-width: 200px">Not saved prompts</div>
+          <div class="card-body">Prompts vanish after one chat. Skills persist and improve.</div>
         </div>
-        <div class="card">
-          <div class="card-title" style="font-size: 0.95rem">
-            Not autopilot
-          </div>
-          <div class="card-body">
-            A skill guides the work. It doesn't replace your judgment on
-            the output.
-          </div>
+        <div class="stack-row">
+          <div style="color: var(--chalk); font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; min-width: 200px">Not autopilot</div>
+          <div class="card-body">Skills guide the work. You still judge the output.</div>
         </div>
       </div>
-      <div class="callout" style="margin-top: 32px">
+      <div class="callout">
         A skill is a playbook, not the player.
       </div>
     </section>
@@ -1479,6 +1418,54 @@
       >
         No code. No config. Just words.
       </p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 18b · SKILLS ARE LIVING DOCUMENTS    -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide slide-compact" id="s18b">
+      <div class="label" style="margin-bottom: 24px">
+        018 <span class="pipe"></span> ITERATE
+      </div>
+      <h2 class="section-title" style="margin-bottom: 32px">
+        Skills Improve With Use
+      </h2>
+      <p class="body-text body-large" style="margin-bottom: 32px">
+        A skill isn't finished when you ship it. Watch for two signals, then adjust.
+      </p>
+      <div class="grid-2" style="max-width: 680px; margin-bottom: 32px">
+        <div class="card" style="border-top: 2px solid var(--signal)">
+          <div class="label label-signal" style="margin-bottom: 12px">
+            UNDERTRIGGERING
+          </div>
+          <div class="card-title" style="font-size: 0.95rem">
+            Skill doesn't load when it should
+          </div>
+          <div class="card-body" style="margin-bottom: 12px">
+            Users have to manually enable it. You keep getting asked "when do I use this?"
+          </div>
+          <div class="card-body" style="color: var(--signal)">
+            Fix: Add more trigger phrases and detail to the description.
+          </div>
+        </div>
+        <div class="card" style="border-top: 2px solid #ef4444">
+          <div class="label" style="color: #ef4444; margin-bottom: 12px">
+            OVERTRIGGERING
+          </div>
+          <div class="card-title" style="font-size: 0.95rem">
+            Skill loads when it shouldn't
+          </div>
+          <div class="card-body" style="margin-bottom: 12px">
+            Fires on unrelated queries. Users start disabling it.
+          </div>
+          <div class="card-body" style="color: var(--signal)">
+            Fix: Be more specific. Add negative triggers — "Do NOT use for X."
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        Every skill you build gets better over time. Ship it, watch it, refine it.
+      </div>
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
@@ -1988,7 +1975,7 @@
       const navDots = document.getElementById("navDots");
 
       // Group slides by section for dots
-      const sectionStarts = [0, 3, 7, 14, 18, 24, 27]; // indices of section dividers
+      const sectionStarts = [0, 3, 7, 13, 18, 24, 27]; // indices of section dividers
       sectionStarts.forEach((_, i) => {
         const dot = document.createElement("div");
         dot.className = "nav-dot";
