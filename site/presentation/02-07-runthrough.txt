@@ -1,0 +1,403 @@
+0:00:02 We are now. Are we live? We're live. Welcome to- ah, shit. Welcome to AI- ah, f***. What the- Why is it doing that?
+0:00:13 Hopefully it doesn't. There you go. AI Skills, Teach AI how you work, so that you stop repeating yourself. by Jackson with five marketers.
+0:00:26 First, I am not an expert. This stuff is months old, nobody's an expert, but I haven't built anything with a daily.
+0:00:34 And I'll show you what's been working for me, builder, not professor. I like that. What we'll cover, run a show.
+0:00:43 We have the ecosystem. What skills are live demos? your nose. Build some skills, some safety, and resources, and finally a takeaway.
+0:00:56 So first, let's look at the ecosystem around skills. Three tools, three jobs. We have skills over here on the right, but we also have MCP servers, we also have sub-agents.
+0:01:10 So people probably have heard of these, or if they're they haven't, then the way they can understand this is that, basically MCP servers are like connectors, or the wiring, so AI would use an MCP server to connect to something like Slack, connect to something like Google Ads, connect to other AI, image
+0:01:34 generators, video generators, . . . You can think of it as power outlets in the room. Subagents are like the team, so that would be AI delegating tasks to other AI, so like a project manager assigns work to a subagent, who has a specific role and task, and this subagent goes off on its own to do the 
+0:01:57 task, comes back to that delegating . . AI, and has output for that AI. You can think of it as a project manager distributing tasks, proceed forward, and then finally we have skills.
+0:02:13 Skills are instructions that tell AI how to do a specific job step by step every time. So you can think of it as like a standard operating procedure written .
+0:02:24 . for AI. So in short, MCP is the wiring. Subagents are like the team, and skills are the playbook. Skills can range from a simple skill .md file to full packages with reference files, which we'll get into a little bit later.
+0:02:47 And there's also these things . . This is called slash commands. Slash commands are an older pattern, and they are being merged into skills, kind of like the same idea or concept you would just type backslash, and then whatever the command was, and then it would instruct the AI how to do something.
+0:03:10 So that's essentially what skills are, but skills are .md file. A little bit more, umm, what's the word? Like, you can package this up with other files, which I don't believe you could do with commands, I need to actually check that.
+0:03:27 And these are not loaded by default, so the reason these are important or useful is that AI has a f finite window that it can hold context in, and skills do not pollute that window up front, whereas all these other things do.
+0:03:50 So skills are like the really lightweight way of giving AI instructions. So, that is basically what those are. How recent is all of this?
+0:04:06 Well, in June 2024, we got artifacts, which are basically the first time that, like, chatbots would produce documents or, uh, files inside of, like, a chat interface, so b-b before you could just chat with it and it would give you text back.
+0:04:28 Artifacts allowed you to get, like, a word document back, or, like, a PDF back, or just, like, these different formats.
+0:04:37 Then, in October of 2024, computer use was introduced, so that was the first time that AI could actually control your computer, uh, in any sort of meaningful way.
+0:04:49 November of 2024 is when MCP servers and the MCP protocol came about, anthropic, who will be sort of talking a lot about, introduced this, and that became, like, a standard protocol, across other model labs, which basically meant that, It was becoming, like, the standard way for AI to connect to other
+0:05:18 , uh, data sources. In February of 2025, Cloud Code got introduced. That was, like, the first big coding agent to hit the, um, just, like, to come about, and that changed how people wrote, and edited with code, but also beyond code.
+0:05:41 And then October of last year is when skills launched. And then in December, it became an open standard, similar to how MCP became an open standard.
+0:05:53 So 18 months ago, none of this existed. And it spread fast, so, anthropic, anthropic, released skills in October. By December, they were an open standard, same pattern as MCP.
+0:06:06 And now, any of these apps, you can use the same skill.md format in. With some caveats, you have to adapt, uhm, them somewhat, depending on what the app is.
+0:06:20 But, for the most part, a skill you make in claw desktop, you can use in claw code, you can use encursor, you can use encodex, you can use incline.
+0:06:30 And, if you're not familiar with any of these are, these are basically just different interfaces for you to interact with, AI.
+0:06:38 And, so, you can use skills at any of those. So, basically, in long story short, what what you learn today works across tools, open claw.
+0:06:49 So. This is a current viral phenomenon where an open source project allows people to install this always-on program onto their device computer.
+0:07:05 And basically, it has been becoming so popular because, in addition to- being always on, it has essentially any access and capability that a human would have with a full computer because it has, like, basically full access.
+0:07:26 And the kinda, like, foundation, or, like, the way that this works so well is because it leverages skills. So, there's, like, a skill hub.
+0:07:40 There's, like, a Claude skill hub. Um, and this is not to be confused with Claude CL, A-U-D-E. This is different.
+0:07:51 This is some guy built by this dude who just wanted, like, a more efficient always-on A.I. agent. He built this, and it- uses these, like, skill.md files, and Peter Steinberg actually doesn't even believe in MCP servers.
+0:08:10 He thinks that these skills actually could pretty much be, like, a-like, you don't necessarily need skills. He's like, you can just get the same output without having to use MCP.
+0:08:25 So- There's definitely something to the skill format, umm, but, yeah, you're wondering, like, how Opened Claw, Cloudbot, Multbot, whatever you want to call it, was able to work so well, it's because of these skills, cause it's like these instructions.
+0:08:43 That cloud, I know that they know how to follow. I should probably get some examples here. Maybe. But anyways, what skills are the 60 second version?
+0:08:56 Skills in 60 seconds. What it is, it's just a markdown file, with instructions that AI follows. How does it work?
+0:09:02 You basically describe a workflow in plain language, AI executes it the same way every time. Why does it matter? You start with just words, and then you can add scripts.
+0:09:13 rips. You can add references and examples as you grow a skill. They're portable across tools, and it turns repeatable tasks into one-click automation.
+0:09:24 Here is a basic structure of what a skill looks like literally. You have folder, and then inside that folder you have a markdown file.
+0:09:33 So this would be the name of your skill, and this would be your actual skill. And then this is what an actual skill .md file looks like.
+0:09:44 You have a name, a description, this would be like the front matter section of it, and then below the front matter you have the actual, like, instructions.
+0:09:54 So you would give it whatever instruction that you want the AI to know, whatever content. And then you'd also reference any additional files that the skill has.
+0:10:07 So basically, this is an example of, like, a campaign builder skill. This is just a generic example, but as you can see, it generates a full Google Ads search campaign from a landing page URL.
+0:10:21 This is a pretty generically written description and, um. Thank much for your time. Skill, but this is just, like, to show how it works.
+0:10:30 But, again, they can also include reference files, templates, and scripts alongside this file. So, up in this folder, you could also have alongside skill.md, another folder that's, like, references, one that's, like, scripts.
+0:10:49 So, a skill can- Thank you. I can jump all that stuff. And the AI only loads the, this part. This is all that the AI loads.
+0:10:59 And then, that's all it needs to load. Once you kinda, like, give it a keyword of, like, hey, I wanna generate a Google Ads campaign, it knows, because of the description, to use the skill.
+0:11:11 And then- You Why are there references being added into it? Is it only gonna pull from those references? We'll get into that.
+0:11:22 Oh. I think we'll get into that. Whoa. The best skills are personal. So generic skill would be, like, right Google Ads Copy.
+0:11:31 Yes. Personal skill would be, right Google Ads Copy for my SaaS product that targets mid-market CFOs. Uses our specific value props of voice competitor terms.
+0:11:41 We've tested and follows our brand voice. So the most useful skills are not templates. They're actually your playbook. Oh, I like that.
+0:11:49 That's my favorite side so far. What goes in the actual instructions? You have, well this is actually pretty malleable, but at a basic level you have what to do.
+0:12:01 So the core task. I'm ask. And the workflow steps to complete it. How to format the output, structure layout, naming conventions, what to avoid.
+0:12:10 So you put guardrails, anti-patterns, known pitfalls, and then you can have examples optional. So a sample of good output which can anchor quality.
+0:12:20 So like some of the reference files could be examples of what you consider to be good. So like if you- you had a skill for generating e-mails.
+0:12:31 And you like the format one way. Yeah, so you could include your past e-mails that have worked well for you.
+0:12:40 And have that in your references as like, winning e-mail dot HTML. And then in your skill.md file, it could say .
+0:12:50 A reference winning e-mail dot HTML to see example of what good looks like or something. And then sort of train the AI on like what you want it to know.
+0:13:00 But it's all super, uh, personalizable. You can make it, uhm, whatever you want. You're writing instructions for a very capable, assistant, be specific about what you want.
+0:13:13 What's- What's that? Skills are not. So, skills are not just API connections. MCP handles wiring. Skills that start as plain instructions but can grow to include scripts and API calls too.
+0:13:30 That's a little confusing. I'm gonna probably fix that. Skills are not AI managing other AI. That would be subagents. Skills are instructive.
+0:13:38 Instructions, non-necessarily orchestration. They are not saved prompts. A prompt is one-off. Skills are structured, portable, load-on-demand, and can include reference files and templates.
+0:13:54 And they are not a guarantee of correctness. AI can still make mistakes. Always review. AI skill is a playbook, not the play- how skills actually work.
+0:14:07 Without a skill, re-explain every time inconsistent context loss between sessions. With a skill, one commands same quality every time context is the skill.
+0:14:20 So under the hood, you ask. AI reads the skill description. It loads the matching- Thank you for skill. It follows instructions with your context.
+0:14:30 Boom. Skills load on demand. They don't clutter context until you need it. The remix. So you can actually remix existing skills that other people have made to basically adapt them to your own workflow.
+0:14:47 So one example. Pull. Cool. Is that you could go on to something like GitHub, which is basically a place where people store files and folders.
+0:15:03 And you can find on GitHub examples of skills other people have made. And in fact, anthropic. As well as OpenAI have their own official- official.
+0:15:14 People get hub organizations where they have these like skill repositories. And it's just all these different skills. You can take any of those and remix them.
+0:15:27 And one example how you might do that. So last week I sat down with a video- video editor in my company and we wanted to try and figure out if there is a way that we can generate a skill that would produce B-roll style footage, uh, for ads that we were making.
+0:15:56 Um, and so I sat down with my video editor. Co-worker and we started by referencing this skill from OpenAI.
+0:16:09 It was a skill that basically gives AI instructions how to generate images using OpenAI's image generation model.
+0:16:21 And I had been tinkering with it that morning, and when my video editor said he w- wanted a skill for generating videos, I thought, well, if they can generate images, let's try and remix it, like reverse engineer it, to make one that makes videos.
+0:16:40 So all I said to Claude when we built this was, I want to reverse engineer this image generation skill, and build a skill that generates b-roll.
+0:16:50 we are going to a second. file footage for ads. This is the skill that I'd like to reverse engineer, and I linked the existing image generation skill from GitHub, where it was being hosted.
+0:17:04 We can actually just go to this link and show what that looks like. So, on GitHub, this is the image generation skill.
+0:17:15 For OpenAI, it's the skill.nd file, and you can notice this one has other folders in there, so this would be an example of like a slightly more complex skill, because it has scripts, references, assets, and OpenAI uses this agents folder, which is not, universal, so like again, every AI model lab has
+0:17:44 their own unique way of structuring this, but the core pieces are the same. It's the skill file with other stuff.
+0:17:53 So, moving back to, oops shit. Going back to this- This conversation, that's all I said, is that I just wanted to reverse engineer this.
+0:18:08 Collod then started to read the source skill from the GitHub repository, and it also loaded up its own internal skill that creates skills.
+0:18:21 So, it's read that and then it read its own skill creator guidelines. Umm. And basically, it generated, umm, all these files based pretty much.
+0:18:34 So, this is where I would need to publish this artifact, or list artifacts, and then share that. But, cause then I could actually show what it produced.
+0:18:49 It basically one shot at it. It l- Like, builds everything, I loaded it into Cloud code, because you need file editor to actually produce videos.
+0:19:02 You could not produce video inside of this Cloud desktop app, where we are now. Umm, but anyways. I'll show you that later.
+0:19:13 Moving on. This feels like it's kind of in the wrong spot. I may move that. Common skill mistakes. Umm, I should move this out probably.
+0:19:35 Cause near like, what skills are not? Yeah, maybe what skills are not, put what's common skill mistakes up there, maybe?
+0:19:46 What's the one after what skills are not? How skills actually work? This feels like it should go. Before what skill?
+0:19:58 Maybe like after this one? I really like that. Just because it's white? No, no, no, no, no, how you set it.
+0:20:07 Like the best goals are personal. This is a really good slide to me. Huh. Like it made me understand a little.
+0:20:16 Oh, okay. So this slide, I should move. This remixed mindset slide should move. Yep, I'll give him a little later.
+0:20:25 Anyways, alright. And then this one can move. . . But anyways, let's go to some live demos. So these are three real workflows that you can steal, I guess, if you want.
+0:20:38 Uhh, so we're going to demo a search campaign architect skill. Uhh, we're doing this on Cloud Desktop. There's a branded HTML, email generator skill, also on Cloud Desktop, and .
+0:20:51 And then we have an ad-creative refresher that we're going to use Cloud Code for. And these are actually not live, so I need to update those.
+0:21:02 So the Google Search Campaign Architect. Okay, so I thought this is where I'll- I was wondering if it was going to add a- So this is an example of, like, a simpler skill.
+0:21:33 Because really all it is is like, one skill dot in D file. This is an example of- like a more in depth skill because it has the- which I'm gonna call it the umm- template emails in there.
+0:21:50 And then finally, we have a skill that is basically using scripts to call on other- your APIs to do even more advanced things.
+0:22:08 So this one's an ad-created refresher. So the input would be like a winning ad, and then output would be fresh variations of that ad with subtle differences.
+0:22:20 And this one we're running in cloud code. And we're gonna use the Nano Banana Pro image model. model. Oh, from Google.
+0:22:29 It requires an API key. Umm, and it also requires you to run it where you have ability to access files.
+0:22:41 So let's go to, oops. Let's go to cursor. Oh my goodness. Oopsies. Let's go to, The cursor. Alright, boom. So here is our image ad.
+0:22:57 Uh, this is a image ad I stole from Facebook ad library. That anthropic is using to basically create brand awareness for their products.
+0:23:09 So this is the original ad. They have one subscription, endless rabbit holes with just some, Kind of unique use cases and visuals.
+0:23:20 And what we're gonna do is, we're gonna take a skill that we made called ad creative variance with our skill.md file and then the other components alongside it.
+0:23:35 We're gonna make just some subtle genera, like, very, variance of this. So, my goodness, I'm going to basically open up cloud code.
+0:23:54 Alright, and then I'm gonna say, generate two moderate, variations of my, and I'm gonna tag the image in the state of my image ad.
+0:24:12 Go. Alright. So, it's all I'm gonna say, and now it's gonna invoke the skill. Successfully loaded, ad creative, variance skill.
+0:24:24 And it's gonna generate some variations. So, in this skill, I've specified, that I want to have it basically tear down and tear apart the ad that is winning, to understand why the ad is winning.
+0:24:39 And then once it does that, it comes up with some ideas for variance. So, ad anatomy. It analyzes our reference ad, and then plan variations.
+0:24:51 So, the reference, You ad it gave or had was clawed in Thropic subscription ad. It listed the layout, it listed what the headline was, the copy, CTA, etc.
+0:25:05 Then it gave variation plan of two moderate variance. So, a moderate divergence in this case would be, Umm, described as recognizably related but clearly different.
+0:25:22 So, we're gonna preserve the hero element, CTA, core message, brand marks. We're just gonna change three to five of the supporting elements.
+0:25:31 So, the variant one is gonna be a dark mode, and then variant two is just bolder color. So, now what it's doing is, Checking to see if it has the necessary API key and credential set up so that I can actually call on Jiminize API to generate it, and it said that it looked for it, and it found that it
+0:25:54 did. And so, here's where it gets a little technical, but we're just gonna do boom. So, this is it now calling the API key.
+0:26:04 The API is to generate the variant. So, let's look at our reference again, and then we should see in our output a variant pop-up, so.
+0:26:24 Now, you can see that original on the, left of our add, boom, and then this was the variant that it came up with, the first one.
+0:26:38 Now, it is making another API call to generate the second variation. So, let's hit yes, and then it goes off and runs it.
+0:26:52 . A little thing. And then same thing happens. We should now see variant two. If we look at that, it added, like, some thoughts and a little bit more color.
+0:27:09 So, it's the same add, it's just slightly different. And the whole reason here is just to give winning creative. A Another chance to win again, basically.
+0:27:20 But we're doing this all by simply writing, generate two variations of my add. We didn't have to do anything else because the skill already defined everything for us.
+0:27:32 So it's beneficial for someone that, like, is trying to come up with different visual points and wants to see different- different examples to see if they actually, like, the original or some of the other ones that are generated.
+0:27:47 What do you mean? Like, someone who's gonna use this. Uh-huh. Is the point so that they have different variations of that one visual because- Oh, use this skill in particular?
+0:28:03 Yeah, because what's the extent that it's gonna change it or- So, like, it's just the way- So, like, the way you run ads are you would run a lot of different creative static creatives like this.
+0:28:22 You might have- You might have, like, 12 different static creatives that have different headlines. Or have different of these, and you run those, all at once to test which one's going to win, and say you found that of those initial 12, this one won, and now you want to generate just slight variations
+0:28:47 of this one, because you know that that angle wins. So, it's like- You're trying to take an angle that has one, or a creative that's one, and make it something new again, so maybe you find that like a dark mode version of it works just as well.
+0:29:05 So that's kind of the idea there. I guess I could explain, like, why you want to do that maybe. So anyways, that's the, creative ad refresher.
+0:29:19 And now, let's actually build a skill. So, we're gonna use Claude to build the skill, and I recommend whenever using or building the skill just to use Claude, because there's no point in doing this yourself.
+0:29:36 And then, this slide probably, Should go somewhere else. What makes a good skill? This is kinda just in here. Umm.
+0:29:48 Alright, let's build it. So, we are going to install a already created skill. This is the, uh, no internet. We're gonna use the Vive skill.
+0:30:05 Skill creator. Umm, from, James actually made this skill. And, this has, Is this an example of where you're taking an already existing skill and creating one on your own, but taking the template of one?
+0:30:26 No. This is just simply- I believe. Good building out a, uh, building out a skill. So, um, when you build a skill, it's a good idea to use a, um, already made skill creator.
+0:30:48 Maybe- Oh, the skill creator. Yeah, the skill creator skill. Can I say something? I feel like this, all of this, with what makes it good skill, and let's build it, would have been really helpful for me.
+0:31:03 In the beginning? Yes. Because I was thinking this as you were going through your, like, builds. I was like, oh, I would have loved to see.
+0:31:11 I was gonna tell you at the end of the presentation. Uh-huh. I would have liked to see you do it live.
+0:31:16 time. 5 5 before, after you said, like, what makes it good skill, and what it's not, so that I could understand how it actually works before I then go into.
+0:31:28 To the demos? Exactly. That makes a lot of sense. We should do this way before. Yeah. Cause I was even thinking, like, it doesn't make any sense to see these.
+0:31:37 Yeah, I didn't realize they were gonna have this here, but I was gonna tell you that something- something. Like, that should be incorporated much earlier.
+0:31:44 Roger. Cause that would help me. Yep. Alright. That's good feedback. So, this actual skill building process, um, all this, all I just downloaded, was a file, and the file is a dot skill file.
+0:32:05 So, you need that in order to actually build a skill. It helps tremendously to have, Like, I can't just go raw.
+0:32:19 Nothing. Build a skill. You could. Like, if you had, Could you do that? In your demo. Just, like, have a markdown file and build a skill.
+0:32:29 Like, yeah, I feel like, honestly, if you were built one, like, live. Like, it would look like, You'd be like, okay.
+0:32:38 So, like, let's go ahead and create a skill. That's what we're doing, actually. So, let me see if this clears it up for you.
+0:32:49 Because, I'm just confused as to why we need that. Okay. Bye. That's what I mean. Why you need this skill?
+0:32:57 Yeah. Okay. So, let me open this and then, Let's read the description to get an idea of what it is.
+0:33:06 So, we're gonna build, This is probably too complex, maybe. I should just use the, Because this is James version, Yeah.
+0:33:16 ,of the skill creator. ta, ta, ta, ta, ta, He took the original one that anthropic made, and basically turned it into, Like a, more refined version of it.
+0:33:31 Mm-hmm. But this is the description. So, you're gonna build skills, And you're telling AI this. You're building skills through guided conversations, ,use when creating or improving a skill.
+0:33:45 Triggers on, Build skill, create skill, improve skill, and make a skill. And then it gets into the instructions. Oh, so this is what you need to actually make a skill.
+0:33:56 It helps to have this. Cause then you can just use, like, Use that to send a skill. You use this skill to create other skills.
+0:34:04 So your legs. Okay. So you have that. It has, that's, like, the basic foundation. And then you put it in.
+0:34:13 It already knows, okay, you're making a skill, but now you're creating what that skill's gonna look like. Like, what do you want the task to do?
+0:34:21 Yes. So that's, this allows you to create skills using plain language. So, the earlier example, when I remixed, The already existing skill.
+0:34:32 Yes. I was able to type three sentences. Yes. And have AI handle all of the rewriting of the scripts that we're calling on the API.
+0:34:50 And, like, all the code under the hood. AI handled. Yeah. Because it had a skill creator skill loaded. In addition to the reference I gave it.
+0:35:02 So, like, I gave it the reference. And then I, I think the remix should come after building a skill. So, I'll build a skill this way.
+0:35:14 Um, so I downloaded that skill file. the I clicked it, it opened up Claude and asked, do I want to install this skill?
+0:35:24 And I said, yes. And this is a Claude, like, this is Claude's settings. There's a thing called capabilities. And you'll see it's just as skills.
+0:35:34 Repeatable, customizable instructions. Claude can follow in any chat. So I have two things. I have my skills that I've- Thank very much.
+0:35:42 Created and added. And there's also example skills. One of the example skills is the skill creator that we've been referencing.
+0:35:51 So it creates new skills and improves existing skills and it measures skill performance. And it- This is like telling it use when users want to create a skill from scratch.
+0:36:03 To put this into like- That's helpful. Yeah, so to put- I think that like really into practice, what Claude made happen was very great idea.
+0:36:14 You just click this, you go try and chat, loads this prompt by default. Hey, can you make something amazing with my skill creator skill?
+0:36:24 Let's just see what happens. I'm gonna move this to the front because this is super helpful. So- . Now it's starting by reading your skill creator skill.
+0:36:33 So it's reading the skill. It's understanding what it needs to do. Basically learning how to build skills. And that's just that basic description thing that you put in.
+0:36:45 It has that description because it knows to call on it, but it has instructions also. That you built out? The Claude.
+0:36:54 a lot. Or anthropic build. Like, anthropic road. The instructions. But that's all part of if someone goes in and puts that one thing, that'll be handled.
+0:37:04 This would be their next step. Yes. Okay. Yeah. Okay. I think what I'll do is have this be in, like, the very beginning.
+0:37:17 Yes. And the- And when I click on, when I click on this, I'm now, like, showing people what actually is going on.
+0:37:34 So, like, the skill.md. Yes. This is the description. Yes. This is- is. The instruction. Yes. Right? So, it has, like, how to basically do it.
+0:37:50 Has the example of a skill already in here. So, like, this is the under-the-hood part of it. I would say.
+0:38:01 Right? Yeah. I say that. Yeah. That's good. This is under-the-hood. Basic. Really, if you get anything from the presentation, take that information, and then you can build any skill you want.
+0:38:13 Yeah. But, okay. It's going back. Is your maker going to say? Huh? Is your maker going to say? Yeah. Sorry.
+0:38:23 No, it's fine. We're doing this. We're doing this in prompt, too. So, okay. I'm gonna remember. This is our vibe, whatever, skill creator.
+0:38:36 It has three, it has four files. This is a folder, there's a, the main skill file, the references. This is helpful.
+0:38:46 I'm gonna show this in the beginning. Yes. And then, so, at the bottom of skill.md file, there's references to tell A.S.H Hey, for deeper methodology, reference these for these things.
+0:39:01 When using this. So, add to library, it's already in there, so whatever, upload to replace. Here it is. And so, this text is our description.
+0:39:14 Telling AI, this is what loads by default. But this is all- Only, this is, like, all that loads. So, it has the trigger to tell AI, when a user wants to build a skill, create a skill, improve a skill, help them make a skill, use this.
+0:39:33 So, that's why when we can click this, try and chat. We don't even have to say, hey, clock, can you make something and- amazing with a five-school creator?
+0:39:44 We can literally just say, hey, uh, whoa. What? Yeah, make me- So, all we can say is this. It should know at least call on one of our skills.
+0:40:19 Alright, so it read the vibeskill creator skill for best practice. So it's like- It's like you know that it's loading up a skill, pretty much.
+0:40:31 So it's got it. It's now- It's now using the skill. Are you gonna have to tell the skill what to do?
+0:40:38 What? You see how it says, what do you want this skill to do? So yeah, what? This is when I feel like you should call on someone in the audience, be like, does anyone have anything?
+0:40:49 Yeah. Alright, so we can choose from all of these. What do we want to choose? is. Design. Alright. Design. What's the output you want this skill to produce?
+0:40:59 I would like visuals. Alright. Brilliant. Let's see what we get. It's gonna keep on narrowing it down. It's fun. What type of visual output do you need?
+0:41:19 I would like social media graphics and posts. Cool. What's the context? What's this for? My own brand. Projects. Alright. What frustrates you about, oh, this is the vibe skill one, so.
+0:41:33 This is also why I don't want to demo the vibe skill creator. I'd rather demo the default one because the vibe skill creator is way more involved.
+0:41:42 Ok. Okay. Okay. And it goes through all of these like. Then just do the default one. I'm just gonna do the default one.
+0:41:47 The default one, I already started. Hey, you. Alright. Hey. Can you make something amazing with, and I specify the exact default one.
+0:41:57 So, you're getting, there's like two skill creator skills that we've been balancing between. Okay. Right. This is, uh, anthropic. Thank you.
+0:42:07 Created their own. The one that we were just using. That's the one James made. Yes. James was like, I don't like the anthropic one.
+0:42:14 I like this one more in depth. Yeah. Yeah. Which, it might be better. It's just way more involved. Yes. This is way easier to demo.
+0:42:22 Well, and if you should say both, say if you want one, that's a little more involved. Yeah. You would go with this one.
+0:42:27 Yeah. But this is your basic basic. This is like your basic skill. I- . . Yeah, this is good to know. Content creation.
+0:42:33 All right. How polished do you want this first pass to be? Thorough. All right. Let's see if it just starts launching into it.
+0:42:47 Nice. So it's actually referencing other skills that I have. Try to make one. , And maybe I should do the demo's live.
+0:43:01 I'm wondering. Yes, I was gonna give you that note too. That's right. I feel like it makes it more interesting and interactive.
+0:43:09 Yeah. As opposed to me reading through. Yeah. More stuff. Cause I feel like you do better already when I like ask you something and then you're explaining it to me normally.
+0:43:19 my Yeah. Rather than just going off of the slide, I feel like you do well like in the moment to put yourself more in the moment.
+0:43:26 Yeah. Creating. Alright. Fair. So here. Just a night. Yeah, it's actually good feedback. It's building a content repurposeer skill for Channel 47 which is actually pretty helpful.
+0:43:38 It's gonna, so basically the core idea is I write a piece. Please. A newsletter, something, post, and the skill would systematically break it into channel specific outputs.
+0:43:50 Exposed, threads, LinkedIn posts, even product copy. And it will be following my existing brand, uh, voice and other stuff. Alright.
+0:44:03 It's starting to build architecting, comprehensive skill document- documentation for content repurposing. This would be a good time, maybe, to, like, transition to something else.
+0:44:14 Or pause and, like, ask if there's any questions. We could even navigate back to the settings. Capabilities. Ladies. I could show off the example skills, so the skill creator, which is what we're using right now, all these other ones.
+0:44:41 Is that gonna be too confusing to people if you go into the other instance? Since you're focusing on the skill for this?
+0:44:48 Maybe. If it's, like, people really don't know things like me, yeah. Yeah. Yeah. Right. What questions do you have aside from the ones you've already asked?
+0:45:01 Is there anything? So, not questions, but I have more feedback later. How long does it take to look? But, Uhh, it usually goes off and, like, works for 2 to 4 minutes.
+0:45:25 Oh, then maybe, yeah, you can just, like, pause and ask questions. Say, like, we're gonna have to let this build for 2 to 4 minutes, but does anyone have any questions about, like, what we've gone through so far?
+0:45:39 Yeah. Could do some Q&A now? That way, I can. This isn't- Gonna work. Alright, well, back to the presentation, I guess.
+0:45:54 That's a skill. We started with an idea from the room, which we didn't, kind of, we did. We described it in plain language, and Claude wrote the instructions.
+0:46:03 We tested it. There was no code, there wasn't any config, it was just words. Alright, that definitely goes in the beginning.
+0:46:10 Right? Yes. After you demo it. Uh. Yeah. Yeah. After. Yeah. So, let's move on to safety and resources. You want to treat skills like software installs, because you're basically giving AI instructions.
+0:46:31 on how to do things, and sometimes those instructions don't always have the best intentions. Or maybe update it. Yeah. Or then you can update it.
+0:46:43 Exactly. So, safety checklist. You want to, this is really only applicable when you're, uh, copying skills from other people, but you'd want to read the full instructions.
+0:46:55 Instructions before running, watch for any hidden scripts, check who published it, test it, version in a safe environment, and if something feels off, don't install it.
+0:47:07 Where you can find skills, you can find them on official GitHub repos. This is the highest trust, so there's like an anthropic with their own skills repository.
+0:47:18 There's OpenAI. And this seems to be earlier, too. Their own skill repository, um, which I'll link to, I do link to, actually, right here.
+0:47:29 So if you can go here, you can go here, go here. Um, well known, well known, org repos, so like, that would be this guy.
+0:47:39 Uh, Marketplaces for skills, like, there's the quad box. But Marketplace for skills, which has known to be bad.
+0:47:50 Like, there's been people who've gotten their, like, information stolen, because they installed skills that were malicious. So you just have to be careful.
+0:48:02 And then finally, your take away. So you get to take home the vibesk- I'll just give the skill builder, which we didn't really demo.
+0:48:10 The brand, a brand voice extractor. So it captures your tone phrases, uh, to use and avoid. This is like, if you wanted to extract your own brand voice from stuff you already have.
+0:48:23 Can I get Maria? Yeah. And then a quality check output gate. So this would review AI outputs for completeness. this.
+0:48:32 Brand alignment, clarity, and risk. So these are delivered. Should be like, so what do you get from this presentation? Well, you get a three at home take home.
+0:48:45 Yeah, so like more enthusiasm machine. I don't have a lot of, I think I'm out of energy right now. Yeah, I know.
+0:48:54 Be like, oh, so like, what are you- You get out of this, well, basically. Here take home still your skill starter kit.
+0:49:01 You can get a skill builder. This is like, this is the big one. The brand voice extractor. And honestly, this might not be the best.
+0:49:09 Or you should be like, oh, so why you can come to this presentation today? Well, you get this. Yeah. Um, and then, if you want to join the community.
+0:49:19 community. Every month, hopefully, there's a skill remixed lab, which would be a live session where we remix a public skill into a personalized version.
+0:49:30 Where we finish with a finished skill. And some notes that we share after. And then we also got a skill vault.
+0:49:38 And these are available via the community. Start with one. On workflow, build one skill, repeat. Every skill you build is time that you get back.
+0:49:50 In context, you never have to repeat. Skills don't replace judgment, they preserve it. Now go build something. And then this QR code links to this page.
+0:50:06 By the way, where we have time. Bye. Alright, so now that we've gone through it. Kind of roughly and weirdly.
+0:50:16 Yes. What feedback do you have? Go back to the beginning, please. Got it. Hold on. Let's, uh, Jesus. So one thing I'd be a little bit careful of sometimes.
+0:50:32 Mm-hmm. I don't know if it's just because you're, like, more tired right now. But sometimes it seems, you didn't do this on all the slides.
+0:50:40 The ones that I was more engaged is when you didn't do this. Reading the text. You're going, like, verbatim? Yes.
+0:50:47 Yeah. I know. I hate it when people do that. You need to go, you need to go off the slide.
+0:50:52 I know. I know, I I know, I know. Like, because there's sometimes- Sometimes. Where your point was already across. But then you would keep going with the text that it said.
+0:51:03 And I was like, okay, you already said that. I don't even know that. I know. Okay. It's good feedback. I knew I was doing that.
+0:51:10 Um, so that's one thing I'd be careful of. You, I don't know if it's again. I had this trouble because I remember when I had to, like, report- with my presentations in school.
+0:51:22 Uh-huh. And I would go back and listen to my first draft. You might be doing this just because your first draft, and I was at the beginning of the presentation.
+0:51:29 You took way too long in the beginning. So, like, you know what I mean? Because you're more interesting stuff comes a little later.
+0:51:38 Okay. So, this was cool. I like that. I thought that was, that was cute. Umm. Like, Dainty. You expanded. Just, this is what we're gonna be covering in the presentation today.
+0:51:53 We're gonna look at the ecosystem, what skills are, some live demos. We're gonna build some of those skills. And then go through the safety measures and, uh, what you can get from this presentation.
+0:52:02 Uh-huh. But I'm gonna review all of these. Quick. Yeah, but that's fine. Yeah. But you, like, would then what, you're g- I didn't go into it later.
+0:52:09 Alright, uh, yeah. Are you okay? Yeah, I am. I am. I'm good. I, I, I en- I appreciate it. Keep going.
+0:52:16 You gave a good presentation. I'm just trying to help y'all. I did my best. We didn't know what I had.
+0:52:21 I did good. Alright. Well, what we, what we got. Um. Before we go further, let's actually go back to this.
+0:52:28 Is there, let's spend more time. What do you think? So, like, you- No, these different sections now. Yes. Sort of.
+0:52:35 Where would you- Ecosystem, what skills are building a skill? Uh. Safety and resources? Live demos? No, safety and resources can stay diverse then.
+0:52:48 Do some live demos. So, ecosystem, what skills are- Yeah. Building skills. Building Live demos. Safety and resources you or since you.
+0:52:56 Your take away. Exactly. Got it. Umm. Okay, and then if we kept going, again, this was a slide where it was interesting what you said, but the focus is on this.
+0:53:09 So then I almost started paying attention to this because I was like, oh, this is going to be important for later, too.
+0:53:14 This is what's important. You can just say, you know, normally, like, these are the three jobs that- AI now has.
+0:53:23 Mm-hmm. Okay. So maybe it should be like, right now, we would know that the AI system has three- these three tools.
+0:53:34 Today we're focusing on the skills aspect, but the two other tools are those MCP servers that act as connectors, those sub-agents that are like- You said the project manager, right?
+0:53:47 Yeah, like a team. Yeah. And then- but the skills is the actual playbook, and that's what makes it so interesting.
+0:53:53 Emphasize why this is so interesting on this. Mm Okay. Um, cause again, this was one slide where- What do you think makes skills interesting now that you've like gotten rough?
+0:54:06 Is there something that stands out? Oh my gosh, it just makes it like- . more timely and efficient. You don't have to- which is kind of sad, but like be as invested in time or creativity.
+0:54:22 Like it kind of just- . . . it. . . handles it for you. Yeah. Okay. Cool. And I think it's cool that you can, like, use your own language too.
+0:54:32 you. So that it still has, like, that personal aspect, especially if you have things built in your reference, your personal things.
+0:54:39 I think it's cool that it's still stage true. Like you build skills with your language? Yeah. Yeah. I think that's something.
+0:54:45 I'll be like, skills are like . . . these really well crafted instruction manuals based on . . . just plain language that you speak to AI.
+0:54:56 And AI building . and it just helps save time. Yeah, it's like a really well architected SOP written by AI. Yes.
+0:55:04 Cool. So know what I mean, like, quickly? This is the emphasis. Yes. Okay. How are we just in a timeline?
+0:55:11 Okay. Too long. This was . . . hahaha. This is another way you wouldn't do that. Alright, I know, I Because, uhh, no, like, it is cool.
+0:55:20 Just be like . Like, you know, this is all still very new. This didn't exist 18 months ago. In 2024 is when we were first introduced to artifacts.
+0:55:32 We got a little bit of that computer use. We got, uhh, Cloud, which is . . we'll be working with that a lot today.
+0:55:39 Saw that in February 2025. But then recently in October is when those skills actually launched . . and now, as recently as December, those skills are a higher open .
+0:55:51 . . or are now open standard. They're standard. Click! Quick! Fast! Cause you're not at your actual stuff yet. Yeah, yeah, yeah.
+0:55:58 You know what I mean? It's just, like, the context. Just the basic foundation. Not trying to like . . . So, I mean, technically, you probably don't even need that.
+0:56:07 You say 18 months ago, this didn't exist. . Yeah, yeah. And then . . . So it's like, yeah, we get it. It's spread fast.
+0:56:15 Maybe, this needs a different headline, cause I still wanna emphasize that you can use skills . . . Like it started here . . . Yeah.
+0:56:24 . And here, but now I'd expand it to these . . . Oh, I see, ok then. Maybe something . that, that needs to be emphasized.
+0:56:30 Yeah, or even maybe it's just . . . you're gonna be like, so it started here . here . . . here . . . . . now's this . . . Yeah. Ok. Cool.
+0:56:38 That would be good. Umm, this confused me because again, it felt like something I needed to pay attention to . . Yeah, and it wasn't .
+0:56:48 . . It wasn't really relevant later . . . So open claw, claw bot slide, we can probably remove . . Yeah, I would remove that save time for your more interesting things .
+0:56:55 . . Alright. Oh god . . Scary . . . Alright. So we're going to axe open claw. . . . . What skills? . . . Wait. So I did that, like, go through that in 5 minutes.
+0:57:14 Yeah, yeah, yeah. Section one . . You're gonna go back with it and realize . . . yeah, oh my gosh . . You know what I mean?
+0:57:21 Yeah. . Because this is where I was like, oh, this is now interesting. I loved how you did a 60-second version of quickly what a skill is.
+0:57:29 This . . . I feel like it could be . . . improved . . maybe . . Yeah. Yeah, because I will say . . would have liked to know . . I still wasn't quite sure.
+0:57:41 And then later on, I started to understand. But I mean, I guess you're gonna dive . . into it later, too, but you could just be like .
+0:57:48 . . So I almost wonder . . . You started . . . This needs to go a little . . . later? After. Because I still don't quite know. Alright, so, and .
+0:57:59 . . before . . . we go into the anatomy of the skill . . Oh what's how skills actually work? What does that slide look like?
+0:58:11 . . . Okay, so I technically think that could be earlier . . So you say what a skill is . . the 60 second version . . . This one skills in 60 seconds .
+0:58:21 . . Yeah, then I would say how does the skill work? . . . How skills actually work . . Then you could probably then go into the layout because now I know how the skill works .
+0:58:33 . Okay . . So then I would go into the anatomy of it and then I would say okay knowing how it works, knowing the anatomy of it .
+0:58:44 . one of the most important things to know about a skill is the personal aspect that you can make to it .
+0:58:49 . . mm-hmm . . . So that would be after . . . mm-hm . . . So it'd go skills in 60 seconds . . Followed by . . how skills actually work, followed by anatomy of a skill, into the best skills are personal.
+0:59:07 Then it would be . . . So . . . I wonder if this is too much instruction or like . . Like what is this for? Or are you gonna kind of explain this slide once you start building this skill?
+0:59:21 We'll see you in the This might be a better building skill, but . . either what goes in the instructions follows that previous portion or doesn't, but .
+0:59:32 . . I feel like then it would . . . Is this important for the anatomy of . . . I don't know what this is actually doing, if it's even important .
+0:59:41 . I don't think we need this . . . Because you're already saying that you're . . . . Like to me this . . It actually doesn't even really make sense.
+0:59:47 Oh, like . I'm getting rid of it. What goes in the instructions . . . because I feel like you'll explain that anyway when you Yeah, we do this .
+0:59:53 . . Anyway, so maybe just scrap that . . Yeah . . . Alright, so . . . . and then actually that's a good transition. You make it personal and then you say, so .
+1:00:03 . Now you know what the skill is? Now, it's important to understand what it's not. . . Right. . But again . . . . . . . . . . This one Where doesn't Prey.
+1:00:11 That, that can be brief. Right. Because . . . take away of presentation you want with the skill is . . . Alright, and then we already established this one .
+1:00:23 . . . . . one will be. After building a skill . . . . after this skill. . . . Uh, Amen . . . wander . . . Probably also building a skill . . That could go .
+1:00:38 . . comment mistake could also go after . . . . what a skill is not . . . Oh right. I remember me trying to stop. So . . . . What skills are not followed by .
+1:00:51 . . common skill mistakes into . . . not live demos, but . . . . . Where are the common skills? . Building skills . . the personal . . . Ooh . . . maybe . . . common skill mistakes .
+1:01:10 . . So you know how the skill works . . You . . then you know the anatomy . . . yep, I think you're right . . . then you know .
+1:01:31 . . personal . . . so . . . skills in 60 seconds . . . followed by . . . doo, doo, doo, how skills actually work . . 2 . . . followed by the . . anatomy . . number three .
+1:01:49 . . by . . . four . . skills are personal . . . followed by . . . commons . . . no . . . what skills are not . . . right? No. I wasn't sure if it should be flipped .
+1:02:06 . because you're still talking about what a skill is . . . so you're . saying it's personal . . . you want to say the mistakes that you sometimes see in a skill .
+1:02:16 . . and then, since you've covered everything of what a skill is finished with . . a skill is not . . I think right. Yeah.
+1:02:23 What skills are not . . makes sense . . finish with what skills are not . . before . . . skill mistakes . . after . . . not common skills . . Alright. Into .
+1:02:38 . . building . . . a skill. Yes. Yes. Yes. Building skills. Perfect. Cool. So now that we've covered what it is, we'll go into the building of this skill.
+1:02:48 Mm-hmm. That's great. Okay. Do we need what makes a good skill? Oh, well that would be beneficial in the . . . Oh yeah.
+1:02:57 So . . What is the skill is not? You have mistakes. Oh, you could even do . . . so wait, we had the personal .
+1:03:13 . . You could do what makes it good. What makes a good skill? Oh. So like the personal . . The best skill is a personal .
+1:03:31 . . um . . by . . . what makes a skill good? Followed by common skill mistakes? Or do we do the . . best skills are personal?
+1:03:49 Followed by . . what skills are not? And we move . . . common skill mistakes down . . . with . . building a skill . . . because now we're actually crafting a skill and we want to know what makes a good skill?
+1:04:08 You and then what are some common mistakes. Okay, yeah, that's where you could do that. Yeah. Just play around with it.
+1:04:19 Like, reread through that section. So that you see what kind of flows nicely. Mm hmmm. This is already a stronger flow.
+1:04:28 Yeah. Cause I feel like . . . a better . . . that organization makes sense to me. Mm hmmm. Okay. And then . . the . . . because if we started with .
+1:04:40 . . if we go building skills straight into . . . Alright, let's build it. It's just like, well wait, shit. Like, what am I building?
+1:04:47 What am I doing? It's like a reminder of . . Building skills, what makes a good skill? And the common skill mistakes.
+1:04:54 Yeah. I'd also maybe somehow include . . . . . Building a skill is as simple as taking this one . . I don't know what it's called.
+1:05:04 Whatever James built and whatever . . . uh, enthropic. Uh-huh. Built. Uh-huh. Can you have that, like, file there? Be like, it's as simple as taking this file.
+1:05:20 Okay. I don't know. Like, in the headline? Or maybe you'll explain that. You're talking about for the build demo? Yeah.
+1:05:33 Show what the . . like, show this part? Like, realize that creating a skill is as simple as taking that . . . running it .
+1:05:46 . through, clawed, and then making it personal. Like, and then building your own thing or adding your own references. I didn't realize it's as easy as just taking this description.
+1:06:01 You . . . like, you didn't realize this existed? This skill creator skill? What are you . Oh, is that with Anclaud, you just turned that on?
+1:06:14 Yeah, he's turned on. Okay, I know, I didn't know that. Huh. Maybe it's like . . . let's build it. And then . . . I think this would be .
+1:06:28 . . maybe it isn't in this because this . . right now the fact this is this vibe skill creator. I think it's throwing you off.
+1:06:34 Let's throw . me off a little bit. Yeah, I was . . I was thinking like . . . and like the whole idea is . . . that .
+1:06:59 . . 1-0-6-1-0. So this needs rewind. A little bit. A little bit, yeah. I like it. I like how now you're going into the build.
+1:07:53 But now that you understand, I think, a little bit better the example skills and like the user skills, what do you think when we get to the build part of it, what do you think it would be?
+1:08:12 The most impact will point to get across. Is it the fact that, like, if you want to build your own skills, you literally just have to open Cloud Desktop or Cloud.ai.
+1:08:23 Go to capabilities. Scroll down. Find Skill Creator. Try it in chat. Okay, yeah. Just, just start like that. Just do this.
+1:08:35 Just look, me that really knows nothing about it. Yeah. That was already helpful. I'm like, oh, that, I just gotta do that.
+1:08:42 Super straight for it. Yeah. Okay, we'll do that. So you, then I would literally run that through and then continue building from there.
+1:08:49 Yeah, you can be like, I like turtles. You know, build me a skill because I like turtles. And I'll just go build you a turtle.
+1:09:01 Yeah, you could, that could even be a time to be like, can anyone in the presentation tell me like, an interest of theirs and I'll run it through as this example plane.
+1:09:09 Yeah, do some like, interactive, I honestly think you're right, cause I'm pretty sure, brainstorming turtle theme skill creation. Oh my god, this is awesome.
+1:09:21 A turtle oracle. Cool. Give in any question or topic response of the beautifully designed turtle theme HTML page featuring real turtle facts, turtle wisdom.
+1:09:31 Wait, that's true. Wait, that's Wait, that's That's awesome, alright, I'm curious. So, this would be a good point to just like, get feedback from the audience.
+1:09:40 If no one has anything, I'll just be like, I like turtles. But I'm sure people will have stuff. Thank you very much.
+1:09:47 Okay, so building a skill, we got that locked down. Yeah, that was way more, like, at least for me. Yeah.
+1:09:54 But like I said, if you're dealing with people that already know all of this. I don't know. That's a good, that's things.
+1:09:59 I don't know. Yeah. But I mean, even if they do know, you just quickly run through that. Cause then that's helpful for the beginner.
+1:10:07 Yeah. Then it's like, oh yeah, yeah, like the advanced person knows that. Exactly. Now to the other stuff. It's reiterate.
+1:10:11 Yeah. Yep. Alright. But I like how you did that. You're like, let's build and you're like, it's as simple as opening, Claude, going to capabilities, boom.
+1:10:23 Like, I really like how you did that. Okay. Cool. I was trying to make it, like, sleeker. And, you know.
+1:10:31 I see. I just, ope, I just click this dot skill. Cause this is, like, a Claude-specific file. Okay. Then, yes.
+1:10:40 That's what made it confusing for me. Cause I was like, I need that file. That's why I kept saying, like, I need that file.
+1:10:45 I see. Yeah. No, you don't need it. That's why I see. Interesting. It's good feedback. Okay. To the five demos.
+1:10:57 Okay. So, you created, I did the skill. Now, how does this translate to the demo? Five demos. Or you basically just showing you have a skill that you created.
+1:11:15 And now, you're using it on a rerun. I guess this was the post to show what skills can do. Like, some example skills, essentially.
+1:11:34 Cause this seemed like already running skills. That's why I was like, why don't you even know what a skill is?
+1:11:38 Yeah. Yeah. But do you think that, knowing the updated, sort of format, if, Do you think it's still relevant to have these demos at the end?
+1:11:53 You know what you could say? You could say, okay, we built that skill together. It was, Like, let's say it's that simple.
+1:12:02 You guys just built something like that. Be like, okay. We just built this simple skill. I'm gonna go ahead and show you guys, three skills that I've created that have been super helpful in my, like, work and personal journey so that you can see a little bit more of an end.
+1:12:24 Yeah, like, here's how I use skills. Yes. Cool. Alright. And then you go into the demos. That's cool. Because now I know what a skill is, but then maybe you could say, so for the first one, I can- created a skill to create search campaigns from, like, landing pages that I'm creating.
+1:12:43 And then how you did that. Be like, I, how did you do it? Okay. Were you just like, oh, I want to create Google search drive campaigns and that's how you created the skill?
+1:12:56 Yeah, because like, I'd be given a task. masking. So, creating a search campaign. You need to incorporate your personal story more than.
+1:13:05 Smart. Because like, okay, so you're like, I created this because. Right. Cause it's like, who gives a shit? They don't run as, they're like, why would this make it matter?
+1:13:16 Yeah, Okay. So the feature, or the benefit, not the feature. So you went with the audience, built a simple skill, say, this is what- I've been able to create out of it.
+1:13:26 It's a little more advanced and technical, but I want to show you how it's helped in my day-to-day life and day-to-day job.
+1:13:33 Say, I incorporate this into my job. It makes, uh, you say, like, I work at a company where I'm just running Google Ads every day.
+1:13:43 Uh-huh. Um, so in order to make it more efficient, and then I can get done work- I'm more productically, I created this.
+1:13:50 Yeah. That's example one. Now, example two. That's awesome. This is one I use with my business. Go! Since I'm working full-time, but I want to keep it on maintenance mode.
+1:14:03 Yeah. See, I wouldn't have known what my f****** says. Then I have my own personal company. Yeah. And I obviously don't have as much time as I, I'd like to be able to, like, put more time into the company.
+1:14:17 So in order to save sometimes, I feel like that's a big thing about skills, is making things more efficient. I created this email generator for this company that I created.
+1:14:27 Cool. Next. Finally add creative refresher, so this one was also related to my job. I don't actually have a need for this personally in my role, but I work with people who run static ads all the time and are always, like, finding winning variations and then wanting to create, like, subtle differences
+1:14:59 to try and- and see if tweaking the color of the shirt that someone's wearing, like, makes a difference. And so this takes winning ad and does that.
+1:15:13 This is me. Now, like, I actually, Get it? Under his head, they're way better. Cool. Alright, this is so cool.
+1:15:23 And then, with that, Go into the, So once you do your live demos, that would go into, The safeties? I think so.
+1:15:32 Safety and resources, yeah. Treats skills like software installs. And actually, that's really fitting, because the last skill is a script that calls an API.
+1:15:47 And, If I had just taken that skill from any, Joe Schmo, and like, thought, oh, I'll use this skill that someone made that connects to an API, and just rework it.
+1:16:02 It's like, I gotta be really careful, because scripts are like the, biggest vulnerability when it comes to skills. If you see a skill with, a script, like, .py, or like, a JavaScript file, that you need to be very cautious of.
+1:16:22 If it's simply a skill.nd, you don't have to have so much caution, but just keep an eye out for anything that's like trying to make, the AI that loads the skill, will do something, not to your benefit.
+1:16:40 Something like that. Guess what? You didn't read off of that. Yeah. Sounds better. Alright. And then just a quick checklist.
+1:16:53 Maybe I can change this around. I don't know if this is, Yes, like, you went through that and you could be like, so, Just a checklist.
+1:16:59 ,kind of what you wanted. I'm gonna be looking out for is, Yeah. Yeah. There's some safety stuff. And then, This is the takeaway, right?
+1:17:10 This is one of the takeaways. Umm. This is actually, I should probably move this to the takeaways. Or Oh, okay.
+1:17:24 Because the takeaway, This is included on, Okay, yeah. Put it towards the takeaway. Yeah. Because this goes on that, that page.
+1:17:31 Mm-hmm. Be like, so with everything you learned today, you can actually go home and just, start, testing it and playing around with yourself.
+1:17:45 Yeah. Scan this QR code. Good. Maybe a skill builder. Yeah. A skill builder. A skill remixer skill. I wonder if that would make sense, though.
+1:18:04 Skill remixer. And then a, Oh, but I like the brand-based extract. I think I like that one. This one, though.
+1:18:15 Use your own tone. I like that personal. I need to come up with a better third option, maybe. This isn't so clear.
+1:18:28 But I guess, I could include a logo of the community or something. Oh, wait. When are you doing your remix slide?
+1:18:35 Let's go on. Oh, yeah, yeah, yeah. The remix slide would be, After the demo? Like, what are you remixing again?
+1:18:49 After we build a skill, before we go into the live demos, We remix. And can you show how you would remix?
+1:19:06 As well, after you've created that simple skill. Can you take that skill that you've created with them? Do a remix?
+1:19:16 Uh, yeah. That's a little, that's like, trying to chain together. Umm. Probably want too many, what-ifs? Okay. Variables? Yeah. It's like, no idea if we make a turtle generator.
+1:19:32 Uh-huh. I don't know what the frick we'd want to remix that to, you know? Can you remix this so it's a dolphin?
+1:19:42 Yeah. Uh. Uh. Or, yeah, you-you've done it with a skill, and then you can say you can even take that skill and remix it in this way.
+1:19:57 You can briefly go over that. Like this slide, I thought would be really helpful just to show the fact that I wanted to mention this workflow in, like, use case in particular.
+1:20:13 Where, there was, like, a skill that I thought, you know, could this work? In the sense that, like, can I actually just write a skill that generates video?
+1:20:29 Because before I had just, and maybe this is, like, after the demos? I mean, if it's part of a skill, Like, this ended up generating actual B-roll for us.
+1:20:53 It was crazy. Can you show that? Yeah, I can show it. I just don't have it on my computer. It's not my work computer.
+1:20:59 Cause again, And when you remix, you can use what you created, but why don't you just, like, start from scratch again so they can see it live rather than a script already existing?
+1:21:15 Oh, yeah, I see what you're saying. Just, like, re-input it, say. So, talking to one of my work buddies had this cool idea concept.
+1:21:25 on 7th. We had this link, so I'm gonna take that link and put it here and ask it if it can remix.
+1:21:31 I can also, show this after the third demo where I showcase the ad-created variation generator.
+1:21:44 Let's go. Because I did the same thing. I remixed. I just remixed the image-gen. The generic image-gen skill from OpenAI is what I made into the ad-creative generator one.
+1:22:03 Does that make sense? Mm-hmm. So it could work after that also. Maybe I do it there. Yeah, I'll just throw it after the third light demo.
+1:22:28 No. No. Do you like this side? Yeah. Does this side make sense? This is dependent upon if they. Or they can have that in the QR code anyway.
+1:22:59 I like that. I'm a little bit This is just like introducing it. Okay. You don't need- You Honestly, you might not need both of those.
+1:23:29 You might just need that and then now go build it. Hmm. I like that. Cause it's like, what the f***?
+1:23:36 I don't care about this. I don't care about this. Ooh. Ah. I think you're right. Do away with this. Do away with this.
+1:23:46 Take away. It's kind of like- It's like if you want to know it. It's than that. Go figure it out.
+1:23:51 I like it. It's so smart. Keeping it in the mystery. Amazing. Yay. You did it. Cause then you're almost forcing them to keep, like, engaged and up to date with- Yeah.
+1:24:08 You want to find out more? You gotta go check it out. Alright, before we finish anything- Anything else? Any last feedback?
+1:24:16 Can you help me? Oh, I love you. Thank you for giving me such valuable insights. Yay!

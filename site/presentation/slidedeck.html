@@ -598,20 +598,75 @@
         width: fit-content;
       }
 
-      /* Demo screenshot placeholder (uncomment in HTML when ready) */
-      .demo-preview {
-        aspect-ratio: 16 / 10;
+      /* ── DEMO WINDOW ── */
+      .demo-window {
         background: var(--soot);
-        border: 1px dashed var(--ash);
+        border: 1px solid var(--ash);
         border-radius: 2px;
+        overflow: hidden;
+        max-width: 640px;
+        margin-bottom: 24px;
+      }
+
+      .demo-window-header {
+        padding: 10px 16px;
+        border-bottom: 1px solid var(--ash);
         display: flex;
         align-items: center;
-        justify-content: center;
+        gap: 12px;
+      }
+
+      .demo-window-dots {
+        display: flex;
+        gap: 6px;
+      }
+
+      .demo-window-dots span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--ash);
+      }
+
+      .demo-window-label {
         font-family: var(--font-mono);
-        font-size: 12px;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
         color: var(--stone);
+      }
+
+      .demo-window iframe {
+        display: block;
+        width: 100%;
+        height: 350px;
+        border: none;
+        background: var(--void);
+      }
+
+      .demo-ctas {
+        display: flex;
+        align-items: center;
+        gap: 20px;
         margin-top: 24px;
-        max-width: 600px;
+      }
+
+      .demo-link-secondary {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--signal);
+        text-decoration: none;
+        border-bottom: 1px solid var(--signal-dim);
+        padding-bottom: 2px;
+        transition: all 200ms var(--ease);
+      }
+
+      .demo-link-secondary:hover {
+        color: var(--chalk);
+        border-bottom-color: var(--chalk);
       }
 
       /* ── ANIMATIONS ── */
@@ -710,7 +765,7 @@
     >
       <div class="label label-signal" style="margin-bottom: 32px">
         047 <span class="pipe"></span> LIVE SESSION
-        <span class="pipe"></span> ~90 MIN
+        <span class="pipe"></span> ~60 MIN
       </div>
       <h1 class="display" style="max-width: 800px">
         AI Skills:<br />Teach AI How You Work
@@ -761,27 +816,27 @@
       </h2>
       <div style="max-width: 500px">
         <div class="ros-item">
-          <span class="ros-time">~10 min</span>
+          <span class="ros-time">~5 min</span>
           <span class="ros-label">The Ecosystem</span>
         </div>
         <div class="ros-item">
-          <span class="ros-time">~20 min</span>
+          <span class="ros-time">~15 min</span>
           <span class="ros-label">What Skills Are</span>
-        </div>
-        <div class="ros-item">
-          <span class="ros-time">~20 min</span>
-          <span class="ros-label">Live Demos</span>
         </div>
         <div class="ros-item">
           <span class="ros-time">~15 min</span>
           <span class="ros-label">Building Skills</span>
         </div>
         <div class="ros-item">
-          <span class="ros-time">~10 min</span>
+          <span class="ros-time">~15 min</span>
+          <span class="ros-label">Live Demos</span>
+        </div>
+        <div class="ros-item">
+          <span class="ros-time">~5 min</span>
           <span class="ros-label">Safety + Resources</span>
         </div>
         <div class="ros-item">
-          <span class="ros-time">~10 min</span>
+          <span class="ros-time">~5 min</span>
           <span class="ros-label">Your Takeaway</span>
         </div>
       </div>
@@ -804,7 +859,7 @@
     <!-- ═══════════════════════════════════════════ -->
     <section class="slide" id="s05" style="background: var(--soot)">
       <div class="label" style="margin-bottom: 24px">
-        003 <span class="pipe"></span> ECOSYSTEM
+        005 <span class="pipe"></span> ECOSYSTEM
       </div>
       <h2 class="section-title" style="margin-bottom: 40px">
         Three Tools, Three Jobs
@@ -862,7 +917,7 @@
     <!-- ═══════════════════════════════════════════ -->
     <section class="slide" id="s06">
       <div class="label" style="margin-bottom: 24px">
-        004 <span class="pipe"></span> TIMELINE
+        006 <span class="pipe"></span> TIMELINE
       </div>
       <h2 class="section-title" style="margin-bottom: 40px">
         How Recent Is All of This?
@@ -917,7 +972,7 @@
       style="background: var(--soot)"
     >
       <div class="label" style="margin-bottom: 24px">
-        005 <span class="pipe"></span> ADOPTION
+        007 <span class="pipe"></span> ADOPTION
       </div>
       <h2 class="section-title" style="margin-bottom: 32px">
         This Spread Fast
@@ -941,49 +996,9 @@
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 08 · SKILLS IN THE WILD              -->
-    <!-- ═══════════════════════════════════════════ -->
-    <section class="slide" id="s08">
-      <div class="label" style="margin-bottom: 24px">
-        006 <span class="pipe"></span> IN THE WILD
-      </div>
-      <h2 class="section-title" style="margin-bottom: 32px">OpenClaw</h2>
-      <div
-        style="display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 32px"
-      >
-        <div
-          style="
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--chalk);
-            letter-spacing: -0.03em;
-          "
-        >
-          150,000+
-        </div>
-        <div
-          style="display: flex; flex-direction: column; justify-content: center"
-        >
-          <span class="label">GITHUB STARS</span>
-          <span class="body-text" style="margin-top: 4px; font-size: 12px"
-            >Built by Peter Steinberger</span
-          >
-        </div>
-      </div>
-      <p class="body-text body-large" style="margin-bottom: 24px">
-        Started as Clawdbot. Uses skills heavily. Same SKILL.md format.
-      </p>
-      <div class="callout">
-        This isn't hypothetical. People are already building real things with
-        this.
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════ -->
     <!-- SLIDE 09 · SECTION: WHAT SKILLS ARE        -->
     <!-- ═══════════════════════════════════════════ -->
-    <section class="divider-slide" id="s09">
+    <section class="divider-slide" id="s08">
       <div class="label label-signal" style="margin-bottom: 16px">
         SECTION 02
       </div>
@@ -995,9 +1010,9 @@
     <!-- ═══════════════════════════════════════════ -->
     <!-- SLIDE 10 · SKILLS IN 60 SECONDS            -->
     <!-- ═══════════════════════════════════════════ -->
-    <section class="slide" id="s10" style="background: var(--soot)">
+    <section class="slide" id="s09" style="background: var(--soot)">
       <div class="label" style="margin-bottom: 24px">
-        007 <span class="pipe"></span> DEFINITION
+        009 <span class="pipe"></span> DEFINITION
       </div>
       <h2 class="section-title" style="margin-bottom: 40px">
         Skills in 60 Seconds
@@ -1038,11 +1053,67 @@
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 15 · HOW SKILLS ACTUALLY WORK        -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s10" style="background: var(--soot)">
+      <div class="label" style="margin-bottom: 24px">
+        010 <span class="pipe"></span> HOW IT WORKS
+      </div>
+      <h2 class="section-title" style="margin-bottom: 40px">
+        How Skills Actually Work
+      </h2>
+
+      <div class="vs-split" style="max-width: 700px; margin-bottom: 48px">
+        <div class="card" style="border: 1px solid #5c2020">
+          <div class="label" style="color: #ef4444; margin-bottom: 12px">
+            WITHOUT A SKILL
+          </div>
+          <div class="card-body">
+            Re-explain every time. Inconsistent output. Context lost between
+            sessions.
+          </div>
+        </div>
+        <div class="vs-divider"><span>vs</span></div>
+        <div class="card card-signal">
+          <div class="label label-signal" style="margin-bottom: 12px">
+            WITH A SKILL
+          </div>
+          <div class="card-body">
+            One command. Same quality every time. Context is the skill.
+          </div>
+        </div>
+      </div>
+
+      <div class="label" style="margin-bottom: 16px">UNDER THE HOOD</div>
+      <div class="step-flow" style="max-width: 700px">
+        <div class="step-item">
+          <div class="step-num">01</div>
+          <div class="card-body">You ask</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">02</div>
+          <div class="card-body">AI reads skill descriptions</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">03</div>
+          <div class="card-body">Loads the matching skill</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">04</div>
+          <div class="card-body">Follows instructions with your context</div>
+        </div>
+      </div>
+      <div class="callout" style="margin-top: 32px">
+        Skills load on demand. They don't clutter context until you need them.
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
     <!-- SLIDE 11 · ANATOMY OF A SKILL.MD           -->
     <!-- ═══════════════════════════════════════════ -->
     <section class="slide" id="s11">
       <div class="label" style="margin-bottom: 24px">
-        008 <span class="pipe"></span> ANATOMY
+        011 <span class="pipe"></span> ANATOMY
       </div>
       <h2 class="section-title" style="margin-bottom: 32px">
         Anatomy of a SKILL.md
@@ -1092,7 +1163,7 @@
     >
       <div class="accent-bar" style="margin-bottom: 32px"></div>
       <div class="label label-signal" style="margin-bottom: 16px">
-        009 <span class="pipe" style="background: #d6d3cd"></span> PERSONAL vs.
+        012 <span class="pipe" style="background: #d6d3cd"></span> PERSONAL vs.
         GENERIC
       </div>
       <h2
@@ -1191,62 +1262,38 @@
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 13 · WHAT GOES IN THE INSTRUCTIONS   -->
-    <!-- ═══════════════════════════════════════════ -->
-    <section class="slide" id="s13" style="background: var(--soot)">
+    <section
+      class="slide slide-compact"
+      id="s13"
+      style="background: var(--soot)"
+    >
       <div class="label" style="margin-bottom: 24px">
-        010 <span class="pipe"></span> INSTRUCTIONS
+        013 <span class="pipe"></span> WATCH FOR
       </div>
       <h2 class="section-title" style="margin-bottom: 32px">
-        What Goes in the Instructions
+        Common Skill Mistakes
       </h2>
-      <div style="max-width: 560px">
-        <div class="stack-row">
-          <div class="index-badge">01</div>
-          <div>
-            <div class="card-title" style="font-size: 0.95rem">What to do</div>
-            <div class="card-body">The core task and workflow steps.</div>
+      <div class="grid-2" style="max-width: 680px; margin-bottom: 32px">
+        <div class="card" style="border-top: 2px solid #ef4444">
+          <div class="card-title" style="font-size: 0.95rem">
+            Vague descriptions
+          </div>
+          <div class="card-body">
+            The skill never triggers. AI doesn't know when to load it.
           </div>
         </div>
-        <div class="stack-row">
-          <div class="index-badge">02</div>
-          <div>
-            <div class="card-title" style="font-size: 0.95rem">
-              How to format output
-            </div>
-            <div class="card-body">Structure, layout, naming conventions.</div>
+        <div class="card" style="border-top: 2px solid #ef4444">
+          <div class="card-title" style="font-size: 0.95rem">
+            Overlong instructions
           </div>
-        </div>
-        <div class="stack-row">
-          <div class="index-badge">03</div>
-          <div>
-            <div class="card-title" style="font-size: 0.95rem">
-              What to avoid
-            </div>
-            <div class="card-body">
-              Guardrails, anti-patterns, known pitfalls.
-            </div>
-          </div>
-        </div>
-        <div class="stack-row">
-          <div class="index-badge">04</div>
-          <div>
-            <div class="card-title" style="font-size: 0.95rem">
-              Examples (optional)
-            </div>
-            <div class="card-body">
-              A sample of good output. Anchors quality.
-            </div>
+          <div class="card-body">
+            AI loses focus. Competing directives. Muddled output.
           </div>
         </div>
       </div>
-      <p
-        class="body-text"
-        style="margin-top: 32px; font-size: 12px; color: var(--stone)"
-      >
-        You're writing instructions for a very capable assistant. Be specific
-        about what you want.
-      </p>
+      <div class="callout">
+        Be specific in the description, concise in the instructions.
+      </div>
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
@@ -1254,7 +1301,7 @@
     <!-- ═══════════════════════════════════════════ -->
     <section class="slide" id="s14">
       <div class="label" style="margin-bottom: 24px">
-        011 <span class="pipe"></span> CLARITY
+        014 <span class="pipe"></span> CLARITY
       </div>
       <h2 class="section-title" style="margin-bottom: 32px">
         What Skills Are NOT
@@ -1301,350 +1348,23 @@
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 15 · HOW SKILLS ACTUALLY WORK        -->
+    <!-- SECTION 03 · BUILDING SKILLS               -->
     <!-- ═══════════════════════════════════════════ -->
-    <section class="slide" id="s15" style="background: var(--soot)">
-      <div class="label" style="margin-bottom: 24px">
-        012 <span class="pipe"></span> HOW IT WORKS
-      </div>
-      <h2 class="section-title" style="margin-bottom: 40px">
-        How Skills Actually Work
-      </h2>
-
-      <div class="vs-split" style="max-width: 700px; margin-bottom: 48px">
-        <div class="card" style="border: 1px solid #5c2020">
-          <div class="label" style="color: #ef4444; margin-bottom: 12px">
-            WITHOUT A SKILL
-          </div>
-          <div class="card-body">
-            Re-explain every time. Inconsistent output. Context lost between
-            sessions.
-          </div>
-        </div>
-        <div class="vs-divider"><span>vs</span></div>
-        <div class="card card-signal">
-          <div class="label label-signal" style="margin-bottom: 12px">
-            WITH A SKILL
-          </div>
-          <div class="card-body">
-            One command. Same quality every time. Context is the skill.
-          </div>
-        </div>
-      </div>
-
-      <div class="label" style="margin-bottom: 16px">UNDER THE HOOD</div>
-      <div class="step-flow" style="max-width: 700px">
-        <div class="step-item">
-          <div class="step-num">01</div>
-          <div class="card-body">You ask</div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">02</div>
-          <div class="card-body">AI reads skill descriptions</div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">03</div>
-          <div class="card-body">Loads the matching skill</div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">04</div>
-          <div class="card-body">Follows instructions with your context</div>
-        </div>
-      </div>
-      <div class="callout" style="margin-top: 32px">
-        Skills load on demand. They don't clutter context until you need them.
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 16 · THE REMIX MINDSET               -->
-    <!-- ═══════════════════════════════════════════ -->
-    <section class="slide" id="s16">
-      <div class="label" style="margin-bottom: 24px">
-        013 <span class="pipe"></span> REMIX
-      </div>
-      <h2 class="section-title" style="margin-bottom: 12px">
-        The Remix Mindset
-      </h2>
-      <p class="body-text body-large" style="margin-bottom: 40px">
-        You don't need to start from scratch. Clone, study, adapt. The fastest
-        path.
-      </p>
-      <div style="max-width: 560px">
-        <div class="stack-row">
-          <div class="index-badge">01</div>
-          <div class="card-body">Open a public skill repo</div>
-        </div>
-        <div class="stack-row">
-          <div class="index-badge">02</div>
-          <div class="card-body">Read the name and description</div>
-        </div>
-        <div class="stack-row">
-          <div class="index-badge">03</div>
-          <div class="card-body">Skim the steps</div>
-        </div>
-        <div class="stack-row">
-          <div class="index-badge">04</div>
-          <div class="card-body">Identify inputs and outputs</div>
-        </div>
-        <div class="stack-row">
-          <div class="index-badge">05</div>
-          <div class="card-body">Keep structure, swap your domain</div>
-        </div>
-        <div class="stack-row">
-          <div class="index-badge">06</div>
-          <div class="card-body">Test with normal and edge-case prompts</div>
-        </div>
-      </div>
-      <a
-        href="https://claude.ai/share/702e17e3-ef6e-4a32-b3ac-82e7a77414b5"
-        target="_blank"
-        rel="noopener"
-        class="demo-link"
-        >SEE A REMIX IN ACTION →</a
-      >
-    </section>
-    <!-- ═══════════════════════════════════════════ -->
-    <section
-      class="slide slide-compact"
-      id="s17"
-      style="background: var(--soot)"
-    >
-      <div class="label" style="margin-bottom: 24px">
-        014 <span class="pipe"></span> WATCH FOR
-      </div>
-      <h2 class="section-title" style="margin-bottom: 32px">
-        Common Skill Mistakes
-      </h2>
-      <div class="grid-2" style="max-width: 680px; margin-bottom: 32px">
-        <div class="card" style="border-top: 2px solid #ef4444">
-          <div class="card-title" style="font-size: 0.95rem">
-            Vague descriptions
-          </div>
-          <div class="card-body">
-            The skill never triggers. AI doesn't know when to load it.
-          </div>
-        </div>
-        <div class="card" style="border-top: 2px solid #ef4444">
-          <div class="card-title" style="font-size: 0.95rem">
-            Overlong instructions
-          </div>
-          <div class="card-body">
-            AI loses focus. Competing directives. Muddled output.
-          </div>
-        </div>
-      </div>
-      <div class="callout">
-        Be specific in the description, concise in the instructions.
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 18 · SECTION: LIVE DEMOS             -->
-    <!-- ═══════════════════════════════════════════ -->
-    <section class="divider-slide" id="s18">
+    <section class="divider-slide" id="s15">
       <div class="label label-signal" style="margin-bottom: 16px">
         SECTION 03
       </div>
       <div class="divider-number">03</div>
-      <div class="divider-title">Live Demos</div>
-      <div class="divider-sub">Three real workflows you can steal.</div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 19 · WHAT WE'RE DEMOING              -->
-    <!-- ═══════════════════════════════════════════ -->
-    <section
-      class="slide slide-compact"
-      id="s19"
-      style="background: var(--soot)"
-    >
-      <div class="label" style="margin-bottom: 24px">
-        016 <span class="pipe"></span> DEMOS
-      </div>
-      <h2 class="section-title" style="margin-bottom: 32px">
-        What We're Demoing
-      </h2>
-      <div class="grid-3" style="max-width: 900px">
-        <div class="demo-card">
-          <div class="demo-header">
-            <span class="index-badge">01</span>
-            <span class="card-title" style="margin-bottom: 0; font-size: 0.9rem"
-              >Search Campaign Architect</span
-            >
-          </div>
-          <div class="demo-body">
-            <div class="demo-tag" style="margin-bottom: 8px">
-              Claude Desktop · Live Build
-            </div>
-            <div class="card-body">URL in. Full Google Ads campaign out.</div>
-          </div>
-        </div>
-        <div class="demo-card">
-          <div class="demo-header">
-            <span class="index-badge">02</span>
-            <span class="card-title" style="margin-bottom: 0; font-size: 0.9rem"
-              >Branded HTML Email</span
-            >
-          </div>
-          <div class="demo-body">
-            <div class="demo-tag" style="margin-bottom: 8px">
-              Claude Desktop · Live Build
-            </div>
-            <div class="card-body">Topic in. Brand-consistent email out.</div>
-          </div>
-        </div>
-        <div class="demo-card">
-          <div class="demo-header">
-            <span class="index-badge">03</span>
-            <span class="card-title" style="margin-bottom: 0; font-size: 0.9rem"
-              >Ad Creative Refresher</span
-            >
-          </div>
-          <div class="demo-body">
-            <div class="demo-tag" style="margin-bottom: 8px">
-              Claude Code + Nano Banana Pro
-            </div>
-            <div class="card-body">Winning ad in. Fresh variations out.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 20 · DEMO 1: SEARCH CAMPAIGN         -->
-    <!-- ═══════════════════════════════════════════ -->
-    <section class="slide" id="s20">
-      <div class="label label-signal" style="margin-bottom: 24px">
-        DEMO 01 <span class="pipe"></span> LIVE BUILD
-      </div>
-      <h2 class="section-title" style="margin-bottom: 12px">
-        Google Search Campaign Architect
-      </h2>
-      <p class="body-text" style="margin-bottom: 32px; color: var(--dust)">
-        Input: Just a URL. Output: Full Google Ads search campaign map —
-        copy-paste ready into Google Ads.
-      </p>
-      <div class="grid-3" style="max-width: 700px; margin-bottom: 32px">
-        <div class="card" style="padding: 20px">
-          <div class="card-body" style="font-size: 12px">
-            Runs in Claude Desktop
-          </div>
-        </div>
-        <div class="card" style="padding: 20px">
-          <div class="card-body" style="font-size: 12px">
-            Built using James's Skill Creator (TVM community tool)
-          </div>
-        </div>
-        <div class="card" style="padding: 20px">
-          <div class="card-body" style="font-size: 12px">
-            No API keys needed
-          </div>
-        </div>
-      </div>
-      <div class="callout">
-        This is a first-draft builder, not an autonomous ad buyer. General
-        skill, transferrable across orgs. Want to go further? Build a skill
-        that uploads campaigns directly.
-      </div>
-      <a
-        href="https://claude.ai/share/d7461c9f-5a88-450e-8160-19944e44abaa"
-        target="_blank"
-        rel="noopener"
-        class="demo-link"
-        >VIEW CONVERSATION →</a
-      >
-      <!-- <div class="demo-preview">screenshot placeholder</div> -->
-    </section>
-
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 21 · DEMO 2: BRANDED EMAIL           -->
-    <!-- ═══════════════════════════════════════════ -->
-    <section class="slide" id="s21" style="background: var(--soot)">
-      <div class="label label-signal" style="margin-bottom: 24px">
-        DEMO 02 <span class="pipe"></span> LIVE BUILD
-      </div>
-      <h2 class="section-title" style="margin-bottom: 12px">
-        Branded HTML Email Generator
-      </h2>
-      <p class="body-text" style="margin-bottom: 32px; color: var(--dust)">
-        Input: A topic. Output: Fully designed, brand-consistent HTML email.
-      </p>
-      <div
-        style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px"
-      >
-        <span class="logo-pill" style="border-color: var(--signal-dim)"
-          >Brand voice</span
-        >
-        <span class="logo-pill" style="border-color: var(--signal-dim)"
-          >Colors + layout</span
-        >
-        <span class="logo-pill" style="border-color: var(--signal-dim)"
-          >Design tokens</span
-        >
-        <span class="logo-pill" style="border-color: var(--signal-dim)"
-          >Copy-paste to ESP</span
-        >
-      </div>
-      <div class="callout">
-        This skill holds everything about my business. This is what "personal
-        skills" look like in practice.
-      </div>
-      <a
-        href="https://claude.ai/share/c093efd3-52dc-4bd6-a4b0-ceffb728acaa"
-        target="_blank"
-        rel="noopener"
-        class="demo-link"
-        >VIEW CONVERSATION →</a
-      >
-      <!-- <div class="demo-preview">screenshot placeholder</div> -->
-    </section>
-
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 22 · DEMO 3: AD CREATIVE REFRESHER   -->
-    <!-- ═══════════════════════════════════════════ -->
-    <section class="slide" id="s22" style="background: var(--soot)">
-      <div class="label label-signal" style="margin-bottom: 24px">
-        DEMO 03 <span class="pipe"></span> CLAUDE CODE + NANO BANANA PRO
-      </div>
-      <h2 class="section-title" style="margin-bottom: 12px">
-        Ad Creative Refresher
-      </h2>
-      <p class="body-text" style="margin-bottom: 32px; color: var(--dust)">
-        Input: Your winning ad. Output: Fresh variations. Runs in Claude Code +
-        Nano Banana Pro (Gemini image generation).
-      </p>
-      <p
-        class="body-text"
-        style="font-size: 12px; color: var(--stone); margin-bottom: 24px"
-      >
-        Requires Gemini API key. Free tier available.
-      </p>
-      <div class="callout">
-        Claude Code handles the creative logic. Nano Banana Pro generates the
-        images. You bring the winning ad.
-      </div>
-      <!-- <div class="demo-preview">screenshot placeholder</div> -->
-    </section>
-
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 24 · SECTION: BUILDING SKILLS        -->
-    <!-- ═══════════════════════════════════════════ -->
-    <section class="divider-slide" id="s24">
-      <div class="label label-signal" style="margin-bottom: 16px">
-        SECTION 04
-      </div>
-      <div class="divider-number">04</div>
       <div class="divider-title">Building Skills</div>
       <div class="divider-sub">Let's make one together.</div>
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 25 · WHAT MAKES A GOOD SKILL         -->
+    <!-- WHAT MAKES A GOOD SKILL                    -->
     <!-- ═══════════════════════════════════════════ -->
-    <section class="slide" id="s25" style="background: var(--soot)">
+    <section class="slide" id="s16" style="background: var(--soot)">
       <div class="label" style="margin-bottom: 24px">
-        021 <span class="pipe"></span> FILTERS
+        016 <span class="pipe"></span> FILTERS
       </div>
       <h2 class="section-title" style="margin-bottom: 40px">
         What Makes a Good Skill?
@@ -1708,11 +1428,11 @@
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 26 · LET'S BUILD IT                  -->
+    <!-- LET'S BUILD IT                             -->
     <!-- ═══════════════════════════════════════════ -->
-    <section class="slide" id="s26">
+    <section class="slide" id="s17">
       <div class="label label-signal" style="margin-bottom: 24px">
-        022 <span class="pipe"></span> LIVE ~15 MIN
+        017 <span class="pipe"></span> LIVE ~15 MIN
       </div>
       <h2 class="section-title" style="margin-bottom: 40px">Let's Build It</h2>
       <div class="step-flow" style="max-width: 700px; margin-bottom: 32px">
@@ -1733,20 +1453,17 @@
           <div class="card-body">Test it on a real example</div>
         </div>
       </div>
-      <a
-        href="vibe-skill-creator.skill"
-        download="vibe-skill-creator.skill"
-        class="demo-link"
-        >INSTALL VIBE SKILL CREATOR →</a
-      >
+      <p class="body-text" style="color: var(--dust)">
+        Open Claude &rarr; Settings &rarr; Capabilities &rarr; Skill Creator &rarr; Try in chat
+      </p>
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 27 · WHAT WE BUILT                   -->
+    <!-- THAT'S A SKILL                             -->
     <!-- ═══════════════════════════════════════════ -->
     <section
       class="slide slide-compact"
-      id="s27"
+      id="s18"
       style="background: var(--soot)"
     >
       <div class="accent-bar" style="margin-bottom: 24px"></div>
@@ -1764,9 +1481,211 @@
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
+    <!-- SECTION 04 · LIVE DEMOS                    -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="divider-slide" id="s19">
+      <div class="label label-signal" style="margin-bottom: 16px">
+        SECTION 04
+      </div>
+      <div class="divider-number">04</div>
+      <div class="divider-title">Live Demos</div>
+      <div class="divider-sub">Three real workflows you can steal.</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- WHAT WE'RE DEMOING                         -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section
+      class="slide slide-compact"
+      id="s20"
+      style="background: var(--soot)"
+    >
+      <div class="label" style="margin-bottom: 24px">
+        020 <span class="pipe"></span> DEMOS
+      </div>
+      <h2 class="section-title" style="margin-bottom: 32px">
+        What We're Demoing
+      </h2>
+      <div class="grid-3" style="max-width: 900px">
+        <div class="demo-card">
+          <div class="demo-header">
+            <span class="index-badge">01</span>
+            <span class="card-title" style="margin-bottom: 0; font-size: 0.9rem"
+              >Search Campaign Architect</span
+            >
+          </div>
+          <div class="demo-body">
+            <div class="demo-tag" style="margin-bottom: 8px">
+              Claude Desktop · Live Build
+            </div>
+            <div class="card-body">I run Google Ads at my day job. This skill builds full campaigns from a URL.</div>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-header">
+            <span class="index-badge">02</span>
+            <span class="card-title" style="margin-bottom: 0; font-size: 0.9rem"
+              >Branded HTML Email</span
+            >
+          </div>
+          <div class="demo-body">
+            <div class="demo-tag" style="margin-bottom: 8px">
+              Claude Desktop · Live Build
+            </div>
+            <div class="card-body">I have a side business in maintenance mode. This skill keeps emails on-brand without me.</div>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-header">
+            <span class="index-badge">03</span>
+            <span class="card-title" style="margin-bottom: 0; font-size: 0.9rem"
+              >Ad Creative Refresher</span
+            >
+          </div>
+          <div class="demo-body">
+            <div class="demo-tag" style="margin-bottom: 8px">
+              Claude Code + Nano Banana Pro
+            </div>
+            <div class="card-body">My coworkers run static ads. This skill generates fresh variations of winners.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- DEMO 1: SEARCH CAMPAIGN                    -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s21">
+      <div class="label label-signal" style="margin-bottom: 24px">
+        DEMO 01 <span class="pipe"></span> LIVE BUILD
+      </div>
+      <h2 class="section-title" style="margin-bottom: 12px">
+        Google Search Campaign Architect
+      </h2>
+      <p class="body-text" style="margin-bottom: 32px; color: var(--dust)">
+        I rebuild Google Ads campaigns every week at work. This skill takes a
+        URL and drafts the whole thing — copy-paste ready into Google Ads.
+      </p>
+      <div class="callout">
+        First-draft builder, not an autonomous ad buyer. General skill,
+        transferrable across orgs.
+      </div>
+      <a
+        href="https://claude.ai/new?q=Hey+Claude%E2%80%94can+you+make+something+amazing+with+my+%22%7Bskill-name%7D%22+skill%3F&skill-name=google-search-campaign"
+        target="_blank"
+        rel="noopener"
+        class="demo-link"
+        >Run Skill in Claude →</a
+      >
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- DEMO 2: BRANDED EMAIL                      -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s22" style="background: var(--soot)">
+      <div class="label label-signal" style="margin-bottom: 24px">
+        DEMO 02 <span class="pipe"></span> LIVE BUILD
+      </div>
+      <h2 class="section-title" style="margin-bottom: 12px">
+        Branded HTML Email Generator
+      </h2>
+      <p class="body-text" style="margin-bottom: 32px; color: var(--dust)">
+        I have a side business but no time to write emails. This skill holds my
+        brand voice, colors, and copy rules — topic in, finished email out.
+      </p>
+      <div class="callout">
+        This skill holds everything about my business. Brand voice, colors,
+        layout, copy rules. This is what "personal skills" look like.
+      </div>
+      <a
+        href="https://claude.ai/new?q=Hey+Claude%E2%80%94can+you+make+something+amazing+with+my+%22%7Bskill-name%7D%22+skill%3F&skill-name=fungushead-email-generator"
+        target="_blank"
+        rel="noopener"
+        class="demo-link"
+        >Run Skill in Claude →</a
+      >
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- DEMO 3: AD CREATIVE REFRESHER              -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s23" style="background: var(--soot)">
+      <div class="label label-signal" style="margin-bottom: 24px">
+        DEMO 03 <span class="pipe"></span> CLAUDE CODE + NANO BANANA PRO
+      </div>
+      <h2 class="section-title" style="margin-bottom: 12px">
+        Ad Creative Refresher
+      </h2>
+      <p class="body-text" style="margin-bottom: 32px; color: var(--dust)">
+        My coworkers run static ads and constantly need fresh variations of
+        winners. This skill handles the creative logic — Claude Code +
+        Nano Banana Pro (Gemini image generation).
+      </p>
+      <p
+        class="body-text"
+        style="font-size: 12px; color: var(--stone); margin-bottom: 24px"
+      >
+        Requires Gemini API key. Free tier available.
+      </p>
+      <div class="callout">
+        Claude Code handles the creative logic. Nano Banana Pro generates the
+        images. You bring the winning ad.
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- THE REMIX MINDSET                          -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s24">
+      <div class="label" style="margin-bottom: 24px">
+        024 <span class="pipe"></span> REMIX
+      </div>
+      <h2 class="section-title" style="margin-bottom: 12px">
+        The Remix Mindset
+      </h2>
+      <p class="body-text body-large" style="margin-bottom: 40px">
+        You don't need to start from scratch. Clone, study, adapt. The fastest
+        path.
+      </p>
+      <div style="max-width: 560px">
+        <div class="stack-row">
+          <div class="index-badge">01</div>
+          <div class="card-body">Open a public skill repo</div>
+        </div>
+        <div class="stack-row">
+          <div class="index-badge">02</div>
+          <div class="card-body">Read the name and description</div>
+        </div>
+        <div class="stack-row">
+          <div class="index-badge">03</div>
+          <div class="card-body">Skim the steps</div>
+        </div>
+        <div class="stack-row">
+          <div class="index-badge">04</div>
+          <div class="card-body">Identify inputs and outputs</div>
+        </div>
+        <div class="stack-row">
+          <div class="index-badge">05</div>
+          <div class="card-body">Keep structure, swap your domain</div>
+        </div>
+        <div class="stack-row">
+          <div class="index-badge">06</div>
+          <div class="card-body">Test with normal and edge-case prompts</div>
+        </div>
+      </div>
+      <a
+        href="https://claude.ai/share/702e17e3-ef6e-4a32-b3ac-82e7a77414b5"
+        target="_blank"
+        rel="noopener"
+        class="demo-link"
+        >SEE A REMIX IN ACTION →</a
+      >
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
     <!-- SLIDE 28 · SECTION: SAFETY + RESOURCES     -->
     <!-- ═══════════════════════════════════════════ -->
-    <section class="divider-slide" id="s28">
+    <section class="divider-slide" id="s25">
       <div class="label label-signal" style="margin-bottom: 16px">
         SECTION 05
       </div>
@@ -1778,9 +1697,9 @@
     <!-- ═══════════════════════════════════════════ -->
     <!-- SLIDE 29 · SAFETY CHECKLIST                -->
     <!-- ═══════════════════════════════════════════ -->
-    <section class="slide" id="s29" style="background: var(--soot)">
+    <section class="slide" id="s26" style="background: var(--soot)">
       <div class="label" style="margin-bottom: 24px">
-        024 <span class="pipe"></span> SAFETY
+        026 <span class="pipe"></span> SAFETY
       </div>
       <h2 class="section-title" style="margin-bottom: 32px">
         Safety Checklist
@@ -1867,9 +1786,9 @@
     <!-- ═══════════════════════════════════════════ -->
     <!-- SLIDE 30 · WHERE TO FIND SKILLS            -->
     <!-- ═══════════════════════════════════════════ -->
-    <section class="slide" id="s30">
+    <section class="slide" id="s27">
       <div class="label" style="margin-bottom: 24px">
-        025 <span class="pipe"></span> TRUST TIERS
+        027 <span class="pipe"></span> TRUST TIERS
       </div>
       <h2 class="section-title" style="margin-bottom: 32px">
         Where to Find Skills
@@ -1956,95 +1875,13 @@
     <!-- ═══════════════════════════════════════════ -->
     <!-- SLIDE 31 · SECTION: TAKEAWAY               -->
     <!-- ═══════════════════════════════════════════ -->
-    <section class="divider-slide" id="s31">
+    <section class="divider-slide" id="s28">
       <div class="label label-signal" style="margin-bottom: 16px">
         SECTION 06
       </div>
       <div class="divider-number">06</div>
       <div class="divider-title">Your Takeaway</div>
-      <div class="divider-sub">Free skills. Concrete next steps.</div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 32 · SKILL STARTER KIT               -->
-    <!-- ═══════════════════════════════════════════ -->
-    <section class="slide" id="s32" style="background: var(--soot)">
-      <div class="accent-bar" style="margin-bottom: 24px"></div>
-      <div class="label" style="margin-bottom: 24px">
-        027 <span class="pipe"></span> FREE
-      </div>
-      <h2 class="section-title" style="margin-bottom: 32px">
-        Your Free Take-Home: Skill Starter Kit
-      </h2>
-      <div class="grid-3" style="max-width: 750px; margin-bottom: 32px">
-        <div class="card card-signal">
-          <div class="card-title" style="font-size: 0.9rem">
-            Vibe Skill Builder
-          </div>
-          <div class="card-body" style="font-size: 12px">
-            Turns a repetitive task description into a usable SKILL.md
-          </div>
-        </div>
-        <div class="card card-signal">
-          <div class="card-title" style="font-size: 0.9rem">
-            Brand Voice Extractor
-          </div>
-          <div class="card-body" style="font-size: 12px">
-            Captures your tone, phrases to use and avoid, formatting preferences
-          </div>
-        </div>
-        <div class="card card-signal">
-          <div class="card-title" style="font-size: 0.9rem">
-            Quality Check / Output Gate
-          </div>
-          <div class="card-body" style="font-size: 12px">
-            Reviews AI outputs for completeness, brand alignment, clarity, and
-            risk
-          </div>
-        </div>
-      </div>
-      <p class="body-text" style="color: var(--dust)">
-        Delivered as a simple downloadable pack with install steps and test
-        prompts. Install today, use today.
-      </p>
-    </section>
-
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- SLIDE 33 · COMMUNITY UPGRADE               -->
-    <!-- ═══════════════════════════════════════════ -->
-    <section class="slide" id="s33">
-      <div class="label" style="margin-bottom: 24px">
-        028 <span class="pipe"></span> COMMUNITY
-      </div>
-      <h2 class="section-title" style="margin-bottom: 32px">
-        Skill Remix Lab + Skill Vault
-      </h2>
-      <div class="grid-2" style="max-width: 680px; margin-bottom: 32px">
-        <div class="card">
-          <div class="label label-signal" style="margin-bottom: 12px">
-            MONTHLY
-          </div>
-          <div class="card-title" style="font-size: 0.9rem">
-            Skill Remix Lab
-          </div>
-          <div class="card-body">
-            Live session remixing a public skill into personalized versions.
-            Finished skill pack + notes shared after.
-          </div>
-        </div>
-        <div class="card">
-          <div class="label label-signal" style="margin-bottom: 12px">
-            GROWING LIBRARY
-          </div>
-          <div class="card-title" style="font-size: 0.9rem">Skill Vault</div>
-          <div class="card-body">
-            Tested, production-ready skills you can install and use immediately.
-          </div>
-        </div>
-      </div>
-      <p class="body-text body-large">
-        This is where skills move from experimentation to a repeatable system.
-      </p>
+      <div class="divider-sub">One thing to remember.</div>
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
@@ -2053,7 +1890,7 @@
     <!-- ★ THE VOID — emphasis by withdrawal ★ -->
     <section
       class="slide"
-      id="s34"
+      id="s29"
       style="
         min-height: 100vh;
         display: flex;
@@ -2100,7 +1937,7 @@
     <!-- ═══════════════════════════════════════════ -->
     <section
       class="slide"
-      id="s35"
+      id="s30"
       style="
         min-height: 100vh;
         display: flex;
@@ -2150,7 +1987,7 @@
       const navDots = document.getElementById("navDots");
 
       // Group slides by section for dots
-      const sectionStarts = [0, 3, 8, 17, 23, 27, 30]; // indices of section dividers
+      const sectionStarts = [0, 3, 7, 14, 18, 24, 27]; // indices of section dividers
       sectionStarts.forEach((_, i) => {
         const dot = document.createElement("div");
         dot.className = "nav-dot";
