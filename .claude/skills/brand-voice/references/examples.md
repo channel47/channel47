@@ -160,3 +160,174 @@ These show how the four content pillars sound in practice.
 
 **Process note opener:**
 "I changed my whole publishing workflow this month. Not because the old one was broken. Because I noticed I was avoiding it. That's usually the real problem."
+
+---
+
+## Landing Page Copy
+
+Hero headlines, feature blocks, CTAs, and rupture copy. The "after" examples are drawn from actual ch47 site patterns.
+
+### Hero Headlines
+
+**Generic:**
+"The Ultimate AI-Powered Google Ads Management Platform That Saves You Time and Money"
+
+**ch47:**
+"Stop clicking. Start supervising."
+
+---
+
+**Generic:**
+"Revolutionize Your Ad Management with Cutting-Edge AI Technology"
+
+**ch47:**
+"Your ad account doesn't need more features. It needs fewer mistakes."
+
+---
+
+### Feature Copy
+
+**Generic:**
+"Our advanced AI engine automatically optimizes your campaigns in real-time, leveraging machine learning to maximize ROI and minimize wasted spend across all your accounts."
+
+**ch47:**
+"The agent runs a loop with guardrails so you approve changes instead of living in the UI. Every change comes with reasoning you can read, approve, or override."
+
+---
+
+**Generic:**
+"Key Benefits: Save 10+ hours per week. Reduce wasted spend by 40%. Scale across unlimited accounts."
+
+**ch47:**
+"Catches the expensive miss you're too busy to find. Does Monday morning work before Monday morning. Explains itself in plain English."
+
+---
+
+### Rupture / Objection Copy
+
+**Generic:**
+"But don't just take our word for it! Here's what our customers are saying about their incredible results..."
+
+**ch47:**
+"This isn't vaporware. The plugin that became the foundation already runs in production on my accounts. I'm building the full agent in public. Code on GitHub, progress on Substack, decisions and dead ends included."
+
+---
+
+**Generic:**
+"Risk-Free Guarantee: Try it for 30 days. If you're not 100% satisfied, we'll refund every penny, no questions asked!"
+
+**ch47:**
+"When it's ready, it ships open-source. Any media buyer can run it on their own accounts, their own infrastructure, no vendor lock-in."
+
+---
+
+### CTA Copy
+
+**Generic:**
+"Start Your Free Trial Today and Transform Your Ad Performance Forever!"
+
+**ch47:**
+"Get the build notes"
+
+---
+
+**Generic:**
+"Don't Miss Out! Join 10,000+ Marketers Who Are Already Seeing Results!"
+
+**ch47:**
+"Subscribe"
+
+---
+
+**Generic:**
+"Yes! I Want to Unlock My Full Potential!"
+
+**ch47:**
+"Try it"
+
+---
+
+## Email Copy
+
+Subject lines, welcome emails, launch announcements, and CTA lines.
+
+### Subject Lines
+
+**Generic:**
+"You Won't Believe What Our AI Can Do For Your Ad Spend!"
+
+**ch47:**
+"One script. $3K/month in wasted spend."
+
+---
+
+**Generic:**
+"Exciting News: Our Latest Feature Is Here!"
+
+**ch47:**
+"Shipped something this week"
+
+---
+
+**Generic:**
+"5 Secrets to Maximizing Your Google Ads ROI"
+
+**ch47:**
+"What I found digging through 25 ad accounts"
+
+---
+
+### Welcome Email (The Delivery)
+
+**Generic:**
+"Welcome to the family! We're SO excited to have you on board. You've just taken the first step toward transforming your digital advertising. In this email series, we'll share our best tips, tricks, and strategies to help you get the most out of our platform. But first, let us tell you a little about ourselves..."
+
+**ch47:**
+"Here's the build notes archive. [Link]
+
+Short emails when something real ships. Automations, prompt templates, architecture decisions. I'll also include the dead ends because those are usually more interesting.
+
+First real one coming this week."
+
+---
+
+### Launch Announcement
+
+**Generic:**
+"After months of hard work, we're THRILLED to announce the launch of our revolutionary new feature! This game-changing update will transform how you manage your campaigns. For a limited time, early adopters get 50% off. Don't wait - this offer expires in 48 hours!"
+
+**ch47:**
+"The ads plugin is live. v2.5.
+
+It audits accounts, catches negative keyword gaps, flags pacing issues, and explains what it found. Open source. Run it on your own accounts.
+
+GitHub link: [link]
+Install guide: [link]
+
+Build log about the launch process coming Thursday. Some things went wrong."
+
+---
+
+### Email CTA Lines
+
+**Generic:**
+"Click here to claim your exclusive access before it's too late!"
+
+**ch47:**
+"The script is in the repo. Try it on a test account first."
+
+---
+
+**Generic:**
+"Ready to supercharge your results? Get started now!"
+
+**ch47:**
+"If this is useful, the build notes have more."
+
+---
+
+**Generic:**
+"Don't forget to share this with your team!"
+
+**ch47:**
+"PS: The full build log is messier than this email. Fair warning."

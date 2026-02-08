@@ -1,6 +1,6 @@
 ---
 name: frontend-design
-description: "channel47 design system. Dark-first, mono-heavy, built by someone with opinions. Use when building web components, pages, artifacts, posters, dashboards, React components, HTML/CSS layouts, or styling any web UI for the user. Produces interfaces with contrast, rhythm, and at least one moment that breaks the pattern. Not warm and editorial. Sharp, considered, slightly weird. Triggers on: build a page, website, landing page, dashboard, component, style, beautify, frontend, UI, web design, artifact, ch47, channel47."
+description: "This skill should be used when building web components, pages, artifacts, posters, dashboards, React components, HTML/CSS layouts, or styling any web UI for channel47. Covers the full design system including motion, animation, scroll effects, micro-interactions, and choreography. Triggers on: build a page, website, landing page, dashboard, component, style, beautify, frontend, UI, web design, artifact, animation, motion, scroll effect, hover effect, micro-interaction, entrance animation, ch47, channel47."
 ---
 
 # Frontend Design. ch47.
@@ -73,7 +73,7 @@ Reserved for pull quotes in editorial long-form only. Maybe once per page, and o
 
 ### Motion
 
-Motion is covered in detail by the `motion-design` skill. Core principles here for quick reference:
+Motion is covered in detail in [references/motion.md](references/motion.md). Core principles here for quick reference:
 
 Quick and decisive. Things arrive. They don't drift. No bounce. No elastic. No spring physics.
 
@@ -87,7 +87,7 @@ Easing     cubic-bezier(0.16, 1, 0.3, 1)    Fast start, smooth land. Default.
 Sharp      cubic-bezier(0.33, 1, 0.68, 1)    Snappier. Interactive elements.
 ```
 
-For animation patterns, hover effects, scroll reveals, and the glitch hover, see the `motion-design` skill.
+For animation patterns, hover effects, scroll reveals, and the glitch hover, see [references/motion.md](references/motion.md).
 
 ### Geometry
 
@@ -224,7 +224,7 @@ Layouts that follow every rule but feel dead, and why.
 5. **Place the Rupture.** Decide what it is before starting. Everything else sets it up. Keep it in-brand. Ensure it shifts density AND surface, not just color.
 6. **Apply hierarchy by withdrawal.** Find the most important element. Try removing everything around it before making it bigger.
 7. **Accent last.** Build in neutrals. Add Signal precisely. One link, one bar, one data point per viewport. Count the Signal placements. If more than 4, cut.
-8. **Animate sparingly.** See the `motion-design` skill for patterns and choreography. Default: 2-4 animated elements per page, with clear lead/support roles.
+8. **Animate sparingly.** See [references/motion.md](references/motion.md) for patterns and choreography. Default: 2-4 animated elements per page, with clear lead/support roles.
 9. **Anti-recipe check.** Compare against the four anti-recipes. If the page matches any of them, iterate.
 
 ## Type Scale
@@ -258,6 +258,8 @@ Signal stays #F59E0B on both surfaces. This is a deliberate choice. The yellow r
 
 Kill: gradients (purple-blue-teal), rounded card grids, sans-serif-only (Inter/Roboto), predictable hero-features-testimonials-CTA flow, hover zoo (everything reacts), bounce/spring physics, cold surfaces (blue-gray), even pages (same padding everywhere), safe centered symmetric layouts, pulsing/glowing orbs, scanline overlays, particle effects, any motion that says "sci-fi UI" more than "someone built this."
 
+**Exception: atmospheric effects.** Breathing glow (subtle brightness oscillation on accent bars), noise drift (texture translation over 8-10s), and status dot pulse are not "infinite animations" in the anti-pattern sense. They function as texture, not motion. They should be imperceptible as animation. If someone notices the breathing glow, it's too strong. See [references/motion.md](references/motion.md) for implementation.
+
 ## Responsive
 
 Mobile simplifies, doesn't soften. Mono at 14px is legible on mobile. Touch targets 44px min. Rupture adapts, never disappears. Display type via `clamp()`. Broadcast Labels stay the same. No hover dependency.
@@ -265,6 +267,8 @@ Mobile simplifies, doesn't soften. Mono at 14px is legible on mobile. Touch targ
 ## Recipes
 
 For full component patterns (landing pages, directories, dashboards, forms, buttons, dark/light mode), see [references/recipes.md](references/recipes.md).
+
+For animation patterns (entrances, scroll effects, micro-interactions, choreography sequences), see [references/motion.md](references/motion.md).
 
 ## References
 

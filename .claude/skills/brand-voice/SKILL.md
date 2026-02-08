@@ -1,6 +1,6 @@
 ---
 name: brand-voice
-description: "channel47 brand voice preset. ALWAYS load before writing ANY content for the user. Posts, newsletters, articles, emails, product copy, landing pages, bios, social media. Tight, sharp, slightly weird. First-person builder who shows the work. Triggers on: writing content, drafting posts, newsletter, article, LinkedIn, X post, tweet, copy, brand voice, tone of voice, how we sound, write like me, ch47, channel47."
+description: "This skill should be used when writing ANY content for channel47. Posts, newsletters, articles, emails, landing pages, sales pages, product copy, bios, social media, CTAs, email sequences, opt-in pages. Triggers on: writing content, drafting posts, newsletter, article, LinkedIn, X post, tweet, copy, brand voice, tone of voice, landing page, email sequence, conversion copy, CTA, sales page, signup page, opt-in, persuasion, how we sound, write like me, ch47, channel47."
 ---
 
 # Brand Voice. channel47.
@@ -192,6 +192,46 @@ The voice is all constraints. Tight, short, punchy, dry. Virtuoso voices know wh
 
 Every rule-break earns its place by contrast with the rules around it. If you break the rules without establishing them first, it's just inconsistency.
 
+## Persuasion Philosophy
+
+Voice is how ch47 sounds. Persuasion is how ch47 moves people to act. The two are inseparable. Most brands bolt persuasion on top of voice like a sales layer. ch47 persuades *through* the voice itself. The restraint, the specificity, the refusal to hype. That IS the persuasion.
+
+### The Stance
+
+**Conviction transfer, not manipulation.** The goal of any conversion moment is to transfer enough conviction about the problem and the approach that the reader arrives at the same conclusion you did. The ask becomes obvious. You're not "selling." You're sharing what you built, why you built it, and who it's for. If the reader is the right person, the action is self-evident.
+
+### Three Principles
+
+**1. Earned ask.** Every conversion moment is preceded by enough value that the ask is a natural next step. The reader decides. They don't get sold. A CTA after a build log that taught them something specific feels like a favor. A CTA after a paragraph of benefits feels like a trap. The ratio matters. Deliver 10x the value of the ask before making it.
+
+**2. Stated intent.** Don't hide the conversion goal. The mechanism is confidence, not pressure. "This is what it is. This is what you get. This is what it costs." That directness reads as respect. Manipulation requires obscuring intent. ch47 states it. The reader trusts the ask because nothing was hidden on the way to it.
+
+**3. The anti-CTA.** CTAs are plain statements. "Get build notes." "Try it." "Subscribe." In a world of screaming buttons ("UNLOCK YOUR POTENTIAL NOW"), a quiet one stands out. The restraint IS the persuasion. Confident things don't shout. Desperate things shout. ch47 CTAs describe what happens, not what to feel.
+
+### Standard vs. ch47 Persuasion
+
+| Standard direct response | ch47 equivalent |
+|---|---|
+| Manufacture urgency ("Only 3 spots left!") | State real constraints ("Ships when it's ready") |
+| Amplify pain ("Tired of wasting money?") | Name the problem precisely ("$3K/month in wasted spend across two accounts") |
+| Testimonial walls | One specific proof moment with context |
+| Benefits-first feature list | Mechanism-first description (what it does, then why that matters) |
+| Objection FAQ section | Objections handled through narrative specificity |
+| Countdown timers | No artificial scarcity. Ever. |
+| "Risk-free guarantee!!!" | Honest status ("The plugin runs on my accounts. Open source when it's ready.") |
+| Social proof badges | Stats strip with real numbers, no interpretation |
+| Long-form sales letter | Density-mapped landing page (narrative with a conversion point) |
+
+### How This Shows Up
+
+In a landing page: the page is a narrative with a conversion point, not a funnel with sections. The hero is a thesis, not a benefit claim. The rupture earns the ask by changing the reader's frame. The CTA is plain.
+
+In an email: the email IS value. The promotion lives inside useful content, never as a separate "and now the pitch" section. The reader opened for the content. The content earns the ask. The ask is one line.
+
+In product copy: three beats. Statement. Proof. Ask. Done. "Does one thing well. Try it. Poke at it."
+
+For operational patterns, formulas, and sequences, see [references/conversion.md](references/conversion.md).
+
 ## Channel Variations
 
 Voice stays the same. Volume adapts.
@@ -205,6 +245,10 @@ Voice stays the same. Volume adapts.
 **Newsletter.** Fullest expression. Longer thoughts. Single topic, depth. Quality over everything. The flagship. All opening moves available. Use the full beat pattern. This is where the Long Run and Sincere Beat live.
 
 **Long-form.** Deep dives. Show the build. Screenshots, code, process. Teach by doing. Beat pattern: extended version of Build Log. Tension section can be 60% of the piece. Multiple turns allowed.
+
+**Landing page.** The page is a narrative with a conversion point, not a funnel with sections. Hero is a thesis, not a benefit claim. CTA is plain, not loud. Density map drives rhythm. Opening move: Cold Start or The Reframe. Beat pattern follows the density map (see Compositional Architecture). Reference [references/conversion.md](references/conversion.md) for landing page formulas and patterns.
+
+**Email.** Newsletter voice, compressed. 150-300 words. One idea per email. Subject lines use the same opening moves as editorial. PS lines welcome. Never clickbait, never urgency language. Opening move: Cold Start, Artifact, or Confession. Reference [references/conversion.md](references/conversion.md) for email sequence patterns.
 
 **Product copy.** Tight. Clear. Let the work speak. Opening move: Cold Start or Artifact. Beat pattern: statement, proof, ask. Three beats. Done.
 
@@ -245,3 +289,5 @@ These angles are never stated in copy. They're embedded in what gets made and ho
 ## Calibration
 
 For before/after voice examples across all channels, see [references/examples.md](references/examples.md).
+
+For conversion copy patterns (landing pages, emails, persuasion mechanics), see [references/conversion.md](references/conversion.md).
