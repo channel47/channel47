@@ -16,68 +16,75 @@ import SocialLinks from '../components/SocialLinks.astro';
 >
   <main class="start">
 
-    <!-- ── HEADER (LOW) ── -->
-    <header class="start__header">
+    <!-- ── HEADER (LOW density) ── -->
+    <header class="start__header" data-section="header">
       <div class="start__bar" aria-hidden="true"></div>
       <p class="start__label start__label--signal">FROM THE SESSION</p>
-      <h1 class="start__title">AI Skills Starter Kit</h1>
+      <h1 class="start__title">Start Building</h1>
       <p class="start__sub">
-        Everything from today. Free skills, resources, next steps.
+        Three skills you can install right now. Resources for after. One email worth reading.
       </p>
     </header>
 
     <!-- ── NEWSLETTER (RUPTURE — light inversion) ── -->
-    <section class="start__rupture" data-animate="fade-up">
-      <p class="start__label start__label--signal">THE BUILD LOG</p>
-      <h2 class="start__rupture-heading">I build with AI and share what works.</h2>
-      <p class="start__rupture-body">
-        Tools I'm testing. Skills I'm shipping. Things that broke.
-        One email when there's something worth sharing.
-      </p>
-      <EmailSignup
-        tag="start-page"
-        submitText="Subscribe"
-        placeholder="your@email.com"
-      />
+    <section class="start__rupture" data-section="rupture">
+      <div class="start__rupture-bar" aria-hidden="true"></div>
+      <div class="start__rupture-content">
+        <p class="start__label start__label--signal">THE BUILD LOG</p>
+        <h2 class="start__rupture-heading">I build with AI and share what works.</h2>
+        <p class="start__rupture-body">
+          Tools I'm testing. Skills I'm shipping. Things that broke.
+          No schedule. Just signal.
+        </p>
+        <EmailSignup
+          tag="start-page"
+          submitText="Subscribe"
+          placeholder="your@email.com"
+        />
+      </div>
     </section>
 
-    <!-- ── FREE SKILLS (HIGH) ── -->
-    <section class="start__section">
+    <!-- ── FREE SKILLS (HIGH density) ── -->
+    <section class="start__section start__section--skills" data-section="skills">
+      <div class="start__section-bar" aria-hidden="true"></div>
       <p class="start__label">FREE SKILLS</p>
-      <h2 class="start__heading">Install and Use Today</h2>
+      <h2 class="start__heading">Three skills. Ready now.</h2>
       <div class="start__skills">
-        <div class="start__card">
+        <div class="start__card" data-card>
+          <span class="start__card-index" aria-hidden="true">001</span>
           <p class="start__card-title">Vibe Skill Builder</p>
           <p class="start__card-body">
-            Turns a repetitive task description into a usable SKILL.md
+            Describe a repetitive task. Get a working SKILL.md back.
           </p>
           <a
             href="/skills/vibe-skill-creator.skill"
             download="vibe-skill-creator.skill"
             class="start__btn start__btn--sm"
-          >INSTALL</a>
+          >DOWNLOAD <span class="start__btn-arrow" aria-hidden="true">-&gt;</span></a>
         </div>
-        <div class="start__card">
+        <div class="start__card" data-card>
+          <span class="start__card-index" aria-hidden="true">002</span>
           <p class="start__card-title">Brand Voice Extractor</p>
           <p class="start__card-body">
-            Captures your tone, phrases to use and avoid, formatting preferences
+            Feed it your writing. It pulls out tone, vocabulary, and formatting rules.
           </p>
           <a
             href="/skills/brand-voice-extractor.skill"
             download="brand-voice-extractor.skill"
             class="start__btn start__btn--sm"
-          >INSTALL</a>
+          >DOWNLOAD <span class="start__btn-arrow" aria-hidden="true">-&gt;</span></a>
         </div>
-        <div class="start__card">
+        <div class="start__card" data-card>
+          <span class="start__card-index" aria-hidden="true">003</span>
           <p class="start__card-title">Quality Check / Output Gate</p>
           <p class="start__card-body">
-            Reviews AI outputs for completeness, brand alignment, clarity, and risk
+            Catches the lazy output. Checks for brand, clarity, completeness, risk.
           </p>
           <a
             href="/skills/quality-check.skill"
             download="quality-check.skill"
             class="start__btn start__btn--sm"
-          >INSTALL</a>
+          >DOWNLOAD <span class="start__btn-arrow" aria-hidden="true">-&gt;</span></a>
         </div>
       </div>
       <p class="start__note">
@@ -86,28 +93,31 @@ import SocialLinks from '../components/SocialLinks.astro';
     </section>
 
     <!-- ── FOLLOW (LOW — no border, breathing room) ── -->
-    <section class="start__section start__section--follow">
+    <section class="start__section start__section--follow" data-section="follow">
       <p class="start__label">FOLLOW ALONG</p>
-      <p class="start__follow-text">More of this, shorter format.</p>
+      <p class="start__follow-text">Same voice, shorter format.</p>
       <SocialLinks />
     </section>
 
-    <!-- ── RESOURCES (MEDIUM) ── -->
-    <section class="start__section">
+    <!-- ── RESOURCES (MEDIUM density) ── -->
+    <section class="start__section" data-section="resources">
       <p class="start__label">RESOURCES</p>
-      <h2 class="start__heading">Where to Find More Skills</h2>
+      <h2 class="start__heading">Where the skills live</h2>
       <div class="start__resources">
-        <a href="https://github.com/anthropics/skills" target="_blank" rel="noopener" class="start__resource">
+        <a href="https://github.com/anthropics/skills" target="_blank" rel="noopener" class="start__resource" data-resource>
+          <span class="start__resource-index" aria-hidden="true">001</span>
           <p class="start__resource-name">anthropics/skills</p>
           <p class="start__resource-desc">Anthropic's official skill repo</p>
           <span class="start__resource-url">github.com/anthropics/skills</span>
         </a>
-        <a href="https://github.com/openai/codex" target="_blank" rel="noopener" class="start__resource">
+        <a href="https://github.com/openai/codex" target="_blank" rel="noopener" class="start__resource" data-resource>
+          <span class="start__resource-index" aria-hidden="true">002</span>
           <p class="start__resource-name">openai/codex</p>
           <p class="start__resource-desc">OpenAI's Codex skills catalog</p>
           <span class="start__resource-url">github.com/openai/codex</span>
         </a>
-        <a href="https://github.com/ComposioHQ/awesome-claude-skills" target="_blank" rel="noopener" class="start__resource">
+        <a href="https://github.com/ComposioHQ/awesome-claude-skills" target="_blank" rel="noopener" class="start__resource" data-resource>
+          <span class="start__resource-index" aria-hidden="true">003</span>
           <p class="start__resource-name">Composio Skills</p>
           <p class="start__resource-desc">50+ curated skills across 9 categories</p>
           <span class="start__resource-url">github.com/ComposioHQ/awesome-claude-skills</span>
@@ -115,49 +125,96 @@ import SocialLinks from '../components/SocialLinks.astro';
       </div>
     </section>
 
-    <!-- ── COMMUNITY (MEDIUM) ── -->
-    <section class="start__section">
+    <!-- ── COMMUNITY (MEDIUM density) ── -->
+    <section class="start__section start__section--community" data-section="community">
+      <div class="start__section-bar" aria-hidden="true"></div>
       <p class="start__label start__label--signal">COMMUNITY</p>
-      <h2 class="start__heading">Skill Remix Lab + Skill Vault</h2>
+      <h2 class="start__heading">The group that keeps shipping</h2>
       <p class="start__body">
-        Monthly live sessions remixing public skills into personalized versions.
-        Growing library of tested, production-ready skills. The group that keeps shipping.
+        Monthly live sessions where we remix public skills into yours.
+        Growing library of tested, production-ready skills.
       </p>
       <a
         href="https://www.skool.com/the-vibe-marketers/about?ref=be313e8087da44cca0ecd7edd9ac0775"
         target="_blank"
         rel="noopener"
         class="start__btn"
-      >JOIN ON SKOOL →</a>
+      >JOIN THE GROUP <span class="start__btn-arrow" aria-hidden="true">-&gt;</span></a>
     </section>
 
     <!-- ── PAID BUNDLE (LOW/subtle) ── -->
-    <section class="start__section start__section--subtle">
+    <section class="start__section start__section--subtle" data-section="bundle">
       <p class="start__label">SKIP THE SETUP</p>
-      <h2 class="start__heading">10 Skills, Ready to Go</h2>
+      <h2 class="start__heading">10 skills. 200+ projects behind them.</h2>
       <p class="start__body">
         Brand voice, positioning, SEO, email sequences, landing pages.
-        Frameworks refined across 200+ projects. Drop into Claude and ship.
+        Drop them into Claude and ship.
       </p>
       <a
         href="https://www.thevibemarketer.com/skills"
         target="_blank"
         rel="noopener"
         class="start__btn start__btn--outline"
-      >GET THE BUNDLE →</a>
+      >GET THE BUNDLE <span class="start__btn-arrow" aria-hidden="true">-&gt;</span></a>
       <p class="start__promo">
         Use <span class="start__code">EMPIRE50</span> for 50% off
       </p>
     </section>
 
     <!-- ── FOOTER (LOW) ── -->
-    <footer class="start__footer">
+    <footer class="start__footer" data-section="footer">
       <p class="start__label start__label--signal">@ctrlswing</p>
       <p class="start__footer-text">Built by Jackson</p>
     </footer>
 
   </main>
 </BaseLayout>
+
+<!-- ── MOTION: Scroll reveals + stagger ── -->
+<script>
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReduced) {
+    document.querySelectorAll('[data-section]').forEach(el => el.classList.add('is-visible'));
+  } else {
+    // Header gets is-visible immediately (matches index.astro hero pattern)
+    const header = document.querySelector('[data-section="header"]');
+    if (header) header.classList.add('is-visible');
+
+    // Scroll reveal for other sections
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+
+            // Stagger skill cards
+            if (entry.target.matches('[data-section="skills"]')) {
+              entry.target.querySelectorAll('[data-card]').forEach((card, i) => {
+                (card as HTMLElement).style.transitionDelay = `${200 + i * 120}ms`;
+                card.classList.add('is-visible');
+              });
+            }
+
+            // Stagger resource cards
+            if (entry.target.matches('[data-section="resources"]')) {
+              entry.target.querySelectorAll('[data-resource]').forEach((card, i) => {
+                (card as HTMLElement).style.transitionDelay = `${200 + i * 100}ms`;
+                card.classList.add('is-visible');
+              });
+            }
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    document.querySelectorAll('[data-section]:not([data-section="header"])').forEach(el => {
+      observer.observe(el);
+    });
+  }
+</script>
 
 <style>
   .start {
@@ -170,10 +227,28 @@ import SocialLinks from '../components/SocialLinks.astro';
   }
 
   .start__bar {
-    width: 40px;
+    width: 0;
     height: 2px;
     background: var(--color-accent);
     margin-bottom: var(--space-6);
+    box-shadow: 0 0 8px var(--color-accent-subtle);
+    animation: none;
+  }
+
+  [data-section="header"].is-visible .start__bar {
+    width: 40px;
+    transition: width 600ms var(--ease-out);
+  }
+
+  /* Breathing glow on header accent bar */
+  @keyframes breathe-glow {
+    0%, 100% { box-shadow: 0 0 4px var(--color-accent-subtle); }
+    50% { box-shadow: 0 0 12px var(--color-accent-glow); }
+  }
+
+  [data-section="header"].is-visible .start__bar {
+    animation: breathe-glow 5s ease-in-out infinite;
+    animation-delay: 600ms;
   }
 
   .start__label {
@@ -184,6 +259,13 @@ import SocialLinks from '../components/SocialLinks.astro';
     letter-spacing: 0.15em;
     color: var(--color-fg-muted);
     margin-bottom: var(--space-4);
+    opacity: 0;
+    transition: opacity 400ms var(--ease-out);
+  }
+
+  [data-section].is-visible .start__label {
+    opacity: 1;
+    transition-delay: 300ms;
   }
 
   .start__label--signal {
@@ -198,6 +280,15 @@ import SocialLinks from '../components/SocialLinks.astro';
     letter-spacing: -0.03em;
     color: var(--color-fg);
     margin-bottom: var(--space-4);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+  }
+
+  [data-section="header"].is-visible .start__title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 400ms;
   }
 
   .start__sub {
@@ -206,6 +297,15 @@ import SocialLinks from '../components/SocialLinks.astro';
     line-height: var(--leading-relaxed);
     color: var(--color-fg-secondary);
     max-width: 480px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+  }
+
+  [data-section="header"].is-visible .start__sub {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 700ms;
   }
 
   /* ── Rupture (light inversion — newsletter CTA) ── */
@@ -223,7 +323,36 @@ import SocialLinks from '../components/SocialLinks.astro';
     --color-border-hover: #78716C;
 
     background: var(--color-bg);
-    padding: clamp(60px, 10vh, 100px) clamp(24px, 5vw, 64px);
+    padding: clamp(80px, 14vh, 140px) clamp(24px, 5vw, 64px);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+  }
+
+  .start__rupture.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .start__rupture-bar {
+    position: absolute;
+    left: clamp(24px, 5vw, 64px);
+    top: clamp(80px, 14vh, 140px);
+    width: 2px;
+    height: 0;
+    background: var(--color-accent);
+    transition: height 600ms var(--ease-out) 200ms;
+  }
+
+  .start__rupture.is-visible .start__rupture-bar {
+    height: calc(100% - clamp(80px, 14vh, 140px) * 2);
+  }
+
+  .start__rupture-content {
+    margin-left: var(--space-8);
+    max-width: 520px;
   }
 
   .start__rupture-heading {
@@ -249,6 +378,14 @@ import SocialLinks from '../components/SocialLinks.astro';
   .start__section {
     padding: var(--space-10) clamp(24px, 5vw, 64px) var(--space-20);
     border-top: 1px solid var(--color-border);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+  }
+
+  .start__section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .start__section--follow {
@@ -259,6 +396,19 @@ import SocialLinks from '../components/SocialLinks.astro';
 
   .start__section--subtle {
     background: var(--color-bg-elevated);
+  }
+
+  /* Section accent bars (skills, community) */
+  .start__section-bar {
+    width: 0;
+    height: 2px;
+    background: var(--color-accent);
+    margin-bottom: var(--space-6);
+    transition: width 600ms var(--ease-out) 100ms;
+  }
+
+  .start__section.is-visible .start__section-bar {
+    width: 40px;
   }
 
   .start__heading {
@@ -303,6 +453,30 @@ import SocialLinks from '../components/SocialLinks.astro';
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 500ms var(--ease-out),
+      transform 500ms var(--ease-out),
+      border-color var(--duration-normal) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out);
+  }
+
+  .start__card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .start__card:hover {
+    border-left-color: var(--color-accent);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .start__card-index {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-fg-muted);
+    letter-spacing: 0.05em;
   }
 
   .start__card-title {
@@ -356,12 +530,32 @@ import SocialLinks from '../components/SocialLinks.astro';
     flex-direction: column;
     gap: var(--space-1);
     text-decoration: none;
-    transition: border-color var(--duration-normal) var(--ease-out);
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 500ms var(--ease-out),
+      transform 500ms var(--ease-out),
+      border-color var(--duration-normal) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out);
+  }
+
+  .start__resource.is-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .start__resource:hover {
     border-color: var(--color-accent);
+    box-shadow: var(--shadow-xs);
+    transform: translateY(-2px);
     text-decoration: none;
+  }
+
+  .start__resource-index {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-fg-muted);
+    letter-spacing: 0.05em;
   }
 
   .start__resource-name {
@@ -388,6 +582,7 @@ import SocialLinks from '../components/SocialLinks.astro';
   .start__btn {
     display: inline-flex;
     align-items: center;
+    gap: var(--space-2);
     width: fit-content;
     padding: var(--space-2-5) var(--space-5);
     background: var(--color-accent);
@@ -408,6 +603,19 @@ import SocialLinks from '../components/SocialLinks.astro';
     text-decoration: none;
   }
 
+  .start__btn:active {
+    transform: scale(0.97);
+  }
+
+  .start__btn-arrow {
+    display: inline-block;
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+
+  .start__btn:hover .start__btn-arrow {
+    transform: translateX(4px);
+  }
+
   .start__btn--sm {
     padding: var(--space-2) var(--space-4);
     font-size: 10px;
@@ -426,6 +634,11 @@ import SocialLinks from '../components/SocialLinks.astro';
 
   .start__card .start__btn {
     margin-top: var(--space-4);
+  }
+
+  /* ── Community accent bar ── */
+  .start__section--community {
+    position: relative;
   }
 
   /* ── Promo ── */
@@ -451,11 +664,62 @@ import SocialLinks from '../components/SocialLinks.astro';
     display: flex;
     align-items: center;
     gap: var(--space-4);
+    opacity: 0;
+    transition: opacity 500ms var(--ease-out);
+  }
+
+  .start__footer.is-visible {
+    opacity: 1;
   }
 
   .start__footer-text {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--color-fg-muted);
+  }
+
+  /* ── Reduced Motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    [data-section] {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .start__bar {
+      width: 40px !important;
+      animation: none !important;
+    }
+
+    .start__rupture-bar {
+      height: 100% !important;
+    }
+
+    .start__section-bar {
+      width: 40px !important;
+    }
+
+    .start__label {
+      opacity: 1 !important;
+    }
+
+    .start__title,
+    .start__sub {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .start__card,
+    .start__resource {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .start__resource:hover {
+      transform: none;
+    }
+
+    .start__btn:active {
+      transform: none;
+    }
   }
 </style>
