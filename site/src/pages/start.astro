@@ -2,9 +2,12 @@
 /**
  * /start — AI Skills Starter Kit
  * Post-talk landing page. QR code destination.
- * Focused: skill downloads, resources, CTAs. No nav/footer.
+ * Hierarchy: newsletter → free skills → social → resources → community → bundle
+ * No nav/footer chrome. Focused conversion page.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EmailSignup from '../components/EmailSignup.astro';
+import SocialLinks from '../components/SocialLinks.astro';
 ---
 
 <BaseLayout
@@ -13,21 +16,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
   <main class="start">
 
-    <!-- ── HEADER ── -->
+    <!-- ── HEADER (LOW) ── -->
     <header class="start__header">
       <div class="start__bar" aria-hidden="true"></div>
-      <p class="start__label">FROM THE VIBE MARKETERS SESSION</p>
+      <p class="start__label start__label--signal">FROM THE SESSION</p>
       <h1 class="start__title">AI Skills Starter Kit</h1>
       <p class="start__sub">
-        Everything from today's session — free skills, resources, and next steps.
+        Everything from today. Free skills, resources, next steps.
       </p>
     </header>
 
-    <!-- ── FREE SKILLS (PRIMARY) ── -->
+    <!-- ── NEWSLETTER (RUPTURE — light inversion) ── -->
+    <section class="start__rupture" data-animate="fade-up">
+      <p class="start__label start__label--signal">THE BUILD LOG</p>
+      <h2 class="start__rupture-heading">I build with AI and share what works.</h2>
+      <p class="start__rupture-body">
+        Tools I'm testing. Skills I'm shipping. Things that broke.
+        One email when there's something worth sharing.
+      </p>
+      <EmailSignup
+        tag="start-page"
+        submitText="Subscribe"
+        placeholder="your@email.com"
+      />
+    </section>
+
+    <!-- ── FREE SKILLS (HIGH) ── -->
     <section class="start__section">
-      <p class="start__label start__label--signal">FREE SKILLS</p>
+      <p class="start__label">FREE SKILLS</p>
       <h2 class="start__heading">Install and Use Today</h2>
-      <div class="start__grid">
+      <div class="start__skills">
         <div class="start__card">
           <p class="start__card-title">Vibe Skill Builder</p>
           <p class="start__card-body">
@@ -36,7 +54,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <a
             href="/skills/vibe-skill-creator.skill"
             download="vibe-skill-creator.skill"
-            class="start__btn"
+            class="start__btn start__btn--sm"
           >INSTALL</a>
         </div>
         <div class="start__card">
@@ -47,7 +65,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <a
             href="/skills/brand-voice-extractor.skill"
             download="brand-voice-extractor.skill"
-            class="start__btn"
+            class="start__btn start__btn--sm"
           >INSTALL</a>
         </div>
         <div class="start__card">
@@ -58,7 +76,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <a
             href="/skills/quality-check.skill"
             download="quality-check.skill"
-            class="start__btn"
+            class="start__btn start__btn--sm"
           >INSTALL</a>
         </div>
       </div>
@@ -67,11 +85,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </p>
     </section>
 
-    <!-- ── RESOURCES ── -->
+    <!-- ── FOLLOW (LOW — no border, breathing room) ── -->
+    <section class="start__section start__section--follow">
+      <p class="start__label">FOLLOW ALONG</p>
+      <p class="start__follow-text">More of this, shorter format.</p>
+      <SocialLinks />
+    </section>
+
+    <!-- ── RESOURCES (MEDIUM) ── -->
     <section class="start__section">
       <p class="start__label">RESOURCES</p>
       <h2 class="start__heading">Where to Find More Skills</h2>
-      <div class="start__grid">
+      <div class="start__resources">
         <a href="https://github.com/anthropics/skills" target="_blank" rel="noopener" class="start__resource">
           <p class="start__resource-name">anthropics/skills</p>
           <p class="start__resource-desc">Anthropic's official skill repo</p>
@@ -90,14 +115,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </section>
 
-    <!-- ── COMMUNITY CTA ── -->
+    <!-- ── COMMUNITY (MEDIUM) ── -->
     <section class="start__section">
       <p class="start__label start__label--signal">COMMUNITY</p>
       <h2 class="start__heading">Skill Remix Lab + Skill Vault</h2>
       <p class="start__body">
         Monthly live sessions remixing public skills into personalized versions.
-        Growing library of tested, production-ready skills. The group that keeps
-        shipping.
+        Growing library of tested, production-ready skills. The group that keeps shipping.
       </p>
       <a
         href="https://www.skool.com/the-vibe-marketers/about?ref=be313e8087da44cca0ecd7edd9ac0775"
@@ -107,7 +131,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       >JOIN ON SKOOL →</a>
     </section>
 
-    <!-- ── PAID BUNDLE CTA ── -->
+    <!-- ── PAID BUNDLE (LOW/subtle) ── -->
     <section class="start__section start__section--subtle">
       <p class="start__label">SKIP THE SETUP</p>
       <h2 class="start__heading">10 Skills, Ready to Go</h2>
@@ -126,7 +150,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </p>
     </section>
 
-    <!-- ── FOOTER ── -->
+    <!-- ── FOOTER (LOW) ── -->
     <footer class="start__footer">
       <p class="start__label start__label--signal">@ctrlswing</p>
       <p class="start__footer-text">Built by Jackson</p>
@@ -137,14 +161,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
   .start {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: var(--space-16) var(--space-5) var(--space-20);
+    /* Sections own their padding — no outer constraint */
   }
 
-  /* ── Header ── */
+  /* ── Header (LOW density) ── */
   .start__header {
-    margin-bottom: var(--space-16);
+    padding: var(--space-16) clamp(24px, 5vw, 64px) var(--space-20);
   }
 
   .start__bar {
@@ -186,20 +208,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     max-width: 480px;
   }
 
+  /* ── Rupture (light inversion — newsletter CTA) ── */
+  .start__rupture {
+    --color-bg: #FAF7F2;
+    --color-bg-elevated: #F0EBE3;
+    --color-bg-surface: #FFFFFF;
+    --color-fg: #1C1917;
+    --color-fg-secondary: #78716C;
+    --color-fg-muted: #78716C;
+    --color-fg-subtle: #A8A29E;
+    --color-fg-inverse: #FAF7F2;
+    --color-border: #D6D3CD;
+    --color-border-subtle: #D6D3CD;
+    --color-border-hover: #78716C;
+
+    background: var(--color-bg);
+    padding: clamp(60px, 10vh, 100px) clamp(24px, 5vw, 64px);
+  }
+
+  .start__rupture-heading {
+    font-family: var(--font-display);
+    font-size: var(--fluid-2xl);
+    font-weight: var(--font-semibold);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.02em;
+    color: var(--color-fg);
+    margin-bottom: var(--space-4);
+  }
+
+  .start__rupture-body {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-secondary);
+    max-width: 480px;
+    margin-bottom: var(--space-8);
+  }
+
   /* ── Sections ── */
   .start__section {
-    margin-bottom: var(--space-16);
-    padding-top: var(--space-10);
+    padding: var(--space-10) clamp(24px, 5vw, 64px) var(--space-20);
     border-top: 1px solid var(--color-border);
+  }
+
+  .start__section--follow {
+    border-top: none;
+    padding-top: 0;
+    padding-bottom: var(--space-16);
   }
 
   .start__section--subtle {
     background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-8);
-    margin-left: calc(-1 * var(--space-2));
-    margin-right: calc(-1 * var(--space-2));
   }
 
   .start__heading {
@@ -221,8 +280,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     margin-bottom: var(--space-6);
   }
 
-  /* ── Grid ── */
-  .start__grid {
+  /* ── Skills Grid (HIGH density) ── */
+  .start__skills {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-4);
@@ -230,17 +289,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   @media (min-width: 640px) {
-    .start__grid {
+    .start__skills {
       grid-template-columns: repeat(3, 1fr);
     }
   }
 
-  /* ── Skill Cards ── */
   .start__card {
     background: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-left: 2px solid var(--color-accent);
-    border-radius: var(--radius-md);
+    border-radius: 2px;
     padding: var(--space-6);
     display: flex;
     flex-direction: column;
@@ -268,11 +326,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     color: var(--color-fg-muted);
   }
 
-  /* ── Resource Cards ── */
+  /* ── Follow (LOW density) ── */
+  .start__follow-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-fg-secondary);
+    margin-bottom: var(--space-4);
+  }
+
+  /* ── Resources Grid ── */
+  .start__resources {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 640px) {
+    .start__resources {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
   .start__resource {
     background: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    border-radius: 2px;
     padding: var(--space-5);
     display: flex;
     flex-direction: column;
@@ -313,22 +391,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     width: fit-content;
     padding: var(--space-2-5) var(--space-5);
     background: var(--color-accent);
-    color: var(--color-bg);
+    color: var(--color-bg-deep);
     font-family: var(--font-mono);
     font-size: var(--text-2xs);
     font-weight: var(--font-semibold);
     text-transform: uppercase;
     letter-spacing: 0.12em;
     text-decoration: none;
-    border-radius: var(--radius-md);
+    border-radius: 2px;
     transition: background var(--duration-normal) var(--ease-out);
-    margin-top: auto;
   }
 
   .start__btn:hover {
     background: var(--color-fg);
     color: var(--color-bg);
     text-decoration: none;
+  }
+
+  .start__btn--sm {
+    padding: var(--space-2) var(--space-4);
+    font-size: 10px;
   }
 
   .start__btn--outline {
@@ -359,13 +441,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-weight: var(--font-semibold);
     background: rgba(245, 158, 11, 0.15);
     padding: 2px 8px;
-    border-radius: var(--radius-sm);
+    border-radius: 2px;
   }
 
   /* ── Footer ── */
   .start__footer {
-    margin-top: var(--space-16);
-    padding-top: var(--space-8);
+    padding: var(--space-8) clamp(24px, 5vw, 64px) var(--space-16);
     border-top: 1px solid var(--color-border);
     display: flex;
     align-items: center;
