@@ -1,0 +1,2230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Skills: Teach AI How You Work</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --void: #0c0a09;
+        --soot: #1c1917;
+        --smoke: #292524;
+        --ash: #44403c;
+        --stone: #78716c;
+        --dust: #a8a29e;
+        --bone: #e7e5e4;
+        --chalk: #f5f0eb;
+        --signal: #f59e0b;
+        --signal-dim: #b45309;
+        --signal-wash: #451a03;
+        --canvas: #faf7f2;
+        --ink: #1c1917;
+
+        --font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", monospace;
+        --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+        --font-serif: "Source Serif 4", Georgia, serif;
+
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-snap-type: y proximity;
+      }
+
+      body {
+        background: var(--void);
+        color: var(--bone);
+        font-family: var(--font-mono);
+        font-size: 14px;
+        line-height: 1.6;
+        letter-spacing: 0.02em;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── SLIDE SYSTEM ── */
+      .slide {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 80px clamp(24px, 8vw, 120px);
+        position: relative;
+        scroll-snap-align: start;
+        overflow: hidden;
+      }
+
+      .slide-compact {
+        min-height: auto;
+        padding-top: 60px;
+        padding-bottom: 60px;
+      }
+
+      /* ── TYPOGRAPHY ── */
+      .display {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        color: var(--chalk);
+      }
+
+      .section-title {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        color: var(--chalk);
+      }
+
+      .label {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--stone);
+      }
+
+      .label-signal {
+        color: var(--signal);
+      }
+
+      .body-text {
+        font-family: var(--font-mono);
+        font-size: 14px;
+        line-height: 1.7;
+        color: var(--dust);
+        max-width: 620px;
+      }
+
+      .body-large {
+        font-size: 16px;
+        color: var(--bone);
+        max-width: 680px;
+      }
+
+      .quote-text {
+        font-family: var(--font-serif);
+        font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+        line-height: 1.6;
+        color: var(--bone);
+        font-style: italic;
+        max-width: 640px;
+      }
+
+      /* ── ACCENT BAR ── */
+      .accent-bar {
+        width: 40px;
+        height: 2px;
+        background: var(--signal);
+        margin-bottom: 20px;
+      }
+
+      .accent-bar-v {
+        width: 2px;
+        height: 40px;
+        background: var(--signal);
+      }
+
+      /* ── INDEX COUNTER ── */
+      .index {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        color: var(--stone);
+      }
+
+      .index-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        background: var(--smoke);
+        border-radius: 2px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--bone);
+      }
+
+      /* ── CARDS ── */
+      .card {
+        background: var(--soot);
+        border: 1px solid var(--ash);
+        border-radius: 2px;
+        padding: 28px;
+      }
+
+      .card-signal {
+        border-left: 2px solid var(--signal);
+      }
+
+      .card-title {
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: var(--chalk);
+        margin-bottom: 8px;
+        letter-spacing: -0.01em;
+      }
+
+      .card-body {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        line-height: 1.65;
+        color: var(--dust);
+      }
+
+      .card-metaphor {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--signal);
+        margin-top: 12px;
+      }
+
+      /* ── GRIDS ── */
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .grid-4 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+
+      /* ── SECTION DIVIDERS ── */
+      .divider-slide {
+        background: var(--void);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 80px clamp(24px, 8vw, 120px);
+      }
+
+      .divider-number {
+        font-family: var(--font-mono);
+        font-size: clamp(4rem, 10vw, 8rem);
+        font-weight: 600;
+        color: var(--smoke);
+        line-height: 1;
+        letter-spacing: -0.03em;
+      }
+
+      .divider-title {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        color: var(--chalk);
+        letter-spacing: -0.03em;
+        margin-top: -10px;
+      }
+
+      .divider-sub {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--stone);
+        margin-top: 12px;
+        letter-spacing: 0.02em;
+      }
+
+      /* ── TIMELINE ── */
+      .timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        position: relative;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: var(--ash);
+      }
+
+      .tl-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 14px 0;
+        position: relative;
+      }
+
+      .tl-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--stone);
+        border-radius: 50%;
+        margin-top: 5px;
+        flex-shrink: 0;
+        position: relative;
+        left: 12px;
+        z-index: 1;
+      }
+
+      .tl-dot-active {
+        background: var(--signal);
+        box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+      }
+
+      .tl-date {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--stone);
+        min-width: 80px;
+        flex-shrink: 0;
+      }
+
+      .tl-content {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--bone);
+      }
+
+      /* ── CALLOUT ── */
+      .callout {
+        background: var(--signal-wash);
+        border-left: 2px solid var(--signal);
+        padding: 16px 20px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--bone);
+        line-height: 1.6;
+        border-radius: 0 2px 2px 0;
+        max-width: 620px;
+      }
+
+      /* ── CODE BLOCK ── */
+      .code-block {
+        background: var(--soot);
+        border: 1px solid var(--ash);
+        border-radius: 2px;
+        padding: 24px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--dust);
+        overflow-x: auto;
+        white-space: pre;
+      }
+
+      .code-block .keyword {
+        color: var(--signal);
+      }
+      .code-block .comment {
+        color: var(--stone);
+      }
+      .code-block .string {
+        color: #86efac;
+      }
+
+      /* ── LOGO GRID ── */
+      .logo-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--smoke);
+        border: 1px solid var(--ash);
+        border-radius: 2px;
+        padding: 8px 14px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--dust);
+        letter-spacing: 0.02em;
+      }
+
+      /* ── VS SPLIT ── */
+      .vs-split {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 0;
+        align-items: stretch;
+      }
+
+      .vs-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 24px;
+      }
+
+      .vs-divider span {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--stone);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+      }
+
+      /* ── STEP FLOW ── */
+      .step-flow {
+        display: flex;
+        gap: 2px;
+      }
+
+      .step-item {
+        flex: 1;
+        background: var(--soot);
+        border: 1px solid var(--ash);
+        padding: 24px;
+        position: relative;
+      }
+
+      .step-item:first-child {
+        border-radius: 2px 0 0 2px;
+      }
+      .step-item:last-child {
+        border-radius: 0 2px 2px 0;
+      }
+
+      .step-num {
+        font-family: var(--font-mono);
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--smoke);
+        margin-bottom: 12px;
+      }
+
+      /* ── RUPTURE (LIGHT INVERSION) ── */
+      .rupture {
+        background: var(--canvas);
+        color: var(--ink);
+      }
+
+      .rupture .label {
+        color: var(--stone);
+      }
+      .rupture .label-signal {
+        color: var(--signal);
+      }
+      .rupture .display,
+      .rupture .section-title,
+      .rupture .card-title {
+        color: var(--ink);
+      }
+      .rupture .body-text,
+      .rupture .card-body {
+        color: var(--stone);
+      }
+      .rupture .card {
+        background: #fff;
+        border-color: #d6d3cd;
+      }
+      .rupture .callout {
+        background: #fef3c7;
+        border-left-color: var(--signal);
+        color: var(--ink);
+      }
+
+      /* ── STACKED ROWS ── */
+      .stack-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--ash);
+      }
+
+      .stack-row:last-child {
+        border-bottom: none;
+      }
+
+      /* ── RESOURCE CARD ── */
+      .resource-card {
+        background: var(--soot);
+        border: 1px solid var(--ash);
+        padding: 24px;
+        border-radius: 2px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .resource-url {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--signal);
+        text-decoration: none;
+      }
+
+      /* ── RUN OF SHOW ── */
+      .ros-item {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 20px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--ash);
+        align-items: baseline;
+      }
+
+      .ros-item:last-child {
+        border-bottom: none;
+      }
+
+      .ros-time {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--signal);
+      }
+
+      .ros-label {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--bone);
+      }
+
+      /* ── PIPE ── */
+      .pipe {
+        display: inline-block;
+        width: 1px;
+        height: 12px;
+        background: var(--ash);
+        margin: 0 10px;
+        vertical-align: middle;
+      }
+
+      /* ── TRUST TIER ── */
+      .tier {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--ash);
+      }
+
+      .tier:last-child {
+        border-bottom: none;
+      }
+
+      .tier-bar {
+        width: 4px;
+        height: 32px;
+        border-radius: 1px;
+      }
+
+      .tier-high {
+        background: #86efac;
+      }
+      .tier-mid {
+        background: var(--signal);
+      }
+      .tier-low {
+        background: var(--stone);
+      }
+
+      /* ── DEMO CARD ── */
+      .demo-card {
+        background: var(--soot);
+        border: 1px solid var(--ash);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+
+      .demo-header {
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--ash);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .demo-body {
+        padding: 24px;
+      }
+
+      .demo-tag {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        padding: 3px 8px;
+        border-radius: 2px;
+        background: var(--signal-wash);
+        color: var(--signal);
+      }
+
+      /* ── DEMO LINK BUTTON ── */
+      .demo-link {
+        display: inline-flex;
+        align-items: center;
+        margin-top: 24px;
+        padding: 10px 20px;
+        background: var(--signal);
+        color: var(--void);
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        text-decoration: none;
+        border-radius: 2px;
+        transition: all 200ms var(--ease);
+      }
+
+      .demo-link:hover {
+        background: var(--chalk);
+        color: var(--void);
+      }
+
+      .demo-link {
+        width: fit-content;
+      }
+
+      /* Demo screenshot placeholder (uncomment in HTML when ready) */
+      .demo-preview {
+        aspect-ratio: 16 / 10;
+        background: var(--soot);
+        border: 1px dashed var(--ash);
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--stone);
+        margin-top: 24px;
+        max-width: 600px;
+      }
+
+      /* ── ANIMATIONS ── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .anim-target {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .anim-target.visible {
+        animation: fadeUp 0.5s var(--ease) forwards;
+      }
+
+      /* ── NAV DOTS ── */
+      .nav-dots {
+        position: fixed;
+        right: 24px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        z-index: 100;
+      }
+
+      .nav-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--ash);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 200ms var(--ease);
+      }
+
+      .nav-dot:hover,
+      .nav-dot.active {
+        background: var(--signal);
+        box-shadow: 0 0 6px rgba(245, 158, 11, 0.3);
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 768px) {
+        .grid-3,
+        .grid-4 {
+          grid-template-columns: 1fr;
+        }
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+        .vs-split {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+        .vs-divider {
+          padding: 12px 0;
+        }
+        .step-flow {
+          flex-direction: column;
+        }
+        .step-item {
+          border-radius: 2px;
+        }
+        .nav-dots {
+          display: none;
+        }
+        .slide {
+          padding: 60px clamp(20px, 6vw, 40px);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .display {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 01 · TITLE                           -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section
+      class="slide"
+      id="s01"
+      style="justify-content: flex-end; padding-bottom: 120px"
+    >
+      <div class="label label-signal" style="margin-bottom: 32px">
+        047 <span class="pipe"></span> LIVE SESSION
+        <span class="pipe"></span> ~90 MIN
+      </div>
+      <h1 class="display" style="max-width: 800px">
+        AI Skills:<br />Teach AI How You Work
+      </h1>
+      <p
+        class="body-text"
+        style="margin-top: 20px; color: var(--dust); font-size: 15px"
+      >
+        So you stop repeating yourself.
+      </p>
+      <div
+        style="margin-top: 48px; display: flex; align-items: center; gap: 12px"
+      >
+        <span class="label">Jackson</span>
+        <span class="pipe"></span>
+        <span class="label label-signal">@ctrlswing</span>
+        <span class="pipe"></span>
+        <span class="label">Vibe Marketers</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 02 · A NOTE BEFORE WE BEGIN          -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s02" style="background: var(--void)">
+      <div class="accent-bar"></div>
+      <p class="quote-text" style="margin-bottom: 32px">"I'm not an expert."</p>
+      <p class="body-text body-large" style="max-width: 560px">
+        This stuff is months old. Nobody's an expert yet. But I've been building
+        with it daily. I'll show you what's been working for me.
+      </p>
+      <p class="label" style="margin-top: 40px">BUILDER, NOT PROFESSOR</p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 03 · WHAT WE'LL COVER                -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section
+      class="slide slide-compact"
+      id="s03"
+      style="background: var(--soot); padding-top: 80px; padding-bottom: 80px"
+    >
+      <div class="label label-signal" style="margin-bottom: 24px">
+        RUN OF SHOW
+      </div>
+      <h2 class="section-title" style="margin-bottom: 32px">
+        What We'll Cover
+      </h2>
+      <div style="max-width: 500px">
+        <div class="ros-item">
+          <span class="ros-time">~10 min</span>
+          <span class="ros-label">The Ecosystem</span>
+        </div>
+        <div class="ros-item">
+          <span class="ros-time">~20 min</span>
+          <span class="ros-label">What Skills Are</span>
+        </div>
+        <div class="ros-item">
+          <span class="ros-time">~20 min</span>
+          <span class="ros-label">Live Demos</span>
+        </div>
+        <div class="ros-item">
+          <span class="ros-time">~15 min</span>
+          <span class="ros-label">Building Skills</span>
+        </div>
+        <div class="ros-item">
+          <span class="ros-time">~10 min</span>
+          <span class="ros-label">Safety + Resources</span>
+        </div>
+        <div class="ros-item">
+          <span class="ros-time">~10 min</span>
+          <span class="ros-label">Your Takeaway</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 04 · SECTION: THE ECOSYSTEM          -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="divider-slide" id="s04">
+      <div class="label label-signal" style="margin-bottom: 16px">
+        SECTION 01
+      </div>
+      <div class="divider-number">01</div>
+      <div class="divider-title">The Ecosystem</div>
+      <div class="divider-sub">Different tools for different jobs.</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 05 · THREE TOOLS, THREE JOBS         -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s05" style="background: var(--soot)">
+      <div class="label" style="margin-bottom: 24px">
+        003 <span class="pipe"></span> ECOSYSTEM
+      </div>
+      <h2 class="section-title" style="margin-bottom: 40px">
+        Three Tools, Three Jobs
+      </h2>
+      <div class="grid-3" style="margin-bottom: 40px">
+        <div class="card">
+          <div class="card-title">MCP Servers</div>
+          <div class="label label-signal" style="margin-bottom: 12px">
+            CONNECTORS
+          </div>
+          <div class="card-body">
+            The wiring. Connects AI to external data and tools.
+          </div>
+          <div class="card-metaphor">
+            Think of it as the power outlets in the room.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Sub-Agents</div>
+          <div class="label" style="margin-bottom: 12px">THE TEAM</div>
+          <div class="card-body">
+            AI delegating tasks to other AI. A project manager assigning work.
+          </div>
+          <div class="card-metaphor">
+            Think of it as a PM distributing tasks.
+          </div>
+        </div>
+        <div class="card card-signal">
+          <div class="card-title">Skills</div>
+          <div class="label label-signal" style="margin-bottom: 12px">THE PLAYBOOK</div>
+          <div class="card-body">
+            Instructions that tell AI how to do a specific job, step by step,
+            every time.
+          </div>
+          <div class="card-metaphor">
+            Think of it as your best SOP, written for AI.
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        MCP is the wiring. Sub-agents are the team. Skills are the playbook.
+      </div>
+      <p
+        class="body-text"
+        style="margin-top: 20px; font-size: 12px; color: var(--stone)"
+      >
+        Skills range from a simple SKILL.md to full packages with reference
+        files, scripts, and API calls. Slash commands are the older pattern —
+        they're being merged into skills.
+      </p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 06 · HOW RECENT IS ALL OF THIS       -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s06">
+      <div class="label" style="margin-bottom: 24px">
+        004 <span class="pipe"></span> TIMELINE
+      </div>
+      <h2 class="section-title" style="margin-bottom: 40px">
+        How Recent Is All of This?
+      </h2>
+      <div class="timeline" style="max-width: 520px">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date" style="margin-left: 16px">Jun 2024</div>
+          <div class="tl-content">Artifacts</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date" style="margin-left: 16px">Oct 2024</div>
+          <div class="tl-content">Computer Use</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date" style="margin-left: 16px">Nov 2024</div>
+          <div class="tl-content">MCP Protocol</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date" style="margin-left: 16px">Feb 2025</div>
+          <div class="tl-content">Claude Code</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot tl-dot-active"></div>
+          <div class="tl-date" style="margin-left: 16px">Oct 2025</div>
+          <div class="tl-content" style="color: var(--signal)">
+            Skills launch
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot tl-dot-active"></div>
+          <div class="tl-date" style="margin-left: 16px">Dec 2025</div>
+          <div class="tl-content" style="color: var(--signal)">
+            Skills become open standard
+          </div>
+        </div>
+      </div>
+      <div class="callout" style="margin-top: 40px">
+        Eighteen months ago, none of this existed.
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 07 · THIS SPREAD FAST                -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section
+      class="slide slide-compact"
+      id="s07"
+      style="background: var(--soot)"
+    >
+      <div class="label" style="margin-bottom: 24px">
+        005 <span class="pipe"></span> ADOPTION
+      </div>
+      <h2 class="section-title" style="margin-bottom: 32px">
+        This Spread Fast
+      </h2>
+      <div
+        style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px"
+      >
+        <span class="logo-pill">Claude Desktop</span>
+        <span class="logo-pill">Claude Code</span>
+        <span class="logo-pill">Cursor</span>
+        <span class="logo-pill">Codex</span>
+        <span class="logo-pill">Cline</span>
+        <span class="logo-pill">Manus</span>
+        <span class="logo-pill" style="color: var(--stone)">+ more</span>
+      </div>
+      <p class="body-text body-large" style="margin-bottom: 24px">
+        Anthropic released skills in October. By December, open standard. Same
+        pattern as MCP.
+      </p>
+      <div class="callout">What you learn today works across tools.</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 08 · SKILLS IN THE WILD              -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s08">
+      <div class="label" style="margin-bottom: 24px">
+        006 <span class="pipe"></span> IN THE WILD
+      </div>
+      <h2 class="section-title" style="margin-bottom: 32px">OpenClaw</h2>
+      <div
+        style="display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 32px"
+      >
+        <div
+          style="
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--chalk);
+            letter-spacing: -0.03em;
+          "
+        >
+          150,000+
+        </div>
+        <div
+          style="display: flex; flex-direction: column; justify-content: center"
+        >
+          <span class="label">GITHUB STARS</span>
+          <span class="body-text" style="margin-top: 4px; font-size: 12px"
+            >Built by Peter Steinberger</span
+          >
+        </div>
+      </div>
+      <p class="body-text body-large" style="margin-bottom: 24px">
+        Started as Clawdbot. Uses skills heavily. Same SKILL.md format.
+      </p>
+      <div class="callout">
+        This isn't hypothetical. People are already building real things with
+        this.
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 09 · SECTION: WHAT SKILLS ARE        -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="divider-slide" id="s09">
+      <div class="label label-signal" style="margin-bottom: 16px">
+        SECTION 02
+      </div>
+      <div class="divider-number">02</div>
+      <div class="divider-title">What Skills Are</div>
+      <div class="divider-sub">The 60-second version.</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 10 · SKILLS IN 60 SECONDS            -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s10" style="background: var(--soot)">
+      <div class="label" style="margin-bottom: 24px">
+        007 <span class="pipe"></span> DEFINITION
+      </div>
+      <h2 class="section-title" style="margin-bottom: 40px">
+        Skills in 60 Seconds
+      </h2>
+      <div class="step-flow" style="margin-bottom: 40px">
+        <div class="step-item">
+          <div class="step-num">01</div>
+          <div class="card-title" style="font-size: 0.95rem">What it is</div>
+          <div class="card-body">
+            A markdown file (SKILL.md) with instructions AI follows.
+          </div>
+        </div>
+        <div
+          class="step-item"
+          style="border-left-color: var(--signal); border-left-width: 2px"
+        >
+          <div class="step-num" style="color: var(--signal-dim)">02</div>
+          <div class="card-title" style="font-size: 0.95rem">How it works</div>
+          <div class="card-body">
+            Describe a workflow in plain language. AI executes it the same way
+            every time.
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">03</div>
+          <div class="card-title" style="font-size: 0.95rem">
+            Why it matters
+          </div>
+          <div class="card-body">
+            Start with just words. Add scripts and references as you grow.
+            Portable across tools. Turns repeatable tasks into one-click
+            automation.
+          </div>
+        </div>
+      </div>
+      <div class="code-block" style="max-width: 300px">my-skill/
+└── SKILL.md</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 11 · ANATOMY OF A SKILL.MD           -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s11">
+      <div class="label" style="margin-bottom: 24px">
+        008 <span class="pipe"></span> ANATOMY
+      </div>
+      <h2 class="section-title" style="margin-bottom: 32px">
+        Anatomy of a SKILL.md
+      </h2>
+      <div
+        class="code-block"
+        style="max-width: 640px; font-size: 12px; line-height: 1.8"
+      >
+        <span class="comment">---</span>
+        <span class="keyword">name:</span>
+        <span class="string">campaign-builder</span>
+        <span class="keyword">description:</span>
+        <span class="string">"Generates a full Google Ads</span>
+        <span class="string"> search campaign from a landing page URL"</span>
+        <span class="comment">---</span>
+
+        <span class="keyword"># Context</span>
+        You are a performance marketer. The user will give you a URL. Analyze
+        the page and build a search campaign.
+
+        <span class="keyword"># Steps</span>
+        1. Extract the page's value proposition 2. Identify target keywords (3
+        ad groups) 3. Write 3 responsive search ads per group 4. Suggest
+        negative keywords 5. Set recommended daily budget
+
+        <span class="keyword"># What to Avoid</span>
+        - Generic headlines ("Best Solution") - More than 30 characters per
+        headline - Broad match without negatives
+
+        <span class="keyword"># Example Output</span>
+        [structured campaign output...]
+      </div>
+      <div class="callout" style="margin-top: 24px">
+        That's it. Plain language at the core. Skills can also include reference
+        files, templates, and scripts alongside the SKILL.md.
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 12 · BEST SKILLS ARE PERSONAL        -->
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ★ RUPTURE — Light inversion, single column, different density ★ -->
+    <section
+      class="slide rupture"
+      id="s12"
+      style="padding-top: 120px; padding-bottom: 120px"
+    >
+      <div class="accent-bar" style="margin-bottom: 32px"></div>
+      <div class="label label-signal" style="margin-bottom: 16px">
+        009 <span class="pipe" style="background: #d6d3cd"></span> PERSONAL vs.
+        GENERIC
+      </div>
+      <h2
+        class="section-title"
+        style="
+          font-size: clamp(2rem, 4vw, 3rem);
+          max-width: 700px;
+          margin-bottom: 40px;
+        "
+      >
+        The Best Skills Are Personal
+      </h2>
+
+      <div
+        style="
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 32px;
+          max-width: 700px;
+          margin-bottom: 40px;
+        "
+      >
+        <div class="card" style="border-left: 2px solid #d6d3cd">
+          <div class="label" style="margin-bottom: 12px; color: var(--stone)">
+            GENERIC
+          </div>
+          <div
+            class="card-body"
+            style="color: var(--stone); font-size: 14px; line-height: 1.7"
+          >
+            "Write Google Ads copy."
+          </div>
+        </div>
+        <div class="card" style="border-left: 2px solid var(--signal)">
+          <div class="label label-signal" style="margin-bottom: 12px">
+            PERSONAL
+          </div>
+          <div
+            class="card-body"
+            style="color: var(--ink); font-size: 14px; line-height: 1.7"
+          >
+            "Write Google Ads copy for my SaaS product that targets mid-market
+            CFOs, uses our specific value props, avoids competitor terms we've
+            tested, and follows our brand voice."
+          </div>
+        </div>
+      </div>
+
+      <div
+        style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 40px"
+      >
+        <div
+          style="
+            background: #fef3c7;
+            padding: 12px 20px;
+            border-radius: 2px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--ink);
+          "
+        >
+          Your brand voice
+        </div>
+        <div
+          style="
+            background: #fef3c7;
+            padding: 12px 20px;
+            border-radius: 2px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--ink);
+          "
+        >
+          Your audience
+        </div>
+        <div
+          style="
+            background: #fef3c7;
+            padding: 12px 20px;
+            border-radius: 2px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--ink);
+          "
+        >
+          Your positioning
+        </div>
+      </div>
+
+      <div class="callout" style="max-width: 500px">
+        The most useful skills aren't templates. They're your playbook.
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 13 · WHAT GOES IN THE INSTRUCTIONS   -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s13" style="background: var(--soot)">
+      <div class="label" style="margin-bottom: 24px">
+        010 <span class="pipe"></span> INSTRUCTIONS
+      </div>
+      <h2 class="section-title" style="margin-bottom: 32px">
+        What Goes in the Instructions
+      </h2>
+      <div style="max-width: 560px">
+        <div class="stack-row">
+          <div class="index-badge">01</div>
+          <div>
+            <div class="card-title" style="font-size: 0.95rem">What to do</div>
+            <div class="card-body">The core task and workflow steps.</div>
+          </div>
+        </div>
+        <div class="stack-row">
+          <div class="index-badge">02</div>
+          <div>
+            <div class="card-title" style="font-size: 0.95rem">
+              How to format output
+            </div>
+            <div class="card-body">Structure, layout, naming conventions.</div>
+          </div>
+        </div>
+        <div class="stack-row">
+          <div class="index-badge">03</div>
+          <div>
+            <div class="card-title" style="font-size: 0.95rem">
+              What to avoid
+            </div>
+            <div class="card-body">
+              Guardrails, anti-patterns, known pitfalls.
+            </div>
+          </div>
+        </div>
+        <div class="stack-row">
+          <div class="index-badge">04</div>
+          <div>
+            <div class="card-title" style="font-size: 0.95rem">
+              Examples (optional)
+            </div>
+            <div class="card-body">
+              A sample of good output. Anchors quality.
+            </div>
+          </div>
+        </div>
+      </div>
+      <p
+        class="body-text"
+        style="margin-top: 32px; font-size: 12px; color: var(--stone)"
+      >
+        You're writing instructions for a very capable assistant. Be specific
+        about what you want.
+      </p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 14 · WHAT SKILLS ARE NOT             -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s14">
+      <div class="label" style="margin-bottom: 24px">
+        011 <span class="pipe"></span> CLARITY
+      </div>
+      <h2 class="section-title" style="margin-bottom: 32px">
+        What Skills Are NOT
+      </h2>
+      <div class="grid-2" style="max-width: 680px">
+        <div class="card">
+          <div class="card-title" style="font-size: 0.95rem">
+            Not just API connections
+          </div>
+          <div class="card-body">
+            MCP handles wiring. Skills start as plain instructions but can grow
+            to include scripts and API calls too.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="font-size: 0.95rem">
+            Not AI managing other AI
+          </div>
+          <div class="card-body">
+            That's sub-agents. Skills are instructions, not orchestration.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="font-size: 0.95rem">
+            Not saved prompts
+          </div>
+          <div class="card-body">
+            A prompt is a one-off. Skills are structured, portable, load
+            on-demand, and can include reference files and templates.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="font-size: 0.95rem">
+            Not a guarantee of correctness
+          </div>
+          <div class="card-body">
+            AI can still make mistakes. Always review.
+          </div>
+        </div>
+      </div>
+      <div class="callout" style="margin-top: 32px">
+        A skill is a playbook, not the player.
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 15 · HOW SKILLS ACTUALLY WORK        -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s15" style="background: var(--soot)">
+      <div class="label" style="margin-bottom: 24px">
+        012 <span class="pipe"></span> HOW IT WORKS
+      </div>
+      <h2 class="section-title" style="margin-bottom: 40px">
+        How Skills Actually Work
+      </h2>
+
+      <div class="vs-split" style="max-width: 700px; margin-bottom: 48px">
+        <div class="card" style="border: 1px solid #5c2020">
+          <div class="label" style="color: #ef4444; margin-bottom: 12px">
+            WITHOUT A SKILL
+          </div>
+          <div class="card-body">
+            Re-explain every time. Inconsistent output. Context lost between
+            sessions.
+          </div>
+        </div>
+        <div class="vs-divider"><span>vs</span></div>
+        <div class="card card-signal">
+          <div class="label label-signal" style="margin-bottom: 12px">
+            WITH A SKILL
+          </div>
+          <div class="card-body">
+            One command. Same quality every time. Context is the skill.
+          </div>
+        </div>
+      </div>
+
+      <div class="label" style="margin-bottom: 16px">UNDER THE HOOD</div>
+      <div class="step-flow" style="max-width: 700px">
+        <div class="step-item">
+          <div class="step-num">01</div>
+          <div class="card-body">You ask</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">02</div>
+          <div class="card-body">AI reads skill descriptions</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">03</div>
+          <div class="card-body">Loads the matching skill</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">04</div>
+          <div class="card-body">Follows instructions with your context</div>
+        </div>
+      </div>
+      <div class="callout" style="margin-top: 32px">
+        Skills load on demand. They don't clutter context until you need them.
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 16 · THE REMIX MINDSET               -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s16">
+      <div class="label" style="margin-bottom: 24px">
+        013 <span class="pipe"></span> REMIX
+      </div>
+      <h2 class="section-title" style="margin-bottom: 12px">
+        The Remix Mindset
+      </h2>
+      <p class="body-text body-large" style="margin-bottom: 40px">
+        You don't need to start from scratch. Clone, study, adapt. The fastest
+        path.
+      </p>
+      <div style="max-width: 560px">
+        <div class="stack-row">
+          <div class="index-badge">01</div>
+          <div class="card-body">Open a public skill repo</div>
+        </div>
+        <div class="stack-row">
+          <div class="index-badge">02</div>
+          <div class="card-body">Read the name and description</div>
+        </div>
+        <div class="stack-row">
+          <div class="index-badge">03</div>
+          <div class="card-body">Skim the steps</div>
+        </div>
+        <div class="stack-row">
+          <div class="index-badge">04</div>
+          <div class="card-body">Identify inputs and outputs</div>
+        </div>
+        <div class="stack-row">
+          <div class="index-badge">05</div>
+          <div class="card-body">Keep structure, swap your domain</div>
+        </div>
+        <div class="stack-row">
+          <div class="index-badge">06</div>
+          <div class="card-body">Test with normal and edge-case prompts</div>
+        </div>
+      </div>
+      <a
+        href="https://claude.ai/share/702e17e3-ef6e-4a32-b3ac-82e7a77414b5"
+        target="_blank"
+        rel="noopener"
+        class="demo-link"
+        >SEE A REMIX IN ACTION →</a
+      >
+    </section>
+    <!-- ═══════════════════════════════════════════ -->
+    <section
+      class="slide slide-compact"
+      id="s17"
+      style="background: var(--soot)"
+    >
+      <div class="label" style="margin-bottom: 24px">
+        014 <span class="pipe"></span> WATCH FOR
+      </div>
+      <h2 class="section-title" style="margin-bottom: 32px">
+        Common Skill Mistakes
+      </h2>
+      <div class="grid-2" style="max-width: 680px; margin-bottom: 32px">
+        <div class="card" style="border-top: 2px solid #ef4444">
+          <div class="card-title" style="font-size: 0.95rem">
+            Vague descriptions
+          </div>
+          <div class="card-body">
+            The skill never triggers. AI doesn't know when to load it.
+          </div>
+        </div>
+        <div class="card" style="border-top: 2px solid #ef4444">
+          <div class="card-title" style="font-size: 0.95rem">
+            Overlong instructions
+          </div>
+          <div class="card-body">
+            AI loses focus. Competing directives. Muddled output.
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        Be specific in the description, concise in the instructions.
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 18 · SECTION: LIVE DEMOS             -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="divider-slide" id="s18">
+      <div class="label label-signal" style="margin-bottom: 16px">
+        SECTION 03
+      </div>
+      <div class="divider-number">03</div>
+      <div class="divider-title">Live Demos</div>
+      <div class="divider-sub">Three real workflows you can steal.</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 19 · WHAT WE'RE DEMOING              -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section
+      class="slide slide-compact"
+      id="s19"
+      style="background: var(--soot)"
+    >
+      <div class="label" style="margin-bottom: 24px">
+        016 <span class="pipe"></span> DEMOS
+      </div>
+      <h2 class="section-title" style="margin-bottom: 32px">
+        What We're Demoing
+      </h2>
+      <div class="grid-3" style="max-width: 900px">
+        <div class="demo-card">
+          <div class="demo-header">
+            <span class="index-badge">01</span>
+            <span class="card-title" style="margin-bottom: 0; font-size: 0.9rem"
+              >Search Campaign Architect</span
+            >
+          </div>
+          <div class="demo-body">
+            <div class="demo-tag" style="margin-bottom: 8px">
+              Claude Desktop · Live Build
+            </div>
+            <div class="card-body">URL in. Full Google Ads campaign out.</div>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-header">
+            <span class="index-badge">02</span>
+            <span class="card-title" style="margin-bottom: 0; font-size: 0.9rem"
+              >Branded HTML Email</span
+            >
+          </div>
+          <div class="demo-body">
+            <div class="demo-tag" style="margin-bottom: 8px">
+              Claude Desktop · Live Build
+            </div>
+            <div class="card-body">Topic in. Brand-consistent email out.</div>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-header">
+            <span class="index-badge">03</span>
+            <span class="card-title" style="margin-bottom: 0; font-size: 0.9rem"
+              >Ad Creative Refresher</span
+            >
+          </div>
+          <div class="demo-body">
+            <div class="demo-tag" style="margin-bottom: 8px">
+              Claude Code + Nano Banana Pro
+            </div>
+            <div class="card-body">Winning ad in. Fresh variations out.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 20 · DEMO 1: SEARCH CAMPAIGN         -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s20">
+      <div class="label label-signal" style="margin-bottom: 24px">
+        DEMO 01 <span class="pipe"></span> LIVE BUILD
+      </div>
+      <h2 class="section-title" style="margin-bottom: 12px">
+        Google Search Campaign Architect
+      </h2>
+      <p class="body-text" style="margin-bottom: 32px; color: var(--dust)">
+        Input: Just a URL. Output: Full Google Ads search campaign map —
+        copy-paste ready into Google Ads.
+      </p>
+      <div class="grid-3" style="max-width: 700px; margin-bottom: 32px">
+        <div class="card" style="padding: 20px">
+          <div class="card-body" style="font-size: 12px">
+            Runs in Claude Desktop
+          </div>
+        </div>
+        <div class="card" style="padding: 20px">
+          <div class="card-body" style="font-size: 12px">
+            Built using James's Skill Creator (TVM community tool)
+          </div>
+        </div>
+        <div class="card" style="padding: 20px">
+          <div class="card-body" style="font-size: 12px">
+            No API keys needed
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        This is a first-draft builder, not an autonomous ad buyer. General
+        skill, transferrable across orgs. Want to go further? Build a skill
+        that uploads campaigns directly.
+      </div>
+      <a
+        href="https://claude.ai/share/d7461c9f-5a88-450e-8160-19944e44abaa"
+        target="_blank"
+        rel="noopener"
+        class="demo-link"
+        >VIEW CONVERSATION →</a
+      >
+      <!-- <div class="demo-preview">screenshot placeholder</div> -->
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 21 · DEMO 2: BRANDED EMAIL           -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s21" style="background: var(--soot)">
+      <div class="label label-signal" style="margin-bottom: 24px">
+        DEMO 02 <span class="pipe"></span> LIVE BUILD
+      </div>
+      <h2 class="section-title" style="margin-bottom: 12px">
+        Branded HTML Email Generator
+      </h2>
+      <p class="body-text" style="margin-bottom: 32px; color: var(--dust)">
+        Input: A topic. Output: Fully designed, brand-consistent HTML email.
+      </p>
+      <div
+        style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px"
+      >
+        <span class="logo-pill" style="border-color: var(--signal-dim)"
+          >Brand voice</span
+        >
+        <span class="logo-pill" style="border-color: var(--signal-dim)"
+          >Colors + layout</span
+        >
+        <span class="logo-pill" style="border-color: var(--signal-dim)"
+          >Design tokens</span
+        >
+        <span class="logo-pill" style="border-color: var(--signal-dim)"
+          >Copy-paste to ESP</span
+        >
+      </div>
+      <div class="callout">
+        This skill holds everything about my business. This is what "personal
+        skills" look like in practice.
+      </div>
+      <a
+        href="https://claude.ai/share/c093efd3-52dc-4bd6-a4b0-ceffb728acaa"
+        target="_blank"
+        rel="noopener"
+        class="demo-link"
+        >VIEW CONVERSATION →</a
+      >
+      <!-- <div class="demo-preview">screenshot placeholder</div> -->
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 22 · DEMO 3: AD CREATIVE REFRESHER   -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s22" style="background: var(--soot)">
+      <div class="label label-signal" style="margin-bottom: 24px">
+        DEMO 03 <span class="pipe"></span> CLAUDE CODE + NANO BANANA PRO
+      </div>
+      <h2 class="section-title" style="margin-bottom: 12px">
+        Ad Creative Refresher
+      </h2>
+      <p class="body-text" style="margin-bottom: 32px; color: var(--dust)">
+        Input: Your winning ad. Output: Fresh variations. Runs in Claude Code +
+        Nano Banana Pro (Gemini image generation).
+      </p>
+      <p
+        class="body-text"
+        style="font-size: 12px; color: var(--stone); margin-bottom: 24px"
+      >
+        Requires Gemini API key. Free tier available.
+      </p>
+      <div class="callout">
+        Claude Code handles the creative logic. Nano Banana Pro generates the
+        images. You bring the winning ad.
+      </div>
+      <!-- <div class="demo-preview">screenshot placeholder</div> -->
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 24 · SECTION: BUILDING SKILLS        -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="divider-slide" id="s24">
+      <div class="label label-signal" style="margin-bottom: 16px">
+        SECTION 04
+      </div>
+      <div class="divider-number">04</div>
+      <div class="divider-title">Building Skills</div>
+      <div class="divider-sub">Let's make one together.</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 25 · WHAT MAKES A GOOD SKILL         -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s25" style="background: var(--soot)">
+      <div class="label" style="margin-bottom: 24px">
+        021 <span class="pipe"></span> FILTERS
+      </div>
+      <h2 class="section-title" style="margin-bottom: 40px">
+        What Makes a Good Skill?
+      </h2>
+      <div class="grid-3" style="max-width: 700px; margin-bottom: 40px">
+        <div
+          class="card card-signal"
+          style="text-align: center; padding: 32px 20px"
+        >
+          <div
+            style="
+              font-family: var(--font-display);
+              font-size: 2rem;
+              font-weight: 700;
+              color: var(--chalk);
+              margin-bottom: 8px;
+            "
+          >
+            Repeatable
+          </div>
+          <div class="card-body" style="font-size: 12px">
+            You do it more than once.
+          </div>
+        </div>
+        <div class="card" style="text-align: center; padding: 32px 20px">
+          <div
+            style="
+              font-family: var(--font-display);
+              font-size: 2rem;
+              font-weight: 700;
+              color: var(--chalk);
+              margin-bottom: 8px;
+            "
+          >
+            Explainable
+          </div>
+          <div class="card-body" style="font-size: 12px">
+            You could explain it to a sharp colleague.
+          </div>
+        </div>
+        <div class="card" style="text-align: center; padding: 32px 20px">
+          <div
+            style="
+              font-family: var(--font-display);
+              font-size: 2rem;
+              font-weight: 700;
+              color: var(--chalk);
+              margin-bottom: 8px;
+            "
+          >
+            Contained
+          </div>
+          <div class="card-body" style="font-size: 12px">
+            Clear start. Clear end.
+          </div>
+        </div>
+      </div>
+      <p class="body-text body-large">
+        If you can describe it in plain language, you can turn it into a skill.
+      </p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 26 · LET'S BUILD IT                  -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s26">
+      <div class="label label-signal" style="margin-bottom: 24px">
+        022 <span class="pipe"></span> LIVE ~15 MIN
+      </div>
+      <h2 class="section-title" style="margin-bottom: 40px">Let's Build It</h2>
+      <div class="step-flow" style="max-width: 700px; margin-bottom: 32px">
+        <div class="step-item" style="border-left: 2px solid var(--signal)">
+          <div class="step-num" style="color: var(--signal-dim)">01</div>
+          <div class="card-body">Describe what we want</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">02</div>
+          <div class="card-body">Claude drafts the SKILL.md</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">03</div>
+          <div class="card-body">We refine the instructions</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">04</div>
+          <div class="card-body">Test it on a real example</div>
+        </div>
+      </div>
+      <a
+        href="vibe-skill-creator.skill"
+        download="vibe-skill-creator.skill"
+        class="demo-link"
+        >INSTALL VIBE SKILL CREATOR →</a
+      >
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 27 · WHAT WE BUILT                   -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section
+      class="slide slide-compact"
+      id="s27"
+      style="background: var(--soot)"
+    >
+      <div class="accent-bar" style="margin-bottom: 24px"></div>
+      <h2 class="section-title" style="margin-bottom: 12px">That's a skill.</h2>
+      <p class="body-text body-large" style="margin-bottom: 32px">
+        Started with an idea from the room. Described it in plain language.
+        Claude wrote the instructions. We tested it.
+      </p>
+      <p
+        class="body-text"
+        style="color: var(--signal); font-size: 15px; font-weight: 500"
+      >
+        No code. No config. Just words.
+      </p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 28 · SECTION: SAFETY + RESOURCES     -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="divider-slide" id="s28">
+      <div class="label label-signal" style="margin-bottom: 16px">
+        SECTION 05
+      </div>
+      <div class="divider-number">05</div>
+      <div class="divider-title">Safety + Resources</div>
+      <div class="divider-sub">Treat skills like software installs.</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 29 · SAFETY CHECKLIST                -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s29" style="background: var(--soot)">
+      <div class="label" style="margin-bottom: 24px">
+        024 <span class="pipe"></span> SAFETY
+      </div>
+      <h2 class="section-title" style="margin-bottom: 32px">
+        Safety Checklist
+      </h2>
+      <div style="max-width: 560px">
+        <div class="stack-row">
+          <div
+            style="
+              width: 8px;
+              height: 8px;
+              background: var(--signal);
+              border-radius: 50%;
+              margin-top: 6px;
+              flex-shrink: 0;
+            "
+          ></div>
+          <div class="card-body" style="color: var(--bone)">
+            Read the full instructions before running.
+          </div>
+        </div>
+        <div class="stack-row">
+          <div
+            style="
+              width: 8px;
+              height: 8px;
+              background: var(--signal);
+              border-radius: 50%;
+              margin-top: 6px;
+              flex-shrink: 0;
+            "
+          ></div>
+          <div class="card-body" style="color: var(--bone)">
+            Watch for hidden scripts or broad permissions.
+          </div>
+        </div>
+        <div class="stack-row">
+          <div
+            style="
+              width: 8px;
+              height: 8px;
+              background: var(--signal);
+              border-radius: 50%;
+              margin-top: 6px;
+              flex-shrink: 0;
+            "
+          ></div>
+          <div class="card-body" style="color: var(--bone)">
+            Check who published it and when.
+          </div>
+        </div>
+        <div class="stack-row">
+          <div
+            style="
+              width: 8px;
+              height: 8px;
+              background: var(--signal);
+              border-radius: 50%;
+              margin-top: 6px;
+              flex-shrink: 0;
+            "
+          ></div>
+          <div class="card-body" style="color: var(--bone)">
+            Test in a safe environment first.
+          </div>
+        </div>
+        <div class="stack-row">
+          <div
+            style="
+              width: 8px;
+              height: 8px;
+              background: #ef4444;
+              border-radius: 50%;
+              margin-top: 6px;
+              flex-shrink: 0;
+            "
+          ></div>
+          <div class="card-body" style="color: var(--bone)">
+            If something feels off, don't install it.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 30 · WHERE TO FIND SKILLS            -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s30">
+      <div class="label" style="margin-bottom: 24px">
+        025 <span class="pipe"></span> TRUST TIERS
+      </div>
+      <h2 class="section-title" style="margin-bottom: 32px">
+        Where to Find Skills
+      </h2>
+      <div style="max-width: 560px; margin-bottom: 40px">
+        <div class="tier">
+          <div class="tier-bar tier-high"></div>
+          <div>
+            <div class="card-title" style="font-size: 0.9rem">
+              Official GitHub Repos
+            </div>
+            <div class="card-body" style="font-size: 12px">
+              Highest trust. Anthropic-maintained.
+            </div>
+          </div>
+        </div>
+        <div class="tier">
+          <div class="tier-bar tier-mid"></div>
+          <div>
+            <div class="card-title" style="font-size: 0.9rem">
+              Well-Known Org Repos
+            </div>
+            <div class="card-body" style="font-size: 12px">
+              Good trust. Established builders and teams.
+            </div>
+          </div>
+        </div>
+        <div class="tier">
+          <div class="tier-bar tier-low"></div>
+          <div>
+            <div class="card-title" style="font-size: 0.9rem">Marketplaces</div>
+            <div class="card-body" style="font-size: 12px">
+              Use with care. Read before you run.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="label" style="margin-bottom: 16px">RESOURCES</div>
+      <div class="grid-3" style="max-width: 750px">
+        <div class="resource-card">
+          <div class="card-title" style="font-size: 0.9rem">
+            anthropics/skills
+          </div>
+          <div class="card-body" style="font-size: 12px">
+            Anthropic's official repo
+          </div>
+          <a
+            href="https://github.com/anthropics/skills"
+            target="_blank"
+            class="resource-url"
+            >github.com/anthropics/skills</a
+          >
+        </div>
+        <div class="resource-card">
+          <div class="card-title" style="font-size: 0.9rem">openai/skills</div>
+          <div class="card-body" style="font-size: 12px">
+            OpenAI's official Codex skills catalog
+          </div>
+          <a
+            href="https://github.com/openai/skills"
+            target="_blank"
+            class="resource-url"
+            >github.com/openai/skills</a
+          >
+        </div>
+        <div class="resource-card">
+          <div class="card-title" style="font-size: 0.9rem">
+            Composio Skills
+          </div>
+          <div class="card-body" style="font-size: 12px">
+            50+ curated skills across 9 categories
+          </div>
+          <a
+            href="https://github.com/ComposioHQ/awesome-claude-skills"
+            target="_blank"
+            class="resource-url"
+            >github.com/ComposioHQ/awesome-claude-skills</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 31 · SECTION: TAKEAWAY               -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="divider-slide" id="s31">
+      <div class="label label-signal" style="margin-bottom: 16px">
+        SECTION 06
+      </div>
+      <div class="divider-number">06</div>
+      <div class="divider-title">Your Takeaway</div>
+      <div class="divider-sub">Free skills. Concrete next steps.</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 32 · SKILL STARTER KIT               -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s32" style="background: var(--soot)">
+      <div class="accent-bar" style="margin-bottom: 24px"></div>
+      <div class="label" style="margin-bottom: 24px">
+        027 <span class="pipe"></span> FREE
+      </div>
+      <h2 class="section-title" style="margin-bottom: 32px">
+        Your Free Take-Home: Skill Starter Kit
+      </h2>
+      <div class="grid-3" style="max-width: 750px; margin-bottom: 32px">
+        <div class="card card-signal">
+          <div class="card-title" style="font-size: 0.9rem">
+            Vibe Skill Builder
+          </div>
+          <div class="card-body" style="font-size: 12px">
+            Turns a repetitive task description into a usable SKILL.md
+          </div>
+        </div>
+        <div class="card card-signal">
+          <div class="card-title" style="font-size: 0.9rem">
+            Brand Voice Extractor
+          </div>
+          <div class="card-body" style="font-size: 12px">
+            Captures your tone, phrases to use and avoid, formatting preferences
+          </div>
+        </div>
+        <div class="card card-signal">
+          <div class="card-title" style="font-size: 0.9rem">
+            Quality Check / Output Gate
+          </div>
+          <div class="card-body" style="font-size: 12px">
+            Reviews AI outputs for completeness, brand alignment, clarity, and
+            risk
+          </div>
+        </div>
+      </div>
+      <p class="body-text" style="color: var(--dust)">
+        Delivered as a simple downloadable pack with install steps and test
+        prompts. Install today, use today.
+      </p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 33 · COMMUNITY UPGRADE               -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="slide" id="s33">
+      <div class="label" style="margin-bottom: 24px">
+        028 <span class="pipe"></span> COMMUNITY
+      </div>
+      <h2 class="section-title" style="margin-bottom: 32px">
+        Skill Remix Lab + Skill Vault
+      </h2>
+      <div class="grid-2" style="max-width: 680px; margin-bottom: 32px">
+        <div class="card">
+          <div class="label label-signal" style="margin-bottom: 12px">
+            MONTHLY
+          </div>
+          <div class="card-title" style="font-size: 0.9rem">
+            Skill Remix Lab
+          </div>
+          <div class="card-body">
+            Live session remixing a public skill into personalized versions.
+            Finished skill pack + notes shared after.
+          </div>
+        </div>
+        <div class="card">
+          <div class="label label-signal" style="margin-bottom: 12px">
+            GROWING LIBRARY
+          </div>
+          <div class="card-title" style="font-size: 0.9rem">Skill Vault</div>
+          <div class="card-body">
+            Tested, production-ready skills you can install and use immediately.
+          </div>
+        </div>
+      </div>
+      <p class="body-text body-large">
+        This is where skills move from experimentation to a repeatable system.
+      </p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 34 · ONE TAKEAWAY                    -->
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- ★ THE VOID — emphasis by withdrawal ★ -->
+    <section
+      class="slide"
+      id="s34"
+      style="
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 120px 40px;
+      "
+    >
+      <div class="accent-bar" style="margin: 0 auto 40px"></div>
+      <h2
+        class="display"
+        style="
+          font-size: clamp(1.8rem, 4vw, 2.8rem);
+          max-width: 600px;
+          margin-bottom: 24px;
+        "
+      >
+        Start with one workflow.<br />Build one skill.<br />Repeat.
+      </h2>
+      <p
+        class="body-text"
+        style="
+          text-align: center;
+          max-width: 480px;
+          margin: 0 auto 40px;
+          color: var(--dust);
+        "
+      >
+        Every skill you build is time you get back, and context you never have
+        to repeat.
+      </p>
+      <p
+        class="quote-text"
+        style="font-size: 1.15rem; max-width: 400px; color: var(--stone)"
+      >
+        "Skills don't replace judgment. They preserve it."
+      </p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SLIDE 35 · THANKS                          -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section
+      class="slide"
+      id="s35"
+      style="
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 80px clamp(24px, 8vw, 120px);
+        background: var(--void);
+        position: relative;
+      "
+    >
+      <h2
+        class="display"
+        style="font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 16px;"
+      >
+        Now go build something.
+      </h2>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 64px;">
+        <span class="label label-signal">@ctrlswing</span>
+        <span class="pipe"></span>
+        <span class="label">QUESTIONS? GRAB ME AFTER.</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 32px;">
+        <img
+          src="qr-code.png"
+          alt="QR Code - Free skills, resources, and links"
+          style="width: 160px; height: 160px; border-radius: 2px; flex-shrink: 0;"
+        />
+        <div>
+          <p class="body-text body-large" style="margin-bottom: 12px; max-width: 360px;">
+            Scan for free skills, resources, and links from today's session.
+          </p>
+          <p class="label" style="color: var(--stone);">CHANNEL47.DEV/START</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- NAV DOTS                                   -->
+    <!-- ═══════════════════════════════════════════ -->
+    <nav class="nav-dots" id="navDots"></nav>
+
+    <script>
+      // Build nav dots
+      const sections = document.querySelectorAll(".slide, .divider-slide");
+      const navDots = document.getElementById("navDots");
+
+      // Group slides by section for dots
+      const sectionStarts = [0, 3, 8, 17, 23, 27, 30]; // indices of section dividers
+      sectionStarts.forEach((_, i) => {
+        const dot = document.createElement("div");
+        dot.className = "nav-dot";
+        dot.addEventListener("click", () => {
+          sections[sectionStarts[i]].scrollIntoView({ behavior: "smooth" });
+        });
+        navDots.appendChild(dot);
+      });
+
+      // Active dot tracking
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const idx = Array.from(sections).indexOf(entry.target);
+              const dots = document.querySelectorAll(".nav-dot");
+              dots.forEach((d) => d.classList.remove("active"));
+              // Find which section group this slide belongs to
+              let group = 0;
+              for (let i = sectionStarts.length - 1; i >= 0; i--) {
+                if (idx >= sectionStarts[i]) {
+                  group = i;
+                  break;
+                }
+              }
+              if (dots[group]) dots[group].classList.add("active");
+            }
+          });
+        },
+        { threshold: 0.4 },
+      );
+
+      sections.forEach((s) => observer.observe(s));
+
+      // Scroll animations
+      const animTargets = document.querySelectorAll(".anim-target");
+      const animObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.2 },
+      );
+      animTargets.forEach((t) => animObserver.observe(t));
+
+      // Keyboard navigation
+      let currentSlide = 0;
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown" || e.key === " " || e.key === "PageDown") {
+          e.preventDefault();
+          currentSlide = Math.min(currentSlide + 1, sections.length - 1);
+          sections[currentSlide].scrollIntoView({ behavior: "smooth" });
+        } else if (e.key === "ArrowUp" || e.key === "PageUp") {
+          e.preventDefault();
+          currentSlide = Math.max(currentSlide - 1, 0);
+          sections[currentSlide].scrollIntoView({ behavior: "smooth" });
+        }
+      });
+
+      // Update currentSlide on scroll
+      const scrollObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              currentSlide = Array.from(sections).indexOf(entry.target);
+            }
+          });
+        },
+        { threshold: 0.5 },
+      );
+      sections.forEach((s) => scrollObserver.observe(s));
+    </script>
+  </body>
+</html>

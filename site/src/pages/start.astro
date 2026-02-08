@@ -1,0 +1,380 @@
+---
+/**
+ * /start — AI Skills Starter Kit
+ * Post-talk landing page. QR code destination.
+ * Focused: skill downloads, resources, CTAs. No nav/footer.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="AI Skills Starter Kit — Channel47"
+  description="Free skills, resources, and links from the Vibe Marketers AI Skills session."
+>
+  <main class="start">
+
+    <!-- ── HEADER ── -->
+    <header class="start__header">
+      <div class="start__bar" aria-hidden="true"></div>
+      <p class="start__label">FROM THE VIBE MARKETERS SESSION</p>
+      <h1 class="start__title">AI Skills Starter Kit</h1>
+      <p class="start__sub">
+        Everything from today's session — free skills, resources, and next steps.
+      </p>
+    </header>
+
+    <!-- ── FREE SKILLS (PRIMARY) ── -->
+    <section class="start__section">
+      <p class="start__label start__label--signal">FREE SKILLS</p>
+      <h2 class="start__heading">Install and Use Today</h2>
+      <div class="start__grid">
+        <div class="start__card">
+          <p class="start__card-title">Vibe Skill Builder</p>
+          <p class="start__card-body">
+            Turns a repetitive task description into a usable SKILL.md
+          </p>
+          <a
+            href="/skills/vibe-skill-creator.skill"
+            download="vibe-skill-creator.skill"
+            class="start__btn"
+          >INSTALL</a>
+        </div>
+        <div class="start__card">
+          <p class="start__card-title">Brand Voice Extractor</p>
+          <p class="start__card-body">
+            Captures your tone, phrases to use and avoid, formatting preferences
+          </p>
+          <a
+            href="/skills/brand-voice-extractor.skill"
+            download="brand-voice-extractor.skill"
+            class="start__btn"
+          >INSTALL</a>
+        </div>
+        <div class="start__card">
+          <p class="start__card-title">Quality Check / Output Gate</p>
+          <p class="start__card-body">
+            Reviews AI outputs for completeness, brand alignment, clarity, and risk
+          </p>
+          <a
+            href="/skills/quality-check.skill"
+            download="quality-check.skill"
+            class="start__btn"
+          >INSTALL</a>
+        </div>
+      </div>
+      <p class="start__note">
+        Works on Mac and Windows. On mobile, save and open on desktop.
+      </p>
+    </section>
+
+    <!-- ── RESOURCES ── -->
+    <section class="start__section">
+      <p class="start__label">RESOURCES</p>
+      <h2 class="start__heading">Where to Find More Skills</h2>
+      <div class="start__grid">
+        <a href="https://github.com/anthropics/skills" target="_blank" rel="noopener" class="start__resource">
+          <p class="start__resource-name">anthropics/skills</p>
+          <p class="start__resource-desc">Anthropic's official skill repo</p>
+          <span class="start__resource-url">github.com/anthropics/skills</span>
+        </a>
+        <a href="https://github.com/openai/codex" target="_blank" rel="noopener" class="start__resource">
+          <p class="start__resource-name">openai/codex</p>
+          <p class="start__resource-desc">OpenAI's Codex skills catalog</p>
+          <span class="start__resource-url">github.com/openai/codex</span>
+        </a>
+        <a href="https://github.com/ComposioHQ/awesome-claude-skills" target="_blank" rel="noopener" class="start__resource">
+          <p class="start__resource-name">Composio Skills</p>
+          <p class="start__resource-desc">50+ curated skills across 9 categories</p>
+          <span class="start__resource-url">github.com/ComposioHQ/awesome-claude-skills</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ── COMMUNITY CTA ── -->
+    <section class="start__section">
+      <p class="start__label start__label--signal">COMMUNITY</p>
+      <h2 class="start__heading">Skill Remix Lab + Skill Vault</h2>
+      <p class="start__body">
+        Monthly live sessions remixing public skills into personalized versions.
+        Growing library of tested, production-ready skills. The group that keeps
+        shipping.
+      </p>
+      <a
+        href="https://www.skool.com/the-vibe-marketers/about?ref=be313e8087da44cca0ecd7edd9ac0775"
+        target="_blank"
+        rel="noopener"
+        class="start__btn"
+      >JOIN ON SKOOL →</a>
+    </section>
+
+    <!-- ── PAID BUNDLE CTA ── -->
+    <section class="start__section start__section--subtle">
+      <p class="start__label">SKIP THE SETUP</p>
+      <h2 class="start__heading">10 Skills, Ready to Go</h2>
+      <p class="start__body">
+        Brand voice, positioning, SEO, email sequences, landing pages.
+        Frameworks refined across 200+ projects. Drop into Claude and ship.
+      </p>
+      <a
+        href="https://www.thevibemarketer.com/skills"
+        target="_blank"
+        rel="noopener"
+        class="start__btn start__btn--outline"
+      >GET THE BUNDLE →</a>
+      <p class="start__promo">
+        Use <span class="start__code">EMPIRE50</span> for 50% off
+      </p>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer class="start__footer">
+      <p class="start__label start__label--signal">@ctrlswing</p>
+      <p class="start__footer-text">Built by Jackson</p>
+    </footer>
+
+  </main>
+</BaseLayout>
+
+<style>
+  .start {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-16) var(--space-5) var(--space-20);
+  }
+
+  /* ── Header ── */
+  .start__header {
+    margin-bottom: var(--space-16);
+  }
+
+  .start__bar {
+    width: 40px;
+    height: 2px;
+    background: var(--color-accent);
+    margin-bottom: var(--space-6);
+  }
+
+  .start__label {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .start__label--signal {
+    color: var(--color-accent);
+  }
+
+  .start__title {
+    font-family: var(--font-display);
+    font-size: var(--fluid-5xl);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-tighter);
+    letter-spacing: -0.03em;
+    color: var(--color-fg);
+    margin-bottom: var(--space-4);
+  }
+
+  .start__sub {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-secondary);
+    max-width: 480px;
+  }
+
+  /* ── Sections ── */
+  .start__section {
+    margin-bottom: var(--space-16);
+    padding-top: var(--space-10);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .start__section--subtle {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-8);
+    margin-left: calc(-1 * var(--space-2));
+    margin-right: calc(-1 * var(--space-2));
+  }
+
+  .start__heading {
+    font-family: var(--font-display);
+    font-size: var(--fluid-2xl);
+    font-weight: var(--font-semibold);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.02em;
+    color: var(--color-fg);
+    margin-bottom: var(--space-6);
+  }
+
+  .start__body {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-secondary);
+    max-width: 520px;
+    margin-bottom: var(--space-6);
+  }
+
+  /* ── Grid ── */
+  .start__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 640px) {
+    .start__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* ── Skill Cards ── */
+  .start__card {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-left: 2px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .start__card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+  }
+
+  .start__card-body {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-secondary);
+    flex: 1;
+  }
+
+  .start__note {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+  }
+
+  /* ── Resource Cards ── */
+  .start__resource {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    text-decoration: none;
+    transition: border-color var(--duration-normal) var(--ease-out);
+  }
+
+  .start__resource:hover {
+    border-color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .start__resource-name {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+  }
+
+  .start__resource-desc {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-secondary);
+  }
+
+  .start__resource-url {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+  }
+
+  /* ── Buttons ── */
+  .start__btn {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    padding: var(--space-2-5) var(--space-5);
+    background: var(--color-accent);
+    color: var(--color-bg);
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: background var(--duration-normal) var(--ease-out);
+    margin-top: auto;
+  }
+
+  .start__btn:hover {
+    background: var(--color-fg);
+    color: var(--color-bg);
+    text-decoration: none;
+  }
+
+  .start__btn--outline {
+    background: transparent;
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .start__btn--outline:hover {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .start__card .start__btn {
+    margin-top: var(--space-4);
+  }
+
+  /* ── Promo ── */
+  .start__promo {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg-secondary);
+    margin-top: var(--space-4);
+  }
+
+  .start__code {
+    color: var(--color-fg);
+    font-weight: var(--font-semibold);
+    background: rgba(245, 158, 11, 0.15);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* ── Footer ── */
+  .start__footer {
+    margin-top: var(--space-16);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .start__footer-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+  }
+</style>
