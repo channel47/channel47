@@ -1,20 +1,38 @@
-# .gitignore
+# Dependencies
 node_modules/
-node_modules
+
+# Build output
 dist/
+
+# Vercel
 .vercel/
+
+# Environment
 .env
 .env.local
+
+# OS
 .DS_Store
+
+# Logs
 *.log
-.worktrees/
 
-# Image generation drafts (keep only selected hero.png)
-public/images/blog-heroes/**/style-a.png
-public/images/blog-heroes/**/style-d.png
-.vercel
-style/
+# Local settings
+.claude/settings.local.json
+.mcp.json
 
+# Image drafts (root level)
+/*.png
+
+# AI tool configs (Cursor, Codex, Gemini, Goose, OpenCode, Agents)
+# Keep .github/, .claude/, .claude-plugin/ tracked
+.agents/
+.cursor/
+.codex/
+.gemini/
+.goose/
+.opencode/
+
+# Ephemeral / generated
 .playwright-mcp/
-
-.codex/environments/
+.worktrees/
