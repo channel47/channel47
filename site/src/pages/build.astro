@@ -1,0 +1,874 @@
+---
+/**
+ * /build — Skill Builder Funnel
+ * Post-talk landing page for Vibe Marketers (Feb 12).
+ * QR code destination. Multi-step form → personalized claude.ai deep link.
+ * No nav/footer chrome. Focused conversion page.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LogoAnimated from '../components/LogoAnimated.astro';
+import EmailSignup from '../components/EmailSignup.astro';
+---
+
+<BaseLayout
+  title="Build Your First Skill — Channel47"
+  description="Answer three questions. Get a personalized Claude skill-building prompt. No signup required."
+>
+  <main class="build">
+
+    <!-- ── LOGO ── -->
+    <div class="build__logo">
+      <LogoAnimated />
+    </div>
+
+    <!-- ── PROGRESS ── -->
+    <div class="build__progress" aria-hidden="true">
+      <div class="build__progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- ── STEP 1: Role ── -->
+    <section class="build__step is-active" data-step="1">
+      <div class="build__bar build__bar--entry" aria-hidden="true"></div>
+      <p class="build__label build__label--signal">STEP 1 OF 3</p>
+      <h1 class="build__question">What do you do?</h1>
+      <div class="build__options" data-field="role">
+        <button class="build__option" data-value="Media buyer / PPC">Media buyer / PPC</button>
+        <button class="build__option" data-value="Content marketer">Content marketer</button>
+        <button class="build__option" data-value="Email marketer">Email marketer</button>
+        <button class="build__option" data-value="SEO">SEO</button>
+        <button class="build__option" data-value="Social media">Social media</button>
+        <button class="build__option" data-value="other">Other</button>
+      </div>
+      <div class="build__other" data-other="role" hidden>
+        <input
+          type="text"
+          class="build__input"
+          placeholder="What's your role?"
+          maxlength="100"
+          data-other-input="role"
+        />
+        <button class="build__next" data-other-submit="role">
+          Next <span class="build__arrow" aria-hidden="true">-&gt;</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── STEP 2: Task ── -->
+    <section class="build__step" data-step="2">
+      <button class="build__back" data-back aria-label="Go back">&lt;- Back</button>
+      <p class="build__label build__label--signal">STEP 2 OF 3</p>
+      <h1 class="build__question build__question--tight">Pick a task you repeat weekly</h1>
+      <div class="build__options" data-field="task">
+        <button class="build__option" data-value="Write or review ad copy">Write or review ad copy</button>
+        <button class="build__option" data-value="Pull performance reports">Pull performance reports</button>
+        <button class="build__option" data-value="Audit accounts or campaigns">Audit accounts or campaigns</button>
+        <button class="build__option" data-value="Draft emails or newsletters">Draft emails or newsletters</button>
+        <button class="build__option" data-value="Research keywords or competitors">Research keywords or competitors</button>
+        <button class="build__option" data-value="other">Other</button>
+      </div>
+      <div class="build__other" data-other="task" hidden>
+        <input
+          type="text"
+          class="build__input"
+          placeholder="What task eats your time?"
+          maxlength="200"
+          data-other-input="task"
+        />
+        <button class="build__next" data-other-submit="task">
+          Next <span class="build__arrow" aria-hidden="true">-&gt;</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── STEP 3: Tool ── -->
+    <section class="build__step" data-step="3">
+      <button class="build__back" data-back aria-label="Go back">&lt;- Back</button>
+      <p class="build__label build__label--signal">STEP 3 OF 3</p>
+      <h1 class="build__question">What tool do you mainly use?</h1>
+      <div class="build__options" data-field="tool">
+        <button class="build__option" data-value="Google Ads">Google Ads</button>
+        <button class="build__option" data-value="Meta Ads">Meta Ads</button>
+        <button class="build__option" data-value="HubSpot">HubSpot</button>
+        <button class="build__option" data-value="Mailchimp">Mailchimp</button>
+        <button class="build__option" data-value="Google Sheets / Docs">Google Sheets / Docs</button>
+        <button class="build__option" data-value="other">Other</button>
+      </div>
+      <div class="build__other" data-other="tool" hidden>
+        <input
+          type="text"
+          class="build__input"
+          placeholder="What tool do you use most?"
+          maxlength="100"
+          data-other-input="tool"
+        />
+        <button class="build__next" data-other-submit="tool">
+          Next <span class="build__arrow" aria-hidden="true">-&gt;</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── STEP 4: Link revealed ── -->
+    <section class="build__step build__step--result" data-step="4">
+      <div class="build__bar" aria-hidden="true"></div>
+      <p class="build__label build__label--signal">READY</p>
+      <h1 class="build__question">Your prompt is ready.</h1>
+      <p class="build__body build__body--result">
+        Click below to open Claude with a personalized prompt based on your answers. It'll walk you through building your first skill.
+      </p>
+
+      <div class="build__cta-zone">
+        <a
+          id="claudeLink"
+          href="#"
+          target="_blank"
+          rel="noopener"
+          class="build__btn build__btn--primary build__btn--lg"
+        >
+          Open in Claude <span class="build__arrow" aria-hidden="true">-&gt;</span>
+        </a>
+      </div>
+
+      <!-- Secondary CTAs -->
+      <div class="build__secondary">
+        <p class="build__label">KEEP GOING</p>
+        <div class="build__ctas">
+          <a
+            href="https://www.skool.com/the-vibe-marketers/about?ref=be313e8087da44cca0ecd7edd9ac0775"
+            target="_blank"
+            rel="noopener"
+            class="build__cta"
+          >
+            <span class="build__cta-title">Join the group</span>
+            <span class="build__cta-desc">Monthly live sessions. Growing skill library.</span>
+          </a>
+          <a
+            href="https://www.thevibemarketer.com/skills"
+            target="_blank"
+            rel="noopener"
+            class="build__cta"
+          >
+            <span class="build__cta-title">Get 10 ready-made skills</span>
+            <span class="build__cta-desc">Use code <span class="build__code">EMPIRE50</span> for 50% off</span>
+          </a>
+          <div class="build__cta build__cta--email">
+            <span class="build__cta-title">Get the build notes</span>
+            <span class="build__cta-desc">Short emails when something real ships. Skills, prompts, and what broke.</span>
+            <EmailSignup tag="build" submitText="Subscribe" placeholder="your@email.com" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="build__footer">
+        <a href="https://x.com/ctrlswing" target="_blank" rel="noopener" class="build__footer-link">
+          <span class="build__label build__label--signal">@ctrlswing</span>
+        </a>
+        <p class="build__footer-text">Built by Jackson</p>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>
+
+<!-- ── FORM LOGIC ── -->
+<script>
+  const answers: Record<string, string> = {};
+  let currentStep = 1;
+  const totalSteps = 4;
+
+  function updateProgress() {
+    const bar = document.getElementById('progressBar');
+    if (bar) {
+      const pct = ((currentStep - 1) / (totalSteps - 1)) * 100;
+      bar.style.width = `${pct}%`;
+    }
+  }
+
+  function goToStep(step: number) {
+    const current = document.querySelector('.build__step.is-active');
+    const next = document.querySelector(`[data-step="${step}"]`);
+    if (!current || !next || current === next) return;
+
+    current.classList.add('is-leaving');
+
+    setTimeout(() => {
+      current.classList.remove('is-active', 'is-leaving');
+      next.classList.add('is-active');
+      currentStep = step;
+      updateProgress();
+
+      // Auto-focus text input if "other" is showing
+      const otherInput = next.querySelector('.build__input:not([type="email"])') as HTMLInputElement;
+      if (otherInput && !otherInput.closest('[hidden]')) {
+        otherInput.focus();
+      }
+
+      // On step 4, build the claude.ai link and scroll to top
+      if (step === 4) {
+        buildClaudeLink();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 250);
+  }
+
+  function buildClaudeLink() {
+    const role = answers.role || 'marketer';
+    const task = answers.task || 'repetitive marketing tasks';
+    const tool = answers.tool || 'various marketing tools';
+
+    const prompt = `My role: ${role}. Every week I ${task.toLowerCase()}—it's my biggest time sink. My main tool is ${tool}. Help me build a Claude skill (a SKILL.md file for Claude's skill system) that automates or accelerates this. Walk me through it step by step—start by asking 2-3 clarifying questions about my workflow, then build the skill.`;
+
+    const link = document.getElementById('claudeLink') as HTMLAnchorElement;
+    if (link) {
+      link.href = `https://claude.ai/new?q=${encodeURIComponent(prompt)}`;
+    }
+  }
+
+  // Handle option clicks
+  document.querySelectorAll('.build__option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const field = btn.closest('.build__options')?.getAttribute('data-field');
+      const value = (btn as HTMLElement).dataset.value;
+      if (!field || !value) return;
+
+      if (value === 'other') {
+        // Show the "other" text input
+        const otherDiv = document.querySelector(`[data-other="${field}"]`) as HTMLElement;
+        const optionsDiv = btn.closest('.build__options') as HTMLElement;
+        if (otherDiv && optionsDiv) {
+          optionsDiv.hidden = true;
+          otherDiv.hidden = false;
+          const input = otherDiv.querySelector('input') as HTMLInputElement;
+          if (input) input.focus();
+        }
+        return;
+      }
+
+      answers[field] = value;
+      goToStep(currentStep + 1);
+    });
+  });
+
+  // Handle "other" submit buttons
+  document.querySelectorAll('[data-other-submit]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const field = (btn as HTMLElement).dataset.otherSubmit;
+      if (!field) return;
+      const input = document.querySelector(`[data-other-input="${field}"]`) as HTMLInputElement;
+      if (!input) return;
+      const val = input.value.trim();
+      if (!val) {
+        input.focus();
+        return;
+      }
+      answers[field] = val;
+      goToStep(currentStep + 1);
+    });
+  });
+
+  // Handle Enter key on "other" inputs
+  document.querySelectorAll('.build__other input').forEach(input => {
+    input.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter') {
+        e.preventDefault();
+        const field = input.closest('.build__other')?.getAttribute('data-other');
+        if (!field) return;
+        const btn = document.querySelector(`[data-other-submit="${field}"]`) as HTMLButtonElement;
+        if (btn) btn.click();
+      }
+    });
+  });
+
+  // Handle back buttons
+  document.querySelectorAll('[data-back]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (currentStep > 1) {
+        // Reset "other" state for the current step before going back
+        const currentStepEl = document.querySelector(`[data-step="${currentStep}"]`);
+        if (currentStepEl) {
+          const otherDiv = currentStepEl.querySelector('.build__other') as HTMLElement;
+          const optionsDiv = currentStepEl.querySelector('.build__options') as HTMLElement;
+          if (otherDiv && optionsDiv) {
+            otherDiv.hidden = true;
+            optionsDiv.hidden = false;
+            const input = otherDiv.querySelector('input') as HTMLInputElement;
+            if (input) input.value = '';
+          }
+        }
+        goToStep(currentStep - 1);
+      }
+    });
+  });
+
+  // Init progress bar
+  updateProgress();
+
+  // Reduced motion: disable transitions
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('reduce-motion');
+  }
+</script>
+
+<style>
+  /* ── Layout ── */
+  .build {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-6) clamp(20px, 5vw, 48px);
+    position: relative;
+  }
+
+  /* ── Logo ── */
+  .build__logo {
+    position: absolute;
+    top: var(--space-6);
+    left: clamp(20px, 5vw, 48px);
+  }
+
+  .build__logo :global(.logo-animated) {
+    font-size: var(--text-xs);
+  }
+
+  @media (min-width: 768px) {
+    .build__logo :global(.logo-animated) {
+      font-size: var(--text-sm);
+    }
+  }
+
+  /* ── Progress bar ── */
+  .build__progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--color-bg-elevated);
+    z-index: var(--z-fixed);
+  }
+
+  .build__progress-bar {
+    height: 100%;
+    width: 0;
+    background: var(--color-accent);
+    box-shadow: 0 0 8px var(--color-accent-glow);
+    transition: width 400ms var(--ease-out);
+    animation: breathe-progress 5s ease-in-out infinite;
+  }
+
+  @keyframes breathe-progress {
+    0%, 100% { box-shadow: 0 0 4px var(--color-accent-subtle); }
+    50% { box-shadow: 0 0 12px var(--color-accent-glow); }
+  }
+
+  /* ── Steps ── */
+  .build__step {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 540px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  .build__step.is-active {
+    display: flex;
+    animation: stepIn 400ms var(--ease-out) forwards;
+  }
+
+  .build__step.is-leaving {
+    animation: stepOut 250ms var(--ease-out) forwards;
+  }
+
+  @keyframes stepIn {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes stepOut {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-12px);
+    }
+  }
+
+  /* ── Typography ── */
+  .build__label {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .build__label--signal {
+    color: var(--color-accent);
+  }
+
+  .build__question {
+    font-family: var(--font-display);
+    font-size: var(--fluid-3xl);
+    font-weight: var(--font-semibold);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.02em;
+    color: var(--color-fg);
+    margin-bottom: var(--space-8);
+  }
+
+  .build__question--tight {
+    font-size: var(--fluid-2xl);
+    margin-bottom: var(--space-6);
+  }
+
+  .build__sub {
+    font-family: var(--font-display);
+    font-size: var(--fluid-lg);
+    font-weight: var(--font-medium);
+    color: var(--color-fg-secondary);
+    margin-top: calc(-1 * var(--space-4));
+    margin-bottom: var(--space-4);
+  }
+
+  .build__body {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-secondary);
+    max-width: 480px;
+    margin-bottom: var(--space-8);
+  }
+
+  .build__body--result {
+    margin-bottom: var(--space-6);
+  }
+
+  /* ── Options (clickable cards) ── */
+  .build__options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100%;
+  }
+
+  .build__options[hidden] {
+    display: none;
+  }
+
+  .build__option {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: var(--space-4) var(--space-5);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-fg);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-align: left;
+    transition:
+      border-color var(--duration-normal) var(--ease-out),
+      background-color var(--duration-normal) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .build__option:hover {
+    border-color: var(--color-accent);
+    background: color-mix(in oklch, var(--color-accent) 8%, var(--color-bg-elevated));
+    box-shadow: 0 0 0 1px var(--color-accent-subtle);
+  }
+
+  .build__option:active {
+    transform: scale(0.98);
+    background: color-mix(in oklch, var(--color-accent) 12%, var(--color-bg-elevated));
+    border-color: var(--color-accent);
+  }
+
+  .build__option:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* ── Other (free text) ── */
+  .build__other {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100%;
+  }
+
+  .build__other[hidden] {
+    display: none;
+  }
+
+  .build__input {
+    width: 100%;
+    height: 48px;
+    padding: 0 var(--space-4);
+    font-family: var(--font-mono);
+    font-size: max(16px, var(--text-sm));
+    color: var(--color-fg);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    transition:
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .build__input::placeholder {
+    color: var(--color-fg-subtle);
+  }
+
+  .build__input:hover {
+    border-color: var(--color-border-hover);
+  }
+
+  .build__input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 4px var(--color-accent-subtle);
+  }
+
+  .build__next {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: fit-content;
+    padding: var(--space-3) var(--space-5);
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-fg-inverse);
+    background: var(--color-accent);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .build__next:hover {
+    background: var(--color-fg);
+    color: var(--color-bg);
+  }
+
+  .build__next:active {
+    transform: scale(0.97);
+  }
+
+  /* ── Buttons ── */
+  .build__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: fit-content;
+    padding: var(--space-3) var(--space-6);
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
+  }
+
+  .build__btn--primary {
+    color: var(--color-fg-inverse);
+    background: var(--color-accent);
+  }
+
+  .build__btn--primary:hover {
+    background: var(--color-fg);
+    color: var(--color-bg);
+    text-decoration: none;
+  }
+
+  .build__btn--primary:active {
+    transform: scale(0.97);
+  }
+
+  .build__btn--primary:focus-visible {
+    outline: 2px solid var(--color-fg);
+    outline-offset: 2px;
+  }
+
+  .build__btn--primary:disabled {
+    cursor: default;
+    opacity: 0.7;
+  }
+
+  .build__btn--lg {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-sm);
+    height: 52px;
+  }
+
+  .build__arrow {
+    display: inline-block;
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+
+  .build__btn:hover .build__arrow,
+  .build__next:hover .build__arrow {
+    transform: translateX(4px);
+  }
+
+  /* ── Back button ── */
+  .build__back {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) 0;
+    margin-bottom: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease-out);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .build__back:hover {
+    color: var(--color-fg-secondary);
+  }
+
+  .build__back:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* ── Accent bar ── */
+  .build__bar {
+    width: 40px;
+    height: 2px;
+    background: var(--color-accent);
+    margin-bottom: var(--space-6);
+    box-shadow: 0 0 8px var(--color-accent-subtle);
+    animation: breathe-bar 5s ease-in-out infinite;
+  }
+
+  .build__bar--entry {
+    width: 0;
+    margin-bottom: var(--space-4);
+  }
+
+  .build__step.is-active .build__bar--entry {
+    width: 40px;
+    transition: width 600ms var(--ease-out) 200ms;
+  }
+
+  @keyframes breathe-bar {
+    0%, 100% { box-shadow: 0 0 4px var(--color-accent-subtle); }
+    50% { box-shadow: 0 0 12px var(--color-accent-glow); }
+  }
+
+  /* ── Step 4: result layout ── */
+  .build__step--result {
+    padding-top: var(--space-16);
+    justify-content: flex-start;
+  }
+
+  /* ── CTA zone (hierarchy by withdrawal) ── */
+  .build__cta-zone {
+    padding: var(--space-8) 0 var(--space-4);
+  }
+
+  /* ── Secondary CTAs ── */
+  .build__secondary {
+    margin-top: var(--space-12);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+    width: 100%;
+  }
+
+  .build__ctas {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+  }
+
+  .build__cta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-5);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition:
+      border-color var(--duration-normal) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out);
+  }
+
+  .build__cta:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-xs);
+    text-decoration: none;
+  }
+
+  .build__cta-title {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-fg);
+  }
+
+  .build__cta-desc {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-secondary);
+  }
+
+  .build__code {
+    color: var(--color-fg);
+    font-weight: var(--font-semibold);
+    background: var(--color-accent-subtle);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  /* ── Footer ── */
+  .build__footer {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .build__footer-link {
+    text-decoration: none;
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .build__footer-link:hover {
+    opacity: 0.8;
+  }
+
+  .build__footer-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .build__footer-link .build__label {
+    margin-bottom: 0;
+  }
+
+  .build__footer-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+  }
+
+  /* ── Email CTA card ── */
+  .build__cta--email {
+    cursor: default;
+  }
+
+  /* ── Accessibility ── */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ── Reduced Motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .build__step {
+      transform: none;
+    }
+
+    .build__step.is-active {
+      animation: none;
+      opacity: 1;
+    }
+
+    .build__step.is-leaving {
+      animation: none;
+      opacity: 0;
+    }
+
+    .build__progress-bar {
+      transition: none;
+      animation: none;
+    }
+
+    .build__bar {
+      animation: none;
+    }
+
+    .build__bar--entry {
+      width: 40px;
+    }
+
+    .build__option,
+    .build__btn,
+    .build__next,
+    .build__back,
+    .build__input,
+    .build__cta,
+    .build__footer-link,
+    .build__arrow {
+      transition: none;
+    }
+  }
+
+  /* ── Touch feedback ── */
+  @media (hover: none) {
+    .build__option:active {
+      transform: scale(0.97);
+    }
+
+    .build__btn:active {
+      transform: scale(0.97);
+    }
+  }
+</style>
