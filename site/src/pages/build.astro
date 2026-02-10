@@ -132,6 +132,11 @@ import EmailSignup from '../components/EmailSignup.astro';
       <div class="build__secondary">
         <p class="build__label">KEEP GOING</p>
         <div class="build__ctas">
+          <div class="build__cta build__cta--email">
+            <span class="build__cta-title">Get the build notes</span>
+            <span class="build__cta-desc">Short emails when something real ships. Skills, prompts, and what broke.</span>
+            <EmailSignup tag="build" submitText="Subscribe" placeholder="your@email.com" />
+          </div>
           <a
             href="https://www.skool.com/the-vibe-marketers/about?ref=be313e8087da44cca0ecd7edd9ac0775"
             target="_blank"
@@ -150,21 +155,13 @@ import EmailSignup from '../components/EmailSignup.astro';
             <span class="build__cta-title">Get 10 ready-made skills</span>
             <span class="build__cta-desc">Use code <span class="build__code">EMPIRE50</span> for 50% off</span>
           </a>
-          <div class="build__cta build__cta--email">
-            <span class="build__cta-title">Get the build notes</span>
-            <span class="build__cta-desc">Short emails when something real ships. Skills, prompts, and what broke.</span>
-            <EmailSignup tag="build" submitText="Subscribe" placeholder="your@email.com" />
-          </div>
         </div>
       </div>
 
       <!-- Footer -->
-      <div class="build__footer">
-        <a href="https://x.com/ctrlswing" target="_blank" rel="noopener" class="build__footer-link">
-          <span class="build__label build__label--signal">@ctrlswing</span>
-        </a>
-        <p class="build__footer-text">Built by Jackson</p>
-      </div>
+      <p class="build__footer">
+        Built by <a href="https://x.com/ctrlswing" target="_blank" rel="noopener" class="build__footer-link" data-scramble data-from="@CTRLSWING" data-to="JACKSON"></a>
+      </p>
     </section>
 
   </main>
@@ -307,6 +304,90 @@ import EmailSignup from '../components/EmailSignup.astro';
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.documentElement.classList.add('reduce-motion');
   }
+</script>
+
+<!-- ── FOOTER SCRAMBLE ── -->
+<script>
+  const GLYPHS = '█▓▒░▀▄▌▐■□▪▫◼◻▰▱';
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('[data-scramble]').forEach(el => {
+    const link = el as HTMLElement;
+    const from = link.dataset.from || '';
+    const to = link.dataset.to || '';
+    const maxLen = Math.max(from.length, to.length);
+    let isHovered = false;
+    let animating = false;
+
+    // Build character spans
+    function render(text: string) {
+      link.innerHTML = '';
+      const padded = text.padEnd(maxLen);
+      for (let i = 0; i < padded.length; i++) {
+        const span = document.createElement('span');
+        span.className = 'build__footer-char is-locked';
+        span.textContent = padded[i];
+        link.appendChild(span);
+      }
+    }
+
+    render(from);
+
+    function scrambleTo(target: string) {
+      if (animating) return;
+      animating = true;
+
+      const chars = link.querySelectorAll('.build__footer-char') as NodeListOf<HTMLElement>;
+      const padded = target.padEnd(maxLen);
+      const locked: boolean[] = new Array(chars.length).fill(false);
+
+      // Start scrambling all characters
+      const scrambleInterval = setInterval(() => {
+        chars.forEach((char, i) => {
+          if (!locked[i]) {
+            char.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+            char.classList.remove('is-locked');
+            char.classList.add('is-scrambling');
+          }
+        });
+      }, 40);
+
+      // Lock characters in sequence, left to right, with slight randomness
+      const indices = Array.from({ length: chars.length }, (_, i) => i);
+      indices.forEach((idx, i) => {
+        const delay = 60 + i * 45 + Math.random() * 30;
+        setTimeout(() => {
+          locked[idx] = true;
+          chars[idx].textContent = padded[idx];
+          chars[idx].classList.remove('is-scrambling');
+          chars[idx].classList.add('is-locked');
+
+          // Done
+          if (i === indices.length - 1) {
+            clearInterval(scrambleInterval);
+            animating = false;
+            // If hover state changed during animation, run again
+            if (isHovered && target === from) scrambleTo(to);
+            else if (!isHovered && target === to) scrambleTo(from);
+          }
+        }, delay);
+      });
+    }
+
+    if (prefersReducedMotion) {
+      link.addEventListener('mouseenter', () => { render(to); });
+      link.addEventListener('mouseleave', () => { render(from); });
+    } else {
+      link.addEventListener('mouseenter', () => {
+        isHovered = true;
+        scrambleTo(to);
+      });
+      link.addEventListener('mouseleave', () => {
+        isHovered = false;
+        scrambleTo(from);
+      });
+    }
+  });
 </script>
 
 <style>
@@ -773,18 +854,15 @@ import EmailSignup from '../components/EmailSignup.astro';
   .build__footer {
     margin-top: var(--space-12);
     padding-top: var(--space-6);
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
   }
 
   .build__footer-link {
+    color: var(--color-accent);
     text-decoration: none;
-    transition: opacity var(--duration-fast) var(--ease-out);
-  }
-
-  .build__footer-link:hover {
-    opacity: 0.8;
+    display: inline-flex;
   }
 
   .build__footer-link:focus-visible {
@@ -792,14 +870,16 @@ import EmailSignup from '../components/EmailSignup.astro';
     outline-offset: 2px;
   }
 
-  .build__footer-link .build__label {
-    margin-bottom: 0;
+  .build__footer-char {
+    transition: opacity 80ms var(--ease-out);
   }
 
-  .build__footer-text {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--color-fg-muted);
+  .build__footer-char.is-scrambling {
+    opacity: 0.5;
+  }
+
+  .build__footer-char.is-locked {
+    opacity: 1;
   }
 
   /* ── Email CTA card ── */
