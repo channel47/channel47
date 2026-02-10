@@ -18,7 +18,7 @@ npm test         # node --test
 
 - `/` — Landing (hero, stats, why, features, rupture, signup, cta)
 - `/plugins` — Marketplace
-- `/start`, `/build` — Conversion pages, **no Nav/Footer**
+- `/build` — Skill builder funnel, **no Nav/Footer**
 - `/api/subscribe` — POST, proxies to Kit API
 
 ## CSS
@@ -40,4 +40,4 @@ Pure CSS custom properties — no Tailwind. `design-tokens.css` for variables, `
 ## Gotchas
 
 - **`:global()` required** for cross-component ancestor selectors in scoped styles
-- **`/start` and `/build`** intentionally omit Nav/Footer
+- **`/build`** intentionally omits Nav/Footer
