@@ -1,188 +1,290 @@
 ---
 /**
- * /build — Skill Builder Funnel
+ * /build — Skills + Skill Builder
  * Post-talk landing page for Vibe Marketers (Feb 12).
- * QR code destination. Multi-step form → personalized claude.ai deep link.
- * No nav/footer chrome. Focused conversion page.
+ * QR code destination.
+ *
+ * Flow: Skills landing (downloads) → opt-in "Build Your Own" funnel →
+ *       3 questions → personalized claude.ai deep link.
  */
-import BaseLayout from '../layouts/BaseLayout.astro';
-import LogoAnimated from '../components/LogoAnimated.astro';
+import FormPageLayout from '../layouts/FormPageLayout.astro';
 import EmailSignup from '../components/EmailSignup.astro';
 ---
 
-<BaseLayout
-  title="Build Your First Skill — Channel47"
-  description="Answer three questions. Get a personalized Claude skill-building prompt. No signup required."
+<FormPageLayout
+  title="Skills from the Session — Channel47"
+  description="Download two ready-to-use Claude skills from the Vibe Marketers session, or build your own in minutes."
+  class="build"
 >
-  <main class="build">
 
-    <!-- ── LOGO ── -->
-    <div class="build__logo">
-      <LogoAnimated />
-    </div>
-
-    <!-- ── PROGRESS ── -->
-    <div class="build__progress" aria-hidden="true">
+    <!-- ── PROGRESS (hidden on landing, visible during funnel) ── -->
+    <div class="build__progress is-hidden" aria-hidden="true">
       <div class="build__progress-bar" id="progressBar"></div>
     </div>
 
-    <!-- ── STEP 1: Role ── -->
-    <section class="build__step is-active" data-step="1">
-      <div class="build__bar build__bar--entry" aria-hidden="true"></div>
-      <p class="build__label build__label--signal">STEP 1 OF 3</p>
-      <h1 class="build__question">What do you do?</h1>
-      <div class="build__options" data-field="role">
-        <button class="build__option" data-value="Media buyer / PPC">Media buyer / PPC</button>
-        <button class="build__option" data-value="Content marketer">Content marketer</button>
-        <button class="build__option" data-value="Email marketer">Email marketer</button>
-        <button class="build__option" data-value="SEO">SEO</button>
-        <button class="build__option" data-value="Social media">Social media</button>
-        <button class="build__option" data-value="other">Other</button>
-      </div>
-      <div class="build__other" data-other="role" hidden>
-        <input
-          type="text"
-          class="build__input"
-          placeholder="What's your role?"
-          maxlength="100"
-          data-other-input="role"
-        />
-        <button class="build__next" data-other-submit="role">
-          Next <span class="build__arrow" aria-hidden="true">-&gt;</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- ── STEP 2: Task ── -->
-    <section class="build__step" data-step="2">
-      <button class="build__back" data-back aria-label="Go back">&lt;- Back</button>
-      <p class="build__label build__label--signal">STEP 2 OF 3</p>
-      <h1 class="build__question build__question--tight">Pick a task you repeat weekly</h1>
-      <div class="build__options" data-field="task">
-        <button class="build__option" data-value="Write or review ad copy">Write or review ad copy</button>
-        <button class="build__option" data-value="Pull performance reports">Pull performance reports</button>
-        <button class="build__option" data-value="Audit accounts or campaigns">Audit accounts or campaigns</button>
-        <button class="build__option" data-value="Draft emails or newsletters">Draft emails or newsletters</button>
-        <button class="build__option" data-value="Research keywords or competitors">Research keywords or competitors</button>
-        <button class="build__option" data-value="other">Other</button>
-      </div>
-      <div class="build__other" data-other="task" hidden>
-        <input
-          type="text"
-          class="build__input"
-          placeholder="What task eats your time?"
-          maxlength="200"
-          data-other-input="task"
-        />
-        <button class="build__next" data-other-submit="task">
-          Next <span class="build__arrow" aria-hidden="true">-&gt;</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- ── STEP 3: Tool ── -->
-    <section class="build__step" data-step="3">
-      <button class="build__back" data-back aria-label="Go back">&lt;- Back</button>
-      <p class="build__label build__label--signal">STEP 3 OF 3</p>
-      <h1 class="build__question">What tool do you mainly use?</h1>
-      <div class="build__options" data-field="tool">
-        <button class="build__option" data-value="Google Ads">Google Ads</button>
-        <button class="build__option" data-value="Meta Ads">Meta Ads</button>
-        <button class="build__option" data-value="HubSpot">HubSpot</button>
-        <button class="build__option" data-value="Mailchimp">Mailchimp</button>
-        <button class="build__option" data-value="Google Sheets / Docs">Google Sheets / Docs</button>
-        <button class="build__option" data-value="other">Other</button>
-      </div>
-      <div class="build__other" data-other="tool" hidden>
-        <input
-          type="text"
-          class="build__input"
-          placeholder="What tool do you use most?"
-          maxlength="100"
-          data-other-input="tool"
-        />
-        <button class="build__next" data-other-submit="tool">
-          Next <span class="build__arrow" aria-hidden="true">-&gt;</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- ── STEP 4: Link revealed ── -->
-    <section class="build__step build__step--result" data-step="4">
-      <div class="build__bar" aria-hidden="true"></div>
-      <p class="build__label build__label--signal">READY</p>
-      <h1 class="build__question">Your prompt is ready.</h1>
-      <p class="build__body build__body--result">
-        Click below to open Claude with a personalized prompt based on your answers. It'll walk you through building your first skill.
+    <!-- ═══════════════════════════════════════════
+         LANDING: Skills page (visible on load)
+         ═══════════════════════════════════════════ -->
+    <section class="fp-step build__step--landing is-active" data-step="0">
+      <div class="fp-bar fp-bar--entry" aria-hidden="true"></div>
+      <p class="fp-label fp-label--accent">FROM THE SESSION</p>
+      <h1 class="fp-heading">Two skills. Ready to install.</h1>
+      <p class="fp-body">
+        These are the real skills from the session demos. Download, unzip, drop into your project folder.
       </p>
 
-      <div class="build__cta-zone">
-        <a
-          id="claudeLink"
-          href="#"
-          target="_blank"
-          rel="noopener"
-          class="build__btn build__btn--primary build__btn--lg"
-        >
-          Open in Claude <span class="build__arrow" aria-hidden="true">-&gt;</span>
-        </a>
+      <!-- Skill cards -->
+      <div class="build__skills">
+        <!-- Skill 1: Search Campaign (non-technical) -->
+        <div class="build__skill">
+          <div class="build__skill-header">
+            <span class="build__skill-index" aria-hidden="true">01</span>
+            <span class="build__skill-badge build__skill-badge--easy">NO CODE</span>
+          </div>
+          <h2 class="build__skill-name">Search Campaign Builder</h2>
+          <p class="build__skill-desc">Landing page URL in, full Google Search campaign out. Keywords, ad copy, negatives, extensions. The complete build.</p>
+          <div class="build__skill-meta">
+            <span class="build__skill-tag">Claude Desktop</span>
+            <span class="build__pipe" aria-hidden="true"></span>
+            <span class="build__skill-tag">Cowork</span>
+            <span class="build__pipe" aria-hidden="true"></span>
+            <span class="build__skill-size">19 KB</span>
+          </div>
+          <a
+            href="/skills/search-campaign-builder.zip"
+            download
+            class="fp-btn--ghost"
+          >
+            <svg class="build__dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Skill
+          </a>
+        </div>
+
+        <!-- Skill 2: Creative Variants (technical) -->
+        <div class="build__skill">
+          <div class="build__skill-header">
+            <span class="build__skill-index" aria-hidden="true">02</span>
+            <span class="build__skill-badge build__skill-badge--technical">API KEY</span>
+          </div>
+          <h2 class="build__skill-name">Ad Creative Variant Generator</h2>
+          <p class="build__skill-desc">Winning ad image in, fresh variations out. Configurable divergence levels. Uses Gemini or OpenAI for image generation.</p>
+          <div class="build__skill-meta">
+            <span class="build__skill-tag">Claude Code</span>
+            <span class="build__pipe" aria-hidden="true"></span>
+            <span class="build__skill-tag">Cursor</span>
+            <span class="build__pipe" aria-hidden="true"></span>
+            <span class="build__skill-size">28 KB</span>
+          </div>
+          <a
+            href="/skills/creative-variant-generator.zip"
+            download
+            class="fp-btn--ghost"
+          >
+            <svg class="build__dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Skill
+          </a>
+        </div>
       </div>
 
-      <!-- Secondary CTAs -->
+      <!-- Install guide -->
+      <div class="build__install">
+        <p class="fp-label">HOW TO INSTALL</p>
+        <div class="build__install-steps">
+          <div class="build__install-step">
+            <span class="build__install-num" aria-hidden="true">1</span>
+            <span class="build__install-text">Download &amp; unzip the skill folder</span>
+          </div>
+          <div class="build__install-step">
+            <span class="build__install-num" aria-hidden="true">2</span>
+            <span class="build__install-text">Drop it into your project's <code>.claude/skills/</code> directory</span>
+          </div>
+          <div class="build__install-step">
+            <span class="build__install-num" aria-hidden="true">3</span>
+            <span class="build__install-text">Start a conversation. Claude picks it up automatically</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── BRIDGE: Build Your Own (triggers funnel) ── -->
+      <div class="build__bridge">
+        <p class="fp-label">BUILD YOUR OWN</p>
+        <p class="fp-body">
+          Want a skill tailored to your workflow? Answer 3 quick questions and get a personalized Claude prompt that builds it for you.
+        </p>
+        <button class="fp-btn fp-btn--secondary" id="startFunnel">
+          Start building <span class="fp-arrow" aria-hidden="true">-&gt;</span>
+        </button>
+      </div>
+
+      <!-- ── STRATEGIC: Email + Community ── -->
       <div class="build__secondary">
-        <p class="build__label">KEEP GOING</p>
-        <div class="build__ctas">
-          <div class="build__cta build__cta--email">
-            <span class="build__cta-title">Get the build notes</span>
-            <span class="build__cta-desc">Short emails when something real ships. Skills, prompts, and what broke.</span>
+        <p class="fp-label">GO DEEPER</p>
+        <div class="fp-cards">
+          <div class="fp-card build__cta--email">
+            <span class="fp-card__title">Get the build notes</span>
+            <span class="fp-card__desc">How each skill was built, new releases, what actually works. No fluff.</span>
             <EmailSignup tag="build" submitText="Subscribe" placeholder="your@email.com" />
           </div>
           <a
             href="https://www.skool.com/the-vibe-marketers/about?ref=be313e8087da44cca0ecd7edd9ac0775"
             target="_blank"
             rel="noopener"
-            class="build__cta"
+            class="fp-card"
           >
-            <span class="build__cta-title">Join the group</span>
-            <span class="build__cta-desc">Monthly live sessions. Growing skill library.</span>
+            <span class="fp-card__title">Vibe Marketers on Skool</span>
+            <span class="fp-card__desc">Monthly live builds. Growing skill library. Free.</span>
           </a>
           <a
             href="https://www.thevibemarketer.com/skills"
             target="_blank"
             rel="noopener"
-            class="build__cta"
+            class="fp-card"
           >
-            <span class="build__cta-title">Get 10 ready-made skills</span>
-            <span class="build__cta-desc">Use code <span class="build__code">EMPIRE50</span> for 50% off</span>
+            <span class="fp-card__title">Get 10 ready-made skills</span>
+            <span class="fp-card__desc">Use code <span class="fp-code">EMPIRE50</span> for 50% off</span>
+          </a>
+          <a href="/hire" class="fp-card">
+            <span class="fp-card__title">Hire me to build yours</span>
+            <span class="fp-card__desc">Custom skills for your workflow. A few projects at a time.</span>
           </a>
         </div>
       </div>
-
-      <!-- Footer -->
-      <p class="build__footer">
-        Built by <a href="https://x.com/ctrlswing" target="_blank" rel="noopener" class="build__footer-link" data-scramble data-from="@CTRLSWING" data-to="JACKSON"></a>
-      </p>
     </section>
 
-  </main>
-</BaseLayout>
+    <!-- ═══════════════════════════════════════════
+         FUNNEL STEP 1: Role
+         ═══════════════════════════════════════════ -->
+    <section class="fp-step" data-step="1">
+      <button class="fp-back" data-back aria-label="Go back">&lt;- Back</button>
+      <p class="fp-label fp-label--accent">STEP 1 OF 3</p>
+      <h1 class="fp-heading">What do you do?</h1>
+      <div class="fp-options" data-field="role">
+        <button class="fp-option" data-value="Media buyer / PPC">Media buyer / PPC</button>
+        <button class="fp-option" data-value="Content marketer">Content marketer</button>
+        <button class="fp-option" data-value="Email marketer">Email marketer</button>
+        <button class="fp-option" data-value="SEO">SEO</button>
+        <button class="fp-option" data-value="Social media">Social media</button>
+        <button class="fp-option" data-value="other">Other</button>
+      </div>
+      <div class="fp-other" data-other="role" hidden>
+        <input
+          type="text"
+          class="fp-input"
+          placeholder="What's your role?"
+          maxlength="100"
+          data-other-input="role"
+        />
+        <button class="build__next" data-other-submit="role">
+          Next <span class="fp-arrow" aria-hidden="true">-&gt;</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── FUNNEL STEP 2: Task ── -->
+    <section class="fp-step" data-step="2">
+      <button class="fp-back" data-back aria-label="Go back">&lt;- Back</button>
+      <p class="fp-label fp-label--accent">STEP 2 OF 3</p>
+      <h1 class="fp-heading fp-heading--sm">Pick a task you repeat weekly</h1>
+      <div class="fp-options" data-field="task">
+        <button class="fp-option" data-value="Write or review ad copy">Write or review ad copy</button>
+        <button class="fp-option" data-value="Pull performance reports">Pull performance reports</button>
+        <button class="fp-option" data-value="Audit accounts or campaigns">Audit accounts or campaigns</button>
+        <button class="fp-option" data-value="Draft emails or newsletters">Draft emails or newsletters</button>
+        <button class="fp-option" data-value="Research keywords or competitors">Research keywords or competitors</button>
+        <button class="fp-option" data-value="other">Other</button>
+      </div>
+      <div class="fp-other" data-other="task" hidden>
+        <input
+          type="text"
+          class="fp-input"
+          placeholder="What task eats your time?"
+          maxlength="200"
+          data-other-input="task"
+        />
+        <button class="build__next" data-other-submit="task">
+          Next <span class="fp-arrow" aria-hidden="true">-&gt;</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── FUNNEL STEP 3: Tool ── -->
+    <section class="fp-step" data-step="3">
+      <button class="fp-back" data-back aria-label="Go back">&lt;- Back</button>
+      <p class="fp-label fp-label--accent">STEP 3 OF 3</p>
+      <h1 class="fp-heading">What tool do you mainly use?</h1>
+      <div class="fp-options" data-field="tool">
+        <button class="fp-option" data-value="Google Ads">Google Ads</button>
+        <button class="fp-option" data-value="Meta Ads">Meta Ads</button>
+        <button class="fp-option" data-value="HubSpot">HubSpot</button>
+        <button class="fp-option" data-value="Mailchimp">Mailchimp</button>
+        <button class="fp-option" data-value="Google Sheets / Docs">Google Sheets / Docs</button>
+        <button class="fp-option" data-value="other">Other</button>
+      </div>
+      <div class="fp-other" data-other="tool" hidden>
+        <input
+          type="text"
+          class="fp-input"
+          placeholder="What tool do you use most?"
+          maxlength="100"
+          data-other-input="tool"
+        />
+        <button class="build__next" data-other-submit="tool">
+          Next <span class="fp-arrow" aria-hidden="true">-&gt;</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         FUNNEL RESULT: Personalized Claude link
+         ═══════════════════════════════════════════ -->
+    <section class="fp-step build__step--result" data-step="4">
+      <div class="fp-bar" aria-hidden="true"></div>
+      <p class="fp-label fp-label--accent">YOUR SKILL PROMPT</p>
+      <h1 class="fp-heading">Ready to build.</h1>
+      <p class="fp-body">
+        Based on your answers, here's a personalized prompt to build your first skill. Claude will walk you through it step by step.
+      </p>
+      <a
+        id="claudeLink"
+        href="#"
+        target="_blank"
+        rel="noopener"
+        class="fp-btn fp-btn--primary fp-btn--lg"
+      >
+        Open in Claude <span class="fp-arrow" aria-hidden="true">-&gt;</span>
+      </a>
+      <button class="fp-back build__back--result" data-back-to-landing aria-label="Back to skills">
+        &lt;- Back to skills
+      </button>
+    </section>
+
+</FormPageLayout>
 
 <!-- ── FORM LOGIC ── -->
 <script>
   const answers: Record<string, string> = {};
-  let currentStep = 1;
-  const totalSteps = 4;
+  let currentStep = 0; // 0 = landing, 1-3 = funnel, 4 = result
+  const totalFunnelSteps = 3;
 
   function updateProgress() {
     const bar = document.getElementById('progressBar');
+    const progressEl = document.querySelector('.build__progress');
+
+    if (currentStep === 0) {
+      // Hide progress bar on landing
+      progressEl?.classList.add('is-hidden');
+      return;
+    }
+
+    progressEl?.classList.remove('is-hidden');
+    const pct = currentStep === 4 ? 100 : ((currentStep - 1) / totalFunnelSteps) * 100;
     if (bar) {
-      const pct = ((currentStep - 1) / (totalSteps - 1)) * 100;
       bar.style.width = `${pct}%`;
     }
   }
 
   function goToStep(step: number) {
-    const current = document.querySelector('.build__step.is-active');
+    const current = document.querySelector('.fp-step.is-active');
     const next = document.querySelector(`[data-step="${step}"]`);
     if (!current || !next || current === next) return;
 
@@ -195,14 +297,18 @@ import EmailSignup from '../components/EmailSignup.astro';
       updateProgress();
 
       // Auto-focus text input if "other" is showing
-      const otherInput = next.querySelector('.build__input:not([type="email"])') as HTMLInputElement;
+      const otherInput = next.querySelector('.fp-input:not([type="email"])') as HTMLInputElement;
       if (otherInput && !otherInput.closest('[hidden]')) {
         otherInput.focus();
       }
 
-      // On step 4, build the claude.ai link and scroll to top
+      // On result step, build the claude.ai link
       if (step === 4) {
         buildClaudeLink();
+      }
+
+      // Scroll to top when returning to landing or reaching result
+      if (step === 0 || step === 4) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }, 250);
@@ -213,7 +319,7 @@ import EmailSignup from '../components/EmailSignup.astro';
     const task = answers.task || 'repetitive marketing tasks';
     const tool = answers.tool || 'various marketing tools';
 
-    const prompt = `My role: ${role}. Every week I ${task.toLowerCase()}—it's my biggest time sink. My main tool is ${tool}. Help me build a Claude skill (a SKILL.md file for Claude's skill system) that automates or accelerates this. Walk me through it step by step—start by asking 2-3 clarifying questions about my workflow, then build the skill.`;
+    const prompt = `My role: ${role}. Every week I ${task.toLowerCase()}, and it's my biggest time sink. My main tool is ${tool}. Help me build a Claude skill (a SKILL.md file for Claude's skill system) that automates or accelerates this. Walk me through it step by step. Start by asking 2-3 clarifying questions about my workflow, then build the skill.`;
 
     const link = document.getElementById('claudeLink') as HTMLAnchorElement;
     if (link) {
@@ -221,17 +327,22 @@ import EmailSignup from '../components/EmailSignup.astro';
     }
   }
 
-  // Handle option clicks
-  document.querySelectorAll('.build__option').forEach(btn => {
+  // ── Start funnel button (on landing page) ──
+  document.getElementById('startFunnel')?.addEventListener('click', () => {
+    goToStep(1);
+  });
+
+  // ── Handle option clicks ──
+  document.querySelectorAll('.fp-option').forEach(btn => {
     btn.addEventListener('click', () => {
-      const field = btn.closest('.build__options')?.getAttribute('data-field');
+      const field = btn.closest('.fp-options')?.getAttribute('data-field');
       const value = (btn as HTMLElement).dataset.value;
       if (!field || !value) return;
 
       if (value === 'other') {
         // Show the "other" text input
         const otherDiv = document.querySelector(`[data-other="${field}"]`) as HTMLElement;
-        const optionsDiv = btn.closest('.build__options') as HTMLElement;
+        const optionsDiv = btn.closest('.fp-options') as HTMLElement;
         if (otherDiv && optionsDiv) {
           optionsDiv.hidden = true;
           otherDiv.hidden = false;
@@ -246,7 +357,7 @@ import EmailSignup from '../components/EmailSignup.astro';
     });
   });
 
-  // Handle "other" submit buttons
+  // ── Handle "other" submit buttons ──
   document.querySelectorAll('[data-other-submit]').forEach(btn => {
     btn.addEventListener('click', () => {
       const field = (btn as HTMLElement).dataset.otherSubmit;
@@ -263,12 +374,12 @@ import EmailSignup from '../components/EmailSignup.astro';
     });
   });
 
-  // Handle Enter key on "other" inputs
-  document.querySelectorAll('.build__other input').forEach(input => {
+  // ── Handle Enter key on "other" inputs ──
+  document.querySelectorAll('.fp-other input').forEach(input => {
     input.addEventListener('keydown', (e) => {
       if ((e as KeyboardEvent).key === 'Enter') {
         e.preventDefault();
-        const field = input.closest('.build__other')?.getAttribute('data-other');
+        const field = input.closest('.fp-other')?.getAttribute('data-other');
         if (!field) return;
         const btn = document.querySelector(`[data-other-submit="${field}"]`) as HTMLButtonElement;
         if (btn) btn.click();
@@ -276,15 +387,15 @@ import EmailSignup from '../components/EmailSignup.astro';
     });
   });
 
-  // Handle back buttons
+  // ── Handle back buttons (funnel steps) ──
   document.querySelectorAll('[data-back]').forEach(btn => {
     btn.addEventListener('click', () => {
-      if (currentStep > 1) {
+      if (currentStep > 0) {
         // Reset "other" state for the current step before going back
         const currentStepEl = document.querySelector(`[data-step="${currentStep}"]`);
         if (currentStepEl) {
-          const otherDiv = currentStepEl.querySelector('.build__other') as HTMLElement;
-          const optionsDiv = currentStepEl.querySelector('.build__options') as HTMLElement;
+          const otherDiv = currentStepEl.querySelector('.fp-other') as HTMLElement;
+          const optionsDiv = currentStepEl.querySelector('.fp-options') as HTMLElement;
           if (otherDiv && optionsDiv) {
             otherDiv.hidden = true;
             optionsDiv.hidden = false;
@@ -297,6 +408,11 @@ import EmailSignup from '../components/EmailSignup.astro';
     });
   });
 
+  // ── Handle "back to landing" from result page ──
+  document.querySelector('[data-back-to-landing]')?.addEventListener('click', () => {
+    goToStep(0);
+  });
+
   // Init progress bar
   updateProgress();
 
@@ -306,117 +422,10 @@ import EmailSignup from '../components/EmailSignup.astro';
   }
 </script>
 
-<!-- ── FOOTER SCRAMBLE ── -->
-<script>
-  const GLYPHS = '█▓▒░▀▄▌▐■□▪▫◼◻▰▱';
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  document.querySelectorAll('[data-scramble]').forEach(el => {
-    const link = el as HTMLElement;
-    const from = link.dataset.from || '';
-    const to = link.dataset.to || '';
-    const maxLen = Math.max(from.length, to.length);
-    let isHovered = false;
-    let animating = false;
-
-    // Build character spans
-    function render(text: string) {
-      link.innerHTML = '';
-      const padded = text.padEnd(maxLen);
-      for (let i = 0; i < padded.length; i++) {
-        const span = document.createElement('span');
-        span.className = 'build__footer-char is-locked';
-        span.textContent = padded[i];
-        link.appendChild(span);
-      }
-    }
-
-    render(from);
-
-    function scrambleTo(target: string) {
-      if (animating) return;
-      animating = true;
-
-      const chars = link.querySelectorAll('.build__footer-char') as NodeListOf<HTMLElement>;
-      const padded = target.padEnd(maxLen);
-      const locked: boolean[] = new Array(chars.length).fill(false);
-
-      // Start scrambling all characters
-      const scrambleInterval = setInterval(() => {
-        chars.forEach((char, i) => {
-          if (!locked[i]) {
-            char.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-            char.classList.remove('is-locked');
-            char.classList.add('is-scrambling');
-          }
-        });
-      }, 40);
-
-      // Lock characters in sequence, left to right, with slight randomness
-      const indices = Array.from({ length: chars.length }, (_, i) => i);
-      indices.forEach((idx, i) => {
-        const delay = 60 + i * 45 + Math.random() * 30;
-        setTimeout(() => {
-          locked[idx] = true;
-          chars[idx].textContent = padded[idx];
-          chars[idx].classList.remove('is-scrambling');
-          chars[idx].classList.add('is-locked');
-
-          // Done
-          if (i === indices.length - 1) {
-            clearInterval(scrambleInterval);
-            animating = false;
-            // If hover state changed during animation, run again
-            if (isHovered && target === from) scrambleTo(to);
-            else if (!isHovered && target === to) scrambleTo(from);
-          }
-        }, delay);
-      });
-    }
-
-    if (prefersReducedMotion) {
-      link.addEventListener('mouseenter', () => { render(to); });
-      link.addEventListener('mouseleave', () => { render(from); });
-    } else {
-      link.addEventListener('mouseenter', () => {
-        isHovered = true;
-        scrambleTo(to);
-      });
-      link.addEventListener('mouseleave', () => {
-        isHovered = false;
-        scrambleTo(from);
-      });
-    }
-  });
-</script>
-
 <style>
-  /* ── Layout ── */
+  /* ── Build page overrides ── */
   .build {
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    padding: var(--space-6) clamp(20px, 5vw, 48px);
-    position: relative;
-  }
-
-  /* ── Logo ── */
-  .build__logo {
-    position: absolute;
-    top: var(--space-6);
-    left: clamp(20px, 5vw, 48px);
-  }
-
-  .build__logo :global(.logo-animated) {
-    font-size: var(--text-xs);
-  }
-
-  @media (min-width: 768px) {
-    .build__logo :global(.logo-animated) {
-      font-size: var(--text-sm);
-    }
   }
 
   /* ── Progress bar ── */
@@ -428,6 +437,13 @@ import EmailSignup from '../components/EmailSignup.astro';
     height: 2px;
     background: var(--color-bg-elevated);
     z-index: var(--z-fixed);
+    opacity: 1;
+    transition: opacity var(--duration-normal) var(--ease-out);
+  }
+
+  .build__progress.is-hidden {
+    opacity: 0;
+    pointer-events: none;
   }
 
   .build__progress-bar {
@@ -444,194 +460,191 @@ import EmailSignup from '../components/EmailSignup.astro';
     50% { box-shadow: 0 0 12px var(--color-accent-glow); }
   }
 
-  /* ── Steps ── */
-  .build__step {
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    max-width: 540px;
-    width: 100%;
-    opacity: 0;
-    transform: translateY(16px);
+  /* ── Landing page layout ── */
+  .build__step--landing {
+    padding-top: var(--space-16);
+    justify-content: flex-start;
+    max-width: 600px;
+    margin: 0;
   }
 
-  .build__step.is-active {
+  /* ── Result layout ── */
+  .build__step--result {
+    padding-top: var(--space-16);
+    justify-content: flex-start;
+    max-width: 600px;
+    margin: 0;
+  }
+
+  /* ── Skill Cards ── */
+  .build__skills {
     display: flex;
-    animation: stepIn 400ms var(--ease-out) forwards;
-  }
-
-  .build__step.is-leaving {
-    animation: stepOut 250ms var(--ease-out) forwards;
-  }
-
-  @keyframes stepIn {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes stepOut {
-    from {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateY(-12px);
-    }
-  }
-
-  /* ── Typography ── */
-  .build__label {
-    font-family: var(--font-mono);
-    font-size: var(--text-2xs);
-    font-weight: var(--font-medium);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-fg-muted);
-    margin-bottom: var(--space-4);
-  }
-
-  .build__label--signal {
-    color: var(--color-accent);
-  }
-
-  .build__question {
-    font-family: var(--font-display);
-    font-size: var(--fluid-3xl);
-    font-weight: var(--font-semibold);
-    line-height: var(--leading-tight);
-    letter-spacing: -0.02em;
-    color: var(--color-fg);
+    flex-direction: column;
+    gap: var(--space-4);
+    width: 100%;
     margin-bottom: var(--space-8);
   }
 
-  .build__question--tight {
-    font-size: var(--fluid-2xl);
-    margin-bottom: var(--space-6);
-  }
-
-  .build__sub {
-    font-family: var(--font-display);
-    font-size: var(--fluid-lg);
-    font-weight: var(--font-medium);
-    color: var(--color-fg-secondary);
-    margin-top: calc(-1 * var(--space-4));
-    margin-bottom: var(--space-4);
-  }
-
-  .build__body {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    line-height: var(--leading-relaxed);
-    color: var(--color-fg-secondary);
-    max-width: 480px;
-    margin-bottom: var(--space-8);
-  }
-
-  .build__body--result {
-    margin-bottom: var(--space-6);
-  }
-
-  /* ── Options (clickable cards) ── */
-  .build__options {
+  .build__skill {
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
-    width: 100%;
+    padding: var(--space-6);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: border-color var(--duration-normal) var(--ease-out);
   }
 
-  .build__options[hidden] {
-    display: none;
+  .build__skill:hover {
+    border-color: var(--color-accent);
   }
 
-  .build__option {
+  .build__skill-header {
     display: flex;
     align-items: center;
-    width: 100%;
-    padding: var(--space-4) var(--space-5);
+    gap: var(--space-3);
+  }
+
+  .build__skill-index {
     font-family: var(--font-mono);
-    font-size: var(--text-sm);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-semibold);
+    color: var(--color-accent);
+    letter-spacing: 0.05em;
+  }
+
+  .build__skill-badge {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .build__skill-badge--easy {
+    color: #22c55e;
+    background: color-mix(in oklch, #22c55e 12%, transparent);
+  }
+
+  .build__skill-badge--technical {
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+  }
+
+  .build__skill-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
     color: var(--color-fg);
-    background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    text-align: left;
-    transition:
-      border-color var(--duration-normal) var(--ease-out),
-      background-color var(--duration-normal) var(--ease-out),
-      box-shadow var(--duration-normal) var(--ease-out),
-      transform var(--duration-fast) var(--ease-out);
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
+    letter-spacing: -0.01em;
+    line-height: var(--leading-tight);
   }
 
-  .build__option:hover {
-    border-color: var(--color-accent);
-    background: color-mix(in oklch, var(--color-accent) 8%, var(--color-bg-elevated));
-    box-shadow: 0 0 0 1px var(--color-accent-subtle);
+  .build__skill-desc {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-secondary);
   }
 
-  .build__option:active {
-    transform: scale(0.98);
-    background: color-mix(in oklch, var(--color-accent) 12%, var(--color-bg-elevated));
-    border-color: var(--color-accent);
+  .build__skill-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
   }
 
-  .build__option:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
+  .build__skill-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--font-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-fg-muted);
   }
 
-  /* ── Other (free text) ── */
-  .build__other {
+  .build__pipe {
+    width: 1px;
+    height: 12px;
+    background: var(--color-border);
+    flex-shrink: 0;
+  }
+
+  .build__skill-size {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-fg-subtle);
+    letter-spacing: 0.05em;
+  }
+
+  .build__dl-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  /* ── Install Guide ── */
+  .build__install {
+    width: 100%;
+    padding: var(--space-6) 0;
+    margin-bottom: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .build__install-steps {
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
-    width: 100%;
+    margin-top: var(--space-4);
   }
 
-  .build__other[hidden] {
-    display: none;
+  .build__install-step {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
   }
 
-  .build__input {
-    width: 100%;
-    height: 48px;
-    padding: 0 var(--space-4);
+  .build__install-num {
     font-family: var(--font-mono);
-    font-size: max(16px, var(--text-sm));
+    font-size: var(--text-2xs);
+    font-weight: var(--font-semibold);
+    color: var(--color-accent);
+    flex-shrink: 0;
+    width: 16px;
+    text-align: center;
+  }
+
+  .build__install-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-secondary);
+  }
+
+  .build__install-text code {
     color: var(--color-fg);
+    font-weight: var(--font-medium);
     background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-    transition:
-      border-color var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out);
+    padding: 1px 6px;
+    border-radius: 2px;
+    font-size: inherit;
   }
 
-  .build__input::placeholder {
-    color: var(--color-fg-subtle);
+  /* ── Bridge: Build Your Own ── */
+  .build__bridge {
+    width: 100%;
+    padding: var(--space-8) 0;
+    border-top: 1px solid var(--color-border);
   }
 
-  .build__input:hover {
-    border-color: var(--color-border-hover);
+  .build__bridge :global(.fp-body) {
+    margin-bottom: var(--space-4);
   }
 
-  .build__input:focus {
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 4px var(--color-accent-subtle);
-  }
-
+  /* ── Next button (funnel-specific) ── */
   .build__next {
     display: inline-flex;
     align-items: center;
@@ -665,132 +678,8 @@ import EmailSignup from '../components/EmailSignup.astro';
     transform: scale(0.97);
   }
 
-  /* ── Buttons ── */
-  .build__btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    width: fit-content;
-    padding: var(--space-3) var(--space-6);
-    font-family: var(--font-mono);
-    font-size: var(--text-2xs);
-    font-weight: var(--font-semibold);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    text-decoration: none;
-    border: none;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    white-space: nowrap;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-    transition:
-      background-color var(--duration-fast) var(--ease-out),
-      color var(--duration-fast) var(--ease-out),
-      transform var(--duration-fast) var(--ease-out);
-  }
-
-  .build__btn--primary {
-    color: var(--color-fg-inverse);
-    background: var(--color-accent);
-  }
-
-  .build__btn--primary:hover {
-    background: var(--color-fg);
-    color: var(--color-bg);
-    text-decoration: none;
-  }
-
-  .build__btn--primary:active {
-    transform: scale(0.97);
-  }
-
-  .build__btn--primary:focus-visible {
-    outline: 2px solid var(--color-fg);
-    outline-offset: 2px;
-  }
-
-  .build__btn--primary:disabled {
-    cursor: default;
-    opacity: 0.7;
-  }
-
-  .build__btn--lg {
-    padding: var(--space-4) var(--space-8);
-    font-size: var(--text-sm);
-    height: 52px;
-  }
-
-  .build__arrow {
-    display: inline-block;
-    transition: transform var(--duration-normal) var(--ease-out);
-  }
-
-  .build__btn:hover .build__arrow,
-  .build__next:hover .build__arrow {
+  .build__next:hover :global(.fp-arrow) {
     transform: translateX(4px);
-  }
-
-  /* ── Back button ── */
-  .build__back {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--space-1) 0;
-    margin-bottom: var(--space-3);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--color-fg-muted);
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: color var(--duration-fast) var(--ease-out);
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .build__back:hover {
-    color: var(--color-fg-secondary);
-  }
-
-  .build__back:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-
-  /* ── Accent bar ── */
-  .build__bar {
-    width: 40px;
-    height: 2px;
-    background: var(--color-accent);
-    margin-bottom: var(--space-6);
-    box-shadow: 0 0 8px var(--color-accent-subtle);
-    animation: breathe-bar 5s ease-in-out infinite;
-  }
-
-  .build__bar--entry {
-    width: 0;
-    margin-bottom: var(--space-4);
-  }
-
-  .build__step.is-active .build__bar--entry {
-    width: 40px;
-    transition: width 600ms var(--ease-out) 200ms;
-  }
-
-  @keyframes breathe-bar {
-    0%, 100% { box-shadow: 0 0 4px var(--color-accent-subtle); }
-    50% { box-shadow: 0 0 12px var(--color-accent-glow); }
-  }
-
-  /* ── Step 4: result layout ── */
-  .build__step--result {
-    padding-top: var(--space-16);
-    justify-content: flex-start;
-  }
-
-  /* ── CTA zone (hierarchy by withdrawal) ── */
-  .build__cta-zone {
-    padding: var(--space-8) 0 var(--space-4);
   }
 
   /* ── Secondary CTAs ── */
@@ -801,153 +690,34 @@ import EmailSignup from '../components/EmailSignup.astro';
     width: 100%;
   }
 
-  .build__ctas {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    margin-top: var(--space-4);
-  }
-
-  .build__cta {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    padding: var(--space-5);
-    background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    text-decoration: none;
-    transition:
-      border-color var(--duration-normal) var(--ease-out),
-      box-shadow var(--duration-normal) var(--ease-out);
-  }
-
-  .build__cta:hover {
-    border-color: var(--color-accent);
-    box-shadow: var(--shadow-xs);
-    text-decoration: none;
-  }
-
-  .build__cta-title {
-    font-family: var(--font-display);
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    color: var(--color-fg);
-  }
-
-  .build__cta-desc {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    line-height: var(--leading-relaxed);
-    color: var(--color-fg-secondary);
-  }
-
-  .build__code {
-    color: var(--color-fg);
-    font-weight: var(--font-semibold);
-    background: var(--color-accent-subtle);
-    padding: 2px 8px;
-    border-radius: 2px;
-  }
-
-  /* ── Footer ── */
-  .build__footer {
-    margin-top: var(--space-12);
-    padding-top: var(--space-6);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--color-fg-muted);
-  }
-
-  .build__footer-link {
-    color: var(--color-accent);
-    text-decoration: none;
-    display: inline-flex;
-  }
-
-  .build__footer-link:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-
-  .build__footer-char {
-    transition: opacity 80ms var(--ease-out);
-  }
-
-  .build__footer-char.is-scrambling {
-    opacity: 0.5;
-  }
-
-  .build__footer-char.is-locked {
-    opacity: 1;
-  }
-
   /* ── Email CTA card ── */
   .build__cta--email {
     cursor: default;
   }
 
-  /* ── Accessibility ── */
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+  /* ── Back to skills variant ── */
+  .build__back--result {
+    margin-top: var(--space-6);
+    margin-bottom: 0;
   }
 
   /* ── Reduced Motion ── */
   @media (prefers-reduced-motion: reduce) {
-    .build__step {
-      transform: none;
-    }
-
-    .build__step.is-active {
-      animation: none;
-      opacity: 1;
-    }
-
-    .build__step.is-leaving {
-      animation: none;
-      opacity: 0;
-    }
-
+    .build__progress,
     .build__progress-bar {
       transition: none;
       animation: none;
     }
 
-    .build__bar {
-      animation: none;
-    }
-
-    .build__bar--entry {
-      width: 40px;
-    }
-
-    .build__option,
-    .build__btn,
-    .build__next,
-    .build__back,
-    .build__input,
-    .build__cta,
-    .build__footer-link,
-    .build__arrow {
+    .build__skill,
+    .build__next {
       transition: none;
     }
   }
 
   /* ── Touch feedback ── */
   @media (hover: none) {
-    .build__option:active {
-      transform: scale(0.97);
-    }
-
-    .build__btn:active {
+    .build__next:active {
       transform: scale(0.97);
     }
   }

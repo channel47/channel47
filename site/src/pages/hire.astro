@@ -1,0 +1,214 @@
+---
+/**
+ * /hire — Consulting Intake
+ * Custom AI skill build requests. Sends to Kit with "hire" tag + fields.
+ */
+import FormPageLayout from '../layouts/FormPageLayout.astro';
+---
+
+<FormPageLayout
+  title="Work With Me — Channel47"
+  description="Custom AI skills for marketers. Campaign generators, audit tools, email builders, creative pipelines. Limited availability."
+  class="hire"
+>
+
+  <!-- Form view -->
+  <section class="fp-section" data-hire-form-section>
+    <div class="fp-bar" aria-hidden="true"></div>
+    <p class="fp-label fp-label--accent">CUSTOM BUILDS</p>
+    <h1 class="fp-heading">Tell me what to build.</h1>
+    <p class="fp-body">
+      Campaign generators, audit tools, email builders, creative pipelines.
+      I take on a handful of projects at a time. Tell me what you need.
+    </p>
+
+    <form class="hire__form" data-hire-form>
+      <label class="visually-hidden" for="hire-email">Email</label>
+      <input
+        type="email"
+        id="hire-email"
+        class="fp-input"
+        placeholder="your@email.com"
+        required
+        autocomplete="email"
+      />
+      <label class="visually-hidden" for="hire-role">Role</label>
+      <input
+        type="text"
+        id="hire-role"
+        class="fp-input"
+        placeholder="Your role, e.g. Media buyer at an agency"
+        maxlength="200"
+      />
+      <label class="visually-hidden" for="hire-task">Task</label>
+      <textarea
+        id="hire-task"
+        class="fp-input hire__textarea"
+        placeholder="What should this skill do? Be specific."
+        rows="4"
+        maxlength="1000"
+      ></textarea>
+      <label class="visually-hidden" for="hire-budget">Budget range</label>
+      <select id="hire-budget" class="fp-input hire__select" required>
+        <option value="" disabled selected>Budget range</option>
+        <option value="under-500">Less than $500</option>
+        <option value="500-2k">$500 – $2K</option>
+        <option value="2k-5k">$2K – $5K</option>
+        <option value="5k-plus">$5K+</option>
+      </select>
+      <p class="hire__error" data-hire-error hidden></p>
+      <button type="submit" class="fp-btn fp-btn--primary fp-btn--lg" data-hire-submit>
+        Send it <span class="fp-arrow" aria-hidden="true">→</span>
+      </button>
+    </form>
+  </section>
+
+  <!-- Success view (hidden by default) -->
+  <section class="fp-section hire__success" hidden data-hire-success>
+    <div class="fp-bar" aria-hidden="true"></div>
+    <p class="fp-label fp-label--accent">RECEIVED</p>
+    <h1 class="fp-heading">Got it.</h1>
+    <p class="fp-body">I'll reply within 48 hours with next steps.</p>
+  </section>
+
+</FormPageLayout>
+
+<script>
+  function initHireForm() {
+    const form = document.querySelector('[data-hire-form]') as HTMLFormElement;
+    if (!form || form.hasAttribute('data-initialized')) return;
+    form.setAttribute('data-initialized', 'true');
+
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const submitBtn = form.querySelector('[data-hire-submit]') as HTMLButtonElement;
+    const errorEl = document.querySelector('[data-hire-error]') as HTMLElement;
+    const formSection = document.querySelector('[data-hire-form-section]') as HTMLElement;
+    const successSection = document.querySelector('[data-hire-success]') as HTMLElement;
+
+    function showError(msg: string) {
+      if (errorEl) {
+        errorEl.textContent = msg;
+        errorEl.hidden = false;
+      }
+    }
+
+    function clearError() {
+      if (errorEl) {
+        errorEl.textContent = '';
+        errorEl.hidden = true;
+      }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearError();
+
+      const emailInput = form.querySelector('#hire-email') as HTMLInputElement;
+      const roleInput = form.querySelector('#hire-role') as HTMLInputElement;
+      const taskInput = form.querySelector('#hire-task') as HTMLTextAreaElement;
+      const budgetInput = form.querySelector('#hire-budget') as HTMLSelectElement;
+
+      const email = emailInput.value.trim();
+
+      if (!email || email.length > 254 || !EMAIL_REGEX.test(email)) {
+        showError('Please enter a valid email address.');
+        emailInput.focus();
+        return;
+      }
+
+      if (!budgetInput.value) {
+        showError('Please select a budget range.');
+        budgetInput.focus();
+        return;
+      }
+
+      // Disable button
+      submitBtn.disabled = true;
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = 'Sending\u2026';
+
+      try {
+        const fields: Record<string, string> = {};
+        if (roleInput.value.trim()) fields.scope = roleInput.value.trim();
+        if (taskInput.value.trim()) fields.brief = taskInput.value.trim();
+        if (budgetInput.value) fields.budget = budgetInput.value;
+
+        const response = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, tag: 'hire', fields }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Show success
+          if (formSection) formSection.hidden = true;
+          if (successSection) successSection.hidden = false;
+        } else {
+          showError(data.message || 'Something went wrong. Please try again.');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        }
+      } catch {
+        showError('Network error. Please try again.');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHireForm);
+  } else {
+    initHireForm();
+  }
+
+  document.addEventListener('astro:page-load', initHireForm);
+</script>
+
+<style>
+  .hire__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    width: 100%;
+  }
+
+  .hire__textarea {
+    height: auto;
+    min-height: 120px;
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    resize: vertical;
+    line-height: var(--leading-relaxed);
+  }
+
+  .hire__select {
+    appearance: none;
+    padding-right: var(--space-10);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%2378716C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-4) center;
+    cursor: pointer;
+  }
+
+  .hire__select:invalid {
+    color: var(--color-fg-subtle);
+  }
+
+  .hire__error {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-error);
+    margin-top: calc(-1 * var(--space-3));
+  }
+
+  .hire__error[hidden] {
+    display: none;
+  }
+
+  .hire__success {
+    /* inherits fp-section centering */
+  }
+</style>

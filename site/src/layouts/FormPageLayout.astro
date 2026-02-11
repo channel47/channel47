@@ -1,0 +1,35 @@
+---
+/**
+ * FormPageLayout
+ *
+ * Shared layout for form-focused pages (/build, /hire, etc.).
+ * Provides logo (top-left), footer (bottom), and fp-page wrapper.
+ * Uses fp- prefixed styles from form-page.css.
+ */
+import BaseLayout from './BaseLayout.astro';
+import LogoAnimated from '../components/LogoAnimated.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  class?: string;
+}
+
+const { title, description, image, class: className } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} image={image}>
+  <main class:list={['fp-page', className]}>
+    <div class="fp-logo">
+      <LogoAnimated />
+    </div>
+    <slot />
+    <Footer class="fp-footer" />
+  </main>
+</BaseLayout>
+
+<style is:global>
+  @import '../styles/form-page.css';
+</style>

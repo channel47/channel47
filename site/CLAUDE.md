@@ -18,12 +18,17 @@ npm test         # node --test
 
 - `/` — Landing (hero, stats, why, features, rupture, signup, cta)
 - `/plugins` — Marketplace
-- `/build` — Skill builder funnel, **no Nav/Footer**
-- `/api/subscribe` — POST, proxies to Kit API
+- `/build` — Skill builder funnel (uses `FormPageLayout`)
+- `/hire` — Consulting intake form (uses `FormPageLayout`)
+- `/api/subscribe` — POST, proxies to Kit API. Accepts optional `fields` object for custom Kit fields.
 
 ## CSS
 
 Pure CSS custom properties — no Tailwind. `design-tokens.css` for variables, `global.css` for base/utilities, component `<style>` blocks are Astro-scoped. Body text is JetBrains Mono (mono-first is intentional). Single accent: amber `#F59E0B`.
+
+## Form Page Design System
+
+`FormPageLayout.astro` wraps form-focused pages (no nav, logo top-left, footer bottom). Shared styles in `form-page.css` use `fp-` prefix (e.g., `fp-step`, `fp-heading`, `fp-btn--primary`). Page-specific styles stay scoped with BEM prefix (e.g., `build__skills`, `hire__form`).
 
 ## Scroll Reveals (two layers)
 
@@ -40,4 +45,4 @@ Pure CSS custom properties — no Tailwind. `design-tokens.css` for variables, `
 ## Gotchas
 
 - **`:global()` required** for cross-component ancestor selectors in scoped styles
-- **`/build`** intentionally omits Nav/Footer
+- **`/build` and `/hire`** use `FormPageLayout` (logo + footer, no nav)

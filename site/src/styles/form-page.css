@@ -1,0 +1,502 @@
+/**
+ * Form Page Design System
+ * Shared styles for form-focused pages (/build, /hire, etc.)
+ * All classes prefixed with `fp-` to avoid collisions.
+ * References design-tokens.css variables exclusively.
+ */
+
+/* ── Layout ── */
+.fp-page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-6) clamp(20px, 5vw, 48px);
+  position: relative;
+}
+
+/* ── Logo ── */
+.fp-logo {
+  position: absolute;
+  top: var(--space-6);
+  left: clamp(20px, 5vw, 48px);
+}
+
+.fp-logo :global(.logo-animated) {
+  font-size: var(--text-xs);
+}
+
+@media (min-width: 768px) {
+  .fp-logo :global(.logo-animated) {
+    font-size: var(--text-sm);
+  }
+}
+
+/* ── Footer positioning ── */
+.fp-footer {
+  margin-top: auto;
+  padding-top: var(--space-12);
+  width: 100%;
+}
+
+/* ── Typography ── */
+.fp-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: var(--font-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-fg-muted);
+  margin-bottom: var(--space-4);
+}
+
+.fp-label--accent {
+  color: var(--color-accent);
+}
+
+.fp-heading {
+  font-family: var(--font-display);
+  font-size: var(--fluid-3xl);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  color: var(--color-fg);
+  margin-bottom: var(--space-8);
+}
+
+.fp-heading--sm {
+  font-size: var(--fluid-2xl);
+  margin-bottom: var(--space-6);
+}
+
+.fp-body {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--color-fg-secondary);
+  max-width: 480px;
+  margin-bottom: var(--space-8);
+}
+
+/* ── Accent bar ── */
+.fp-bar {
+  width: 40px;
+  height: 2px;
+  background: var(--color-accent);
+  margin-bottom: var(--space-6);
+  box-shadow: 0 0 8px var(--color-accent-subtle);
+  animation: fp-breathe 5s ease-in-out infinite;
+}
+
+.fp-bar--entry {
+  width: 0;
+  margin-bottom: var(--space-4);
+}
+
+.fp-step.is-active .fp-bar--entry {
+  width: 40px;
+  transition: width 600ms var(--ease-out) 200ms;
+}
+
+@keyframes fp-breathe {
+  0%, 100% { box-shadow: 0 0 4px var(--color-accent-subtle); }
+  50% { box-shadow: 0 0 12px var(--color-accent-glow); }
+}
+
+/* ── Steps / transitions ── */
+.fp-step {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 540px;
+  width: 100%;
+  margin: auto 0;
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.fp-step.is-active {
+  display: flex;
+  animation: fp-step-in 400ms var(--ease-out) forwards;
+}
+
+.fp-step.is-leaving {
+  animation: fp-step-out 250ms var(--ease-out) forwards;
+}
+
+@keyframes fp-step-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fp-step-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+/* ── Section (non-step pages like /hire) ── */
+.fp-section {
+  max-width: 540px;
+  width: 100%;
+  padding-top: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.fp-section[hidden] {
+  display: none;
+}
+
+/* ── Form elements ── */
+.fp-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 var(--space-4);
+  font-family: var(--font-mono);
+  font-size: max(16px, var(--text-sm));
+  color: var(--color-fg);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.fp-input::placeholder {
+  color: var(--color-fg-subtle);
+}
+
+.fp-input:hover {
+  border-color: var(--color-border-hover);
+}
+
+.fp-input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-accent-subtle);
+}
+
+.fp-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.fp-options[hidden] {
+  display: none;
+}
+
+.fp-option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--space-4) var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-fg);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    border-color var(--duration-normal) var(--ease-out),
+    background-color var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.fp-option:hover {
+  border-color: var(--color-accent);
+  background: color-mix(in oklch, var(--color-accent) 8%, var(--color-bg-elevated));
+  box-shadow: 0 0 0 1px var(--color-accent-subtle);
+}
+
+.fp-option:active {
+  transform: scale(0.98);
+  background: color-mix(in oklch, var(--color-accent) 12%, var(--color-bg-elevated));
+  border-color: var(--color-accent);
+}
+
+.fp-option:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.fp-other {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.fp-other[hidden] {
+  display: none;
+}
+
+/* ── Back button ── */
+.fp-back {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) 0;
+  margin-bottom: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-fg-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fp-back:hover {
+  color: var(--color-fg-secondary);
+}
+
+.fp-back:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ── Buttons ── */
+.fp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: fit-content;
+  padding: var(--space-3) var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.fp-btn--primary {
+  color: var(--color-fg-inverse);
+  background: var(--color-accent);
+}
+
+.fp-btn--primary:hover {
+  background: var(--color-fg);
+  color: var(--color-bg);
+  text-decoration: none;
+}
+
+.fp-btn--primary:active {
+  transform: scale(0.97);
+}
+
+.fp-btn--primary:focus-visible {
+  outline: 2px solid var(--color-fg);
+  outline-offset: 2px;
+}
+
+.fp-btn--primary:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.fp-btn--secondary {
+  color: var(--color-accent);
+  background: transparent;
+  border: 1px solid var(--color-accent);
+}
+
+.fp-btn--secondary:hover {
+  background: var(--color-accent);
+  color: var(--color-fg-inverse);
+  text-decoration: none;
+}
+
+.fp-btn--secondary:active {
+  transform: scale(0.97);
+}
+
+.fp-btn--secondary:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.fp-btn--ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  color: var(--color-fg);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  margin-top: var(--space-1);
+}
+
+.fp-btn--ghost:hover {
+  border-color: var(--color-accent);
+  background: color-mix(in oklch, var(--color-accent) 8%, transparent);
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.fp-btn--ghost:active {
+  transform: scale(0.98);
+}
+
+.fp-btn--lg {
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--text-sm);
+  height: 52px;
+}
+
+.fp-arrow {
+  display: inline-block;
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.fp-btn:hover .fp-arrow {
+  transform: translateX(4px);
+}
+
+/* ── Cards ── */
+.fp-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.fp-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-5);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition:
+    border-color var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.fp-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-xs);
+  text-decoration: none;
+}
+
+.fp-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-fg);
+}
+
+.fp-card__desc {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: var(--leading-relaxed);
+  color: var(--color-fg-secondary);
+}
+
+.fp-code {
+  color: var(--color-fg);
+  font-weight: var(--font-semibold);
+  background: var(--color-accent-subtle);
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .fp-step {
+    transform: none;
+  }
+
+  .fp-step.is-active {
+    animation: none;
+    opacity: 1;
+  }
+
+  .fp-step.is-leaving {
+    animation: none;
+    opacity: 0;
+  }
+
+  .fp-bar {
+    animation: none;
+  }
+
+  .fp-bar--entry {
+    width: 40px;
+  }
+
+  .fp-option,
+  .fp-btn,
+  .fp-btn--ghost,
+  .fp-btn--secondary,
+  .fp-back,
+  .fp-input,
+  .fp-card,
+  .fp-arrow {
+    transition: none;
+  }
+}
+
+/* ── Touch feedback ── */
+@media (hover: none) {
+  .fp-option:active {
+    transform: scale(0.97);
+  }
+
+  .fp-btn:active {
+    transform: scale(0.97);
+  }
+}

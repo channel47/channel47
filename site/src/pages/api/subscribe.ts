@@ -24,6 +24,9 @@ export const prerender = false;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_EMAIL_LENGTH = 254; // RFC 5321
 const MAX_TAG_LENGTH = 100;
+const MAX_FIELD_VALUE_LENGTH = 1000;
+const MAX_FIELD_COUNT = 10;
+const ALLOWED_FIELD_KEYS = new Set(['name', 'scope', 'brief', 'budget']);
 const REQUEST_TIMEOUT_MS = 10000; // 10 seconds
 
 /**
@@ -33,6 +36,35 @@ function isValidEmail(email: string): boolean {
   if (!email || typeof email !== 'string') return false;
   if (email.length > MAX_EMAIL_LENGTH) return false;
   return EMAIL_REGEX.test(email);
+}
+
+/**
+ * Sanitizes client-provided custom fields.
+ * Whitelists allowed keys, enforces length limits, strips dangerous chars.
+ */
+function sanitizeFields(fields: unknown): Record<string, string> | undefined {
+  if (!fields || typeof fields !== 'object' || Array.isArray(fields)) return undefined;
+
+  const raw = fields as Record<string, unknown>;
+  const result: Record<string, string> = {};
+  let count = 0;
+
+  for (const key of Object.keys(raw)) {
+    if (count >= MAX_FIELD_COUNT) break;
+    if (!ALLOWED_FIELD_KEYS.has(key)) continue;
+
+    const val = raw[key];
+    if (!val || typeof val !== 'string') continue;
+
+    const trimmed = val.trim();
+    if (trimmed.length === 0 || trimmed.length > MAX_FIELD_VALUE_LENGTH) continue;
+
+    // Strip potentially dangerous characters (same as sanitizeTag)
+    result[key] = trimmed.replace(/[<>\"\']/g, '');
+    count++;
+  }
+
+  return count > 0 ? result : undefined;
 }
 
 /**
@@ -100,6 +132,7 @@ export const POST: APIRoute = async ({ request }) => {
   // Parse request body
   let email: string;
   let tag: string | undefined;
+  let clientFields: Record<string, unknown> | undefined;
 
   try {
     const contentType = request.headers.get('content-type');
@@ -108,6 +141,7 @@ export const POST: APIRoute = async ({ request }) => {
       const body = await request.json();
       email = body.email;
       tag = body.tag;
+      clientFields = body.fields;
     } else {
       // Handle form-encoded data
       const formData = await request.formData();
@@ -169,17 +203,14 @@ export const POST: APIRoute = async ({ request }) => {
       state: 'active'
     };
 
-    // Add custom fields if tag provided
-    if (sanitizedTag) {
-      payload.fields = {
-        signup_source: 'channel47_website',
-        signup_context: sanitizedTag
-      };
-    } else {
-      payload.fields = {
-        signup_source: 'channel47_website'
-      };
-    }
+    // Build custom fields — server fields override client fields
+    const sanitizedClientFields = sanitizeFields(clientFields);
+    const kitFields: Record<string, string> = {
+      signup_source: 'channel47_website',
+    };
+    if (sanitizedTag) kitFields.signup_context = sanitizedTag;
+    if (sanitizedClientFields) Object.assign(kitFields, sanitizedClientFields);
+    payload.fields = kitFields;
 
     let response: Response;
     let data: any;
