@@ -1,0 +1,277 @@
+/**
+ * Shared Page Sections
+ * Common patterns used across landing pages (index, plugins, etc.)
+ * Imported via <style is:global> by pages that need them.
+ *
+ * Covers: broadcast labels, hero, stats strip, rupture, CTA void,
+ * accent bars, keyframes, reduced motion, responsive.
+ */
+
+/* ── Page wrapper ── */
+.pg {
+  position: relative;
+}
+
+/* ── Broadcast Label ── */
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-fg-muted);
+  display: block;
+}
+
+/* ── Scoped link reset (pages opt-in via .pg a) ── */
+.pg a { color: inherit; text-decoration: none; }
+
+/* ── Accent Bar (shared draw-in) ── */
+.accent-bar {
+  width: 0;
+  height: 2px;
+  background-color: var(--color-accent);
+  margin-bottom: 24px;
+}
+
+/* ── Hero (LOW density, 90vh) ── */
+.hero {
+  min-height: 90vh;
+  min-height: 90dvh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 clamp(24px, 5vw, 64px);
+}
+
+.hero__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: clamp(60px, 10vh, 100px);
+}
+
+.hero__bar {
+  width: 0;
+  height: 2px;
+  background-color: var(--color-accent);
+  margin-bottom: 24px;
+}
+
+[data-section="hero"].is-visible .hero__bar {
+  animation: drawH 600ms var(--ease-out) 200ms forwards;
+}
+
+.hero__content > .label {
+  opacity: 0;
+  margin-bottom: 20px;
+}
+
+[data-section="hero"].is-visible .hero__content > .label {
+  animation: fadeIn 200ms var(--ease-out) 300ms forwards;
+}
+
+.hero__headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 8vw, 6rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+  color: var(--color-fg-emphasis);
+  max-width: 800px;
+  opacity: 0;
+  cursor: default;
+  position: relative;
+  display: inline-block;
+}
+
+[data-section="hero"].is-visible .hero__headline {
+  animation: fadeUp 700ms var(--ease-out) 400ms forwards;
+}
+
+.hero__sub {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-fg-secondary);
+  max-width: 480px;
+  margin-top: 32px;
+  opacity: 0;
+}
+
+[data-section="hero"].is-visible .hero__sub {
+  animation: fadeUp 400ms var(--ease-out) 700ms forwards;
+}
+
+/* ── Shared Keyframes ── */
+@keyframes drawH {
+  to { width: 40px; }
+}
+
+@keyframes drawV {
+  to { height: 40px; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Stats Strip (HIGH density) ── */
+.stats {
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: 20px clamp(24px, 5vw, 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(16px, 3vw, 40px);
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 400ms var(--ease-out),
+              transform 400ms var(--ease-out);
+}
+
+.stats.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.stats__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stats__value {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-fg-emphasis);
+}
+
+.stats__label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-fg-muted);
+}
+
+.stats__pipe {
+  width: 1px;
+  height: 24px;
+  background: var(--color-border);
+}
+
+/* ── Rupture (Light inversion) ── */
+.rupture {
+  background-color: #FAF7F2;
+  color: #1C1917;
+  position: relative;
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(12px);
+  transition: opacity 600ms var(--ease-out),
+              filter 600ms var(--ease-out),
+              transform 600ms var(--ease-out);
+}
+
+.rupture.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+.rupture__bar {
+  position: absolute;
+  left: clamp(24px, 5vw, 64px);
+  width: 2px;
+  height: 0;
+  background-color: var(--color-accent);
+}
+
+.rupture.is-visible .rupture__bar {
+  animation: drawV 600ms var(--ease-out) 200ms forwards;
+}
+
+.rupture__label {
+  color: var(--color-fg-muted);
+  margin-bottom: 24px;
+}
+
+.rupture__headline {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: #1C1917;
+}
+
+.rupture__body {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-fg-muted);
+  margin-top: 20px;
+  letter-spacing: 0.02em;
+}
+
+/* ── CTA Void (LOW density) ── */
+.cta {
+  padding: clamp(100px, 16vh, 200px) clamp(24px, 5vw, 64px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 600ms var(--ease-out);
+}
+
+.cta.is-visible {
+  opacity: 1;
+}
+
+.cta > .label {
+  margin-bottom: 24px;
+}
+
+/* ── Section-level bar draw triggers ── */
+.is-visible > .accent-bar,
+.is-visible .accent-bar {
+  animation: drawH 400ms var(--ease-out) 200ms forwards;
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  [data-section] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .hero__bar,
+  .accent-bar {
+    width: 40px !important;
+  }
+
+  .rupture__bar {
+    height: 40px !important;
+    width: 2px !important;
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .stats {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .stats__pipe { display: none; }
+}

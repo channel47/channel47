@@ -3,7 +3,7 @@
  * Nav — shared site navigation.
  * Mono text, pipe divider, Signal hover. Two pages, no hamburger.
  */
-import Logo from './Logo.astro';
+import LogoAnimated from './LogoAnimated.astro';
 
 interface Props {
   currentPath?: string;
@@ -13,7 +13,7 @@ const { currentPath } = Astro.props;
 ---
 
 <nav class="nav">
-  <a href="/" class="nav__logo"><Logo /></a>
+  <a href="/" class="nav__logo"><LogoAnimated /></a>
   <div class="nav__links">
     <a href="/" class:list={[currentPath === '/' && 'nav__active']}>Home</a>
     <span class="nav__pipe" aria-hidden="true"></span>
@@ -42,7 +42,7 @@ const { currentPath } = Astro.props;
     transition: opacity var(--duration-fast);
   }
 
-  .nav__logo:hover { opacity: 0.7; }
+  .nav__logo:hover { opacity: 1; }
 
   .nav__links {
     display: flex;

@@ -242,13 +242,13 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
     display: inline-flex;
     flex-direction: column;
     font-family: var(--font-mono);
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     line-height: 1;
     font-weight: normal;
     color: var(--color-fg);
     white-space: pre;
     user-select: none;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.08em;
     cursor: pointer;
 
     /* Fade-up entry to match page animations */
@@ -262,12 +262,6 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
     to {
       opacity: 1;
       transform: translateY(0);
-    }
-  }
-
-  @media (min-width: 768px) {
-    .logo-animated {
-      font-size: var(--text-base);
     }
   }
 

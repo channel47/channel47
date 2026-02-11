@@ -1,7 +1,10 @@
 ---
 /**
  * Plugins Directory
- * ch47 design system — now using shared BaseLayout and design tokens.
+ * ch47 design system — shared section styles + page-specific overrides.
+ *
+ * Density: LOW (hero) → HIGH (stats) → MEDIUM (plugin card) →
+ *          HIGH rupture (light inversion, terminal log) → MEDIUM (roadmap) → LOW (cta void)
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
@@ -34,25 +37,25 @@ import Footer from '../components/Footer.astro';
 
     <!-- =======================================
          ACT 2: STATS BAR (HIGH density)
-         Dense, quiet credibility strip.
+         Dense, quiet credibility strip. Scale-in entrance.
          ======================================= -->
     <section class="stats" data-section="stats">
-      <div class="stats__item">
+      <div class="stats__item" data-animate="fade-up" data-stagger="1">
         <span class="stats__value">1</span>
         <span class="stats__label">PLUGIN SHIPPED</span>
       </div>
       <div class="stats__pipe" aria-hidden="true"></div>
-      <div class="stats__item">
+      <div class="stats__item" data-animate="fade-up" data-stagger="3">
         <span class="stats__value">25+</span>
         <span class="stats__label">ACCOUNTS MANAGED</span>
       </div>
       <div class="stats__pipe" aria-hidden="true"></div>
-      <div class="stats__item">
+      <div class="stats__item" data-animate="fade-up" data-stagger="5">
         <span class="stats__value">v2.5</span>
         <span class="stats__label">CURRENT VERSION</span>
       </div>
       <div class="stats__pipe" aria-hidden="true"></div>
-      <div class="stats__item">
+      <div class="stats__item" data-animate="fade-up" data-stagger="7">
         <span class="stats__value">MIT</span>
         <span class="stats__label">LICENSE</span>
       </div>
@@ -124,22 +127,38 @@ import Footer from '../components/Footer.astro';
     </section>
 
     <!-- =======================================
-         ACT 4: RUPTURE (Light inversion)
-         Density shift + surface flip.
-         The manifesto moment.
+         ACT 4: RUPTURE (Light inversion, HIGH density)
+         Surface flip + density shift. Terminal build log.
+         Dense operational readout contrasts LOW hero above.
          ======================================= -->
     <section class="rupture" data-section="rupture">
       <div class="rupture__bar" aria-hidden="true"></div>
-      <div class="rupture__content">
-        <span class="label rupture__label">047 / BUILDING IN PUBLIC</span>
-        <h2 class="rupture__headline">
-          Most plugins are built by developers who've never run an ad account.
-        </h2>
-        <p class="rupture__body">
-          I've managed Google Ads across 25+ accounts. The tools I needed didn't exist, so I built them. Every skill in this plugin comes from a real workflow on a real account with real money at stake. The agent loop I'm building next will handle the audit-decide-execute-report cycle that eats most of a media buyer's week.
-        </p>
-        <p class="rupture__body">
-          This is open source because the best tools should be. Follow the build on Substack. Everything ships in public.
+      <div class="rupture__terminal">
+        <span class="label rupture__label">047 / BUILD LOG</span>
+        <div class="rupture__log">
+          <div class="rupture__entry">
+            <span class="rupture__ts">2024.11</span>
+            <span class="rupture__msg">Script catches $3K/mo negative keyword gap across 2 accounts</span>
+          </div>
+          <div class="rupture__entry">
+            <span class="rupture__ts">2025.01</span>
+            <span class="rupture__msg">Plugin v1 ships — Search, PMax, Audit skills in production</span>
+          </div>
+          <div class="rupture__entry">
+            <span class="rupture__ts">2025.03</span>
+            <span class="rupture__msg">MCP server connected. GAQL queries from Claude Code.</span>
+          </div>
+          <div class="rupture__entry">
+            <span class="rupture__ts">2025.06</span>
+            <span class="rupture__msg">Open sourced. MIT license. Running on 25+ accounts.</span>
+          </div>
+          <div class="rupture__entry rupture__entry--now">
+            <span class="rupture__ts">NOW</span>
+            <span class="rupture__msg">Agent loop: audit → decide → execute → report</span>
+          </div>
+        </div>
+        <p class="rupture__footnote">
+          Built by a media buyer who manages real ad spend. Not a demo. Not a proof of concept.
         </p>
       </div>
     </section>
@@ -150,7 +169,7 @@ import Footer from '../components/Footer.astro';
          ======================================= -->
     <section class="roadmap" data-section="roadmap">
       <div class="roadmap__header">
-        <div class="hero__bar" aria-hidden="true"></div>
+        <div class="accent-bar" aria-hidden="true"></div>
         <span class="label">ROADMAP</span>
         <h2 class="roadmap__title">What's next</h2>
       </div>
@@ -198,14 +217,14 @@ import Footer from '../components/Footer.astro';
   </main>
 
   <!-- =======================================
-       MOTION: Scroll reveals + Hero sequence + Glitch
+       MOTION: Scroll reveals + Hero sequence + Glitch + Roadmap
        ======================================= -->
   <script>
-    // Respect reduced motion
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReduced) {
       document.querySelectorAll('[data-section]').forEach(el => el.classList.add('is-visible'));
+      document.querySelectorAll('.roadmap__item').forEach(el => el.classList.add('is-visible'));
     } else {
       // Hero sequence choreography
       (function heroSequence() {
@@ -307,22 +326,16 @@ import Footer from '../components/Footer.astro';
   </script>
 </BaseLayout>
 
+<!-- Shared section styles (hero, stats, rupture, CTA, label, keyframes) -->
+<style is:global>
+  @import '../styles/sections.css';
+</style>
+
 <style>
   /* ========================================
-   * Plugins page — scoped styles using shared tokens
+   * Plugins page — page-specific styles only.
+   * Shared hero/stats/rupture/CTA/label/keyframes in sections.css.
    * ======================================== */
-
-  a { color: inherit; text-decoration: none; }
-
-  /* ---- Labels (Broadcast) ---- */
-  .label {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-fg-muted);
-    display: block;
-  }
 
   /* ---- Tags ---- */
   .tag {
@@ -333,141 +346,6 @@ import Footer from '../components/Footer.astro';
     padding: 4px 10px;
     border: 1px solid var(--color-border);
     border-radius: 2px;
-  }
-
-  /* ---- Hero ---- */
-  .hero {
-    min-height: 90vh;
-    min-height: 90dvh;
-    display: flex;
-    flex-direction: column;
-    padding: 0 clamp(24px, 5vw, 64px);
-  }
-
-  .hero__content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding-bottom: clamp(60px, 10vh, 100px);
-  }
-
-  /* Accent bar: draw-in animation */
-  .hero__bar {
-    width: 0;
-    height: 2px;
-    background-color: var(--color-accent);
-    margin-bottom: 24px;
-  }
-
-  [data-section="hero"].is-visible .hero__bar {
-    animation: drawH 600ms var(--ease-out) 200ms forwards;
-  }
-
-  @keyframes drawH {
-    to { width: 40px; }
-  }
-
-  /* Hero label */
-  .hero__content > .label {
-    opacity: 0;
-    margin-bottom: 20px;
-  }
-
-  [data-section="hero"].is-visible .hero__content > .label {
-    animation: fadeIn 200ms var(--ease-out) 300ms forwards;
-  }
-
-  /* Hero headline */
-  .hero__headline {
-    font-family: var(--font-display);
-    font-size: clamp(2.75rem, 8vw, 6rem);
-    line-height: 0.92;
-    letter-spacing: -0.04em;
-    font-weight: 600;
-    color: #F5F0EB;
-    max-width: 800px;
-    opacity: 0;
-    cursor: default;
-    position: relative;
-    display: inline-block;
-  }
-
-  [data-section="hero"].is-visible .hero__headline {
-    animation: fadeUp 700ms var(--ease-out) 400ms forwards;
-  }
-
-  /* Hero sub */
-  .hero__sub {
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--color-fg-secondary);
-    max-width: 480px;
-    margin-top: 32px;
-    opacity: 0;
-  }
-
-  [data-section="hero"].is-visible .hero__sub {
-    animation: fadeUp 400ms var(--ease-out) 700ms forwards;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-
-  /* ---- Stats Bar (HIGH density) ---- */
-  .stats {
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-    padding: 20px clamp(24px, 5vw, 64px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: clamp(16px, 3vw, 40px);
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 400ms var(--ease-out),
-                transform 400ms var(--ease-out);
-  }
-
-  .stats.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .stats__item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .stats__value {
-    font-family: var(--font-display);
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: #F5F0EB;
-  }
-
-  .stats__label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-border);
-  }
-
-  .stats__pipe {
-    width: 1px;
-    height: 24px;
-    background: var(--color-border);
   }
 
   /* ---- Plugin Cards (MEDIUM density) ---- */
@@ -532,7 +410,7 @@ import Footer from '../components/Footer.astro';
     font-weight: 600;
     letter-spacing: -0.03em;
     line-height: 1.1;
-    color: #F5F0EB;
+    color: var(--color-fg-emphasis);
     margin-top: 12px;
   }
 
@@ -580,7 +458,7 @@ import Footer from '../components/Footer.astro';
   }
 
   .plugins__link:hover {
-    color: #F5F0EB;
+    color: var(--color-fg-emphasis);
   }
 
   /* Status panel */
@@ -604,7 +482,7 @@ import Footer from '../components/Footer.astro';
     flex-shrink: 0;
   }
 
-  .status__dot--active { background-color: #22C55E; }
+  .status__dot--active { background-color: var(--color-success); }
   .status__dot--building { background-color: var(--color-accent); }
 
   .status__text {
@@ -639,65 +517,66 @@ import Footer from '../components/Footer.astro';
     user-select: all;
   }
 
-  /* ---- Rupture (Light inversion) ---- */
+  /* ---- Rupture overrides (HIGH density — terminal build log) ---- */
   .rupture {
-    background-color: #FAF7F2;
-    color: #1C1917;
-    padding: clamp(80px, 14vh, 140px) clamp(24px, 5vw, 64px);
-    position: relative;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 400ms var(--ease-out),
-                transform 400ms var(--ease-out);
-  }
-
-  .rupture.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+    padding: clamp(60px, 10vh, 100px) clamp(24px, 5vw, 64px);
   }
 
   .rupture__bar {
-    position: absolute;
-    left: clamp(24px, 5vw, 64px);
-    top: clamp(80px, 14vh, 140px);
-    width: 2px;
-    height: 0;
-    background-color: var(--color-accent);
+    top: clamp(60px, 10vh, 100px);
   }
 
-  .rupture.is-visible .rupture__bar {
-    animation: drawV 600ms var(--ease-out) 200ms forwards;
-  }
-
-  @keyframes drawV {
-    to { height: 40px; }
-  }
-
-  .rupture__content {
-    max-width: 600px;
+  .rupture__terminal {
     margin-left: clamp(0px, 8%, 120px);
+    max-width: 640px;
   }
 
-  .rupture__label {
-    color: var(--color-fg-muted);
-    margin-bottom: 24px;
+  .rupture__log {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
   }
 
-  .rupture__headline {
-    font-family: var(--font-display);
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    color: #1C1917;
+  .rupture__entry {
+    display: flex;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid #D6D3CD;
+    line-height: 1.5;
   }
 
-  .rupture__body {
+  .rupture__ts {
     font-family: var(--font-mono);
-    font-size: 14px;
-    line-height: 1.7;
+    font-size: 11px;
+    letter-spacing: 0.1em;
     color: var(--color-fg-muted);
-    margin-top: 20px;
+    flex-shrink: 0;
+    width: 64px;
+    padding-top: 2px;
+  }
+
+  .rupture__msg {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: #1C1917;
+    letter-spacing: 0.02em;
+  }
+
+  .rupture__entry--now {
+    border-bottom: none;
+  }
+
+  .rupture__entry--now .rupture__ts,
+  .rupture__entry--now .rupture__msg {
+    color: var(--color-accent);
+  }
+
+  .rupture__footnote {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--color-fg-muted);
+    margin-top: 32px;
     letter-spacing: 0.02em;
   }
 
@@ -719,14 +598,6 @@ import Footer from '../components/Footer.astro';
     margin-bottom: 40px;
   }
 
-  .roadmap__header .hero__bar {
-    width: 0;
-  }
-
-  .roadmap.is-visible .roadmap__header .hero__bar {
-    animation: drawH 400ms var(--ease-out) 200ms forwards;
-  }
-
   .roadmap__header .label {
     margin-top: 20px;
   }
@@ -737,7 +608,7 @@ import Footer from '../components/Footer.astro';
     font-weight: 600;
     letter-spacing: -0.03em;
     line-height: 1.1;
-    color: #F5F0EB;
+    color: var(--color-fg-emphasis);
     margin-top: 12px;
   }
 
@@ -789,33 +660,12 @@ import Footer from '../components/Footer.astro';
 
   .roadmap__status--active { color: var(--color-accent); }
 
-  /* ---- CTA (LOW density, The Void) ---- */
-  .cta {
-    padding: clamp(100px, 16vh, 200px) clamp(24px, 5vw, 64px);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 400ms var(--ease-out),
-                transform 400ms var(--ease-out);
-  }
-
-  .cta.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .cta > .label {
-    margin-bottom: 24px;
-  }
-
+  /* ---- CTA page-specific ---- */
   .cta__link {
     font-family: var(--font-display);
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: 500;
-    color: #F5F0EB;
+    color: var(--color-fg-emphasis);
     text-decoration: underline;
     text-underline-offset: 10px;
     text-decoration-color: var(--color-accent);
@@ -831,39 +681,35 @@ import Footer from '../components/Footer.astro';
     color: var(--color-fg-muted);
   }
 
-  /* ---- Reduced Motion ---- */
+  /* ---- Reduced Motion (page-specific elements only) ---- */
   @media (prefers-reduced-motion: reduce) {
-    [data-section],
+    .plugins__card-bar {
+      width: 40px !important;
+    }
+
     .roadmap__item {
       opacity: 1 !important;
       transform: none !important;
     }
-
-    .hero__bar,
-    .plugins__card-bar,
-    .rupture__bar {
-      width: 40px !important;
-      height: auto !important;
-    }
-
-    .rupture__bar { height: 40px !important; width: 2px !important; }
   }
 
   /* ---- Responsive ---- */
   @media (max-width: 640px) {
-    .stats {
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .stats__pipe { display: none; }
-
     .roadmap__status {
       display: none;
     }
 
     .roadmap__text {
       font-size: 14px;
+    }
+
+    .rupture__entry {
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .rupture__ts {
+      width: auto;
     }
   }
 </style>

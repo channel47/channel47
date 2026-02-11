@@ -21,6 +21,7 @@
 
   /* Foreground Scale */
   --color-fg: #E7E5E4;          /* Bone */
+  --color-fg-emphasis: #F5F0EB;  /* Chalk — headlines, key data */
   --color-fg-secondary: #A8A29E; /* Dust */
   --color-fg-muted: #78716C;    /* Stone */
   --color-fg-subtle: #78716C;   /* Stone */

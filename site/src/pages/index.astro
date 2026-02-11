@@ -2,6 +2,9 @@
 /**
  * Homepage
  * ch47 compositional narrative: density map, signature moves, rupture.
+ *
+ * Density: LOW (hero) → HIGH (stats) → MEDIUM (why) → HIGH (features) →
+ *          LOW rupture (light inversion, void) → MEDIUM (signup) → LOW (cta void)
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
@@ -39,20 +42,20 @@ import SocialLinks from '../components/SocialLinks.astro';
 
     <!-- =======================================
          ACT 2: PROOF STRIP (HIGH density)
-         Dense, quiet credibility.
+         Dense, quiet credibility. scale-in entrance.
          ======================================= -->
     <section class="stats" data-section="stats">
-      <div class="stats__item">
+      <div class="stats__item" data-animate="fade-up" data-stagger="1">
         <span class="stats__value">25+</span>
         <span class="stats__label">ACCOUNTS MANAGED</span>
       </div>
       <div class="stats__pipe" aria-hidden="true"></div>
-      <div class="stats__item">
+      <div class="stats__item" data-animate="fade-up" data-stagger="3">
         <span class="stats__value">$3K</span>
         <span class="stats__label">WASTE CAUGHT / MONTH</span>
       </div>
       <div class="stats__pipe" aria-hidden="true"></div>
-      <div class="stats__item">
+      <div class="stats__item" data-animate="fade-up" data-stagger="5">
         <span class="stats__value">1</span>
         <span class="stats__label">AGENT IN PROGRESS</span>
       </div>
@@ -64,7 +67,7 @@ import SocialLinks from '../components/SocialLinks.astro';
          ======================================= -->
     <section class="why" data-section="why">
       <div class="why__content">
-        <div class="hero__bar" aria-hidden="true"></div>
+        <div class="accent-bar" aria-hidden="true"></div>
         <p class="label">WHY THIS EXISTS</p>
         <div class="why__prose">
           <p>I manage 25+ accounts across multiple MCCs. The job isn't strategy
@@ -87,8 +90,8 @@ import SocialLinks from '../components/SocialLinks.astro';
     </section>
 
     <!-- =======================================
-         ACT 4: WHAT IT DOES (MEDIUM density)
-         Asymmetric two-panel grid.
+         ACT 4: WHAT IT DOES (HIGH density)
+         Asymmetric two-panel grid. Staggered items.
          ======================================= -->
     <section class="features" data-section="features">
       <div class="features__grid">
@@ -105,15 +108,15 @@ import SocialLinks from '../components/SocialLinks.astro';
         <div class="features__panel features__panel--secondary">
           <span class="label">WHAT THAT MEANS</span>
           <div class="features__list">
-            <div class="features__item">
+            <div class="features__item" data-animate="fade-up" data-stagger="1">
               <span class="features__idx">001</span>
               <span>Catches the expensive miss you're too busy to find</span>
             </div>
-            <div class="features__item">
+            <div class="features__item" data-animate="fade-up" data-stagger="3">
               <span class="features__idx">002</span>
               <span>Does Monday morning work before Monday morning</span>
             </div>
-            <div class="features__item">
+            <div class="features__item" data-animate="fade-up" data-stagger="5">
               <span class="features__idx">003</span>
               <span>Explains itself in plain English</span>
             </div>
@@ -123,24 +126,22 @@ import SocialLinks from '../components/SocialLinks.astro';
     </section>
 
     <!-- =======================================
-         ACT 5: RUPTURE (Light inversion)
-         Density + surface shift.
+         ACT 5: RUPTURE (Light inversion, LOW density)
+         Surface + density shift. The Void on light.
+         One commanding number. Maximum negative space.
          ======================================= -->
     <section class="rupture" data-section="rupture">
       <div class="rupture__bar" aria-hidden="true"></div>
-      <div class="rupture__content">
+      <div class="rupture__void">
         <span class="label rupture__label">047 / STATUS</span>
-        <h2 class="rupture__headline">
-          This isn't vaporware.
-        </h2>
-        <p class="rupture__body">
-          The plugin that became the foundation already runs in production
-          on my accounts. I'm building the full agent in public — code on
-          GitHub, progress on Substack, decisions and dead ends included.
-        </p>
-        <p class="rupture__body">
-          When it's ready, it ships open-source. Any media buyer can run
-          it on their own accounts, their own infrastructure, no vendor lock-in.
+        <div class="rupture__stat">
+          <span class="rupture__number">$3K</span>
+          <span class="rupture__unit">/ month in waste caught by one script.</span>
+        </div>
+        <p class="rupture__kicker">
+          This isn't vaporware. The plugin runs in production on my accounts.
+          Building the full agent in public — code on GitHub, decisions and dead ends included.
+          When it's ready, it ships open-source.
         </p>
       </div>
     </section>
@@ -150,9 +151,9 @@ import SocialLinks from '../components/SocialLinks.astro';
          ======================================= -->
     <section class="signup" id="signup" data-section="signup">
       <div class="signup__content">
-        <div class="hero__bar" aria-hidden="true"></div>
-        <p class="label">GET BUILD NOTES</p>
-        <h2 class="signup__title">Get build notes.</h2>
+        <div class="accent-bar" aria-hidden="true"></div>
+        <p class="label">INCOMING</p>
+        <h2 class="signup__title">Build notes.</h2>
         <p class="signup__body">
           Short emails when something real ships. Prompt templates,
           automation scripts, and the architecture decisions behind an
@@ -169,11 +170,15 @@ import SocialLinks from '../components/SocialLinks.astro';
     </section>
 
     <!-- =======================================
-         ACT 7: LINKS + CTA (LOW density, The Void)
+         ACT 7: CTA (LOW density, The Void)
+         One element. Maximum space.
          ======================================= -->
     <section class="cta" data-section="cta">
-      <p class="label">LINKS</p>
-      <SocialLinks />
+      <p class="label">TRANSMITTING</p>
+      <a class="cta__link" href="#signup">Stop clicking. Start supervising.</a>
+      <nav class="cta__links" aria-label="Links">
+        <SocialLinks />
+      </nav>
     </section>
 
     <!-- Footer -->
@@ -182,7 +187,6 @@ import SocialLinks from '../components/SocialLinks.astro';
 
   <!-- =======================================
        MOTION: Hero sequence + Scroll reveals + Glitch
-       Same system as plugins page.
        ======================================= -->
   <script>
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -263,101 +267,17 @@ import SocialLinks from '../components/SocialLinks.astro';
   </script>
 </BaseLayout>
 
+<!-- Shared section styles (hero, stats, rupture, CTA, label, keyframes) -->
+<style is:global>
+  @import '../styles/sections.css';
+</style>
+
 <style>
   /* ========================================
-   * Homepage — scoped styles using shared tokens
-   * ch47 compositional narrative
+   * Homepage — page-specific styles
    * ======================================== */
 
-  a { color: inherit; text-decoration: none; }
-
-  /* ---- Labels (Broadcast) ---- */
-  .label {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-fg-muted);
-    display: block;
-  }
-
-  /* ---- Hero (LOW density, 90vh) ---- */
-  .hero {
-    min-height: 90vh;
-    min-height: 90dvh;
-    display: flex;
-    flex-direction: column;
-    padding: 0 clamp(24px, 5vw, 64px);
-  }
-
-  .hero__content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding-bottom: clamp(60px, 10vh, 100px);
-  }
-
-  /* Accent bar: draw-in animation */
-  .hero__bar {
-    width: 0;
-    height: 2px;
-    background-color: var(--color-accent);
-    margin-bottom: 24px;
-  }
-
-  [data-section="hero"].is-visible .hero__bar {
-    animation: drawH 600ms var(--ease-out) 200ms forwards;
-  }
-
-  @keyframes drawH {
-    to { width: 40px; }
-  }
-
-  /* Hero label */
-  .hero__content > .label {
-    opacity: 0;
-    margin-bottom: 20px;
-  }
-
-  [data-section="hero"].is-visible .hero__content > .label {
-    animation: fadeIn 200ms var(--ease-out) 300ms forwards;
-  }
-
-  /* Hero headline */
-  .hero__headline {
-    font-family: var(--font-display);
-    font-size: clamp(2.75rem, 8vw, 6rem);
-    line-height: 0.92;
-    letter-spacing: -0.04em;
-    font-weight: 600;
-    color: #F5F0EB;
-    max-width: 800px;
-    opacity: 0;
-    cursor: default;
-    position: relative;
-    display: inline-block;
-  }
-
-  [data-section="hero"].is-visible .hero__headline {
-    animation: fadeUp 700ms var(--ease-out) 400ms forwards;
-  }
-
-  /* Hero sub */
-  .hero__sub {
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--color-fg-secondary);
-    max-width: 480px;
-    margin-top: 32px;
-    opacity: 0;
-  }
-
-  [data-section="hero"].is-visible .hero__sub {
-    animation: fadeUp 400ms var(--ease-out) 700ms forwards;
-  }
-
-  /* Hero CTA button */
+  /* ---- Hero CTA button ---- */
   .hero__cta {
     display: inline-flex;
     align-items: center;
@@ -398,65 +318,6 @@ import SocialLinks from '../components/SocialLinks.astro';
     outline-offset: 2px;
   }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-
-  /* ---- Stats Bar (HIGH density) ---- */
-  .stats {
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-    padding: 20px clamp(24px, 5vw, 64px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: clamp(16px, 3vw, 40px);
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 400ms var(--ease-out),
-                transform 400ms var(--ease-out);
-  }
-
-  .stats.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .stats__item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .stats__value {
-    font-family: var(--font-display);
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: #F5F0EB;
-  }
-
-  .stats__label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-border);
-  }
-
-  .stats__pipe {
-    width: 1px;
-    height: 24px;
-    background: var(--color-border);
-  }
-
   /* ---- Why Section (MEDIUM density) ---- */
   .why {
     padding: clamp(60px, 10vh, 100px) clamp(24px, 5vw, 64px);
@@ -471,12 +332,8 @@ import SocialLinks from '../components/SocialLinks.astro';
     transform: translateY(0);
   }
 
-  .why__content .hero__bar {
+  .why__content .accent-bar {
     width: 0;
-  }
-
-  .why.is-visible .hero__bar {
-    animation: drawH 400ms var(--ease-out) 200ms forwards;
   }
 
   .why__content .label {
@@ -531,7 +388,7 @@ import SocialLinks from '../components/SocialLinks.astro';
     color: var(--color-fg);
   }
 
-  /* ---- Features (MEDIUM density, asymmetric) ---- */
+  /* ---- Features (HIGH density, asymmetric) ---- */
   .features {
     padding: 0;
     opacity: 0;
@@ -592,7 +449,7 @@ import SocialLinks from '../components/SocialLinks.astro';
     font-weight: 600;
     letter-spacing: -0.03em;
     line-height: 1.1;
-    color: #F5F0EB;
+    color: var(--color-fg-emphasis);
     margin-top: 12px;
   }
 
@@ -635,71 +492,62 @@ import SocialLinks from '../components/SocialLinks.astro';
     width: 32px;
   }
 
-  /* ---- Rupture (Light inversion) ---- */
+  /* ---- Rupture (Light inversion, LOW density — The Void) ---- */
   .rupture {
-    background-color: #FAF7F2;
-    color: #1C1917;
-    padding: clamp(80px, 14vh, 140px) clamp(24px, 5vw, 64px);
-    position: relative;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 400ms var(--ease-out),
-                transform 400ms var(--ease-out);
-  }
-
-  .rupture.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+    padding: clamp(100px, 18vh, 200px) clamp(24px, 5vw, 64px);
   }
 
   .rupture__bar {
-    position: absolute;
-    left: clamp(24px, 5vw, 64px);
-    top: clamp(80px, 14vh, 140px);
-    width: 2px;
-    height: 0;
-    background-color: var(--color-accent);
+    top: clamp(100px, 18vh, 200px);
   }
 
-  .rupture.is-visible .rupture__bar {
-    animation: drawV 600ms var(--ease-out) 200ms forwards;
-  }
-
-  @keyframes drawV {
-    to { height: 40px; }
-  }
-
-  .rupture__content {
-    max-width: 600px;
+  .rupture__void {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 640px;
     margin-left: clamp(0px, 8%, 120px);
   }
 
-  .rupture__label {
-    color: var(--color-fg-muted);
-    margin-bottom: 24px;
+  .rupture__stat {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 12px;
   }
 
-  .rupture__headline {
+  .rupture__number {
     font-family: var(--font-display);
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
+    font-size: clamp(4rem, 12vw, 8rem);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 0.85;
     color: #1C1917;
   }
 
-  .rupture__body {
+  .rupture__unit {
+    font-family: var(--font-mono);
+    font-size: clamp(0.875rem, 2vw, 1.125rem);
+    line-height: 1.4;
+    color: var(--color-fg-muted);
+    letter-spacing: 0.02em;
+    max-width: 280px;
+  }
+
+  .rupture__kicker {
     font-family: var(--font-mono);
     font-size: 14px;
     line-height: 1.7;
     color: var(--color-fg-muted);
-    margin-top: 20px;
+    margin-top: clamp(40px, 6vh, 80px);
+    max-width: 480px;
     letter-spacing: 0.02em;
   }
 
   /* ---- Signup (MEDIUM density) ---- */
   .signup {
-    padding: clamp(60px, 10vh, 100px) clamp(24px, 5vw, 64px);
+    padding: clamp(80px, 12vh, 120px) clamp(24px, 5vw, 64px) clamp(60px, 10vh, 100px);
     opacity: 0;
     transform: translateY(12px);
     transition: opacity 400ms var(--ease-out),
@@ -711,12 +559,8 @@ import SocialLinks from '../components/SocialLinks.astro';
     transform: translateY(0);
   }
 
-  .signup__content .hero__bar {
+  .signup__content .accent-bar {
     width: 0;
-  }
-
-  .signup.is-visible .hero__bar {
-    animation: drawH 400ms var(--ease-out) 200ms forwards;
   }
 
   .signup__content .label {
@@ -730,7 +574,7 @@ import SocialLinks from '../components/SocialLinks.astro';
     font-weight: 600;
     letter-spacing: -0.03em;
     line-height: 1.1;
-    color: #F5F0EB;
+    color: var(--color-fg-emphasis);
     margin-bottom: 20px;
   }
 
@@ -773,52 +617,34 @@ import SocialLinks from '../components/SocialLinks.astro';
   }
 
   /* ---- CTA (LOW density, The Void) ---- */
-  .cta {
-    padding: clamp(100px, 16vh, 200px) clamp(24px, 5vw, 64px);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 400ms var(--ease-out),
-                transform 400ms var(--ease-out);
+  .cta__link {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 3.5vw, 2rem);
+    font-weight: 500;
+    color: var(--color-fg-emphasis);
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 2px;
+    transition: color var(--duration-fast);
   }
 
-  .cta.is-visible {
+  .cta__link:hover { color: var(--color-accent); }
+
+  .cta__links {
+    margin-top: 40px;
+    opacity: 0.6;
+    transition: opacity var(--duration-normal) var(--ease-out);
+  }
+
+  .cta__links:hover {
     opacity: 1;
-    transform: translateY(0);
-  }
-
-  .cta > .label {
-    margin-bottom: 24px;
   }
 
   /* ---- Reduced Motion ---- */
   @media (prefers-reduced-motion: reduce) {
-    [data-section] {
-      opacity: 1 !important;
-      transform: none !important;
-    }
-
-    .hero__bar,
     .features__bar {
       width: 40px !important;
     }
-
-    .rupture__bar {
-      height: 40px !important;
-      width: 2px !important;
-    }
-  }
-
-  /* ---- Responsive ---- */
-  @media (max-width: 640px) {
-    .stats {
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .stats__pipe { display: none; }
   }
 </style>

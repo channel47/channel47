@@ -2,6 +2,9 @@
 /**
  * /hire — Consulting Intake
  * Custom AI skill build requests. Sends to Kit with "hire" tag + fields.
+ *
+ * Density within FormPageLayout constraints:
+ * MEDIUM (heading) → HIGH (proof strip) → MEDIUM (form) → LOW (fallback)
  */
 import FormPageLayout from '../layouts/FormPageLayout.astro';
 ---
@@ -21,6 +24,15 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
       Campaign generators, audit tools, email builders, creative pipelines.
       I take on a handful of projects at a time. Tell me what you need.
     </p>
+
+    <!-- Proof strip — compact credibility before the form -->
+    <div class="hire__proof">
+      <span class="hire__proof-item">25+ accounts managed</span>
+      <span class="hire__proof-pipe" aria-hidden="true"></span>
+      <span class="hire__proof-item">Production tools shipped</span>
+      <span class="hire__proof-pipe" aria-hidden="true"></span>
+      <span class="hire__proof-item">Open source</span>
+    </div>
 
     <form class="hire__form" data-hire-form>
       <label class="visually-hidden" for="hire-email">Email</label>
@@ -61,6 +73,11 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
         Send it <span class="fp-arrow" aria-hidden="true">→</span>
       </button>
     </form>
+
+    <!-- Fallback CTA — exit ramp for people not ready -->
+    <p class="hire__fallback">
+      Not ready? <a href="/#signup" class="hire__fallback-link">Get the build notes</a> instead.
+    </p>
   </section>
 
   <!-- Success view (hidden by default) -->
@@ -69,6 +86,7 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
     <p class="fp-label fp-label--accent">RECEIVED</p>
     <h1 class="fp-heading">Got it.</h1>
     <p class="fp-body">I'll reply within 48 hours with next steps.</p>
+    <a href="/" class="hire__back-link">← Back to channel47</a>
   </section>
 
 </FormPageLayout>
@@ -168,6 +186,33 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
 </script>
 
 <style>
+  /* ---- Proof strip (HIGH density moment) ---- */
+  .hire__proof {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: var(--space-8);
+    padding: var(--space-4) 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hire__proof-item {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-fg-muted);
+  }
+
+  .hire__proof-pipe {
+    width: 1px;
+    height: 12px;
+    background: var(--color-border);
+  }
+
+  /* ---- Form ---- */
   .hire__form {
     display: flex;
     flex-direction: column;
@@ -208,7 +253,54 @@ import FormPageLayout from '../layouts/FormPageLayout.astro';
     display: none;
   }
 
+  /* ---- Fallback CTA (LOW density exit ramp) ---- */
+  .hire__fallback {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-fg-muted);
+    margin-top: var(--space-10);
+    letter-spacing: 0.02em;
+  }
+
+  .hire__fallback-link {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: color var(--duration-fast);
+  }
+
+  .hire__fallback-link:hover {
+    color: var(--color-fg);
+  }
+
+  /* ---- Success state ---- */
   .hire__success {
     /* inherits fp-section centering */
+  }
+
+  .hire__back-link {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-fg-muted);
+    text-decoration: none;
+    transition: color var(--duration-fast);
+  }
+
+  .hire__back-link:hover {
+    color: var(--color-accent);
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 480px) {
+    .hire__proof {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .hire__proof-pipe {
+      display: none;
+    }
   }
 </style>

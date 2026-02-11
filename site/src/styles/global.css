@@ -123,7 +123,7 @@ input,
 button,
 textarea,
 select {
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   font-size: inherit;
 }
 
@@ -273,7 +273,7 @@ button {
 
 /* Label - form labels, navigation */
 .type-label {
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   font-size: var(--type-label-size);
   font-weight: var(--type-label-weight);
   line-height: var(--type-label-leading);
@@ -282,7 +282,7 @@ button {
 
 /* Caption - metadata, image captions */
 .type-caption {
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   font-size: var(--type-caption-size);
   font-weight: var(--type-caption-weight);
   line-height: var(--type-caption-leading);
@@ -292,7 +292,7 @@ button {
 
 /* Overline - category labels, section markers */
 .type-overline {
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   font-size: var(--type-overline-size);
   font-weight: var(--type-overline-weight);
   line-height: var(--type-overline-leading);
@@ -303,7 +303,7 @@ button {
 
 /* Button text */
 .type-button {
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   font-size: var(--type-button-size);
   font-weight: var(--type-button-weight);
   line-height: var(--type-button-leading);
