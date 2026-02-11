@@ -230,9 +230,10 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
     height: 48px;
     padding: 0 var(--space-5);
     font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    letter-spacing: var(--tracking-wide);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
     color: var(--color-fg-inverse);
     background: var(--color-accent);
     border: none;
@@ -243,20 +244,17 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
     touch-action: manipulation;
     transition:
       background-color var(--duration-fast) var(--ease-out),
-      transform var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out);
+      color var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
   }
 
   .email-signup__submit:hover {
-    background: var(--color-accent-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 10px 30px color-mix(in oklch, var(--color-accent) 20%, transparent);
+    background: var(--color-fg);
+    color: var(--color-bg);
   }
 
   .email-signup__submit:active {
-    transform: translateY(0);
-    background: var(--color-accent-active);
-    box-shadow: none;
+    transform: scale(0.97);
   }
 
   .email-signup__submit:focus-visible {
@@ -368,17 +366,11 @@ const formId = `email-signup-${Math.random().toString(36).substr(2, 9)}`;
 
   .email-signup.is-success .email-signup__submit {
     background: var(--color-success);
+    color: var(--color-fg-inverse);
   }
 
   .email-signup.is-success .email-signup__input {
     border-color: var(--color-success);
-  }
-
-  /* Touch feedback for mobile */
-  @media (hover: none) {
-    .email-signup__submit:active {
-      transform: scale(0.97);
-    }
   }
 
   /* Error state */

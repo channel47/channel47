@@ -1,0 +1,264 @@
+00:00 Righto, so this is the second run-through of the AI skills presentation that I will be giving this Thursday Covering the basics of AI skills.
+00:20 So what are AI skills? Essentially, they are how anybody in any sort of profession can teach AI capabilities that they themselves know that AI doesn't have sort of pre-trained or baked into its, uh, into its model by default.
+00:46 the way that these big elements are created is that they are trained before they're released on a plethora of data that's somewhat generalized, that's why they're really good at the general purpose tasks, but the skills that each individual person carries are things that AI can be okay at, but they can
+01:13 be amazing at if you just give it a little bit of direction. So this whole skills framework is how we give AI that direction.
+01:25 So, let's dive in. Before we do anything I just want to specify I'm no expert in the fact that this stuff is just a few months of old.
+01:37 Uhm, I truly don't believe anyone is a expert in the true sense of the word, but I do think that with daily practice and daily tinkering on these things that you can become definitely proficient and, uh, you learn, you begin to learn the nuance that goes along with creating skills, working with other
+02:02 tools in the AI ecosystem like MCP, etc. So, there's a lot of different things you can do with AI. Skills are one facet and a very powerful facet, but, uhm, just to kinda remind everyone, like, I'm not saying this is the end-all be-all.
+02:21 This is, like, the beginning It's the very beginning to show you how you might employ this for yourself. So, a quick run of show.
+02:34 We're kinda breaking this out into sections, and I did this to kinda provide the best framework that I knew how to kinda give everyone the best glimpse into what we're about to talk about.
+02:48 Uhm, so first thing up, we're gonna talk about the overall ecosystem of tools, quote-unquote, within the AI realm.
+03:01 So, there's different tools for different jobs. But it's important to know, a lot of these tools I'm about to show can be somewhat interchangeable, and the overall ecosystem line between one tool versus another is a little blurred in terms of, like, when you'd want to use one for the other.
+03:21 There's definitely particular use cases that are good, but I'm just letting you know that don't take all of this at face value.
+03:30 Take it all with a bit of a open mind and like a curious outlook, because the, uhm, the real truth is that, again, all of this is so new, and to define this as one kind of thing is a little bit maybe excessive.
+03:54 So just take it all, be curious. But, so, if we were to define the different tools that exist, right? Let's look at skills, let's look at sub-agents, and then let's also look at MCP servers.
+04:13 Uhm, these are sort of three tools that AI can leverage. Specific AI can leverage, not all AI.
+04:25 Just the ones that have these standards, uh, adopted. Uhm, so, the one we're focusing on today is skills, obviously. But just to give everyone a quick glimpse at the other two, like, for MCP servers and sub-agents, it's important to know that basically MCP servers act as connectors.
+04:52 So, think of an MCP server as a connector or a bridge between AI and other software. Software like Slack, software like Asana, uhm, etc.
+05:04 It lets AI walk that connection over to the software to then interact with it and do things. And it can be read-only, it can write, it can do whatever you define or give it the access to be able to do.
+05:21 Sub-agents are kind of like the team. Uhm, and this is really only applicable within the Anthropic ecosystem. Uhm, and specifically under Cloud Code, uh, Cloud Cowork has it.
+05:37 It has this Cloud Agent SDK, which is essentially just the Cloud Code harness, but in an API form. That's a little technical, but all you need to know is that sub-agents are like a specific, um, delegated AI that another AI would launch or spawn, and in order to go do a particular task.
+06:04 It's really great for, like, research, when you want to know something, but you don't want the context window that you're talking in to get bloated by all this data and information.
+06:17 So you would ask Cloud to launch a sub-agent to go research and that sub-agent might burn 60,000 tokens. To go find you the research, then provide a summary back to the main AI you were talking to with maybe 5,000 tokens.
+06:36 So your main conversation window stays clean, so that sub-agent just kind of surfaced the signal from all the findings that it did.
+06:47 Then we get into skills, which we're talking about today. Skills are the playbook, basically. It's, like, how AI knows to do certain things.
+06:55 And like I said earlier, there's general capabilities built into AI by default. Like, it knows basic math, even complex math, actually.
+07:05 Uhm, it knows a lot of things. But does it know, you know, your specific brand of voice and, like, your design, style, or preferences.
+07:18 It, like, doesn't know that by default. Uhm, so some things are subjective, that you want to teach it. And then other things are more fine-tuned, that it just doesn't know.
+07:30 Which we'll get into examples, but at a high level, this is how these tools work. And they can, you work together in really cool ways.
+07:40 Um, today we're going to talk mainly just about how to use skills as standalones, but it is important to know that these other things exist for different use cases.
+07:57 Just a quick recap of, like, the recency of all of this skill stuff. It was launched back in October of last year, and then in December they became an open standard, meaning other AI labs, aside from Anthropic, could begin to adopt this standard.
+08:15 And that's what ended up happening, so now you actually can see the skill.md format, which is what we're going to talk about next, showing a little up in apps outside of Clod.
+08:29 You can see them now in, like, Cursor, you can see them in Codex, you can see them in ClimbManus, and a lot more.
+08:36 So, this is not just limited to Clod anymore, it's actually kind of spreading across the whole AI ecosystem. So, what you learned today will work across all of Multiple tools, with the caveat that you will probably need to adapt it a little bit, but the core foundation of what a skill is, is sort of
+09:02 universal. And, let's talk about what that core foundation actually looks like, now. So, what skills are? What are they? They're basic.
+09:13 Basically, just a Markdown file. So, a skill at its most basic sense is a skill.md, md standing for Markdown, file that lives either on your computer in a folder, lives in quads, like, settings, it can live in a core format of it.
+09:38 This is the same, it's just this skill.md format. So, if we look at the example here, you can see there's a folder, and in the folder, this would be like your skill name, right?
+09:52 And then, under that is the Markdown file. This is the only required file for a skill. And, basically, you can get away with just having that, that's fine, uh, depends on the complexity of the skill that you want to include.
+10:11 But then, skills can also include other folders and files alongside them. And this is kind of what makes them powerful.
+10:19 So, like, if I had a skill that would require me to run a script, or if I had a skill that had references to things like, uhm, previous emails, or previous whatever, or just any reference that I wanted it to be able to see.
+10:38 Examples of what good looks like, you know, all these things. And then, perhaps, some assets. So, things like brand logos, or sort of thing that you would want it to have immediate access to.
+10:50 These are all optional, but these are also, uhm, a part of skills. So, you can build a skill that has all these things, and even more.
+11:00 How it works is, you would basically describe a workflow, and maybe even ask for a task. AI executes it in the same way every time, as long as it's loading the skill.
+11:15 Uhm, why it matters, you're starting with basically just words, and you can, uhm, grow it over time.
+11:30 This slide, slide 9, this is an editor's note, should be simplified. Also, there's a formatting issue on the folder where, or like the, uhm, hierarchy showing the MySkill example, it's got some issues with the pipes not actually being on the correct lines.
+11:50 Uh, everything's showing as, at the same level, so that needs to be fixed. We can honestly get rid of how it works and why it matters.
+12:01 We get into that, I believe. So, yeah, we do. Uhm, so, let's just keep this slide 9 as, like, a simple what-it-is, uh, and then show the diagram.
+12:13 We just want people to know that skills are files and, like, a basic file, but with optional folders and other files alongside it.
+12:24 That's kind of the gist here. End of the Editor's Note. Alright, going into how skills actually work. Uhm, basically, skills are really powerful because if you think about AI today, the drawback or flaw, weakness, is every conversation you start has a finite number of tokens that it can handle before
+12:57 it either compacts the conversation, craps out, or just, just like starts hallucinating. So, there's a finessing of just the right amount of information with not too many tokens to context.
+13:14 your window, uhm, and so, one of the things that skills do, really intelligently, is they will only load the front matter, which is to say, like, a short description of what the skill is, what it does, and
+15:00 Okay, picking up where we left off, we are on slide 10, and we are roughly 15 minutes in.
+15:13 Uhm, had a little bit of a mic issue, I am hoping it's resolved as of now. So, back to the presentation.
+15:24 Uhm, as I was saying, skills will load partial information for the AI, so that it knows when to use them, and then when, in the proper context, it will then load the full skill.
+15:43 But it will not load the full skill until it has the, Until it has the context, or like, the prompting to do so.
+15:57 They load automatically by default, sometimes, but, yeah. Uhm, so this makes the description part really important.
+16:09 So that description is the, First part of it, that, where did the, looks like we lost the slide showing the actual skill.md file.
+16:33 The description is the Y-A-N-I editor's note. We need to include an actual skill.md file example in the presentation so that people know what I'm talking about when I say the description makes or breaks it.
+16:49 And let's add it after, maybe add it after skills in 60 seconds, slide 9, so slide 10 to be. Example of what an actual skill.md file looks like with the description and the instructions.
+17:08 And then it goes into how skills actually work. And then followed by the description makes or breaks it. So, the description part is key, end of the editor's note.
+17:19 The description part is key because it tells the AI what exactly to do, but also when to use the skill.
+17:28 So, the idea with skills is that you don't have to go backslash, because you used to have to slash and then type the command that you predefined.
+17:37 With skills, it's kind of implied that AI will automatically know when to use it. Alright, All right, so that said.
+17:48 One last note on what skills are. The best skills are personal skills. So, you can have a generic skill, and that's fine, and there's actually, you know, a time and place for having generic skills.
+18:05 But really, like, to make skills useful and valuable, you really want to personalize them. So, instead of having it defined as write Google Ads copy, maybe you would personalize it to work for your specific business, and, like, your specific market.
+18:25 Uhm, so that every time a skill is used, Claude or whatever you're using knows, okay, I'm not just writing Google Ads copy, I'm writing Google Ads copy for this SaaS product that's targeting mid-market users.
+18:37 Mid-market CFOs and uses their specific value props, et cetera, uh, you're gonna get better outputs that way, and doing that creates leverage for you and your team or business or whatever you're working on that you wouldn't get from having just a generic skill.
+18:57 So basically the most useful skills are not templates, they are your playbook. Finally, what skills are not? So skills are not integrations to other software.
+19:10 Though they can teach AI how to connect to other software, they are not the integrations themselves. That would be something more like MCP servers.
+19:21 Skills are not AI managing other AI. That would be something like sub-agents. Skills are going to work within the same context window that you have them called upon.
+19:32 So basically, instead of AI going and delegating this task to another AI with its own context window, that's not what skills are.
+19:42 We are having it just work within our same context window. However, and this is kind of a more advanced topic, but you can specify in skills that you want to use sub-agents.
+19:56 So having a skill with its set of instructions, it can include to call upon a different sub-agent. And so like, if you invoke a skill that analyzes competitors, you might, specify in a skill, when doing market research, use a sub-agent to save tokens on your context window or whatever, then the AI that
+20:25 invokes the skill knows, okay, when I get to this research part, I'm going to launch a sub-agent to keep my context window clean and then it has it present back its findings, right?
+20:36 Okay. So. That's a clear distinction. Skills are not just saved prompts. Prompts are one-off, copy-paste, every time you have to use it or want to use it.
+20:48 Uhm, the skills will persist and improve over time if you define how you want to improve them. And they can also include all those other reference files.
+21:01 As well, for context, you can get away with using prompts and also a set of attached files every time, but why do that when you can just create a skill?
+21:13 So, don't make your work harder, just create a skill. Skills are not autopilot either, so skills will guide the work, but you still have to judge the output, depending on your, uhm, your tolerance for that.
+21:32 So, a skill is like the playbook, but it's not the player. Finally, let's actually go and build a skill, alright?
+21:41 So, let's do this together, and how we're gonna do this is we're going to use Quad. Bye-bye. So, first, what makes a good skill, let's just look at this.
+21:54 So, anything that's, like, repeatable, explainable, and contained. These are kind of, like, the basic guardrails, but you can obviously get creative and imaginative with this.
+22:05 Like, for example, I recently made a skill that, uhm, will extract, uhm, information and high-signal items from a notes file that I have, where I just sort of ramble.
+22:21 And it will pull all the high-signal stuff from my notes, and surface them for me as potential pieces of content that I could write about, or share, uhm, in a really cool, easy way.
+22:35 So, like, that isn't necessarily a necessarily, I guess it is contained. But anyways, uhm, this is kind of what skills are at their foundation.
+22:45 So, let's actually build a skill. We're gonna do the following. We're gonna open Clod, go to settings, go to capabilities, find the skills, and particularly we're going to find the skill creator skill and we're going to basically just talk with Clod using the already built-in skill that Clod has to create
+23:07 skills and we're gonna do this all real-time in the chat. So, let me open up Clod.ai. And by the way, you can do this on Clod.ai, you can do it on the desktop app, and you can also do this on your phone.
+23:25 Wherever you add skills is where you will basically have, uh, you'll have them available across, uh, across platforms.
+23:45 So I'm in Clod.ai right now on the web. And I'm on the Settings tab, and I am under Capabilities. And if you've never been here before, this is where you go to find skills within the Clod Desktop or Clod.ai, uh, user interface.
+24:08 So if we scroll down, we'll see Skills. And you'll notice there's two tabs. You've got Your Skills on the left, and then Example Skills on the right.
+24:21 Example Skills are these already pre-built skills that Anthropic, the creators of Clod, have included for you to sort of test drive.
+24:31 And some of them, most of them, are actually really valuable. Like, for instance, this one, this Skill Creator skill. Enabled by default by, uh, Anthropic, it allows you to just create skills using natural language.
+24:47 So, I'm gonna have a call to action at the end of this presentation that will walk you through three questions to kind of figure out a potential workflow or thing you could turn into a skill.
+25:01 and then there's a button at the end that will take you to Claude.ai and have a pre-filled prompt for you to just hit send and then go through the interaction with Claude to then build a skill, so stay tuned for that and I'll show you kind of how it works now, but if I click on these three dots alongside
+25:28 the skill creator skill, I can hit try and chat and that takes me to a new chat with this prompt pre-filled.
+25:36 It says, hey Claude, can you make something amazing with my skill creator skill? And I'm just gonna say, I'm just gonna send.
+25:45 We can give it a specific thing we want to create a skill around, but for this Thank you. Purpose, I'm just gonna see what it does.
+25:52 Uhm, and often times it might read your context or past chat history, or if you have memory enabled it might read through your memory to see what it is that, you know, it could build for you to be useful, uhm.
+26:11 But here's, it actually is prompting me to see. What do I want to build? So what kind of skill should we create?
+26:19 I'm gonna say a brand new skill idea, surprise me with something cool. Uhm, and then let's do something design and visual related.
+26:31 And now we gave it this kind of guardrails, it's just gonna go off and do the thing. So it's looking at looking through existing skills that are enabled.
+26:40 If you didn't notice, I had a few that were already turned on. It's just making sure that I don't, uh, it doesn't create a new one.
+26:48 Alright, so this is an interesting one. It's gonna take, it's gonna create a data portrait skill essentially. So it would be a skill that could take any damage.
+27:02 Dataset, API response, personal stats, or just simply raw numbers, and then it turns them into stunning editorial data visualization in the aesthetic of this site that I spun up for this sort of project.
+27:18 Uhm, which is interesting. Let's see how it goes about doing this. So this whole process is actually gonna take, you, depending on the complexity of the skill, it will take you anywhere from, say, two minutes to however long you feel like refining it.
+27:37 But really, like, even if you have a very complex skill, it could still take you a matter of 30 minutes to build.
+27:45 It's not like you're gonna spend all day on this. It's usually pretty fast. Uhm. This is a somewhat simple idea, uhm, so it should have this cooked up in a little bit of time.
+28:07 And I guess while this is doing this, we can have some questions and, uh, answer some questions. some questions from the audience.
+28:17 That's an editor's note, so, just FYI. Still cooking The skill it's capable of producing. Editor's note, we're using Opus 4.6 without extended thinking.
+29:47 Wow, okay, so, it cooked up a skill as basically a data portrait.
+29:59 Uhm, this is actually really cool. Three models in the top twelve. It's a, It's a shill for Anthropic, which is funny.
+30:09 Uhm, but it's showing what models are sitting at the top. I don't know if how it's ranking. Uhm, the demo is a live artifact showing the rank.
+30:23 AI model arena leaderboard. Note the channel 47 signatures, signal accent, light disrupture on the gap. Okay, so the The data is illustrative, it's not real rankings, but the point is format.
+30:39 So this is all fabricated data, at least it told us. It put Grok3 at the bottom. That's funny. Alright, so this is an example of, like, I didn't give it any context.
+30:52 It only told, it only pulled context from what it already had in its skill library, and in the skill library I have a brand voice and, like, a frontend design skill library.
+31:03 Defined already for channel 47, which is this kind of concept. So it just took that and it spun this up as, like, a data visualization skill.
+31:14 Pretty cool, might actually be sort of useful, I might use this, so. Uhm, to install this skill now, uh, you used to be able to just say, package this up as an one-click install for me.
+31:32 Uh, it had these .skill type files, but it seems like in the last few days that that might have changed.
+31:48 No, alright, sweet, so. It did, it packaged it up, so now what we have is a .skill file, and this is essentially a zip file, but it's specific to Cloud Code, and, so, I can either now copy to my skills, and just one-click it will add this to my library instead of skills, or I can download this, and then
+32:12 I can share that with any of my you other colleagues or whatever, and they would be able to just simply open the skill file, and it would open Cloud, and then prompt them to then ask, hey, do you want to install this skill?
+32:26 So, super easy to share these skills as we build them. I'm gonna copy to my skills. Alright, cool. So, I've copied it over to my skill library.
+32:38 Now, let me show you where this lives, again, just to reiterate this. So, I'm in Settings, under Capabilities, I scroll down to Skills, and there we go.
+32:50 I've got Data Portrait embedded in there. And now, if I wanted to, I can then do the same thing I did with Skill Creator, but for this new skill we just made.
+33:00 So, hey, it, like, pre-populates this prompt. Hey Claude, can you make something amazing with my Data Portrait skill? And then if I hit Send, it will now use the skill we just made to do the thing that the skill does.
+33:14 So, super cool, very fast turnaround time, like you saw, that was no time at all. I didn't even give it that much context, and it's able to spin stuff up pretty fast.
+33:27 Alright, Editor's Note, uhm, probably shouldn't test the skill we create live, cause then it will just pull us into another live demo that we aren't actually defining yet, so.
+33:43 Going back to the presentation, let's do that now. Where is it? Okay, so, what we just did is made a skill.
+34:01 We started with a basic idea and described it in plain language, and then Claude wrote the instructions, and then we tested it, and it worked.
+34:13 So, skills will improve. Improve as you use them, and actually, it's important that once you make a skill, that you refine it, and you can use it as you would out of the box, and that's fine if it works for you, but it is important to note that you can also leverage the skill we just made, or skill,
+34:36 I'm sorry, that we just used, that skill creator skill from I'm Anthropic, this guy, right, oh, nope, sorry, it's getting all buggy on me, let's refresh.
+35:03 Editor's note, the, uh, Claude.ai UI is sort of bugging out. All good, though. Alright, so if I navigate back to Capabilities, alright, oh my goodness.
+35:20 Uhm, okay, Sample Skills, right. So, the Skill Creator skill that Anthropic bakes in by default is specified for AI, like, tells AI, use this to create new skills, improve existing skills, and also measure skill performance.
+35:43 So, this is not just to create skills, this is also to improve, and then also measure. Uhm. Cool. So, hopefully that's clear.
+35:55 Uhm. And also, a little side note, if skills are not firing when you want them to, then it's just simply, might be a matter of adding a little bit more to the description field, enough so that AI is able in the future knows to call the skill, but not so much that you bloat the description field, uhm,
+36:22 and then vice versa. If the skill is loading when it shouldn't load, which is not terribly often, but it can happen, then maybe you need to be more specific and add, actually I wouldn't add negative triggers.
+36:36 Eh, maybe you can't. Just tinker around and play with it. Righto, let's get into some actual live demos now. So we saw one just now where we basically created a skill and then took that skill that we made and tested it.
+36:53 Now let's do some demos of things that I use on, like, my day-to-day, uh, workflow and that I found valuable.
+37:04 And I've built every single one of these skills myself. I've not taken these from other places. I've modelled these. Some of these are modelled off existing skills, like we'll see in the last example, which is a image, uh, it's a static image add, like, variation generator.
+37:26 So it'll take a winning static image. It's a add, and it will generate variations of that add, and it uses NanoBanana Pro, but it's a skill.
+37:36 So I have a script file in the skill that calls the API for NanoBanana, and instructions for Clod or whatever I'm using with the skill on how to do that.
+37:49 But we'll get into it. We're going to start. We'll start with a basic, a more basic, generic skill that I made for my day job, where I run, uhm, I basically manage search and shopping campaigns on Google.
+38:07 So one thing I do a lot is I, well, I'll show you. So, uhm, here are the things we'll do.
+38:16 So first is a search campaign architect, where we are in Cloud Desktop. We're gonna basically use, uh, this skill to basically create a map of a search campaign that we can then use to plug into Google Ads.
+38:34 So just copy-paste it super simply into Google Ads after we review it, of course. Uhm, so that's the first. The second is an example of, like, a very personalized skill.
+38:46 So this is a branded HTML email generator that I created for a business that I manage, uhm, an e-commerce business.
+38:57 So, I didn't have time to create emails every week, so what I did is I made this. Made a skill with Claude, and I basically now just once a week on Saturdays can go in and say, hey, I need a new email for, uh, an upcoming promotion, you know, generate for me.
+39:18 That's like one sentence and it'll make me an email. So that's pretty cool. And then, lastly, is this ad creative refresher, this is the more advanced one, where we're actually.
+39:28 going to be using Claude code with this skill, because, uh, we will require some file, uh, writing access, and it's going to have to make, like, folders and then, there's like a whole, it's a little more nuanced, you can't just do it within Claude Desktop, but I have tried, maybe there's a way.
+39:48 But let's get into these. So the first skill is a Google search. Search campaign architect. Uhm, let's click this buddy, and now we're going to be taking Claude, where it'll pre-fill the prompt for us, and it says, hey Claude, can you make something amazing with my Google search campaign skill?
+40:08 Uhm, and typically, you would include a URL for a landing page, for example. that you'd want to, uh, create a campaign around.
+40:20 So, I'm going to take, I'm actually going to take, uh, doo doo doo, how about we take the Claude product page, uh, from Anthropic, if it loads, here we go.
+40:44 Alright, so we're going to take this page, so it's like a product page for downloading Claude, uhm, and we're going to create a search campaign that drives traffic to this page and it's going to do so in a way that's like pretty tailored to both this page but as also, like, best practices for creating
+41:08 a search campaign, right? Uhm, so back in Claude, I'm going to say, here's a landing page. Alright, okay. And, that's all I'm going to do.
+41:26 I'm just going to hit send, and now it's loading. Reading the Google Search Campaign skill that we have, or I have added into this.
+41:34 That's a custom skill, so this is not one that comes out of the box. Again, this is a custom skill that I created using Claude.
+41:43 Alright, so now it's fetching the page to read what it is, and it's checking out more reference files in the skill.
+41:52 Alright. Editor's note, we probably have time for another question at this current point in time, when we're doing the live demo, uh, number one.
+42:16 Editor's note, this would be a great time to sip some water.
+42:56 I should have, definitely have a thing of water near me for this. We're still zooming.
+44:05 It's still cooking. Pew, Pew, PewdiniePie, PapiniePie, Pew, Pew, PewdinieCute, I'm rappin' for the longest cipher.
+44:46 I know that they can see when it calls you. Doo, doo, doo, doo, doo, doo, doo. Alright, while that's cooking, I- I set up notifications to get notified when it's done.
+45:09 I'm gonna move on to the ssssss- No, I guess that's not a great idea. Alright, well, let's just wait for it to finish.
+45:19 I'm gonna grab water. uh, whole search campaign document from Claude, and it basically created a outline for search campaign we can launch.
+46:05 Um, that includes six ad groups, spanning brand and non-brand campaigns, so we have brand terms, high intent, AI assistant, instead.
+46:17 AI for Coding, AI for Writing, Competitor, Alternatives, um, an AI for Research and Analysis. Each ad group has 10 keywords with the match types, 15 headlines, descriptions, and pinning strategy.
+46:32 The campaign leans hard and declaws strongest differentiator and extracted from the landing page, which it thought was, no ads, no sponsor.
+46:41 Content, something that no competitor can claim, and it also included negative keywords with cross negatives to prevent ad group cannibalization, six site links, call out and structured snippet extensions, conversion tracking setup if needed, and budget allocation, um, phased bidding roadmap, and then
+47:03 a week-by-week optimization. and is easy. which in plan with five prioritized AB tests. And if we read through the document, it basically gives an entire analysis rundown of what was the URL, what's the value drop, what's the target audience, the conversion goal, proof points, etc.
+47:22 Um, so this is like a really in-depth, uh, outline of how we should set up the- this campaign, uh, in Google for search.
+47:34 Alright, so we have actually two campaigns. Uh, we have a branded campaign and non-branded campaign. Um, so the first branding campaign gets defined, it shows what our exact and phrase-mash keywords are.
+47:49 It gives our headlines with why or kind of what category- I'm having a good time and Glory, they were from, same for descriptions.
+47:58 Alright, so then it gives ad groups, super comprehensive document, right? And all I fed it was a URL and said, hey, make a search campaign.
+48:08 And we got back this incredibly detailed, highly data-backed, uh, and really logical, uhh, uhh, um, document, right?
+48:20 So this is super awesome. Cool. Now, that's an example of the search campaign. Architect skill? Now, let me show you guys an example of what a more personalized skill might look like.
+48:36 So, as I mentioned, I have a business I manage. That's an e-commerce business. It's where we sell mushroom spores and we have an email newsletter that we do and we just don't have money to pay people for it.
+48:51 So I'm the one that manages it. It's like one of the last jobs that I manage with the business. And basically what happens is every week on Saturday I'll wake up and I'll go to cloud code, or in this case I can go to cloud.
+49:05 And I can say, hey, can you use my email generator skill for fungus head to make me an email for my list?
+49:12 And, um, I'm gonna do the same thing I did with the search campaign architect skill, but this time I'll use the fungus head email generator verbiage, you know.
+49:21 Um, I don't have to say this. I could just also say, make me a fungus head email and it should know.
+49:27 But I'm gonna also add, it's almost, Valentine's Day. Maybe something related to that. Okay, so I'm gonna now, have it go and generate the skill for us, or I'm sorry, generate the email for us using the skill.
+49:47 Umm, and what this does is it outputs a full HTML file that is, is ready to just copy paste directly into drip the email service provider I use.
+49:59 Umm, so that I don't have to think about really anything. Umm, it basically just does it all on its own.
+50:09 Umm, and it's super helpful because this now takes me 5 minutes, 30 minutes max when, before it would take, I mean, I don't even know.
+50:22 It would take me a ton of time to do this. So now, it's gonna build a Valentine's Day themed email featuring the Purple Mystic strain, which is not used in any previous emails, and it's thematically perfect for Valentine's, because it has Purple Mystic vibes.
+50:41 And then it'll all, Also feature the Mix Packs, which we have Mix Packs of Strains as a gift angle, and it'll link to the Bundle Builder, which we have.
+50:49 So, this skill that I am having it used right now, umm, actually includes, in the Assets folder, a Site Map.
+50:59 So it has a map of my website with all the URLs that exist. And so, So every time it uses this skill and generates an email, in order to make sure it doesn't hallucinate URLs on my site, it references the Site Map and pulls actual URLs and actual products.
+51:21 So that we get something that I don't have to tweak. And I knew to do this because I first created a skill to generate emails, Perfungus Head.
+51:30 That was, What hallucinate the site links all the time. So I thought, well, maybe I didn't even think. I might have just asked Claude, how can we fix this?
+51:38 Umm, and the solution was add the Site Map. Umm, and I typically do this in Claude Code because I can do that alongside a folder and file structure where I can continuously, like, update that Site Map.
+51:54 uh, using another skill, but for this purpose I just wanted to show you that this is possible still to use inside of quad.ai UI.
+52:06 Alright, so our skill generated an email and it's using the defined template that we gave it and it created a little coupon that we can set up in WordPress.
+52:18 It has the links, and again all these links work. So if we click on that, that's an actual link on our website, um, and you'll notice that it's using, uh, raw, um, image URLs, but if I open this, the actual logo appears, so it's helpful.
+52:39 But yeah, this is like, alright, cool. Um. Quick little a, forget the chocolates and roses, this Valentine's Day, we're celebrating something far more fascinating, the captivating beauty, hiding inside purple mystic mushrooms.
+52:53 Right, so pretty cool. Didn't have to do very much, and then it links to a little, um, spotlight we made regarding the strain.
+53:03 Awesome. Very cool. Alright. All right. Going back, moving on. So that was a personalized skill. Now let's get into a little bit more advanced uhh, use case, and that's gonna be a skill that has a script included in it that would call on an image API to basically create variations of winning ads.
+53:29 So what does that look like? What am I even talking about? Let's actually dive in. So, here you'll see a UI that may or may not look familiar.
+53:40 This is called Cursor. And Cursor has the unique ability to be able to basically let you open a folder.
+53:54 And be able to work inside of a folder. And, like, any file I have in this folder I can open in this editor.
+54:04 So, like, I have some images here. These little .png files. I'm just gonna click on one. And you'll notice it's an ad.
+54:13 I've got a couple more. These are just ads. Right? And, What we're gonna do is we're gonna use cloud code, which lives somewhere I'll show you soon, but basically use cloud code to kinda create variations of each of these ads.
+54:31 So, you'll notice there's a folder up top. It has this dot cloud name. Inside of this folder, you'll also see there is a skill.
+54:42 Fulls folder, subfolder, and then inside of that there is a, sorry about that. Let's move the terminal fast. Inside of that is a, another folder called, uh, ad-created variance.
+55:03 So this is our skill that we're gonna use. To generate these variance. It has a skill.md file, which we know makes up the core of a skill.
+55:13 It also has a scripts folder where it has a python script that will call on Gemini's API. So the, so that cloud does not have to rewrite or generate the script from scratch.
+55:30 And then it has some references for things like the platform specs. If we're generating creative for meta, it's different. If we're generating creative for Google display, etc.
+55:43 And this document specifies that. We have prompt patterns for generating these, uh, images with the image model. And then we have variation structure.
+55:55 . . Partologies, um, so we can have some preah, uhh, basically some pre-built ways to generate variations. And this is also a quick little runt Doc insert of variation strategies.
+56:09 It says50 is the number 1 killer of winning creatives. When a user sees the same ad 3 times $ CTRs, drops, simpion rises, a little diamond probably.
+56:19 But the insight behind the ad, the offer, the angle, and the hook might still have some runway. So what variations do is they extend the life of a winner ad by giving the algorithm fresh creative to serve while keeping that proven and strategic core intact.
+56:36 So now what we're gonna do is inside of the terminal, which is what we're seeing here. I'm basically going to now show you a little cloud code action uhhm, that you may or may not be completely scared by.
+56:56 All I'm gonna do inside the terminal right now is type clog and hit enter. What that does is opens cloud code.
+57:06 So this is clog. Cloud Code. You can think of it as like, well, this is a very dumb-down description, but you can think of it as, umm, a chatbot, but with read-write access and bash access to your computer.
+57:20 Whatever folder I'm in right now, inside a cursor, is what cloud has access to. So it has access right now to all of these files and folders, and I can- and now, ask cloud to generate one moderate variation of each of the image ads in the root folder.
+57:48 Using, and I'm gonna specify here the skill, because I wanted to, I wanted to use the skill for this one, and I know that if I just type that, then it will leverage it.
+58:02 So I'm gonna hit enter. Alright, it's gonna look for the image ads. Read them. What the f*** is going on?
+58:51 Editors know. There's some issue, I think, with the Apple Cloud bullshit that we might need to resolve. before this presentation.
+59:12 We'll in the edition. Trying this again, uhh, I had to re-start cursor and open it in the new, uhh.
+59:55 Re-open the folder, so hopefully this is gonna work now. Alright, let's try this again. I should have editor's note, I should have cl- Oddcode opened already in this folder.
+1:00:22 They don't need to see how to invoke it. Okay. Using the ad-created variance skill, generate one moderate variation of each of the ads in the root repo.
+1:00:39 And then if I can tag someone at all. Okay, we are back live after some debugging of the uh, folder and iCloud Drive business.
+1:02:11 I think it's resolved. Let me just f****** check. So annoying. Alright, bottom. I'm back inside of the demo folder for cloud code to show the ad-created variation demo.
+1:02:30 What was happening before is that since the file, or since the folder path changed to like the iCloud version, it was creating issues where cloud, was bugging out and didn't know where the ad...
+1:02:48 it was just being very weird. So, I'm gonna say use, add, create a variance, and generate one moderate variation of each of the image as in the root of this repo.
+1:03:08 And then I'll tag one, or two. Thank you. We're in business.
+1:03:43 It's loading the skill to create image ads, and now we're going to run this Johnny. It's basically an anatomy of the ad to understand why it could be working, so it extracts what it think is the main selling point, and then it will take that in generated variations from that.
+1:05:04 Okay, so let us start with, Add number one.
+1:05:14 I'll see you right now, okay.
+1:05:35 So now it's generating each of the three ads, and our outputs are gonna show up here.
+1:05:54 Thank you. So it's loaded each image into its own folder, and it has the references alongside it.
+1:06:07 So the first one is done. Let's see what it cooked. Oops. So we have our reference, and then, What our, What our variation looks like.
+1:06:30 And then, For Add 2, here was our reference. And the, Variation, pretty good. Okay. And then lastly, our reference, Plus, Variation.
+1:07:02 Right? So it just generates some unique variations of winning ads to try and see if there's anything else that it can, Again, uhm, The stimulus is actually pretty fast, so I think they're all honestly like the same amount of time.
+1:08:26 Umm. Okay, going back now to the presentation, so we just finished the third demo.
+1:08:41 Next slide is the remixed mindset. So the last skill- Oh, we just demoed. The image generation skill is actually a remixed skill from OpenAI's image gen skill.
+1:08:55 So they had a skill basically that allowed AI to use OpenAI's image model to generate images. And I took that and I gave that to Claude.
+1:09:09 And I said I want to make this skill basically what you just saw. I want to turn it into this creative winning ad variation generator.
+1:09:17 And I want to do it using Gemini instead of OpenAI. So Claude cooked up what it needed to cook up, updated the script.
+1:09:27 But it had like the architecture extra in place. So that's why that was, I think, help. Pulls start from this skill I knew could connect to an external API.
+1:09:38 I just fed that to Claude and said, you know, using this kind of structure because I know Claude would then understand, okay, a skill can connect to API via script.
+1:09:51 So it pulled that and just knew what to do with it. I did this again last week. With a co-worker where he wanted to generate a b-roll generation, uh, skill that we could leverage with Claude code to generate b-roll for videos that we didn't have b-roll for.
+1:10:10 And so all I did is I went to Claude with the same image gen skill that I was talking about and I said I want to reverse engineer this skill and build one that can create b-roll style footage for ads.
+1:10:27 This is the one I'd like to reverse engineer. And then what Claude did was it basically examined that source skill, went and did some research, and then came back with files for the actual b-roll gen skill, and it cooked s-s up the actual skill, and I didn't even need to prompt further.
+1:10:48 It gave me the zip file at the end of this conversation that I then loaded into Claude Code underneath the dot Claude's last skills folder in our little 4M thing.
+1:11:04 And, with a little bit of tweaking, weekend. Um, Claude Code was able to successfully generate b-roll from that. So, it was super, um, like, pretty much took us 30 minutes to do that.
+1:11:23 Uh, and now we have a skill to generate b-roll. Now, going back to this presentation, moving on to talk about safety and resources.
+1:11:33 Because, like I just mentioned, some skills include scripts. And, even the skills that don't include scripts, sometimes, there can be malicious instructions in there, that if you give a skill to your AI, tell it to use the skill, it's going to follow the instructions.
+1:11:54 So, just be careful of what, kind of instructions you give AI, which is, you know, general best practice, but just don't go downloading any skill from the internet, you want to treat it like software, because you're essentially installing software into your AI.
+1:12:12 You're installing capabilities, and a set of instructions into your AI. So don't make it, you know, install something malicious. So, just a quick checklist.
+1:12:23 Before you install or add any skill, just look for red flags and make sure you're doing your research. There are some resources where you can look to that are like proven official skills.
+1:12:35 So for example, and type, you know, if you wanna find skills, all of these are skills.
+1:12:49 These are all the skills from earlier in Cloud.ai that we saw, but just in the actual under-the-hood format. So, this skill creator is what we were using earlier to make the skill that we made.
+1:13:04 And again, it's literally the folder, um, there for you. So, Uh, use this. A open AI has, there's as well, this is where I stole or reverse engineered the image gen skill.
+1:13:18 So if I go skills curated, um, there's one called image gen. And if we look, here's the script, the initial script that it had, you know.
+1:13:31 So, I know to trust the- this, because this is coming from a model labs official GitHub repo. Uh, and even if it's not an official GitHub repo or organization, just look to see, is this a stard?
+1:13:47 Like is- are there people watching or like, liking this? If so, then it's likely then going to be legit. It's, um, hard to- manufacturer stars on GitHub, so if something has a lot of stars and that's helpful.
+1:14:02 Um, now that said, I made my own little repository for skills related just specifically to, um, what's gonna call it media buying and marketing.
+1:14:15 And that currently has zero stars. So, if you feel like showing some love- then please go, uh, over there and, um, give it some love.
+1:14:28 It actually lives at Channel 47 is the name of the organization and, um, this is the kind of marketplace for that.
+1:14:38 So, this Channel 47 is like where I, um, have set up basically a lot. A lot of the, a lot of like the skills related to, um, interesting.
+1:15:00 Yeah, the skills related to ads, so. Anyhoo, that's just a, a shill for my own self. Um, moving on, your takeaways.
+1:15:09 So now- I encourage everyone here to just start with a workflow, build one skill, and then repeat, right? So just start with one, don't go crazy, and start skillifying everything in your life.
+1:15:22 Um, start with one concrete thing. And I made this easy for everyone. If you scan this code, you'll be taken to, like, a three-question walkthrough kind of call.
+1:15:34 With, where it'll ask you some basic stuff like what do you do, what's something you work in, etc. And then what you can do from there is there'll be a call to action button at the end of it, where you click it, it takes you to quad.ai with a prompt pre-filled based on your responses that will help guide
+1:15:55 you through creating a skill. So you can say, Hey, I'm a media buyer, I pull performance reports, I mainly use Google Ads, now I'm gonna open that and clod and then have the prompt, uhm, open basically by default, and that will let me create the skill.
+1:16:16 So, that's it. Um, if you guys have questions, now's the time. 1 4 4 and ask. Let's go.

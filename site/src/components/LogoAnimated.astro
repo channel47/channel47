@@ -150,6 +150,62 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
         }, delay);
       }
 
+      // Hover replay — faster scramble → lock after initial animation
+      let isReplaying = false;
+      let replayTimeouts: number[] = [];
+
+      function replayAnimation() {
+        if (isReplaying) return;
+        isReplaying = true;
+
+        // Clear pending timeouts from any previous replay
+        replayTimeouts.forEach((t) => clearTimeout(t));
+        replayTimeouts = [];
+
+        // Reset state
+        clearInterval(scrambleInterval);
+        logo.classList.remove('is-complete');
+        if (glow) glow.classList.remove('is-active');
+        locked.fill(false);
+        chars.forEach((char) => char.classList.remove('is-locked'));
+
+        logo.classList.add('is-animating');
+        scrambleInterval = window.setInterval(scramble, 50);
+
+        const nonSpaceIndices = targets
+          .map((t, i) => (t !== ' ' ? i : -1))
+          .filter((i) => i !== -1);
+        const shuffled = [...nonSpaceIndices].sort(() => Math.random() - 0.5);
+
+        // Faster on hover: 400ms lock duration, 100ms base delay
+        const lockDuration = 400;
+        const baseDelay = 100;
+
+        shuffled.forEach((charIndex, i) => {
+          const progress = i / shuffled.length;
+          const easeOut = 1 - Math.pow(1 - progress, 2);
+          const lockTime = baseDelay + easeOut * lockDuration;
+
+          const t = window.setTimeout(() => {
+            lockChar(charIndex);
+            if (i === shuffled.length - 1) {
+              const t2 = window.setTimeout(() => {
+                complete();
+                isReplaying = false;
+              }, 100);
+              replayTimeouts.push(t2);
+            }
+          }, lockTime);
+          replayTimeouts.push(t);
+        });
+      }
+
+      logo.addEventListener('mouseenter', () => {
+        if (!hasAnimated || isReplaying) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        replayAnimation();
+      });
+
       // Use Intersection Observer to trigger animation when visible
       const observer = new IntersectionObserver(
         (entries) => {
@@ -180,7 +236,7 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
 
 <style>
   .logo-animated {
-    --logo-glow: color-mix(in srgb, var(--color-fg) 25%, transparent);
+    --logo-glow: color-mix(in srgb, var(--color-fg) 30%, transparent);
 
     position: relative;
     display: inline-flex;
@@ -193,6 +249,7 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
     white-space: pre;
     user-select: none;
     letter-spacing: -0.05em;
+    cursor: pointer;
 
     /* Fade-up entry to match page animations */
     opacity: 0;
@@ -244,16 +301,18 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
     opacity: 1;
   }
 
-  /* Subtle flash on lock-in */
+  /* Flash on lock-in */
   .logo-animated__char.is-flashing {
-    text-shadow: 0 0 8px var(--logo-glow);
+    text-shadow:
+      0 0 6px var(--logo-glow),
+      0 0 12px color-mix(in srgb, var(--color-accent) 25%, transparent);
   }
 
-  /* Completed state - subtle glow with breathing animation */
+  /* Completed state - glow with breathing animation */
   .logo-animated.is-complete .logo-animated__glyph {
     text-shadow:
       0 0 1px var(--logo-glow),
-      0 0 6px var(--logo-glow);
+      0 0 8px var(--logo-glow);
     animation: logo-breathe 4s var(--ease-in-out) infinite;
     animation-delay: 1s;
   }
@@ -262,13 +321,13 @@ const formId = `logo-anim-${Math.random().toString(36).substr(2, 9)}`;
     0%, 100% {
       text-shadow:
         0 0 1px var(--logo-glow),
-        0 0 6px var(--logo-glow);
+        0 0 8px var(--logo-glow);
     }
     50% {
       text-shadow:
         0 0 2px var(--logo-glow),
-        0 0 10px var(--logo-glow),
-        0 0 18px color-mix(in srgb, var(--color-fg) 15%, transparent);
+        0 0 12px var(--logo-glow),
+        0 0 20px color-mix(in srgb, var(--color-fg) 18%, transparent);
     }
   }
 
