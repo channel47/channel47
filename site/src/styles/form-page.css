@@ -490,6 +490,17 @@
   }
 }
 
+/* ── Mobile: clear absolute-positioned logo ── */
+@media (max-width: 767px) {
+  .fp-page {
+    padding-top: var(--space-16);
+  }
+
+  .fp-section {
+    padding-top: var(--space-6);
+  }
+}
+
 /* ── Touch feedback ── */
 @media (hover: none) {
   .fp-option:active {

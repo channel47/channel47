@@ -715,6 +715,14 @@ import EmailSignup from '../components/EmailSignup.astro';
     }
   }
 
+  /* ── Mobile: compensate increased page padding ── */
+  @media (max-width: 767px) {
+    .build__step--landing,
+    .build__step--result {
+      padding-top: var(--space-6);
+    }
+  }
+
   /* ── Touch feedback ── */
   @media (hover: none) {
     .build__next:active {
