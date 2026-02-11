@@ -7,12 +7,20 @@
   "metadata": {
     "pluginRoot": "./plugins",
     "description": "Claude Code plugin marketplace for Google Ads",
-    "version": "2.1.0"
+    "version": "3.0.0"
   },
   "plugins": [
     {
+      "name": "media-buyer",
+      "source": "./plugins/media-buyer",
+      "description": "Two high-leverage skills for media buyers: build Google Search campaigns from a landing page, and generate creative variations of winning ads.",
+      "version": "3.0.0",
+      "category": "marketing",
+      "tags": ["google-ads", "search-campaign", "ad-creative", "media-buying", "ppc", "creative-testing"]
+    },
+    {
       "name": "ads",
-      "source": "./plugins/ads",
+      "source": "./plugins/ads-legacy",
       "description": "Google Ads campaign creation and optimization with PMax, Search, Audit, and Assets skills plus research agents",
       "version": "2.5.0",
       "category": "marketing",

@@ -30,7 +30,7 @@ import Footer from '../components/Footer.astro';
           Tools that do<br />the work.
         </h1>
         <p class="hero__sub">
-          Claude Code plugins built from managing real ad spend on real accounts. Not demos. Not proofs of concept. Production tools that caught a $3K/month keyword gap and flagged pacing issues before clients noticed.
+          Claude Code plugins built from managing real ad spend on real accounts. Not demos. Not proofs of concept. Two tools — one ships campaigns from a URL with zero setup, the other plugs into the Google Ads API and does the Monday morning checklist before Monday morning.
         </p>
       </div>
     </section>
@@ -41,8 +41,8 @@ import Footer from '../components/Footer.astro';
          ======================================= -->
     <section class="stats" data-section="stats">
       <div class="stats__item" data-animate="fade-up" data-stagger="1">
-        <span class="stats__value">1</span>
-        <span class="stats__label">PLUGIN SHIPPED</span>
+        <span class="stats__value">2</span>
+        <span class="stats__label">PLUGINS SHIPPED</span>
       </div>
       <div class="stats__pipe" aria-hidden="true"></div>
       <div class="stats__item" data-animate="fade-up" data-stagger="3">
@@ -51,8 +51,8 @@ import Footer from '../components/Footer.astro';
       </div>
       <div class="stats__pipe" aria-hidden="true"></div>
       <div class="stats__item" data-animate="fade-up" data-stagger="5">
-        <span class="stats__value">v2.5</span>
-        <span class="stats__label">CURRENT VERSION</span>
+        <span class="stats__value">v3.0</span>
+        <span class="stats__label">LATEST VERSION</span>
       </div>
       <div class="stats__pipe" aria-hidden="true"></div>
       <div class="stats__item" data-animate="fade-up" data-stagger="7">
@@ -66,6 +66,58 @@ import Footer from '../components/Footer.astro';
          The main event. Asymmetric two-panel.
          ======================================= -->
     <section class="plugins" data-section="plugins">
+      <!-- MEDIA BUYER — v3.0.0 (featured) -->
+      <div class="plugins__grid">
+        <div class="plugins__card plugins__card--primary">
+          <div class="plugins__card-bar" aria-hidden="true"></div>
+          <span class="label">047.MEDIA-BUYER</span>
+          <h2 class="plugins__title">Media Buyer</h2>
+          <p class="plugins__version">v3.0.0</p>
+          <p class="plugins__desc">
+            Two high-leverage skills for media buyers. Build a complete Google Search campaign from a landing page URL. Generate creative variations of winning ads at three divergence levels. No API keys. No MCP servers. No setup.
+          </p>
+          <div class="plugins__tags">
+            <span class="tag">google-ads</span>
+            <span class="tag">search-campaign</span>
+            <span class="tag">ad-creative</span>
+            <span class="tag">media-buying</span>
+          </div>
+          <div class="plugins__meta">
+            <span>Jackson Dean</span>
+            <span class="meta__pipe" aria-hidden="true"></span>
+            <span>MIT License</span>
+            <span class="meta__pipe" aria-hidden="true"></span>
+            <a href="https://github.com/channel47/media-buyer" class="plugins__link">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="plugins__card plugins__card--secondary">
+          <span class="label">STATUS</span>
+          <div class="plugins__status">
+            <div class="status__row">
+              <span class="status__dot status__dot--active"></span>
+              <span class="status__text">Search Campaign Skill</span>
+              <span class="status__val">Shipped</span>
+            </div>
+            <div class="status__row">
+              <span class="status__dot status__dot--active"></span>
+              <span class="status__text">Creative Variants Skill</span>
+              <span class="status__val">Shipped</span>
+            </div>
+            <div class="status__row">
+              <span class="status__dot status__dot--active"></span>
+              <span class="status__text">Zero Setup Required</span>
+              <span class="status__val">No APIs</span>
+            </div>
+          </div>
+          <div class="plugins__install">
+            <span class="label" style="margin-bottom: 8px;">INSTALL</span>
+            <code class="plugins__cmd">git clone channel47/media-buyer</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADS — v2.5.0 (full toolkit) -->
       <div class="plugins__grid">
         <div class="plugins__card plugins__card--primary">
           <div class="plugins__card-bar" aria-hidden="true"></div>
@@ -73,7 +125,7 @@ import Footer from '../components/Footer.astro';
           <h2 class="plugins__title">Google Ads</h2>
           <p class="plugins__version">v2.5.0</p>
           <p class="plugins__desc">
-            Campaign creation and optimization with PMax, Search, and Audit skills plus research agents. Connects to the Google Ads API via MCP, runs GAQL queries, and does the Monday morning checklist before Monday morning.
+            The full toolkit. Campaign creation and optimization with PMax, Search, and Audit skills plus three research agents. Connects to the Google Ads API via MCP, runs GAQL queries, and does the Monday morning checklist before Monday morning.
           </p>
           <div class="plugins__tags">
             <span class="tag">google-ads</span>
@@ -151,6 +203,10 @@ import Footer from '../components/Footer.astro';
           <div class="rupture__entry">
             <span class="rupture__ts">2025.06</span>
             <span class="rupture__msg">Open sourced. MIT license. Running on 25+ accounts.</span>
+          </div>
+          <div class="rupture__entry">
+            <span class="rupture__ts">2026.02</span>
+            <span class="rupture__msg">media-buyer v3.0 ships — two skills, zero setup, no API keys</span>
           </div>
           <div class="rupture__entry rupture__entry--now">
             <span class="rupture__ts">NOW</span>
@@ -367,6 +423,10 @@ import Footer from '../components/Footer.astro';
     grid-template-columns: 1fr;
     gap: 1px;
     background-color: var(--color-border);
+  }
+
+  .plugins__grid + .plugins__grid {
+    margin-top: 1px;
   }
 
   @media (min-width: 768px) {
