@@ -217,9 +217,10 @@
   cursor: pointer;
   text-align: left;
   transition:
-    border-color var(--duration-normal) var(--ease-out),
-    background-color var(--duration-normal) var(--ease-out),
-    box-shadow var(--duration-normal) var(--ease-out),
+    border-color 100ms var(--ease-sharp),
+    background-color 150ms var(--ease-out),
+    box-shadow 200ms var(--ease-out),
+    color 150ms var(--ease-out),
     transform var(--duration-fast) var(--ease-out);
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
@@ -227,14 +228,17 @@
 
 .fp-option:hover {
   border-color: var(--color-accent);
-  background: color-mix(in oklch, var(--color-accent) 8%, var(--color-bg-elevated));
-  box-shadow: 0 0 0 1px var(--color-accent-subtle);
+  background: color-mix(in oklch, var(--color-accent) 6%, var(--color-bg-elevated));
+  box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.06),
+              0 2px 8px rgba(0, 0, 0, 0.08);
+  color: var(--color-fg-emphasis);
 }
 
 .fp-option:active {
   transform: scale(0.98);
-  background: color-mix(in oklch, var(--color-accent) 12%, var(--color-bg-elevated));
+  background: color-mix(in oklch, var(--color-accent) 10%, var(--color-bg-elevated));
   border-color: var(--color-accent);
+  transition-duration: 50ms;
 }
 
 .fp-option:focus-visible {
@@ -299,9 +303,10 @@
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   transition:
-    background-color var(--duration-fast) var(--ease-out),
-    color var(--duration-fast) var(--ease-out),
-    transform var(--duration-fast) var(--ease-out);
+    background-color 150ms var(--ease-sharp),
+    color 100ms var(--ease-sharp),
+    box-shadow 200ms var(--ease-out),
+    transform 200ms var(--ease-out);
 }
 
 .fp-btn--primary {
@@ -312,11 +317,15 @@
 .fp-btn--primary:hover {
   background: var(--color-fg);
   color: var(--color-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
   text-decoration: none;
 }
 
 .fp-btn--primary:active {
-  transform: scale(0.97);
+  transform: translateY(0);
+  box-shadow: none;
+  transition-duration: 50ms;
 }
 
 .fp-btn--primary:focus-visible {
@@ -338,11 +347,15 @@
 .fp-btn--secondary:hover {
   background: var(--color-accent);
   color: var(--color-fg-inverse);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+  transform: translateY(-1px);
   text-decoration: none;
 }
 
 .fp-btn--secondary:active {
-  transform: scale(0.97);
+  transform: translateY(0);
+  box-shadow: none;
+  transition-duration: 50ms;
 }
 
 .fp-btn--secondary:focus-visible {
@@ -369,10 +382,10 @@
   border-radius: var(--radius-md);
   cursor: pointer;
   transition:
-    border-color var(--duration-fast) var(--ease-out),
-    background-color var(--duration-fast) var(--ease-out),
-    color var(--duration-fast) var(--ease-out),
-    transform var(--duration-fast) var(--ease-out);
+    border-color 100ms var(--ease-sharp),
+    background-color 150ms var(--ease-out),
+    color 150ms var(--ease-out),
+    transform 200ms var(--ease-out);
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   margin-top: var(--space-1);
@@ -380,13 +393,14 @@
 
 .fp-btn--ghost:hover {
   border-color: var(--color-accent);
-  background: color-mix(in oklch, var(--color-accent) 8%, transparent);
+  background: color-mix(in oklch, var(--color-accent) 5%, transparent);
   color: var(--color-accent);
   text-decoration: none;
 }
 
 .fp-btn--ghost:active {
   transform: scale(0.98);
+  transition-duration: 50ms;
 }
 
 .fp-btn--lg {
@@ -422,14 +436,25 @@
   border-radius: var(--radius-md);
   text-decoration: none;
   transition:
-    border-color var(--duration-normal) var(--ease-out),
-    box-shadow var(--duration-normal) var(--ease-out);
+    border-color 100ms var(--ease-sharp),
+    transform 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out),
+    background-color 200ms var(--ease-out);
 }
 
 .fp-card:hover {
   border-color: var(--color-accent);
-  box-shadow: var(--shadow-xs);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12),
+              0 0 0 1px rgba(245, 158, 11, 0.06);
+  background: color-mix(in oklch, var(--color-accent) 2%, var(--color-bg-elevated));
   text-decoration: none;
+}
+
+.fp-card:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition-duration: 50ms;
 }
 
 .fp-card__title {
@@ -437,6 +462,11 @@
   font-size: var(--text-sm);
   font-weight: var(--font-semibold);
   color: var(--color-fg);
+  transition: color 150ms var(--ease-out);
+}
+
+.fp-card:hover .fp-card__title {
+  color: var(--color-fg-emphasis);
 }
 
 .fp-card__desc {
@@ -485,8 +515,15 @@
   .fp-back,
   .fp-input,
   .fp-card,
+  .fp-card__title,
   .fp-arrow {
     transition: none;
+  }
+
+  .fp-btn--primary:hover,
+  .fp-btn--secondary:hover,
+  .fp-card:hover {
+    transform: none;
   }
 }
 

@@ -87,6 +87,17 @@ Easing     cubic-bezier(0.16, 1, 0.3, 1)    Fast start, smooth land. Default.
 Sharp      cubic-bezier(0.33, 1, 0.68, 1)    Snappier. Interactive elements.
 ```
 
+### Hover Philosophy
+
+Hover states are **compound, not singular**. A single property change reads as functional. Two or three properties changing in staggered cascade reads as crafted. The viewer perceives choreography.
+
+Every hover should transition at least two properties with slightly different durations:
+- Border arrives first (100ms, `ease-sharp`)
+- Background/color follows (150ms, `ease-out`)
+- Shadow/transform lands last (200ms, `ease-out`)
+
+The stagger is the difference between "this changes on hover" and "this responds to me." Cards get lift (`translateY(-2px)`) + border + background tint. Buttons get background morph + shadow. Text links get underline draw or color shift + arrow slide. Stats get glow. Each element type has one compound hover recipe — consistency across the site, variety between element types.
+
 For animation patterns, hover effects, scroll reveals, and the glitch hover, see [references/motion.md](references/motion.md).
 
 ### Geometry

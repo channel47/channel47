@@ -334,23 +334,34 @@ Atmospheric elements (background textures, decorative bars) move at a slightly d
 
 The polish layer. These are small, fast, and interactive. Every one reinforces "this was built by someone who cares about details."
 
+The best hover states share a philosophy: **compound, not singular**. A single property change (just color, just border) reads as functional. Two or three properties changing in a staggered cascade reads as crafted. The key is staggering — the border arrives at 100ms, the background shift at 150ms, the shadow at 200ms. The viewer perceives choreography, not chaos.
+
 ### Card Compound Hover
 
-Border transitions to Signal at 100ms, internal accent bar widens at 200ms. Two-stage response creates depth.
+The signature card interaction. Three stages, staggered timing. Border → lift → internal accent shift. Each property has its own duration so the hover unfolds rather than snaps.
 
 ```css
 .card {
   border: 1px solid var(--color-border);
-  transition: border-color 100ms var(--ease-sharp);
+  background: var(--color-bg-elevated);
+  transition:
+    border-color 100ms var(--ease-sharp),
+    transform 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out),
+    background-color 200ms var(--ease-out);
 }
 
 .card:hover {
   border-color: var(--color-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15),
+              0 0 0 1px rgba(245, 158, 11, 0.08);
+  background: color-mix(in oklch, var(--color-accent) 3%, var(--color-bg-elevated));
 }
 
 .card .accent-bar {
   width: 32px;
-  transition: width 200ms var(--ease-out);
+  transition: width 200ms var(--ease-out) 100ms;
 }
 
 .card:hover .accent-bar {
@@ -358,23 +369,93 @@ Border transitions to Signal at 100ms, internal accent bar widens at 200ms. Two-
 }
 ```
 
-### Stats Value Hover Glow
+The `translateY(-2px)` is subtle enough to feel like the card is responding, not jumping. The tinted background (`color-mix` at 3%) warms the card just enough to register subconsciously. The accent bar widens 100ms after the border changes — two beats, not one.
 
-Stats values gain a subtle Signal text-shadow on hover. Communicates "this number is interactive" or "this is live data."
+**Active state matters.** On click, reverse the lift. This completes the interaction loop.
 
 ```css
-.stats__value {
-  transition: text-shadow 100ms var(--ease-sharp);
-}
-
-.stats__value:hover {
-  text-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
+.card:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition-duration: 50ms;
 }
 ```
 
+### Stats Value Hover Glow
+
+Stats values gain a subtle Signal text-shadow on hover. The glow suggests "this is live data" without being decorative.
+
+```css
+.stats__value {
+  transition:
+    text-shadow 150ms var(--ease-sharp),
+    color 150ms var(--ease-sharp);
+}
+
+.stats__value:hover {
+  text-shadow: 0 0 20px rgba(245, 158, 11, 0.25),
+               0 0 4px rgba(245, 158, 11, 0.1);
+  color: var(--color-fg-emphasis);
+}
+```
+
+Keep the glow diffuse (20px spread, low alpha). A tight glow looks like a neon sign. A wide, faint glow looks like data pulsing.
+
+### Underline Draw
+
+Links where the underline grows from left to right on hover. More intentional than a snap-on underline. Use for navigation links, CTA text links, and footer links.
+
+```css
+.link-draw {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-draw::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transition: width 200ms var(--ease-out);
+}
+
+.link-draw:hover::after {
+  width: 100%;
+}
+```
+
+**Variant: draw from center.** For centered layouts (CTA voids, footer links):
+
+```css
+.link-draw--center::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+```
+
+### Text Brighten on Hover
+
+For list items, metadata rows, and any element where the text should "activate" on hover. The color shifts from secondary to primary — subtle but clear.
+
+```css
+.text-brighten {
+  color: var(--color-fg-secondary);
+  transition: color 150ms var(--ease-out);
+}
+
+.text-brighten:hover {
+  color: var(--color-fg);
+}
+```
+
+Pair with an index counter or arrow for compound effect. The brightness change alone is too subtle to carry a hover state — it needs a partner.
+
 ### CTA Magnetic Pull
 
-Subtle 2-3px track toward cursor within ~50px proximity. The button follows the cursor slightly. Communicates responsiveness without being distracting.
+Subtle 2-3px track toward cursor within ~50px proximity. The button follows the cursor slightly. Use sparingly — once per page, on the primary CTA only.
 
 ```js
 function magneticPull(button, strength = 3, radius = 50) {
@@ -407,7 +488,7 @@ Arrow (→) shifts right 4px on hover. Simple, functional, universal for navigat
 ```css
 .link-arrow {
   display: inline-block;
-  transition: transform 100ms var(--ease-sharp);
+  transition: transform 150ms var(--ease-sharp);
 }
 
 a:hover .link-arrow {
@@ -415,9 +496,37 @@ a:hover .link-arrow {
 }
 ```
 
+### Option Hover (Form Choices)
+
+For selectable options (buttons that act as radio choices). The hover should feel like the option is "rising to meet you." Border → background tint → subtle inner glow.
+
+```css
+.option {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+  transition:
+    border-color 100ms var(--ease-sharp),
+    background-color 150ms var(--ease-out),
+    box-shadow 200ms var(--ease-out);
+}
+
+.option:hover {
+  border-color: var(--color-accent);
+  background: color-mix(in oklch, var(--color-accent) 6%, var(--color-bg-elevated));
+  box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.06);
+}
+
+.option:active {
+  transform: scale(0.98);
+  transition-duration: 50ms;
+}
+```
+
+The `inset` shadow at extremely low alpha (0.06) creates a barely-perceptible inner warmth. The viewer won't see it consciously, but the option feels more "ready" than one without it.
+
 ### Border Trace
 
-Signal border traces card perimeter clockwise on hover. 300ms. Creates a "scanning" or "activating" effect. Use on featured cards or highlighted elements only (1-2 per page).
+Signal border traces card perimeter clockwise on hover. 300ms. Use on featured cards or highlighted elements only (1-2 per page).
 
 ```css
 .card-trace {
@@ -450,17 +559,106 @@ Signal border traces card perimeter clockwise on hover. 300ms. Creates a "scanni
 
 ### Index Counter Accent Cascade
 
-On hover over a numbered list, the index counter pulses Signal briefly, then the text brightens. Two beats. 100ms + 100ms.
+On hover over a numbered list item, the index pulses Signal, then the text brightens. Two beats. The stagger creates a left-to-right "activation" sweep.
 
 ```css
+.features__item {
+  transition: background-color 150ms var(--ease-out);
+}
+
+.features__item:hover {
+  background-color: rgba(245, 158, 11, 0.03);
+}
+
 .features__item:hover .features__idx {
   color: var(--color-accent);
   transition: color 100ms var(--ease-sharp);
 }
 
 .features__item:hover span:last-child {
-  color: var(--color-fg);
-  transition: color 100ms var(--ease-sharp) 100ms;
+  color: var(--color-fg-emphasis);
+  transition: color 100ms var(--ease-sharp) 80ms;
+}
+```
+
+The background tint at 0.03 alpha is nearly invisible but unifies the row. The 80ms delay on the text (not 100ms — slightly faster than the index) creates a smooth sweep rather than a rigid two-step.
+
+### Button Hover Philosophy
+
+Buttons follow a hierarchy of hover intensity matching their visual weight:
+
+**Primary (Signal fill):** Inverts to foreground color. The strongest transition. Background morphs, text darkens.
+
+```css
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-fg-inverse);
+  transition:
+    background-color 150ms var(--ease-sharp),
+    box-shadow 200ms var(--ease-out);
+}
+
+.btn-primary:hover {
+  background: var(--color-fg);
+  color: var(--color-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+```
+
+**Secondary (border):** Fills with accent. Border dissolves into solid.
+
+```css
+.btn-secondary {
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  background: transparent;
+  transition:
+    background-color 150ms var(--ease-out),
+    color 100ms var(--ease-sharp),
+    box-shadow 200ms var(--ease-out);
+}
+
+.btn-secondary:hover {
+  background: var(--color-accent);
+  color: var(--color-fg-inverse);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+}
+```
+
+**Ghost (subtle border):** Warms. Border turns Signal, background tints barely.
+
+```css
+.btn-ghost {
+  border: 1px solid var(--color-border);
+  background: transparent;
+  transition:
+    border-color 100ms var(--ease-sharp),
+    color 150ms var(--ease-out),
+    background-color 200ms var(--ease-out);
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: color-mix(in oklch, var(--color-accent) 5%, transparent);
+}
+```
+
+### Hover on Dark vs. Light Surfaces
+
+On dark surfaces, hover effects use **additive** light: glows, brightening, warm tints. On light surfaces (rupture, light mode), hover effects use **subtractive** shadow: subtle drop shadows, border darkening, slight dimming of surrounding elements.
+
+```css
+/* Dark surface hover */
+.dark-surface .card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15),
+              0 0 0 1px rgba(245, 158, 11, 0.08);
+}
+
+/* Light surface hover */
+.light-surface .card:hover {
+  box-shadow: 0 2px 8px rgba(28, 25, 23, 0.08),
+              0 0 0 1px rgba(245, 158, 11, 0.12);
 }
 ```
 

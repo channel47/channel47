@@ -295,8 +295,10 @@ import SocialLinks from '../components/SocialLinks.astro';
     margin-top: 32px;
     opacity: 0;
     transition:
-      background-color var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out);
+      background-color 150ms var(--ease-sharp),
+      color 100ms var(--ease-sharp),
+      box-shadow 200ms var(--ease-out),
+      transform 200ms var(--ease-out);
   }
 
   [data-section="hero"].is-visible .hero__cta {
@@ -304,13 +306,16 @@ import SocialLinks from '../components/SocialLinks.astro';
   }
 
   .hero__cta:hover {
-    background: var(--color-accent-hover);
-    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);
+    background: var(--color-fg);
+    color: var(--color-bg);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
   }
 
   .hero__cta:active {
-    background: var(--color-accent-active);
-    box-shadow: none;
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition-duration: 50ms;
   }
 
   .hero__cta:focus-visible {
@@ -382,6 +387,14 @@ import SocialLinks from '../components/SocialLinks.astro';
     border: 1px solid var(--color-border);
     background: var(--color-bg-elevated);
     border-radius: 2px;
+    transition:
+      border-color 150ms var(--ease-sharp),
+      box-shadow 200ms var(--ease-out);
+  }
+
+  .why__callout:hover {
+    border-color: color-mix(in oklch, var(--color-accent) 40%, var(--color-border));
+    box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.04);
   }
 
   .why__callout p {
@@ -472,12 +485,19 @@ import SocialLinks from '../components/SocialLinks.astro';
     display: flex;
     align-items: baseline;
     gap: 16px;
-    padding: 16px 0;
+    padding: 16px 8px;
+    margin: 0 -8px;
     border-bottom: 1px solid var(--color-border);
+    border-radius: 2px;
     font-size: 14px;
     line-height: 1.6;
     color: var(--color-fg);
     letter-spacing: 0.02em;
+    transition: background-color 150ms var(--ease-out);
+  }
+
+  .features__item:hover {
+    background-color: rgba(245, 158, 11, 0.03);
   }
 
   .features__item:first-child {
@@ -490,6 +510,16 @@ import SocialLinks from '../components/SocialLinks.astro';
     letter-spacing: 0.1em;
     flex-shrink: 0;
     width: 32px;
+    transition: color 100ms var(--ease-sharp);
+  }
+
+  .features__item:hover .features__idx {
+    color: var(--color-accent);
+  }
+
+  .features__item:hover > span:last-child {
+    color: var(--color-fg-emphasis);
+    transition: color 100ms var(--ease-sharp) 80ms;
   }
 
   /* ---- Rupture (Light inversion, LOW density — The Void) ---- */
@@ -622,14 +652,33 @@ import SocialLinks from '../components/SocialLinks.astro';
     font-size: clamp(1.25rem, 3.5vw, 2rem);
     font-weight: 500;
     color: var(--color-fg-emphasis);
-    text-decoration: underline;
-    text-underline-offset: 8px;
-    text-decoration-color: var(--color-accent);
-    text-decoration-thickness: 2px;
-    transition: color var(--duration-fast);
+    text-decoration: none;
+    position: relative;
+    transition: color 150ms var(--ease-out);
   }
 
-  .cta__link:hover { color: var(--color-accent); }
+  .cta__link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 2px;
+    background: var(--color-accent);
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 250ms var(--ease-out);
+  }
+
+  .cta__link:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .cta__link:hover::after {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
 
   .cta__links {
     margin-top: 40px;
@@ -645,6 +694,15 @@ import SocialLinks from '../components/SocialLinks.astro';
   @media (prefers-reduced-motion: reduce) {
     .features__bar {
       width: 40px !important;
+    }
+
+    .hero__cta,
+    .features__item,
+    .features__idx,
+    .why__callout,
+    .cta__link,
+    .cta__link::after {
+      transition: none !important;
     }
   }
 </style>
