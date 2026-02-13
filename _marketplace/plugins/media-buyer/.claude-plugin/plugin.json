@@ -1,0 +1,13 @@
+{
+  "name": "media-buyer",
+  "version": "3.0.0",
+  "description": "Two high-leverage skills for media buyers: build Google Search campaigns from a landing page, and generate creative variations of winning ads.",
+  "author": {
+    "name": "Jackson Dean",
+    "url": "https://channel47.dev"
+  },
+  "homepage": "https://channel47.dev/plugins/media-buyer",
+  "repository": "https://github.com/channel47/media-buyer",
+  "keywords": ["google-ads", "search-campaign", "ad-creative", "media-buying", "ppc", "creative-testing"],
+  "license": "MIT"
+}
