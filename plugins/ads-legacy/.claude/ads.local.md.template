@@ -1,0 +1,68 @@
+---
+# Google Ads Plugin - Local Configuration
+# Copy this file to your project's .claude/ads.local.md and customize
+
+# Google Ads Account
+default_customer_id: ""           # e.g., "123-456-7890" - Your primary Google Ads customer ID
+login_customer_id: ""             # MCC account ID if using manager account
+
+# Targeting Defaults
+default_geo: "United States"      # Default target geography
+default_language: "en"            # Default language code
+default_location_code: 2840       # DataForSEO location code (2840 = US)
+
+# Output Settings
+output_directory: "./ads-output"  # Where to save generated campaign files
+
+# Safety Limits
+budget_ceiling_daily: 500         # Max daily budget in dollars (mutations exceeding this warn)
+dry_run_default: true             # Always start with dry_run: true for mutations
+
+# Research Defaults
+keyword_volume_threshold: 50      # Minimum monthly search volume for keywords
+include_competitor_keywords: true # Include competitor brand terms in research
+---
+
+# Ads Plugin Local Configuration
+
+This file stores project-specific settings for the Google Ads plugin. It is gitignored by default to keep credentials and preferences local.
+
+## How to Use
+
+1. Copy this file to your project: `.claude/ads.local.md`
+2. Fill in your `default_customer_id`
+3. Adjust other settings as needed
+
+## Settings Reference
+
+### Account Settings
+
+| Setting | Description |
+|---------|-------------|
+| `default_customer_id` | Your Google Ads customer ID (format: 123-456-7890) |
+| `login_customer_id` | If using MCC, the manager account ID |
+
+### Targeting Defaults
+
+| Setting | Description |
+|---------|-------------|
+| `default_geo` | Target country/region for campaigns |
+| `default_language` | Language code for ads and keywords |
+| `default_location_code` | DataForSEO location code for keyword research |
+
+### Safety Settings
+
+| Setting | Description |
+|---------|-------------|
+| `budget_ceiling_daily` | Maximum daily budget allowed without explicit override |
+| `dry_run_default` | When true, all mutations start in dry-run mode |
+
+## Location Codes Reference
+
+Common DataForSEO location codes:
+- `2840` - United States
+- `2826` - United Kingdom
+- `2124` - Canada
+- `2036` - Australia
+- `2276` - Germany
+- `2250` - France
