@@ -13,7 +13,7 @@ This is a Model Context Protocol (MCP) server that provides tools for querying a
 
 ### For Claude Code Plugin Users
 
-This package is automatically installed when using the [google-ads-specialist Claude Code plugin](https://marketplace.claude.com/plugins/google-ads-specialist). No manual installation required!
+This package is bundled with the [media-buyer Claude Code plugin](https://channel47.dev). No manual installation required.
 
 ### Standalone Use
 
@@ -239,14 +239,11 @@ The server provides:
 
 ## Usage with Claude Code
 
-This server is designed to work with the [google-ads-specialist plugin](https://marketplace.claude.com/plugins/google-ads-specialist), which provides:
+This server is designed to work with the [media-buyer plugin](https://github.com/channel47/channel47), which provides:
 
-- **9 Skill Files**: Progressive disclosure of GAQL patterns and best practices
-  - Atomic skills for focused tasks (campaign performance, search terms, wasted spend, etc.)
-  - Playbooks for comprehensive workflows (account health audit)
-  - Troubleshooting guides for common errors
-- **PreToolUse Hook**: Validates skill references before query/mutate operations
-- **Comprehensive Documentation**: Setup guides and OAuth configuration help
+- **Skills** for campaign building, creative testing, and account audits
+- **PreToolUse Hook** that validates mutations before execution
+- **Reference docs** with GAQL patterns, ad copy formulas, and performance benchmarks
 
 The plugin ensures Claude consults domain knowledge before executing queries, preventing hallucinated GAQL.
 
@@ -305,7 +302,7 @@ Contributions welcome! Please:
 
 - [NPM Package](https://www.npmjs.com/package/@channel47/google-ads-mcp)
 - [GitHub Repository](https://github.com/channel47/google-ads-mcp-server)
-- [Claude Code Plugin](https://marketplace.claude.com/plugins/google-ads-specialist)
+- [Channel 47 Plugin Marketplace](https://github.com/channel47/channel47)
 - [Google Ads API Documentation](https://developers.google.com/google-ads/api/docs/start)
 - [GAQL Reference](https://developers.google.com/google-ads/api/docs/query/overview)
 - [Model Context Protocol](https://modelcontextprotocol.io)
@@ -317,5 +314,5 @@ MIT - See [LICENSE](LICENSE) file for details.
 ## Support
 
 For issues or questions:
-- Plugin-related: [Plugin Repository Issues](https://github.com/ctrlswing/channel47-marketplace/issues)
+- Plugin-related: [Plugin Repository Issues](https://github.com/channel47/channel47/issues)
 - Server-related: [Server Repository Issues](https://github.com/channel47/google-ads-mcp-server/issues)

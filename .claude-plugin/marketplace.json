@@ -1,30 +1,22 @@
 {
   "name": "channel47",
   "owner": {
-    "name": "Jackson",
+    "name": "Jackson Dean",
     "url": "https://channel47.dev"
   },
   "metadata": {
     "pluginRoot": "./plugins",
     "description": "Claude Code plugin marketplace for Google Ads",
-    "version": "3.0.0"
+    "version": "3.1.0"
   },
   "plugins": [
     {
       "name": "media-buyer",
       "source": "./plugins/media-buyer",
-      "description": "Two high-leverage skills for media buyers: build Google Search campaigns from a landing page, and generate creative variations of winning ads.",
-      "version": "3.0.0",
+      "description": "End-to-end Google Search campaigns: build campaigns from a landing page, generate creative variations of winning ads, and audit account performance.",
+      "version": "3.1.0",
       "category": "marketing",
-      "tags": ["google-ads", "search-campaign", "ad-creative", "media-buying", "ppc", "creative-testing"]
-    },
-    {
-      "name": "ads",
-      "source": "./plugins/ads-legacy",
-      "description": "Google Ads campaign creation and optimization with PMax, Search, and Audit skills plus research agents",
-      "version": "2.5.0",
-      "category": "marketing",
-      "tags": ["google-ads", "dataforseo", "pmax", "search-campaigns", "account-audit", "keyword-research", "competitor-research", "image-generation", "gemini", "mcp", "gaql"]
+      "tags": ["google-ads", "search-campaign", "ad-creative", "media-buying", "ppc", "creative-testing", "account-audit"]
     }
   ]
 }
