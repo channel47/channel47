@@ -1,68 +1,37 @@
 # Media Buyer — Claude Code Plugin
 
-Two skills. Zero fluff. Built for media buyers who run paid ads.
+Three skills. Zero fluff. Built for media buyers who run paid ads.
 
 **Search Campaign Builder** — Give it a landing page URL, get back a complete Google Search campaign: keywords by intent, 15-headline RSAs, negative keyword defense, extensions, bidding strategy. Ready to upload to Google Ads Editor.
 
 **Creative Variant Generator** — Give it a winning ad image, get back variations at three divergence levels (subtle, moderate, dramatic). Self-contained Python CLI that calls OpenAI or Google Gemini directly. No extra servers needed.
 
+**Account Audit** — Point it at a Google Ads account, get back a full health check: wasted spend analysis, keyword quality scores, search term mining, ad copy assessment, and prioritized recommendations with industry benchmarks.
+
 ---
 
 ## Install
 
-### 1. Clone or download this plugin
-
-```bash
-# Option A: Clone
-git clone https://github.com/channel47/media-buyer.git
-
-# Option B: Download and unzip
-# Download from https://channel47.dev/plugins/media-buyer
+```
+/plugin marketplace add channel47/channel47
+/plugin install media-buyer@channel47
 ```
 
-### 2. Add to your Claude Code project
+### Dependencies (optional, by skill)
 
-Copy the plugin folder into your project's `.claude/plugins/` directory:
-
-```bash
-mkdir -p .claude/plugins
-cp -r media-buyer .claude/plugins/media-buyer
-```
-
-Or create a symlink if you cloned it elsewhere:
-
-```bash
-mkdir -p .claude/plugins
-ln -s /path/to/media-buyer .claude/plugins/media-buyer
-```
-
-### 3. Install dependencies (for Creative Variants only)
-
-The creative variant generator uses a Python script. Install its dependencies:
+**Creative Variants** requires Python 3.9+ and an image generation API key:
 
 ```bash
 pip install openai google-genai Pillow
-```
 
-### 4. Set API keys (for Creative Variants only)
-
-```bash
-# For Google Gemini (default, recommended)
+# Google Gemini (default, recommended)
 export GEMINI_API_KEY='your-key-here'
 
-# OR for OpenAI
+# OR OpenAI
 export OPENAI_API_KEY='your-key-here'
 ```
 
-### 5. Use it
-
-**Search Campaign:**
-> "Build me a Google Search campaign for this landing page: https://example.com"
-
-**Creative Variants:**
-> Upload a winning ad image, then: "Generate 4 moderate variations of this ad"
-
-That's it. Both skills work immediately with no additional setup beyond the above.
+**Account Audit** requires the Google Ads MCP server to be configured.
 
 ---
 
@@ -72,22 +41,29 @@ That's it. Both skills work immediately with no additional setup beyond the abov
 media-buyer/
 ├── .claude-plugin/
 │   └── plugin.json
+├── hooks/
+│   ├── hooks.json                     # Mutation safety gate
+│   └── validate-mutations.py          # Flags live mutations before execution
 ├── skills/
 │   ├── search-campaign/
-│   │   ├── SKILL.md                    # The search campaign builder
+│   │   ├── SKILL.md                   # The search campaign builder
 │   │   └── references/
-│   │       ├── ad-copy-formulas.md     # Headline & description patterns
-│   │       ├── negative-keywords.md    # Industry negative keyword lists
-│   │       └── worked-example.md       # Full Notion campaign walkthrough
-│   └── creative-variants/
-│       ├── SKILL.md                    # The creative variant generator
-│       ├── scripts/
-│       │   └── ad_variant_gen.py       # Self-contained image generation CLI
+│   │       ├── ad-copy-formulas.md    # Headline & description patterns
+│   │       ├── negative-keywords.md   # Industry negative keyword lists
+│   │       └── worked-example.md      # Full campaign walkthrough
+│   ├── creative-variants/
+│   │   ├── SKILL.md                   # The creative variant generator
+│   │   ├── scripts/
+│   │   │   └── ad_variant_gen.py      # Self-contained image generation CLI
+│   │   └── references/
+│   │       ├── cli.md                 # CLI flags and recipes
+│   │       ├── variation-strategies.md # Divergence framework deep dive
+│   │       ├── prompt-patterns.md     # Prompt engineering for ad variants
+│   │       └── platform-specs.md      # Ad sizes & safe zones by platform
+│   └── audit/
+│       ├── SKILL.md                   # Account health check
 │       └── references/
-│           ├── cli.md                  # CLI flags and recipes
-│           ├── variation-strategies.md # Divergence framework deep dive
-│           ├── prompt-patterns.md      # Prompt engineering for ad variants
-│           └── platform-specs.md       # Ad sizes & safe zones by platform
+│           └── performance-benchmarks.md # Industry averages by vertical
 ├── README.md
 ├── LICENSE
 └── .gitignore
@@ -124,12 +100,28 @@ Three divergence levels:
 - **Moderate** — Same formula, new clothes. Layout rearrangement, color palette shifts, copy angle rewording. Tests which elements actually drive performance.
 - **Dramatic** — Same offer, fresh concept. Complete visual overhaul. Discovers new winning angles.
 
-Supports:
-- Google Gemini (default — just needs a `GEMINI_API_KEY`)
-- OpenAI gpt-image-1.5 (best for face/logo preservation)
-- Google Imagen 4 (via Vertex AI)
-- Platform-aware sizing (Facebook, Instagram, Google Display, TikTok, LinkedIn, Pinterest)
-- Dry run mode to preview prompts before spending tokens
+Supports Google Gemini, OpenAI gpt-image-1.5, Google Imagen 4, and platform-aware sizing for Facebook, Instagram, Google Display, TikTok, LinkedIn, and Pinterest.
+
+### Account Audit
+
+**Input:** A Google Ads Customer ID + industry vertical.
+
+**Output:** An 8-phase account health check covering:
+- Account-level KPIs vs industry benchmarks (CTR, CVR, CPA, ROAS)
+- Campaign budget efficiency and impression share analysis
+- Keyword quality scores and wasted spend identification
+- Search terms mining (new keywords + negative recommendations)
+- Ad copy strength and performance review
+- Audience utilization assessment
+- Prioritized recommendations report with estimated savings
+
+Requires Google Ads MCP server. Read-only — never makes changes to the account.
+
+---
+
+## Safety
+
+The mutation validation hook intercepts all Google Ads write operations. Dry runs pass silently. Live mutations get flagged with a warning before execution. Queries (read operations) always flow freely.
 
 ---
 
@@ -139,11 +131,10 @@ Supports:
 |-------|----------|
 | Search Campaign | Nothing — works out of the box |
 | Creative Variants | Python 3.9+, `openai` or `google-genai` package, API key |
+| Account Audit | Google Ads MCP server configured |
 
 ---
 
 ## Built by Channel 47
 
 [channel47.dev](https://channel47.dev) — AI skills for marketers who ship.
-
-Questions? [jackson@channel47.dev](mailto:jackson@channel47.dev)
