@@ -1,6 +1,6 @@
 # channel47
 
-Plugin ecosystem for [Channel 47](https://channel47.dev). MCP servers, Claude Code plugins, brand skills, strategy docs.
+Plugin ecosystem for [Channel 47](https://channel47.dev). MCP servers, Claude Code plugins, and brand skills.
 
 ## Structure
 
@@ -14,8 +14,7 @@ packages/
     google-ads/       → Google Ads API
     nano-banana/      → AI image generation (Gemini)
     substack/         → Substack scraping
-skills/               → Brand .skill files
-docs/                 → Strategy, positioning, content planning
+skills/               → Brand .skill files (voice, positioning, design, motion)
 ```
 
 ## Install
