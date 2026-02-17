@@ -30,3 +30,6 @@ ads-output/
 __pycache__/
 *.pyc
 .venv/
+
+# Local git worktrees
+.worktrees/
