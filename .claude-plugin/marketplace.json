@@ -6,17 +6,17 @@
   },
   "metadata": {
     "pluginRoot": "./plugins",
-    "description": "Claude Code plugin marketplace for Google Ads",
-    "version": "3.1.0"
+    "description": "Claude Code plugin marketplace for paid ads",
+    "version": "4.0.0"
   },
   "plugins": [
     {
       "name": "media-buyer",
       "source": "./plugins/media-buyer",
-      "description": "End-to-end Google Search campaigns: build campaigns from a landing page, generate creative variations of winning ads, and audit account performance.",
-      "version": "3.1.0",
+      "description": "Connect and manage paid ad accounts across Google Ads and Bing Ads. Auth, reporting, campaign management, and bulk operations via self-contained Python scripts.",
+      "version": "4.0.0",
       "category": "marketing",
-      "tags": ["google-ads", "search-campaign", "ad-creative", "media-buying", "ppc", "creative-testing", "account-audit"]
+      "tags": ["google-ads", "bing-ads", "microsoft-advertising", "media-buying", "ppc", "ad-platform", "paid-ads", "campaign-management", "ad-reporting"]
     }
   ]
 }
