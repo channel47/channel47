@@ -1,32 +1,21 @@
 # Bing Ads Reporting
 
-Report helper at `scripts/bing/report.py`. All functions return pandas DataFrames.
+Bing reporting is currently documented for future MCP implementation. Use this as an API reference until a Bing MCP server is added.
 
-## Quick Helpers
+## Current status
 
-```python
-from scripts.bing.report import quick_campaign_summary, quick_shopping_summary
+- Google Ads reporting is available now via `mcp__google-ads__query`.
+- Bing reporting execution is pending the Bing MCP server.
+- This document defines report types, time windows, and field semantics for that future Bing MCP layer.
 
-df = quick_campaign_summary(auth_data, account_id)
-df = quick_shopping_summary(auth_data, account_id)
-```
+## Planned MCP query pattern
 
-Both default to `LastSevenDays` and `Summary` aggregation.
+The planned Bing query tool should support:
 
-## Custom Reports
-
-```python
-from scripts.bing.report import pull_report
-
-df = pull_report(
-    auth_data=auth_data,
-    account_id=account_id,
-    report_type='KeywordPerformance',
-    time_period='LastFourWeeks',
-    columns=['KeywordText', 'MatchType', 'Impressions', 'Clicks', 'Spend', 'Conversions'],
-    aggregation='Daily',
-)
-```
+- `report_type` (for example `CampaignPerformance`, `KeywordPerformance`)
+- `time_period` or explicit date range
+- `columns` list
+- `aggregation` (`Summary`, `Daily`, `Weekly`, etc.)
 
 ## Report Types
 
@@ -70,14 +59,15 @@ No 14-day predefined period exists. For a custom 14-day window, use `start_date`
 
 ### Custom Date Ranges
 
-Pass `start_date` and `end_date` as `YYYY-MM-DD` strings instead of `time_period`:
+For custom ranges, pass `start_date` and `end_date` as `YYYY-MM-DD` strings instead of predefined `time_period` values.
 
 ```python
-df = pull_report(
-    auth_data, account_id, 'CampaignPerformance',
-    start_date='2026-01-01', end_date='2026-01-14',
-    columns=['CampaignName', 'Impressions', 'Clicks', 'Spend'],
-)
+request = {
+    "report_type": "CampaignPerformance",
+    "start_date": "2026-01-01",
+    "end_date": "2026-01-14",
+    "columns": ["CampaignName", "Impressions", "Clicks", "Spend"],
+}
 ```
 
 ## Aggregation Options
@@ -114,12 +104,12 @@ df = pull_report(
 
 ## Numeric Column Handling
 
-The script auto-cleans these columns by stripping commas and percent signs, then converting to numeric:
+When implementing Bing MCP reporting, normalize these columns by stripping commas and percent signs, then converting to numeric:
 
 `Impressions`, `Clicks`, `Spend`, `Conversions`, `Revenue`, `CostPerConversion`, `AverageCpc`, `ReturnOnAdSpend`
 
 ## SUDS Gotchas
 
-- `ReportTimeZone` is required on every request — the script sets `EasternTimeUSCanada` by default.
+- `ReportTimeZone` is required on every request.
 - When using predefined time periods, `CustomDateRangeStart` and `CustomDateRangeEnd` must be explicitly set to `None` to prevent SUDS from serializing empty Date objects with default empty-string fields.
-- For `AccountThroughAdGroupReportScope`, both `Campaigns` and `AdGroups` must be set to `None` after creation. The script's `_configure_report_scope()` helper handles this.
+- For `AccountThroughAdGroupReportScope`, both `Campaigns` and `AdGroups` should be set to `None` after scope creation.

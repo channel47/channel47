@@ -6,27 +6,27 @@ description: >-
   spend", "check for waste", "money leaks", "account health", "what's
   costing me money", "optimization opportunities", or mentions account
   optimization, spend analysis, waste analysis, or budget efficiency.
+allowed-tools: mcp__google-ads__query, mcp__google-ads__mutate, mcp__google-ads__list_accounts
 ---
 
 # Waste Detector
 
-Scan a Google Ads account for the most common spend leaks and quantify each leak
-in dollars with an action plan.
+Scan a Google Ads account for the most common spend leaks and quantify each leak in dollars with an action plan.
 
-## Foundation Dependency
+## Data Access
 
-Scripts live in `skills/ad-platform-connection` — add it to `sys.path` before
-importing:
+This skill uses the plugin's Google Ads MCP tools for live API access:
 
-```python
-import sys, os
-skill_root = os.path.join(os.environ.get("CLAUDE_PLUGIN_ROOT", "."), "skills", "ad-platform-connection")
-sys.path.insert(0, skill_root)
+- `mcp__google-ads__query`: Execute GAQL SELECT queries for waste detection.
+- `mcp__google-ads__mutate`: Stage and apply mutation operations.
+- `mcp__google-ads__list_accounts`: Validate account visibility before running audits.
 
-from scripts.google.auth import get_auth
-from scripts.google.report import pull_report, quick_wasted_spend, quick_keyword_performance
-from scripts.google.mutate import pause_entities, add_negative_keywords, execute_mutation
-```
+Mutation safety flow:
+
+1. Always run `mcp__google-ads__mutate` with `dry_run: true` first.
+2. Show exactly what would change.
+3. Require explicit user approval.
+4. Re-run with `dry_run: false` only after approval.
 
 ## Workflow
 
@@ -47,8 +47,7 @@ Waste types covered:
 
 ### Phase 2: Quantify impact
 
-Use `references/thresholds.md` for exact detection thresholds and dollar formulas
-per waste type. Summary:
+Use `references/thresholds.md` for exact detection thresholds and dollar formulas per waste type. Summary:
 
 1. Apply the specific threshold for each waste type (not a single blanket rule).
 2. Compute dollar waste using the formula specified per type.
@@ -59,11 +58,10 @@ Use `references/benchmarks.md` for QS-to-CPC pressure multipliers and CTR bands.
 
 ### Phase 3: Build remediation package
 
-Map each finding to its remediation action using `references/thresholds.md`
-remediation mapping. Key patterns:
+Map each finding to its remediation action using `references/thresholds.md` remediation mapping. Key patterns:
 
-- **Types 1, 2, 7**: `pause_entities(client, customer_id, resource_names, dry_run=True)`
-- **Type 8**: `add_negative_keywords(client, customer_id, keywords, level, parent_id, dry_run=True)`
+- **Types 1, 2, 7**: build pause operations and preview with `mcp__google-ads__mutate` dry run.
+- **Type 8**: build negative-keyword operations and preview with `mcp__google-ads__mutate` dry run.
 - **Types 3, 4, 5**: recommend manual UI changes (cannot be mutated via API).
 - **Type 6**: recommend creating additional RSA variants.
 
@@ -99,3 +97,4 @@ All mutations must follow dry-run first semantics. Show preview, get user approv
 - `references/gaql-queries.md`
 - `references/thresholds.md`
 - `references/benchmarks.md`
+- `references/google-campaign-management.md`

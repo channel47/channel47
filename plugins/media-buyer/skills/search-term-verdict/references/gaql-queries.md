@@ -57,26 +57,12 @@ LIMIT 10000
 Adding `segments.keyword.info.text` limits results to Search keyword traffic.
 Shopping, DSA, and PMax search terms are excluded.
 
-## Execution pattern
+## Execution notes
 
-See SKILL.md Foundation Dependency for `sys.path` setup. Then:
-
-```python
-from scripts.google.auth import get_auth
-from scripts.google.report import pull_report
-
-client, config = get_auth()
-customer_id = config["default_customer_id"]
-
-df_all = pull_report(client, customer_id, QUERY_A)
-df_search = pull_report(client, customer_id, QUERY_B)
-```
+- Run both queries via `mcp__google-ads__query` with the appropriate GAQL string and customer ID.
+- Query responses include both `_micros` and auto-converted currency fields (e.g. `metrics.cost_micros` → `metrics.cost` in dollars). Use the converted fields directly — do not divide by 1,000,000 again.
 
 ## Field notes
-
-- `pull_report()` automatically converts `_micros` fields and adds a derived column
-  (e.g. `metrics.cost_micros` → `metrics.cost` in dollars). Use the derived column
-  directly — do not divide by 1,000,000 again.
 - Rows marked `EXCLUDED` should not generate new negative recommendations.
 - `segments.search_term_match_type` is the match type of the query, not always the
   trigger keyword's configured match type.

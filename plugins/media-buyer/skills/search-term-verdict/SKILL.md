@@ -7,28 +7,27 @@ description: >-
   spend on search terms", "what are people searching for", or mentions
   search term analysis, n-gram analysis, negative keyword mining, or
   query sculpting.
+allowed-tools: mcp__google-ads__query, mcp__google-ads__mutate, mcp__google-ads__list_accounts
 ---
 
 # Search Term Verdict
 
-Classify paid-search queries into actionable verdicts and produce ready-to-apply
-negative keyword and promotion recommendations.
+Classify paid-search queries into actionable verdicts and produce ready-to-apply negative keyword and promotion recommendations.
 
-## Foundation Dependency
+## Data Access
 
-This skill depends on `skills/ad-platform-connection` for auth, GAQL execution,
-and mutations. Scripts live in that skill's directory — add it to `sys.path`
-before importing:
+This skill uses the plugin's Google Ads MCP tools for live API access:
 
-```python
-import sys, os
-skill_root = os.path.join(os.environ.get("CLAUDE_PLUGIN_ROOT", "."), "skills", "ad-platform-connection")
-sys.path.insert(0, skill_root)
+- `mcp__google-ads__query`: Execute GAQL SELECT queries for term and keyword coverage.
+- `mcp__google-ads__mutate`: Preview and apply negative keyword changes.
+- `mcp__google-ads__list_accounts`: Confirm account context before running analysis.
 
-from scripts.google.auth import get_auth
-from scripts.google.report import pull_report
-from scripts.google.mutate import add_negative_keywords, execute_mutation
-```
+Mutation safety flow:
+
+1. Build operations and run `mcp__google-ads__mutate` with `dry_run: true`.
+2. Share the preview with rationale and scope.
+3. Ask for explicit approval.
+4. Re-run with `dry_run: false` only after approval.
 
 ## Workflow
 
@@ -36,10 +35,8 @@ from scripts.google.mutate import add_negative_keywords, execute_mutation
 
 1. Run `references/gaql-queries.md` Query A for full coverage.
 2. Run Query B for keyword-level mapping in Search campaigns.
-3. Keep date range default at `LAST_30_DAYS` unless user requests a different
-   window.
-4. Skip rows where `search_term_view.status = EXCLUDED` for actioning, but count
-   them in coverage notes.
+3. Keep date range default at `LAST_30_DAYS` unless user requests a different window.
+4. Skip rows where `search_term_view.status = EXCLUDED` for actioning, but count them in coverage notes.
 
 ### Phase 2: Classify each search term
 
@@ -73,35 +70,20 @@ Every recommendation must include rationale and spend/conversion context.
 **Negative match type guidance:**
 
 - Use `EXACT` negative when only a specific phrase should be blocked.
-- Use `PHRASE` negative when the core phrase is irrelevant regardless of surrounding
-  words (most common choice).
-- Avoid `BROAD` negatives unless the single word is unambiguously irrelevant — broad
-  negatives block any query containing that word.
+- Use `PHRASE` negative when the core phrase is irrelevant regardless of surrounding words (most common choice).
+- Avoid `BROAD` negatives unless the single word is unambiguously irrelevant.
 
 **Level guidance:**
 
 - `ad_group` level: mismatch is scoped to one ad group's theme.
 - `campaign` level: mismatch applies across the entire campaign.
-- Account-level (shared negative list): `add_negative_keywords()` does not support
-  account-level negatives. For universal exclusions, recommend the user add terms to
-  a shared negative keyword list via the Google Ads UI and note the limitation.
+- Account-level (shared negative list): if exclusions are universal, recommend adding terms to a shared negative keyword list in the Google Ads UI.
 
 ### Phase 4: Mutation execution (approval-gated)
 
-1. Build draft mutations with `dry_run=True` first:
-
-```python
-result = add_negative_keywords(
-    client, customer_id,
-    keywords=[{"text": "free widgets", "match_type": "PHRASE"}],
-    level="campaign",       # or "ad_group"
-    parent_id=campaign_id,  # campaign or ad_group ID (numeric)
-    dry_run=True,
-)
-```
-
+1. Build negative keyword operations with `dry_run: true` first.
 2. Show preview table to user and request explicit confirmation.
-3. Only run with `dry_run=False` after user approval.
+3. Only run with `dry_run: false` after user approval.
 
 ## Output format
 
@@ -138,3 +120,4 @@ result = add_negative_keywords(
 
 - `references/gaql-queries.md`
 - `references/verdict-heuristics.md`
+- `references/google-campaign-management.md`

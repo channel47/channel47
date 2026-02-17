@@ -139,7 +139,7 @@ with BulkFileWriter(output_path) as writer:
 ### Batch Pause Keywords
 
 ```python
-import pandas as pd
+import csv
 
 # Download current keywords
 download_params = DownloadParameters(
@@ -149,25 +149,33 @@ download_params = DownloadParameters(
 )
 file_path = bulk_service.download_file(download_params)
 
-# Load and filter
-df = pd.read_csv(file_path, low_memory=False)
-keywords = df[df['Type'] == 'Keyword'].copy()
+# Load rows
+keywords = []
+with open(file_path, newline="", encoding="utf-8") as handle:
+    reader = csv.DictReader(handle)
+    for row in reader:
+        if row.get("Type") == "Keyword":
+            keywords.append(row)
 
 # Identify keywords to pause (e.g., high spend, no conversions)
-to_pause = keywords[
-    (keywords['Spend'].astype(float) > 50) &
-    (keywords['Conversions'].astype(float) == 0)
-]
-
-# Update status
-to_pause['Status'] = 'Paused'
+to_pause = []
+for row in keywords:
+    spend = float(row.get("Spend") or 0)
+    conversions = float(row.get("Conversions") or 0)
+    if spend > 50 and conversions == 0:
+        row["Status"] = "Paused"
+        to_pause.append(row)
 
 # Write changes
-to_pause.to_csv('./bulk_files/pause_keywords.csv', index=False)
+out_path = "./bulk_files/pause_keywords.csv"
+with open(out_path, "w", newline="", encoding="utf-8") as handle:
+    writer = csv.DictWriter(handle, fieldnames=to_pause[0].keys())
+    writer.writeheader()
+    writer.writerows(to_pause)
 
 # Upload
 upload_params = FileUploadParameters(
-    upload_file_path='./bulk_files/pause_keywords.csv',
+    upload_file_path=out_path,
     result_file_name='pause_results.csv',
     overwrite_result_file=True
 )
@@ -177,17 +185,24 @@ result = bulk_service.upload_file(upload_params)
 ### Batch Bid Adjustment
 
 ```python
-# After downloading keywords to DataFrame...
+# After downloading keyword rows...
 # Increase bids by 20% for high-performing keywords
-high_performers = keywords[
-    (keywords['Conversions'].astype(float) > 5) &
-    (keywords['CostPerConversion'].astype(float) < 20)
-]
+bid_changes = []
+for row in keywords:
+    conversions = float(row.get("Conversions") or 0)
+    cpa = float(row.get("CostPerConversion") or 0)
+    bid = float(row.get("Bid") or 0)
+    if conversions > 5 and cpa < 20 and bid > 0:
+        bid_changes.append({
+            "Type": row.get("Type"),
+            "Id": row.get("Id"),
+            "Bid": f"{bid * 1.20:.2f}",
+        })
 
-high_performers['Bid'] = (high_performers['Bid'].astype(float) * 1.20).round(2)
-
-# Write and upload
-high_performers[['Type', 'Id', 'Bid']].to_csv('./bulk_files/bid_changes.csv', index=False)
+with open("./bulk_files/bid_changes.csv", "w", newline="", encoding="utf-8") as handle:
+    writer = csv.DictWriter(handle, fieldnames=["Type", "Id", "Bid"])
+    writer.writeheader()
+    writer.writerows(bid_changes)
 ```
 
 ## Limits

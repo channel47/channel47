@@ -10,16 +10,6 @@
             "timeout": 5
           }
         ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/validate-mutations.py",
-            "timeout": 5
-          }
-        ]
       }
     ]
   }

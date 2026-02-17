@@ -1,10 +1,8 @@
 # Media Buyer - Claude Code Plugin
 
-Operational toolkit for paid-search execution.
+Operational toolkit for paid-search execution with MCP-native Google Ads access.
 
-The plugin connects to live ad platforms and helps media buyers do daily account
-work: search term review, anomaly triage, waste detection, and Performance Max
-analysis. Strategy and planning are intentionally out of scope.
+The plugin supports daily media-buyer workflows: setup verification, morning health checks, waste detection, search-term verdicting, and Performance Max decoding.
 
 ---
 
@@ -15,17 +13,35 @@ analysis. Strategy and planning are intentionally out of scope.
 /plugin install media-buyer@channel47
 ```
 
-### Dependencies
-
-```bash
-pip install google-ads bingads pandas
-```
-
 ---
 
 ## Version
 
-Current plugin version: `5.0.0`
+Current plugin version: `6.0.0`
+
+---
+
+## Configuration
+
+This plugin bundles Google Ads MCP via `.mcp.json`:
+
+```json
+{
+  "google-ads": {
+    "command": "npx",
+    "args": ["-y", "@channel47/google-ads-mcp@latest"],
+    "env": {
+      "GOOGLE_ADS_DEVELOPER_TOKEN": "${GOOGLE_ADS_DEVELOPER_TOKEN}",
+      "GOOGLE_ADS_CLIENT_ID": "${GOOGLE_ADS_CLIENT_ID}",
+      "GOOGLE_ADS_CLIENT_SECRET": "${GOOGLE_ADS_CLIENT_SECRET}",
+      "GOOGLE_ADS_REFRESH_TOKEN": "${GOOGLE_ADS_REFRESH_TOKEN}",
+      "GOOGLE_ADS_LOGIN_CUSTOMER_ID": "${GOOGLE_ADS_LOGIN_CUSTOMER_ID}"
+    }
+  }
+}
+```
+
+Set required environment variables in your shell profile before using the plugin.
 
 ---
 
@@ -35,28 +51,16 @@ Current plugin version: `5.0.0`
 media-buyer/
 ├── .claude-plugin/
 │   └── plugin.json
+├── .mcp.json
 ├── hooks/
 │   ├── hooks.json
 │   └── validate-mutations.py
 ├── skills/
-│   ├── ad-platform-connection/
-│   │   ├── SKILL.md
-│   │   ├── scripts/google/{auth,report,mutate}.py
-│   │   ├── scripts/bing/{auth,report}.py
-│   │   └── references/{shared,google,bing}/*.md
-│   ├── search-term-verdict/
-│   │   ├── SKILL.md
-│   │   └── references/{gaql-queries,verdict-heuristics}.md
+│   ├── platform-setup/
 │   ├── morning-brief/
-│   │   ├── SKILL.md
-│   │   └── references/{gaql-queries,anomaly-formulas}.md
 │   ├── waste-detector/
-│   │   ├── SKILL.md
-│   │   └── references/{gaql-queries,thresholds,benchmarks}.md
+│   ├── search-term-verdict/
 │   └── pmax-decoder/
-│       ├── SKILL.md
-│       └── references/gaql-queries.md
-├── docs/
 ├── tests/
 ├── README.md
 └── LICENSE
@@ -66,48 +70,25 @@ media-buyer/
 
 ## Skill Inventory
 
-### 1) `ad-platform-connection` (foundation)
+### 1) `platform-setup`
 
-Shared auth, reporting, and mutation layer for Google Ads and Bing Ads.
+Setup and verification guidance for Google Ads and Bing credentials. Uses `mcp__google-ads__list_accounts` for Google access validation.
 
-- Google: OAuth, GAQL reporting, campaign/ad/keyword mutations.
-- Bing: OAuth, reporting helpers, service patterns.
-- Safety defaults: read before write, `dry_run=True` by default.
+### 2) `morning-brief`
 
-### 2) `search-term-verdict`
+Builds a daily account-health summary from GAQL queries via `mcp__google-ads__query`.
 
-Classifies search terms as `NEGATE`, `PROMOTE`, `INVESTIGATE`, or `KEEP` and
-builds ready-to-apply negative keyword lists and promotion candidates.
+### 3) `waste-detector`
 
-### 3) `morning-brief`
+Finds high-impact spend leaks and prepares remediation actions using `mcp__google-ads__query` and `mcp__google-ads__mutate` (dry-run first).
 
-Generates a daily account-health narrative with prioritized anomalies, budget
-pacing risk, disapprovals, and recent change summaries.
+### 4) `search-term-verdict`
 
-### 4) `waste-detector`
-
-Finds eight common spend leaks, quantifies estimated monthly waste, and outputs
-concrete remediation actions.
+Classifies search terms and prepares negative keyword packages with `mcp__google-ads__query` plus approval-gated `mcp__google-ads__mutate`.
 
 ### 5) `pmax-decoder`
 
-Analyzes Performance Max campaign transparency gaps: search categories, channel
-distribution, asset labels, brand cannibalization risk, and placements.
-
----
-
-## Dependency Flow
-
-```text
-ad-platform-connection
-├── search-term-verdict
-├── morning-brief
-├── waste-detector
-└── pmax-decoder
-```
-
-The four execution skills use existing scripts in
-`skills/ad-platform-connection/scripts/google/` and do not duplicate SDK code.
+Analyzes Performance Max campaign transparency data and proposes actions via `mcp__google-ads__query` and optional dry-run mutations.
 
 ---
 
@@ -116,23 +97,21 @@ The four execution skills use existing scripts in
 All write operations follow the same protocol:
 
 1. Query and analyze first.
-2. Preview write operations with `dry_run=True`.
+2. Preview mutations with `dry_run: true`.
 3. Request explicit user approval.
-4. Execute live mutation only after approval.
-5. Keep changes scoped and auditable.
+4. Execute with `dry_run: false` only after approval.
 
-The mutation hook in `hooks/validate-mutations.py` flags live write attempts
-through both MCP tool calls and direct Python script execution.
+`hooks/validate-mutations.py` is bound to `mcp__google-ads__mutate` in `hooks/hooks.json`.
 
 ---
 
 ## Typical Prompts
 
-- "Review my search terms and draft negatives."
+- "Set up and verify my Google Ads access."
 - "Give me this morning's account brief."
 - "Find where I am wasting budget this month."
+- "Review search terms and draft negatives."
 - "Decode what my PMax campaign is actually doing."
-- "Connect to Google Ads and pull campaign performance."
 
 ---
 

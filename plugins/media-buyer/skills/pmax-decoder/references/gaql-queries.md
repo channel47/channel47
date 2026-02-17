@@ -102,25 +102,31 @@ WHERE asset_group.id = 'ASSET_GROUP_ID'
 
 ## Module 4: Brand traffic detection
 
-No separate query. Reuse Module 1C search term data and classify against
-user-provided brand terms in Python.
+No separate query. Reuse Module 1C search term data and classify terms against user-provided brand terms.
 
-**Note:** `campaign_search_term_insight` does NOT include `metrics.cost_micros`.
-Use `metrics.clicks` as the proxy for brand traffic share.
+`campaign_search_term_insight` does not include `metrics.cost_micros`, so use click share as the traffic proxy.
+
+Plain iteration pattern:
 
 ```python
 import re
 
-brand_terms = ["acme", "acme inc"]  # User provides these
-pattern = "|".join(re.escape(t) for t in brand_terms)
-brand_traffic = terms_df[terms_df["segments.search_term"].str.lower().str.contains(pattern, na=False)]
-brand_clicks = brand_traffic["metrics.clicks"].sum()
-total_clicks = terms_df["metrics.clicks"].sum()
-brand_pct = brand_clicks / total_clicks if total_clicks > 0 else 0
+brand_terms = ["acme", "acme inc"]  # user-provided
+pattern = re.compile("|".join(re.escape(t.lower()) for t in brand_terms))
+
+brand_clicks = 0
+all_clicks = 0
+for row in term_rows:
+    term = str(row.get("segments.search_term", "")).lower()
+    clicks = float(row.get("metrics.clicks", 0) or 0)
+    all_clicks += clicks
+    if pattern.search(term):
+        brand_clicks += clicks
+
+brand_pct = (brand_clicks / all_clicks) if all_clicks > 0 else 0
 ```
 
 Flag cannibalization when brand click share exceeds 30% of PMax clicks.
-Report as click-based share (not spend-based) and note the limitation.
 
 ## Module 5: Placement visibility
 
@@ -139,33 +145,23 @@ WHERE campaign.id = 'CAMPAIGN_ID'
 
 Placement view supports impressions only.
 
-## Execution pattern
+## Execution pattern (MCP)
 
-See SKILL.md Foundation Dependency for `sys.path` setup. Then:
-
-```python
-from scripts.google.auth import get_auth
-from scripts.google.report import pull_report
-
-client, config = get_auth()
-customer_id = config["default_customer_id"]
-
-# Module 1A: get all PMax campaigns
-campaigns_df = pull_report(client, customer_id, QUERY_1A)
-
-# Module 1B/1C: loop per campaign (see SKILL.md Module 1 for full pattern)
-```
+1. Run Module 1A query with `mcp__google-ads__query`.
+2. For each campaign ID from Module 1A, run Module 1B.
+3. Merge all category rows into one list and sort by clicks descending.
+4. Take the top 50 categories and run Module 1C for each.
+5. Build summaries and recommendations from the returned rows.
 
 ## Execution notes
 
-- `pull_report()` auto-converts `_micros` fields and adds derived columns (e.g.
-  `metrics.cost`). Use those directly — do not divide by 1,000,000 again.
-- Loop through campaigns from Module 1A before running Module 1B/1C per campaign.
+- Query responses include both `_micros` and converted currency fields; use one consistent field family in calculations.
+- Run modules in order so campaign/category IDs are available for downstream queries.
 
 ## Known limitations
 
-- Insight extraction can be API-call heavy for large PMax campaigns.
-- Asset labels are relative (`BEST`, `GOOD`, `LOW`, `PENDING`), not cost metrics.
+- Insight extraction can be API-call heavy for large PMax accounts.
+- Asset labels are relative (`BEST`, `GOOD`, `LOW`, `PENDING`), not direct cost metrics.
 - Brand cannibalization analysis requires user-supplied brand terms.
-- Channel-level `segments.ad_network_type` data only available for dates after June 1, 2025.
-- Placement view supports `metrics.impressions` only — no clicks, cost, or conversions.
+- Channel-level `segments.ad_network_type` data is reliable only for dates after June 1, 2025.
+- Placement view supports impressions only (no clicks, cost, or conversions).

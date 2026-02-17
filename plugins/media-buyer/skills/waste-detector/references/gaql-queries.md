@@ -49,12 +49,17 @@ WHERE ad_group_criterion.status != 'REMOVED'
 ORDER BY ad_group_criterion.quality_info.quality_score ASC
 ```
 
-Filter in Python — apply both QS and cost thresholds:
+Apply thresholds with plain iteration:
 
 ```python
-df = df.dropna(subset=["ad_group_criterion.quality_info.quality_score"])
-df = df[df["ad_group_criterion.quality_info.quality_score"] <= 5]
-df = df[df["metrics.cost"] >= 10]  # $10 minimum spend threshold
+filtered = []
+for row in rows:
+    qs = row.get("ad_group_criterion.quality_info.quality_score")
+    spend = float(row.get("metrics.cost", 0) or 0)
+    if qs is None:
+        continue
+    if float(qs) <= 5 and spend >= 10:
+        filtered.append(row)
 ```
 
 ## Waste Type 3: Display expansion enabled on Search campaigns
@@ -97,8 +102,7 @@ WHERE campaign.status != 'REMOVED'
   AND segments.date DURING YESTERDAY
 ```
 
-Impression share fields are non-aggregable; use YESTERDAY (single-day) not
-LAST_30_DAYS. Filter in Python: `df[df['metrics.search_budget_lost_impression_share'] > 0.10]`.
+Impression share fields are non-aggregable; use YESTERDAY and filter rows where `metrics.search_budget_lost_impression_share > 0.10`.
 
 ## Waste Type 5A: Broad match keywords
 
@@ -133,11 +137,14 @@ WHERE shared_set.type = 'NEGATIVE_KEYWORDS'
   AND shared_set.status = 'ENABLED'
 ```
 
-Join in Python to find campaigns with broad match spend and no shared negative list:
+Join pattern with plain iteration:
 
 ```python
-protected_campaigns = set(neg_list_df["campaign.id"])
-unprotected_broad = broad_df[~broad_df["campaign.id"].isin(protected_campaigns)]
+protected = {str(r.get("campaign.id")) for r in negative_list_rows}
+unprotected_broad = [
+    r for r in broad_rows
+    if str(r.get("campaign.id")) not in protected
+]
 ```
 
 ## Waste Type 6: Single-ad ad groups
@@ -156,12 +163,18 @@ WHERE ad_group_ad.status = 'ENABLED'
   AND campaign.status != 'REMOVED'
 ```
 
-Only count ENABLED ads — PAUSED ads do not contribute to testing. GAQL has no
-`GROUP BY`; count ads per ad group in Python:
+Count enabled ads per ad group using dictionary aggregation:
 
 ```python
-ad_counts = df.groupby(["campaign.id", "ad_group.id"])["ad_group_ad.ad.id"].nunique()
-single_ad_groups = ad_counts[ad_counts == 1].reset_index()
+counts = {}
+for row in ad_rows:
+    key = (str(row.get("campaign.id")), str(row.get("ad_group.id")))
+    ad_id = row.get("ad_group_ad.ad.id")
+    if ad_id is None:
+        continue
+    counts.setdefault(key, set()).add(str(ad_id))
+
+single_ad_groups = [key for key, ad_ids in counts.items() if len(ad_ids) == 1]
 ```
 
 ## Waste Type 7: Zero-impression enabled campaigns
@@ -198,14 +211,12 @@ ORDER BY metrics.cost_micros DESC
 
 ## Execution notes
 
-- See SKILL.md Foundation Dependency for `sys.path` setup before importing.
-- Reuse `quick_wasted_spend` and `quick_keyword_performance` where possible.
-- Use `pull_report` for custom query groups.
-- `pull_report()` auto-converts `_micros` fields and adds derived columns (e.g.
-  `metrics.cost`). Use those directly — do not divide by 1,000,000 again.
+- Run each query via `mcp__google-ads__query`.
+- Keep one consistent customer ID and date window across all waste types unless the user requests otherwise.
+- Query responses include `_micros` and converted currency fields; choose one for calculations and stay consistent.
 
 ## Limitations
 
 - Quality score may be null for low-volume keywords.
 - Impression share metrics are non-aggregable.
-- Placement-level cost is unavailable for some resource views.
+- Some resource views do not provide full cost and conversion metrics.

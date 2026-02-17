@@ -7,106 +7,69 @@ description: >-
   "decode my PMax", "PMax brand traffic", "PMax cannibalization", or
   mentions Performance Max analysis, PMax audit, PMax search queries,
   asset group performance, or PMax negative keywords.
+allowed-tools: mcp__google-ads__query, mcp__google-ads__mutate, mcp__google-ads__list_accounts
 ---
 
 # PMax Decoder
 
-Generate operational transparency for Performance Max campaigns and convert that
-analysis into concrete actions.
+Generate operational transparency for Performance Max campaigns and convert that analysis into concrete actions.
 
-## Foundation Dependency
+## Data Access
 
-Scripts live in `skills/ad-platform-connection` — add it to `sys.path` before
-importing:
+This skill uses the plugin's Google Ads MCP tools for live API access:
 
-```python
-import sys, os
-skill_root = os.path.join(os.environ.get("CLAUDE_PLUGIN_ROOT", "."), "skills", "ad-platform-connection")
-sys.path.insert(0, skill_root)
+- `mcp__google-ads__query`: Execute GAQL SELECT queries for PMax insights.
+- `mcp__google-ads__mutate`: Preview and apply negative keyword actions.
+- `mcp__google-ads__list_accounts`: Confirm account access and campaign scope.
 
-from scripts.google.auth import get_auth
-from scripts.google.report import pull_report
-from scripts.google.mutate import add_negative_keywords
-```
+Mutation safety flow:
+
+1. Build operations and run `mcp__google-ads__mutate` with `dry_run: true`.
+2. Show proposed changes and rationale.
+3. Get explicit approval.
+4. Re-run with `dry_run: false` only after approval.
 
 ## Workflow
 
 ### Module 1: Search term extraction
 
 The `campaign_search_term_insight` resource requires single-campaign filtering.
-Follow this loop pattern:
 
-```python
-# Step 1: Get all PMax campaigns (Module 1A query)
-campaigns_df = pull_report(client, customer_id, QUERY_1A)
+1. Run Module 1A query to list all PMax campaigns.
+2. For each campaign ID, run Module 1B query to fetch insight categories.
+3. Combine categories across campaigns and rank by `metrics.clicks`.
+4. Drill into top categories (default cap: 50) using Module 1C query.
 
-# Step 2: For each campaign, get insight categories (Module 1B query)
-all_categories = []
-for _, row in campaigns_df.iterrows():
-    cid = str(int(row["campaign.id"]))
-    query_1b = QUERY_1B.replace("CAMPAIGN_ID", cid)
-    cat_df = pull_report(client, customer_id, query_1b)
-    if not cat_df.empty:
-        all_categories.append(cat_df)
-
-# Step 3: Optionally drill into top categories by clicks (Module 1C)
-top_categories = pd.concat(all_categories).nlargest(50, "metrics.clicks")
-for _, cat_row in top_categories.iterrows():
-    cid = str(int(cat_row["campaign_search_term_insight.campaign_id"]))
-    cat_id = cat_row["campaign_search_term_insight.id"]
-    query_1c = QUERY_1C.replace("CAMPAIGN_ID", cid).replace("CATEGORY_ID", cat_id)
-    terms_df = pull_report(client, customer_id, query_1c)
-```
-
-Default cap: top 50 categories by clicks. Warn user that large PMax accounts
-with many campaigns will generate many API calls.
+Warn users that large PMax accounts can require many API calls.
 
 ### Module 2: Channel distribution (requires API v23+)
 
-**IMPORTANT**: `segments.ad_network_type` on `asset_group` returns meaningful
-channel data (SEARCH, YOUTUBE, DISPLAY, SHOPPING) only in API v23+. For dates
-before June 1, 2025, it returns `MIXED` and is not useful. Verify the client's
-API version before running this module. If pre-v23, skip and note the limitation.
+`segments.ad_network_type` on `asset_group` returns meaningful channel data (SEARCH, YOUTUBE, DISPLAY, SHOPPING) only in API v23+.
 
-Use `asset_group` with `segments.ad_network_type` to estimate spend and conversion
-mix by channel. Flag concentration risks when one channel exceeds 70% of spend.
+For dates before June 1, 2025, this dimension can return `MIXED` and is not reliable for channel decomposition. If data is pre-v23 behavior, skip this module and note the limitation.
+
+Use `asset_group` with `segments.ad_network_type` to estimate spend and conversion mix by channel. Flag concentration risks when one channel exceeds 70% of spend.
 
 ### Module 3: Asset group and asset label review
 
-- Summarize asset-group level performance (Module 3A: impressions, clicks, cost, conversions).
-- Pull `asset_group_asset.performance_label` per asset (Module 3B).
-- Labels are relative rankings (`BEST`, `GOOD`, `LOW`, `PENDING`), NOT cost metrics.
-  Do NOT claim a `LOW` label means the asset is "wasting money" — it means the asset
-  underperforms relative to other assets in the same group.
-- Recommend replacement priorities for `LOW` assets. Do not generate creative copy
-  unless the user explicitly requests it.
+- Summarize asset-group level performance (impressions, clicks, cost, conversions).
+- Pull `asset_group_asset.performance_label` per asset.
+- Labels are relative rankings (`BEST`, `GOOD`, `LOW`, `PENDING`), not direct cost metrics.
+- Recommend replacement priorities for `LOW` assets. Do not generate creative copy unless requested.
 
 ### Module 4: Brand traffic detection
 
-- Require user-provided brand terms before running this module.
-- Classify Module 1C search terms against that brand list.
-- `campaign_search_term_insight` does not include cost metrics. Use **click share**
-  as the proxy (not spend share). Report this limitation clearly.
+- Require user-provided brand terms.
+- Classify Module 1C search terms against that list.
+- `campaign_search_term_insight` does not include cost metrics; use click share as the proxy.
 - Flag cannibalization risk when brand click share exceeds 30% of PMax clicks.
-- Generate dry-run negative keyword package for review:
-
-```python
-result = add_negative_keywords(
-    client, customer_id,
-    keywords=[{"text": brand_term, "match_type": "EXACT"}],
-    level="campaign",
-    parent_id=campaign_id,
-    dry_run=True,
-)
-```
+- Generate campaign-level negative keyword operation previews with `dry_run: true`.
 
 ### Module 5: Placement review
 
 Use `performance_max_placement_view` for inventory visibility.
-Placement view returns **impressions only** — no clicks, cost, or conversions.
-Do not estimate placement-level cost or CPA. Treat findings as quality-risk
-diagnostics (e.g., flag low-quality placements like parked domains or children's
-apps by name/type).
+
+Placement view returns impressions only (no clicks, cost, or conversions). Treat findings as quality-risk diagnostics and do not estimate placement-level cost or CPA.
 
 ## Output format
 
@@ -143,14 +106,10 @@ apps by name/type).
 ## Guardrails
 
 - `campaign_search_term_insight` requires single-campaign filtering.
-- Channel-level `segments.ad_network_type` data is available only for dates after
-  June 1, 2025.
+- Channel-level `segments.ad_network_type` data is reliable only for dates after June 1, 2025.
 - Placement view provides impressions only; do not claim placement-level cost.
 - Never execute live negatives without explicit user confirmation.
-- **Empty results**: when a module query returns zero rows, report it explicitly
-  (e.g., "No search term insight data available for this campaign") rather than
-  silently omitting the section. Common causes: new campaigns, privacy thresholds,
-  API version mismatch.
+- **Empty results**: when a module query returns zero rows, report it explicitly rather than silently omitting sections.
 
 ## References
 

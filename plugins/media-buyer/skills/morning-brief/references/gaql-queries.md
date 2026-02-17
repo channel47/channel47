@@ -99,46 +99,12 @@ format (e.g., `2026-02-15 00:00:00`). Bare `YYYY-MM-DD` dates may also work but 
 full datetime format is the documented standard for `change_event.change_date_time`.
 `change_event` does not use `segments.date`; it uses its own `change_date_time` field.
 
-## Execution pattern
+## Execution notes
 
-See SKILL.md Foundation Dependency for `sys.path` setup. Then:
-
-```python
-from datetime import date, timedelta
-from scripts.google.auth import get_auth
-from scripts.google.report import pull_report
-
-client, config = get_auth()
-customer_id = config["default_customer_id"]
-
-today = date.today()
-yesterday = today - timedelta(days=1)
-
-daily_df = pull_report(client, customer_id, QUERY_1)
-budget_df = pull_report(client, customer_id, QUERY_2)
-disapproved_df = pull_report(client, customer_id, QUERY_3)
-waste_df = pull_report(client, customer_id, QUERY_4)
-
-# Query 5 needs dynamic date substitution
-query_5 = f"""
-SELECT
-  change_event.change_date_time,
-  change_event.change_resource_name,
-  change_event.user_email,
-  change_event.change_resource_type,
-  change_event.resource_change_operation,
-  change_event.changed_fields
-FROM change_event
-WHERE change_event.change_date_time >= '{yesterday} 00:00:00'
-  AND change_event.change_date_time <= '{today} 00:00:00'
-ORDER BY change_event.change_date_time DESC
-LIMIT 10000
-"""
-changes_df = pull_report(client, customer_id, query_5)
-```
-
-Note: `pull_report()` auto-converts `_micros` fields and adds derived columns (e.g.
-`metrics.cost`). Use those directly — do not divide by 1,000,000 again.
+- Run each query via `mcp__google-ads__query` with the appropriate GAQL string and customer ID.
+- Query 5 requires dynamic date substitution — replace `YESTERDAY_DATE` and `TODAY_DATE` with actual datetime strings before passing to the query tool.
+- Query responses include both `_micros` and auto-converted currency fields (e.g. `metrics.cost`). Use the converted fields directly — do not divide by 1,000,000 again.
+- Run queries 1–4 first; query 5 can run in parallel since it has no dependency on the others.
 
 ## Known limitations
 

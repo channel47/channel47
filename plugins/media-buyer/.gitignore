@@ -1,4 +1,2 @@
-__pycache__/
-*.pyc
-*.pyo
+# .mcp.json is intentionally tracked as plugin MCP bundle config.
 reports/

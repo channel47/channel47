@@ -6,25 +6,21 @@ description: >-
   "what should I worry about", "how are my campaigns doing", "daily
   summary", "performance check", or mentions daily monitoring, anomaly
   detection, or account health.
+allowed-tools: mcp__google-ads__query, mcp__google-ads__list_accounts
 ---
 
 # Morning Brief
 
 Produce a daily, prioritized account-health narrative with actionable items.
 
-## Foundation Dependency
+## Data Access
 
-Use `skills/ad-platform-connection` for auth and reporting execution. Scripts
-live in that skill's directory — add it to `sys.path` before importing:
+This skill uses the plugin's Google Ads MCP tools for live API access:
 
-```python
-import sys, os
-skill_root = os.path.join(os.environ.get("CLAUDE_PLUGIN_ROOT", "."), "skills", "ad-platform-connection")
-sys.path.insert(0, skill_root)
+- `mcp__google-ads__query`: Execute GAQL SELECT queries and return structured rows.
+- `mcp__google-ads__list_accounts`: Validate account access before reporting when customer scope is unclear.
 
-from scripts.google.auth import get_auth
-from scripts.google.report import pull_report
-```
+Use GAQL templates from `references/gaql-queries.md` directly with `mcp__google-ads__query`.
 
 ## Workflow
 
@@ -48,7 +44,7 @@ For each campaign, for each metric (cost, conversions, CPA, CTR):
 2. Compute `baseline_30d` = mean of last 30 days (excluding yesterday).
 3. Compute `deviation_pct` = `(yesterday - baseline_7d) / baseline_7d`.
 4. Compute `dollar_impact` = `yesterday_value - baseline_7d` (for cost/CPA metrics).
-   CTR is not dollar-denominated — use deviation_pct only.
+   CTR is not dollar-denominated; use deviation_pct only.
 5. Surface when BOTH: `|deviation_pct| > 0.20` AND `|dollar_impact| > $10`.
    For CTR: surface when `|deviation_pct| > 0.25` (no dollar gate).
 6. Rank all flagged items by `|dollar_impact|` descending.
@@ -57,13 +53,12 @@ Cap output at **10 anomaly items** to keep the brief actionable.
 
 ### Phase 3: Budget pacing assessment
 
-Google Ads daily budgets are daily targets, not monthly caps. The API returns
-`campaign_budget.amount_micros` as a **daily** budget.
+Google Ads daily budgets are daily targets, not monthly caps.
 
 For each campaign:
 
-1. `daily_budget` = `campaign_budget.amount_micros` (already converted by pull_report).
-2. `monthly_budget` = `daily_budget * 30.4` (Google's average days/month).
+1. `daily_budget` = campaign daily budget converted to dollars.
+2. `monthly_budget` = `daily_budget * 30.4`.
 3. `day_of_month` = calendar day number.
 4. `expected_mtd_spend` = `daily_budget * day_of_month`.
 5. `actual_mtd_spend` = sum of daily cost for current month from Query 1.
@@ -103,9 +98,7 @@ Every item must include the likely cause and one concrete next action.
 
 ## Guardrails
 
-- **Conversion lag**: When yesterday conversions are >30% below 7d baseline, add a
-  note that conversions typically backfill for 24-72 hours. Do not flag as "Urgent"
-  unless the drop also appears in 2-day-old data.
+- **Conversion lag**: When yesterday conversions are >30% below 7d baseline, add a note that conversions typically backfill for 24-72 hours. Do not flag as "Urgent" unless the drop also appears in 2-day-old data.
 - Mention change-event delay (~3 min lag) and timestamp cut-off.
 - Distinguish between "no issues found" and "insufficient data".
 - Keep recommendations operational and specific.
@@ -115,3 +108,4 @@ Every item must include the likely cause and one concrete next action.
 
 - `references/gaql-queries.md`
 - `references/anomaly-formulas.md`
+- `references/google-reporting.md`

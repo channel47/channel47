@@ -4,33 +4,66 @@ Apply these formulas consistently. Do not invent alternative thresholds.
 
 ## Input data
 
-Use Query 1 daily performance data from `gaql-queries.md`. Group by campaign and
-`segments.date`. Use `metrics.cost` (auto-converted from micros by `pull_report`).
+Use Query 1 daily performance data from `gaql-queries.md`.
 
-## Baseline computation
+- Input format: list of rows from `mcp__google-ads__query`
+- Each row should include `campaign.id`, `segments.date`, `metrics.cost`, `metrics.conversions`, and `metrics.ctr`
+
+## Baseline windows
+
+Let `yesterday` be current date minus one day.
+
+- 7-day baseline window: days -8 through -2 (excludes yesterday)
+- 30-day baseline window: days -31 through -2 (excludes yesterday)
+
+## Plain iteration pattern
 
 ```python
-import pandas as pd
 from datetime import date, timedelta
 
+rows = query_rows  # list[dict]
 yesterday = date.today() - timedelta(days=1)
 
-# 7-day baseline: days -8 through -2 (excludes yesterday)
-baseline_start_7d = yesterday - timedelta(days=7)
-baseline_end_7d = yesterday - timedelta(days=1)
+# Group rows by campaign ID
+by_campaign = {}
+for row in rows:
+    campaign_id = str(row["campaign.id"])
+    by_campaign.setdefault(campaign_id, []).append(row)
 
-# 30-day baseline: days -31 through -2 (excludes yesterday)
-baseline_start_30d = yesterday - timedelta(days=30)
-baseline_end_30d = yesterday - timedelta(days=1)
-```
+summaries = []
+for campaign_id, campaign_rows in by_campaign.items():
+    # Keep only rows in the last 31 days so we can compute both baselines.
+    dated_rows = [
+        r for r in campaign_rows
+        if "segments.date" in r
+    ]
 
-For each campaign, compute:
+    # Split into windows using date comparisons in your implementation.
+    rows_7d = [...]
+    rows_30d = [...]
+    row_yesterday = ...
 
-```python
-baseline_7d_cost = df_7d["metrics.cost"].mean()
-baseline_7d_conv = df_7d["metrics.conversions"].mean()
-baseline_7d_cpa  = baseline_7d_cost / baseline_7d_conv if baseline_7d_conv > 0 else None
-baseline_7d_ctr  = df_7d["metrics.ctr"].mean()
+    if len(rows_7d) < 7 or row_yesterday is None:
+        summaries.append({"campaign.id": campaign_id, "status": "insufficient_baseline"})
+        continue
+
+    baseline_7d_cost = sum(r.get("metrics.cost", 0) for r in rows_7d) / len(rows_7d)
+    baseline_7d_conv = sum(r.get("metrics.conversions", 0) for r in rows_7d) / len(rows_7d)
+    baseline_7d_ctr = sum(r.get("metrics.ctr", 0) for r in rows_7d) / len(rows_7d)
+    baseline_7d_cpa = (
+        baseline_7d_cost / baseline_7d_conv if baseline_7d_conv > 0 else None
+    )
+
+    summaries.append(
+        {
+            "campaign.id": campaign_id,
+            "yesterday": row_yesterday,
+            "baseline_7d_cost": baseline_7d_cost,
+            "baseline_7d_conv": baseline_7d_conv,
+            "baseline_7d_ctr": baseline_7d_ctr,
+            "baseline_7d_cpa": baseline_7d_cpa,
+        }
+    )
 ```
 
 ## Deviation formulas
@@ -45,23 +78,23 @@ Dollar impact depends on metric type:
 
 | Metric | Dollar Impact Formula |
 |--------|----------------------|
-| Cost   | `yesterday_cost - baseline_7d_cost` |
-| Conversions | `(baseline_7d_conv - yesterday_conv) * baseline_7d_cpa` (reversed so a drop yields positive impact) |
-| CPA    | `(yesterday_cpa - baseline_7d_cpa) * yesterday_conv` |
-| CTR    | Not dollar-denominated; use deviation_pct only |
+| Cost | `yesterday_cost - baseline_7d_cost` |
+| Conversions | `(baseline_7d_conv - yesterday_conv) * baseline_7d_cpa` |
+| CPA | `(yesterday_cpa - baseline_7d_cpa) * yesterday_conv` |
+| CTR | Not dollar-denominated; use `deviation_pct` only |
 
 ## Threshold gate
 
-Flag an anomaly only when **both** conditions are met:
+Flag an anomaly only when both conditions are met:
 
-1. `|deviation_pct| > 0.20` (20% change)
-2. `|dollar_impact| > 10.00` ($10 minimum)
+1. `abs(deviation_pct) > 0.20`
+2. `abs(dollar_impact) > 10.00`
 
-For CTR, flag when `|deviation_pct| > 0.25` (no dollar gate).
+For CTR, flag when `abs(deviation_pct) > 0.25` (no dollar gate).
 
 ## Ranking
 
-Sort all flagged anomalies by `|dollar_impact|` descending. Cap at 10 items total.
+Sort all flagged anomalies by `abs(dollar_impact)` descending and cap at 10 items.
 
 ## Direction labels
 
@@ -72,14 +105,10 @@ Sort all flagged anomalies by `|dollar_impact|` descending. Cap at 10 items tota
 | < -0.20 for conversions | Conversion drop |
 | > 0.20 for conversions | Conversion surge |
 | < -0.25 for CTR | CTR decline |
-| > 0.25 for CTR | CTR surge (generally positive — note but do not flag as Urgent) |
+| > 0.25 for CTR | CTR surge (positive, usually `Watch`) |
 
 ## Edge cases
 
-- **New campaigns** (< 7 days of data): skip anomaly detection, note as "insufficient
-  baseline" in the brief.
-- **Zero-baseline metrics**: if baseline is 0, do not compute deviation_pct. Report
-  the raw yesterday value with a "new activity" label.
-- **Weekend/weekday patterns**: if yesterday is Monday or a holiday, note that lower
-  volume may be calendar-driven, not a true anomaly. Still flag if thresholds are met,
-  but add context.
+- **New campaigns** (< 7 days of data): skip anomaly detection and note "insufficient baseline".
+- **Zero baseline**: if baseline is 0, do not compute deviation percentage; mark as "new activity" with raw value.
+- **Calendar effects**: if yesterday is Monday or holiday-adjacent, note potential weekday bias.
