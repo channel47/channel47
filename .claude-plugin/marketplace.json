@@ -13,10 +13,10 @@
     {
       "name": "media-buyer",
       "source": "./plugins/media-buyer",
-      "description": "Operational paid-search toolkit for Google Ads and Bing Ads. Platform connection, search-term verdicting, morning briefs, waste detection, and PMax decoding.",
+      "description": "Operational paid-search toolkit for Google Ads and Bing Ads. Includes platform connection, search-term verdicting, morning briefs, waste detection, and PMax decoding via self-contained Python scripts.",
       "version": "5.0.0",
       "category": "marketing",
-      "tags": ["google-ads", "bing-ads", "microsoft-advertising", "media-buying", "ppc", "ad-platform", "paid-ads", "search-term-analysis", "waste-detection", "performance-max", "anomaly-detection"]
+      "tags": ["google-ads", "bing-ads", "microsoft-advertising", "media-buying", "ppc", "ad-platform", "paid-ads", "campaign-management", "ad-reporting", "search-term-analysis", "waste-detection", "performance-max", "anomaly-detection"]
     }
   ]
 }
