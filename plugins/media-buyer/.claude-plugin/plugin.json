@@ -1,13 +1,23 @@
 {
   "name": "media-buyer",
-  "version": "3.1.0",
-  "description": "End-to-end Google Search campaigns: build campaigns from a landing page, generate creative variations of winning ads, and audit account performance.",
+  "version": "4.0.0",
+  "description": "Connect and manage paid ad accounts across Google Ads and Bing Ads. Auth, reporting, campaign management, and bulk operations via self-contained Python scripts — no MCP servers required.",
   "author": {
     "name": "Jackson Dean",
     "url": "https://channel47.dev"
   },
   "homepage": "https://channel47.dev/plugins/media-buyer",
   "repository": "https://github.com/channel47/channel47",
-  "keywords": ["google-ads", "search-campaign", "ad-creative", "media-buying", "ppc", "creative-testing", "account-audit"],
+  "keywords": [
+    "google-ads",
+    "bing-ads",
+    "microsoft-advertising",
+    "media-buying",
+    "ppc",
+    "ad-platform",
+    "paid-ads",
+    "campaign-management",
+    "ad-reporting"
+  ],
   "license": "MIT"
 }

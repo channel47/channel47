@@ -1,12 +1,8 @@
 # Media Buyer — Claude Code Plugin
 
-Three skills. Zero fluff. Built for media buyers who run paid ads.
+Connect and manage paid ad accounts across Google Ads and Bing Ads. Auth, reporting, campaign management, and bulk operations via self-contained Python scripts.
 
-**Search Campaign Builder** — Give it a landing page URL, get back a complete Google Search campaign: keywords by intent, 15-headline RSAs, negative keyword defense, extensions, bidding strategy. Ready to upload to Google Ads Editor.
-
-**Creative Variant Generator** — Give it a winning ad image, get back variations at three divergence levels (subtle, moderate, dramatic). Self-contained Python CLI that calls OpenAI or Google Gemini directly. No extra servers needed.
-
-**Account Audit** — Point it at a Google Ads account, get back a full health check: wasted spend analysis, keyword quality scores, search term mining, ad copy assessment, and prioritized recommendations with industry benchmarks.
+No MCP servers required. No external dependencies beyond the platform SDKs.
 
 ---
 
@@ -17,21 +13,11 @@ Three skills. Zero fluff. Built for media buyers who run paid ads.
 /plugin install media-buyer@channel47
 ```
 
-### Dependencies (optional, by skill)
-
-**Creative Variants** requires Python 3.9+ and an image generation API key:
+### Dependencies
 
 ```bash
-pip install openai google-genai Pillow
-
-# Google Gemini (default, recommended)
-export GEMINI_API_KEY='your-key-here'
-
-# OR OpenAI
-export OPENAI_API_KEY='your-key-here'
+pip install google-ads bingads pandas
 ```
-
-**Account Audit** requires the Google Ads MCP server to be configured.
 
 ---
 
@@ -45,25 +31,29 @@ media-buyer/
 │   ├── hooks.json                     # Mutation safety gate
 │   └── validate-mutations.py          # Flags live mutations before execution
 ├── skills/
-│   ├── search-campaign/
-│   │   ├── SKILL.md                   # The search campaign builder
-│   │   └── references/
-│   │       ├── ad-copy-formulas.md    # Headline & description patterns
-│   │       ├── negative-keywords.md   # Industry negative keyword lists
-│   │       └── worked-example.md      # Full campaign walkthrough
-│   ├── creative-variants/
-│   │   ├── SKILL.md                   # The creative variant generator
-│   │   ├── scripts/
-│   │   │   └── ad_variant_gen.py      # Self-contained image generation CLI
-│   │   └── references/
-│   │       ├── cli.md                 # CLI flags and recipes
-│   │       ├── variation-strategies.md # Divergence framework deep dive
-│   │       ├── prompt-patterns.md     # Prompt engineering for ad variants
-│   │       └── platform-specs.md      # Ad sizes & safe zones by platform
-│   └── audit/
-│       ├── SKILL.md                   # Account health check
+│   └── ad-platform-connection/
+│       ├── SKILL.md                   # Routing hub — detects platform, loads references + scripts
+│       ├── scripts/
+│       │   ├── google/
+│       │   │   ├── auth.py            # OAuth2 setup, account listing, token rotation
+│       │   │   ├── report.py          # GAQL queries → pandas DataFrames
+│       │   │   └── mutate.py          # Campaign/ad group/keyword/ad CRUD with dry-run default
+│       │   └── bing/
+│       │       ├── auth.py            # OAuth2 setup, account switching
+│       │       └── report.py          # Reporting API → pandas DataFrames
 │       └── references/
-│           └── performance-benchmarks.md # Industry averages by vertical
+│           ├── shared/
+│           │   └── config-patterns.md
+│           ├── google/
+│           │   ├── campaign-management.md
+│           │   ├── shopping-campaigns.md
+│           │   └── reporting.md
+│           └── bing/
+│               ├── campaign-management.md
+│               ├── shopping-campaigns.md
+│               ├── content-api.md
+│               ├── bulk-operations.md
+│               └── reporting.md
 ├── README.md
 ├── LICENSE
 └── .gitignore
@@ -71,70 +61,65 @@ media-buyer/
 
 ---
 
-## Skill Details
+## How It Works
 
-### Search Campaign Builder
+Say "connect to Google Ads," "pull campaign performance," "set up a shopping campaign," or any ad platform phrase. The skill detects the platform from context and routes to the right scripts and references.
 
-**Input:** A landing page URL + optional budget/geo/keywords.
+### Platform Detection
 
-**Output:** A complete, implementation-ready Google Search campaign including:
-- Landing page analysis (value prop, proof points, audience signals)
-- Keyword strategy organized by search intent
-- Tightly themed ad groups (5-15 keywords each)
-- RSA ad copy: 15 headlines + 4 descriptions per ad group
-- Match type strategy (exact/phrase/broad)
-- Negative keyword defense
-- Extensions (sitelinks, callouts, structured snippets)
-- Bidding and budget recommendations
+- **Google** — Google Ads, GAQL, Performance Max, RSA, Google Shopping
+- **Bing** — Bing, Microsoft Advertising, MSAN, Microsoft Merchant Center
+- **Ambiguous** — asks which platform; defaults to Google for generic paid-search phrasing
 
-No MCP servers required. No API keys. Just paste a URL and go.
+### Config Files
 
-### Creative Variant Generator
+| Platform | Config Path |
+|----------|-------------|
+| Google Ads | `~/.google_ads_config.json` |
+| Bing Ads | `~/.msads_config.json` |
 
-**Input:** A winning ad image + divergence level.
+See `references/shared/config-patterns.md` for setup details.
 
-**Output:** Multiple ad creative variations preserving what works while testing new angles.
+---
 
-Three divergence levels:
-- **Subtle** — Same ad, different skin. Background shifts, texture changes, shadow tweaks. Fights frequency fatigue.
-- **Moderate** — Same formula, new clothes. Layout rearrangement, color palette shifts, copy angle rewording. Tests which elements actually drive performance.
-- **Dramatic** — Same offer, fresh concept. Complete visual overhaul. Discovers new winning angles.
+## Capabilities
 
-Supports Google Gemini, OpenAI gpt-image-1.5, Google Imagen 4, and platform-aware sizing for Facebook, Instagram, Google Display, TikTok, LinkedIn, and Pinterest.
+### Google Ads
 
-### Account Audit
+| What | Script |
+|------|--------|
+| Auth and account setup | `scripts/google/auth.py` |
+| Campaign/ad group/keyword/ad CRUD | `scripts/google/mutate.py` |
+| Shopping campaigns | `scripts/google/mutate.py` |
+| Reporting (GAQL → DataFrames) | `scripts/google/report.py` |
 
-**Input:** A Google Ads Customer ID + industry vertical.
+### Bing Ads
 
-**Output:** An 8-phase account health check covering:
-- Account-level KPIs vs industry benchmarks (CTR, CVR, CPA, ROAS)
-- Campaign budget efficiency and impression share analysis
-- Keyword quality scores and wasted spend identification
-- Search terms mining (new keywords + negative recommendations)
-- Ad copy strength and performance review
-- Audience utilization assessment
-- Prioritized recommendations report with estimated savings
-
-Requires Google Ads MCP server. Read-only — never makes changes to the account.
+| What | Script / Method |
+|------|-----------------|
+| Auth and account setup | `scripts/bing/auth.py` |
+| Campaign/ad group/keyword/ad CRUD | Bing SDK service calls |
+| Shopping campaigns | Bing SDK service calls |
+| Merchant Center catalog management | Content API REST |
+| Reporting | `scripts/bing/report.py` |
+| Bulk changes (50+) | `BulkServiceManager` |
 
 ---
 
 ## Safety
 
-The mutation validation hook intercepts all Google Ads write operations. Dry runs pass silently. Live mutations get flagged with a warning before execution. Queries (read operations) always flow freely.
+All write operations follow the same protocol:
 
----
+1. Read before write
+2. Dry run first (`dry_run=True` is the default in Google mutate helpers)
+3. Confirm planned changes with the user before live execution
+4. Small batches first, then scale
+5. No deletes unless explicitly confirmed
 
-## Requirements
-
-| Skill | Requires |
-|-------|----------|
-| Search Campaign | Nothing — works out of the box |
-| Creative Variants | Python 3.9+, `openai` or `google-genai` package, API key |
-| Account Audit | Google Ads MCP server configured |
+The mutation validation hook intercepts Google Ads write operations. Dry runs pass silently. Live mutations get flagged with a warning before execution. Read operations always flow freely.
 
 ---
 
 ## Built by Channel 47
 
-[channel47.dev](https://channel47.dev) — AI skills for marketers who ship.
+[channel47.dev](https://channel47.dev)
