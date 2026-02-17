@@ -14,7 +14,6 @@ packages/
     google-ads/       → Google Ads API
     nano-banana/      → AI image generation (Gemini)
     substack/         → Substack scraping
-skills/               → Brand .skill files (voice, positioning, design, motion)
 ```
 
 ## Install

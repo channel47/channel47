@@ -31,14 +31,6 @@ npm run test
 /plugin install media-buyer@channel47
 ```
 
-## Brand Skills
-
-Four `.skill` files in `skills/`:
-- `brand-voice.skill` — Channel 47 writing voice
-- `frontend-design.skill` — Site design system and conventions
-- `motion-design.skill` — Animation and interaction patterns
-- `positioning.skill` — Positioning and messaging framework
-
 ## Plugin Development
 
 Plugins live in `plugins/`. Each plugin has a `.claude-plugin/plugin.json` manifest. The marketplace registry at `.claude-plugin/marketplace.json` indexes all available plugins.
