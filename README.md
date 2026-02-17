@@ -1,13 +1,13 @@
 # channel47
 
-Plugin ecosystem for [Channel 47](https://channel47.dev). MCP servers, Claude Code plugins, and brand skills.
+Open-source profession plugins, MCP servers, and brand skills for [Channel 47](https://channel47.dev).
 
 ## Structure
 
 ```
 .claude-plugin/       → Marketplace registry (marketplace.json)
 plugins/
-  media-buyer/        → Campaign building, creative testing, account audits
+  media-buyer/        → Paid-search toolkit: platform connection, search-term verdicting, waste detection, morning briefs, PMax decoding
 packages/
   mcps/               → MCP servers (npm workspaces)
     dataforseo/       → DataForSEO API

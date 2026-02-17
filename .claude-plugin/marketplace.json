@@ -6,7 +6,7 @@
   },
   "metadata": {
     "pluginRoot": "./plugins",
-    "description": "Claude Code plugin marketplace for paid ads",
+    "description": "Open-source profession plugins for Claude Code",
     "version": "5.0.0"
   },
   "plugins": [
