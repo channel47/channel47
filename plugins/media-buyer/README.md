@@ -121,7 +121,8 @@ All write operations follow the same protocol:
 4. Execute live mutation only after approval.
 5. Keep changes scoped and auditable.
 
-The mutation hook in `hooks/validate-mutations.py` flags live write attempts.
+The mutation hook in `hooks/validate-mutations.py` flags live write attempts
+through both MCP tool calls and direct Python script execution.
 
 ---
 
