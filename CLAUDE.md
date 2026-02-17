@@ -1,6 +1,6 @@
 # Channel 47 Ecosystem
 
-Plugin marketplace, MCP servers, and brand skills for Claude Code.
+Plugin marketplace and brand skills for Claude Code.
 
 ## Structure
 
@@ -8,22 +8,10 @@ Plugin marketplace, MCP servers, and brand skills for Claude Code.
 .claude-plugin/marketplace.json   # Plugin registry (channel47 marketplace)
 plugins/
   media-buyer/                    # Google Ads + Bing Ads paid-search toolkit (v5.0.0)
-packages/mcps/                    # MCP servers (npm workspaces)
-  dataforseo/                     # DataForSEO keyword research API
-  google-ads/                     # Google Ads API
-  nano-banana/                    # AI image generation (Gemini)
-  substack/                       # Substack scraping
 skills/                           # Brand .skill files
 ```
 
 ## Commands
-
-**MCP servers** (cd into `packages/mcps/`):
-```bash
-npm install
-npm run build
-npm run test
-```
 
 **Plugin install** (from any Claude Code session):
 ```
@@ -35,12 +23,8 @@ npm run test
 
 Plugins live in `plugins/`. Each plugin has a `.claude-plugin/plugin.json` manifest. The marketplace registry at `.claude-plugin/marketplace.json` indexes all available plugins.
 
-## MCP Servers
-
-Each server in `packages/mcps/` is an independent npm package within a workspaces monorepo. Each has its own README with setup and API details.
-
 ## Gotchas
 
-- **npm workspaces** — run `npm install` from `packages/mcps/`, not from individual server dirs.
+- **MCP servers moved** — MCP servers now live in their own repo: [channel47/mcps](https://github.com/channel47/mcps)
 - **Strategy docs moved** — positioning brief and product marketing context now live in `../site/.claude/`, not here.
 - **No `docs/` directory** — despite older references, strategy docs are consolidated in the site repo.
