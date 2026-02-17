@@ -7,7 +7,7 @@ Plugin marketplace and brand skills for Claude Code.
 ```
 .claude-plugin/marketplace.json   # Plugin registry (channel47 marketplace)
 plugins/
-  media-buyer/                    # Google Ads + Bing Ads paid-search toolkit (v5.0.0)
+  media-buyer/                    # Google Ads + Bing Ads paid-search toolkit (v5.1.0)
 skills/                           # Brand .skill files
 ```
 

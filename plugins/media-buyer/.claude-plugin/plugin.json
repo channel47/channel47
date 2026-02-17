@@ -1,6 +1,6 @@
 {
   "name": "media-buyer",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "description": "Operational paid-search toolkit for Google Ads and Bing Ads. Includes platform connection, search-term verdicting, morning briefs, waste detection, and PMax decoding via self-contained Python scripts.",
   "author": {
     "name": "Jackson Dean",
