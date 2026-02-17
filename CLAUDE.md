@@ -7,7 +7,7 @@ Plugin marketplace, MCP servers, and brand skills for Claude Code.
 ```
 .claude-plugin/marketplace.json   # Plugin registry (channel47 marketplace)
 plugins/
-  media-buyer/                    # Campaign building, creative testing, account audits (v3.1.0)
+  media-buyer/                    # Google Ads + Bing Ads connection, reporting, campaign management (v4.0.0)
 packages/mcps/                    # MCP servers (npm workspaces)
   dataforseo/                     # DataForSEO keyword research API
   google-ads/                     # Google Ads API
