@@ -1,8 +1,10 @@
-# Media Buyer - Claude Code Plugin
+# Media Buyer — Claude Code Plugin
 
-Operational toolkit for paid-search execution with MCP-native Google Ads access.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-The plugin supports daily media-buyer workflows: setup verification, morning health checks, waste detection, search-term verdicting, and Performance Max decoding.
+Operational paid-search toolkit for Google Ads and Bing Ads with MCP-native workflows for setup, reporting, analysis, and guarded mutations.
+
+Built from managing 25+ ad accounts daily. Part of [Channel 47](https://channel47.dev), the open-source ecosystem of profession plugins for Claude Code. [Get the newsletter](https://channel47.dev/subscribe) for weekly skill breakdowns from production use.
 
 ---
 
@@ -17,31 +19,23 @@ The plugin supports daily media-buyer workflows: setup verification, morning hea
 
 ## Version
 
-Current plugin version: `6.0.0`
+Current: **6.0.0**
 
 ---
 
 ## Configuration
 
-This plugin bundles Google Ads MCP via `.mcp.json`:
+The plugin bundles Google Ads MCP via `.mcp.json`. Set these environment variables in your shell profile:
 
-```json
-{
-  "google-ads": {
-    "command": "npx",
-    "args": ["-y", "@channel47/google-ads-mcp@latest"],
-    "env": {
-      "GOOGLE_ADS_DEVELOPER_TOKEN": "${GOOGLE_ADS_DEVELOPER_TOKEN}",
-      "GOOGLE_ADS_CLIENT_ID": "${GOOGLE_ADS_CLIENT_ID}",
-      "GOOGLE_ADS_CLIENT_SECRET": "${GOOGLE_ADS_CLIENT_SECRET}",
-      "GOOGLE_ADS_REFRESH_TOKEN": "${GOOGLE_ADS_REFRESH_TOKEN}",
-      "GOOGLE_ADS_LOGIN_CUSTOMER_ID": "${GOOGLE_ADS_LOGIN_CUSTOMER_ID}"
-    }
-  }
-}
-```
+| Variable | Required |
+|----------|----------|
+| `GOOGLE_ADS_DEVELOPER_TOKEN` | Yes |
+| `GOOGLE_ADS_CLIENT_ID` | Yes |
+| `GOOGLE_ADS_CLIENT_SECRET` | Yes |
+| `GOOGLE_ADS_REFRESH_TOKEN` | Yes |
+| `GOOGLE_ADS_LOGIN_CUSTOMER_ID` | For MCC accounts |
 
-Set required environment variables in your shell profile before using the plugin.
+The MCP server installs automatically via `npx` — no separate setup.
 
 ---
 
@@ -68,53 +62,60 @@ media-buyer/
 
 ---
 
-## Skill Inventory
+## Skills
 
-### 1) `platform-setup`
+### platform-setup
 
-Setup and verification guidance for Google Ads and Bing credentials. Uses `mcp__google-ads__list_accounts` for Google access validation.
+Setup and verification for Google Ads and Bing Ads credentials. Validates API access via `mcp__google-ads__list_accounts`.
 
-### 2) `morning-brief`
+### morning-brief
 
-Builds a daily account-health summary from GAQL queries via `mcp__google-ads__query`.
+Daily account-health summary from GAQL queries via `mcp__google-ads__query`. Flags anomalies, pacing issues, and budget drift.
 
-### 3) `waste-detector`
+### waste-detector
 
 Finds high-impact spend leaks and prepares remediation actions using `mcp__google-ads__query` and `mcp__google-ads__mutate` (dry-run first).
 
-### 4) `search-term-verdict`
+### search-term-verdict
 
-Classifies search terms and prepares negative keyword packages with `mcp__google-ads__query` plus approval-gated `mcp__google-ads__mutate`.
+Classifies search terms and builds negative keyword packages. Uses `mcp__google-ads__query` with approval-gated `mcp__google-ads__mutate`.
 
-### 5) `pmax-decoder`
+### pmax-decoder
 
-Analyzes Performance Max campaign transparency data and proposes actions via `mcp__google-ads__query` and optional dry-run mutations.
+Cracks open Performance Max campaign transparency data. Analyzes asset performance, audience signals, and search themes via `mcp__google-ads__query`.
 
 ---
 
 ## Safety Model
 
-All write operations follow the same protocol:
+Every write operation follows the same protocol:
 
 1. Query and analyze first.
 2. Preview mutations with `dry_run: true`.
 3. Request explicit user approval.
 4. Execute with `dry_run: false` only after approval.
 
-`hooks/validate-mutations.py` is bound to `mcp__google-ads__mutate` in `hooks/hooks.json`.
+`hooks/validate-mutations.py` intercepts `mcp__google-ads__mutate` to enforce this.
 
 ---
 
-## Typical Prompts
+## Try It
 
 - "Set up and verify my Google Ads access."
 - "Give me this morning's account brief."
-- "Find where I am wasting budget this month."
+- "Find where I'm wasting budget this month."
 - "Review search terms and draft negatives."
 - "Decode what my PMax campaign is actually doing."
 
 ---
 
-## Built by Channel 47
+## Links
 
-[channel47.dev](https://channel47.dev)
+- [Channel 47](https://channel47.dev) — open-source profession plugins for Claude Code
+- [Build Notes Newsletter](https://channel47.dev/subscribe) — weekly skill breakdowns from production use
+- [MCP Servers](https://github.com/channel47/mcps) — the Google Ads MCP this plugin uses
+- [Build Your First Skill](https://channel47.dev/build) — interactive skill builder
+
+## License
+
+MIT
