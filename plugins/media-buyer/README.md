@@ -1,14 +1,16 @@
-# Media Buyer — Claude Code Plugin
+# Media Buyer - Claude Code Plugin
 
-Connect and manage paid ad accounts across Google Ads and Bing Ads. Auth, reporting, campaign management, and bulk operations via self-contained Python scripts.
+Operational toolkit for paid-search execution.
 
-No MCP servers required. No external dependencies beyond the platform SDKs.
+The plugin connects to live ad platforms and helps media buyers do daily account
+work: search term review, anomaly triage, waste detection, and Performance Max
+analysis. Strategy and planning are intentionally out of scope.
 
 ---
 
 ## Install
 
-```
+```bash
 /plugin marketplace add channel47/channel47
 /plugin install media-buyer@channel47
 ```
@@ -21,102 +23,115 @@ pip install google-ads bingads pandas
 
 ---
 
+## Version
+
+Current plugin version: `5.0.0`
+
+---
+
 ## What's Inside
 
-```
+```text
 media-buyer/
 ├── .claude-plugin/
 │   └── plugin.json
 ├── hooks/
-│   ├── hooks.json                     # Mutation safety gate
-│   └── validate-mutations.py          # Flags live mutations before execution
+│   ├── hooks.json
+│   └── validate-mutations.py
 ├── skills/
-│   └── ad-platform-connection/
-│       ├── SKILL.md                   # Routing hub — detects platform, loads references + scripts
-│       ├── scripts/
-│       │   ├── google/
-│       │   │   ├── auth.py            # OAuth2 setup, account listing, token rotation
-│       │   │   ├── report.py          # GAQL queries → pandas DataFrames
-│       │   │   └── mutate.py          # Campaign/ad group/keyword/ad CRUD with dry-run default
-│       │   └── bing/
-│       │       ├── auth.py            # OAuth2 setup, account switching
-│       │       └── report.py          # Reporting API → pandas DataFrames
-│       └── references/
-│           ├── shared/
-│           │   └── config-patterns.md
-│           ├── google/
-│           │   ├── campaign-management.md
-│           │   ├── shopping-campaigns.md
-│           │   └── reporting.md
-│           └── bing/
-│               ├── campaign-management.md
-│               ├── shopping-campaigns.md
-│               ├── content-api.md
-│               ├── bulk-operations.md
-│               └── reporting.md
+│   ├── ad-platform-connection/
+│   │   ├── SKILL.md
+│   │   ├── scripts/google/{auth,report,mutate}.py
+│   │   ├── scripts/bing/{auth,report}.py
+│   │   └── references/{shared,google,bing}/*.md
+│   ├── search-term-verdict/
+│   │   ├── SKILL.md
+│   │   └── references/{gaql-queries,verdict-heuristics}.md
+│   ├── morning-brief/
+│   │   ├── SKILL.md
+│   │   └── references/{gaql-queries,anomaly-formulas}.md
+│   ├── waste-detector/
+│   │   ├── SKILL.md
+│   │   └── references/{gaql-queries,thresholds,benchmarks}.md
+│   └── pmax-decoder/
+│       ├── SKILL.md
+│       └── references/gaql-queries.md
+├── docs/
+├── tests/
 ├── README.md
-├── LICENSE
-└── .gitignore
+└── LICENSE
 ```
 
 ---
 
-## How It Works
+## Skill Inventory
 
-Say "connect to Google Ads," "pull campaign performance," "set up a shopping campaign," or any ad platform phrase. The skill detects the platform from context and routes to the right scripts and references.
+### 1) `ad-platform-connection` (foundation)
 
-### Platform Detection
+Shared auth, reporting, and mutation layer for Google Ads and Bing Ads.
 
-- **Google** — Google Ads, GAQL, Performance Max, RSA, Google Shopping
-- **Bing** — Bing, Microsoft Advertising, MSAN, Microsoft Merchant Center
-- **Ambiguous** — asks which platform; defaults to Google for generic paid-search phrasing
+- Google: OAuth, GAQL reporting, campaign/ad/keyword mutations.
+- Bing: OAuth, reporting helpers, service patterns.
+- Safety defaults: read before write, `dry_run=True` by default.
 
-### Config Files
+### 2) `search-term-verdict`
 
-| Platform | Config Path |
-|----------|-------------|
-| Google Ads | `~/.google_ads_config.json` |
-| Bing Ads | `~/.msads_config.json` |
+Classifies search terms as `NEGATE`, `PROMOTE`, `INVESTIGATE`, or `KEEP` and
+builds ready-to-apply negative keyword lists and promotion candidates.
 
-See `references/shared/config-patterns.md` for setup details.
+### 3) `morning-brief`
 
----
+Generates a daily account-health narrative with prioritized anomalies, budget
+pacing risk, disapprovals, and recent change summaries.
 
-## Capabilities
+### 4) `waste-detector`
 
-### Google Ads
+Finds eight common spend leaks, quantifies estimated monthly waste, and outputs
+concrete remediation actions.
 
-| What | Script |
-|------|--------|
-| Auth and account setup | `scripts/google/auth.py` |
-| Campaign/ad group/keyword/ad CRUD | `scripts/google/mutate.py` |
-| Shopping campaigns | `scripts/google/mutate.py` |
-| Reporting (GAQL → DataFrames) | `scripts/google/report.py` |
+### 5) `pmax-decoder`
 
-### Bing Ads
-
-| What | Script / Method |
-|------|-----------------|
-| Auth and account setup | `scripts/bing/auth.py` |
-| Campaign/ad group/keyword/ad CRUD | Bing SDK service calls |
-| Shopping campaigns | Bing SDK service calls |
-| Merchant Center catalog management | Content API REST |
-| Reporting | `scripts/bing/report.py` |
-| Bulk changes (50+) | `BulkServiceManager` |
+Analyzes Performance Max campaign transparency gaps: search categories, channel
+distribution, asset labels, brand cannibalization risk, and placements.
 
 ---
 
-## Safety
+## Dependency Flow
+
+```text
+ad-platform-connection
+├── search-term-verdict
+├── morning-brief
+├── waste-detector
+└── pmax-decoder
+```
+
+The four execution skills use existing scripts in
+`skills/ad-platform-connection/scripts/google/` and do not duplicate SDK code.
+
+---
+
+## Safety Model
 
 All write operations follow the same protocol:
 
-1. Read before write
-2. Dry run first (`dry_run=True` is the default in Google mutate helpers)
-3. Confirm planned changes with the user before live execution
-4. Small batches first, then scale
-5. No deletes unless explicitly confirmed
+1. Query and analyze first.
+2. Preview write operations with `dry_run=True`.
+3. Request explicit user approval.
+4. Execute live mutation only after approval.
+5. Keep changes scoped and auditable.
 
-The mutation validation hook intercepts Google Ads write operations. Dry runs pass silently. Live mutations get flagged with a warning before execution. Read operations always flow freely.
+The mutation hook in `hooks/validate-mutations.py` flags live write attempts.
+
+---
+
+## Typical Prompts
+
+- "Review my search terms and draft negatives."
+- "Give me this morning's account brief."
+- "Find where I am wasting budget this month."
+- "Decode what my PMax campaign is actually doing."
+- "Connect to Google Ads and pull campaign performance."
 
 ---
 

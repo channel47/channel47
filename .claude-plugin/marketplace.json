@@ -7,16 +7,16 @@
   "metadata": {
     "pluginRoot": "./plugins",
     "description": "Claude Code plugin marketplace for paid ads",
-    "version": "4.0.0"
+    "version": "5.0.0"
   },
   "plugins": [
     {
       "name": "media-buyer",
       "source": "./plugins/media-buyer",
-      "description": "Connect and manage paid ad accounts across Google Ads and Bing Ads. Auth, reporting, campaign management, and bulk operations via self-contained Python scripts.",
-      "version": "4.0.0",
+      "description": "Operational paid-search toolkit for Google Ads and Bing Ads. Platform connection, search-term verdicting, morning briefs, waste detection, and PMax decoding.",
+      "version": "5.0.0",
       "category": "marketing",
-      "tags": ["google-ads", "bing-ads", "microsoft-advertising", "media-buying", "ppc", "ad-platform", "paid-ads", "campaign-management", "ad-reporting"]
+      "tags": ["google-ads", "bing-ads", "microsoft-advertising", "media-buying", "ppc", "ad-platform", "paid-ads", "search-term-analysis", "waste-detection", "performance-max", "anomaly-detection"]
     }
   ]
 }

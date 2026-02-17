@@ -1,7 +1,7 @@
 {
   "name": "media-buyer",
-  "version": "4.0.0",
-  "description": "Connect and manage paid ad accounts across Google Ads and Bing Ads. Auth, reporting, campaign management, and bulk operations via self-contained Python scripts — no MCP servers required.",
+  "version": "5.0.0",
+  "description": "Operational paid-search toolkit for Google Ads and Bing Ads. Includes platform connection, search-term verdicting, morning briefs, waste detection, and PMax decoding via self-contained Python scripts.",
   "author": {
     "name": "Jackson Dean",
     "url": "https://channel47.dev"
@@ -17,7 +17,11 @@
     "ad-platform",
     "paid-ads",
     "campaign-management",
-    "ad-reporting"
+    "ad-reporting",
+    "search-term-analysis",
+    "waste-detection",
+    "performance-max",
+    "anomaly-detection"
   ],
   "license": "MIT"
 }

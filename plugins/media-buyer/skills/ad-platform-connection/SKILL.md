@@ -48,7 +48,7 @@ This skill routes to Google or Bing scripts and references based on user intent.
 | Campaign/ad group/keyword/ad CRUD | `references/bing/campaign-management.md` | Bing SDK service calls |
 | Shopping setup | `references/bing/shopping-campaigns.md` | Bing SDK service calls |
 | Merchant Center catalog management | `references/bing/content-api.md` | Content API REST |
-| Reporting | `references/bing/reporting.md` | `scripts/bing/report.py` |
+| Reporting | `scripts/bing/report.py` (source of truth) | `scripts/bing/report.py` |
 | Bulk changes (50+) | `references/bing/bulk-operations.md` | `BulkServiceManager` |
 
 ## Script Interface Pattern
