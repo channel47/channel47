@@ -1,13 +1,25 @@
 {
   "google-ads": {
     "command": "npx",
-    "args": ["-y", "@channel47/google-ads-mcp@latest"],
+    "args": ["-y", "@channel47/google-ads-mcp@^1.0.8"],
     "env": {
       "GOOGLE_ADS_DEVELOPER_TOKEN": "${GOOGLE_ADS_DEVELOPER_TOKEN}",
       "GOOGLE_ADS_CLIENT_ID": "${GOOGLE_ADS_CLIENT_ID}",
       "GOOGLE_ADS_CLIENT_SECRET": "${GOOGLE_ADS_CLIENT_SECRET}",
       "GOOGLE_ADS_REFRESH_TOKEN": "${GOOGLE_ADS_REFRESH_TOKEN}",
       "GOOGLE_ADS_LOGIN_CUSTOMER_ID": "${GOOGLE_ADS_LOGIN_CUSTOMER_ID}"
+    }
+  },
+  "bing-ads": {
+    "command": "npx",
+    "args": ["-y", "@channel47/bing-ads-mcp@^1.1.0"],
+    "env": {
+      "BING_ADS_DEVELOPER_TOKEN": "${BING_ADS_DEVELOPER_TOKEN}",
+      "BING_ADS_CLIENT_ID": "${BING_ADS_CLIENT_ID}",
+      "BING_ADS_CLIENT_SECRET": "${BING_ADS_CLIENT_SECRET}",
+      "BING_ADS_REFRESH_TOKEN": "${BING_ADS_REFRESH_TOKEN}",
+      "BING_ADS_CUSTOMER_ID": "${BING_ADS_CUSTOMER_ID}",
+      "BING_ADS_ACCOUNT_ID": "${BING_ADS_ACCOUNT_ID}"
     }
   }
 }

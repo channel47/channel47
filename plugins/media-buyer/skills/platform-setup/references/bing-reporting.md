@@ -1,21 +1,20 @@
 # Bing Ads Reporting
 
-Bing reporting is currently documented for future MCP implementation. Use this as an API reference until a Bing MCP server is added.
+API reference for the Bing Ads MCP `report` tool. Use `mcp__bing-ads__report` to generate performance reports.
 
-## Current status
+## MCP report tool parameters
 
-- Google Ads reporting is available now via `mcp__google-ads__query`.
-- Bing reporting execution is pending the Bing MCP server.
-- This document defines report types, time windows, and field semantics for that future Bing MCP layer.
-
-## Planned MCP query pattern
-
-The planned Bing query tool should support:
-
-- `report_type` (for example `CampaignPerformance`, `KeywordPerformance`)
-- `time_period` or explicit date range
-- `columns` list
-- `aggregation` (`Summary`, `Daily`, `Weekly`, etc.)
+```json
+{
+  "report_type": "campaign | ad_group | keyword | ad | search_query | account | asset_group",
+  "date_range": "LastSevenDays",
+  "aggregation": "Daily",
+  "columns": ["..."],
+  "limit": 100,
+  "account_id": "optional",
+  "customer_id": "optional"
+}
+```
 
 ## Report Types
 

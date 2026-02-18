@@ -23,8 +23,8 @@ class TestPhase2PlatformSetupSkill(unittest.TestCase):
     def test_platform_setup_has_mcp_verification_guidance(self):
         skill_text = _read(SKILLS_ROOT / "platform-setup/SKILL.md")
 
-        self.assertIn("allowed-tools: mcp__google-ads__list_accounts", skill_text)
         self.assertIn("mcp__google-ads__list_accounts", skill_text)
+        self.assertIn("mcp__bing-ads__list_accounts", skill_text)
         self.assertIn("connect to Google Ads", skill_text)
         self.assertIn("set up Bing", skill_text)
         self.assertIn("verify connection", skill_text)
@@ -40,18 +40,46 @@ class TestPhase2PlatformSetupSkill(unittest.TestCase):
 
 
 class TestPhase3ExecutionSkillsUseMcp(unittest.TestCase):
-    def test_execution_skills_have_expected_allowed_tools(self):
-        expected_allowed_tools = {
-            "morning-brief": "mcp__google-ads__query, mcp__google-ads__list_accounts",
-            "waste-detector": "mcp__google-ads__query, mcp__google-ads__mutate, mcp__google-ads__list_accounts",
-            "search-term-verdict": "mcp__google-ads__query, mcp__google-ads__mutate, mcp__google-ads__list_accounts",
-            "pmax-decoder": "mcp__google-ads__query, mcp__google-ads__mutate, mcp__google-ads__list_accounts",
+    def test_execution_skills_have_google_allowed_tools(self):
+        """All execution skills must include Google Ads MCP tools."""
+        google_tools = {
+            "morning-brief": ["mcp__google-ads__query", "mcp__google-ads__list_accounts"],
+            "waste-detector": ["mcp__google-ads__query", "mcp__google-ads__mutate", "mcp__google-ads__list_accounts"],
+            "search-term-verdict": ["mcp__google-ads__query", "mcp__google-ads__mutate", "mcp__google-ads__list_accounts"],
+            "pmax-decoder": ["mcp__google-ads__query", "mcp__google-ads__mutate", "mcp__google-ads__list_accounts"],
         }
 
-        for skill_name, allowed_tools in expected_allowed_tools.items():
+        for skill_name, tools in google_tools.items():
             with self.subTest(skill=skill_name):
                 skill_text = _read(SKILLS_ROOT / skill_name / "SKILL.md")
-                self.assertIn(f"allowed-tools: {allowed_tools}", skill_text)
+                for tool in tools:
+                    self.assertIn(tool, skill_text, f"{skill_name} missing {tool}")
+
+    def test_cross_platform_skills_have_bing_allowed_tools(self):
+        """Cross-platform skills must include Bing Ads MCP tools."""
+        bing_tools = {
+            "morning-brief": ["mcp__bing-ads__report", "mcp__bing-ads__query", "mcp__bing-ads__list_accounts"],
+            "waste-detector": ["mcp__bing-ads__report", "mcp__bing-ads__query", "mcp__bing-ads__list_accounts"],
+            "search-term-verdict": ["mcp__bing-ads__report", "mcp__bing-ads__query", "mcp__bing-ads__list_accounts"],
+        }
+
+        for skill_name, tools in bing_tools.items():
+            with self.subTest(skill=skill_name):
+                skill_text = _read(SKILLS_ROOT / skill_name / "SKILL.md")
+                for tool in tools:
+                    self.assertIn(tool, skill_text, f"{skill_name} missing {tool}")
+
+    def test_pmax_decoder_is_google_only(self):
+        """PMax Decoder should NOT reference Bing tools (PMax is Google-only)."""
+        skill_text = _read(SKILLS_ROOT / "pmax-decoder/SKILL.md")
+        self.assertNotIn("mcp__bing-ads__", skill_text)
+
+    def test_cross_platform_skills_have_bing_reference_docs(self):
+        """Cross-platform skills must have bing-queries.md reference."""
+        for skill_name in ("morning-brief", "waste-detector", "search-term-verdict"):
+            with self.subTest(skill=skill_name):
+                bing_ref = SKILLS_ROOT / skill_name / "references/bing-queries.md"
+                self.assertTrue(bing_ref.exists(), f"{skill_name} missing bing-queries.md")
 
     def test_execution_skills_drop_python_foundation_dependency_pattern(self):
         legacy_skill_name = "ad-platform" + "-connection"

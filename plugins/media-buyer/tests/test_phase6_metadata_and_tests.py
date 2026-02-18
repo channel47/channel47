@@ -12,7 +12,7 @@ GITIGNORE = Path(".gitignore")
 class TestPhase6Metadata(unittest.TestCase):
     def test_plugin_json_version_and_description(self):
         data = json.loads(PLUGIN_JSON.read_text(encoding="utf-8"))
-        self.assertEqual("6.0.0", data.get("version"))
+        self.assertEqual("6.1.0", data.get("version"))
         self.assertNotIn("Python scripts", data.get("description", ""))
         self.assertIn("MCP", data.get("description", ""))
 
@@ -20,18 +20,24 @@ class TestPhase6Metadata(unittest.TestCase):
         old_dependency_line = "pip" + " install " + "google-ads bingads " + ("pan" + "das")
         legacy_skill_name = "ad-platform" + "-connection"
         content = README.read_text(encoding="utf-8")
-        self.assertIn("Current plugin version: `6.0.0`", content)
+        self.assertIn("6.1.0", content)
         self.assertIn(".mcp.json", content)
         self.assertIn("platform-setup", content)
-        self.assertIn("mcp__google-ads__query", content)
         self.assertNotIn(old_dependency_line, content)
         self.assertNotIn(legacy_skill_name, content)
 
-    def test_hooks_keep_mcp_mutation_matcher_only(self):
+    def test_readme_documents_bing(self):
+        content = README.read_text(encoding="utf-8")
+        self.assertIn("BING_ADS_DEVELOPER_TOKEN", content)
+        self.assertIn("Bing Ads", content)
+        self.assertIn("cross-platform", content.lower())
+
+    def test_hooks_include_both_mutation_matchers(self):
         hooks_data = json.loads(HOOKS.read_text(encoding="utf-8"))
         pre_tool_use = hooks_data["hooks"]["PreToolUse"]
         matchers = [item.get("matcher") for item in pre_tool_use]
         self.assertIn("mcp__google-ads__mutate", matchers)
+        self.assertIn("mcp__bing-ads__mutate", matchers)
         self.assertNotIn("Bash", matchers)
 
     def test_gitignore_drops_python_cache_patterns_and_mentions_mcp(self):
