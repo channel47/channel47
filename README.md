@@ -6,7 +6,7 @@ Open-source profession plugins for Claude Code, Claude Cowork, and Codex. Each p
 
 Season 01 ships the media buyer plugin. Built from managing 25+ ad accounts daily.
 
-[channel47.dev](https://channel47.dev) | [Build Notes newsletter](https://channel47.dev/subscribe) | [Build your first skill](https://channel47.dev/build)
+[channel47.dev](https://channel47.dev) | [Build Notes](https://channel47.dev/subscribe) | [Build your first skill](https://channel47.dev/build) | [X](https://x.com/ctrlswing) | [LinkedIn](https://www.linkedin.com/in/jackson-d-9979a7a0/)
 
 ## Plugins
 
@@ -23,7 +23,7 @@ From any Claude Code session:
 /plugin install media-buyer@channel47
 ```
 
-Set your Google Ads API credentials as environment variables. The plugin bundles its own MCP server — no separate install.
+Set your API credentials as environment variables. The plugin bundles its own MCP servers — no separate install.
 
 ## How it works
 
