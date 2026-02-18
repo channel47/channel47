@@ -12,7 +12,7 @@ Season 01 ships the media buyer plugin. Built from managing 25+ ad accounts dail
 
 | Plugin | Version | What it does |
 |--------|---------|-------------|
-| [media-buyer](./plugins/media-buyer/) | 6.0.0 | Google Ads + Bing Ads toolkit — setup verification, morning briefs, waste detection, search-term verdicting, PMax decoding. MCP-native with guarded mutations. |
+| [media-buyer](./plugins/media-buyer/) | 6.1.0 | Google Ads + Bing Ads toolkit — setup verification, morning briefs, waste detection, search-term verdicting, PMax decoding. MCP-native with guarded mutations. |
 
 ## Install
 

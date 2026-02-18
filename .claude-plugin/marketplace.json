@@ -7,14 +7,14 @@
   "metadata": {
     "pluginRoot": "./plugins",
     "description": "Open-source profession plugins for Claude Code",
-    "version": "6.0.0"
+    "version": "6.1.0"
   },
   "plugins": [
     {
       "name": "media-buyer",
       "source": "./plugins/media-buyer",
       "description": "Operational paid-search toolkit for Google Ads and Bing Ads with MCP-native workflows for setup, reporting, analysis, and guarded mutations.",
-      "version": "6.0.0",
+      "version": "6.1.0",
       "category": "marketing",
       "tags": ["google-ads", "bing-ads", "microsoft-advertising", "media-buying", "ppc", "ad-platform", "paid-ads", "campaign-management", "ad-reporting", "search-term-analysis", "waste-detection", "performance-max", "anomaly-detection"]
     }

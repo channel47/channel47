@@ -1,14 +1,13 @@
 # Channel 47 Ecosystem
 
-Plugin marketplace and brand skills for Claude Code.
+Plugin marketplace for Claude Code.
 
 ## Structure
 
 ```
 .claude-plugin/marketplace.json   # Plugin registry (channel47 marketplace)
 plugins/
-  media-buyer/                    # Google Ads + Bing Ads paid-search toolkit (v6.0.0)
-skills/                           # Brand .skill files
+  media-buyer/                    # Google Ads + Bing Ads paid-search toolkit (v6.1.0)
 ```
 
 ## Commands
