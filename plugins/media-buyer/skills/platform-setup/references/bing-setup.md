@@ -7,7 +7,7 @@ Configure Microsoft Advertising credentials for the Bing Ads MCP server.
 ```bash
 export BING_ADS_DEVELOPER_TOKEN="your_developer_token"
 export BING_ADS_CLIENT_ID="your_azure_app_client_id"
-export BING_ADS_CLIENT_SECRET="your_azure_app_client_secret"
+export BING_ADS_CLIENT_SECRET="your_azure_app_client_secret"  # omit for public client apps
 export BING_ADS_REFRESH_TOKEN="your_refresh_token"
 export BING_ADS_CUSTOMER_ID="your_manager_customer_id"
 export BING_ADS_ACCOUNT_ID="your_default_account_id"
@@ -15,14 +15,16 @@ export BING_ADS_ACCOUNT_ID="your_default_account_id"
 
 ## Credential sources
 
-| Variable | Where to get it |
-|----------|----------------|
-| `BING_ADS_DEVELOPER_TOKEN` | Microsoft Advertising Developer Portal → Account Settings → Developer Token |
-| `BING_ADS_CLIENT_ID` | Azure Portal → App Registrations → your app → Application (client) ID |
-| `BING_ADS_CLIENT_SECRET` | Azure Portal → App Registrations → Certificates & secrets → New client secret |
-| `BING_ADS_REFRESH_TOKEN` | OAuth2 flow with scope `https://ads.microsoft.com/msads.manage offline_access` |
-| `BING_ADS_CUSTOMER_ID` | Microsoft Advertising UI → top-right account dropdown → Customer ID |
-| `BING_ADS_ACCOUNT_ID` | Microsoft Advertising UI → Accounts Summary → Account Number column |
+| Variable | Required | Where to get it |
+|----------|----------|----------------|
+| `BING_ADS_DEVELOPER_TOKEN` | Yes | Microsoft Advertising Developer Portal → Account Settings → Developer Token |
+| `BING_ADS_CLIENT_ID` | Yes | Azure Portal → App Registrations → your app → Application (client) ID |
+| `BING_ADS_CLIENT_SECRET` | Confidential clients only | Azure Portal → App Registrations → Certificates & secrets → New client secret |
+| `BING_ADS_REFRESH_TOKEN` | Yes | OAuth2 flow with scope `https://ads.microsoft.com/msads.manage offline_access` |
+| `BING_ADS_CUSTOMER_ID` | Yes | Microsoft Advertising UI → top-right account dropdown → Customer ID |
+| `BING_ADS_ACCOUNT_ID` | Yes | Microsoft Advertising UI → Accounts Summary → Account Number column |
+
+**Public client apps** (registered without a client secret) can omit `BING_ADS_CLIENT_SECRET`. The MCP server detects the absence of the env var and uses the public client OAuth flow automatically.
 
 ## Azure app registration
 
@@ -47,6 +49,6 @@ After setting env vars, verify access by running `mcp__bing-ads__list_accounts`.
 
 If verification fails, check:
 
-1. All 4 required env vars are set (`DEVELOPER_TOKEN`, `CLIENT_ID`, `CLIENT_SECRET`, `REFRESH_TOKEN`)
+1. Required env vars are set: `DEVELOPER_TOKEN`, `CLIENT_ID`, `REFRESH_TOKEN` (and `CLIENT_SECRET` for confidential client apps)
 2. The refresh token hasn't expired (re-run OAuth flow if needed)
 3. The Azure app has the correct redirect URI and API permissions

@@ -1,6 +1,6 @@
 {
   "name": "media-buyer",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "description": "Operational paid-search toolkit for Google Ads and Bing Ads with MCP-native workflows for setup, reporting, analysis, and guarded mutations.",
   "author": {
     "name": "Jackson Dean",
