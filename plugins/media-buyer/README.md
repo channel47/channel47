@@ -19,7 +19,7 @@ Built from managing 25+ ad accounts daily. Part of [Channel 47](https://channel4
 
 ## Version
 
-Current: **6.1.0**
+Current: **6.1.2**
 
 ---
 
