@@ -12,7 +12,7 @@
   },
   "bing-ads": {
     "command": "npx",
-    "args": ["-y", "@channel47/bing-ads-mcp@^1.1.3"],
+    "args": ["-y", "@channel47/bing-ads-mcp@^1.1.4"],
     "env": {
       "BING_ADS_DEVELOPER_TOKEN": "${BING_ADS_DEVELOPER_TOKEN}",
       "BING_ADS_CLIENT_ID": "${BING_ADS_CLIENT_ID}",
