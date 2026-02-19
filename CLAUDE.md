@@ -7,7 +7,7 @@ Plugin marketplace for Claude Code.
 ```
 .claude-plugin/marketplace.json   # Plugin registry (channel47 marketplace)
 plugins/
-  media-buyer/                    # Google Ads + Bing Ads paid-search toolkit (v6.1.0)
+  media-buyer/                    # Google Ads + Bing Ads paid-search toolkit (v6.1.2)
 ```
 
 ## Commands
