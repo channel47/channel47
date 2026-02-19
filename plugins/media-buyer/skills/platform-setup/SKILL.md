@@ -55,12 +55,12 @@ If both platforms are configured, summarize:
 ## Cowork compatibility
 
 - **Claude Code / Codex**: Full API access via MCP tools.
-- **Claude Cowork**: Full API access via MCP passthrough (MCP servers run on your Desktop, not in the VM).
+- **Claude Cowork**: MCP servers are expected to work via passthrough. Verify by running `/setup` in your Cowork session.
 
 ## Guardrails
 
 - Never ask users to paste secrets into chat logs.
-- Prefer environment variables over local JSON credential files.
+- Recommend `.claude/settings.local.json` (gitignored, project-scoped) for credentials. Shell env vars are an alternative.
 - For failed verification, report the exact missing variable or auth step.
 
 ## References

@@ -4,15 +4,21 @@ Use this guide to configure Google Ads access for the plugin's bundled MCP serve
 
 ## Required environment variables
 
-Set these in your shell profile (`~/.zshrc`, `~/.bashrc`, or equivalent):
+Add these to `.claude/settings.local.json` in your project root (gitignored by default):
 
-```bash
-export GOOGLE_ADS_DEVELOPER_TOKEN="your_developer_token"
-export GOOGLE_ADS_CLIENT_ID="your_oauth_client_id"
-export GOOGLE_ADS_CLIENT_SECRET="your_oauth_client_secret"
-export GOOGLE_ADS_REFRESH_TOKEN="your_refresh_token"
-export GOOGLE_ADS_LOGIN_CUSTOMER_ID="your_mcc_customer_id_without_hyphens"
+```json
+{
+  "env": {
+    "GOOGLE_ADS_DEVELOPER_TOKEN": "your_developer_token",
+    "GOOGLE_ADS_CLIENT_ID": "your_oauth_client_id",
+    "GOOGLE_ADS_CLIENT_SECRET": "your_oauth_client_secret",
+    "GOOGLE_ADS_REFRESH_TOKEN": "your_refresh_token",
+    "GOOGLE_ADS_LOGIN_CUSTOMER_ID": "your_mcc_customer_id_without_hyphens"
+  }
+}
 ```
+
+Alternatively, set them in your shell profile (`~/.zshrc`, `~/.bashrc`). Restart Claude Code after changing either.
 
 ## Credential sources
 
@@ -23,7 +29,7 @@ export GOOGLE_ADS_LOGIN_CUSTOMER_ID="your_mcc_customer_id_without_hyphens"
 
 ## Verification flow
 
-1. Confirm all required env vars are set in the current shell session.
+1. Confirm all required env vars are set (in `.claude/settings.local.json` or shell environment).
 2. Run `mcp__google-ads__list_accounts`.
 3. If successful, capture visible account IDs and names.
 4. If failed, report the exact auth error and map it to the missing/invalid variable.

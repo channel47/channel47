@@ -4,14 +4,22 @@ Configure Microsoft Advertising credentials for the Bing Ads MCP server.
 
 ## Required environment variables
 
-```bash
-export BING_ADS_DEVELOPER_TOKEN="your_developer_token"
-export BING_ADS_CLIENT_ID="your_azure_app_client_id"
-export BING_ADS_CLIENT_SECRET="your_azure_app_client_secret"  # omit for public client apps
-export BING_ADS_REFRESH_TOKEN="your_refresh_token"
-export BING_ADS_CUSTOMER_ID="your_manager_customer_id"
-export BING_ADS_ACCOUNT_ID="your_default_account_id"
+Add these to `.claude/settings.local.json` in your project root (gitignored by default):
+
+```json
+{
+  "env": {
+    "BING_ADS_DEVELOPER_TOKEN": "your_developer_token",
+    "BING_ADS_CLIENT_ID": "your_azure_app_client_id",
+    "BING_ADS_CLIENT_SECRET": "your_azure_app_client_secret",
+    "BING_ADS_REFRESH_TOKEN": "your_refresh_token",
+    "BING_ADS_CUSTOMER_ID": "your_manager_customer_id",
+    "BING_ADS_ACCOUNT_ID": "your_default_account_id"
+  }
+}
 ```
+
+Omit `BING_ADS_CLIENT_SECRET` for public client apps. Alternatively, set these in your shell profile (`~/.zshrc`, `~/.bashrc`). Restart Claude Code after changing either.
 
 ## Credential sources
 
