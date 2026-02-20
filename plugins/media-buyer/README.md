@@ -43,7 +43,6 @@ The plugin bundles two MCP servers via `.mcp.json`. Set these environment variab
 |----------|----------|
 | `BING_ADS_DEVELOPER_TOKEN` | Yes |
 | `BING_ADS_CLIENT_ID` | Yes |
-| `BING_ADS_CLIENT_SECRET` | Yes |
 | `BING_ADS_REFRESH_TOKEN` | Yes |
 | `BING_ADS_CUSTOMER_ID` | For manager accounts |
 | `BING_ADS_ACCOUNT_ID` | Default account |
