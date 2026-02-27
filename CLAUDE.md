@@ -1,6 +1,6 @@
 # Channel 47 Ecosystem
 
-Plugin marketplace for Claude Code.
+AI skills registry for Claude Code, Claude Cowork, and Codex. Houses skills (SKILL.md open standard), MCP servers, CLI tools, subagents, and full plugins.
 
 ## Structure
 
@@ -9,6 +9,14 @@ Plugin marketplace for Claude Code.
 plugins/
   media-buyer/                    # Google Ads + Bing Ads paid-search toolkit (v6.1.2)
 ```
+
+## Vision
+
+**Current state:** One profession plugin (media-buyer v6.1.2). Marketing/media buying tools focus.
+
+**Direction:** Browsable, categorized registry. Community contributions. General-purpose AI skills marketplace eventually.
+
+**Model:** 21st.dev — community content is the SEO/discovery magnet. Commercial products (starting with Paid Briefs) generate revenue.
 
 ## Commands
 
@@ -21,6 +29,8 @@ plugins/
 ## Plugin Development
 
 Plugins live in `plugins/`. Each plugin has a `.claude-plugin/plugin.json` manifest. The marketplace registry at `.claude-plugin/marketplace.json` indexes all available plugins.
+
+Future contributions aren't limited to full plugins — individual skills (SKILL.md), MCP server configs, CLI tools, and subagents are all first-class registry items.
 
 ## Gotchas
 
