@@ -11,7 +11,7 @@ Built from managing 25+ ad accounts daily. Part of [Channel 47](https://channel4
 ## Install
 
 ```bash
-/plugin marketplace add channel47/channel47
+/plugin marketplace add channel47/plugins
 /plugin install media-buyer@channel47
 ```
 

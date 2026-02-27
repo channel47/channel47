@@ -22,7 +22,7 @@ plugins/
 
 **Plugin install** (from any Claude Code session):
 ```
-/plugin marketplace add channel47/channel47
+/plugin marketplace add channel47/plugins
 /plugin install media-buyer@channel47
 ```
 

@@ -19,7 +19,7 @@ Season 01 ships the media buyer plugin. Built from managing 25+ ad accounts dail
 From any Claude Code session:
 
 ```
-/plugin marketplace add channel47/channel47
+/plugin marketplace add channel47/plugins
 /plugin install media-buyer@channel47
 ```
 
