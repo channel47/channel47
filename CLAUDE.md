@@ -8,11 +8,12 @@ AI skills registry for Claude Code, Claude Cowork, and Codex. Houses skills (SKI
 .claude-plugin/marketplace.json   # Plugin registry (channel47 marketplace)
 plugins/
   paid-search/                    # Google Ads + Bing Ads paid search toolkit (v7.0.0)
+  meta-ads/                       # Meta Ads (Facebook + Instagram) toolkit — skeleton (v0.1.0)
 ```
 
 ## Vision
 
-Marketing-focused plugin registry (paid-search v7.0.0 live). Growing toward browsable marketplace — 21st.dev model.
+Marketing-focused plugin registry (paid-search v7.0.0 live, meta-ads v0.1.0 skeleton). Growing toward browsable marketplace — 21st.dev model.
 
 ## Commands
 

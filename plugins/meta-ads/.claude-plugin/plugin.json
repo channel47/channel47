@@ -1,0 +1,26 @@
+{
+  "name": "meta-ads",
+  "version": "0.1.0",
+  "description": "Meta Ads toolkit for Facebook and Instagram — creative analysis, audience building, reporting, and campaign optimization via MCP.",
+  "author": {
+    "name": "Jackson Dean",
+    "url": "https://channel47.dev"
+  },
+  "homepage": "https://channel47.dev/plugins/meta-ads",
+  "repository": "https://github.com/channel47/plugins",
+  "keywords": [
+    "meta-ads",
+    "facebook-ads",
+    "instagram-ads",
+    "social-ads",
+    "demand-generation",
+    "creative-testing",
+    "audience-targeting",
+    "lookalike-audiences",
+    "campaign-management",
+    "ad-reporting",
+    "creative-fatigue",
+    "cpm-optimization"
+  ],
+  "license": "MIT"
+}

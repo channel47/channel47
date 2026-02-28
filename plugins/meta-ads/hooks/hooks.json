@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__meta-ads__mutate",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/validate-mutations.py",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
