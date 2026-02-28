@@ -1,21 +1,20 @@
 {
-  "name": "media-buyer",
-  "version": "6.1.2",
-  "description": "Operational paid-search toolkit for Google Ads and Bing Ads with MCP-native workflows for setup, reporting, analysis, and guarded mutations.",
+  "name": "paid-search",
+  "version": "7.0.0",
+  "description": "Paid search toolkit for Google Ads and Bing Ads — setup, reporting, analysis, and guarded mutations via MCP.",
   "author": {
     "name": "Jackson Dean",
     "url": "https://channel47.dev"
   },
-  "homepage": "https://channel47.dev/plugins/media-buyer",
+  "homepage": "https://channel47.dev/plugins/paid-search",
   "repository": "https://github.com/channel47/plugins",
   "keywords": [
     "google-ads",
     "bing-ads",
     "microsoft-advertising",
-    "media-buying",
+    "paid-search",
     "ppc",
-    "ad-platform",
-    "paid-ads",
+    "search-ads",
     "campaign-management",
     "ad-reporting",
     "search-term-analysis",

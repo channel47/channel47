@@ -1,8 +1,8 @@
-# Media Buyer — Claude Code Plugin
+# Paid Search — Claude Code Plugin
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Operational paid-search toolkit for Google Ads and Bing Ads with MCP-native workflows for setup, reporting, analysis, and guarded mutations.
+Paid search toolkit for Google Ads and Bing Ads — setup, reporting, analysis, and guarded mutations via MCP.
 
 Built from managing 25+ ad accounts daily. Part of [Channel 47](https://channel47.dev), the open-source ecosystem of profession plugins for Claude Code. [Get the newsletter](https://channel47.dev/subscribe) for weekly skill breakdowns from production use.
 
@@ -12,14 +12,14 @@ Built from managing 25+ ad accounts daily. Part of [Channel 47](https://channel4
 
 ```bash
 /plugin marketplace add channel47/plugins
-/plugin install media-buyer@channel47
+/plugin install paid-search@channel47
 ```
 
 ---
 
 ## Version
 
-Current: **6.1.2**
+Current: **7.0.0**
 
 ---
 
@@ -54,7 +54,7 @@ Both MCP servers install automatically via `npx` — no separate setup. Configur
 ## What's Inside
 
 ```text
-media-buyer/
+paid-search/
 ├── .claude-plugin/
 │   └── plugin.json
 ├── .mcp.json              # Google Ads + Bing Ads MCP servers
@@ -82,19 +82,19 @@ Setup and verification for Google Ads and Bing Ads credentials. Validates API ac
 
 ### morning-brief
 
-Cross-platform daily account-health summary. Pulls data from both Google and Bing, detects anomalies, assesses budget pacing, and produces a unified Urgent/Watch/Healthy narrative.
+Daily paid search account-health summary. Pulls data from both Google and Bing, detects anomalies, assesses budget pacing, and produces a unified Urgent/Watch/Healthy narrative.
 
 ### waste-detector
 
-Finds high-impact spend leaks across Google and Bing. Quantifies waste in dollars, ranks by impact, and prepares remediation — automated mutations for Google, manual action items for Bing.
+Finds high-impact spend leaks across Google and Bing search campaigns. Quantifies waste in dollars, ranks by impact, and prepares remediation — automated mutations for Google, manual action items for Bing.
 
 ### search-term-verdict
 
-Classifies search terms from both platforms into NEGATE/PROMOTE/INVESTIGATE/KEEP verdicts. Builds negative keyword packages with cross-platform pattern detection (same term wasting money on both platforms = high-confidence NEGATE).
+Classifies search terms from both platforms into NEGATE/PROMOTE/INVESTIGATE/KEEP verdicts. Builds negative keyword packages with cross-platform pattern detection.
 
 ### pmax-decoder
 
-Cracks open Performance Max campaign transparency data. Google Ads only (PMax is a Google product). Analyzes search terms, channel distribution, asset performance, brand traffic, and placements.
+Cracks open Performance Max campaign transparency data. Google Ads only. Analyzes search terms, channel distribution, asset performance, brand traffic, and placements.
 
 ---
 
@@ -109,15 +109,13 @@ Every write operation follows the same protocol:
 
 `hooks/validate-mutations.py` intercepts both `mcp__google-ads__mutate` and `mcp__bing-ads__mutate` to enforce this.
 
-Bing Ads MCP is currently read-only (query + report). Bing mutation support will be added in a future release.
-
 ---
 
 ## Try It
 
 - "Set up and verify my Google and Bing accounts."
-- "Give me this morning's account brief."
-- "Find where I'm wasting budget across all platforms."
+- "Give me this morning's paid search brief."
+- "Find where I'm wasting search budget."
 - "Review search terms and draft negatives for Google and Bing."
 - "Decode what my PMax campaign is actually doing."
 
@@ -128,8 +126,6 @@ Bing Ads MCP is currently read-only (query + report). Bing mutation support will
 - [Channel 47](https://channel47.dev) — open-source profession plugins for Claude Code
 - [Build Notes](https://channel47.dev/subscribe) — weekly skill breakdowns from production use
 - [MCP Servers](https://github.com/channel47/mcps) — the Google Ads and Bing Ads MCPs this plugin uses
-- [Build Your First Skill](https://channel47.dev/build) — interactive skill builder
-- [X](https://x.com/ctrlswing) / [LinkedIn](https://www.linkedin.com/in/jackson-d-9979a7a0/) / [GitHub](https://github.com/channel47)
 
 ## License
 

@@ -1,17 +1,18 @@
 ---
 name: waste-detector
 description: >-
-  This skill should be used when the user asks to "find waste", "audit my
-  account", "where am I wasting money", "account audit", "find wasted
-  spend", "check for waste", "money leaks", "account health", "what's
-  costing me money", "optimization opportunities", or mentions account
-  optimization, spend analysis, waste analysis, or budget efficiency.
+  This skill should be used when the user asks to "find search waste",
+  "audit my search account", "where am I wasting search budget",
+  "paid search audit", "find wasted spend", "check for waste",
+  "search money leaks", "paid search health", "what's costing me money
+  in search", "optimization opportunities", or mentions paid search
+  optimization, search spend analysis, or budget efficiency.
 allowed-tools: mcp__google-ads__query, mcp__google-ads__mutate, mcp__google-ads__list_accounts, mcp__bing-ads__report, mcp__bing-ads__query, mcp__bing-ads__list_accounts
 ---
 
-# Waste Detector
+# Paid Search Waste Detector
 
-Scan Google Ads and Bing Ads accounts for the most common spend leaks and quantify each leak in dollars with an action plan.
+Scan Google Ads and Bing Ads paid search accounts for the most common spend leaks and quantify each leak in dollars with an action plan.
 
 ## Data Access
 

@@ -7,23 +7,19 @@ AI skills registry for Claude Code, Claude Cowork, and Codex. Houses skills (SKI
 ```
 .claude-plugin/marketplace.json   # Plugin registry (channel47 marketplace)
 plugins/
-  media-buyer/                    # Google Ads + Bing Ads paid-search toolkit (v6.1.2)
+  paid-search/                    # Google Ads + Bing Ads paid search toolkit (v7.0.0)
 ```
 
 ## Vision
 
-**Current state:** One profession plugin (media-buyer v6.1.2). Marketing/media buying tools focus.
-
-**Direction:** Browsable, categorized registry. Community contributions. General-purpose AI skills marketplace eventually.
-
-**Model:** 21st.dev — community content is the SEO/discovery magnet. Commercial products (starting with Paid Briefs) generate revenue.
+Marketing-focused plugin registry (paid-search v7.0.0 live). Growing toward browsable marketplace — 21st.dev model.
 
 ## Commands
 
 **Plugin install** (from any Claude Code session):
 ```
 /plugin marketplace add channel47/plugins
-/plugin install media-buyer@channel47
+/plugin install paid-search@channel47
 ```
 
 ## Plugin Development

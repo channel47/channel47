@@ -2,16 +2,16 @@
 name: morning-brief
 description: >-
   This skill should be used when the user asks for a "morning brief",
-  "daily check", "what happened overnight", "account health check",
-  "what should I worry about", "how are my campaigns doing", "daily
-  summary", "performance check", or mentions daily monitoring, anomaly
-  detection, or account health.
+  "daily check", "what happened overnight", "paid search health check",
+  "what should I worry about", "how are my search campaigns doing",
+  "daily summary", "search performance check", or mentions daily
+  monitoring, anomaly detection, or paid search account health.
 allowed-tools: mcp__google-ads__query, mcp__google-ads__list_accounts, mcp__bing-ads__report, mcp__bing-ads__query, mcp__bing-ads__list_accounts
 ---
 
-# Morning Brief
+# Paid Search Morning Brief
 
-Produce a daily, prioritized account-health narrative across Google Ads and Bing Ads with actionable items.
+Produce a daily, prioritized account-health narrative across Google Ads and Bing Ads paid search campaigns with actionable items.
 
 ## Data Access
 

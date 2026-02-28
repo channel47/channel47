@@ -2,8 +2,9 @@
 name: platform-setup
 description: >-
   This skill should be used when the user asks to "connect to Google Ads",
-  "set up Bing", "verify connection", "configure my ad accounts", "set up
-  Microsoft Advertising", or "check my ad platform access".
+  "set up Bing", "verify connection", "configure my search ad accounts",
+  "set up Microsoft Advertising", "check my paid search access", or
+  "connect my paid search platforms".
 allowed-tools: mcp__google-ads__list_accounts, mcp__bing-ads__list_accounts
 ---
 

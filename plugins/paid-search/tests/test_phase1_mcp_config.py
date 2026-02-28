@@ -44,7 +44,6 @@ class TestPhase1McpConfig(unittest.TestCase):
         required_env = [
             "BING_ADS_DEVELOPER_TOKEN",
             "BING_ADS_CLIENT_ID",
-            "BING_ADS_CLIENT_SECRET",
             "BING_ADS_REFRESH_TOKEN",
             "BING_ADS_CUSTOMER_ID",
             "BING_ADS_ACCOUNT_ID",

@@ -12,7 +12,7 @@ GITIGNORE = Path(".gitignore")
 class TestPhase6Metadata(unittest.TestCase):
     def test_plugin_json_version_and_description(self):
         data = json.loads(PLUGIN_JSON.read_text(encoding="utf-8"))
-        self.assertEqual("6.1.0", data.get("version"))
+        self.assertEqual("7.0.0", data.get("version"))
         self.assertNotIn("Python scripts", data.get("description", ""))
         self.assertIn("MCP", data.get("description", ""))
 
@@ -20,7 +20,7 @@ class TestPhase6Metadata(unittest.TestCase):
         old_dependency_line = "pip" + " install " + "google-ads bingads " + ("pan" + "das")
         legacy_skill_name = "ad-platform" + "-connection"
         content = README.read_text(encoding="utf-8")
-        self.assertIn("6.1.0", content)
+        self.assertIn("7.0.0", content)
         self.assertIn(".mcp.json", content)
         self.assertIn("platform-setup", content)
         self.assertNotIn(old_dependency_line, content)

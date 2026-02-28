@@ -28,7 +28,7 @@ class TestPhase2PlatformSetupSkill(unittest.TestCase):
         self.assertIn("connect to Google Ads", skill_text)
         self.assertIn("set up Bing", skill_text)
         self.assertIn("verify connection", skill_text)
-        self.assertIn("configure my ad accounts", skill_text)
+        self.assertIn("configure my search ad accounts", skill_text)
 
     def test_platform_setup_uses_env_var_based_configuration(self):
         config_patterns = _read(SKILLS_ROOT / "platform-setup/references/config-patterns.md")
