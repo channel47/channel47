@@ -7,16 +7,24 @@
   "metadata": {
     "pluginRoot": "./plugins",
     "description": "Open-source profession plugins for Claude Code",
-    "version": "6.1.2"
+    "version": "7.0.0"
   },
   "plugins": [
     {
-      "name": "media-buyer",
-      "source": "./plugins/media-buyer",
-      "description": "Operational paid-search toolkit for Google Ads and Bing Ads with MCP-native workflows for setup, reporting, analysis, and guarded mutations.",
-      "version": "6.1.2",
+      "name": "paid-search",
+      "source": "./plugins/paid-search",
+      "description": "Paid search toolkit for Google Ads and Bing Ads — 6 skills, 2 MCP servers, safety hooks for setup, reporting, analysis, and guarded mutations.",
+      "version": "7.0.0",
       "category": "marketing",
-      "tags": ["google-ads", "bing-ads", "microsoft-advertising", "media-buying", "ppc", "ad-platform", "paid-ads", "campaign-management", "ad-reporting", "search-term-analysis", "waste-detection", "performance-max", "anomaly-detection"]
+      "tags": ["google-ads", "bing-ads", "microsoft-advertising", "paid-search", "ppc", "campaign-management", "ad-reporting", "search-term-analysis", "waste-detection", "performance-max", "anomaly-detection"]
+    },
+    {
+      "name": "meta-ads",
+      "source": "./plugins/meta-ads",
+      "description": "Meta Ads toolkit for Facebook and Instagram — creative analysis, audience building, waste detection, and daily reporting via MCP.",
+      "version": "0.1.0",
+      "category": "marketing",
+      "tags": ["meta-ads", "facebook", "instagram", "creative-analysis", "audience-building", "waste-detection"]
     }
   ]
 }
