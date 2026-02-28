@@ -90,13 +90,13 @@ def extract_watch_items(text: str) -> list[str]:
         r"(?i)(?<!no )spike\b[^.!?\n]{5,80}",
         r"(?i)(?<!no )(?<!not )drop(?:ped|ping)?\b[^.!?\n]{5,80}",
         r"(?i)(?<!not )unusual\b[^.!?\n]{5,80}",
-        # Meta-specific patterns
-        r"(?i)creative fatigue\b[^.!?\n]{5,80}",
+        # Meta-specific patterns (all use negation guards)
+        r"(?i)(?<!no )(?<!not )creative fatigue\b[^.!?\n]{5,80}",
         r"(?i)(?<!no )(?<!not )frequency (?:spike|issue|concern|rising|high)\b[^.!?\n]{5,80}",
-        r"(?i)CPM spike\b[^.!?\n]{5,80}",
-        r"(?i)audience exhaustion\b[^.!?\n]{5,80}",
-        r"(?i)(?<!no )hook rate (?:drop|declin|low)\b[^.!?\n]{5,80}",
-        r"(?i)thruplay (?:drop|declin|low)\b[^.!?\n]{5,80}",
+        r"(?i)(?<!no )(?<!not )CPM spike\b[^.!?\n]{5,80}",
+        r"(?i)(?<!no )(?<!not )audience exhaustion\b[^.!?\n]{5,80}",
+        r"(?i)(?<!no )(?<!not )hook rate (?:drop|declin|low)\b[^.!?\n]{5,80}",
+        r"(?i)(?<!no )(?<!not )thruplay (?:drop|declin|low)\b[^.!?\n]{5,80}",
     ]
     items = []
     for pattern in patterns:
@@ -104,7 +104,7 @@ def extract_watch_items(text: str) -> list[str]:
             cleaned = match.strip().rstrip(".")
             if len(cleaned) > 10 and cleaned not in items:
                 items.append(cleaned)
-    return items[:5]  # Cap at 5 per session
+    return _dedup_overlaps(items)[:5]  # Cap at 5 per session
 
 
 def extract_decision_items(text: str) -> list[str]:
@@ -158,6 +158,15 @@ def extract_test_items(text: str) -> list[str]:
             if len(cleaned) > 10 and cleaned not in items:
                 items.append(cleaned)
     return items[:3]
+
+
+def _dedup_overlaps(items: list[str]) -> list[str]:
+    """Remove items that are substrings of other items (keep the longer one)."""
+    deduped = []
+    for item in items:
+        if not any(item in other and item != other for other in items):
+            deduped.append(item)
+    return deduped
 
 
 def append_to_section(

@@ -97,7 +97,7 @@ def extract_watch_items(text: str) -> list[str]:
             cleaned = match.strip().rstrip(".")
             if len(cleaned) > 10 and cleaned not in items:
                 items.append(cleaned)
-    return items[:5]  # Cap at 5 per session
+    return _dedup_overlaps(items)[:5]  # Cap at 5 per session
 
 
 def extract_decision_items(text: str) -> list[str]:
@@ -141,6 +141,15 @@ def extract_test_items(text: str) -> list[str]:
             if len(cleaned) > 10 and cleaned not in items:
                 items.append(cleaned)
     return items[:3]
+
+
+def _dedup_overlaps(items: list[str]) -> list[str]:
+    """Remove items that are substrings of other items (keep the longer one)."""
+    deduped = []
+    for item in items:
+        if not any(item in other and item != other for other in items):
+            deduped.append(item)
+    return deduped
 
 
 def append_to_section(
