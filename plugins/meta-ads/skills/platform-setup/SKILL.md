@@ -40,6 +40,19 @@ Run `mcp__meta-ads__list_accounts` and report:
 - Which ad account IDs and names are visible
 - Any missing credentials or auth failures
 
+### Step 4: Generate account profile
+
+After verifying platform access:
+
+1. Read `references/profile-template.md` as the base template.
+2. Populate the **Accounts** table with discovered account IDs, names, pixel IDs, and statuses from Step 3.
+3. Ask the user for their KPI targets (CPA, ROAS, CPM ceiling, frequency cap, monthly budget) and fill the **Targets** table.
+4. Ask about active creative/audience tests, conversion events, attribution window, and preferences.
+5. Write the populated profile to `${CLAUDE_PLUGIN_ROOT}/profile/account-profile.md`.
+6. Confirm the profile was saved and explain that analysis skills (morning-brief, waste-detector, etc.) will read it automatically on each run.
+
+If the profile already exists, ask whether to overwrite or merge new account data into the existing profile.
+
 ## Guardrails
 
 - Never ask users to paste secrets into chat logs.

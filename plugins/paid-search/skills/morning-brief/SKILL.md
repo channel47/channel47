@@ -13,6 +13,16 @@ allowed-tools: mcp__google-ads__query, mcp__google-ads__list_accounts, mcp__bing
 
 Produce a daily, prioritized account-health narrative across Google Ads and Bing Ads paid search campaigns with actionable items.
 
+## Account Context
+
+Read `${CLAUDE_PLUGIN_ROOT}/profile/account-profile.md` at the start of every run.
+If it exists:
+- Use known account IDs — skip `list_accounts` discovery.
+- Apply KPI targets as anomaly detection thresholds (e.g., flag CPA > target CPA).
+- Note active tests when interpreting performance shifts.
+- Check watch list for follow-up items from prior sessions.
+If it doesn't exist, fall back to `list_accounts` and suggest running `platform-setup`.
+
 ## Data Access
 
 ### Google Ads
@@ -137,6 +147,15 @@ Every item must include the **platform label** (Google / Bing), the likely cause
 - Cap each priority section: max 5 Urgent, 5 Watch, 5 Healthy items.
 - **Bing token rotation**: If `mcp__bing-ads__list_accounts` fails with auth error, note that Microsoft rotates refresh tokens and suggest re-running the OAuth flow.
 - **Single-platform graceful**: If one platform is not configured, produce the brief for the available platform without error messaging. Only mention the missing platform in a Notes footer.
+
+## Profile Maintenance
+
+After completing analysis, if `${CLAUDE_PLUGIN_ROOT}/profile/account-profile.md` exists:
+1. Update Watch List with any new anomalies flagged in this run.
+2. Update Active Tests if user mentioned starting or completing a test.
+3. Append to Decision Log if actions were taken (pauses, negatives added, etc.).
+4. Update "Last updated" date.
+Present proposed profile changes to the user before writing.
 
 ## References
 

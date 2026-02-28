@@ -14,6 +14,16 @@ allowed-tools: mcp__google-ads__query, mcp__google-ads__mutate, mcp__google-ads_
 
 Classify paid-search queries into actionable verdicts across Google Ads and Bing Ads and produce ready-to-apply negative keyword and promotion recommendations.
 
+## Account Context
+
+Read `${CLAUDE_PLUGIN_ROOT}/profile/account-profile.md` at the start of every run.
+If it exists:
+- Use known account IDs — skip `list_accounts` discovery.
+- Apply KPI targets as anomaly detection thresholds (e.g., flag CPA > target CPA).
+- Note active tests when interpreting performance shifts.
+- Check watch list for follow-up items from prior sessions.
+If it doesn't exist, fall back to `list_accounts` and suggest running `platform-setup`.
+
 ## Data Access
 
 ### Google Ads

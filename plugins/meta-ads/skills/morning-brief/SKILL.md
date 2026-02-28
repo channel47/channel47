@@ -17,6 +17,17 @@ Produce a daily, prioritized account-health narrative for Meta Ads (Facebook + I
 
 Skeleton — requires `@channel47/meta-ads-mcp` to be built and published before this skill is functional.
 
+## Account Context
+
+Read `${CLAUDE_PLUGIN_ROOT}/profile/account-profile.md` at the start of every run.
+If it exists:
+- Use known account IDs — skip `list_accounts` discovery.
+- Apply KPI targets as anomaly detection thresholds (e.g., flag CPA > target CPA, CPM > ceiling).
+- Use frequency cap from profile to calibrate fatigue alerts.
+- Note active creative/audience tests when interpreting performance shifts.
+- Check watch list for follow-up items from prior sessions.
+If it doesn't exist, fall back to `list_accounts` and suggest running `platform-setup`.
+
 ## Key Metrics (differ from paid search)
 
 - **CPM** (cost per thousand impressions) — primary cost metric
@@ -72,6 +83,15 @@ Same contract as paid-search morning-brief:
 - Attribution window: note Meta's default 7-day click / 1-day view window
 - iOS privacy impact: note potential underreporting from ATT opt-outs
 - Learning phase: do not flag campaigns in learning phase (<50 conversions/week) as underperforming
+
+## Profile Maintenance
+
+After completing analysis, if `${CLAUDE_PLUGIN_ROOT}/profile/account-profile.md` exists:
+1. Update Watch List with any new anomalies flagged in this run.
+2. Update Active Tests if user mentioned starting or completing a test.
+3. Append to Decision Log if actions were taken (pauses, negatives added, etc.).
+4. Update "Last updated" date.
+Present proposed profile changes to the user before writing.
 
 ## References
 

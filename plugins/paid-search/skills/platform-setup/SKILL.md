@@ -53,6 +53,19 @@ If both platforms are configured, summarize:
 - Bing Ads: [N] accounts accessible
 - Any platforms with missing or failed credentials
 
+### Step 7: Generate account profile
+
+After verifying platform access:
+
+1. Read `references/profile-template.md` as the base template.
+2. Populate the **Accounts** table with discovered account IDs, names, and statuses from Steps 3 and 5.
+3. Ask the user for their KPI targets (CPA, ROAS, monthly budget) and fill the **Targets** table.
+4. Ask about any active tests, conversion actions, attribution model, and preferences.
+5. Write the populated profile to `${CLAUDE_PLUGIN_ROOT}/profile/account-profile.md`.
+6. Confirm the profile was saved and explain that analysis skills (morning-brief, waste-detector, etc.) will read it automatically on each run.
+
+If the profile already exists, ask whether to overwrite or merge new account data into the existing profile.
+
 ## Cowork compatibility
 
 - **Claude Code / Codex**: Full API access via MCP tools.

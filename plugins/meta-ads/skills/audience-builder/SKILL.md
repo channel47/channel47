@@ -17,6 +17,17 @@ Design and evaluate Meta Ads audience strategies — lookalike modeling, custom 
 
 Skeleton — requires `@channel47/meta-ads-mcp` to be built and published before this skill is functional.
 
+## Account Context
+
+Read `${CLAUDE_PLUGIN_ROOT}/profile/account-profile.md` at the start of every run.
+If it exists:
+- Use known account IDs — skip `list_accounts` discovery.
+- Apply KPI targets when evaluating audience performance (e.g., CPA vs target by audience).
+- Reference audience notes from preferences for seed quality and exclusion list context.
+- Note active audience tests when recommending changes.
+- Check watch list for follow-up items from prior sessions.
+If it doesn't exist, fall back to `list_accounts` and suggest running `platform-setup`.
+
 ## Audience Types
 
 | Type | Source | Best For |

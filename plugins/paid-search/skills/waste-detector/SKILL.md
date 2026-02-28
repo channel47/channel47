@@ -14,6 +14,16 @@ allowed-tools: mcp__google-ads__query, mcp__google-ads__mutate, mcp__google-ads_
 
 Scan Google Ads and Bing Ads paid search accounts for the most common spend leaks and quantify each leak in dollars with an action plan.
 
+## Account Context
+
+Read `${CLAUDE_PLUGIN_ROOT}/profile/account-profile.md` at the start of every run.
+If it exists:
+- Use known account IDs — skip `list_accounts` discovery.
+- Apply KPI targets as anomaly detection thresholds (e.g., flag CPA > target CPA).
+- Note active tests when interpreting performance shifts.
+- Check watch list for follow-up items from prior sessions.
+If it doesn't exist, fall back to `list_accounts` and suggest running `platform-setup`.
+
 ## Data Access
 
 ### Google Ads
@@ -131,6 +141,15 @@ All Bing waste findings are presented as actionable recommendations with specifi
 - Do not run live mutations without explicit user approval.
 - Distinguish "true zero" from omitted zero-value GAQL rows.
 - **Bing limitations**: Note that Bing waste findings cannot be auto-remediated. Present clear manual steps.
+
+## Profile Maintenance
+
+After completing analysis, if `${CLAUDE_PLUGIN_ROOT}/profile/account-profile.md` exists:
+1. Update Watch List with any new anomalies flagged in this run.
+2. Update Active Tests if user mentioned starting or completing a test.
+3. Append to Decision Log if actions were taken (pauses, negatives added, etc.).
+4. Update "Last updated" date.
+Present proposed profile changes to the user before writing.
 
 ## References
 
