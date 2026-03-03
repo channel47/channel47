@@ -25,7 +25,7 @@ Marketing-focused plugin registry (paid-search v7.0.0 live, meta-ads v0.1.0 skel
 
 ## Plugin Development
 
-Plugins live in `plugins/`. Each plugin has a `.claude-plugin/plugin.json` manifest. The marketplace registry at `.claude-plugin/marketplace.json` indexes all available plugins.
+Plugins live in `plugins/`. Each plugin has a `.claude-plugin/plugin.json` manifest. The marketplace registry at `.claude-plugin/marketplace.json` indexes all available plugins. To develop a plugin, work inside its directory (e.g., `plugins/paid-search/`). Each plugin has its own CLAUDE.md with specific commands. Use `/plugin-dev:plugin-validator` to validate structure before committing.
 
 Future contributions aren't limited to full plugins — individual skills (SKILL.md), MCP server configs, CLI tools, and subagents are all first-class registry items.
 
