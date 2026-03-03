@@ -1,0 +1,25 @@
+{
+  "name": "frontend-craft",
+  "version": "1.0.0",
+  "description": "Design, build, review, and polish beautiful web UIs — from design system to final animation. 7 skills, 2 agents, and a design token hook.",
+  "author": {
+    "name": "Jackson Dean",
+    "url": "https://channel47.dev"
+  },
+  "homepage": "https://channel47.dev/plugins/frontend-craft",
+  "repository": "https://github.com/channel47/plugins",
+  "keywords": [
+    "frontend",
+    "design",
+    "ui",
+    "components",
+    "design-system",
+    "accessibility",
+    "responsive",
+    "animation",
+    "polish",
+    "tailwind",
+    "react"
+  ],
+  "license": "MIT"
+}

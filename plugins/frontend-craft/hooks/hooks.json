@@ -1,0 +1,19 @@
+{
+  "description": "Frontend Craft — Design system consistency hooks",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": {
+          "tool_name": "Write|Edit"
+        },
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Check if the file being written/edited is a frontend component file (tsx, jsx, vue, svelte, astro) or CSS file. If it is, quickly scan the content for these issues:\n\n1. Hardcoded hex color values (like #3b82f6) instead of design tokens (like bg-primary-500 or var(--color-primary))\n2. Hardcoded pixel values for spacing (like padding: 20px) instead of design tokens (like p-5 or var(--spacing-5))\n3. Missing focus-visible styles on interactive elements (buttons, links, inputs)\n\nIf this is NOT a frontend file (e.g., it's a config file, JSON, markdown, script, etc.), respond with nothing — no warnings needed.\n\nIf this IS a frontend file and you find issues, respond with a brief warning like:\n'Design system note: Found hardcoded color #3b82f6 — consider using a design token instead.'\n\nOnly flag clear violations. Do not flag Tailwind utility classes that use the theme system (like bg-blue-500 if blue is in the Tailwind config). Do not flag values inside tailwind.config or CSS custom property definitions. Keep warnings to 1-2 sentences max. If everything looks fine, respond with nothing.",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

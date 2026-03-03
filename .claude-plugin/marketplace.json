@@ -25,6 +25,14 @@
       "version": "0.1.0",
       "category": "marketing",
       "tags": ["meta-ads", "facebook", "instagram", "creative-analysis", "audience-building", "waste-detection"]
+    },
+    {
+      "name": "frontend-craft",
+      "source": "./plugins/frontend-craft",
+      "description": "Design, build, review, and polish web UIs — 7 skills, 2 agents, and a design token hook for design systems, components, pages, accessibility, and responsive.",
+      "version": "1.0.0",
+      "category": "frontend",
+      "tags": ["frontend", "design", "ui", "design-system", "accessibility", "responsive", "components", "tailwind", "react", "polish"]
     }
   ]
 }
