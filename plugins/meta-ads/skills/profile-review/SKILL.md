@@ -3,9 +3,11 @@ name: profile-review
 description: >-
   This skill should be used when the user asks to "review profile",
   "clean up profile", "profile maintenance", "stale watch items",
-  "profile audit", "check my profile", or "tidy up the account profile".
-  Audits the Meta Ads account profile for stale watch list entries,
-  lingering tests, bloated decision logs, and outdated targets.
+  "profile audit", "check my profile", "tidy up the account profile",
+  "my profile is messy", "old watch items", "clean up decision log",
+  "profile hygiene", "outdated targets",
+  or mentions profile cleanup, stale watch items, decision log maintenance,
+  or account profile audit for Meta Ads.
 version: 0.1.0
 ---
 

@@ -1,10 +1,9 @@
 {
   "meta-ads": {
     "command": "npx",
-    "args": ["-y", "@channel47/meta-ads-mcp@latest"],
+    "args": ["-y", "meta-ads-mcp@^1.7.0"],
     "env": {
-      "META_ADS_ACCESS_TOKEN": "${META_ADS_ACCESS_TOKEN}",
-      "META_ADS_ACCOUNT_ID": "${META_ADS_ACCOUNT_ID}"
+      "META_ACCESS_TOKEN": "${META_ACCESS_TOKEN}"
     }
   }
 }

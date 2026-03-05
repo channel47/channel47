@@ -1,0 +1,24 @@
+{
+  "name": "microsoft-ads",
+  "version": "1.0.0",
+  "description": "Microsoft Advertising toolkit — 8 skills for daily monitoring, waste detection, search term analysis, import auditing, placement cleaning, and account scoring. Read-only by design.",
+  "author": {
+    "name": "Jackson Dean",
+    "url": "https://channel47.dev"
+  },
+  "homepage": "https://channel47.dev/plugins/microsoft-ads",
+  "repository": "https://github.com/channel47/plugins",
+  "keywords": [
+    "microsoft-ads",
+    "bing-ads",
+    "microsoft-advertising",
+    "ppc",
+    "search-ads",
+    "waste-detection",
+    "import-audit",
+    "placement-cleaning",
+    "account-audit",
+    "read-only"
+  ],
+  "license": "MIT"
+}

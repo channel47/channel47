@@ -7,24 +7,42 @@
   "metadata": {
     "pluginRoot": "./plugins",
     "description": "Open-source profession plugins for Claude Code",
-    "version": "7.0.0"
+    "version": "8.0.0"
   },
   "plugins": [
     {
-      "name": "paid-search",
-      "source": "./plugins/paid-search",
-      "description": "Paid search toolkit for Google Ads and Bing Ads — 6 skills, 2 MCP servers, safety hooks for setup, reporting, analysis, and guarded mutations.",
-      "version": "7.0.0",
+      "name": "google-ads",
+      "source": "./plugins/google-ads",
+      "description": "Google Ads toolkit — 9 skills for daily monitoring, waste detection, search term analysis, PMax transparency, account scoring, ad copy analysis, and competitive intel. Read-only by design.",
+      "version": "1.0.0",
       "category": "marketing",
-      "tags": ["google-ads", "bing-ads", "microsoft-advertising", "paid-search", "ppc", "campaign-management", "ad-reporting", "search-term-analysis", "waste-detection", "performance-max", "anomaly-detection"]
+      "tags": ["google-ads", "ppc", "search-ads", "performance-max", "waste-detection", "anomaly-detection", "search-term-analysis", "account-audit", "ad-copy", "competitor-intel", "gaql", "read-only"]
+    },
+    {
+      "name": "microsoft-ads",
+      "source": "./plugins/microsoft-ads",
+      "description": "Microsoft Advertising toolkit — 8 skills for daily monitoring, waste detection, search term analysis, import auditing, placement cleaning, and account scoring. Read-only by design.",
+      "version": "1.0.0",
+      "category": "marketing",
+      "tags": ["microsoft-ads", "bing-ads", "microsoft-advertising", "ppc", "search-ads", "waste-detection", "import-audit", "placement-cleaning", "account-audit", "read-only"]
     },
     {
       "name": "meta-ads",
       "source": "./plugins/meta-ads",
-      "description": "Meta Ads toolkit for Facebook and Instagram — creative analysis, audience building, waste detection, and daily reporting via MCP.",
-      "version": "0.1.0",
+      "description": "Meta Ads toolkit for Facebook and Instagram — 9 skills for daily monitoring, waste detection, creative fatigue analysis, audience intelligence, and competitive research. Read-only by design.",
+      "version": "1.0.0",
       "category": "marketing",
-      "tags": ["meta-ads", "facebook", "instagram", "creative-analysis", "audience-building", "waste-detection"]
+      "tags": ["meta-ads", "facebook-ads", "instagram-ads", "creative-fatigue", "audience-analysis", "waste-detection", "competitor-research", "read-only"]
+    },
+    {
+      "name": "paid-search",
+      "source": "./plugins/paid-search",
+      "description": "[DEPRECATED] Use google-ads and microsoft-ads plugins instead. Combined paid search toolkit — frozen at v7.0.0.",
+      "version": "7.0.0",
+      "category": "marketing",
+      "tags": ["google-ads", "bing-ads", "paid-search", "ppc", "deprecated"],
+      "deprecated": true,
+      "replacedBy": ["google-ads", "microsoft-ads"]
     },
     {
       "name": "frontend-craft",

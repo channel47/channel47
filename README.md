@@ -1,4 +1,4 @@
-# Channel 47 Ecosystem
+# channel47 Ecosystem
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -16,11 +16,28 @@ Season 01 ships the media buyer plugin. Built from managing 25+ ad accounts dail
 
 ## Install
 
+### Option A: Marketplace (recommended)
+
 From any Claude Code session:
 
 ```
 /plugin marketplace add channel47/plugins
-/plugin install media-buyer@channel47
+/plugin install google-ads@channel47
+/plugin install microsoft-ads@channel47
+/plugin install meta-ads@channel47
+```
+
+### Option B: Quick setup script
+
+```bash
+# Install one plugin
+./setup.sh google-ads
+
+# Install all three
+./setup.sh all
+
+# Interactive menu
+./setup.sh
 ```
 
 Set your API credentials as environment variables. The plugin bundles its own MCP servers — no separate install.

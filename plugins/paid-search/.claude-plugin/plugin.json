@@ -1,7 +1,7 @@
 {
   "name": "paid-search",
   "version": "7.0.0",
-  "description": "Paid search toolkit for Google Ads and Bing Ads — setup, reporting, analysis, and guarded mutations via MCP.",
+  "description": "[DEPRECATED] Use google-ads and microsoft-ads plugins instead. Paid search toolkit — frozen at v7.0.0.",
   "author": {
     "name": "Jackson Dean",
     "url": "https://channel47.dev"
