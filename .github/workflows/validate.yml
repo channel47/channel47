@@ -1,0 +1,35 @@
+name: Validate Plugins
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'plugins/**'
+      - '.claude-plugin/**'
+      - 'validate.sh'
+      - 'sync.sh'
+  pull_request:
+    paths:
+      - 'plugins/**'
+      - '.claude-plugin/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run plugin validator
+        run: bash validate.sh
+
+      - name: Check marketplace sync
+        run: |
+          bash sync.sh --dry-run 2>&1 | tee /tmp/sync-output.txt
+          if grep -q "would be updated" /tmp/sync-output.txt; then
+            echo "::warning::marketplace.json is out of sync with plugin.json files. Run 'bash sync.sh' locally."
+          fi
