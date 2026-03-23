@@ -1,0 +1,23 @@
+{
+  "name": "creative-strategist",
+  "version": "1.0.0",
+  "description": "Customer voice research, persona building, and angle generation from real public data. Turns Reddit threads, Amazon reviews, and forum posts into actionable creative strategy.",
+  "author": {
+    "name": "Jackson Dean",
+    "url": "https://channel47.dev"
+  },
+  "homepage": "https://channel47.dev/plugins/creative-strategist",
+  "repository": "https://github.com/channel47/plugins",
+  "keywords": [
+    "research",
+    "customer-voice",
+    "personas",
+    "angles",
+    "creative-strategy",
+    "dtc",
+    "ad-creative",
+    "market-research",
+    "voice-of-customer"
+  ],
+  "license": "MIT"
+}

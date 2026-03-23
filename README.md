@@ -12,6 +12,7 @@ Open-source role-based Claude Code plugins.
 |--------|-------------|
 | [media-buyer](./plugins/media-buyer/) | Query and manage Google Ads, Bing Ads, and Meta Ads accounts with Claude as your media buying copilot. |
 | [frontend-designer](./plugins/frontend-designer/) | Design, build, review, and polish beautiful web UIs — from design system to final animation. 7 skills, 2 agents. |
+| [creative-strategist](./plugins/creative-strategist/) | Customer voice research, persona building, and angle generation from real public data. 3 skills, 4 commands, 1 agent. |
 
 ## Contributing
 

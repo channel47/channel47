@@ -25,6 +25,14 @@
       "version": "1.0.0",
       "category": "design",
       "tags": ["frontend", "design", "ui", "components", "design-system", "accessibility", "responsive", "tailwind", "react"]
+    },
+    {
+      "name": "creative-strategist",
+      "source": "./plugins/creative-strategist",
+      "description": "Customer voice research, persona building, and angle generation from real public data. 3 skills, 4 commands, 1 agent.",
+      "version": "1.0.0",
+      "category": "marketing",
+      "tags": ["research", "customer-voice", "personas", "angles", "creative-strategy", "dtc", "market-research"]
     }
   ]
 }

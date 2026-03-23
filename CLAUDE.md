@@ -8,6 +8,7 @@ Open-source role-based Claude Code plugins.
 plugins/
   media-buyer/                      # Paid ads management across Google, Bing, Meta
   frontend-designer/                # Design, build, review, and polish web UIs
+  creative-strategist/              # Customer research → personas → angles
   _archived/                        # All archived plugins
     dtc-google-ads-playbook/        # Google Ads playbook for DTC brands
     dtc-research-engine/            # Customer research → ad creative pipeline
