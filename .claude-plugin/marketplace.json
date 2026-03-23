@@ -6,51 +6,25 @@
   },
   "metadata": {
     "pluginRoot": "./plugins",
-    "description": "Open-source profession plugins for Claude Code",
-    "version": "8.0.0"
+    "description": "Open-source Claude plugins for DTC media buyers",
+    "version": "9.0.0"
   },
   "plugins": [
     {
-      "name": "google-ads",
-      "source": "./plugins/google-ads",
-      "description": "Google Ads toolkit — 9 skills for daily monitoring, waste detection, search term analysis, PMax transparency, account scoring, ad copy analysis, and competitive intel. Read-only by design.",
+      "name": "dtc-google-ads-playbook",
+      "source": "./plugins/dtc-google-ads-playbook",
+      "description": "A comprehensive Google Ads playbook for DTC brands, codifying proven strategies from high-performing PMax-heavy accounts into reusable frameworks for campaign architecture, daily optimization, and ad copy creation.",
       "version": "1.0.0",
       "category": "marketing",
-      "tags": ["google-ads", "ppc", "search-ads", "performance-max", "waste-detection", "anomaly-detection", "search-term-analysis", "account-audit", "ad-copy", "competitor-intel", "gaql", "read-only"]
+      "tags": ["google-ads", "performance-max", "dtc", "media-buying", "pmax", "demand-gen", "campaign-architecture", "optimization"]
     },
     {
-      "name": "microsoft-ads",
-      "source": "./plugins/microsoft-ads",
-      "description": "Microsoft Advertising toolkit — 8 skills for daily monitoring, waste detection, search term analysis, import auditing, placement cleaning, and account scoring. Read-only by design.",
+      "name": "dtc-research-engine",
+      "source": "./plugins/dtc-research-engine",
+      "description": "Fetches real customer voice data from public sources (Reddit, Amazon, Trustpilot, forums) and transforms it into customer personas, selling angles, ad scripts, and ad copy for DTC products.",
       "version": "1.0.0",
       "category": "marketing",
-      "tags": ["microsoft-ads", "bing-ads", "microsoft-advertising", "ppc", "search-ads", "waste-detection", "import-audit", "placement-cleaning", "account-audit", "read-only"]
-    },
-    {
-      "name": "meta-ads",
-      "source": "./plugins/meta-ads",
-      "description": "Meta Ads toolkit for Facebook and Instagram — 9 skills for daily monitoring, waste detection, creative fatigue analysis, audience intelligence, and competitive research. Read-only by design.",
-      "version": "1.0.0",
-      "category": "marketing",
-      "tags": ["meta-ads", "facebook-ads", "instagram-ads", "creative-fatigue", "audience-analysis", "waste-detection", "competitor-research", "read-only"]
-    },
-    {
-      "name": "paid-search",
-      "source": "./plugins/paid-search",
-      "description": "[DEPRECATED] Use google-ads and microsoft-ads plugins instead. Combined paid search toolkit — frozen at v7.0.0.",
-      "version": "7.0.0",
-      "category": "marketing",
-      "tags": ["google-ads", "bing-ads", "paid-search", "ppc", "deprecated"],
-      "deprecated": true,
-      "replacedBy": ["google-ads", "microsoft-ads"]
-    },
-    {
-      "name": "frontend-craft",
-      "source": "./plugins/frontend-craft",
-      "description": "Design, build, review, and polish web UIs — 7 skills, 2 agents, and a design token hook for design systems, components, pages, accessibility, and responsive.",
-      "version": "1.0.0",
-      "category": "frontend",
-      "tags": ["frontend", "design", "ui", "design-system", "accessibility", "responsive", "components", "tailwind", "react", "polish"]
+      "tags": ["dtc", "research", "customer-voice", "ad-copy", "personas", "angles", "scripts", "direct-to-consumer", "media-buying"]
     }
   ]
 }

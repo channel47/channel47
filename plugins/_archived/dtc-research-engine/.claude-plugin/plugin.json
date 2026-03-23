@@ -1,0 +1,10 @@
+{
+  "name": "dtc-research-engine",
+  "version": "1.0.0",
+  "description": "Fetches real customer voice data from public sources (Reddit, Amazon, Trustpilot, forums) and transforms it into customer personas, selling angles, ad scripts, and ad copy for DTC products.",
+  "author": {
+    "name": "channel47",
+    "url": "https://channel47.dev"
+  },
+  "keywords": ["dtc", "research", "customer-voice", "ad-copy", "personas", "angles", "scripts", "direct-to-consumer", "media-buying"]
+}
