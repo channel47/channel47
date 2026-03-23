@@ -5,90 +5,177 @@ description: This skill should be used when the user asks to "research a product
 
 # Customer Research — Voice of Customer Data Extraction
 
-Fetch real customer language, pain points, desires, objections, and demographic signals from publicly available sources. The output is structured raw research that feeds into persona building and angle generation.
+Extract real customer language, pain points, desires, objections, and behavioral signals from publicly available sources. Output is structured, scored research that feeds directly into persona building and angle generation.
 
 ## Product Context
 
-Before starting, check for a product config file at `.claude/creative-strategist.local.md` in the project root. If it exists, read it — it contains product details, competitors, target audience, and positioning that should guide your research. If it doesn't exist, gather the basics from the user:
+Before starting, check for `.claude/creative-strategist.local.md` in the project root. If it exists, read it for product details, competitors, target audience, and positioning. If it doesn't exist, gather from the user:
 
 - **Product/category** (e.g., "ultrasonic dog training device", "toilet cleaning tablets")
 - **Known competitors** (brand names for review searches)
 - **Target audience hypothesis** (if any — research may challenge it)
 - **Specific questions** (e.g., "what makes people finally buy?", "what do they try first?")
 
-## Platform Access Realities
+## Platform Access
 
-Some platforms block automated access. Read `references/source-strategies.md` for the full breakdown, but the short version:
+Read `references/source-strategies.md` for full platform breakdown. Short version:
 
-- **Reddit, Amazon, Quora, Walmart** — block direct scraping. Use browser automation tools (Playwright, Browserbase) or Google search with `site:` operators to access content.
-- **Trustpilot, ConsumerAffairs, SiteJabber, niche forums** — generally accessible via direct fetch.
-- **Review aggregation articles** (Wirecutter, BuzzFeed, Tom's Guide) — fetchable and often quote Reddit/Amazon verbatim.
+- **Direct access works**: Trustpilot, ConsumerAffairs, SiteJabber, BBB, niche forums, review articles
+- **Blocked — needs browser automation or search**: Reddit, Amazon, Quora, Walmart
+- **Indirect only**: YouTube comments, Facebook groups (use articles that quote them)
 
-Use whatever tools get results. The goal is real customer quotes, not adherence to a specific tool chain.
+Use whatever tools get results. **Never abandon a source after a single tool failure** — exhaust the fallback chain in `references/source-strategies.md` before moving on.
 
 ## Research Process
 
 ### 1. Discover sources
 
-Identify where customers talk about this product or category. Google search with `site:` operators is the fastest way to find relevant threads, reviews, and discussions across platforms.
+Use Google search with `site:` operators to find relevant threads, reviews, and discussions across platforms. Cast wide initially, then focus on the richest sources.
 
-### 2. Extract customer voice
+### 2. Extract with signal priority
 
-Hit at least 3-4 distinct source types. Prioritize:
-- **Review sites** (Trustpilot, ConsumerAffairs) — direct, structured customer feedback
-- **Reddit** — unfiltered discussion, emotional language, comparison threads
-- **Amazon** — high-volume review data, star distribution patterns
-- **Niche forums** — detailed stories from engaged communities
-- **Complaint sites** (BBB, SiteJabber) — objections, fears, deal-breakers
+Not all sources carry equal weight. Prioritize extraction effort by signal quality:
 
-For blocked sites, use browser automation or search engine snippets. Don't waste time retrying failed approaches — move to the next source.
+| Priority | Source Type | Why | Effort |
+|----------|-----------|-----|--------|
+| **P1 — Gold** | Direct reviews (Trustpilot, Amazon, ConsumerAffairs) | Unprompted, purchase-verified, emotional | Extract thoroughly |
+| **P1 — Gold** | Reddit discussion threads | Unfiltered, comparative, high context | Extract thoroughly |
+| **P2 — Silver** | Niche forums, complaint sites (BBB) | Detailed stories, engaged community | Extract selectively |
+| **P2 — Silver** | Q&A platforms (Quora, niche Q&A) | Reveals objections and decision criteria | Extract selectively |
+| **P3 — Bronze** | Review aggregation articles (Wirecutter, etc.) | Curated quotes, often from P1 sources | Extract only unique quotes |
+| **P3 — Bronze** | Search snippets from blocked platforms | Partial, decontextualized | Use to supplement, not replace |
 
-### 3. Tag every quote
+Hit at least 3 distinct source types, including at least one P1 source.
 
-Every customer quote must include a source quality tag:
+### 3. Tag every quote with source and intensity
+
+Every customer quote gets two tags — source quality AND emotional intensity:
 
 ```
-- [Direct] "[exact quote]" — Source: [URL]
-- [Search] "[exact quote]" — Source: [platform via search snippet]
-- [Article] "[exact quote]" — Source: [article URL that quoted the customer]
+- [Direct|🔥3] "[exact quote]" — Source: [URL]
+- [Search|🔥1] "[exact quote]" — Source: [platform via search snippet]
+- [Article|🔥2] "[exact quote]" — Source: [article URL]
+- [Browser|🔥3] "[exact quote]" — Source: [URL via browser automation]
 ```
 
-### 4. Structure the data
+**Source tags:** `[Direct]`, `[Search]`, `[Article]`, `[Browser]`
 
-Organize by source, then categorize within each source:
-- **Pain Points** — what hurts, what frustrates, what they complain about
+**Emotional intensity (🔥1-3):**
+- 🔥1 — Factual, calm observation. "It works okay but delivery was slow."
+- 🔥2 — Clear emotional charge. "I was so frustrated I almost returned it."
+- 🔥3 — Visceral, story-driven, high stakes. "I literally cried when this finally worked after months of trying everything."
+
+Creative teams mine 🔥3 quotes for hooks. 🔥1 quotes provide supporting evidence. Tag honestly — inflating intensity degrades downstream output.
+
+### 4. Map quotes to the buying journey
+
+Tag each quote's position in the purchase journey. This is critical for downstream angle generation — different angles target different journey stages.
+
+- **[Pre-aware]** — Doesn't know the product category exists. Describes the problem without naming solutions.
+- **[Problem-aware]** — Knows they have a problem, actively searching. "How do I get rid of hard water stains?"
+- **[Solution-aware]** — Knows solutions exist, evaluating options. "Is [product] better than [competitor]?"
+- **[Decision]** — Ready to buy, needs final push. "Is it worth the price?" "Anyone have a discount code?"
+- **[Post-purchase]** — Has bought, sharing experience. Reviews, complaints, recommendations.
+
+Most quotes will be Solution-aware or Post-purchase. Pre-aware and Decision quotes are rarer but extremely valuable — flag them prominently.
+
+### 5. Structure the data by source
+
+Read `references/extraction-patterns.md` for the full template. Organize by source, then categorize within each:
+
+- **Pain Points** — what hurts, what frustrates
 - **Desired Outcomes** — what they want (stated and deeper)
 - **Objections / Hesitations** — what stops them from buying
-- **Emotional Language** — exact phrases and sentiment
-- **Trigger Events** — what made them start searching
-- **Competitor Mentions** — how they perceive alternatives
+- **Emotional Language** — exact phrases with sentiment
+- **Trigger Events** — what pushed them from passive to active
+- **Competitor Positioning** — how they compare alternatives (not just mentions — capture trade-offs, what's better/worse, what they wish existed)
 - **Demographic Signals** — age, gender, life situation clues
 
-### 5. Synthesize across sources
+### 6. Synthesize across sources
 
-Create a top-level synthesis:
-1. **Top Pain Points** (ranked by frequency, with example quotes)
-2. **Customer Language Patterns** (recurring phrases to mirror in creative)
-3. **Objection Map** (what stops them, what they've tried before)
-4. **Desire Map** (stated desire vs. deeper emotional desire)
-5. **Trigger Events** (moments that push passive to active)
-6. **Demographic Clusters** (if patterns emerge)
-7. **Competitor Landscape** (how customers perceive alternatives)
+This is where research becomes strategy. The synthesis is NOT a summary — it's analysis. Follow this structure:
 
-### 6. Save output
+#### Top Pain Points (ranked by frequency AND intensity)
+Rank by combined frequency + emotional intensity, not just count. A pain point mentioned 3 times at 🔥3 outranks one mentioned 8 times at 🔥1.
+
+#### Language Clusters
+Group recurring phrases into thematic clusters that copywriters can directly pull from:
+- **Frustration language** — phrases expressing anger, exhaustion, being fed up
+- **Hope language** — phrases expressing desire, aspiration, what-if
+- **Skepticism language** — phrases expressing doubt, distrust, "is this legit"
+- **Urgency language** — phrases expressing time pressure, desperation, breaking points
+- **Relief language** — phrases from satisfied customers expressing "finally"
+
+Each cluster: 5-8 exact phrases with usage frequency.
+
+#### Objection Map
+| Objection | Frequency | Intensity | Journey Stage | Example Quote |
+|-----------|-----------|-----------|---------------|---------------|
+
+#### Desire Map
+| Stated Desire | Deeper Desire | Evidence |
+|---------------|---------------|----------|
+| "I want X" | They really mean Y | "[quote that reveals the deeper desire]" |
+
+#### Trigger Events (ranked by frequency)
+What pushed people from passive awareness to active searching. Tag each with journey stage.
+
+#### Competitive Positioning Map
+Not just mentions — synthesize how customers position alternatives:
+| Competitor | Perceived Strengths | Perceived Weaknesses | What Customers Wish It Had | Trade-off vs. Our Product |
+|------------|-------------------|---------------------|---------------------------|--------------------------|
+
+#### Demographic Clusters
+With supporting signals from the data.
+
+#### Surprising Findings
+3-5 non-obvious insights that emerged from the research. Things that contradict assumptions, unexpected patterns, or underrepresented perspectives. Examples:
+- "Expected audience is women 25-40 but research shows 40% of reviewers are men buying for themselves"
+- "The #1 objection isn't price — it's 'I've been burned before by similar products'"
+- "Post-purchase customers report an unexpected benefit the brand doesn't advertise"
+
+This section is mandatory. If nothing is surprising, the research isn't deep enough.
+
+#### Journey Stage Distribution
+Estimate what % of extracted quotes fall into each journey stage. Note which stages are underrepresented — this signals gaps for downstream skills.
+
+### 7. Save output
 
 Save as `[product-slug]-research.md` in the workspace. This file is the input for persona-builder and angle-generator.
 
 ## Quality Standards
 
+### Volume with balance
+- At least 40 distinct customer quotes with source and intensity tags
+- Distribution target across categories (not hard limits, but check):
+  - Pain Points: 8-12 quotes
+  - Desired Outcomes: 6-10 quotes
+  - Objections: 6-10 quotes
+  - Trigger Events: 4-6 quotes
+  - Competitor Positioning: 4-8 quotes
+  - Emotional Language: woven throughout, not a separate dump
+- If any category has fewer than 3 quotes, note the gap and explain why (is it a data gap or a genuine absence?)
+
+### Signal quality
+- At least one P1 source extracted thoroughly
 - Data from at least 3 distinct source types
-- At least 30 distinct customer quotes with source tags
+- Every quote tagged with source type, emotional intensity, and journey stage
 - Real customer language — never paraphrase into marketing-speak
 - Both positive AND negative sentiment
-- Note which sources were directly accessed vs. via search vs. inaccessible
-- Do not fabricate quotes, pad with blog content, or include manufacturer marketing language
+
+### Synthesis quality
+- Surprising Findings section populated with genuine insights
+- Language Clusters with 5+ phrases per cluster
+- Competitive Positioning Map with trade-offs, not just mention counts
+- Journey Stage Distribution estimated
+
+### What to exclude
+- Quotes that say nothing specific ("Great product!" "Would recommend." "5 stars.")
+- Manufacturer marketing language or PR quotes
+- Blog author opinions (unless quoting a customer)
+- Duplicate quotes from the same person across platforms
 
 ## Reference Files
 
 - **`references/source-strategies.md`** — Platform access realities, what works, what's blocked, workaround approaches
-- **`references/extraction-patterns.md`** — Templates for structuring extracted data
+- **`references/extraction-patterns.md`** — Templates for structuring extracted data, quote selection criteria, and judgment heuristics for what's worth capturing
