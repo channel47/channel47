@@ -29,8 +29,8 @@
     {
       "name": "creative-strategist",
       "source": "./plugins/creative-strategist",
-      "description": "Customer voice research, persona building, and angle generation from real public data. 3 skills, 4 commands, 1 agent.",
-      "version": "1.0.0",
+      "description": "Customer voice research with fallback chains and emotional intensity scoring, behavioral persona building with creative briefs, and angle generation with hook copy starters and testing roadmaps. 3 skills, 4 commands, 1 agent.",
+      "version": "2.0.0",
       "category": "marketing",
       "tags": ["research", "customer-voice", "personas", "angles", "creative-strategy", "dtc", "market-research"]
     }
