@@ -6,7 +6,7 @@
   },
   "metadata": {
     "pluginRoot": "./plugins",
-    "description": "Open-source Claude plugins for DTC media buyers",
+    "description": "Open-source role-based Claude Code plugins",
     "version": "10.0.0"
   },
   "plugins": [
@@ -17,6 +17,14 @@
       "version": "7.0.0",
       "category": "productivity",
       "tags": ["google-ads", "bing-ads", "meta-ads", "facebook-ads", "media-buying", "ppc", "paid-media"]
+    },
+    {
+      "name": "frontend-designer",
+      "source": "./plugins/frontend-designer",
+      "description": "Design, build, review, and polish beautiful web UIs — from design system to final animation. 7 skills, 2 agents, and a design token hook.",
+      "version": "1.0.0",
+      "category": "design",
+      "tags": ["frontend", "design", "ui", "components", "design-system", "accessibility", "responsive", "tailwind", "react"]
     }
   ]
 }

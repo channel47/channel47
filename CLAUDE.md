@@ -1,11 +1,13 @@
 # channel47 Plugins
 
-Open-source Claude plugins for DTC media buyers.
+Open-source role-based Claude Code plugins.
 
 ## Structure
 
 ```
 plugins/
+  media-buyer/                      # Paid ads management across Google, Bing, Meta
+  frontend-designer/                # Design, build, review, and polish web UIs
   _archived/                        # All archived plugins
     dtc-google-ads-playbook/        # Google Ads playbook for DTC brands
     dtc-research-engine/            # Customer research → ad creative pipeline
@@ -13,18 +15,15 @@ plugins/
     microsoft-ads/                  # Old MCP-connected Microsoft Ads plugin
     meta-ads/                       # Old MCP-connected Meta Ads plugin
     paid-search/                    # Deprecated combined Google + Bing plugin
-    frontend-craft/                 # Design/UI plugin, not part of DTC suite
+    frontend-craft/                 # Predecessor to frontend-designer
 docs/                               # Planning and research docs (historical)
 ```
 
-No active plugins at this time.
-
 ## Design Philosophy
 
-1. **DTC-specific depth over horizontal breadth.** Every skill, command, and agent is built for DTC media buyers running Google Ads.
-2. **No external dependencies.** No MCP servers, no API keys, no environment variables. Install and use immediately.
-3. **Built from real accounts.** Frameworks come from a $6M+ Google Ads account, not theory.
-4. **Structured pipelines.** The research engine is a 5-stage pipeline: research → personas → angles → scripts → copy. Each stage feeds the next.
+1. **Role-based architecture.** Each plugin maps to a professional role (media-buyer, frontend-designer, etc.) rather than a specific tool or workflow.
+2. **Built from real work.** Frameworks come from production accounts and projects, not theory.
+3. **Plugin author is channel47** — Use "channel47" as the brand across all plugins.
 
 ## Plugin Development
 
@@ -61,5 +60,5 @@ Each plugin follows this structure:
 ## Gotchas
 
 - **References are per-skill** — Each skill can have a `references/` subdirectory with supporting material.
-- **No MCP servers needed** — The new plugins don't connect to ad platform APIs. The research engine uses WebSearch/WebFetch (built into Claude). The playbook is pure knowledge.
-- **Plugin author is channel47** — Use "channel47" as the brand across both plugins. Individual plugin.json files may reference "Leadcap Digital" or "Four AM Media" as the author org — update these to "channel47" for consistency.
+- **Some plugins use MCP servers** — media-buyer connects to ad platform MCP servers (google-ads, bing-ads, meta-ads). frontend-designer is pure knowledge, no external dependencies.
+- **Plugin author is channel47** — Use "channel47" as the brand across all plugins.
