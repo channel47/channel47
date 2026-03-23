@@ -45,7 +45,7 @@ Not all sources carry equal weight. Prioritize extraction effort by signal quali
 | **P3 — Bronze** | Review aggregation articles (Wirecutter, etc.) | Curated quotes, often from P1 sources | Extract only unique quotes |
 | **P3 — Bronze** | Search snippets from blocked platforms | Partial, decontextualized | Use to supplement, not replace |
 
-Hit at least 3 distinct source types, including at least one P1 source.
+**All three P1 source types are mandatory to attempt with persistent retry.** (1) A review site like Trustpilot/ConsumerAffairs, (2) Reddit, and (3) Amazon. At least 2 of the 3 must reach thorough extraction (8+ quotes each). Target all 3. If a source blocks you, retry with different URLs and fallback tools — do not move on until the fallback chain is fully exhausted. Also hit at least one P2 or P3 source.
 
 ### 3. Tag every quote with source and intensity
 
@@ -146,18 +146,18 @@ Save as `[product-slug]-research.md` in the workspace. This file is the input fo
 ## Quality Standards
 
 ### Volume with balance
-- At least 40 distinct customer quotes with source and intensity tags
+- At least 50 distinct customer quotes with source and intensity tags
 - Distribution target across categories (not hard limits, but check):
-  - Pain Points: 8-12 quotes
-  - Desired Outcomes: 6-10 quotes
-  - Objections: 6-10 quotes
-  - Trigger Events: 4-6 quotes
-  - Competitor Positioning: 4-8 quotes
+  - Pain Points: 10-15 quotes
+  - Desired Outcomes: 8-12 quotes
+  - Objections: 8-12 quotes
+  - Trigger Events: 5-8 quotes
+  - Competitor Positioning: 5-10 quotes
   - Emotional Language: woven throughout, not a separate dump
 - If any category has fewer than 3 quotes, note the gap and explain why (is it a data gap or a genuine absence?)
 
 ### Signal quality
-- At least one P1 source extracted thoroughly
+- **All three P1 source types attempted with persistent retry** — at least 2 of 3 must reach thorough extraction (8+ quotes each), target all 3
 - Data from at least 3 distinct source types
 - Every quote tagged with source type, emotional intensity, and journey stage
 - Real customer language — never paraphrase into marketing-speak

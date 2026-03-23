@@ -19,7 +19,8 @@ Fetch real customer language from Reddit, Amazon, Trustpilot, forums, and review
 3. **Launch the research-crawler agent** to autonomously fetch data from multiple platforms. The agent handles source discovery, fallback chains for blocked platforms, and quote extraction. Pass it the research target and any context from the config file.
 
 4. When the agent returns, verify the output meets quality standards:
-   - At least 40 quotes with triple-tagging (source + 🔥 intensity + journey stage)
+   - **P1 coverage**: All three P1 source types attempted. At least 2 of 3 must show thorough extraction (8+ quotes). If fewer than 2 P1 sources are thorough, send the agent back to retry with different URLs and fallback tools.
+   - At least 50 quotes with triple-tagging (source + 🔥 intensity + journey stage)
    - At least 3 distinct source types
    - Language clusters populated (frustration, hope, skepticism, urgency, relief)
    - Surprising findings section present with 3+ insights
