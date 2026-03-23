@@ -7,24 +7,16 @@
   "metadata": {
     "pluginRoot": "./plugins",
     "description": "Open-source Claude plugins for DTC media buyers",
-    "version": "9.0.0"
+    "version": "10.0.0"
   },
   "plugins": [
     {
-      "name": "dtc-google-ads-playbook",
-      "source": "./plugins/dtc-google-ads-playbook",
-      "description": "A comprehensive Google Ads playbook for DTC brands, codifying proven strategies from high-performing PMax-heavy accounts into reusable frameworks for campaign architecture, daily optimization, and ad copy creation.",
-      "version": "1.0.0",
-      "category": "marketing",
-      "tags": ["google-ads", "performance-max", "dtc", "media-buying", "pmax", "demand-gen", "campaign-architecture", "optimization"]
-    },
-    {
-      "name": "dtc-research-engine",
-      "source": "./plugins/dtc-research-engine",
-      "description": "Fetches real customer voice data from public sources (Reddit, Amazon, Trustpilot, forums) and transforms it into customer personas, selling angles, ad scripts, and ad copy for DTC products.",
-      "version": "1.0.0",
-      "category": "marketing",
-      "tags": ["dtc", "research", "customer-voice", "ad-copy", "personas", "angles", "scripts", "direct-to-consumer", "media-buying"]
+      "name": "media-buyer",
+      "source": "./plugins/media-buyer",
+      "description": "Query and manage Google Ads, Bing Ads, and Meta Ads accounts with Claude as your media buying copilot.",
+      "version": "7.0.0",
+      "category": "productivity",
+      "tags": ["google-ads", "bing-ads", "meta-ads", "facebook-ads", "media-buying", "ppc", "paid-media"]
     }
   ]
 }
