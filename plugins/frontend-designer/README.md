@@ -1,6 +1,6 @@
 # frontend-designer
 
-Design, build, review, and polish beautiful web UIs — from design system to final animation. 7 skills, 2 agents, and a design token hook.
+Design, build, review, and polish beautiful web UIs — from design system to final animation. 8 skills, 2 agents, and a design token hook.
 
 Part of [channel47](https://channel47.dev), open-source role-based plugins for Claude Code.
 
@@ -18,6 +18,7 @@ claude plugin install frontend-designer@channel47
 
 | Skill | Auto-triggers on |
 |-------|-----------------|
+| frontend-designer | "design and build", "full design process", "build a page from scratch" |
 | design-system | creating design tokens, color palettes, typography scales |
 | component-craft | building UI components, buttons, cards, modals |
 | page-compose | building pages, layouts, dashboards |
@@ -25,12 +26,6 @@ claude plugin install frontend-designer@channel47
 | responsive | fixing mobile layout, testing breakpoints |
 | accessibility | checking a11y, WCAG compliance, keyboard navigation |
 | visual-review | reviewing UI for visual quality and design consistency |
-
-## Command
-
-| Command | What it does |
-|---------|-------------|
-| `/frontend-designer [description]` | Full orchestrated workflow: discover, scout, design system, plan, build, polish, review |
 
 ## Agents
 

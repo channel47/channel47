@@ -7,19 +7,38 @@ description: This skill should be used when the user asks to "build personas", "
 
 Transform raw customer research into vivid, actionable buyer personas. Each persona is a creative targeting tool — not a demographic spreadsheet. Every persona ends with a mini creative brief that angle-generator can directly consume.
 
+## Orchestration
+
+1. Search the workspace for a research file (`*-research.md`). If multiple exist, ask which product to build personas for. If none exist, tell the user: "No research file found. Run customer-research first to fetch customer voice data." and stop.
+
+2. Validate the research file has the data needed:
+   - Quotes with intensity scores (needed for pain point ranking)
+   - Journey stage tags (needed for journey entry point clustering)
+   - Language clusters (needed for language fingerprint per persona)
+   - Competitive positioning data (needed for competitive relationship section)
+   - If any are missing, warn the user the research may need to be re-run.
+
+3. Check `.claude/creative-strategist.local.md` for product context.
+
+4. Build personas following the construction process below.
+
+5. Save output as `[product-slug]-personas.md` in the workspace.
+
+6. Present a summary:
+   - Persona names and one-line core tensions
+   - Anti-persona name and why they'll never convert
+   - The highest-weight differentiating dimension across personas
+   - Suggest running angle-generator next
+
 ## Inputs
-
-Check for an existing research file (`*-research.md`) in the workspace. If none exists, tell the user to run customer-research first or provide their own data.
-
-Also check `.claude/creative-strategist.local.md` for product details and positioning.
 
 ### Upstream data to consume
 
-The improved customer-research output includes data that must be explicitly ingested:
-- **Emotional intensity scores (🔥1-3)** — use to identify which pain points hit hardest per persona
-- **Journey stage tags** — use to determine where each persona enters the funnel
+The customer-research output includes data that must be explicitly ingested:
+- **Emotional intensity scores (fire 1-3)** — identify which pain points hit hardest per persona
+- **Journey stage tags** — determine where each persona enters the funnel
 - **Language clusters** (frustration, hope, skepticism, urgency, relief) — assign relevant clusters to each persona
-- **Competitive positioning map** — use to determine each persona's relationship with alternatives
+- **Competitive positioning map** — determine each persona's relationship with alternatives
 - **Surprising findings** — check if any findings challenge initial persona hypotheses
 
 ## Persona Construction
@@ -39,7 +58,7 @@ Demographics describe people. Behavior predicts response to ads. Cluster on thes
 - **Price relationship** — price-sensitive bargain hunters vs. "just tell me the best one" premium buyers
 
 **Method:**
-1. Sort all 🔥3 quotes from the research into piles by behavioral similarity
+1. Sort all fire-3 quotes from the research into piles by behavioral similarity
 2. Check if the piles align with journey stage clusters from the research
 3. Merge piles that would respond to the same ad creative
 4. Split piles where the same ad would fail for part of the group
@@ -69,7 +88,7 @@ The name should be instantly evocative — a creative team should understand the
 - **Prior Solution History**: [naive / 1-2 attempts / veteran who's tried everything]
 
 ### The Decision Journey Monologue
-5-8 sentences in first person that trace the FULL decision arc — not just emotions, but the sequence: trigger → search → evaluate → hesitate → decide (or abandon). Use language directly from research data. This monologue should reveal:
+5-8 sentences in first person that trace the FULL decision arc — not just emotions, but the sequence: trigger -> search -> evaluate -> hesitate -> decide (or abandon). Use language directly from research data. This monologue should reveal:
 - What pushed them to start looking (trigger)
 - How they search and what they find (discovery)
 - What they compare and how (evaluation)
@@ -77,12 +96,12 @@ The name should be instantly evocative — a creative team should understand the
 - What would tip them over the edge (conversion signal)
 
 ### The Trigger Event
-- **Primary trigger**: [most common from research, with 🔥 score]
+- **Primary trigger**: [most common from research, with intensity score]
 - **Secondary triggers**: [other situations]
 - **Trigger frequency**: [one-time event or recurring frustration?]
 
 ### Pain Points (ranked by intensity, not just frequency)
-1. [Most intense — use their words, cite 🔥 score] — Journey stage: [stage]
+1. [Most intense — use their words, cite intensity score] — Journey stage: [stage]
 2. [Second — their words] — Journey stage: [stage]
 3. [Third — their words] — Journey stage: [stage]
 
@@ -92,8 +111,8 @@ The name should be instantly evocative — a creative team should understand the
 - **Evidence**: [quote that reveals the gap between stated and deeper]
 
 ### Objections & Skepticism
-1. [Objection in their words] — Intensity: 🔥[X] | What would overcome it: [evidence type]
-2. [Objection] — Intensity: 🔥[X] | What would overcome it: [evidence type]
+1. [Objection in their words] — Intensity: fire-[X] | What would overcome it: [evidence type]
+2. [Objection] — Intensity: fire-[X] | What would overcome it: [evidence type]
 
 ### What They've Already Tried
 - [Solution] — Why it failed: [specific reason from research]
@@ -160,14 +179,14 @@ Weight each dimension by its importance for creative differentiation. High-weigh
 
 | Dimension | Weight | Persona 1 | Persona 2 | Persona 3 |
 |-----------|--------|-----------|-----------|-----------|
-| Journey Entry Point | ⬛⬛⬛ High | | | |
-| Core Pain | ⬛⬛⬛ High | | | |
-| Prior Solutions Tried | ⬛⬛⬛ High | | | |
-| Conviction Pattern | ⬛⬛⬛ High | | | |
-| Trigger Type | ⬛⬛ Med | | | |
-| Price Sensitivity | ⬛⬛ Med | | | |
-| Platform Affinity | ⬛⬛ Med | | | |
-| Demographics | ⬛ Low | | | |
+| Journey Entry Point | High | | | |
+| Core Pain | High | | | |
+| Prior Solutions Tried | High | | | |
+| Conviction Pattern | High | | | |
+| Trigger Type | Med | | | |
+| Price Sensitivity | Med | | | |
+| Platform Affinity | Med | | | |
+| Demographics | Low | | | |
 
 If two personas are identical on all High-weight dimensions, merge them.
 
@@ -178,7 +197,7 @@ Save as `[product-slug]-personas.md` in the workspace.
 ## Quality Standards
 
 - Every persona element traces back to actual research data — no fabrication
-- Decision journey monologue traces the full arc (trigger → search → evaluate → hesitate → decide), not just emotions
+- Decision journey monologue traces the full arc (trigger -> search -> evaluate -> hesitate -> decide), not just emotions
 - Personas are clustered by behavior, not demographics — the comparison matrix proves differentiation on high-weight dimensions
 - Language fingerprint is organized by emotional register and directly usable for copywriting
 - Creative brief per persona is tight and specific enough that a copywriter could start writing immediately

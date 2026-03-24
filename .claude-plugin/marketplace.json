@@ -7,7 +7,7 @@
   "metadata": {
     "pluginRoot": "./plugins",
     "description": "Open-source role-based Claude Code plugins",
-    "version": "10.0.0"
+    "version": "11.0.0"
   },
   "plugins": [
     {
@@ -21,16 +21,16 @@
     {
       "name": "frontend-designer",
       "source": "./plugins/frontend-designer",
-      "description": "Design, build, review, and polish beautiful web UIs — from design system to final animation. 7 skills, 2 agents, and a design token hook.",
-      "version": "1.0.0",
+      "description": "Design, build, review, and polish beautiful web UIs — from design system to final animation. 8 skills, 2 agents, and a design token hook.",
+      "version": "2.0.0",
       "category": "design",
       "tags": ["frontend", "design", "ui", "components", "design-system", "accessibility", "responsive", "tailwind", "react"]
     },
     {
       "name": "creative-strategist",
       "source": "./plugins/creative-strategist",
-      "description": "Customer voice research with fallback chains and emotional intensity scoring, behavioral persona building with creative briefs, and angle generation with hook copy starters and testing roadmaps. 3 skills, 4 commands, 1 agent.",
-      "version": "2.0.0",
+      "description": "Customer voice research with fallback chains and emotional intensity scoring, behavioral persona building with creative briefs, and angle generation with hook copy starters and testing roadmaps. 4 skills, 1 agent.",
+      "version": "3.0.0",
       "category": "marketing",
       "tags": ["research", "customer-voice", "personas", "angles", "creative-strategy", "dtc", "market-research"]
     }

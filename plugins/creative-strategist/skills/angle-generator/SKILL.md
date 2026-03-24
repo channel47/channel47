@@ -7,16 +7,32 @@ description: This skill should be used when the user asks to "find angles", "gen
 
 Transform customer research and personas into concrete, testable advertising angles with specific hook copy, format variants, and a testing roadmap. Each angle is immediately executable — not a strategic concept, but a creative springboard with starter copy a team can test today.
 
+## Orchestration
+
+1. Search the workspace for a research file (`*-research.md`) and a personas file (`*-personas.md`).
+   - If neither exists: "No research or persona files found. Run customer-research and persona-builder first."
+   - If research exists but no personas: "No persona file found. Run persona-builder first — angles are matched to persona creative briefs." (Angles CAN be generated from research alone, but quality is significantly better with personas.)
+
+2. Validate the personas file has creative briefs per persona (lead with, prove with, avoid, CTA style, best platform, hook archetype). These are direct inputs to angle generation. If missing, warn the user.
+
+3. Check `.claude/creative-strategist.local.md` for product positioning.
+
+4. Generate angles following the process below.
+
+5. Save output as `[product-slug]-angles.md` in the workspace.
+
+6. Present a summary:
+   - Tier 1 angles: name, category, target persona, and 1 example hook copy each
+   - Testing roadmap Phase 1: which 3 angles to test first, on which platforms, with budget split
+   - Angles to avoid and why
+   - Suggest reviewing the full file for format variants and platform-specific execution
+
 ## Inputs
-
-Read the research file (`*-research.md`) and personas file (`*-personas.md`) from the workspace. If these don't exist, inform the user and suggest running those skills first.
-
-Also check `.claude/creative-strategist.local.md` for product positioning.
 
 ### Upstream data to consume
 
 - **Persona creative briefs** — each persona ends with: lead with, prove with, avoid, CTA style, best platform, hook archetype. Use these as direct constraints when generating angles.
-- **🔥3 quotes** — high-intensity quotes from research are hook material. Prioritize angles built on 🔥3 evidence.
+- **fire-3 quotes** — high-intensity quotes from research are hook material. Prioritize angles built on fire-3 evidence.
 - **Language clusters** — frustration, hope, skepticism, urgency, relief phrases. Pull hook language directly from these.
 - **Journey stage distribution** — angles should cover the stages where quotes exist. Note stage gaps.
 - **Anti-persona** — angles must not accidentally appeal to the anti-persona.
@@ -28,7 +44,7 @@ Read `references/angle-frameworks.md` for deep dives, sub-types, and combination
 
 | Category | Core Mechanism | Best When |
 |----------|---------------|-----------|
-| **Pain-Agitation** | Product as antidote to visceral pain | Research has 🔥3 pain quotes with cascading consequences |
+| **Pain-Agitation** | Product as antidote to visceral pain | Research has fire-3 pain quotes with cascading consequences |
 | **Failed-Solution** | Product as what works after everything else failed | Persona has extensive "tried everything" history |
 | **Trigger-Event** | Ad starts at the moment they go from passive to active | Research has clear, specific trigger events |
 | **Identity** | Product enables who they want to be (or stops who they don't) | Research reveals self-perception language |
@@ -44,11 +60,11 @@ Skip categories without evidence in the research. Never force an angle the data 
 ### 1. Mine angles from research and persona briefs
 
 For each persona's creative brief, check which angle categories align:
-- The persona's "lead with" → which category frames that pain/desire best?
-- The persona's "prove with" → which category naturally includes that proof type?
-- The persona's "hook archetype" → which categories match that archetype?
+- The persona's "lead with" — which category frames that pain/desire best?
+- The persona's "prove with" — which category naturally includes that proof type?
+- The persona's "hook archetype" — which categories match that archetype?
 
-Then scan the research for 🔥3 quotes that could anchor each angle. An angle without at least one 🔥3 quote behind it is weak.
+Then scan the research for fire-3 quotes that could anchor each angle. An angle without at least one fire-3 quote behind it is weak.
 
 ### 2. Identify angle combinations
 
@@ -66,10 +82,8 @@ Flag combinations where research supports both sides. These become the highest-p
 
 ### 3. Score with the 3-gate system
 
-Replace vague 1-5 scoring with a pass/fail gate system that actually discriminates:
-
 **Gate 1 — Evidence (must pass)**
-Does this angle have at least one 🔥3 quote AND 2+ supporting quotes from the research?
+Does this angle have at least one fire-3 quote AND 2+ supporting quotes from the research?
 - PASS: Strong research foundation
 - FAIL: Angle is speculative — demote to "speculative" tier or discard
 
@@ -85,10 +99,10 @@ Does this angle avoid what competitors are already running? Does it leverage a s
 - FAIL: Commodity angle — keep only if Gates 1-2 are exceptionally strong
 
 **Tier assignment:**
-- All 3 gates pass → **Tier 1** (test first)
-- Gates 1-2 pass, Gate 3 partial → **Tier 2** (test second)
-- Gate 1 passes, others partial → **Tier 3** (test if Tier 1-2 saturate)
-- Any gate fails → discard or note as speculative
+- All 3 gates pass — **Tier 1** (test first)
+- Gates 1-2 pass, Gate 3 partial — **Tier 2** (test second)
+- Gate 1 passes, others partial — **Tier 3** (test if Tier 1-2 saturate)
+- Any gate fails — discard or note as speculative
 
 ### 4. Develop top angles
 
@@ -105,7 +119,7 @@ Develop 5-8 angles (aim for 3+ Tier 1). For each:
 2-3 sentences: what story does this ad tell? What belief does it create or shift?
 
 ### Anchor Evidence
-🔥3 quotes from research that this angle is built on:
+fire-3 quotes from research that this angle is built on:
 - "[Quote]" — [source]
 - "[Quote]" — [source]
 
