@@ -82,6 +82,17 @@ Calibration: Most quotes will be 🔥1-2. If more than 30% of quotes are tagged 
 ## Synthesis Structure
 
 ```markdown
+---
+product: "[product-slug]"
+stage: research
+generated: "[YYYY-MM-DD]"
+quotes: [total count]
+sources: [platform count]
+p1_coverage: "[N]/3 thorough"
+fire3_count: [count]
+journey_stages: [list of stages with quotes]
+---
+
 # [Product] — Customer Research Synthesis
 
 ## Research Coverage

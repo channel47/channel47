@@ -31,7 +31,7 @@ Extract real customer language from publicly available sources. Output structure
 
 6. Present a summary:
    - Sources accessed and methods used
-   - Total quotes with intensity distribution (X fire-3, Y fire-2, Z fire-1)
+   - Total quotes with intensity distribution (X 🔥3, Y 🔥2, Z 🔥1)
    - Top 3 pain points (with example quotes)
    - Top 3 surprising findings
    - Any data gaps or underrepresented journey stages
@@ -75,20 +75,20 @@ Search broadly with `site:` operators to find relevant threads, reviews, and dis
 Every customer quote gets three tags — source quality, emotional intensity, and journey stage:
 
 ```
-- [Direct|fire-3] "[exact quote]" — Source: [URL] | Journey: [Stage]
-- [Search|fire-1] "[exact quote]" — Source: [platform via search snippet] | Journey: [Stage]
-- [Article|fire-2] "[exact quote]" — Source: [article URL] | Journey: [Stage]
-- [Browser|fire-3] "[exact quote]" — Source: [URL via browser automation] | Journey: [Stage]
+- [Direct|🔥3] "[exact quote]" — Source: [URL] | Journey: [Stage]
+- [Search|🔥1] "[exact quote]" — Source: [platform via search snippet] | Journey: [Stage]
+- [Article|🔥2] "[exact quote]" — Source: [article URL] | Journey: [Stage]
+- [Browser|🔥3] "[exact quote]" — Source: [URL via browser automation] | Journey: [Stage]
 ```
 
 **Source tags:** `[Direct]`, `[Search]`, `[Article]`, `[Browser]`
 
-**Emotional intensity (fire 1-3):**
-- fire-1 — Factual, calm observation. "It works okay but delivery was slow."
-- fire-2 — Clear emotional charge. "I was so frustrated I almost returned it."
-- fire-3 — Visceral, story-driven, high stakes. "I literally cried when this finally worked after months of trying everything."
+**Emotional intensity (🔥1-3):**
+- 🔥1 — Factual, calm observation. "It works okay but delivery was slow."
+- 🔥2 — Clear emotional charge. "I was so frustrated I almost returned it."
+- 🔥3 — Visceral, story-driven, high stakes. "I literally cried when this finally worked after months of trying everything."
 
-Creative teams mine fire-3 quotes for hooks. fire-1 quotes provide supporting evidence. Tag honestly — inflating intensity degrades downstream output.
+Creative teams mine 🔥3 quotes for hooks. 🔥1 quotes provide supporting evidence. Tag honestly — inflating intensity degrades downstream output.
 
 ### 4. Map quotes to the buying journey
 
@@ -117,7 +117,7 @@ Read `references/extraction-patterns.md` for the full template. Organize by sour
 This is where research becomes strategy. The synthesis is analysis, not summary.
 
 #### Top Pain Points (ranked by frequency AND intensity)
-Rank by combined frequency + emotional intensity, not just count. A pain point mentioned 3 times at fire-3 outranks one mentioned 8 times at fire-1.
+Rank by combined frequency + emotional intensity, not just count. A pain point mentioned 3 times at 🔥3 outranks one mentioned 8 times at 🔥1.
 
 #### Language Clusters
 Group recurring phrases into thematic clusters copywriters can directly pull from:
@@ -157,7 +157,7 @@ Estimate what % of extracted quotes fall into each journey stage. Note underrepr
 
 ### 7. Save output
 
-Save as `[product-slug]-research.md` in the workspace. This file is the input for persona-builder and angle-generator.
+Save as `[product-slug]-research.md` in the workspace. Include YAML frontmatter following the template in `references/extraction-patterns.md`. This file is the input for persona-builder and angle-generator — the frontmatter enables quick validation by downstream skills.
 
 ## Quality Standards
 

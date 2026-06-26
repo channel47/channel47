@@ -63,12 +63,15 @@ These examples show the depth, specificity, and actionability expected from data
 - Platform affinity: Meta (scroll-stopping video), YouTube (pre-roll during dog content)
 
 **Creative Brief for This Persona**
-- **Lead with**: "Tried everything?" — validate their exhaustion, acknowledge the failed-solution journey
-- **Prove with**: Video testimonials from real owners who also tried everything + money-back guarantee
-- **Avoid**: Polished brand aesthetics (reads as "too good to be true"), claims of "instant results"
-- **CTA style**: Risk-reversal — "30 days. Full refund if it doesn't work for YOUR dog."
-- **Best platform**: Meta (video ad showing real transformation) → retarget on Google (branded search)
-- **Hook archetype**: Empathy + failed-solution ("I was about to give up on my dog...")
+
+| Field | Value |
+|-------|-------|
+| Lead with | "Tried everything?" — validate their exhaustion, acknowledge the failed-solution journey |
+| Prove with | Video testimonials from real owners who also tried everything + money-back guarantee |
+| Avoid | Polished brand aesthetics (reads as "too good to be true"), claims of "instant results" |
+| CTA style | Risk-reversal — "30 days. Full refund if it doesn't work for YOUR dog." |
+| Best platform | Meta (video ad showing real transformation) → retarget on Google (branded search) |
+| Hook archetype | Empathy + failed-solution ("I was about to give up on my dog...") |
 
 ---
 
@@ -128,12 +131,15 @@ These examples show the depth, specificity, and actionability expected from data
 - Platform affinity: TikTok (demo content), Meta (scroll-stopping before/after)
 
 **Creative Brief for This Persona**
-- **Lead with**: The visual — show the gross stain, show the effortless fix
-- **Prove with**: Real-time demo video (drop it in, time-lapse, stain gone)
-- **Avoid**: Making them feel bad about their cleaning habits — humor works, shame doesn't
-- **CTA style**: Low-friction curiosity — "Try it on your worst stain"
-- **Best platform**: TikTok (demo content that looks organic) → Meta (retarget with UGC)
-- **Hook archetype**: Curiosity + demonstration ("Watch what happens when you drop this in...")
+
+| Field | Value |
+|-------|-------|
+| Lead with | The visual — show the gross stain, show the effortless fix |
+| Prove with | Real-time demo video (drop it in, time-lapse, stain gone) |
+| Avoid | Making them feel bad about their cleaning habits — humor works, shame doesn't |
+| CTA style | Low-friction curiosity — "Try it on your worst stain" |
+| Best platform | TikTok (demo content that looks organic) → Meta (retarget with UGC) |
+| Hook archetype | Curiosity + demonstration ("Watch what happens when you drop this in...") |
 
 ---
 
@@ -171,5 +177,5 @@ When building personas, check against these examples for:
 5. **Specific objections** — in their words, with what would overcome each
 6. **Language fingerprint** — organized by emotional register (frustration/hope/skepticism), not a flat list
 7. **Attention patterns** — where they search, what content they trust, when they're receptive
-8. **Creative brief** — specific enough that a copywriter could start writing immediately
+8. **Creative brief** — table format (Field | Value), specific enough that a copywriter could start writing immediately
 9. **Anti-persona** — included with structural (not just preferential) reasons for exclusion

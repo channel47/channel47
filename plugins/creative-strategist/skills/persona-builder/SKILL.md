@@ -11,7 +11,7 @@ Transform raw customer research into vivid, actionable buyer personas. Each pers
 
 1. Search the workspace for a research file (`*-research.md`). If multiple exist, ask which product to build personas for. If none exist, tell the user: "No research file found. Run customer-research first to fetch customer voice data." and stop.
 
-2. Validate the research file has the data needed:
+2. Read the research file's YAML frontmatter for a quick validation pass — check `stage: research`, `quotes` count (≥50), `p1_coverage`, and `fire3_count`. Then validate the body has the data needed:
    - Quotes with intensity scores (needed for pain point ranking)
    - Journey stage tags (needed for journey entry point clustering)
    - Language clusters (needed for language fingerprint per persona)
@@ -58,7 +58,7 @@ Demographics describe people. Behavior predicts response to ads. Cluster on thes
 - **Price relationship** — price-sensitive bargain hunters vs. "just tell me the best one" premium buyers
 
 **Method:**
-1. Sort all fire-3 quotes from the research into piles by behavioral similarity
+1. Sort all 🔥3 quotes from the research into piles by behavioral similarity
 2. Check if the piles align with journey stage clusters from the research
 3. Merge piles that would respond to the same ad creative
 4. Split piles where the same ad would fail for part of the group
@@ -111,8 +111,8 @@ The name should be instantly evocative — a creative team should understand the
 - **Evidence**: [quote that reveals the gap between stated and deeper]
 
 ### Objections & Skepticism
-1. [Objection in their words] — Intensity: fire-[X] | What would overcome it: [evidence type]
-2. [Objection] — Intensity: fire-[X] | What would overcome it: [evidence type]
+1. [Objection in their words] — Intensity: 🔥[X] | What would overcome it: [evidence type]
+2. [Objection] — Intensity: 🔥[X] | What would overcome it: [evidence type]
 
 ### What They've Already Tried
 - [Solution] — Why it failed: [specific reason from research]
@@ -142,12 +142,14 @@ Key phrases this persona actually uses, organized by emotional register:
 ### Creative Brief for This Persona
 This is the direct handoff to angle-generator and creative teams:
 
-- **Lead with**: [the single most resonant pain point or desire — the thing that stops them scrolling]
-- **Prove with**: [testimonial? demo? data? guarantee? — the evidence type that converts this persona]
-- **Avoid**: [what will make them scroll past or distrust — the anti-pattern]
-- **CTA style**: [urgency? risk-reversal? curiosity? social proof?]
-- **Best platform**: [where to reach them + why]
-- **Hook archetype**: [fear? empathy? curiosity? authority? humor?]
+| Field | Value |
+|-------|-------|
+| Lead with | [the single most resonant pain point or desire — the thing that stops them scrolling] |
+| Prove with | [testimonial? demo? data? guarantee? — the evidence type that converts this persona] |
+| Avoid | [what will make them scroll past or distrust — the anti-pattern] |
+| CTA style | [urgency? risk-reversal? curiosity? social proof?] |
+| Best platform | [where to reach them + why] |
+| Hook archetype | [fear? empathy? curiosity? authority? humor?] |
 ```
 
 ### 3. Build the anti-persona
@@ -192,7 +194,19 @@ If two personas are identical on all High-weight dimensions, merge them.
 
 ### 5. Save output
 
-Save as `[product-slug]-personas.md` in the workspace.
+Save as `[product-slug]-personas.md` in the workspace. Include YAML frontmatter:
+
+```yaml
+---
+product: "[product-slug]"
+stage: personas
+generated: "[YYYY-MM-DD]"
+persona_count: [N]
+persona_names: ["Name 1", "Name 2"]
+anti_persona: "[Name]"
+research_file: "[product-slug]-research.md"
+---
+```
 
 ## Quality Standards
 

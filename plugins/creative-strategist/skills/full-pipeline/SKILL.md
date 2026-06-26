@@ -27,11 +27,11 @@ Research (customer-research)  ->  Personas (persona-builder)  ->  Angles (angle-
    - Any known competitors
    - Any specific questions or hypotheses
 
-3. **Stage 1: Research** — Execute the customer-research skill (which launches the research-crawler agent). Verify the output meets quality standards: 40+ quotes, triple-tagged, language clusters, surprising findings, source coverage log. Save as `[product-slug]-research.md`. Brief the user: "[X] quotes from [Y] sources. Top pain point: [Z]. Proceeding to personas."
+3. **Stage 1: Research** — Execute the customer-research skill (which launches the research-crawler agent). Verify the output meets quality standards: 40+ quotes, triple-tagged, language clusters, surprising findings, source coverage log. Verify YAML frontmatter is present with `stage: research`, quote count, and P1 coverage. Save as `[product-slug]-research.md`. Brief the user: "[X] quotes from [Y] sources. Top pain point: [Z]. Proceeding to personas."
 
-4. **Stage 2: Personas** — Execute the persona-builder skill, feeding it the research output. Verify: 2-4 personas with creative briefs, anti-persona, comparison matrix. Save as `[product-slug]-personas.md`. Brief the user: "[N] personas built: [names]. Anti-persona: [name]. Proceeding to angles."
+4. **Stage 2: Personas** — Execute the persona-builder skill, feeding it the research output. Verify: 2-4 personas with creative briefs, anti-persona, comparison matrix. Verify YAML frontmatter is present with `stage: personas`, persona names, and research file reference. Save as `[product-slug]-personas.md`. Brief the user: "[N] personas built: [names]. Anti-persona: [name]. Proceeding to angles."
 
-5. **Stage 3: Angles** — Execute the angle-generator skill, feeding it both research and personas. Verify: 5-8 angles with tiers, hook copy, format variants, testing roadmap. Save as `[product-slug]-angles.md`.
+5. **Stage 3: Angles** — Execute the angle-generator skill, feeding it both research and personas. Verify: 5-8 angles with tiers, hook copy, format variants, testing roadmap. Verify YAML frontmatter is present with `stage: angles`, tier counts, and upstream file references. Save as `[product-slug]-angles.md`.
 
 6. **Final Summary** — Present a comprehensive pipeline summary:
 
